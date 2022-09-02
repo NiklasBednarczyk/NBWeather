@@ -32,3 +32,7 @@ android {
         }
     }
 }
+
+dependencies {
+    implementation(project(":feature-location"))
+}
