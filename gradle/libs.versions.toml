@@ -1,0 +1,55 @@
+[versions]
+androidxActivity = "1.5.1"
+androidxCompose = "1.3.0-beta01"
+androidxComposeCompiler = "1.3.0"
+androidxComposeMaterial3 = "1.0.0-beta01"
+androidxCore = "1.8.0"
+androidxHilt = "1.0.0"
+androidxLifecycle = "2.5.1"
+androidxNavigation = "2.5.1"
+androidXRoom = "2.4.3"
+comAndroidGradlePlugin = "7.2.2"
+comGoogleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
+comGoogleAndroidMaterial = "1.6.1"
+comGoogleDagger = "2.43"
+comSquareupMoshi = "1.13.0"
+comSquareupOkhttp3 = "4.10.0"
+comSquareupRetrofit2 = "2.9.0"
+orgJetbrainsKotlin = "1.7.10"
+
+# SDK
+compileSdk = "33"
+minSdk = "21"
+targetSdk = "33"
+
+[libraries]
+androidx-activity-activityCompose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
+androidx-compose-material3-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
+androidx-compose-ui-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
+androidx-core-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-hilt-hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
+androidx-lifecycle-lifecycleRuntimeKtx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-navigation-navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidXRoom" }
+androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidXRoom" }
+androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidXRoom" }
+com-google-android-material-material = { group = "com.google.android.material", name = "material", version.ref = "comGoogleAndroidMaterial" }
+com-google-dagger-hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "comGoogleDagger" }
+com-google-dagger-hiltCompiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "comGoogleDagger" }
+com-squareup-moshi-moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "comSquareupMoshi" }
+com-squareup-moshi-moshiKotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "comSquareupMoshi" }
+com-squareup-moshi-moshiKotlinCodegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "comSquareupMoshi" }
+com-squareup-okhttp3-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "comSquareupOkhttp3" }
+com-squareup-retrofit2-converterMoshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "comSquareupRetrofit2" }
+com-squareup-retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "comSquareupRetrofit2" }
+
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "comAndroidGradlePlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "orgJetbrainsKotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "comAndroidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "comAndroidGradlePlugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "comGoogleDagger" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "orgJetbrainsKotlin" }
+secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "comGoogleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
