@@ -3,7 +3,6 @@ package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.CurrentWeatherDao
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.OneCallHeaderModelLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.PrecipitationModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.services.OneCallService
 import kotlinx.coroutines.Dispatchers
@@ -52,8 +51,8 @@ class OneCallRepository @Inject constructor(
             windSpeed = remoteCurrent?.windSpeed,
             windGust = remoteCurrent?.windGust,
             windDeg = remoteCurrent?.windDeg,
-            rain = PrecipitationModelLocal(oneH = remoteCurrent?.rain?.oneH),
-            snow = PrecipitationModelLocal(oneH = remoteCurrent?.snow?.oneH),
+            rain1h = remoteCurrent?.rain?.oneH,
+            snow1h = remoteCurrent?.snow?.oneH,
             weather = WeatherModelLocal(
                 id = remoteCurrentWeather?.id,
                 main = remoteCurrentWeather?.main,

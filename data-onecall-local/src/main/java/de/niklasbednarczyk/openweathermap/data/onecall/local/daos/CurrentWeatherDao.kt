@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CurrentWeatherDao {
 
-    @Query("SELECT * FROM currentweathermodellocal WHERE oneCallHeaderlat = :lat AND oneCallHeaderlon = :lon LIMIT 1")
+    @Query("SELECT * FROM currentweathermodellocal WHERE oneCallHeader_lat = :lat AND oneCallHeader_lon = :lon LIMIT 1")
     fun getCurrentWeather(lat: Double?, lon: Double?): Flow<CurrentWeatherModelLocal?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertCurrentWeather(currentWeather: CurrentWeatherModelLocal)
 
-    @Query("DELETE FROM currentweathermodellocal WHERE oneCallHeaderlat = :lat AND oneCallHeaderlon = :lon")
+    @Query("DELETE FROM currentweathermodellocal WHERE oneCallHeader_lat = :lat AND oneCallHeader_lon = :lon")
     fun deleteCurrentWeather(lat: Double?, lon: Double?)
 
     fun clearAndInsertCurrentWeather(currentWeather: CurrentWeatherModelLocal) {

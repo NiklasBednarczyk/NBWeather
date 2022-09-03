@@ -4,13 +4,12 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.OneCallHeaderModelLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.PrecipitationModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
 
 @Entity
 data class CurrentWeatherModelLocal(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
-    @Embedded(prefix = "oneCallHeader") val oneCallHeader: OneCallHeaderModelLocal,
+    @Embedded(prefix = "oneCallHeader_") val oneCallHeader: OneCallHeaderModelLocal,
     val dt: Long?,
     val sunrise: Long?,
     val sunset: Long?,
@@ -25,7 +24,7 @@ data class CurrentWeatherModelLocal(
     val windSpeed: Double?,
     val windGust: Double?,
     val windDeg: Long?,
-    @Embedded(prefix = "rain") val rain: PrecipitationModelLocal?,
-    @Embedded(prefix = "snow") val snow: PrecipitationModelLocal?,
-    @Embedded(prefix = "weather") val weather: WeatherModelLocal?
+    val rain1h: Double?,
+    val snow1h: Double?,
+    @Embedded(prefix = "weather_") val weather: WeatherModelLocal?
 )
