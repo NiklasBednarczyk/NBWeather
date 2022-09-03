@@ -13,7 +13,7 @@ interface CurrentWeatherDao {
     @Query("SELECT * FROM currentweatherlocal WHERE oneCallHeaderlat = :lat AND oneCallHeaderlon = :lon LIMIT 1")
     fun getCurrentWeather(lat: Double?, lon: Double?): Flow<CurrentWeatherLocal?>
 
-    @Insert(onConflict = de.niklasbednarczyk.openweathermap.core.data.localremote.local.constants.ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
+    @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertCurrentWeather(currentWeather: CurrentWeatherLocal)
 
     @Query("DELETE FROM currentweatherlocal WHERE oneCallHeaderlat = :lat AND oneCallHeaderlon = :lon")
