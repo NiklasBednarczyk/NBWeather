@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-abstract class OwmViewModel<UiState : OwmUiState>(initialUiState: UiState) : ViewModel() {
+abstract class OwmViewModel<UiState>(initialUiState: UiState) : ViewModel() {
 
     private val _uiState = MutableStateFlow(initialUiState)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()

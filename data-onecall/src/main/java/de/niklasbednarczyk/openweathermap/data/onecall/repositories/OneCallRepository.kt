@@ -1,10 +1,10 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.CurrentWeatherDao
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.OneCallHeaderLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.PrecipitationLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherModelLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.OneCallHeaderModelLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.PrecipitationModelLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.services.OneCallService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -31,8 +31,8 @@ class OneCallRepository @Inject constructor(
         val remoteCurrent = remote.current
         val remoteCurrentWeather = remoteCurrent?.weather?.firstOrNull()
 
-        val remoteToLocal = CurrentWeatherLocal(
-            oneCallHeader = OneCallHeaderLocal(
+        val remoteToLocal = CurrentWeatherModelLocal(
+            oneCallHeader = OneCallHeaderModelLocal(
                 lat = latitude,
                 lon = longitude,
                 timezone = remote.timezone,
@@ -52,9 +52,9 @@ class OneCallRepository @Inject constructor(
             windSpeed = remoteCurrent?.windSpeed,
             windGust = remoteCurrent?.windGust,
             windDeg = remoteCurrent?.windDeg,
-            rain = PrecipitationLocal(oneH = remoteCurrent?.rain?.oneH),
-            snow = PrecipitationLocal(oneH = remoteCurrent?.snow?.oneH),
-            weather = WeatherLocal(
+            rain = PrecipitationModelLocal(oneH = remoteCurrent?.rain?.oneH),
+            snow = PrecipitationModelLocal(oneH = remoteCurrent?.snow?.oneH),
+            weather = WeatherModelLocal(
                 id = remoteCurrentWeather?.id,
                 main = remoteCurrentWeather?.main,
                 description = remoteCurrentWeather?.description,

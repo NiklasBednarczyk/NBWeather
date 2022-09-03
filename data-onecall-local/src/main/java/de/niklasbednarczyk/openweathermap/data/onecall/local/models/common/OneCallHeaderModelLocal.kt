@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.local.models.common
 
-data class OneCallHeaderLocal(
+data class OneCallHeaderModelLocal(
     val lat: Double?,
     val lon: Double?,
     val timezone: String?,

@@ -2,11 +2,11 @@ package de.niklasbednarczyk.openweathermap.data.onecall.remote.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.common.PrecipitationRemote
-import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.common.WeatherRemote
+import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.common.PrecipitationModelRemote
+import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.common.WeatherModelRemote
 
 @JsonClass(generateAdapter = true)
-data class CurrentWeatherRemote(
+data class CurrentWeatherModelRemote(
     @Json(name = "dt") val dt: Long?,
     @Json(name = "sunrise") val sunrise: Long?,
     @Json(name = "sunset") val sunset: Long?,
@@ -21,7 +21,7 @@ data class CurrentWeatherRemote(
     @Json(name = "wind_speed") val windSpeed: Double?,
     @Json(name = "wind_gust") val windGust: Double?,
     @Json(name = "wind_deg") val windDeg: Long?,
-    @Json(name = "rain") val rain: PrecipitationRemote?,
-    @Json(name = "snow") val snow: PrecipitationRemote?,
-    @Json(name = "weather") val weather: List<WeatherRemote>?
+    @Json(name = "rain") val rain: PrecipitationModelRemote?,
+    @Json(name = "snow") val snow: PrecipitationModelRemote?,
+    @Json(name = "weather") val weather: List<WeatherModelRemote>?
 )

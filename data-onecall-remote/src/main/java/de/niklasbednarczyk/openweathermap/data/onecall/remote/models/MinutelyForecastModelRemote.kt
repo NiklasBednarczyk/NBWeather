@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class MinutelyForecastRemote(
+data class MinutelyForecastModelRemote(
     @Json(name = "dt") val dt: Long?,
     @Json(name = "precipitation") val precipitation: Double?
 )
