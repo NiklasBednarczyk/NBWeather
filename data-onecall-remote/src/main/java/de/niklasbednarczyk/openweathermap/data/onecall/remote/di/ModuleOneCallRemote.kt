@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import de.niklasbednarczyk.openweathermap.core.data.remote.qualifiers.retrofit.DataRetrofit
+import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.qualifiers.retrofit.DataRetrofit
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.services.OneCallService
 import retrofit2.Retrofit
 import javax.inject.Singleton

@@ -4,9 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core-data"))
+    implementation(project(":core-data-localremote"))
 
-    implementation(project(":data-onecall-disk"))
     implementation(project(":data-onecall-local"))
     implementation(project(":data-onecall-remote"))
 }

@@ -20,18 +20,16 @@ rootProject.name = "OpenWeatherMap"
 include(":app")
 
 include(":core-common")
-include(":core-data")
 include(":core-data-disk")
-include(":core-data-local")
-include(":core-data-remote")
+include(":core-data-localremote")
+include(":core-data-localremote-local")
+include(":core-data-localremote-remote")
 include(":core-ui")
 
-include(":data-airpollution")
-include(":data-airpollution-local")
-include(":data-airpollution-remote")
 include(":data-onecall")
-include(":data-onecall-disk")
 include(":data-onecall-local")
 include(":data-onecall-remote")
+include(":data-settings")
 
 include(":feature-location")
+include(":feature-settings")

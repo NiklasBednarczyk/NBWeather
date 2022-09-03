@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.remote.services
 
-import de.niklasbednarczyk.openweathermap.core.data.remote.constants.ConstantsCoreRemote
+import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.constants.ConstantsCoreRemote
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.OneCallRemote
 import retrofit2.http.GET
 import retrofit2.http.Query

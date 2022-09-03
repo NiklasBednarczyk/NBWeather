@@ -28,13 +28,13 @@ gradlePlugin {
             id = "de.niklasbednarczyk.openweathermap.dependency.hilt"
             implementationClass = "DependencyHiltConventionPlugin"
         }
-        register("layerDataLocal") {
-            id = "de.niklasbednarczyk.openweathermap.layer.data.local"
-            implementationClass = "LayerDataLocalConventionPlugin"
+        register("layerDataLocalRemoteLocal") {
+            id = "de.niklasbednarczyk.openweathermap.layer.data.localremote.local"
+            implementationClass = "LayerDataLocalRemoteLocalConventionPlugin"
         }
-        register("layerDataRemote") {
-            id = "de.niklasbednarczyk.openweathermap.layer.data.remote"
-            implementationClass = "LayerDataRemoteConventionPlugin"
+        register("layerDataLocalRemoteRemote") {
+            id = "de.niklasbednarczyk.openweathermap.layer.data.localremote.remote"
+            implementationClass = "LayerDataLocalRemoteRemoteConventionPlugin"
         }
         register("layerUi") {
             id = "de.niklasbednarczyk.openweathermap.layer.ui"

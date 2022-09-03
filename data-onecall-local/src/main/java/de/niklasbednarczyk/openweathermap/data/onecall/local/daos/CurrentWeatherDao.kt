@@ -3,7 +3,7 @@ package de.niklasbednarczyk.openweathermap.data.onecall.local.daos
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import de.niklasbednarczyk.openweathermap.core.data.local.constants.ConstantsCoreLocal
+import de.niklasbednarczyk.openweathermap.core.data.localremote.local.constants.ConstantsCoreLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherLocal
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +13,7 @@ interface CurrentWeatherDao {
     @Query("SELECT * FROM currentweatherlocal WHERE oneCallHeaderlat = :lat AND oneCallHeaderlon = :lon LIMIT 1")
     fun getCurrentWeather(lat: Double?, lon: Double?): Flow<CurrentWeatherLocal?>
 
-    @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
+    @Insert(onConflict = de.niklasbednarczyk.openweathermap.core.data.localremote.local.constants.ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertCurrentWeather(currentWeather: CurrentWeatherLocal)
 
     @Query("DELETE FROM currentweatherlocal WHERE oneCallHeaderlat = :lat AND oneCallHeaderlon = :lon")
