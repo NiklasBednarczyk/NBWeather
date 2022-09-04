@@ -8,4 +8,5 @@ dependencies {
     implementation(project(":core-ui"))
 
     implementation(project(":data-onecall"))
+    implementation(project(":data-settings"))
 }

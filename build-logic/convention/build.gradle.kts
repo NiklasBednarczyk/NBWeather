@@ -12,6 +12,7 @@ java {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.protobuf.gradlePlugin)
 }
 
 gradlePlugin {
@@ -27,6 +28,10 @@ gradlePlugin {
         register("dependencyHilt") {
             id = "de.niklasbednarczyk.openweathermap.dependency.hilt"
             implementationClass = "DependencyHiltConventionPlugin"
+        }
+        register("layerDataDisk") {
+            id = "de.niklasbednarczyk.openweathermap.layer.data.disk"
+            implementationClass = "LayerDataDiskConventionPlugin"
         }
         register("layerDataLocalRemoteLocal") {
             id = "de.niklasbednarczyk.openweathermap.layer.data.localremote.local"

@@ -56,6 +56,11 @@ internal interface OwmConventionPlugin : Plugin<Project> {
             }
 
             kotlinOptions {
+                freeCompilerArgs = freeCompilerArgs + listOf(
+                    // Enables flatMapLatest
+                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                )
+
                 jvmTarget = JavaVersion.VERSION_11.toString()
             }
         }

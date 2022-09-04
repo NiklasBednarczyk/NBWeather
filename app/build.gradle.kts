@@ -35,4 +35,5 @@ android {
 
 dependencies {
     implementation(project(":feature-location"))
+    implementation(project(":feature-settings"))
 }
