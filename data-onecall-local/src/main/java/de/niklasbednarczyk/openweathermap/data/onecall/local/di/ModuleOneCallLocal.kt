@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.niklasbednarczyk.openweathermap.data.onecall.local.constants.ConstantsOneCallLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.CurrentWeatherDao
+import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.OneCallDao
 import de.niklasbednarczyk.openweathermap.data.onecall.local.database.DatabaseOneCall
 import javax.inject.Singleton
 
@@ -31,5 +32,11 @@ class ModuleOneCallLocal {
     fun provideCurrentWeatherDao(
         databaseOneCall: DatabaseOneCall
     ): CurrentWeatherDao = databaseOneCall.currentWeatherDao()
+
+    @Provides
+    @Singleton
+    fun provideOneCallDao(
+        databaseOneCall: DatabaseOneCall
+    ): OneCallDao = databaseOneCall.oneCallDao()
 
 }

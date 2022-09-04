@@ -1,8 +1,9 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.CurrentWeatherDao
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherModelLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.OneCallHeaderModelLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.OneCallDao
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherEntityLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.services.OneCallService
 import kotlinx.coroutines.Dispatchers
@@ -15,28 +16,33 @@ import javax.inject.Singleton
 @Singleton
 class OneCallRepository @Inject constructor(
     private val oneCallService: OneCallService,
-    private val currentWeatherDao: CurrentWeatherDao
+    private val currentWeatherDao: CurrentWeatherDao,
+    private val oneCallDao: OneCallDao
 ) {
 
     suspend fun getOneCall(
         latitude: Double,
-        longitude: Double
+        longitude: Double,
+        units: String,
+        language: String
     ): Flow<String> = withContext(Dispatchers.IO) {
-        //TODO (#9) Replace with disk models
-        val units = "standard"
-        val language = "de"
+        //TODO (#1) Do right with result and model and mappers
 
-        val remote = oneCallService.getOneCall(latitude, longitude, units, language)
-        val remoteCurrent = remote.current
+        val remoteOneCall = oneCallService.getOneCall(latitude, longitude, units, language)
+
+        val remoteToLocalOneCall = OneCallEntityLocal(
+            lat = latitude,
+            lon = longitude,
+            timezone = remoteOneCall.timezone,
+            timezoneOffset = remoteOneCall.timezoneOffset
+        )
+        oneCallDao.deleteOneCall(latitude, longitude)
+        val oneCallId = oneCallDao.insertOneCall(remoteToLocalOneCall)
+
+        val remoteCurrent = remoteOneCall.current
         val remoteCurrentWeather = remoteCurrent?.weather?.firstOrNull()
-
-        val remoteToLocal = CurrentWeatherModelLocal(
-            oneCallHeader = OneCallHeaderModelLocal(
-                lat = latitude,
-                lon = longitude,
-                timezone = remote.timezone,
-                timezoneOffset = remote.timezoneOffset
-            ),
+        val remoteToLocalCurrentWeather = CurrentWeatherEntityLocal(
+            oneCallId = oneCallId,
             dt = remoteCurrent?.dt,
             sunrise = remoteCurrent?.sunrise,
             sunset = remoteCurrent?.sunset,
@@ -60,8 +66,10 @@ class OneCallRepository @Inject constructor(
                 icon = remoteCurrentWeather?.icon
             )
         )
-        currentWeatherDao.clearAndInsertCurrentWeather(remoteToLocal)
-        currentWeatherDao.getCurrentWeather(latitude, longitude).map { it.toString() }
+        currentWeatherDao.deleteCurrentWeather(remoteToLocalCurrentWeather.oneCallId)
+        currentWeatherDao.insertCurrentWeather(remoteToLocalCurrentWeather)
+
+        oneCallDao.getOneCall(latitude, longitude).map { it.toString() }
     }
 
 }

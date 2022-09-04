@@ -12,11 +12,15 @@ class LocationViewModel @Inject constructor(
 
     companion object {
         private val nyc = Pair(40.7127281, -74.0060152)
+
+        //TODO (#15) Replace with disk models
+        private const val UNITS = "metric"
+        private const val LANGUAGE = "de"
     }
 
     init {
         collectFlow(
-            { oneCallRepository.getOneCall(nyc.first, nyc.second) },
+            { oneCallRepository.getOneCall(nyc.first, nyc.second, UNITS, LANGUAGE) },
             { oldUiState, output -> oldUiState.copy(oneCall = output) }
         )
     }
