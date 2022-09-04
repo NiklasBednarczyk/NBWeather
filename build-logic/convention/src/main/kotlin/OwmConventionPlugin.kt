@@ -78,8 +78,16 @@ internal interface OwmConventionPlugin : Plugin<Project> {
         return extensions.getByType<VersionCatalogsExtension>().named("libs")
     }
 
-    fun VersionCatalog.getDependency(name: String): Any {
-        return findDependency(name).get()
+    fun VersionCatalog.getLibrary(name: String): Any {
+        return findLibrary(name).get()
+    }
+
+    fun VersionCatalog.getLibraryString(name: String): String {
+        val library = findLibrary(name).get().get()
+        val moduleGroup = library.module.group
+        val moduleName = library.module.name
+        val version = library.versionConstraint.displayName
+        return "$moduleGroup:$moduleName:$version"
     }
 
     fun VersionCatalog.getVersion(name: String): String {

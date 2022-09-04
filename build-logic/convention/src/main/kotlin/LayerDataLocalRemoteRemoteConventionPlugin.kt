@@ -10,14 +10,14 @@ class LayerDataLocalRemoteRemoteConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
-            implementation(libs.getDependency("com.squareup.moshi.moshi"))
-            implementation(libs.getDependency("com.squareup.moshi.moshiKotlin"))
-            kapt(libs.getDependency("com.squareup.moshi.moshiKotlinCodegen"))
+            implementation(libs.getLibrary("com.squareup.moshi.moshi"))
+            implementation(libs.getLibrary("com.squareup.moshi.moshiKotlin"))
+            kapt(libs.getLibrary("com.squareup.moshi.moshiKotlinCodegen"))
 
-            implementation(libs.getDependency("com.squareup.okhttp3.okhttp"))
+            implementation(libs.getLibrary("com.squareup.okhttp3.okhttp"))
 
-            implementation(libs.getDependency("com.squareup.retrofit2.converterMoshi"))
-            implementation(libs.getDependency("com.squareup.retrofit2.retrofit"))
+            implementation(libs.getLibrary("com.squareup.retrofit2.converterMoshi"))
+            implementation(libs.getLibrary("com.squareup.retrofit2.retrofit"))
         }
     }
 

@@ -16,14 +16,14 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
-            implementation(libs.getDependency("androidx.activity.activityCompose"))
-            implementation(libs.getDependency("androidx.compose.material3.material3"))
-            implementation(libs.getDependency("androidx.compose.ui.ui"))
-            implementation(libs.getDependency("androidx.core.coreKtx"))
-            implementation(libs.getDependency("androidx.hilt.hiltNavigationCompose"))
-            implementation(libs.getDependency("androidx.lifecycle.lifecycleRuntimeKtx"))
-            implementation(libs.getDependency("androidx.navigation.navigationCompose"))
-            implementation(libs.getDependency("com.google.android.material.material"))
+            implementation(libs.getLibrary("androidx.activity.activityCompose"))
+            implementation(libs.getLibrary("androidx.compose.material3.material3"))
+            implementation(libs.getLibrary("androidx.compose.ui.ui"))
+            implementation(libs.getLibrary("androidx.core.coreKtx"))
+            implementation(libs.getLibrary("androidx.hilt.hiltNavigationCompose"))
+            implementation(libs.getLibrary("androidx.lifecycle.lifecycleRuntimeKtx"))
+            implementation(libs.getLibrary("androidx.navigation.navigationCompose"))
+            implementation(libs.getLibrary("com.google.android.material.material"))
         }
     }
 

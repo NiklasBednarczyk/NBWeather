@@ -10,10 +10,10 @@ class LayerDataLocalRemoteLocalConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
-            annotationProcessor(libs.getDependency("androidx.room.roomCompiler"))
-            kapt(libs.getDependency("androidx.room.roomCompiler"))
-            implementation(libs.getDependency("androidx.room.roomKtx"))
-            implementation(libs.getDependency("androidx.room.roomRuntime"))
+            annotationProcessor(libs.getLibrary("androidx.room.roomCompiler"))
+            kapt(libs.getLibrary("androidx.room.roomCompiler"))
+            implementation(libs.getLibrary("androidx.room.roomKtx"))
+            implementation(libs.getLibrary("androidx.room.roomRuntime"))
         }
     }
 

@@ -11,8 +11,8 @@ class DependencyHiltConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
-            implementation(libs.getDependency("com.google.dagger.hiltAndroid"))
-            kapt(libs.getDependency("com.google.dagger.hiltCompiler"))
+            implementation(libs.getLibrary("com.google.dagger.hiltAndroid"))
+            kapt(libs.getLibrary("com.google.dagger.hiltCompiler"))
         }
     }
 
