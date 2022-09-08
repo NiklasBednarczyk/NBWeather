@@ -24,12 +24,12 @@ class LocationViewModel @Inject constructor(
                     oneCallRepository.getOneCall(
                         nyc.first,
                         nyc.second,
-                        settingsDisplay.units.remoteName,
-                        settingsDisplay.dataLanguage.remoteName
+                        settingsDisplay.units,
+                        settingsDisplay.dataLanguage
                     )
                 }
             },
-            { oldUiState, output -> oldUiState.copy(oneCall = output) }
+            { oldUiState, output -> oldUiState.copy(oneCallResource = output) }
         )
     }
 

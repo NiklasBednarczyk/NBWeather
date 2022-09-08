@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CurrentWeatherDao {
 
-    @Query("SELECT * FROM currentweatherentitylocal WHERE oneCallId = :oneCallId LIMIT 1")
-    fun getCurrentWeather(oneCallId: Long?): Flow<CurrentWeatherEntityLocal?>
+    @Query("SELECT * FROM currentweatherentitylocal WHERE ${ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY} = :metadataId LIMIT 1")
+    fun getCurrentWeather(metadataId: Long?): Flow<CurrentWeatherEntityLocal?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertCurrentWeather(currentWeather: CurrentWeatherEntityLocal)
 
-    @Query("DELETE FROM currentweatherentitylocal WHERE oneCallId = :oneCallId")
-    fun deleteCurrentWeather(oneCallId: Long?)
+    @Query("DELETE FROM currentweatherentitylocal WHERE ${ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY} = :metadataId")
+    fun deleteCurrentWeather(metadataId: Long?)
 
 }

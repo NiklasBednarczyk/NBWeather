@@ -10,6 +10,8 @@ class LayerDataLocalRemoteRemoteConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
+            implementation(project(":core-common"))
+
             implementation(libs.getLibrary("com.squareup.moshi.moshi"))
             implementation(libs.getLibrary("com.squareup.moshi.moshiKotlin"))
             kapt(libs.getLibrary("com.squareup.moshi.moshiKotlinCodegen"))

@@ -2,14 +2,14 @@ package de.niklasbednarczyk.openweathermap.data.settings.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
 import de.niklasbednarczyk.openweathermap.core.data.disk.repositories.RepositoryDisk
 import de.niklasbednarczyk.openweathermap.data.settings.constants.ConstantsDataSettings
 import de.niklasbednarczyk.openweathermap.data.settings.mappers.display.DataLanguageMapperData
 import de.niklasbednarczyk.openweathermap.data.settings.mappers.display.SettingsDisplayMapperData
 import de.niklasbednarczyk.openweathermap.data.settings.mappers.display.UnitsMapperData
-import de.niklasbednarczyk.openweathermap.data.settings.models.display.DataLanguageTypeData
 import de.niklasbednarczyk.openweathermap.data.settings.models.display.SettingsDisplayModelData
-import de.niklasbednarczyk.openweathermap.data.settings.models.display.UnitsTypeData
 import de.niklasbednarczyk.openweathermap.data.settings.proto.display.SettingsDisplayProto
 import de.niklasbednarczyk.openweathermap.data.settings.serializers.SettingsDisplaySerializer
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class SettingsDisplayRepository @Inject constructor(
     serializer = SettingsDisplaySerializer
 ) {
 
-    suspend fun updateUnits(units: UnitsTypeData) {
+    suspend fun updateUnits(units: UnitsType) {
         diskStore.updateData { currentProto ->
             currentProto
                 .toBuilder()
@@ -34,7 +34,7 @@ class SettingsDisplayRepository @Inject constructor(
         }
     }
 
-    suspend fun updateDataLanguage(dataLanguage: DataLanguageTypeData) {
+    suspend fun updateDataLanguage(dataLanguage: DataLanguageType) {
         diskStore.updateData { currentProto ->
             currentProto
                 .toBuilder()

@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    api(project(":core-data-disk"))
+    implementation(project(":core-data-disk"))
 }

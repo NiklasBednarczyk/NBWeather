@@ -1,14 +1,16 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.local.models
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import de.niklasbednarczyk.openweathermap.core.data.localremote.local.constants.ConstantsCoreLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
 
 @Entity
 data class CurrentWeatherEntityLocal(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
-    val oneCallId: Long?,
+    @ColumnInfo(name = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY) val metadataId: Long?,
     val dt: Long?,
     val sunrise: Long?,
     val sunset: Long?,

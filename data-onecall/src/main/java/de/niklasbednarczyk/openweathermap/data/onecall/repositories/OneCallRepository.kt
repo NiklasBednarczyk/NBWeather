@@ -1,15 +1,19 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
+import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
+import de.niklasbednarczyk.openweathermap.core.common.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
+import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.getRemoteName
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.CurrentWeatherDao
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.OneCallDao
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherEntityLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallEntityLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallModelLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.models.CurrentWeatherModelData
+import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallMetadataModelData
+import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
+import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.OneCallModelRemote
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.services.OneCallService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,53 +27,56 @@ class OneCallRepository @Inject constructor(
     suspend fun getOneCall(
         latitude: Double,
         longitude: Double,
-        units: String,
-        language: String
-    ): Flow<String> = withContext(Dispatchers.IO) {
-        //TODO (#1) Do right with result and model and mappers
+        units: UnitsType,
+        language: DataLanguageType
+    ): Flow<Resource<OneCallModelData>> {
+        return object :
+            LocalRemoteMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
+            override fun getLocal(): Flow<OneCallModelLocal?> {
+                return oneCallDao.getOneCall(latitude, longitude)
+            }
 
-        val remoteOneCall = oneCallService.getOneCall(latitude, longitude, units, language)
+            override suspend fun getRemote(): OneCallModelRemote {
+                return oneCallService.getOneCall(
+                    latitude,
+                    longitude,
+                    units.getRemoteName(),
+                    language.getRemoteName()
+                )
+            }
 
-        val remoteToLocalOneCall = OneCallEntityLocal(
-            lat = latitude,
-            lon = longitude,
-            timezone = remoteOneCall.timezone,
-            timezoneOffset = remoteOneCall.timezoneOffset
-        )
-        oneCallDao.deleteOneCall(latitude, longitude)
-        val oneCallId = oneCallDao.insertOneCall(remoteToLocalOneCall)
 
-        val remoteCurrent = remoteOneCall.current
-        val remoteCurrentWeather = remoteCurrent?.weather?.firstOrNull()
-        val remoteToLocalCurrentWeather = CurrentWeatherEntityLocal(
-            oneCallId = oneCallId,
-            dt = remoteCurrent?.dt,
-            sunrise = remoteCurrent?.sunrise,
-            sunset = remoteCurrent?.sunset,
-            temp = remoteCurrent?.temp,
-            feelsLike = remoteCurrent?.feelsLike,
-            pressure = remoteCurrent?.pressure,
-            humidity = remoteCurrent?.humidity,
-            dewPoint = remoteCurrent?.dewPoint,
-            clouds = remoteCurrent?.clouds,
-            uvi = remoteCurrent?.uvi,
-            visibility = remoteCurrent?.visibility,
-            windSpeed = remoteCurrent?.windSpeed,
-            windGust = remoteCurrent?.windGust,
-            windDeg = remoteCurrent?.windDeg,
-            rain1h = remoteCurrent?.rain?.oneH,
-            snow1h = remoteCurrent?.snow?.oneH,
-            weather = WeatherModelLocal(
-                id = remoteCurrentWeather?.id,
-                main = remoteCurrentWeather?.main,
-                description = remoteCurrentWeather?.description,
-                icon = remoteCurrentWeather?.icon
-            )
-        )
-        currentWeatherDao.deleteCurrentWeather(remoteToLocalCurrentWeather.oneCallId)
-        currentWeatherDao.insertCurrentWeather(remoteToLocalCurrentWeather)
+            override fun localToLocalRemote(local: OneCallModelLocal): OneCallModelData {
+                val metadata = OneCallMetadataModelData.localToData(local.metadata)
+                return OneCallModelData(
+                    metadata = metadata,
+                    currentWeather = CurrentWeatherModelData.localToData(local.currentWeather)
+                )
+            }
 
-        oneCallDao.getOneCall(latitude, longitude).map { it.toString() }
+            override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
+                return local.metadata.units != units || local.metadata.language != language
+            }
+
+            override fun clearLocal(local: OneCallModelLocal) {
+                val metadataId = local.metadata.id
+                oneCallDao.deleteOneCall(local.metadata.latitude, local.metadata.longitude)
+                currentWeatherDao.deleteCurrentWeather(metadataId)
+            }
+
+            override fun insertLocal(remote: OneCallModelRemote) {
+                val oneCallMetadata = OneCallMetadataModelData.remoteToLocal(
+                    remote, units, language, latitude, longitude
+                )
+                val metadataId = oneCallDao.insertOneCall(oneCallMetadata)
+
+                val currentWeather = CurrentWeatherModelData.remoteToLocal(
+                    remote.current, metadataId
+                )
+                currentWeatherDao.insertCurrentWeather(currentWeather)
+            }
+        }()
     }
+
 
 }

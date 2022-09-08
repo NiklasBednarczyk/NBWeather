@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import de.niklasbednarczyk.openweathermap.core.data.localremote.local.constants.ConstantsCoreLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallEntityLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallModelLocal
 import kotlinx.coroutines.flow.Flow
 
@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.Flow
 interface OneCallDao {
 
     @Transaction
-    @Query("SELECT * FROM onecallentitylocal WHERE lat = :lat AND lon = :lon LIMIT 1")
-    fun getOneCall(lat: Double?, lon: Double?): Flow<OneCallModelLocal?>
+    @Query("SELECT * FROM onecallmetadataentitylocal WHERE latitude = :latitude AND longitude = :longitude LIMIT 1")
+    fun getOneCall(latitude: Double?, longitude: Double?): Flow<OneCallModelLocal?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
-    fun insertOneCall(oneCall: OneCallEntityLocal): Long
+    fun insertOneCall(oneCall: OneCallMetadataEntityLocal): Long
 
-    @Query("DELETE FROM onecallentitylocal WHERE lat = :lat AND lon = :lon")
-    fun deleteOneCall(lat: Double?, lon: Double?)
+    @Query("DELETE FROM onecallmetadataentitylocal WHERE latitude = :latitude AND longitude = :longitude")
+    fun deleteOneCall(latitude: Double?, longitude: Double?)
 
 
 }

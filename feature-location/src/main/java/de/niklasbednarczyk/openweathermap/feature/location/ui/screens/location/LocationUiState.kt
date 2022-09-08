@@ -1,5 +1,8 @@
 package de.niklasbednarczyk.openweathermap.feature.location.ui.screens.location
 
+import de.niklasbednarczyk.openweathermap.core.common.resource.Resource
+import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
+
 data class LocationUiState(
-    val oneCall: String? = null //TODO (#9) Do right with result and model
+    val oneCallResource: Resource<OneCallModelData>? = null
 )

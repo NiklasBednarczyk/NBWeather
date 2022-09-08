@@ -16,6 +16,10 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
+            implementation(project(":core-common"))
+            implementation(project(":core-data-disk"))
+            implementation(project(":core-data-localremote"))
+
             implementation(libs.getLibrary("androidx.activity.activityCompose"))
             implementation(libs.getLibrary("androidx.compose.material3.material3"))
             implementation(libs.getLibrary("androidx.compose.ui.ui"))

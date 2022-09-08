@@ -8,6 +8,7 @@ import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
@@ -26,6 +27,10 @@ internal interface OwmConventionPlugin : Plugin<Project> {
 
     fun DependencyHandlerScope.annotationProcessor(dependencyNotation: Any) {
         add("annotationProcessor", dependencyNotation)
+    }
+
+    fun DependencyHandlerScope.coreLibraryDesugaring(dependencyNotation: Any) {
+        add("coreLibraryDesugaring", dependencyNotation)
     }
 
     fun DependencyHandlerScope.implementation(dependencyNotation: Any) {
@@ -51,8 +56,9 @@ internal interface OwmConventionPlugin : Plugin<Project> {
             }
 
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_11
-                targetCompatibility = JavaVersion.VERSION_11
+                sourceCompatibility = JavaVersion.VERSION_1_8
+                targetCompatibility = JavaVersion.VERSION_1_8
+                isCoreLibraryDesugaringEnabled = true
             }
 
             kotlinOptions {
@@ -61,8 +67,12 @@ internal interface OwmConventionPlugin : Plugin<Project> {
                     "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 )
 
-                jvmTarget = JavaVersion.VERSION_11.toString()
+                jvmTarget = JavaVersion.VERSION_1_8.toString()
             }
+        }
+
+        dependencies {
+            coreLibraryDesugaring(libs.getLibrary("com.android.tools.desugarJdkLibs"))
         }
 
     }

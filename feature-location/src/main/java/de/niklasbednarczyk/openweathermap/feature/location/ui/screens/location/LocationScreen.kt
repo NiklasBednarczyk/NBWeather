@@ -19,7 +19,7 @@ fun LocationScreen(
 
     val scrollState = rememberScrollState()
     Text(
-        text = uiState.value.oneCall.toString(),
+        text = uiState.value.oneCallResource.toString(),
         modifier = Modifier.verticalScroll(scrollState)
     )
 

@@ -10,6 +10,7 @@ androidxLifecycle = "2.5.1"
 androidxNavigation = "2.5.1"
 androidXRoom = "2.4.3"
 comAndroidGradlePlugin = "7.2.2"
+comAndroidToolsDesugarJdkLibs = "1.1.8"
 comGoogleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 comGoogleAndroidMaterial = "1.6.1"
 comGoogleDagger = "2.43"
@@ -19,6 +20,7 @@ comSquareupMoshi = "1.13.0"
 comSquareupOkhttp3 = "4.10.0"
 comSquareupRetrofit2 = "2.9.0"
 orgJetbrainsKotlin = "1.7.10"
+orgJetbrainsKotlinx = "1.6.4"
 
 # SDK
 compileSdk = "33"
@@ -37,6 +39,7 @@ androidx-navigation-navigationCompose = { group = "androidx.navigation", name = 
 androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidXRoom" }
 androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidXRoom" }
 androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidXRoom" }
+com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "comAndroidToolsDesugarJdkLibs" }
 com-google-android-material-material = { group = "com.google.android.material", name = "material", version.ref = "comGoogleAndroidMaterial" }
 com-google-dagger-hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "comGoogleDagger" }
 com-google-dagger-hiltCompiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "comGoogleDagger" }
@@ -48,6 +51,7 @@ com-squareup-moshi-moshiKotlinCodegen = { group = "com.squareup.moshi", name = "
 com-squareup-okhttp3-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "comSquareupOkhttp3" }
 com-squareup-retrofit2-converterMoshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "comSquareupRetrofit2" }
 com-squareup-retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "comSquareupRetrofit2" }
+org-jetbrains-kotlinx-kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "orgJetbrainsKotlinx" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "comAndroidGradlePlugin" }

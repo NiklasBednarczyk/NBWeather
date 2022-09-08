@@ -5,8 +5,8 @@ plugins {
 group = "de.niklasbednarczyk.openweathermap.buildlogic"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
@@ -32,6 +32,10 @@ gradlePlugin {
         register("layerDataDisk") {
             id = "de.niklasbednarczyk.openweathermap.layer.data.disk"
             implementationClass = "LayerDataDiskConventionPlugin"
+        }
+        register("layerDataLocalRemote") {
+            id = "de.niklasbednarczyk.openweathermap.layer.data.localremote"
+            implementationClass = "LayerDataLocalRemoteConventionPlugin"
         }
         register("layerDataLocalRemoteLocal") {
             id = "de.niklasbednarczyk.openweathermap.layer.data.localremote.local"
