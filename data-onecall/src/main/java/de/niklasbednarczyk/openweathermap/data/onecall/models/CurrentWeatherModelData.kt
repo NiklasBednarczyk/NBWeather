@@ -1,11 +1,29 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.common.DateTimeValue
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.units.*
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherEntityLocal
-import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
+import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.CurrentWeatherModelRemote
 
 data class CurrentWeatherModelData(
-    val dt: Long? //TODO (#1) Do right with value classes
+    val currentTime: DateTimeValue,
+    val sunrise: DateTimeValue,
+    val sunset: DateTimeValue,
+    val currentTemperature: TemperatureValue,
+    val feelsLikeTemperature: TemperatureValue,
+    val pressure: PressureValue,
+    val humidity: PercentValue,
+    val dewPointTemperature: TemperatureValue,
+    val cloudiness: PercentValue,
+    val uvIndex: UVIndexValue,
+    val visibility: DistanceValue,
+    val windSpeed: SpeedValue,
+    val windGust: SpeedValue,
+    val windDegrees: WindDegreesValue,
+    val rain1hVolume: VolumeValue,
+    val snow1hVolume: VolumeValue,
+    val weather: WeatherModelData
 ) {
 
     companion object {
@@ -14,7 +32,6 @@ data class CurrentWeatherModelData(
             remote: CurrentWeatherModelRemote?,
             metadataId: Long,
         ): CurrentWeatherEntityLocal {
-            val remoteWeather = remote?.weather?.firstOrNull()
             return CurrentWeatherEntityLocal(
                 metadataId = metadataId,
                 dt = remote?.dt,
@@ -33,12 +50,7 @@ data class CurrentWeatherModelData(
                 windDeg = remote?.windDeg,
                 rain1h = remote?.rain?.oneH,
                 snow1h = remote?.snow?.oneH,
-                weather = WeatherModelLocal(
-                    id = remoteWeather?.id,
-                    main = remoteWeather?.main,
-                    description = remoteWeather?.description,
-                    icon = remoteWeather?.icon
-                )
+                weather = WeatherModelData.remoteToLocal(remote?.weather?.firstOrNull())
             )
         }
 
@@ -46,7 +58,23 @@ data class CurrentWeatherModelData(
             local: CurrentWeatherEntityLocal?
         ): CurrentWeatherModelData {
             return CurrentWeatherModelData(
-                dt = local?.dt
+                currentTime = DateTimeValue(local?.dt),
+                sunrise = DateTimeValue(local?.sunrise),
+                sunset = DateTimeValue(local?.sunset),
+                currentTemperature = TemperatureValue(local?.temp),
+                feelsLikeTemperature = TemperatureValue(local?.feelsLike),
+                pressure = PressureValue(local?.pressure),
+                humidity = PercentValue(local?.humidity),
+                dewPointTemperature = TemperatureValue(local?.dewPoint),
+                cloudiness = PercentValue(local?.clouds),
+                uvIndex = UVIndexValue(local?.uvi),
+                visibility = DistanceValue(local?.visibility),
+                windSpeed = SpeedValue(local?.windSpeed),
+                windGust = SpeedValue(local?.windGust),
+                windDegrees = WindDegreesValue(local?.windDeg),
+                rain1hVolume = VolumeValue(local?.rain1h),
+                snow1hVolume = VolumeValue(local?.snow1h),
+                weather = WeatherModelData.localToData(local?.weather)
             )
         }
 

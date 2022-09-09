@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.ui.theme
+package de.niklasbednarczyk.openweathermap.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.common.resource
+package de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource
 
 sealed interface Resource<out T> {
     data class Success<T>(val data: T) : Resource<T>

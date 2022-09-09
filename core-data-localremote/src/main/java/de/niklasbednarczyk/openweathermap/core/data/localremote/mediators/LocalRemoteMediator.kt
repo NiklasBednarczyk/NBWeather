@@ -1,8 +1,8 @@
 package de.niklasbednarczyk.openweathermap.core.data.localremote.mediators
 
 import android.util.Log
-import de.niklasbednarczyk.openweathermap.core.common.resource.ErrorType
-import de.niklasbednarczyk.openweathermap.core.common.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.ErrorType
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.constants.ConstantsCoreLocalRemote
 import de.niklasbednarczyk.openweathermap.core.data.localremote.local.models.ModelLocal
 import kotlinx.coroutines.Dispatchers

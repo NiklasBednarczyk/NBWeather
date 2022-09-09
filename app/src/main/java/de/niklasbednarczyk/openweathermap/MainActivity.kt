@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.openweathermap.feature.location.ui.screens.location.LocationScreen
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.overview.SettingsOverviewScreen
-import de.niklasbednarczyk.openweathermap.ui.theme.OwmTheme
+import de.niklasbednarczyk.openweathermap.theme.OwmTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

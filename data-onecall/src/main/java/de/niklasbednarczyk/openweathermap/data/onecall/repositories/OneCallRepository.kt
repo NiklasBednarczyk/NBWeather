@@ -2,8 +2,8 @@ package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
 import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
-import de.niklasbednarczyk.openweathermap.core.common.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.getRemoteName
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.CurrentWeatherDao
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.OneCallDao
@@ -47,9 +47,8 @@ class OneCallRepository @Inject constructor(
 
 
             override fun localToLocalRemote(local: OneCallModelLocal): OneCallModelData {
-                val metadata = OneCallMetadataModelData.localToData(local.metadata)
                 return OneCallModelData(
-                    metadata = metadata,
+                    metadata = OneCallMetadataModelData.localToData(local.metadata),
                     currentWeather = CurrentWeatherModelData.localToData(local.currentWeather)
                 )
             }
