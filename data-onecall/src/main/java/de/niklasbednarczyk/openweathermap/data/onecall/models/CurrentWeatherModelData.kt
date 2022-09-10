@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.common.DateTimeValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.units.*
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.*
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.CurrentWeatherModelRemote
@@ -23,7 +23,7 @@ data class CurrentWeatherModelData(
     val windDegrees: WindDegreesValue,
     val rain1hVolume: VolumeValue,
     val snow1hVolume: VolumeValue,
-    val weather: WeatherModelData
+    val weather: WeatherModelData?
 ) {
 
     companion object {

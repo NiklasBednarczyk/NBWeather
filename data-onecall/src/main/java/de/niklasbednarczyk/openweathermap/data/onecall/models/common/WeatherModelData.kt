@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models.common
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.weather.WeatherDescriptionValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.weather.WeatherIconValue
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.weather.WeatherDescriptionValue
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.weather.WeatherIconValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.common.WeatherModelRemote
 
@@ -14,21 +14,23 @@ data class WeatherModelData(
 
         internal fun remoteToLocal(
             remote: WeatherModelRemote?,
-        ): WeatherModelLocal {
+        ): WeatherModelLocal? {
+            if (remote == null) return null
             return WeatherModelLocal(
-                id = remote?.id,
-                main = remote?.main,
-                description = remote?.description,
-                icon = remote?.icon
+                id = remote.id,
+                main = remote.main,
+                description = remote.description,
+                icon = remote.icon
             )
         }
 
         internal fun localToData(
             local: WeatherModelLocal?
-        ): WeatherModelData {
+        ): WeatherModelData? {
+            if (local == null) return null
             return WeatherModelData(
-                description = WeatherDescriptionValue(local?.description),
-                icon = WeatherIconValue(local?.icon)
+                description = WeatherDescriptionValue(local.description),
+                icon = WeatherIconValue(local.icon)
             )
         }
 

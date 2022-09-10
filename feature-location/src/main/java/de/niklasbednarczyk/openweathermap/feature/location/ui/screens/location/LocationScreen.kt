@@ -1,8 +1,11 @@
 package de.niklasbednarczyk.openweathermap.feature.location.ui.screens.location
 
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
 
@@ -15,8 +18,12 @@ fun LocationScreen(
 
     //TODO (#9) Do right design
 
+    val scrollState = rememberScrollState()
     ResourceView(uiState.value.oneCallResource) { oneCall ->
-        Text(text = oneCall.currentWeather.toString())
+        Text(
+            text = oneCall.toString(),
+            modifier = Modifier.verticalScroll(scrollState)
+        )
     }
 
 }

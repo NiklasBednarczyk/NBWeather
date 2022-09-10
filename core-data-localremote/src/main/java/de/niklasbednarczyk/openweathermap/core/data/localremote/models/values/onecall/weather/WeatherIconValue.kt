@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.weather
+package de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.weather
 
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.constants.ConstantsCoreRemote
 

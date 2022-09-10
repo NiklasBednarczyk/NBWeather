@@ -13,7 +13,7 @@ data class DailyForecastModelRemote(
     @Json(name = "sunset") val sunset: Long?,
     @Json(name = "moonrise") val moonrise: Long?,
     @Json(name = "moonset") val moonset: Long?,
-    @Json(name = "moon_phase") val moon_phase: Double?,
+    @Json(name = "moon_phase") val moonPhase: Double?,
     @Json(name = "temp") val temp: DailyTemperatureModelRemote?,
     @Json(name = "feels_like") val feelsLike: DailyFeelsLikeTemperatureModelRemote?,
     @Json(name = "pressure") val pressure: Long?,

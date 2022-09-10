@@ -11,5 +11,25 @@ data class OneCallModelLocal(
         parentColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_PARENT,
         entityColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY
     )
-    val currentWeather: CurrentWeatherEntityLocal? = null
+    val currentWeather: CurrentWeatherEntityLocal? = null,
+    @Relation(
+        parentColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_PARENT,
+        entityColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY
+    )
+    val minutelyForecasts: List<MinutelyForecastEntityLocal>? = null,
+    @Relation(
+        parentColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_PARENT,
+        entityColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY
+    )
+    val hourlyForecasts: List<HourlyForecastEntityLocal>? = null,
+    @Relation(
+        parentColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_PARENT,
+        entityColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY
+    )
+    val dailyForecasts: List<DailyForecastEntityLocal>? = null,
+    @Relation(
+        parentColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_PARENT,
+        entityColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY
+    )
+    val nationalWeatherAlerts: List<NationalWeatherAlertEntityLocal>? = null
 ) : ModelLocal
