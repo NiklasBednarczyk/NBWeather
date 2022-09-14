@@ -22,5 +22,4 @@ interface OneCallDao {
     @Query("DELETE FROM onecallmetadataentitylocal WHERE latitude = :latitude AND longitude = :longitude")
     fun deleteOneCall(latitude: Double?, longitude: Double?)
 
-
 }

@@ -21,7 +21,9 @@ abstract class LocalRemoteMediator<LocalRemote, Local : ModelLocal, Remote> {
 
     protected abstract fun localToLocalRemote(local: Local): LocalRemote
 
-    protected abstract fun shouldGetRemote(local: Local): Boolean
+    protected open fun shouldGetRemoteSpecialCase(local: Local): Boolean {
+        return false
+    }
 
     suspend operator fun invoke(): Flow<Resource<LocalRemote>> = flow {
         emit(Resource.Loading)
@@ -29,7 +31,7 @@ abstract class LocalRemoteMediator<LocalRemote, Local : ModelLocal, Remote> {
         val localFirst = getLocal().firstOrNull()
 
         val flow: Flow<Resource<LocalRemote>> =
-            if (localFirst == null || localFirst.metadata.isExpired || shouldGetRemote(localFirst)) {
+            if (localFirst == null || localFirst.metadata.isExpired || shouldGetRemoteSpecialCase(localFirst)) {
                 try {
                     val remote = getRemote()
                     if (localFirst != null) {

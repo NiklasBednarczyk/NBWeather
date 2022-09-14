@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models.daily
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.TemperatureValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.TemperatureValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.daily.DailyTemperatureModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.daily.DailyTemperatureModelRemote
 

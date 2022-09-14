@@ -1,10 +1,10 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.common.DateTimeValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.*
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.DateTimeValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.CurrentWeatherModelRemote
+import de.niklasbednarczyk.openweathermap.data.onecall.values.*
 
 data class CurrentWeatherModelData(
     val currentTime: DateTimeValue,

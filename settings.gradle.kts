@@ -33,3 +33,6 @@ include(":data-settings")
 
 include(":feature-location")
 include(":feature-settings")
+include(":data-airpollution")
+include(":data-airpollution-local")
+include(":data-airpollution-remote")

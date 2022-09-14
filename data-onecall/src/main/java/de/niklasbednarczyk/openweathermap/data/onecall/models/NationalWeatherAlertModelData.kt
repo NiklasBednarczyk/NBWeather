@@ -1,10 +1,10 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.common.DateTimeValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.alert.AlertDescriptionValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.alert.AlertEventValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.alert.AlertSenderNameValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.alert.AlertTagValue
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.DateTimeValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.alert.AlertDescriptionValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.alert.AlertEventValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.alert.AlertSenderNameValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.alert.AlertTagValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.NationalWeatherAlertEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.NationalWeatherAlertModelRemote
 

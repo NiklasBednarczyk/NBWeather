@@ -58,7 +58,7 @@ class OneCallRepository @Inject constructor(
                 )
             }
 
-            override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
+            override fun shouldGetRemoteSpecialCase(local: OneCallModelLocal): Boolean {
                 return local.metadata.units != units || local.metadata.language != language
             }
 

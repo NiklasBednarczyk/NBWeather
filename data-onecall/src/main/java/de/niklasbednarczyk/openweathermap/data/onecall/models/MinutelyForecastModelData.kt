@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.common.DateTimeValue
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.onecall.VolumeValue
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.DateTimeValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.VolumeValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.MinutelyForecastEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.MinutelyForecastModelRemote
 

@@ -19,9 +19,9 @@ fun LocationScreen(
     //TODO (#9) Do right design
 
     val scrollState = rememberScrollState()
-    ResourceView(uiState.value.oneCallResource) { oneCall ->
+    ResourceView(uiState.value.airPollutionsResource) { airPollutions ->
         Text(
-            text = oneCall.toString(),
+            text = airPollutions.map { it.toString() }.toString(),
             modifier = Modifier.verticalScroll(scrollState)
         )
     }
