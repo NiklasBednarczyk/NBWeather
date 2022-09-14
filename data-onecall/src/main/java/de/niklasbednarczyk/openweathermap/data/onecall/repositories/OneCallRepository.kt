@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
-import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
+import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.getRemoteName

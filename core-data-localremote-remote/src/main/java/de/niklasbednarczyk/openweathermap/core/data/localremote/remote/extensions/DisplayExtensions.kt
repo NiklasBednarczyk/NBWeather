@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions
 
-import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
+import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 
 fun DataLanguageType.getRemoteName(): String {
     return when (this) {

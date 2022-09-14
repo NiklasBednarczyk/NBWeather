@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
+import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.OneCallModelRemote
 

@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.feature.settings.screens.overview
 
-import de.niklasbednarczyk.openweathermap.data.settings.models.display.SettingsDisplayModelData
+import de.niklasbednarczyk.openweathermap.data.settings.models.SettingsDataModelData
 
 data class SettingsOverviewUiState(
-    val settingsDisplay: SettingsDisplayModelData? = null
+    val settingsData: SettingsDataModelData? = null
 )

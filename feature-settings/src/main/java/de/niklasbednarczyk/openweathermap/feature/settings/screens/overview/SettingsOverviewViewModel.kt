@@ -2,22 +2,22 @@ package de.niklasbednarczyk.openweathermap.feature.settings.screens.overview
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
+import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsOverviewViewModel @Inject constructor(
-    private val settingsDisplayRepository: SettingsDisplayRepository
+    private val settingsDataRepository: SettingsDataRepository
 ) : OwmViewModel<SettingsOverviewUiState>(SettingsOverviewUiState()) {
 
     init {
         collectFlow(
-            { settingsDisplayRepository.getData() },
-            { oldUiState, output -> oldUiState.copy(settingsDisplay = output) }
+            { settingsDataRepository.getData() },
+            { oldUiState, output -> oldUiState.copy(settingsData = output) }
         )
     }
 
@@ -29,7 +29,7 @@ class SettingsOverviewViewModel @Inject constructor(
                 UnitsType.METRIC -> UnitsType.IMPERIAL
                 UnitsType.IMPERIAL -> UnitsType.STANDARD
             }
-            settingsDisplayRepository.updateUnits(newUnits)
+            settingsDataRepository.updateUnits(newUnits)
         }
     }
 
@@ -40,7 +40,7 @@ class SettingsOverviewViewModel @Inject constructor(
                 DataLanguageType.ENGLISH -> DataLanguageType.GERMAN
                 else -> DataLanguageType.ENGLISH
             }
-            settingsDisplayRepository.updateDataLanguage(newDataLanguage)
+            settingsDataRepository.updateDataLanguage(newDataLanguage)
         }
     }
 

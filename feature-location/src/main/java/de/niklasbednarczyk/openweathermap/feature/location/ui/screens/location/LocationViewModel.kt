@@ -4,7 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.airpollution.repositories.AirPollutionRepository
 import de.niklasbednarczyk.openweathermap.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class LocationViewModel @Inject constructor(
     private val airPollutionRepository: AirPollutionRepository,
     private val oneCallRepository: OneCallRepository,
-    private val settingsDisplayRepository: SettingsDisplayRepository
+    private val settingsDataRepository: SettingsDataRepository
 ) : OwmViewModel<LocationUiState>(LocationUiState()) {
 
     companion object {
@@ -25,7 +25,7 @@ class LocationViewModel @Inject constructor(
 
         collectFlow(
             {
-                settingsDisplayRepository.getData().flatMapLatest { settingsDisplay ->
+                settingsDataRepository.getData().flatMapLatest { settingsDisplay ->
                     oneCallRepository.getOneCall(
                         latitude,
                         longitude,

@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.common.display
+package de.niklasbednarczyk.openweathermap.core.common.data
 
 enum class DataLanguageType {
     AFRIKAANS,

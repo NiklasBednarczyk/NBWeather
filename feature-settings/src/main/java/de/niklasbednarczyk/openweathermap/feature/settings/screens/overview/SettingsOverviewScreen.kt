@@ -16,7 +16,7 @@ fun SettingsOverviewScreen(
 
     //TODO (#15) Do right design
 
-    val settingsDisplay = uiState.value.settingsDisplay
+    val settingsDisplay = uiState.value.settingsData
 
     if (settingsDisplay != null) {
         Row {

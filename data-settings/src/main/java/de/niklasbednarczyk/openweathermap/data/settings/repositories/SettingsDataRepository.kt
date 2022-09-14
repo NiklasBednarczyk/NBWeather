@@ -2,27 +2,27 @@ package de.niklasbednarczyk.openweathermap.data.settings.repositories
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import de.niklasbednarczyk.openweathermap.core.common.display.DataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.display.UnitsType
+import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 import de.niklasbednarczyk.openweathermap.core.data.disk.repositories.RepositoryDisk
 import de.niklasbednarczyk.openweathermap.data.settings.constants.ConstantsDataSettings
-import de.niklasbednarczyk.openweathermap.data.settings.mappers.display.DataLanguageMapperData
-import de.niklasbednarczyk.openweathermap.data.settings.mappers.display.SettingsDisplayMapperData
-import de.niklasbednarczyk.openweathermap.data.settings.mappers.display.UnitsMapperData
-import de.niklasbednarczyk.openweathermap.data.settings.models.display.SettingsDisplayModelData
-import de.niklasbednarczyk.openweathermap.data.settings.proto.display.SettingsDisplayProto
-import de.niklasbednarczyk.openweathermap.data.settings.serializers.SettingsDisplaySerializer
+import de.niklasbednarczyk.openweathermap.data.settings.mappers.data.DataLanguageMapperData
+import de.niklasbednarczyk.openweathermap.data.settings.mappers.data.SettingsDataMapperData
+import de.niklasbednarczyk.openweathermap.data.settings.mappers.data.UnitsMapperData
+import de.niklasbednarczyk.openweathermap.data.settings.models.SettingsDataModelData
+import de.niklasbednarczyk.openweathermap.data.settings.proto.data.SettingsDataProto
+import de.niklasbednarczyk.openweathermap.data.settings.serializers.SettingsDataSerializer
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SettingsDisplayRepository @Inject constructor(
+class SettingsDataRepository @Inject constructor(
     @ApplicationContext context: Context
-) : RepositoryDisk<SettingsDisplayProto, SettingsDisplayModelData>(
+) : RepositoryDisk<SettingsDataProto, SettingsDataModelData>(
     context = context,
-    dataStoreFileName = ConstantsDataSettings.DataStore.SETTINGS_DISPLAY_FILE_NAME,
-    mapper = SettingsDisplayMapperData,
-    serializer = SettingsDisplaySerializer
+    dataStoreFileName = ConstantsDataSettings.DataStore.SETTINGS_DATA_FILE_NAME,
+    mapper = SettingsDataMapperData,
+    serializer = SettingsDataSerializer
 ) {
 
     suspend fun updateUnits(units: UnitsType) {
