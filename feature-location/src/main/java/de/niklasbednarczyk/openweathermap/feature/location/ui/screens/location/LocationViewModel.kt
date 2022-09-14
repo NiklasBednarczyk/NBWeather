@@ -25,12 +25,12 @@ class LocationViewModel @Inject constructor(
 
         collectFlow(
             {
-                settingsDataRepository.getData().flatMapLatest { settingsDisplay ->
+                settingsDataRepository.getData().flatMapLatest { settingsData ->
                     oneCallRepository.getOneCall(
                         latitude,
                         longitude,
-                        settingsDisplay.units,
-                        settingsDisplay.dataLanguage
+                        settingsData.units,
+                        settingsData.dataLanguage
                     )
                 }
             },

@@ -16,15 +16,15 @@ fun SettingsOverviewScreen(
 
     //TODO (#15) Do right design
 
-    val settingsDisplay = uiState.value.settingsData
+    val settingsData = uiState.value.settingsData
 
-    if (settingsDisplay != null) {
+    if (settingsData != null) {
         Row {
-            TextButton(onClick = { viewModel.toggleUnits(settingsDisplay.units) }) {
-                Text(text = settingsDisplay.units.name)
+            TextButton(onClick = { viewModel.toggleUnits(settingsData.units) }) {
+                Text(text = settingsData.units.name)
             }
-            TextButton(onClick = { viewModel.toggleDataLanguage(settingsDisplay.dataLanguage) }) {
-                Text(text = settingsDisplay.dataLanguage.name)
+            TextButton(onClick = { viewModel.toggleDataLanguage(settingsData.dataLanguage) }) {
+                Text(text = settingsData.dataLanguage.name)
             }
         }
     }
