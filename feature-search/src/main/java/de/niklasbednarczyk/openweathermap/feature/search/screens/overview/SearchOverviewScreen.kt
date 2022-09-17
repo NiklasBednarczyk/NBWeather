@@ -29,16 +29,20 @@ fun SearchOverviewScreen(
         }
     ) {
 
-        ResourceView(
-            resource = uiState.value.locationsResource,
-            successContent = { locations ->
-                LazyColumn {
-                    items(locations) { location ->
-                        Text(location.toString())
+        val dataLanguage = uiState.value.settingsData?.dataLanguage
+        if (dataLanguage != null) {
+            ResourceView(
+                resource = uiState.value.locationsResource,
+                successContent = { locations ->
+                    LazyColumn {
+                        items(locations) { location ->
+                            Text(location.getLocalizedName(dataLanguage).toString())
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
+
 
     }
 

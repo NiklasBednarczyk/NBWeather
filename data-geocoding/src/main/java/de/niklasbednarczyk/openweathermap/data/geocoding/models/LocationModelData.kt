@@ -3,14 +3,12 @@ package de.niklasbednarczyk.openweathermap.data.geocoding.models
 import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.openweathermap.data.geocoding.values.CoordinateValue
-import de.niklasbednarczyk.openweathermap.data.geocoding.values.CountryValue
-import de.niklasbednarczyk.openweathermap.data.geocoding.values.LocationNameValue
-import de.niklasbednarczyk.openweathermap.data.geocoding.values.StateValue
 
 data class LocationModelData(
-    val name: LocationNameValue,
-    val country: CountryValue,
-    val state: StateValue,
+    val name: String?,
+    val localNames: LocalNamesData?,
+    val country: String?,
+    val state: String?,
     val latitude: CoordinateValue,
     val longitude: CoordinateValue
 ) {
@@ -18,68 +16,70 @@ data class LocationModelData(
     companion object {
 
         internal fun remoteToData(
-            remoteList: List<LocationModelRemote>,
-            dataLanguage: DataLanguageType
+            remoteList: List<LocationModelRemote>
         ): List<LocationModelData> {
             return remoteList.map { remote ->
-                val localizedName = when (dataLanguage) {
-                    DataLanguageType.AFRIKAANS -> remote.localNames?.af
-                    DataLanguageType.ALBANIAN -> remote.localNames?.sq
-                    DataLanguageType.ARABIC -> remote.localNames?.ar
-                    DataLanguageType.AZERBAIJANI -> remote.localNames?.az
-                    DataLanguageType.BULGARIAN -> remote.localNames?.bg
-                    DataLanguageType.CATALAN -> remote.localNames?.ca
-                    DataLanguageType.CZECH -> remote.localNames?.cs
-                    DataLanguageType.DANISH -> remote.localNames?.da
-                    DataLanguageType.GERMAN -> remote.localNames?.de
-                    DataLanguageType.GREEK -> remote.localNames?.el
-                    DataLanguageType.ENGLISH -> remote.localNames?.en
-                    DataLanguageType.BASQUE -> remote.localNames?.eu
-                    DataLanguageType.PERSIAN_FARSI -> remote.localNames?.fa
-                    DataLanguageType.FINNISH -> remote.localNames?.fi
-                    DataLanguageType.FRENCH -> remote.localNames?.fr
-                    DataLanguageType.GALICIAN -> remote.localNames?.gl
-                    DataLanguageType.HEBREW -> remote.localNames?.he
-                    DataLanguageType.HINDI -> remote.localNames?.hi
-                    DataLanguageType.CROATIAN -> remote.localNames?.hr
-                    DataLanguageType.HUNGARIAN -> remote.localNames?.hu
-                    DataLanguageType.INDONESIAN -> remote.localNames?.id
-                    DataLanguageType.ITALIAN -> remote.localNames?.it
-                    DataLanguageType.JAPANESE -> remote.localNames?.ja
-                    DataLanguageType.KOREAN -> remote.localNames?.ko
-                    DataLanguageType.LATVIAN -> remote.localNames?.lv
-                    DataLanguageType.LITHUANIAN -> remote.localNames?.lt
-                    DataLanguageType.MACEDONIAN -> remote.localNames?.mk
-                    DataLanguageType.NORWEGIAN -> remote.localNames?.no
-                    DataLanguageType.DUTCH -> remote.localNames?.nl
-                    DataLanguageType.POLISH -> remote.localNames?.pl
-                    DataLanguageType.PORTUGUESE, DataLanguageType.PORTUGUES_BRASIL -> remote.localNames?.pt
-                    DataLanguageType.ROMANIAN -> remote.localNames?.ro
-                    DataLanguageType.RUSSIAN -> remote.localNames?.ru
-                    DataLanguageType.SWEDISH -> remote.localNames?.sv
-                    DataLanguageType.SLOVAK -> remote.localNames?.sk
-                    DataLanguageType.SLOVENIAN -> remote.localNames?.sl
-                    DataLanguageType.SPANISH -> remote.localNames?.es
-                    DataLanguageType.SERBIAN -> remote.localNames?.sr
-                    DataLanguageType.THAI -> remote.localNames?.th
-                    DataLanguageType.TURKISH -> remote.localNames?.tr
-                    DataLanguageType.UKRAINIAN -> remote.localNames?.uk
-                    DataLanguageType.VIETNAMESE -> remote.localNames?.vi
-                    DataLanguageType.CHINESE_SIMPLIFIED, DataLanguageType.CHINESE_TRADITIONAL -> remote.localNames?.zh
-                    DataLanguageType.ZULU -> remote.localNames?.zu
-                }
-                val name = localizedName ?: remote.localNames?.en ?: remote.name
-
                 LocationModelData(
-                    name = LocationNameValue(name),
-                    country = CountryValue(remote.country),
-                    state = StateValue(remote.state),
+                    name = remote.name,
+                    localNames = LocalNamesData.remoteToData(remote.localNames),
+                    country = remote.country,
+                    state = remote.state,
                     latitude = CoordinateValue(remote.lat),
                     longitude = CoordinateValue(remote.lon),
                 )
             }
         }
 
+    }
+
+    fun getLocalizedName(dataLanguage: DataLanguageType): String? {
+        val localizedName = when (dataLanguage) {
+            DataLanguageType.AFRIKAANS -> localNames?.af
+            DataLanguageType.ALBANIAN -> localNames?.sq
+            DataLanguageType.ARABIC -> localNames?.ar
+            DataLanguageType.AZERBAIJANI -> localNames?.az
+            DataLanguageType.BULGARIAN -> localNames?.bg
+            DataLanguageType.CATALAN -> localNames?.ca
+            DataLanguageType.CZECH -> localNames?.cs
+            DataLanguageType.DANISH -> localNames?.da
+            DataLanguageType.GERMAN -> localNames?.de
+            DataLanguageType.GREEK -> localNames?.el
+            DataLanguageType.ENGLISH -> localNames?.en
+            DataLanguageType.BASQUE -> localNames?.eu
+            DataLanguageType.PERSIAN_FARSI -> localNames?.fa
+            DataLanguageType.FINNISH -> localNames?.fi
+            DataLanguageType.FRENCH -> localNames?.fr
+            DataLanguageType.GALICIAN -> localNames?.gl
+            DataLanguageType.HEBREW -> localNames?.he
+            DataLanguageType.HINDI -> localNames?.hi
+            DataLanguageType.CROATIAN -> localNames?.hr
+            DataLanguageType.HUNGARIAN -> localNames?.hu
+            DataLanguageType.INDONESIAN -> localNames?.id
+            DataLanguageType.ITALIAN -> localNames?.it
+            DataLanguageType.JAPANESE -> localNames?.ja
+            DataLanguageType.KOREAN -> localNames?.ko
+            DataLanguageType.LATVIAN -> localNames?.lv
+            DataLanguageType.LITHUANIAN -> localNames?.lt
+            DataLanguageType.MACEDONIAN -> localNames?.mk
+            DataLanguageType.NORWEGIAN -> localNames?.no
+            DataLanguageType.DUTCH -> localNames?.nl
+            DataLanguageType.POLISH -> localNames?.pl
+            DataLanguageType.PORTUGUESE, DataLanguageType.PORTUGUES_BRASIL -> localNames?.pt
+            DataLanguageType.ROMANIAN -> localNames?.ro
+            DataLanguageType.RUSSIAN -> localNames?.ru
+            DataLanguageType.SWEDISH -> localNames?.sv
+            DataLanguageType.SLOVAK -> localNames?.sk
+            DataLanguageType.SLOVENIAN -> localNames?.sl
+            DataLanguageType.SPANISH -> localNames?.es
+            DataLanguageType.SERBIAN -> localNames?.sr
+            DataLanguageType.THAI -> localNames?.th
+            DataLanguageType.TURKISH -> localNames?.tr
+            DataLanguageType.UKRAINIAN -> localNames?.uk
+            DataLanguageType.VIETNAMESE -> localNames?.vi
+            DataLanguageType.CHINESE_SIMPLIFIED, DataLanguageType.CHINESE_TRADITIONAL -> localNames?.zh
+            DataLanguageType.ZULU -> localNames?.zu
+        }
+        return localizedName ?: localNames?.en ?: name
     }
 
 
