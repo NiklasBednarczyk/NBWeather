@@ -25,6 +25,15 @@ object ConstantsCoreRemote {
             const val NAME = "lat"
         }
 
+        object Limit {
+            const val NAME = "limit"
+            const val VALUE = 5
+        }
+
+        object LocationName {
+            const val NAME = "q"
+        }
+
         object Longitude {
             const val NAME = "lon"
         }

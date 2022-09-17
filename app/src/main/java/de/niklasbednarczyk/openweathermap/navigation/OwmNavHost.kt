@@ -6,8 +6,10 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.locationGraph
+import de.niklasbednarczyk.openweathermap.feature.search.navigation.SearchDestinations
+import de.niklasbednarczyk.openweathermap.feature.search.navigation.searchGraph
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.settingsGraph
-import de.niklasbednarczyk.openweathermap.icons.IconsApp
+import de.niklasbednarczyk.openweathermap.icons.AppIcons
 
 @Composable
 fun OwmNavHost(
@@ -16,13 +18,13 @@ fun OwmNavHost(
 ) {
     val navigationIconBack = @Composable {
         OwmIconButton(
-            icon = IconsApp.Back,
+            icon = AppIcons.Back,
             onClick = { navigator.popBackStack() }
         )
     }
     val navigationIconDrawer = @Composable {
         OwmIconButton(
-            icon = IconsApp.Drawer,
+            icon = AppIcons.Drawer,
             onClick = { navigator.openDrawer() }
         )
     }
@@ -33,7 +35,13 @@ fun OwmNavHost(
         startDestination = startDestination.route
     ) {
         locationGraph(
-            navigationIconDrawer = navigationIconDrawer
+            navigationIconDrawer = navigationIconDrawer,
+            navigateToSearch = {
+                navigator.navigate(SearchDestinations.Overview)
+            }
+        )
+        searchGraph(
+            navigationIconBack = navigationIconBack
         )
         settingsGraph(
             navigationIconBack = navigationIconBack

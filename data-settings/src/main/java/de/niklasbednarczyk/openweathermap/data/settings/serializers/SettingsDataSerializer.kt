@@ -62,7 +62,7 @@ internal object SettingsDataSerializer : Serializer<SettingsDataProto> {
             getLanguage("tr") -> SettingsDataProto.DataLanguageProto.TURKISH
             getLanguage("uk") -> SettingsDataProto.DataLanguageProto.UKRAINIAN
             getLanguage("vi") -> SettingsDataProto.DataLanguageProto.VIETNAMESE
-            getLanguage("zh") -> SettingsDataProto.DataLanguageProto.CHINESE_TRADITIONAL
+            getLanguage("zh") -> SettingsDataProto.DataLanguageProto.CHINESE_SIMPLIFIED
             getLanguage("zu") -> SettingsDataProto.DataLanguageProto.ZULU
             else -> SettingsDataProto.DataLanguageProto.ENGLISH
         }

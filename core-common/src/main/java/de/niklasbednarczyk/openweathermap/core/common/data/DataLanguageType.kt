@@ -46,5 +46,59 @@ enum class DataLanguageType {
     VIETNAMESE,
     CHINESE_SIMPLIFIED,
     CHINESE_TRADITIONAL,
-    ZULU,
+    ZULU;
+
+    //TODO DELETE?
+//    val languageCode: String?
+//        get() = when (this) {
+//            AFRIKAANS -> "af"
+//            ALBANIAN -> "sq"
+//            ARABIC -> "ar"
+//            AZERBAIJANI -> "az"
+//            BULGARIAN -> "bg"
+//            CATALAN -> "ca"
+//            CZECH -> "cs"
+//            DANISH -> "da"
+//            GERMAN -> "de"
+//            GREEK -> "el"
+//            ENGLISH -> "en"
+//            BASQUE -> "eu"
+//            PERSIAN_FARSI -> "fa"
+//            FINNISH -> "fi"
+//            FRENCH -> "fr"
+//            GALICIAN -> "gl"
+//            HEBREW -> "he"
+//            HINDI -> "hi"
+//            CROATIAN -> "hr"
+//            HUNGARIAN -> "hu"
+//            INDONESIAN -> "id"
+//            ITALIAN -> "it"
+//            JAPANESE -> "ja"
+//            KOREAN -> "ko"
+//            LATVIAN -> "lv"
+//            LITHUANIAN -> "lt"
+//            MACEDONIAN -> "mk"
+//            NORWEGIAN -> "no"
+//            DUTCH -> "nl"
+//            POLISH -> "pl"
+//            PORTUGUESE -> "pt"
+//            ROMANIAN -> "ro"
+//            RUSSIAN -> "su"
+//            SWEDISH -> "sv"
+//            SLOVAK -> "sk"
+//            SLOVENIAN -> "sl"
+//            SPANISH -> "es"
+//            SERBIAN -> "sr"
+//            THAI -> "th"
+//            TURKISH -> "tr"
+//            UKRAINIAN -> "uk"
+//            VIETNAMESE -> "vi"
+//            CHINESE_SIMPLIFIED -> "zh"
+//            ZULU -> "zu"
+//            else -> null
+//        }
+//
+
+    
+    
 }

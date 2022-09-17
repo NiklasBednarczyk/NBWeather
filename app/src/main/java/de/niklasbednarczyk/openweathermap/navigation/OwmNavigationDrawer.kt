@@ -9,7 +9,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
-import de.niklasbednarczyk.openweathermap.icons.IconsApp
+import de.niklasbednarczyk.openweathermap.icons.AppIcons
 
 @Composable
 fun OwmNavigationDrawer(
@@ -33,25 +33,25 @@ private fun DrawerSheet(navigator: OwmNavigator) {
             navigator = navigator,
             destination = LocationDestinations.Overview,
             label = "New York City",
-            icon = IconsApp.Location
+            icon = AppIcons.Location
         )
         DrawerItem(
             navigator = navigator,
             destination = LocationDestinations.Overview,
             label = "London",
-            icon = IconsApp.Location
+            icon = AppIcons.Location
         )
         DrawerItem(
             navigator = navigator,
             destination = LocationDestinations.Overview,
             label = "Tokyo",
-            icon = IconsApp.Location
+            icon = AppIcons.Location
         )
         DrawerItem(
             navigator = navigator,
             destination = SettingsDestinations.Overview,
             label = "Settings",
-            icon = IconsApp.Settings
+            icon = AppIcons.Settings
         )
     }
 }

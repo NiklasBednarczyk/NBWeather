@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import de.niklasbednarczyk.openweathermap.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 
-object IconsApp {
+object AppIcons {
 
     object Back : OwmIconModel {
         override val imageVector: ImageVector

@@ -37,5 +37,6 @@ dependencies {
     implementation(project(":core-ui"))
 
     implementation(project(":feature-location"))
+    implementation(project(":feature-search"))
     implementation(project(":feature-settings"))
 }

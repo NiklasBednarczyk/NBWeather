@@ -1,19 +1,18 @@
 package de.niklasbednarczyk.openweathermap.core.data.localremote.mediators
 
 import android.util.Log
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.ErrorType
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.constants.ConstantsCoreLocalRemote
 import de.niklasbednarczyk.openweathermap.core.data.localremote.local.models.ModelLocal
+import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.helper.RemoteMediatorHelper
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.ErrorType
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import java.net.UnknownHostException
 
-abstract class LocalRemoteMediator<LocalRemote, Local : ModelLocal, Remote> {
+abstract class LocalRemoteMediator<LocalRemote, Local : ModelLocal, Remote> :
+    RemoteMediatorHelper<LocalRemote, Remote> {
 
     protected abstract fun getLocal(): Flow<Local?>
-
-    protected abstract suspend fun getRemote(): Remote
 
     protected abstract fun clearLocal(local: Local)
 
@@ -31,7 +30,10 @@ abstract class LocalRemoteMediator<LocalRemote, Local : ModelLocal, Remote> {
         val localFirst = getLocal().firstOrNull()
 
         val flow: Flow<Resource<LocalRemote>> =
-            if (localFirst == null || localFirst.metadata.isExpired || shouldGetRemoteSpecialCase(localFirst)) {
+            if (localFirst == null || localFirst.metadata.isExpired || shouldGetRemoteSpecialCase(
+                    localFirst
+                )
+            ) {
                 try {
                     val remote = getRemote()
                     if (localFirst != null) {
@@ -57,17 +59,6 @@ abstract class LocalRemoteMediator<LocalRemote, Local : ModelLocal, Remote> {
             onLocalFailed()
         }
     }
-
-    private fun onRemoteFailed(throwable: Throwable): Resource<LocalRemote> {
-        //TODO (#5) Better logging
-        Log.e(ConstantsCoreLocalRemote.Logging.TAG, throwable.message.toString())
-        val type = when (throwable) {
-            is UnknownHostException -> ErrorType.NO_INTERNET
-            else -> null
-        }
-        return Resource.Error(type)
-    }
-
 
     private fun onLocalFailed(): Resource<LocalRemote> {
         //TODO (#5) Better logging
