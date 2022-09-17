@@ -21,12 +21,15 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
             implementation(project(":core-data-localremote"))
 
             implementation(libs.getLibrary("androidx.activity.activityCompose"))
+            implementation(libs.getLibrary("androidx.compose.material.materialIconsExtended"))
             implementation(libs.getLibrary("androidx.compose.material3.material3"))
             implementation(libs.getLibrary("androidx.compose.ui.ui"))
             implementation(libs.getLibrary("androidx.core.coreKtx"))
             implementation(libs.getLibrary("androidx.hilt.hiltNavigationCompose"))
             implementation(libs.getLibrary("androidx.lifecycle.lifecycleRuntimeKtx"))
             implementation(libs.getLibrary("androidx.navigation.navigationCompose"))
+            implementation(libs.getLibrary("com.google.accompanist.accompanistNavigationAnimation"))
+            implementation(libs.getLibrary("com.google.accompanist.accompanistSystemuicontroller"))
             implementation(libs.getLibrary("com.google.android.material.material"))
         }
     }

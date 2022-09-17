@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">OpenWeatherMap</string>
+
+    <string name="icon_content_description_back">Back</string>
+    <string name="icon_content_description_drawer">Drawer</string>
+    <string name="icon_content_description_location">Location</string>
+    <string name="icon_content_description_settings">Settings</string>
+
 </resources>

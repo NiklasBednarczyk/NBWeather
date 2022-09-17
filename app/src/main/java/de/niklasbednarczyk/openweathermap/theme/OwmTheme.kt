@@ -11,6 +11,8 @@ fun OwmTheme(
     content: @Composable () -> Unit
 ) {
 
+    //TODO (#15) Replace with settings colorScheme and theme
+
     val colorScheme = if (isSystemInDarkTheme()) {
         darkColorScheme()
     } else {

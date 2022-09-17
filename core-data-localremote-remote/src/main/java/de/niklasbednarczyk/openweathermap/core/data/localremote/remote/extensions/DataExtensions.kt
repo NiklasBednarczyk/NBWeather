@@ -3,8 +3,8 @@ package de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensio
 import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 
-fun DataLanguageType.getRemoteName(): String {
-    return when (this) {
+val DataLanguageType.remoteName: String
+    get() = when (this) {
         DataLanguageType.AFRIKAANS -> "af"
         DataLanguageType.ALBANIAN -> "al"
         DataLanguageType.ARABIC -> "ar"
@@ -52,12 +52,12 @@ fun DataLanguageType.getRemoteName(): String {
         DataLanguageType.CHINESE_TRADITIONAL -> "zh_tw"
         DataLanguageType.ZULU -> "zu"
     }
-}
 
-fun UnitsType.getRemoteName(): String {
-    return when (this) {
+
+val UnitsType.remoteName: String
+    get() = when (this) {
         UnitsType.STANDARD -> "standard"
         UnitsType.METRIC -> "metric"
         UnitsType.IMPERIAL -> "imperial"
     }
-}
+

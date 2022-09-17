@@ -63,6 +63,10 @@ internal interface OwmConventionPlugin : Plugin<Project> {
 
             kotlinOptions {
                 freeCompilerArgs = freeCompilerArgs + listOf(
+                    //Enables animation navigation
+                    "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
+                    //Enables material 3
+                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     // Enables flatMapLatest
                     "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 )

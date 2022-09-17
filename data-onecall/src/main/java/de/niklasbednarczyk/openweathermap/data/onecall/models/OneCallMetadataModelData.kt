@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.OneCallMode
 
 data class OneCallMetadataModelData(
     val units: UnitsType,
-    val timezoneOffset: Long?
+    val timezoneOffset: Long? //TODO (#9) Make value class
 ) {
 
     companion object {

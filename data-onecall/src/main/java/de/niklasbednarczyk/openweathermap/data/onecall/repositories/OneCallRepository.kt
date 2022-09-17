@@ -4,7 +4,7 @@ import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
-import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.getRemoteName
+import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.remoteName
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.*
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.models.*
@@ -41,8 +41,8 @@ class OneCallRepository @Inject constructor(
                 return oneCallService.getOneCall(
                     latitude,
                     longitude,
-                    units.getRemoteName(),
-                    language.getRemoteName()
+                    units.remoteName,
+                    language.remoteName
                 )
             }
 
