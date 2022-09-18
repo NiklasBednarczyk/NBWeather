@@ -6,11 +6,11 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import java.net.UnknownHostException
 
-internal interface RemoteMediatorHelper<LocalRemote, Remote> {
+internal interface RemoteMediatorHelper<Data, Remote> {
 
     suspend fun getRemote(): Remote
 
-    fun onRemoteFailed(throwable: Throwable): Resource<LocalRemote> {
+    fun onRemoteFailed(throwable: Throwable): Resource<Data> {
         //TODO (#5) Better logging
         Log.e(ConstantsCoreLocalRemote.Logging.TAG, throwable.message.toString())
         val type = when (throwable) {

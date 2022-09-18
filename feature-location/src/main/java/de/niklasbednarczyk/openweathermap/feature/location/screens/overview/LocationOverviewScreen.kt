@@ -19,26 +19,29 @@ fun LocationOverviewScreen(
 
     val uiState = viewModel.uiState.collectAsState()
 
-    OwmScaffold(
-        topBar = { scrollBehavior ->
-            OwmCenterAlignedTopAppBar(
-                scrollBehavior = scrollBehavior,
-                navigationIcon = navigationIcon,
-                title = "Location Name", // (#9) Replace with actual location name
-                actions = {
-                    OwmIconButton(
-                        icon = LocationIcons.Search,
-                        onClick = navigateToSearch
-                    )
-                }
-            )
-        }
-    ) {
-        //TODO (#9) Do right design
+    ResourceView(uiState.value.locationResource) { location ->
+        OwmScaffold(
+            topBar = { scrollBehavior ->
+                OwmCenterAlignedTopAppBar(
+                    scrollBehavior = scrollBehavior,
+                    navigationIcon = navigationIcon,
+                    title = location.localizedName.toString(), //TODO (#9) Replace with actual location name
+                    actions = {
+                        OwmIconButton(
+                            icon = LocationIcons.Search,
+                            onClick = navigateToSearch
+                        )
+                    }
+                )
+            }
+        ) {
+            //TODO (#9) Do right design
 
-        ResourceView(uiState.value.oneCallResource) { oneCall ->
-            Text(text = oneCall.metadata.timezoneOffset.toString())
+            ResourceView(uiState.value.oneCallResource) { oneCall ->
+                Text(text = oneCall.metadata.timezoneOffset.toString())
+            }
         }
     }
+
 
 }

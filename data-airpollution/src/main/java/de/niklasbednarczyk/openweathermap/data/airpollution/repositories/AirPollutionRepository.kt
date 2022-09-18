@@ -55,9 +55,14 @@ class AirPollutionRepository @Inject constructor(
                 airPollutionDao.insertAirPollutions(airPollutions)
             }
 
-            override fun localToLocalRemote(local: AirPollutionForecastModelLocal): List<AirPollutionModelData> {
+            override fun localToData(local: AirPollutionForecastModelLocal): List<AirPollutionModelData> {
                 return AirPollutionModelData.localToData(local.airPollutions)
             }
+
+            override fun shouldGetRemote(local: AirPollutionForecastModelLocal): Boolean {
+                return local.metadata.isExpired
+            }
+
 
         }()
     }

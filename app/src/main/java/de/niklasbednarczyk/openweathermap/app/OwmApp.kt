@@ -1,0 +1,69 @@
+package de.niklasbednarczyk.openweathermap.app
+
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
+import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost
+import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawer
+import de.niklasbednarczyk.openweathermap.navigation.OwmNavigator
+import de.niklasbednarczyk.openweathermap.theme.OwmTheme
+
+@Composable
+fun OwmApp(
+    viewModel: OwmAppViewModel = hiltViewModel()
+) {
+    val uiState = viewModel.uiState.collectAsState()
+
+    OwmTheme {
+        SetupSystemBar()
+
+        val navigator = OwmNavigator.rememberOwmNavigator()
+
+        SetupBackPressWithNavigationDrawer(navigator = navigator)
+
+        ResourceView(
+            resource = uiState.value.savedLocationsResource,
+            loadingContent = {}
+        ) { savedLocations ->
+
+            OwmNavigationDrawer(
+                navigator = navigator,
+                savedLocations = savedLocations,
+            ) {
+                OwmNavHost(
+                    navigator = navigator,
+                    savedLocations = savedLocations
+                )
+            }
+        }
+
+
+    }
+}
+
+@Composable
+private fun SetupSystemBar() {
+    val systemUiController = rememberSystemUiController()
+    val darkIcons = !isSystemInDarkTheme() //TODO (#15) Replace with settings is in dark theme
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent,
+            darkIcons = darkIcons
+        )
+    }
+}
+
+@Composable
+private fun SetupBackPressWithNavigationDrawer(
+    navigator: OwmNavigator
+) {
+    BackHandler(enabled = navigator.drawerState.isOpen) {
+        navigator.closeDrawer()
+    }
+}

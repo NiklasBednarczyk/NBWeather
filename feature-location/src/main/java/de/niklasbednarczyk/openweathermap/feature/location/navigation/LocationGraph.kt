@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.Loca
 
 fun NavGraphBuilder.locationGraph(
     navigationIconDrawer: @Composable () -> Unit,
-    navigateToSearch: () -> Unit
+    navigateToSearch: () -> Unit,
 ) {
     owmComposable(LocationDestinations.Overview) {
         LocationOverviewScreen(

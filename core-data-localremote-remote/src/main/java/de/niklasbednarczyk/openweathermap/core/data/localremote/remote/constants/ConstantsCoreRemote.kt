@@ -27,7 +27,8 @@ object ConstantsCoreRemote {
 
         object Limit {
             const val NAME = "limit"
-            const val VALUE = 5
+            const val VALUE_DIRECT = 5
+            const val VALUE_REVERSE = 1
         }
 
         object LocationName {

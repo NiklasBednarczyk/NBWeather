@@ -36,6 +36,8 @@ android {
 dependencies {
     implementation(project(":core-ui"))
 
+    implementation(project(":data-geocoding"))
+
     implementation(project(":feature-location"))
     implementation(project(":feature-search"))
     implementation(project(":feature-settings"))

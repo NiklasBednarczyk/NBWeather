@@ -6,11 +6,13 @@ import de.niklasbednarczyk.openweathermap.core.ui.navigation.owmComposable
 import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.SearchOverviewScreen
 
 fun NavGraphBuilder.searchGraph(
-    navigationIconBack: @Composable () -> Unit
+    navigationIconBack: @Composable () -> Unit,
+    navigateToLocation: (Double?, Double?) -> Unit
 ) {
     owmComposable(SearchDestinations.Overview) {
         SearchOverviewScreen(
-            navigationIcon = navigationIconBack
+            navigationIcon = navigationIconBack,
+            navigateToLocation = navigateToLocation
         )
     }
 }

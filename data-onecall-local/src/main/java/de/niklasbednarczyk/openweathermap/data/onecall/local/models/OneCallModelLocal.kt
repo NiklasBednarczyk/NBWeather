@@ -3,10 +3,9 @@ package de.niklasbednarczyk.openweathermap.data.onecall.local.models
 import androidx.room.Embedded
 import androidx.room.Relation
 import de.niklasbednarczyk.openweathermap.core.data.localremote.local.constants.ConstantsCoreLocal
-import de.niklasbednarczyk.openweathermap.core.data.localremote.local.models.ModelLocal
 
 data class OneCallModelLocal(
-    @Embedded override val metadata: OneCallMetadataEntityLocal,
+    @Embedded val metadata: OneCallMetadataEntityLocal,
     @Relation(
         parentColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_PARENT,
         entityColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY
@@ -32,4 +31,4 @@ data class OneCallModelLocal(
         entityColumn = ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY
     )
     val nationalWeatherAlerts: List<NationalWeatherAlertEntityLocal>? = null
-) : ModelLocal
+)

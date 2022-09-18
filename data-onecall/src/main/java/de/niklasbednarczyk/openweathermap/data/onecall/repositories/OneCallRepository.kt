@@ -47,7 +47,7 @@ class OneCallRepository @Inject constructor(
             }
 
 
-            override fun localToLocalRemote(local: OneCallModelLocal): OneCallModelData {
+            override fun localToData(local: OneCallModelLocal): OneCallModelData {
                 return OneCallModelData(
                     metadata = OneCallMetadataModelData.localToData(local.metadata),
                     currentWeather = CurrentWeatherModelData.localToData(local.currentWeather),
@@ -58,8 +58,8 @@ class OneCallRepository @Inject constructor(
                 )
             }
 
-            override fun shouldGetRemoteSpecialCase(local: OneCallModelLocal): Boolean {
-                return local.metadata.units != units || local.metadata.language != language
+            override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
+                return local.metadata.isExpired || local.metadata.units != units || local.metadata.language != language
             }
 
             override fun clearLocal(local: OneCallModelLocal) {

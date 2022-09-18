@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface AirPollutionDao {
 
     @Query("SELECT * FROM airpollutionentitylocal WHERE ${ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY} = :metadataId")
-    fun getAirPollutions(metadataId: Long?): Flow<List<AirPollutionEntityLocal?>>
+    fun getAirPollutions(metadataId: Long?): Flow<List<AirPollutionEntityLocal>?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertAirPollutions(airPollutions: List<AirPollutionEntityLocal>)

@@ -3,7 +3,7 @@ package de.niklasbednarczyk.openweathermap.navigation
 import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
-import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.SavedLocationsModelData
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.locationGraph
 import de.niklasbednarczyk.openweathermap.feature.search.navigation.SearchDestinations
@@ -14,8 +14,16 @@ import de.niklasbednarczyk.openweathermap.icons.AppIcons
 @Composable
 fun OwmNavHost(
     navigator: OwmNavigator,
-    startDestination: OwmNavigationDestination = LocationDestinations.Overview
+    savedLocations: SavedLocationsModelData
 ) {
+    val currentLocation = savedLocations.currentLocation
+
+    val startDestination = if (currentLocation != null) {
+        LocationDestinations.Overview.route
+    } else {
+        SearchDestinations.Overview.route
+    }
+
     val navigationIconBack = @Composable {
         OwmIconButton(
             icon = AppIcons.Back,
@@ -29,10 +37,9 @@ fun OwmNavHost(
         )
     }
 
-
     AnimatedNavHost(
         navController = navigator.navController,
-        startDestination = startDestination.route
+        startDestination = startDestination
     ) {
         locationGraph(
             navigationIconDrawer = navigationIconDrawer,
@@ -41,7 +48,8 @@ fun OwmNavHost(
             }
         )
         searchGraph(
-            navigationIconBack = navigationIconBack
+            navigationIconBack = navigationIconBack,
+            navigateToLocation = navigator::navigateToLocation
         )
         settingsGraph(
             navigationIconBack = navigationIconBack
