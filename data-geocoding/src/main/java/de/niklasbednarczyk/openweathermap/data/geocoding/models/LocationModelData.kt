@@ -1,33 +1,35 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.models
 
 import de.niklasbednarczyk.openweathermap.core.common.language.LanguageType
-import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocalNamesModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.openweathermap.data.geocoding.values.CoordinateValue
 
 data class LocationModelData(
-    val localizedName: String?,
+    private val name: String?,
+    private val localNames: LocalNamesModelData?,
     val country: String?,
     val state: String?,
     val latitude: CoordinateValue,
     val longitude: CoordinateValue
 ) {
 
+    val localizedName: String?
+        get() {
+            val localName = when (LanguageType.fromLocale()) {
+                LanguageType.DE -> localNames?.de
+                LanguageType.EN -> localNames?.en
+            }
+            return localName ?: name
+        }
+
     companion object {
 
         internal fun remoteToData(remoteList: List<LocationModelRemote>): List<LocationModelData> {
             return remoteList.map { remote ->
-                val localNames = remote.localNames
-                val localName = when (LanguageType.fromLocale()) {
-                    LanguageType.DE -> localNames?.de
-                    LanguageType.EN -> localNames?.en
-                }
-
-                val localizedName = localName ?: localNames?.en ?: remote.name
-
                 LocationModelData(
-                    localizedName = localizedName,
+                    name = remote.name,
+                    localNames = LocalNamesModelData.remoteToData(remote.localNames),
                     country = remote.country,
                     state = remote.state,
                     latitude = CoordinateValue(remote.lat),
@@ -42,20 +44,9 @@ data class LocationModelData(
             longitude: Double
         ): LocationModelLocal? {
             if (remote == null) return null
-
-            val remoteLocalNames = remote.localNames
-            val localLocalNames = if (remoteLocalNames != null) {
-                LocalNamesModelLocal(
-                    de = remoteLocalNames.de,
-                    en = remoteLocalNames.en
-                )
-            } else {
-                null
-            }
-
             return LocationModelLocal(
                 name = remote.name,
-                localNames = localLocalNames,
+                localNames = LocalNamesModelData.remoteToLocal(remote.localNames),
                 country = remote.country,
                 state = remote.state,
                 latitude = latitude,
@@ -66,17 +57,9 @@ data class LocationModelData(
         internal fun localToData(
             local: LocationModelLocal
         ): LocationModelData {
-            val localNames = local.localNames
-
-            val localName = when (LanguageType.fromLocale()) {
-                LanguageType.DE -> localNames?.de
-                LanguageType.EN -> localNames?.en
-            }
-
-            val localizedName = localName ?: localNames?.en ?: local.name
-
             return LocationModelData(
-                localizedName = localizedName,
+                name = local.name,
+                localNames = LocalNamesModelData.localToData(local.localNames),
                 country = local.country,
                 state = local.state,
                 latitude = CoordinateValue(local.latitude),

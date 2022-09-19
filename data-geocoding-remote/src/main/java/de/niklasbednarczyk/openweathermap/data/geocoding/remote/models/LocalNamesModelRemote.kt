@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class LocalNamesRemote(
+data class LocalNamesModelRemote(
     @Json(name = "de") val de: String?,
     @Json(name = "en") val en: String?,
     @Json(name = "ascii") val ascii: String?,
