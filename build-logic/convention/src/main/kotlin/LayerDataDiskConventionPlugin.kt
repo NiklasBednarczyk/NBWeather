@@ -27,8 +27,6 @@ class LayerDataDiskConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
-            implementation(project(":core-common"))
-
             implementation(libs.getLibrary("androidx.datastore.datastore"))
             implementation(libs.getLibrary("com.google.protobuf.protobufJavalite"))
         }

@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
-import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
+import de.niklasbednarczyk.openweathermap.core.common.language.LanguageType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.remoteName
@@ -27,10 +26,10 @@ class OneCallRepository @Inject constructor(
 
     suspend fun getOneCall(
         latitude: Double,
-        longitude: Double,
-        units: UnitsType,
-        language: DataLanguageType
+        longitude: Double
     ): Flow<Resource<OneCallModelData>> {
+        val language = LanguageType.fromLocale()
+
         return object :
             LocalRemoteMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
             override fun getLocal(): Flow<OneCallModelLocal?> {
@@ -41,7 +40,6 @@ class OneCallRepository @Inject constructor(
                 return oneCallService.getOneCall(
                     latitude,
                     longitude,
-                    units.remoteName,
                     language.remoteName
                 )
             }
@@ -59,7 +57,7 @@ class OneCallRepository @Inject constructor(
             }
 
             override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
-                return local.metadata.isExpired || local.metadata.units != units || local.metadata.language != language
+                return local.metadata.isExpired || local.metadata.language != language
             }
 
             override fun clearLocal(local: OneCallModelLocal) {
@@ -74,7 +72,7 @@ class OneCallRepository @Inject constructor(
 
             override fun insertLocal(remote: OneCallModelRemote) {
                 val oneCallMetadata = OneCallMetadataModelData.remoteToLocal(
-                    remote, units, language, latitude, longitude
+                    remote, latitude, longitude, language
                 )
                 val metadataId = oneCallDao.insertOneCall(oneCallMetadata)
 

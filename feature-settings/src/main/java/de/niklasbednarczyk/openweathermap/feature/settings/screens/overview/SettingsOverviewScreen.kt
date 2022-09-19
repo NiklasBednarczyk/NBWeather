@@ -28,15 +28,12 @@ fun SettingsOverviewScreen(
     ) {
         //TODO (#15) Do right design
 
-        val settingsData = uiState.value.settingsData
+        val settingsUnits = uiState.value.settingsUnits
 
-        if (settingsData != null) {
+        if (settingsUnits != null) {
             Column {
-                TextButton(onClick = { viewModel.toggleUnits(settingsData.units) }) {
-                    Text(text = settingsData.units.name)
-                }
-                TextButton(onClick = { viewModel.toggleDataLanguage(settingsData.dataLanguage) }) {
-                    Text(text = settingsData.dataLanguage.name)
+                TextButton(onClick = { viewModel.toggleTemperatureUnit(settingsUnits.temperatureUnit) }) {
+                    Text(text = settingsUnits.temperatureUnit.name)
                 }
             }
         }

@@ -39,10 +39,6 @@ object ConstantsCoreRemote {
             const val NAME = "lon"
         }
 
-        object Units {
-            const val NAME = "units"
-        }
-
     }
 
     internal object Url {

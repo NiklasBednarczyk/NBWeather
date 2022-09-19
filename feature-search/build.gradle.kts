@@ -8,5 +8,4 @@ dependencies {
     implementation(project(":core-ui"))
 
     implementation(project(":data-geocoding"))
-    implementation(project(":data-settings"))
 }

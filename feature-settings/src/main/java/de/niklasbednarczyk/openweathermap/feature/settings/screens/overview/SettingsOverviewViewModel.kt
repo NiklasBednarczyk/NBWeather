@@ -2,45 +2,32 @@ package de.niklasbednarczyk.openweathermap.feature.settings.screens.overview
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.data.UnitsType
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
+import de.niklasbednarczyk.openweathermap.data.settings.models.units.TemperatureUnitTypeData
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsUnitsRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsOverviewViewModel @Inject constructor(
-    private val settingsDataRepository: SettingsDataRepository
+    private val settingsUnitsRepository: SettingsUnitsRepository
 ) : OwmViewModel<SettingsOverviewUiState>(SettingsOverviewUiState()) {
 
     init {
         collectFlow(
-            { settingsDataRepository.getData() },
-            { oldUiState, output -> oldUiState.copy(settingsData = output) }
+            { settingsUnitsRepository.getData() },
+            { oldUiState, output -> oldUiState.copy(settingsUnits = output) }
         )
     }
 
     //TODO (#15) Remove after testing
-    fun toggleUnits(units: UnitsType) {
+    fun toggleTemperatureUnit(temperatureUnit: TemperatureUnitTypeData) {
         viewModelScope.launch {
-            val newUnits = when (units) {
-                UnitsType.STANDARD -> UnitsType.METRIC
-                UnitsType.METRIC -> UnitsType.IMPERIAL
-                UnitsType.IMPERIAL -> UnitsType.STANDARD
+            val newUnits = when (temperatureUnit) {
+                TemperatureUnitTypeData.CELSIUS -> TemperatureUnitTypeData.FAHRENHEIT
+                TemperatureUnitTypeData.FAHRENHEIT -> TemperatureUnitTypeData.CELSIUS
             }
-            settingsDataRepository.updateUnits(newUnits)
-        }
-    }
-
-    //TODO (#15) Remove after testing
-    fun toggleDataLanguage(dataLanguage: DataLanguageType) {
-        viewModelScope.launch {
-            val newDataLanguage = when (dataLanguage) {
-                DataLanguageType.ENGLISH -> DataLanguageType.GERMAN
-                else -> DataLanguageType.ENGLISH
-            }
-            settingsDataRepository.updateDataLanguage(newDataLanguage)
+            settingsUnitsRepository.updateTemperatureUnit(newUnits)
         }
     }
 

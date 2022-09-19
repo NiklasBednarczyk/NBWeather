@@ -6,9 +6,8 @@ import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.airpollution.repositories.AirPollutionRepository
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
-import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +16,7 @@ class LocationOverviewViewModel @Inject constructor(
     private val airPollutionRepository: AirPollutionRepository,
     private val geocodingRepository: GeocodingRepository,
     private val oneCallRepository: OneCallRepository,
-    private val settingsDataRepository: SettingsDataRepository
+    private val settingsUnitsRepository: SettingsUnitsRepository
 ) : OwmViewModel<LocationOverviewUiState>(LocationOverviewUiState()) {
 
     init {
@@ -30,13 +29,10 @@ class LocationOverviewViewModel @Inject constructor(
         if (latitude != null && longitude != null) {
             collectFlow(
                 {
-                    settingsDataRepository.getData().flatMapLatest { settingsData ->
-                        geocodingRepository.getLocationByCoordinates(
-                            latitude,
-                            longitude,
-                            settingsData.dataLanguage
-                        )
-                    }
+                    geocodingRepository.getLocationByCoordinates(
+                        latitude,
+                        longitude
+                    )
                 },
                 { oldUiState, output -> oldUiState.copy(locationResource = output) }
             )

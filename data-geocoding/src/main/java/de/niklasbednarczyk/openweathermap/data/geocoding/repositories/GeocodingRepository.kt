@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.repositories
 
-import de.niklasbednarczyk.openweathermap.core.common.data.DataLanguageType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.RemoteMediator
@@ -23,13 +22,12 @@ class GeocodingRepository @Inject constructor(
 ) {
 
     suspend fun getLocationsByLocationName(
-        locationName: String,
-        dataLanguage: DataLanguageType
+        locationName: String
     ): Flow<Resource<List<LocationModelData>>> {
 
         return object : RemoteMediator<List<LocationModelData>, List<LocationModelRemote>>() {
             override fun remoteToLocalRemote(remote: List<LocationModelRemote>): List<LocationModelData> {
-                return LocationModelData.remoteToData(remote, dataLanguage)
+                return LocationModelData.remoteToData(remote)
             }
 
             override suspend fun getRemote(): List<LocationModelRemote> {
@@ -41,8 +39,7 @@ class GeocodingRepository @Inject constructor(
 
     suspend fun getLocationByCoordinates(
         latitude: Double,
-        longitude: Double,
-        dataLanguage: DataLanguageType
+        longitude: Double
     ): Flow<Resource<LocationModelData>> {
         return object :
             LocalRemoteMediator<LocationModelData, LocationModelLocal, LocationModelRemote?>() {
@@ -53,7 +50,7 @@ class GeocodingRepository @Inject constructor(
             override fun clearLocal(local: LocationModelLocal) {}
 
             override fun localToData(local: LocationModelLocal): LocationModelData {
-                return LocationModelData.localToData(local, dataLanguage)
+                return LocationModelData.localToData(local)
             }
 
             override fun shouldGetRemote(local: LocationModelLocal): Boolean {
@@ -82,8 +79,7 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun localToData(local: List<LocationModelLocal>): SavedLocationsModelData {
-                val dataLanguage = DataLanguageType.ENGLISH //TODO (#10) Replace with locale
-                val savedLocations = SavedLocationModelData.localToData(local, dataLanguage)
+                val savedLocations = SavedLocationModelData.localToData(local)
                 return SavedLocationsModelData(savedLocations)
             }
 
