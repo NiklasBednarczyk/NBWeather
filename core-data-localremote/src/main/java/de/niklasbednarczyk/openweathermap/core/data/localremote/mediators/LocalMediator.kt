@@ -7,9 +7,14 @@ import kotlinx.coroutines.flow.*
 
 abstract class LocalMediator<Data, Local> : LocalMediatorHelper<Data, Local> {
 
-    operator fun invoke(): Flow<Resource<Data>> = getLocal()
+    private fun mapToResource(local: Local?): Resource<Data?> {
+        val data = if (local != null) localToData(local) else null
+        return Resource.Success(data)
+    }
+
+    operator fun invoke(): Flow<Resource<Data?>> = getLocal()
         .map { local ->
-            onSuccess(local)
+            mapToResource(local)
         }
         .onStart { emit(Resource.Loading) }
         .catch { emit(onLocalFailed()) }

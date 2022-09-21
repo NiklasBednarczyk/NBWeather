@@ -1,17 +1,18 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.repositories
 
+import de.niklasbednarczyk.openweathermap.core.data.localremote.local.utils.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalMediator
-import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.RemoteMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.daos.GeocodingDao
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.SavedLocationModelData
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.SavedLocationsModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.services.GeocodingService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -37,53 +38,50 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    suspend fun getLocationByCoordinates(
-        latitude: Double,
-        longitude: Double
-    ): Flow<Resource<LocationModelData>> {
-        return object :
-            LocalRemoteMediator<LocationModelData, LocationModelLocal, LocationModelRemote?>() {
-            override fun getLocal(): Flow<LocationModelLocal?> {
-                return geocodingDao.getLocation(latitude, longitude)
+    fun getSavedLocations(): Flow<Resource<List<LocationModelData>?>> {
+        return object : LocalMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
+            override fun getLocal(): Flow<List<LocationModelLocal>?> {
+                return geocodingDao.getSavedLocations()
             }
 
-            override fun clearLocal(local: LocationModelLocal) {}
+            override fun localToData(local: List<LocationModelLocal>?): List<LocationModelData>? {
+                return LocationModelData.localListToData(local)
+            }
 
-            override fun localToData(local: LocationModelLocal): LocationModelData {
+        }()
+    }
+
+    fun getCurrentLocation(): Flow<Resource<LocationModelData?>> {
+        return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
+            override fun getLocal(): Flow<LocationModelLocal?> {
+                return geocodingDao.getCurrentLocation()
+            }
+
+            override fun localToData(local: LocationModelLocal?): LocationModelData? {
                 return LocationModelData.localToData(local)
             }
 
-            override fun shouldGetRemote(local: LocationModelLocal): Boolean {
-                return false
-            }
-
-            override suspend fun getRemote(): LocationModelRemote? {
-                return geocodingService.getLocationsByCoordinates(latitude, longitude).firstOrNull()
-            }
-
-            override fun insertLocal(remote: LocationModelRemote?) {
-                val local = LocationModelData.remoteToLocal(remote, latitude, longitude)
-                if (local != null) {
-                    geocodingDao.insertLocation(local)
-                }
-            }
-
         }()
-
     }
 
-    fun getSavedLocations(): Flow<Resource<SavedLocationsModelData>> {
-        return object : LocalMediator<SavedLocationsModelData, List<LocationModelLocal>>() {
-            override fun getLocal(): Flow<List<LocationModelLocal>?> {
-                return geocodingDao.getLocations()
+    suspend fun insertOrUpdateCurrentLocation(
+        latitude: Double?,
+        longitude: Double?
+    ) = withContext(Dispatchers.IO) {
+        if (latitude != null && longitude != null) {
+            val local = geocodingDao.getLocation(latitude, longitude).firstOrNull()
+            if (local != null) {
+                val newLocal =
+                    local.copy(lastVisitedTimestampEpochSeconds = getCurrentTimestampEpochSeconds())
+                geocodingDao.updateLocation(newLocal)
+            } else {
+                val remote = geocodingService.getLocationsByCoordinates(latitude, longitude)
+                    .firstOrNull()
+                val newLocal = LocationModelData.remoteToLocal(remote, latitude, longitude)
+                    ?: return@withContext
+                geocodingDao.insertLocation(newLocal)
             }
-
-            override fun localToData(local: List<LocationModelLocal>): SavedLocationsModelData {
-                val savedLocations = SavedLocationModelData.localToData(local)
-                return SavedLocationsModelData(savedLocations)
-            }
-
-        }()
+        }
     }
 
 }

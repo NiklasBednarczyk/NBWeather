@@ -1,22 +1,18 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
-import de.niklasbednarczyk.openweathermap.data.airpollution.repositories.AirPollutionRepository
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
-import de.niklasbednarczyk.openweathermap.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LocationOverviewViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val airPollutionRepository: AirPollutionRepository,
     private val geocodingRepository: GeocodingRepository,
-    private val oneCallRepository: OneCallRepository,
-    private val settingsUnitsRepository: SettingsUnitsRepository
 ) : OwmViewModel<LocationOverviewUiState>(LocationOverviewUiState()) {
 
     init {
@@ -27,40 +23,16 @@ class LocationOverviewViewModel @Inject constructor(
         val longitude = longitudeString?.toDoubleOrNull()
 
         if (latitude != null && longitude != null) {
-            collectFlow(
-                {
-                    geocodingRepository.getLocationByCoordinates(
-                        latitude,
-                        longitude
-                    )
-                },
-                { oldUiState, output -> oldUiState.copy(locationResource = output) }
-            )
-        } else {
-            //TODO (#10) Get current location
+            viewModelScope.launch {
+                geocodingRepository.insertOrUpdateCurrentLocation(latitude, longitude)
+            }
         }
 
+        collectFlow(
+            { geocodingRepository.getCurrentLocation() },
+            { oldUiState, output -> oldUiState.copy(locationResource = output) }
+        )
 
-        //TODO (#9) Uncomment when needed
-//        collectFlow(
-//            {
-//                settingsDataRepository.getData().flatMapLatest { settingsData ->
-//                    oneCallRepository.getOneCall(
-//                        latitude,
-//                        longitude,
-//                        settingsData.units,
-//                        settingsData.dataLanguage
-//                    )
-//                }
-//            },
-//            { oldUiState, output -> oldUiState.copy(oneCallResource = output) }
-//        )
-//
-//        collectFlow(
-//            { airPollutionRepository.getAirPollutionForecast(latitude, longitude) },
-//            { oldUiState, output -> oldUiState.copy(airPollutionsResource = output) }
-//        )
     }
-
 
 }

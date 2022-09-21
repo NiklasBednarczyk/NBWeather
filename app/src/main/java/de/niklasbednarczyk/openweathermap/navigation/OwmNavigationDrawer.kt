@@ -6,21 +6,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.SavedLocationModelData
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.SavedLocationsModelData
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
 import de.niklasbednarczyk.openweathermap.icons.AppIcons
 
 @Composable
 fun OwmNavigationDrawer(
     navigator: OwmNavigator,
-    savedLocations: SavedLocationsModelData,
+    savedLocations: List<LocationModelData>?,
+    currentLocation: LocationModelData?,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
         drawerState = navigator.drawerState,
         drawerContent = {
-            DrawerSheet(navigator, savedLocations)
+            DrawerSheet(
+                navigator = navigator,
+                savedLocations = savedLocations,
+                currentLocation = currentLocation
+            )
         },
         gesturesEnabled = true, //TODO (#9) Maybe enable only when on location
         content = content
@@ -30,31 +34,25 @@ fun OwmNavigationDrawer(
 @Composable
 private fun DrawerSheet(
     navigator: OwmNavigator,
-    savedLocations: SavedLocationsModelData
+    savedLocations: List<LocationModelData>?,
+    currentLocation: LocationModelData?
 ) {
     val closeDrawer = { navigator.closeDrawer() }
 
-    val navigateToLocation: (SavedLocationModelData) -> Unit = { savedLocation ->
-        val latitude = savedLocation.location.latitude.roundedValue
-        val longitude = savedLocation.location.longitude.roundedValue
+    val navigateToLocation: (LocationModelData) -> Unit = { savedLocation ->
+        val latitude = savedLocation.latitude.roundedValue
+        val longitude = savedLocation.longitude.roundedValue
         navigator.navigateToLocation(latitude, longitude)
     }
 
     ModalDrawerSheet {
-        savedLocations.bookmarkedLocations.map { bookmarkedLocation ->
+        savedLocations?.map { savedLocation ->
             DrawerItem(
                 closeDrawer = closeDrawer,
-                navigateToDestination = { navigateToLocation(bookmarkedLocation) },
-                label = bookmarkedLocation.location.localizedName.toString(),
-                icon = AppIcons.Location
-            )
-        }
-        savedLocations.visitedLocations.map { visitedLocation ->
-            DrawerItem(
-                closeDrawer = closeDrawer,
-                navigateToDestination = { navigateToLocation(visitedLocation) },
-                label = visitedLocation.location.localizedName.toString(),
-                icon = AppIcons.Location
+                navigateToDestination = { navigateToLocation(savedLocation) },
+                label = savedLocation.localizedName.toString(),
+                icon = AppIcons.Location,
+                selected = savedLocation == currentLocation
             )
         }
         DrawerItem(
@@ -74,13 +72,14 @@ private fun DrawerItem(
     closeDrawer: () -> Unit,
     navigateToDestination: () -> Unit,
     label: String,
-    icon: OwmIconModel
+    icon: OwmIconModel,
+    selected: Boolean = false
 ) {
     NavigationDrawerItem(
         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
         label = { Text(text = label) },
         icon = { OwmIcon(icon = icon) },
-        selected = false,
+        selected = selected,
         onClick = {
             closeDrawer()
             navigateToDestination()

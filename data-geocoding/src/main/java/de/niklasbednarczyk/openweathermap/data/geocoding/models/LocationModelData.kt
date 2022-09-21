@@ -55,8 +55,9 @@ data class LocationModelData(
         }
 
         internal fun localToData(
-            local: LocationModelLocal
-        ): LocationModelData {
+            local: LocationModelLocal?
+        ): LocationModelData? {
+            if (local == null) return null
             return LocationModelData(
                 name = local.name,
                 localNames = LocalNamesModelData.localToData(local.localNames),
@@ -67,6 +68,14 @@ data class LocationModelData(
             )
         }
 
+        internal fun localListToData(
+            localList: List<LocationModelLocal>?
+        ): List<LocationModelData>? {
+            return localList?.mapNotNull { local ->
+                localToData(local)
+            }
+
+        }
     }
 
 }

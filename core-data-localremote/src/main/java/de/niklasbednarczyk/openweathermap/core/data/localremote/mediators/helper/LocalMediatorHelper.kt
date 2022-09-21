@@ -12,14 +12,6 @@ internal interface LocalMediatorHelper<Data, Local> {
 
     fun localToData(local: Local): Data
 
-    fun onSuccess(local: Local?): Resource<Data> {
-        return if (local != null) {
-            Resource.Success(localToData(local))
-        } else {
-            onLocalFailed()
-        }
-    }
-
     fun onLocalFailed(): Resource<Data> {
         //TODO (#5) Better logging
         Log.e(ConstantsCoreLocalRemote.Logging.TAG, "Query failed")

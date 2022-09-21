@@ -15,6 +15,14 @@ abstract class LocalRemoteMediator<Data, Local, Remote> :
 
     protected abstract fun shouldGetRemote(local: Local): Boolean
 
+    private fun onSuccess(local: Local?): Resource<Data> {
+        return if (local != null) {
+            Resource.Success(localToData(local))
+        } else {
+            onLocalFailed()
+        }
+    }
+
     suspend operator fun invoke(): Flow<Resource<Data>> = flow {
         emit(Resource.Loading)
 

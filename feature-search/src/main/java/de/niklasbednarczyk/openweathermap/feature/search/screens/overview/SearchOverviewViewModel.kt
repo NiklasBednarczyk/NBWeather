@@ -13,10 +13,10 @@ class SearchOverviewViewModel @Inject constructor(
     init {
         collectFlow(
             {
-                val locationName = "Munich" //TODO (#10) Get from user input
+                val locationName = "London" //TODO (#10) Get from user input
                 geocodingRepository.getLocationsByLocationName(locationName)
             },
-            { oldUiState, output -> oldUiState.copy(locationsResource = output) }
+            { oldUiState, output -> oldUiState.copy(searchLocationsResource = output) }
         )
 
         collectFlow(

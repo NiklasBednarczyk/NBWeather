@@ -24,6 +24,7 @@ fun SearchOverviewScreen(
     OwmScaffold(
         topBar = { scrollBehavior ->
             //TODO (#10) Do with search top app bar
+            //TODO (#10) Disable navigationIcon when no savedLocations? Or just show toast
             OwmSmallTopAppBar(
                 scrollBehavior = scrollBehavior,
                 navigationIcon = navigationIcon,
@@ -33,7 +34,7 @@ fun SearchOverviewScreen(
     ) {
 
         ResourceView(
-            resource = uiState.value.locationsResource,
+            resource = uiState.value.searchLocationsResource,
             successContent = { locations ->
                 LazyColumn {
                     items(locations) { location ->

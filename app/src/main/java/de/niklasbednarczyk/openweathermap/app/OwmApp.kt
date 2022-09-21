@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawer
@@ -27,18 +28,27 @@ fun OwmApp(
 
         SetupBackPressWithNavigationDrawer(navigator = navigator)
 
+        val locationsResource = Resource.combine(
+            uiState.value.savedLocationsResource,
+            uiState.value.currentLocationResource
+        )
+
         ResourceView(
-            resource = uiState.value.savedLocationsResource,
+            resource = locationsResource,
             loadingContent = {}
-        ) { savedLocations ->
+        ) { locations ->
+
+            val savedLocations = locations.first
+            val currentLocation = locations.second
 
             OwmNavigationDrawer(
                 navigator = navigator,
                 savedLocations = savedLocations,
+                currentLocation = currentLocation
             ) {
                 OwmNavHost(
                     navigator = navigator,
-                    savedLocations = savedLocations
+                    currentLocation = currentLocation
                 )
             }
         }
