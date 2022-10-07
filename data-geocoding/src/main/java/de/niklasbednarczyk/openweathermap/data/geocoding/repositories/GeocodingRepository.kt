@@ -12,6 +12,7 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.remote.services.Geocodi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -62,6 +63,10 @@ class GeocodingRepository @Inject constructor(
             }
 
         }()
+    }
+
+    suspend fun getIsInitialCurrentLocationSet(): Boolean {
+        return geocodingDao.getCurrentLocation().flowOn(Dispatchers.IO).firstOrNull() != null
     }
 
     suspend fun insertOrUpdateCurrentLocation(

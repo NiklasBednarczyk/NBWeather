@@ -3,7 +3,6 @@ package de.niklasbednarczyk.openweathermap.navigation
 import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.locationGraph
 import de.niklasbednarczyk.openweathermap.feature.search.navigation.SearchDestinations
@@ -14,9 +13,9 @@ import de.niklasbednarczyk.openweathermap.icons.AppIcons
 @Composable
 fun OwmNavHost(
     navigator: OwmNavigator,
-    currentLocation: LocationModelData?
+    isInitialCurrentLocationSet: Boolean
 ) {
-    val startDestination = if (currentLocation != null) {
+    val startDestination = if (isInitialCurrentLocationSet) {
         LocationDestinations.Overview.route
     } else {
         SearchDestinations.Overview.route

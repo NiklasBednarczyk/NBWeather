@@ -33,27 +33,29 @@ fun OwmApp(
             uiState.value.currentLocationResource
         )
 
-        ResourceView(
-            resource = locationsResource,
-            loadingContent = {}
-        ) { locations ->
+        val isInitialCurrentLocationSet = uiState.value.isInitialCurrentLocationSet
 
-            val savedLocations = locations.first
-            val currentLocation = locations.second
+        if (isInitialCurrentLocationSet != null) {
+            ResourceView(
+                resource = locationsResource,
+                loadingContent = {}
+            ) { locations ->
 
-            OwmNavigationDrawer(
-                navigator = navigator,
-                savedLocations = savedLocations,
-                currentLocation = currentLocation
-            ) {
-                OwmNavHost(
+                val savedLocations = locations.first
+                val currentLocation = locations.second
+
+                OwmNavigationDrawer(
                     navigator = navigator,
+                    savedLocations = savedLocations,
                     currentLocation = currentLocation
-                )
+                ) {
+                    OwmNavHost(
+                        navigator = navigator,
+                        isInitialCurrentLocationSet = isInitialCurrentLocationSet
+                    )
+                }
             }
         }
-
-
     }
 }
 
