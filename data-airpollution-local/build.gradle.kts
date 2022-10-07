@@ -7,3 +7,6 @@ plugins {
 dependencies {
     implementation(project(":core-data-localremote-local"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.data.airpollution.local"
+}

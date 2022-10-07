@@ -7,3 +7,6 @@ plugins {
 dependencies {
     implementation(project(":core-data-disk"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.data.settings"
+}

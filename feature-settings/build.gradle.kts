@@ -9,3 +9,6 @@ dependencies {
 
     implementation(project(":data-settings"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.feature.settings"
+}

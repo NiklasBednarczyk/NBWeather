@@ -7,3 +7,6 @@ plugins {
 dependencies {
     implementation(project(":core-data-localremote-remote"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.data.onecall.remote"
+}

@@ -12,3 +12,6 @@ dependencies {
     implementation(project(":data-onecall"))
     implementation(project(":data-settings"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.feature.location"
+}

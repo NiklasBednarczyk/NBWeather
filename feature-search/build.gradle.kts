@@ -9,3 +9,6 @@ dependencies {
 
     implementation(project(":data-geocoding"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.feature.search"
+}

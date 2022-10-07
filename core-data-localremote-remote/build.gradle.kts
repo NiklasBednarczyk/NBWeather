@@ -4,3 +4,6 @@ plugins {
     id("de.niklasbednarczyk.openweathermap.layer.data.localremote.remote")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.core.data.localremote.remote"
+}

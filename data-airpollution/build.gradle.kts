@@ -10,3 +10,6 @@ dependencies {
     implementation(project(":data-airpollution-local"))
     implementation(project(":data-airpollution-remote"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.data.airpollution"
+}

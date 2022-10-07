@@ -10,3 +10,6 @@ dependencies {
     implementation(project(":data-geocoding-local"))
     implementation(project(":data-geocoding-remote"))
 }
+android {
+    namespace = "de.niklasbednarczyk.openweathermap.data.geocoding"
+}
