@@ -3,7 +3,7 @@ package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButtonEmpty
+import de.niklasbednarczyk.openweathermap.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSmallTopAppBar
@@ -20,8 +20,6 @@ fun SearchOverviewScreen(
     ResourceView(
         resource = uiState.value.currentLocationResource
     ) { currentLocation ->
-        val emptyIcon = @Composable { OwmIconButtonEmpty() }
-
         val navIcon = if (currentLocation != null) navigationIcon else emptyIcon
 
         OwmScaffold(

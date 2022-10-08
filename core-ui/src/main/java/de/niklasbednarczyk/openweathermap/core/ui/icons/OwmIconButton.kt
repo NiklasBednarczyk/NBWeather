@@ -24,8 +24,7 @@ fun OwmIconButton(
     )
 }
 
-@Composable
-fun OwmIconButtonEmpty() {
+val emptyIcon = @Composable {
     IconButton(
         modifier = Modifier.alpha(0f),
         content = {},
@@ -33,3 +32,4 @@ fun OwmIconButtonEmpty() {
         onClick = {}
     )
 }
+
