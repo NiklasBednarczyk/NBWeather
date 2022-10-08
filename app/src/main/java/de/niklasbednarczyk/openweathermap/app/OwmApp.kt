@@ -35,8 +35,7 @@ fun OwmApp(
         )
 
         ResourceView(
-            resource = locationsResource,
-            loadingContent = {}
+            resource = locationsResource
         ) { locations ->
 
             val savedLocations = locations.first

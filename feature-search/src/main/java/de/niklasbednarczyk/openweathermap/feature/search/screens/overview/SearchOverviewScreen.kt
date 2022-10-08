@@ -18,8 +18,7 @@ fun SearchOverviewScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     ResourceView(
-        resource = uiState.value.currentLocationResource,
-        loadingContent = {}
+        resource = uiState.value.currentLocationResource
     ) { currentLocation ->
         val emptyIcon = @Composable { OwmIconButtonEmpty() }
 

@@ -20,8 +20,7 @@ fun LocationOverviewScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     ResourceView(
-        resource = uiState.value.locationResource,
-        loadingContent = {}
+        resource = uiState.value.locationResource
     ) { location ->
         OwmScaffold(
             topBar = { scrollBehavior ->
