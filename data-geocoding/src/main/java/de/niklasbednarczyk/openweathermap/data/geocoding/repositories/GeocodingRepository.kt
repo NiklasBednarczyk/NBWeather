@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -65,9 +66,17 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    suspend fun getIsInitialCurrentLocationSet(): Boolean {
-        return geocodingDao.getCurrentLocation().flowOn(Dispatchers.IO).firstOrNull() != null
+    fun getIsInitialCurrentLocationSet(): Flow<Resource<Boolean>> {
+        return getCurrentLocation().transformWhile { resource ->
+            val newResource = resource.map { oldData ->
+                oldData != null
+            }
+            emit(newResource)
+
+            resource !is Resource.Success
+        }
     }
+
 
     suspend fun insertOrUpdateCurrentLocation(
         latitude: Double?,
