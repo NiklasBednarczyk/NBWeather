@@ -17,5 +17,11 @@ class SearchOverviewViewModel @Inject constructor(
         )
     }
 
+    fun onSearchTermChanged(searchTerm: String) {
+        updateUiState { oldUiState ->
+            oldUiState.copy(searchTerm = searchTerm)
+        }
+    }
+
 
 }

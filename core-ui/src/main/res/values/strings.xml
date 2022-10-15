@@ -1,0 +1,10 @@
+<resources>
+    <string name="icon_content_description_back">Back</string>
+    <string name="icon_content_description_cancel">Cancel</string>
+    <string name="icon_content_description_drawer">Drawer</string>
+    <string name="icon_content_description_location">Location</string>
+    <string name="icon_content_description_search">Search</string>
+    <string name="icon_content_description_settings">Settings</string>
+
+    <string name="top_app_bar_search_placeholder">Search</string>
+</resources>

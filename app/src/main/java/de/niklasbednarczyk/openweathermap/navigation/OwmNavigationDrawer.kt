@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
+import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
-import de.niklasbednarczyk.openweathermap.icons.AppIcons
 
 @Composable
 fun OwmNavigationDrawer(
@@ -51,7 +51,7 @@ private fun DrawerSheet(
                 closeDrawer = closeDrawer,
                 navigateToDestination = { navigateToLocation(savedLocation) },
                 label = savedLocation.localizedName.toString(),
-                icon = AppIcons.Location,
+                icon = OwmIcons.Location,
                 selected = savedLocation == currentLocation
             )
         }
@@ -61,7 +61,7 @@ private fun DrawerSheet(
                 navigator.navigate(SettingsDestinations.Overview)
             },
             label = "Settings",
-            icon = AppIcons.Settings
+            icon = OwmIcons.Settings
         )
     }
 }

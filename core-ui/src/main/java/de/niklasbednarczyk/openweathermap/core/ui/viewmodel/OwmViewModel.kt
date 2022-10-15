@@ -23,4 +23,14 @@ abstract class OwmViewModel<UiState>(initialUiState: UiState) : ViewModel() {
         }
     }
 
+    protected fun updateUiState(
+        makeNewUiState: (oldUiState: UiState) -> UiState
+    ) {
+        viewModelScope.launch {
+            _uiState.update { oldUiState ->
+                makeNewUiState.invoke(oldUiState)
+            }
+        }
+    }
+
 }

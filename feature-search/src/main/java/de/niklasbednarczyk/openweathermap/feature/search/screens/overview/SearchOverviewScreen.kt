@@ -6,7 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
-import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSmallTopAppBar
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSearchTopAppBar
 
 @Composable
 fun SearchOverviewScreen(
@@ -23,16 +23,14 @@ fun SearchOverviewScreen(
         val navIcon = if (currentLocation != null) navigationIcon else emptyIcon
 
         OwmScaffold(
-            topBar = { scrollBehavior ->
-                //TODO (#10) Do with search top app bar
-                OwmSmallTopAppBar(
-                    scrollBehavior = scrollBehavior,
+            topBar = {
+                OwmSearchTopAppBar(
+                    searchTerm = uiState.value.searchTerm,
                     navigationIcon = navIcon,
-                    title = "Search"
+                    onSearchTermChanged = viewModel::onSearchTermChanged
                 )
             }
         ) {
-
         }
 
     }
