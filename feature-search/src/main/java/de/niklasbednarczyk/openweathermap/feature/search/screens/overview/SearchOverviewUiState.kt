@@ -5,5 +5,6 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelDat
 
 data class SearchOverviewUiState(
     val searchTerm: String = "",
-    val currentLocationResource: Resource<LocationModelData?>? = null
+    val currentLocationResource: Resource<LocationModelData?>? = null,
+    val searchedLocationsResource: Resource<List<LocationModelData>>? = null
 )

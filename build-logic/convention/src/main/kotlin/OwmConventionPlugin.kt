@@ -69,6 +69,8 @@ internal interface OwmConventionPlugin : Plugin<Project> {
                     "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     // Enables flatMapLatest
                     "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                    // Enables debounce
+                    "-opt-in=kotlinx.coroutines.FlowPreview"
                 )
 
                 jvmTarget = JavaVersion.VERSION_1_8.toString()

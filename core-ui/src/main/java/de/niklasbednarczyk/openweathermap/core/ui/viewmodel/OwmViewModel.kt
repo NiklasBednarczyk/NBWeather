@@ -26,11 +26,20 @@ abstract class OwmViewModel<UiState>(initialUiState: UiState) : ViewModel() {
     protected fun updateUiState(
         makeNewUiState: (oldUiState: UiState) -> UiState
     ) {
+        updateStateFlow(_uiState, makeNewUiState)
+    }
+
+    protected fun <T> updateStateFlow(
+        stateFlow: MutableStateFlow<T>,
+        makeNewStateFlow: (oldStateFlow: T) -> T
+    ) {
         viewModelScope.launch {
-            _uiState.update { oldUiState ->
-                makeNewUiState.invoke(oldUiState)
+            stateFlow.update { oldStateFlow ->
+                makeNewStateFlow(oldStateFlow)
             }
         }
+
+
     }
 
 }

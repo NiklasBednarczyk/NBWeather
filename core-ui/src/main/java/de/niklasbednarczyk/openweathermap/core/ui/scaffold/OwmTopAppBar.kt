@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -20,12 +19,12 @@ import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.openweathermap.core.ui.text.OwmTextSingleLine
 import de.niklasbednarczyk.openweathermap.core.ui.theme.topAppBarElevation
-import de.niklasbednarczyk.openweathermap.core.ui.R
 
 
 @Composable
@@ -122,6 +121,7 @@ fun OwmSearchTopAppBar(
     searchTerm: String,
     navigationIcon: @Composable () -> Unit,
     onSearchTermChanged: (String) -> Unit,
+    onClearSearchTerm: () -> Unit
 ) {
 
     val trailingIcon = if (searchTerm.isEmpty()) {
@@ -130,7 +130,7 @@ fun OwmSearchTopAppBar(
         {
             OwmIconButton(
                 icon = OwmIcons.Cancel,
-                onClick = { onSearchTermChanged("") }
+                onClick = onClearSearchTerm
             )
         }
     }
@@ -140,7 +140,8 @@ fun OwmSearchTopAppBar(
         unfocusedBorderColor = Color.Transparent
     )
 
-    val placeholder = @Composable { Text(text = stringResource(R.string.top_app_bar_search_placeholder))}
+    val placeholder =
+        @Composable { Text(text = stringResource(R.string.top_app_bar_search_placeholder)) }
 
     val keyboardOptions = KeyboardOptions(
         keyboardType = KeyboardType.Text,
