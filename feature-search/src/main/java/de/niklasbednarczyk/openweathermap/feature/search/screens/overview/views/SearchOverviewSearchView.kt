@@ -30,7 +30,8 @@ fun SearchOverviewSearchView(
     navigateToLocation: (Double?, Double?) -> Unit
 ) {
 
-    //TODO (#10) Search Item window insets clickable weird + also check for ime changing height
+    //TODO (#10) Search Item window insets navigation bar horizontal weird => WindowInset
+    //TODO (#10) IME makes content smaller => WindowInsets (also maybe delete NoResultsView?)
 
     ResourceView(
         resource = searchedLocationsResource,
