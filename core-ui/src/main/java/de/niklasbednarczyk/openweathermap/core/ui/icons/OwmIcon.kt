@@ -9,10 +9,11 @@ import androidx.compose.ui.res.stringResource
 fun OwmIcon(
     modifier: Modifier = Modifier,
     icon: OwmIconModel,
+    isFilled: Boolean = true,
 ) {
     Icon(
         modifier = modifier,
-        imageVector = icon.imageVector,
+        imageVector = if (isFilled) icon.imageVectorFilled else icon.imageVectorOutlined,
         contentDescription = stringResource(icon.contentDescriptionResId)
     )
 }

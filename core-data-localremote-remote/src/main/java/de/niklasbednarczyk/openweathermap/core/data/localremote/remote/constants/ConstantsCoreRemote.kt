@@ -5,11 +5,6 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.BuildConf
 
 object ConstantsCoreRemote {
 
-    object ImageUrl {
-        const val PREFIX = "https://openweathermap.org/img/wn/"
-        const val SUFFIX = "@2x.png"
-    }
-
     object Query {
 
         internal object ApiKey {

@@ -5,7 +5,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 interface OwmIconModel {
 
-    val imageVector: ImageVector
+    val imageVectorFilled: ImageVector
+
+    val imageVectorOutlined: ImageVector
 
     @get:StringRes
     val contentDescriptionResId: Int

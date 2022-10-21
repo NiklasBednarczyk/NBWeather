@@ -38,7 +38,8 @@ fun SearchOverviewScreen(
                 SearchOverviewManageView()
             } else {
                 SearchOverviewSearchView(
-                    searchedLocationsResource = uiState.value.searchedLocationsResource
+                    searchedLocationsResource = uiState.value.searchedLocationsResource,
+                    navigateToLocation = navigateToLocation
                 )
             }
         }

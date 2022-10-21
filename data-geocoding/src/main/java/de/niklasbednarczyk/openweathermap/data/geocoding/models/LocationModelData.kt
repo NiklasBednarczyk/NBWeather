@@ -8,8 +8,8 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.values.CoordinateValue
 data class LocationModelData(
     private val name: String?,
     private val localNames: LocalNamesModelData?,
-    val country: String?,
-    val state: String?,
+    private val country: String?,
+    private val state: String?,
     val latitude: CoordinateValue,
     val longitude: CoordinateValue
 ) {
@@ -23,7 +23,23 @@ data class LocationModelData(
             return localName ?: name
         }
 
+    val stateAndCountry: String?
+        get() {
+            return when {
+                state != null && country != null -> "$state, $country"
+                state == null && country != null -> country
+                else -> null
+            }
+        }
+
+    val localizedNameAndCountry: String?
+        get() {
+            if (country == null || localizedName == null) return null
+            return "$localizedName, $country"
+        }
+
     companion object {
+
 
         internal fun remoteToData(remoteList: List<LocationModelRemote>): List<LocationModelData> {
             return remoteList.map { remote ->
