@@ -3,15 +3,14 @@ package de.niklasbednarczyk.openweathermap.data.geocoding.models
 import de.niklasbednarczyk.openweathermap.core.common.language.LanguageType
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
-import de.niklasbednarczyk.openweathermap.data.geocoding.values.CoordinateValue
 
 data class LocationModelData(
     private val name: String?,
     private val localNames: LocalNamesModelData?,
     private val country: String?,
     private val state: String?,
-    val latitude: CoordinateValue,
-    val longitude: CoordinateValue
+    val latitude: Double?,
+    val longitude: Double?
 ) {
 
     val localizedName: String?
@@ -48,16 +47,14 @@ data class LocationModelData(
                     localNames = LocalNamesModelData.remoteToData(remote.localNames),
                     country = remote.country,
                     state = remote.state,
-                    latitude = CoordinateValue(remote.lat),
-                    longitude = CoordinateValue(remote.lon),
+                    latitude = remote.lat,
+                    longitude = remote.lon,
                 )
             }
         }
 
         internal fun remoteToLocal(
-            remote: LocationModelRemote?,
-            latitude: Double,
-            longitude: Double
+            remote: LocationModelRemote?, latitude: Double, longitude: Double
         ): LocationModelLocal? {
             if (remote == null) return null
             return LocationModelLocal(
@@ -79,8 +76,8 @@ data class LocationModelData(
                 localNames = LocalNamesModelData.localToData(local.localNames),
                 country = local.country,
                 state = local.state,
-                latitude = CoordinateValue(local.latitude),
-                longitude = CoordinateValue(local.longitude)
+                latitude = local.latitude,
+                longitude = local.longitude
             )
         }
 

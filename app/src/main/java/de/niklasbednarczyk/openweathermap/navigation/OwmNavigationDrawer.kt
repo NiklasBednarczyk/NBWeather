@@ -41,9 +41,7 @@ private fun DrawerSheet(
     val closeDrawer = { navigator.closeDrawer() }
 
     val navigateToLocation: (LocationModelData) -> Unit = { savedLocation ->
-        val latitude = savedLocation.latitude.roundedValue
-        val longitude = savedLocation.longitude.roundedValue
-        navigator.navigateToLocation(latitude, longitude)
+        navigator.navigateToLocation(savedLocation.latitude, savedLocation.longitude)
     }
 
     ModalDrawerSheet {
@@ -51,7 +49,7 @@ private fun DrawerSheet(
             DrawerItem(
                 closeDrawer = closeDrawer,
                 navigateToDestination = { navigateToLocation(savedLocation) },
-                label = savedLocation.localizedName.toStringOrEmpty(),
+                label = savedLocation.localizedNameAndCountry.toStringOrEmpty(),
                 icon = OwmIcons.Location,
                 selected = savedLocation == currentLocation
             )

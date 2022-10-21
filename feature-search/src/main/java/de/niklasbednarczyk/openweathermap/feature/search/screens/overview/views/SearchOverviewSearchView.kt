@@ -104,14 +104,11 @@ private fun SuccessItem(
     location: LocationModelData,
     navigateToLocation: (Double?, Double?) -> Unit
 ) {
-
     Item(
         localizedName = location.localizedName,
         stateAndCountry = location.stateAndCountry,
         modifier = Modifier.clickable {
-            val latitude = location.latitude.roundedValue
-            val longitude = location.longitude.roundedValue
-            navigateToLocation(latitude, longitude)
+            navigateToLocation(location.latitude, location.longitude)
         }
     )
 }
