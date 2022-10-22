@@ -5,5 +5,10 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun SearchOverviewManageView() {
-    Text(text = "Manage") //TODO (#10) Make right design with FindCurrentLocation and SavedLocations
+    // TODO (#10) Add FindCurrentLocation
+
+    // TODO (#10) Add SavedLocations
+
+    // TODO (#10) Make right design
+    Text(text = "Manage")
 }

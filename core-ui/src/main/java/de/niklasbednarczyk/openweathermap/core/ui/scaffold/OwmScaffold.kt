@@ -16,14 +16,18 @@ fun OwmScaffold(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
-        modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .windowInsetsPadding(
-                WindowInsets.safeDrawing.only(
-                    WindowInsetsSides.Horizontal
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            Box(
+                modifier = Modifier.windowInsetsPadding(
+                    WindowInsets.navigationBars.only(
+                        WindowInsetsSides.Horizontal
+                    )
                 )
-            ),
-        topBar = { topBar(scrollBehavior) },
+            ) {
+                topBar(scrollBehavior)
+            }
+        },
         content = { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 content()

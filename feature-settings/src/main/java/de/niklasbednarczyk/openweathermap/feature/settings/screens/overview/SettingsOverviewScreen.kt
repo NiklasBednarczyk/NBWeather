@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
-import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSmallTopAppBar
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmTopAppBar
 
 @Composable
 fun SettingsOverviewScreen(
@@ -19,7 +19,7 @@ fun SettingsOverviewScreen(
 
     OwmScaffold(
         topBar = { scrollBehavior ->
-            OwmSmallTopAppBar(
+            OwmTopAppBar(
                 scrollBehavior = scrollBehavior,
                 navigationIcon = navigationIcon,
                 title = "Settings" //TODO (#15) Do with string resource

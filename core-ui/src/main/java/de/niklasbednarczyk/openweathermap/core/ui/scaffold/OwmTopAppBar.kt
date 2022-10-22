@@ -71,14 +71,14 @@ private val containerColorWithScrolling: Color
     get() = MaterialTheme.colorScheme.surfaceColorAtElevation(topAppBarElevation)
 
 @Composable
-fun OwmSmallTopAppBar(
+fun OwmTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     navigationIcon: @Composable () -> Unit,
     title: String,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     OwmTopAppBarWithStatusBar(scrollBehavior = scrollBehavior) { modifier ->
-        SmallTopAppBar(
+        TopAppBar(
             modifier = modifier,
             scrollBehavior = scrollBehavior,
             navigationIcon = navigationIcon,
