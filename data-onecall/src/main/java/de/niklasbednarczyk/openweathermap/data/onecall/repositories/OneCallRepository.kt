@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
 import de.niklasbednarczyk.openweathermap.core.common.language.LanguageType
-import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteMediator
+import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOfflineMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.remoteName
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.*
@@ -31,7 +31,7 @@ class OneCallRepository @Inject constructor(
         val language = LanguageType.fromLocale()
 
         return object :
-            LocalRemoteMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
+            LocalRemoteOfflineMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
             override fun getLocal(): Flow<OneCallModelLocal?> {
                 return oneCallDao.getOneCall(latitude, longitude)
             }

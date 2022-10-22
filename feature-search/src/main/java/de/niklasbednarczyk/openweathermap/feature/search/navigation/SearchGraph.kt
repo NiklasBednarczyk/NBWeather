@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.Search
 
 fun NavGraphBuilder.searchGraph(
     navigationIconBack: @Composable () -> Unit,
-    navigateToLocation: (Double?, Double?) -> Unit
+    navigateToLocation: (Double, Double) -> Unit
 ) {
     owmComposable(SearchDestinations.Overview) {
         SearchOverviewScreen(

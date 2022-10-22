@@ -6,7 +6,7 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
-abstract class LocalRemoteMediator<Data, Local, Remote> :
+abstract class LocalRemoteOfflineMediator<Data, Local, Remote> :
     LocalMediatorHelper<Data, Local>, RemoteMediatorHelper<Data, Remote> {
 
     protected abstract fun clearLocal(local: Local)

@@ -53,11 +53,9 @@ class OwmNavigator(
         }
     }
 
-    fun navigateToLocation(latitude: Double?, longitude: Double?) {
-        if (latitude != null && longitude != null) {
-            val route = LocationDestinations.Overview.createRoute(latitude, longitude)
-            navigate(LocationDestinations.Overview, route)
-        }
+    fun navigateToLocation(latitude: Double, longitude: Double) {
+        val route = LocationDestinations.Overview.createRoute(latitude, longitude)
+        navigate(LocationDestinations.Overview, route)
     }
 
     fun popBackStack() {

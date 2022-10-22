@@ -29,7 +29,7 @@ fun OwmApp(
         SetupBackPressWithNavigationDrawer(navigator = navigator)
 
         val locationsResource = Resource.combine(
-            uiState.value.savedLocationsResource,
+            uiState.value.visitedLocationsResource,
             uiState.value.currentLocationResource,
             uiState.value.isInitialCurrentLocationSetResource
         )
@@ -38,13 +38,13 @@ fun OwmApp(
             resource = locationsResource
         ) { locations ->
 
-            val savedLocations = locations.first
+            val visitedLocations = locations.first
             val currentLocation = locations.second
             val isInitialCurrentLocationSet = locations.third
 
             OwmNavigationDrawer(
                 navigator = navigator,
-                savedLocations = savedLocations,
+                visitedLocations = visitedLocations,
                 currentLocation = currentLocation
             ) {
                 OwmNavHost(

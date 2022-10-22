@@ -9,8 +9,8 @@ data class LocationModelData(
     private val localNames: LocalNamesModelData?,
     private val country: String?,
     private val state: String?,
-    val latitude: Double?,
-    val longitude: Double?
+    val latitude: Double,
+    val longitude: Double
 ) {
 
     val localizedName: String?
@@ -54,7 +54,9 @@ data class LocationModelData(
         }
 
         internal fun remoteToLocal(
-            remote: LocationModelRemote?, latitude: Double, longitude: Double
+            remote: LocationModelRemote?,
+            latitude: Double,
+            longitude: Double
         ): LocationModelLocal? {
             if (remote == null) return null
             return LocationModelLocal(
@@ -65,6 +67,12 @@ data class LocationModelData(
                 latitude = latitude,
                 longitude = longitude,
             )
+        }
+
+        internal fun remoteListToLocal(remoteList: List<LocationModelRemote>?): List<LocationModelLocal> {
+            return remoteList?.mapNotNull { remote ->
+                remoteToLocal(remote, remote.lat, remote.lon)
+            } ?: emptyList()
         }
 
         internal fun localToData(

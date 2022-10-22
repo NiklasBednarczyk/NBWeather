@@ -14,7 +14,7 @@ import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDe
 @Composable
 fun OwmNavigationDrawer(
     navigator: OwmNavigator,
-    savedLocations: List<LocationModelData>?,
+    visitedLocations: List<LocationModelData>?,
     currentLocation: LocationModelData?,
     content: @Composable () -> Unit
 ) {
@@ -23,7 +23,7 @@ fun OwmNavigationDrawer(
         drawerContent = {
             DrawerSheet(
                 navigator = navigator,
-                savedLocations = savedLocations,
+                visitedLocations = visitedLocations,
                 currentLocation = currentLocation
             )
         },
@@ -35,23 +35,23 @@ fun OwmNavigationDrawer(
 @Composable
 private fun DrawerSheet(
     navigator: OwmNavigator,
-    savedLocations: List<LocationModelData>?,
+    visitedLocations: List<LocationModelData>?,
     currentLocation: LocationModelData?
 ) {
     val closeDrawer = { navigator.closeDrawer() }
 
-    val navigateToLocation: (LocationModelData) -> Unit = { savedLocation ->
-        navigator.navigateToLocation(savedLocation.latitude, savedLocation.longitude)
+    val navigateToLocation: (LocationModelData) -> Unit = { visitedLocation ->
+        navigator.navigateToLocation(visitedLocation.latitude, visitedLocation.longitude)
     }
 
     ModalDrawerSheet {
-        savedLocations?.map { savedLocation ->
+        visitedLocations?.map { visitedLocation ->
             DrawerItem(
                 closeDrawer = closeDrawer,
-                navigateToDestination = { navigateToLocation(savedLocation) },
-                label = savedLocation.localizedNameAndCountry.toStringOrEmpty(),
+                navigateToDestination = { navigateToLocation(visitedLocation) },
+                label = visitedLocation.localizedNameAndCountry.toStringOrEmpty(),
                 icon = OwmIcons.Location,
-                selected = savedLocation == currentLocation
+                selected = visitedLocation == currentLocation
             )
         }
         DrawerItem(

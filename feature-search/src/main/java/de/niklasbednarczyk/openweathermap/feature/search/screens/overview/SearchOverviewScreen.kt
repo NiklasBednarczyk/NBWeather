@@ -14,7 +14,7 @@ import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.
 fun SearchOverviewScreen(
     viewModel: SearchOverviewViewModel = hiltViewModel(),
     navigationIcon: @Composable () -> Unit,
-    navigateToLocation: (Double?, Double?) -> Unit
+    navigateToLocation: (Double, Double) -> Unit
 ) {
 
     val uiState = viewModel.uiState.collectAsState()

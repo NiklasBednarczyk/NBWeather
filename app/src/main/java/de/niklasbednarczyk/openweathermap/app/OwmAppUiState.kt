@@ -4,7 +4,7 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 data class OwmAppUiState(
-    val savedLocationsResource: Resource<List<LocationModelData>?>? = null,
+    val visitedLocationsResource: Resource<List<LocationModelData>?>? = null,
     val currentLocationResource: Resource<LocationModelData?>? = null,
     val isInitialCurrentLocationSetResource: Resource<Boolean>? = null
 )
