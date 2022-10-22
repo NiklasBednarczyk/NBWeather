@@ -7,11 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDrawerDestination
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -43,18 +43,29 @@ class OwmNavigator(
 
         if (destination is OwmNavigationDrawerDestination) {
             navController.navigate(route) {
-                popUpTo(navController.graph.findStartDestination().id) {
-                    inclusive = true
+                val destinationId = navController.findDestination(destination.route)?.id
+                if (navController.backQueue.any { it.destination.id == destinationId }) {
+                    if (destinationId != null) {
+                        popUpTo(destinationId) {
+                            inclusive = true
+                        }
+                    }
+                } else {
+                    val currentDestinationId = navController.currentDestination?.id
+                    if (currentDestinationId != null) {
+                        popUpTo(currentDestinationId) {
+                            inclusive = true
+                        }
+                    }
                 }
-                launchSingleTop = true
             }
         } else {
             navController.navigate(route)
         }
     }
 
-    fun navigateToLocation(latitude: Double, longitude: Double) {
-        val route = LocationDestinations.Overview.createRoute(latitude, longitude)
+    fun navigateToLocation(location: LocationModelData) {
+        val route = LocationDestinations.Overview.createRoute(location.latitude, location.longitude)
         navigate(LocationDestinations.Overview, route)
     }
 

@@ -27,7 +27,7 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelDat
 @Composable
 fun SearchOverviewSearchView(
     searchedLocationsResource: Resource<List<LocationModelData>>?,
-    navigateToLocation: (Double, Double) -> Unit
+    navigateToLocation: (location: LocationModelData) -> Unit
 ) {
 
     ResourceView(
@@ -60,7 +60,7 @@ private fun LoadingView() {
 @Composable
 private fun SuccessView(
     searchedLocations: List<LocationModelData>,
-    navigateToLocation: (Double, Double) -> Unit
+    navigateToLocation: (location: LocationModelData) -> Unit
 ) {
     if (searchedLocations.isEmpty()) {
         SuccessNoResults()
@@ -85,7 +85,7 @@ private fun SuccessNoResults() {
 @Composable
 private fun SuccessList(
     searchedLocations: List<LocationModelData>,
-    navigateToLocation: (Double, Double) -> Unit
+    navigateToLocation: (location: LocationModelData) -> Unit
 ) {
     List {
         items(searchedLocations) { searchedLocation ->
@@ -100,13 +100,13 @@ private fun SuccessList(
 @Composable
 private fun SuccessItem(
     location: LocationModelData,
-    navigateToLocation: (Double, Double) -> Unit
+    navigateToLocation: (location: LocationModelData) -> Unit
 ) {
     Item(
         localizedName = location.localizedName,
         stateAndCountry = location.stateAndCountry,
         modifier = Modifier.clickable {
-            navigateToLocation(location.latitude, location.longitude)
+            navigateToLocation(location)
         }
     )
 }

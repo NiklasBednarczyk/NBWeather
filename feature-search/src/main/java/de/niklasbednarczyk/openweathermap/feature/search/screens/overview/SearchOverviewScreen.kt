@@ -7,6 +7,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSearchTopAppBar
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.SearchOverviewManageView
 import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.SearchOverviewSearchView
 
@@ -14,7 +15,7 @@ import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.
 fun SearchOverviewScreen(
     viewModel: SearchOverviewViewModel = hiltViewModel(),
     navigationIcon: @Composable () -> Unit,
-    navigateToLocation: (Double, Double) -> Unit
+    navigateToLocation: (location: LocationModelData) -> Unit
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
