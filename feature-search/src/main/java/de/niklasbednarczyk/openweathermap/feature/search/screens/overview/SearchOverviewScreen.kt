@@ -7,7 +7,6 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSearchTopAppBar
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.SearchOverviewManageView
 import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.SearchOverviewSearchView
 
@@ -15,7 +14,7 @@ import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.
 fun SearchOverviewScreen(
     viewModel: SearchOverviewViewModel = hiltViewModel(),
     navigationIcon: @Composable () -> Unit,
-    navigateToLocation: (location: LocationModelData) -> Unit
+    navigateToLocation: (Double, Double) -> Unit
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
@@ -29,14 +28,22 @@ fun SearchOverviewScreen(
             topBar = {
                 OwmSearchTopAppBar(
                     searchTerm = uiState.value.searchTerm,
+                    shouldShowLoadingProgress = uiState.value.findingLocationInProgress,
                     navigationIcon = navIcon,
                     onSearchTermChanged = viewModel::onSearchTermChanged,
                     onClearSearchTerm = viewModel::onClearSearchTerm
                 )
-            }
+            },
+            snackbarChannel = viewModel.snackbarChannel
         ) {
             if (uiState.value.searchTerm.isEmpty()) {
-                SearchOverviewManageView()
+                SearchOverviewManageView(
+                    findingLocationInProgress = uiState.value.findingLocationInProgress,
+                    navigateToLocation = navigateToLocation,
+                    onFindCurrentLocationClicked = viewModel::onFindCurrentLocationClicked,
+                    onLocationPermissionResult = viewModel::onLocationPermissionsResult,
+                    onLocationFound = viewModel::onLocationFound
+                )
             } else {
                 SearchOverviewSearchView(
                     searchedLocationsResource = uiState.value.searchedLocationsResource,

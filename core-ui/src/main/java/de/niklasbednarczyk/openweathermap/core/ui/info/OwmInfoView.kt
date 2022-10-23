@@ -14,11 +14,12 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenHorizontalPadding
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenVerticalPadding
+import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmUiText
 
 @Composable
 fun OwmInfoView(
     icon: OwmIconModel,
-    text: String
+    uiText: OwmUiText
 ) {
     Column(
         modifier = Modifier
@@ -35,7 +36,7 @@ fun OwmInfoView(
             icon = icon
         )
         Text(
-            text = text,
+            text = uiText.asString(),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center
         )

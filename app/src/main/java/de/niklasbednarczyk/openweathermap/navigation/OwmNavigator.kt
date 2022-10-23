@@ -11,7 +11,6 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDrawerDestination
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -64,8 +63,8 @@ class OwmNavigator(
         }
     }
 
-    fun navigateToLocation(location: LocationModelData) {
-        val route = LocationDestinations.Overview.createRoute(location.latitude, location.longitude)
+    fun navigateToLocation(latitude: Double, longitude: Double) {
+        val route = LocationDestinations.Overview.createRoute(latitude, longitude)
         navigate(LocationDestinations.Overview, route)
     }
 

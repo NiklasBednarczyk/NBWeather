@@ -47,7 +47,10 @@ private fun DrawerSheet(
                 closeDrawer = closeDrawer,
                 navigateToDestination = {
                     if (!isSelected) {
-                        navigator.navigateToLocation(visitedLocation)
+                        navigator.navigateToLocation(
+                            visitedLocation.latitude,
+                            visitedLocation.longitude
+                        )
                     }
                 },
                 label = visitedLocation.localizedNameAndCountry.toStringOrEmpty(),

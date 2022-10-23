@@ -1,6 +1,11 @@
 package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 
+import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.openweathermap.core.ui.R
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarActionModel
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarModel
+import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import kotlinx.coroutines.flow.*
@@ -12,7 +17,10 @@ class SearchOverviewViewModel @Inject constructor(
 ) : OwmViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
 
     companion object {
-        const val DEBOUNCE_VALUE = 300L
+        private const val DEBOUNCE_VALUE = 300L
+
+        const val LOCATION_PERMISSION_COARSE = android.Manifest.permission.ACCESS_COARSE_LOCATION
+        const val LOCATION_PERMISSION_FINE = android.Manifest.permission.ACCESS_FINE_LOCATION
     }
 
     private val searchTermFlow = MutableStateFlow(uiState.value.searchTerm)
@@ -53,6 +61,74 @@ class SearchOverviewViewModel @Inject constructor(
         }
         updateStateFlow(searchTermFlow) {
             searchTerm
+        }
+    }
+
+    fun onFindCurrentLocationClicked(
+        locationPermissionsState: MultiplePermissionsState
+    ) {
+        val anyPermissionGranted =
+            locationPermissionsState.revokedPermissions.size != locationPermissionsState.permissions.size
+
+        if (anyPermissionGranted) {
+            startFindingLocation()
+        } else {
+            locationPermissionsState.launchMultiplePermissionRequest()
+        }
+
+    }
+
+    fun onLocationPermissionsResult(
+        locationPermissionResult: Map<String, Boolean>
+    ) {
+        val coarsePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_COARSE]
+        val finePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_FINE]
+
+        val anyPermissionGranted = coarsePermissionGranted == true || finePermissionGranted == true
+
+        if (anyPermissionGranted) {
+            startFindingLocation()
+        }
+    }
+
+    fun onLocationFound(
+        type: LocationFoundType
+    ) {
+        stopFindingLocation()
+        when (type) {
+            LocationFoundType.SUCCESS -> {}
+            LocationFoundType.CANCELED -> {
+                val snackbar = OwmSnackbarModel(
+                    message = OwmStringResource(R.string.snackbar_location_found_canceled_message),
+                    action = OwmSnackbarActionModel(
+                        label = OwmStringResource(R.string.snackbar_location_found_canceled_action_label),
+                        onPerformed = { startFindingLocation() }
+                    )
+                )
+                sendSnackbar(snackbar)
+            }
+            LocationFoundType.FAILURE -> {
+                val snackbar = OwmSnackbarModel(
+                    message = OwmStringResource(R.string.snackbar_location_found_failure_message),
+                    action = OwmSnackbarActionModel(
+                        label = OwmStringResource(R.string.snackbar_location_found_failure_action_label),
+                        onPerformed = { startFindingLocation() }
+                    )
+                )
+                sendSnackbar(snackbar)
+            }
+        }
+    }
+
+    private fun startFindingLocation() {
+        updateUiState { oldUiState ->
+            oldUiState.copy(findingLocationInProgress = true)
+        }
+    }
+
+    private fun stopFindingLocation() {
+        updateUiState { oldUiState ->
+            oldUiState.copy(findingLocationInProgress = false)
         }
     }
 

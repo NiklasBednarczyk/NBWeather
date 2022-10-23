@@ -1,12 +1,12 @@
 package de.niklasbednarczyk.openweathermap.core.ui.resource
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.ErrorType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
+import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 
 @Composable
 fun <T> ResourceView(
@@ -46,6 +46,6 @@ private fun ErrorView(type: ErrorType?) {
 
     OwmInfoView(
         icon = icon,
-        text = stringResource(stringResId)
+        uiText = OwmStringResource(stringResId)
     )
 }

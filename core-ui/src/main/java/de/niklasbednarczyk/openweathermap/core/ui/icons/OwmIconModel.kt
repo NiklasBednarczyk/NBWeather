@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.core.ui.icons
 
-import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
+import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmUiText
 
 interface OwmIconModel {
 
@@ -9,7 +9,6 @@ interface OwmIconModel {
 
     val imageVectorOutlined: ImageVector
 
-    @get:StringRes
-    val contentDescriptionResId: Int
+    val contentDescription: OwmUiText
 
 }

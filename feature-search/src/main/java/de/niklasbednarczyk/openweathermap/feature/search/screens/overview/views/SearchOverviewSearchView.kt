@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.ui.R
@@ -22,12 +21,13 @@ import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.strings.toStringOrEmpty
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenHorizontalPadding
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenVerticalPadding
+import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 @Composable
 fun SearchOverviewSearchView(
     searchedLocationsResource: Resource<List<LocationModelData>>?,
-    navigateToLocation: (location: LocationModelData) -> Unit
+    navigateToLocation: (Double, Double) -> Unit
 ) {
 
     ResourceView(
@@ -60,7 +60,7 @@ private fun LoadingView() {
 @Composable
 private fun SuccessView(
     searchedLocations: List<LocationModelData>,
-    navigateToLocation: (location: LocationModelData) -> Unit
+    navigateToLocation: (Double, Double) -> Unit
 ) {
     if (searchedLocations.isEmpty()) {
         SuccessNoResults()
@@ -78,14 +78,14 @@ private fun SuccessView(
 private fun SuccessNoResults() {
     OwmInfoView(
         icon = OwmIcons.Search,
-        text = stringResource(R.string.screen_search_overview_search_no_results)
+        uiText = OwmStringResource(R.string.screen_search_overview_search_no_results)
     )
 }
 
 @Composable
 private fun SuccessList(
     searchedLocations: List<LocationModelData>,
-    navigateToLocation: (location: LocationModelData) -> Unit
+    navigateToLocation: (Double, Double) -> Unit
 ) {
     List {
         items(searchedLocations) { searchedLocation ->
@@ -100,13 +100,13 @@ private fun SuccessList(
 @Composable
 private fun SuccessItem(
     location: LocationModelData,
-    navigateToLocation: (location: LocationModelData) -> Unit
+    navigateToLocation: (Double, Double) -> Unit
 ) {
     Item(
         localizedName = location.localizedName,
         stateAndCountry = location.stateAndCountry,
         modifier = Modifier.clickable {
-            navigateToLocation(location)
+            navigateToLocation(location.latitude, location.longitude)
         }
     )
 }

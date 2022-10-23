@@ -1,12 +1,10 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +21,7 @@ class LocationOverviewViewModel @Inject constructor(
         val longitude = longitudeString?.toDoubleOrNull()
 
         if (latitude != null && longitude != null) {
-            viewModelScope.launch {
+            launchSuspend {
                 geocodingRepository.insertOrUpdateCurrentLocation(latitude, longitude)
             }
         }

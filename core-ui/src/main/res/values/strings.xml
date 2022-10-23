@@ -5,13 +5,20 @@
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
     <string name="icon_content_description_drawer">Drawer</string>
+    <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_error_no_internet">No internet</string>
     <string name="icon_content_description_error_unknown">Error</string>
     <string name="icon_content_description_location">Location</string>
     <string name="icon_content_description_search">Search</string>
     <string name="icon_content_description_settings">Settings</string>
 
+    <string name="screen_search_overview_manage_find_current_location">Find current location</string>
     <string name="screen_search_overview_search_no_results">No locations found</string>
+
+    <string name="snackbar_location_found_canceled_message">Location request was canceled</string>
+    <string name="snackbar_location_found_canceled_action_label">Try again</string>
+    <string name="snackbar_location_found_failure_message">Location request failed</string>
+    <string name="snackbar_location_found_failure_action_label">Try again</string>
 
     <string name="top_app_bar_search_placeholder">Search</string>
 

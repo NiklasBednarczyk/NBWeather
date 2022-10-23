@@ -35,7 +35,8 @@ fun LocationOverviewScreen(
                         )
                     }
                 )
-            }
+            },
+            snackbarChannel = viewModel.snackbarChannel
         ) {
         }
     }

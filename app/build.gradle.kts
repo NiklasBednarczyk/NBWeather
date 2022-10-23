@@ -38,6 +38,7 @@ dependencies {
     implementation(project(":core-ui"))
 
     implementation(project(":data-geocoding"))
+    implementation(project(":data-settings"))
 
     implementation(project(":feature-location"))
     implementation(project(":feature-search"))
