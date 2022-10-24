@@ -12,6 +12,7 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.remote.services.Geocodi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -57,7 +58,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    fun getCurrentLocation(): Flow<Resource<LocationModelData?>> {
+    fun getCurrentLocationNullable(): Flow<Resource<LocationModelData?>> {
         return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
                 return geocodingDao.getCurrentLocation()
@@ -70,8 +71,25 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
+    fun getCurrentLocation(): Flow<Resource<LocationModelData>> {
+        return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
+            override fun getLocal(): Flow<LocationModelLocal?> {
+                return geocodingDao.getCurrentLocation()
+            }
+
+            override fun localToData(local: LocationModelLocal?): LocationModelData? {
+                return LocationModelData.localToData(local)
+            }
+
+        }().map { currentLocationResource -> 
+            currentLocationResource.map { oldData ->
+                oldData
+            }
+        }
+    }
+
     fun getIsInitialCurrentLocationSet(): Flow<Resource<Boolean>> {
-        return getCurrentLocation().transformWhile { resource ->
+        return getCurrentLocationNullable().transformWhile { resource ->
             val newResource = resource.map { oldData ->
                 oldData != null
             }

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
-import de.niklasbednarczyk.openweathermap.core.ui.strings.toStringOrEmpty
+import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
 
@@ -53,7 +53,7 @@ private fun DrawerSheet(
                         )
                     }
                 },
-                label = visitedLocation.localizedNameAndCountry.toStringOrEmpty(),
+                label = visitedLocation.localizedNameAndCountry.asString(),
                 icon = OwmIcons.Location,
                 selected = isSelected
             )

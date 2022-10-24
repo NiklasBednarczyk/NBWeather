@@ -16,6 +16,7 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
         }
 
         dependencies {
+            implementation(project(":core-common"))
             implementation(project(":core-data-disk"))
             implementation(project(":core-data-localremote"))
 

@@ -12,7 +12,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.ui.compositions.settings.OwmLocalSettings
 import de.niklasbednarczyk.openweathermap.core.ui.compositions.settings.OwmSettingsModel
-import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
+import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.data.settings.models.units.SettingsUnitsModelData
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawer
@@ -41,7 +41,7 @@ fun OwmApp(
                 uiState.value.isInitialCurrentLocationSetResource
             )
 
-            ResourceView(
+            OwmResourceView(
                 resource = locationsResource
             ) { locations ->
 

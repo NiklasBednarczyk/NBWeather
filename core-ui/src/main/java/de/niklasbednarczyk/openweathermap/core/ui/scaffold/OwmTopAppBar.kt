@@ -19,13 +19,14 @@ import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.icons.emptyIcon
+import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.OwmTextSingleLine
 import de.niklasbednarczyk.openweathermap.core.ui.theme.topAppBarElevation
-import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 
 
 @Composable
@@ -145,7 +146,7 @@ fun OwmSearchTopAppBar(
     val placeholder =
         @Composable {
             Text(
-                text = OwmStringResource(R.string.top_app_bar_search_placeholder).asString()
+                text = OwmString.Resource(R.string.top_app_bar_search_placeholder).asString()
             )
         }
 

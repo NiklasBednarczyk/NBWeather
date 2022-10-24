@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.models
 
-import de.niklasbednarczyk.openweathermap.core.common.language.LanguageType
+import de.niklasbednarczyk.openweathermap.core.common.language.OwmLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 
@@ -13,28 +14,35 @@ data class LocationModelData(
     val longitude: Double
 ) {
 
-    val localizedName: String?
+    val localizedName: OwmString.Value?
         get() {
-            val localName = when (LanguageType.fromLocale()) {
-                LanguageType.DE -> localNames?.de
-                LanguageType.EN -> localNames?.en
+            val localName = when (OwmLanguageType.fromLocale()) {
+                OwmLanguageType.DE -> localNames?.de
+                OwmLanguageType.EN -> localNames?.en
             }
-            return localName ?: name
+            val value = localName ?: name
+            return OwmString.Value.from(value)
         }
 
-    val stateAndCountry: String?
+    val stateAndCountry: OwmString.Value?
         get() {
-            return when {
+            val value = when {
                 state != null && country != null -> "$state, $country"
                 state == null && country != null -> country
                 else -> null
             }
+            return OwmString.Value.from(value)
         }
 
-    val localizedNameAndCountry: String?
+    val localizedNameAndCountry: OwmString.Value?
         get() {
-            if (country == null || localizedName == null) return null
-            return "$localizedName, $country"
+            val localName = localizedName
+            val value = if (country == null || localName == null) {
+                null
+            } else {
+                "${localName.value}, $country"
+            }
+            return OwmString.Value.from(value)
         }
 
     companion object {

@@ -10,16 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
+import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenHorizontalPadding
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenVerticalPadding
-import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmUiText
 
 @Composable
 fun OwmInfoView(
     icon: OwmIconModel,
-    uiText: OwmUiText
+    text: OwmString
 ) {
     Column(
         modifier = Modifier
@@ -36,7 +37,7 @@ fun OwmInfoView(
             icon = icon
         )
         Text(
-            text = uiText.asString(),
+            text = text.asString(),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center
         )

@@ -1,10 +1,10 @@
 package de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions
 
-import de.niklasbednarczyk.openweathermap.core.common.language.LanguageType
+import de.niklasbednarczyk.openweathermap.core.common.language.OwmLanguageType
 
-val LanguageType.remoteName: String
+val OwmLanguageType.remoteName: String
     get() = when (this) {
-        LanguageType.DE -> "de"
-        LanguageType.EN -> "en"
+        OwmLanguageType.DE -> "de"
+        OwmLanguageType.EN -> "en"
     }
 

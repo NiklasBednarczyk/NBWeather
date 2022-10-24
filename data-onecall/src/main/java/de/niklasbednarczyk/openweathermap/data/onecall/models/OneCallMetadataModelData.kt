@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.common.language.LanguageType
+import de.niklasbednarczyk.openweathermap.core.common.language.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.OneCallModelRemote
 
@@ -14,7 +14,7 @@ data class OneCallMetadataModelData(
             remote: OneCallModelRemote,
             latitude: Double,
             longitude: Double,
-            language: LanguageType
+            language: OwmLanguageType
         ): OneCallMetadataEntityLocal {
             return OneCallMetadataEntityLocal(
                 language = language,

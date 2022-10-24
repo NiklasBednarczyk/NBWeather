@@ -12,16 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
 import de.niklasbednarczyk.openweathermap.core.ui.modifier.owmPlaceholder
-import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
-import de.niklasbednarczyk.openweathermap.core.ui.strings.toStringOrEmpty
+import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
+import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenHorizontalPadding
 import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenVerticalPadding
-import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 @Composable
@@ -30,7 +30,7 @@ fun SearchOverviewSearchView(
     navigateToLocation: (Double, Double) -> Unit
 ) {
 
-    ResourceView(
+    OwmResourceView(
         resource = searchedLocationsResource,
         nullContent = {
             LoadingView()
@@ -78,7 +78,7 @@ private fun SuccessView(
 private fun SuccessNoResults() {
     OwmInfoView(
         icon = OwmIcons.Search,
-        uiText = OwmStringResource(R.string.screen_search_overview_search_no_results)
+        text = OwmString.Resource(R.string.screen_search_overview_search_no_results)
     )
 }
 
@@ -146,8 +146,8 @@ private val itemShape: Shape
 @Composable
 private fun Item(
     modifier: Modifier,
-    localizedName: String?,
-    stateAndCountry: String?
+    localizedName: OwmString?,
+    stateAndCountry: OwmString?
 ) {
     Column(
         modifier = Modifier
@@ -157,12 +157,12 @@ private fun Item(
             .padding(8.dp)
     ) {
         Text(
-            text = localizedName.toStringOrEmpty(),
+            text = localizedName.asString(),
             style = MaterialTheme.typography.titleSmall
 
         )
         Text(
-            text = stateAndCountry.toStringOrEmpty(),
+            text = stateAndCountry.asString(),
             style = MaterialTheme.typography.bodyMedium
         )
     }

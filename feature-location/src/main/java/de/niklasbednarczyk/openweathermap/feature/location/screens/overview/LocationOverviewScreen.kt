@@ -5,10 +5,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
-import de.niklasbednarczyk.openweathermap.core.ui.resource.ResourceView
+import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmCenterAlignedTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
-import de.niklasbednarczyk.openweathermap.core.ui.strings.toStringOrEmpty
+import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 
 @Composable
 fun LocationOverviewScreen(
@@ -19,7 +19,8 @@ fun LocationOverviewScreen(
 
     val uiState = viewModel.uiState.collectAsState()
 
-    ResourceView(
+
+    OwmResourceView(
         resource = uiState.value.locationResource
     ) { location ->
         OwmScaffold(
@@ -27,7 +28,7 @@ fun LocationOverviewScreen(
                 OwmCenterAlignedTopAppBar(
                     scrollBehavior = scrollBehavior,
                     navigationIcon = navigationIcon,
-                    title = location?.localizedNameAndCountry.toStringOrEmpty(),
+                    title = location.localizedNameAndCountry.asString(),
                     actions = {
                         OwmIconButton(
                             icon = OwmIcons.Search,

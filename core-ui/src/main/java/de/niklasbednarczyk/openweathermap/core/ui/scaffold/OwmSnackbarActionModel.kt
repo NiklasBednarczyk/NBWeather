@@ -1,8 +1,8 @@
 package de.niklasbednarczyk.openweathermap.core.ui.scaffold
 
-import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmUiText
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 
 data class OwmSnackbarActionModel(
-    val label: OwmUiText,
+    val label: OwmString,
     val onPerformed: () -> Unit
 )

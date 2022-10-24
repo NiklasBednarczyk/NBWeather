@@ -4,21 +4,27 @@ sealed interface Resource<out T> {
     data class Success<T>(val data: T) : Resource<T>
     data class Error(val type: ErrorType? = null) : Resource<Nothing>
     object Loading : Resource<Nothing>
-    
+
     fun <R> map(
-        mapData: (oldData: T) -> R
+        mapData: (oldData: T) -> R?
     ): Resource<R> {
         return when (this) {
             is Loading -> Loading
             is Error -> Error(type)
-            is Success -> Success(mapData(data))
+            is Success -> {
+                val newData = mapData(data)
+                if (newData != null) {
+                    Success(newData)
+                } else {
+                    Error()
+                }
+            }
         }
     }
 
     companion object {
         fun <T1, T2> combine(
-            resource1: Resource<T1>?,
-            resource2: Resource<T2>?
+            resource1: Resource<T1>?, resource2: Resource<T2>?
         ): Resource<Pair<T1, T2>>? {
             return when {
                 resource1 is Success && resource2 is Success -> Success(

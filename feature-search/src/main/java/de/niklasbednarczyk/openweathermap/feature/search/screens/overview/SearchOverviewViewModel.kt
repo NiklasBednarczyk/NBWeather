@@ -2,10 +2,10 @@ package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 
 import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarActionModel
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarModel
-import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GmsLocationRepository
@@ -29,7 +29,7 @@ class SearchOverviewViewModel @Inject constructor(
 
     init {
         collectFlow(
-            { geocodingRepository.getCurrentLocation() },
+            { geocodingRepository.getCurrentLocationNullable() },
             { oldUiState, output -> oldUiState.copy(currentLocationResource = output) }
         )
 
@@ -111,9 +111,9 @@ class SearchOverviewViewModel @Inject constructor(
             onCanceled = {
                 stopFindingLocation()
                 val snackbar = OwmSnackbarModel(
-                    message = OwmStringResource(R.string.snackbar_location_found_canceled_message),
+                    message = OwmString.Resource(R.string.snackbar_location_found_canceled_message),
                     action = OwmSnackbarActionModel(
-                        label = OwmStringResource(R.string.snackbar_location_found_canceled_action_label),
+                        label = OwmString.Resource(R.string.snackbar_location_found_canceled_action_label),
                         onPerformed = { startFindingLocation() }
                     )
                 )
@@ -122,9 +122,9 @@ class SearchOverviewViewModel @Inject constructor(
             onFailure = {
                 stopFindingLocation()
                 val snackbar = OwmSnackbarModel(
-                    message = OwmStringResource(R.string.snackbar_location_found_failure_message),
+                    message = OwmString.Resource(R.string.snackbar_location_found_failure_message),
                     action = OwmSnackbarActionModel(
-                        label = OwmStringResource(R.string.snackbar_location_found_failure_action_label),
+                        label = OwmString.Resource(R.string.snackbar_location_found_failure_action_label),
                         onPerformed = { startFindingLocation() }
                     )
                 )
