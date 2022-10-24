@@ -2,6 +2,7 @@ package de.niklasbednarczyk.openweathermap.app
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
@@ -41,23 +42,25 @@ fun OwmApp(
                 uiState.value.isInitialCurrentLocationSetResource
             )
 
-            OwmResourceView(
-                resource = locationsResource
-            ) { locations ->
+            Surface {
+                OwmResourceView(
+                    resource = locationsResource
+                ) { locations ->
 
-                val visitedLocations = locations.first
-                val currentLocation = locations.second
-                val isInitialCurrentLocationSet = locations.third
+                    val visitedLocations = locations.first
+                    val currentLocation = locations.second
+                    val isInitialCurrentLocationSet = locations.third
 
-                OwmNavigationDrawer(
-                    navigator = navigator,
-                    visitedLocations = visitedLocations,
-                    currentLocation = currentLocation
-                ) {
-                    OwmNavHost(
+                    OwmNavigationDrawer(
                         navigator = navigator,
-                        isInitialCurrentLocationSet = isInitialCurrentLocationSet
-                    )
+                        visitedLocations = visitedLocations,
+                        currentLocation = currentLocation
+                    ) {
+                        OwmNavHost(
+                            navigator = navigator,
+                            isInitialCurrentLocationSet = isInitialCurrentLocationSet
+                        )
+                    }
                 }
             }
         }
