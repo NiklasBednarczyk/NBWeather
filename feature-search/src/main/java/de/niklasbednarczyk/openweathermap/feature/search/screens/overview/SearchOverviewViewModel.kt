@@ -8,12 +8,14 @@ import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarModel
 import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
+import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GmsLocationRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchOverviewViewModel @Inject constructor(
-    private val geocodingRepository: GeocodingRepository
+    private val geocodingRepository: GeocodingRepository,
+    private val gmsLocationRepository: GmsLocationRepository
 ) : OwmViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
 
     companion object {
@@ -46,6 +48,10 @@ class SearchOverviewViewModel @Inject constructor(
             },
             { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
         )
+
+        updateUiState { oldUiState ->
+            oldUiState.copy(shouldShowFindLocation = gmsLocationRepository.isGooglePlayServiceAvailable)
+        }
     }
 
     fun onClearSearchTerm() {
@@ -65,13 +71,14 @@ class SearchOverviewViewModel @Inject constructor(
     }
 
     fun onFindCurrentLocationClicked(
-        locationPermissionsState: MultiplePermissionsState
+        locationPermissionsState: MultiplePermissionsState,
+        onSuccess: (Double, Double) -> Unit
     ) {
         val anyPermissionGranted =
             locationPermissionsState.revokedPermissions.size != locationPermissionsState.permissions.size
 
         if (anyPermissionGranted) {
-            startFindingLocation()
+            getCurrentLocation(onSuccess)
         } else {
             locationPermissionsState.launchMultiplePermissionRequest()
         }
@@ -79,7 +86,8 @@ class SearchOverviewViewModel @Inject constructor(
     }
 
     fun onLocationPermissionsResult(
-        locationPermissionResult: Map<String, Boolean>
+        locationPermissionResult: Map<String, Boolean>,
+        onSuccess: (Double, Double) -> Unit
     ) {
         val coarsePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_COARSE]
         val finePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_FINE]
@@ -87,17 +95,21 @@ class SearchOverviewViewModel @Inject constructor(
         val anyPermissionGranted = coarsePermissionGranted == true || finePermissionGranted == true
 
         if (anyPermissionGranted) {
-            startFindingLocation()
+            getCurrentLocation(onSuccess)
         }
     }
 
-    fun onLocationFound(
-        type: LocationFoundType
+    private fun getCurrentLocation(
+        onSuccess: (Double, Double) -> Unit
     ) {
-        stopFindingLocation()
-        when (type) {
-            LocationFoundType.SUCCESS -> {}
-            LocationFoundType.CANCELED -> {
+        startFindingLocation()
+        gmsLocationRepository.getCurrentLocation(
+            onSuccess = { latitude, longitude ->
+                stopFindingLocation()
+                onSuccess(latitude, longitude)
+            },
+            onCanceled = {
+                stopFindingLocation()
                 val snackbar = OwmSnackbarModel(
                     message = OwmStringResource(R.string.snackbar_location_found_canceled_message),
                     action = OwmSnackbarActionModel(
@@ -106,8 +118,9 @@ class SearchOverviewViewModel @Inject constructor(
                     )
                 )
                 sendSnackbar(snackbar)
-            }
-            LocationFoundType.FAILURE -> {
+            },
+            onFailure = {
+                stopFindingLocation()
                 val snackbar = OwmSnackbarModel(
                     message = OwmStringResource(R.string.snackbar_location_found_failure_message),
                     action = OwmSnackbarActionModel(
@@ -117,7 +130,7 @@ class SearchOverviewViewModel @Inject constructor(
                 )
                 sendSnackbar(snackbar)
             }
-        }
+        )
     }
 
     private fun startFindingLocation() {

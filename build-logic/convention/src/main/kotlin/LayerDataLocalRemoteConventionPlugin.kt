@@ -10,6 +10,7 @@ class LayerDataLocalRemoteConventionPlugin : OwmConventionPlugin {
             implementation(project(":core-data-localremote-local"))
             implementation(project(":core-data-localremote-remote"))
 
+            implementation(libs.getLibrary("com.google.android.gms.playServicesLocation"))
             implementation(libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesCore"))
         }
     }

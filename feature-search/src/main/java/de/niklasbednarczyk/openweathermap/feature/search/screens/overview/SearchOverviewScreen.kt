@@ -38,11 +38,13 @@ fun SearchOverviewScreen(
         ) {
             if (uiState.value.searchTerm.isEmpty()) {
                 SearchOverviewManageView(
-                    findingLocationInProgress = uiState.value.findingLocationInProgress,
-                    navigateToLocation = navigateToLocation,
-                    onFindCurrentLocationClicked = viewModel::onFindCurrentLocationClicked,
-                    onLocationPermissionResult = viewModel::onLocationPermissionsResult,
-                    onLocationFound = viewModel::onLocationFound
+                    shouldShowFindLocation = uiState.value.shouldShowFindLocation,
+                    onFindCurrentLocationClicked = { state ->
+                        viewModel.onFindCurrentLocationClicked(state, navigateToLocation)
+                    },
+                    onLocationPermissionResult = { map ->
+                        viewModel.onLocationPermissionsResult(map, navigateToLocation)
+                    },
                 )
             } else {
                 SearchOverviewSearchView(
