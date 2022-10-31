@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.ui.modifier
+package de.niklasbednarczyk.openweathermap.core.ui.placeholder
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -14,7 +14,7 @@ fun Modifier.owmPlaceholder(shape: Shape): Modifier = composed {
     this.placeholder(
         visible = true,
         highlight = PlaceholderHighlight.fade(),
-        color = MaterialTheme.colorScheme.secondaryContainer,
+        color = MaterialTheme.colorScheme.surfaceVariant,
         shape = shape
     )
 }

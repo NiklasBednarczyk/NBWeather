@@ -1,27 +1,26 @@
 package de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.unit.dp
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
-import de.niklasbednarczyk.openweathermap.core.ui.modifier.owmPlaceholder
+import de.niklasbednarczyk.openweathermap.core.ui.placeholder.owmPlaceholder
 import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenHorizontalPadding
-import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenVerticalPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.placeholderTextShape
+import de.niklasbednarczyk.openweathermap.core.ui.theme.placeholderVerticalPadding
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 @Composable
@@ -105,7 +104,7 @@ private fun SuccessItem(
     Item(
         localizedName = location.localizedName,
         stateAndCountry = location.stateAndCountry,
-        modifier = Modifier.clickable {
+        itemModifier = Modifier.clickable {
             navigateToLocation(location.latitude, location.longitude)
         }
     )
@@ -116,10 +115,18 @@ private fun SuccessItem(
 
 @Composable
 private fun LoadingItem() {
+    val placeholderModifier = Modifier.owmPlaceholder(placeholderTextShape)
+
     Item(
-        modifier = Modifier.owmPlaceholder(itemShape),
         localizedName = null,
-        stateAndCountry = null
+        stateAndCountry = null,
+        headlineModifier = Modifier
+            .fillMaxWidth(0.6f)
+            .padding(bottom = placeholderVerticalPadding)
+            .then(placeholderModifier),
+        supportingTextModifier = Modifier
+            .fillMaxWidth(0.5f)
+            .then(placeholderModifier)
     )
 }
 
@@ -130,40 +137,32 @@ private fun List(
     content: LazyListScope.() -> Unit
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(
-            horizontal = defaultScreenHorizontalPadding,
-            vertical = defaultScreenVerticalPadding
-        ),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = listContentPadding,
         content = content
     )
 }
 
-private val itemShape: Shape
-    @Composable
-    get() = MaterialTheme.shapes.extraSmall
-
 @Composable
 private fun Item(
-    modifier: Modifier,
+    itemModifier: Modifier = Modifier,
+    headlineModifier: Modifier = Modifier,
+    supportingTextModifier: Modifier = Modifier,
     localizedName: OwmString?,
     stateAndCountry: OwmString?
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(itemShape)
-            .then(modifier)
-            .padding(8.dp)
-    ) {
-        Text(
-            text = localizedName.asString(),
-            style = MaterialTheme.typography.titleSmall
-
-        )
-        Text(
-            text = stateAndCountry.asString(),
-            style = MaterialTheme.typography.bodyMedium
-        )
-    }
+    ListItem(
+        modifier = itemModifier,
+        headlineText = {
+            Text(
+                modifier = headlineModifier,
+                text = localizedName.asString()
+            )
+        },
+        supportingText = {
+            Text(
+                modifier = supportingTextModifier,
+                text = stateAndCountry.asString()
+            )
+        },
+    )
 }

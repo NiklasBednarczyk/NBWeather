@@ -9,11 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
+import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.buttonPaddingBetweenElements
-import de.niklasbednarczyk.openweathermap.core.ui.uitext.OwmStringResource
 import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.SearchOverviewViewModel
 
 @Composable
@@ -61,7 +62,7 @@ private fun FindCurrentLocation(
             )
             Spacer(modifier = Modifier.width(buttonPaddingBetweenElements))
             Text(
-                text = OwmStringResource(R.string.screen_search_overview_manage_find_current_location).asString()
+                text = OwmString.Resource(R.string.screen_search_overview_manage_find_current_location).asString()
             )
         }
     }
