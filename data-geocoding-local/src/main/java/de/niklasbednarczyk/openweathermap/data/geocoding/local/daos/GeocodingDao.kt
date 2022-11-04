@@ -13,7 +13,7 @@ interface GeocodingDao {
     @Query("SELECT * FROM locationmodellocal WHERE lastVisitedTimestampEpochSeconds IS NOT NULL ORDER BY lastVisitedTimestampEpochSeconds")
     fun getVisitedLocations(): Flow<List<LocationModelLocal>?>
 
-    @Query("SELECT * FROM locationmodellocal ORDER BY lastVisitedTimestampEpochSeconds DESC LIMIT 1")
+    @Query("SELECT * FROM locationmodellocal WHERE lastVisitedTimestampEpochSeconds IS NOT NULL ORDER BY lastVisitedTimestampEpochSeconds DESC LIMIT 1")
     fun getCurrentLocation(): Flow<LocationModelLocal?>
 
     @Update
