@@ -3,6 +3,10 @@ package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.permissions.MultiplePermissionsState
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
+import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
@@ -20,9 +24,10 @@ fun SearchOverviewScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     OwmResourceView(
-        resource = uiState.value.currentLocationResource
-    ) { currentLocation ->
-        val navIcon = if (currentLocation != null) navigationIcon else emptyIcon
+        resource = uiState.value.visitedLocationsInformationResource
+    ) { visitedLocationsInformation ->
+        val navIcon =
+            if (visitedLocationsInformation.currentLocation != null) navigationIcon else emptyIcon
 
         OwmScaffold(
             topBar = {
@@ -30,6 +35,17 @@ fun SearchOverviewScreen(
                     searchTerm = uiState.value.searchTerm,
                     shouldShowLoadingProgress = uiState.value.findingLocationInProgress,
                     navigationIcon = navIcon,
+                    trailingIconWhenEmpty = {
+                        FindCurrentLocation(
+                            shouldShowFindLocation = uiState.value.shouldShowFindLocation,
+                            onFindCurrentLocationClicked = { state ->
+                                viewModel.onFindCurrentLocationClicked(state, navigateToLocation)
+                            },
+                            onLocationPermissionResult = { map ->
+                                viewModel.onLocationPermissionsResult(map, navigateToLocation)
+                            }
+                        )
+                    },
                     onSearchTermChanged = viewModel::onSearchTermChanged,
                     onClearSearchTerm = viewModel::onClearSearchTerm
                 )
@@ -38,13 +54,9 @@ fun SearchOverviewScreen(
         ) {
             if (uiState.value.searchTerm.isEmpty()) {
                 SearchOverviewManageView(
-                    shouldShowFindLocation = uiState.value.shouldShowFindLocation,
-                    onFindCurrentLocationClicked = { state ->
-                        viewModel.onFindCurrentLocationClicked(state, navigateToLocation)
-                    },
-                    onLocationPermissionResult = { map ->
-                        viewModel.onLocationPermissionsResult(map, navigateToLocation)
-                    },
+                    visitedLocations = visitedLocationsInformation.visitedLocations,
+                    findingLocationInProgress = uiState.value.findingLocationInProgress,
+                    navigateToLocation = navigateToLocation,
                 )
             } else {
                 SearchOverviewSearchView(
@@ -56,5 +68,31 @@ fun SearchOverviewScreen(
 
     }
 
+
+}
+
+@Composable
+private fun FindCurrentLocation(
+    shouldShowFindLocation: Boolean,
+    onFindCurrentLocationClicked: (MultiplePermissionsState) -> Unit,
+    onLocationPermissionResult: (Map<String, Boolean>) -> Unit,
+) {
+
+    val locationPermissionsState = rememberMultiplePermissionsState(
+        listOf(
+            SearchOverviewViewModel.LOCATION_PERMISSION_COARSE,
+            SearchOverviewViewModel.LOCATION_PERMISSION_FINE
+        ),
+        onLocationPermissionResult
+    )
+
+    if (shouldShowFindLocation) {
+        OwmIconButton(
+            icon = OwmIcons.FindLocation,
+            onClick = { onFindCurrentLocationClicked(locationPermissionsState) }
+        )
+    } else {
+        emptyIcon()
+    }
 
 }

@@ -12,7 +12,6 @@
     <string name="icon_content_description_search">Search</string>
     <string name="icon_content_description_settings">Settings</string>
 
-    <string name="screen_search_overview_manage_find_current_location">Find current location</string>
     <string name="screen_search_overview_search_no_results">No locations found</string>
 
     <string name="snackbar_location_found_canceled_message">Location request was canceled</string>

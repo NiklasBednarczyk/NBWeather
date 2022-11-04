@@ -122,13 +122,14 @@ fun OwmCenterAlignedTopAppBar(
 fun OwmSearchTopAppBar(
     searchTerm: String,
     navigationIcon: @Composable () -> Unit,
+    trailingIconWhenEmpty: @Composable () -> Unit = emptyIcon,
     onSearchTermChanged: (String) -> Unit,
     onClearSearchTerm: () -> Unit,
     shouldShowLoadingProgress: Boolean? = null
 ) {
 
     val trailingIcon = if (searchTerm.isEmpty()) {
-        emptyIcon
+        trailingIconWhenEmpty
     } else {
         {
             OwmIconButton(

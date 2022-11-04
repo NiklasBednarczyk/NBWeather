@@ -1,70 +1,54 @@
 package de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.google.accompanist.permissions.MultiplePermissionsState
-import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.ui.R
-import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
-import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.buttonPaddingBetweenElements
-import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.SearchOverviewViewModel
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPadding
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 @Composable
 fun SearchOverviewManageView(
-    shouldShowFindLocation: Boolean,
-    onFindCurrentLocationClicked: (MultiplePermissionsState) -> Unit,
-    onLocationPermissionResult: (Map<String, Boolean>) -> Unit,
+    visitedLocations: List<LocationModelData>,
+    findingLocationInProgress: Boolean,
+    navigateToLocation: (Double, Double) -> Unit
 ) {
+    // TODO (#10) Add SwipeToDismiss (Delete)
 
-    FindCurrentLocation(
-        shouldShowFindLocation = shouldShowFindLocation,
-        onFindCurrentLocationClicked = onFindCurrentLocationClicked,
-        onLocationPermissionResult = onLocationPermissionResult,
-    )
+    // TODO (#10) Add DragAndReorder (Order change)
 
-
-    // TODO (#10) Add VisitedLocation
-
-    // TODO (#10) Make right design
-
-}
-
-@Composable
-private fun FindCurrentLocation(
-    shouldShowFindLocation: Boolean,
-    onFindCurrentLocationClicked: (MultiplePermissionsState) -> Unit,
-    onLocationPermissionResult: (Map<String, Boolean>) -> Unit,
-) {
-
-    val locationPermissionsState = rememberMultiplePermissionsState(
-        listOf(
-            SearchOverviewViewModel.LOCATION_PERMISSION_COARSE,
-            SearchOverviewViewModel.LOCATION_PERMISSION_FINE
-        ),
-        onLocationPermissionResult
-    )
-
-    if (shouldShowFindLocation) {
-        OutlinedButton(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = { onFindCurrentLocationClicked(locationPermissionsState) }
-        ) {
-            OwmIcon(
-                icon = OwmIcons.FindLocation
-            )
-            Spacer(modifier = Modifier.width(buttonPaddingBetweenElements))
-            Text(
-                text = OwmString.Resource(R.string.screen_search_overview_manage_find_current_location).asString()
+    LazyColumn(
+        contentPadding = listContentPadding
+    ) {
+        items(visitedLocations) { visitedLocation ->
+            VisitedLocation(
+                visitedLocation = visitedLocation,
+                findingLocationInProgress = findingLocationInProgress,
+                navigateToLocation = navigateToLocation
             )
         }
     }
+}
 
+@Composable
+private fun VisitedLocation(
+    visitedLocation: LocationModelData,
+    findingLocationInProgress: Boolean,
+    navigateToLocation: (Double, Double) -> Unit
+) {
+    val itemModifier = if (findingLocationInProgress) {
+        Modifier
+    } else {
+        Modifier.clickable {
+            navigateToLocation(visitedLocation.latitude, visitedLocation.longitude)
+        }
+    }
+
+    ListItem(modifier = itemModifier, headlineText = {
+        Text(text = visitedLocation.localizedNameAndCountry.asString())
+    })
 }

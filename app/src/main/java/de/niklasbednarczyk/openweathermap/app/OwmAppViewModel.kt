@@ -14,13 +14,8 @@ class OwmAppViewModel @Inject constructor(
 
     init {
         collectFlow(
-            { geocodingRepository.getVisitedLocations() },
-            { oldUiState, output -> oldUiState.copy(visitedLocationsResource = output) }
-        )
-
-        collectFlow(
-            { geocodingRepository.getCurrentLocationNullable() },
-            { oldUiState, output -> oldUiState.copy(currentLocationResource = output) }
+            { geocodingRepository.getVisitedLocationsInformation() },
+            { oldUiState, output -> oldUiState.copy(visitedLocationsInformationResource = output) }
         )
 
         collectFlow(

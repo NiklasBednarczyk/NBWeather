@@ -23,13 +23,17 @@ sealed interface Resource<out T> {
     }
 
     companion object {
-        fun <T1, T2> combine(
-            resource1: Resource<T1>?, resource2: Resource<T2>?
-        ): Resource<Pair<T1, T2>>? {
+
+        fun <T1, T2, T3> merge(
+            resource1: Resource<T1>?,
+            resource2: Resource<T2>?,
+            transformData: (data1: T1, data2: T2) -> T3
+        ): Resource<T3>? {
             return when {
-                resource1 is Success && resource2 is Success -> Success(
-                    Pair(resource1.data, resource2.data)
-                )
+                resource1 is Success && resource2 is Success -> {
+                    val newData = transformData(resource1.data, resource2.data)
+                    Success(newData)
+                }
                 resource1 is Error -> Error(resource1.type)
                 resource2 is Error -> Error(resource2.type)
                 resource1 is Loading || resource2 is Loading -> Loading
@@ -37,22 +41,18 @@ sealed interface Resource<out T> {
             }
         }
 
-        fun <T1, T2, T3> combine(
+        fun <T1, T2> combine(
             resource1: Resource<T1>?,
-            resource2: Resource<T2>?,
-            resource3: Resource<T3>?,
-        ): Resource<Triple<T1, T2, T3>>? {
-            return when {
-                resource1 is Success && resource2 is Success && resource3 is Success -> Success(
-                    Triple(resource1.data, resource2.data, resource3.data)
-                )
-                resource1 is Error -> Error(resource1.type)
-                resource2 is Error -> Error(resource2.type)
-                resource3 is Error -> Error(resource3.type)
-                resource1 is Loading || resource2 is Loading || resource3 is Loading -> Loading
-                else -> null
+            resource2: Resource<T2>?
+        ): Resource<Pair<T1, T2>>? {
+            return merge(
+                resource1,
+                resource2
+            ) { data1, data2 ->
+                Pair(data1, data2)
             }
         }
+
     }
 
 }

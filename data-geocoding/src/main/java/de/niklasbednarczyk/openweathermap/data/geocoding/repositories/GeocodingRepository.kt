@@ -7,13 +7,11 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.daos.GeocodingDao
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocationsInformationModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.services.GeocodingService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transformWhile
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -45,7 +43,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    fun getVisitedLocations(): Flow<Resource<List<LocationModelData>?>> {
+    private fun getVisitedLocations(): Flow<Resource<List<LocationModelData>?>> {
         return object : LocalMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
             override fun getLocal(): Flow<List<LocationModelLocal>?> {
                 return geocodingDao.getVisitedLocations()
@@ -58,7 +56,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    fun getCurrentLocationNullable(): Flow<Resource<LocationModelData?>> {
+    private fun getCurrentLocationNullable(): Flow<Resource<LocationModelData?>> {
         return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
                 return geocodingDao.getCurrentLocation()
@@ -71,6 +69,23 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
+    fun getVisitedLocationsInformation(): Flow<Resource<VisitedLocationsInformationModelData>?> {
+        return combine(
+            getVisitedLocations(),
+            getCurrentLocationNullable()
+        ) { visitedLocationsResource, currentLocationResource ->
+            Resource.merge(
+                visitedLocationsResource,
+                currentLocationResource
+            ) { visitedLocations, currentLocation ->
+                VisitedLocationsInformationModelData(
+                    visitedLocations = visitedLocations ?: emptyList(),
+                    currentLocation = currentLocation
+                )
+            }
+        }
+    }
+
     fun getCurrentLocation(): Flow<Resource<LocationModelData>> {
         return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
@@ -81,7 +96,7 @@ class GeocodingRepository @Inject constructor(
                 return LocationModelData.localToData(local)
             }
 
-        }().map { currentLocationResource -> 
+        }().map { currentLocationResource ->
             currentLocationResource.map { oldData ->
                 oldData
             }
