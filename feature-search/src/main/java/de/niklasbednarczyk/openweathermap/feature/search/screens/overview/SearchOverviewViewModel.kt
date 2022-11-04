@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 
-import android.util.Log
 import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
