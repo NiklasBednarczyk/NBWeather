@@ -17,9 +17,9 @@ fun SearchOverviewManageView(
     findingLocationInProgress: Boolean,
     navigateToLocation: (Double, Double) -> Unit
 ) {
-    // TODO (#10) Add SwipeToDismiss (Delete)
+    // TODO (#10) Add Delete
 
-    // TODO (#10) Add DragAndReorder (Order change)
+    // TODO (#10) Add DragAndDrop (Order change)
 
     LazyColumn(
         contentPadding = listContentPadding
@@ -48,7 +48,9 @@ private fun VisitedLocation(
         }
     }
 
-    ListItem(modifier = itemModifier, headlineText = {
-        Text(text = visitedLocation.localizedNameAndCountry.asString())
-    })
+    ListItem(
+        modifier = itemModifier,
+        headlineText = {
+            Text(text = visitedLocation.localizedNameAndCountry.asString())
+        })
 }

@@ -29,8 +29,8 @@ class SearchOverviewViewModel @Inject constructor(
 
     init {
         collectFlow(
-            { geocodingRepository.getVisitedLocationsInformation() },
-            { oldUiState, output -> oldUiState.copy(visitedLocationsInformationResource = output) }
+            { geocodingRepository.getVisitedLocationsInfo() },
+            { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
         )
 
         collectFlow(

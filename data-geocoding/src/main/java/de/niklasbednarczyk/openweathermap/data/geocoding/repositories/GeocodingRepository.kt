@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.daos.GeocodingDao
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocationsInformationModelData
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocationsInfoModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.services.GeocodingService
 import kotlinx.coroutines.Dispatchers
@@ -69,7 +69,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    fun getVisitedLocationsInformation(): Flow<Resource<VisitedLocationsInformationModelData>?> {
+    fun getVisitedLocationsInfo(): Flow<Resource<VisitedLocationsInfoModelData>?> {
         return combine(
             getVisitedLocations(),
             getCurrentLocationNullable()
@@ -78,7 +78,7 @@ class GeocodingRepository @Inject constructor(
                 visitedLocationsResource,
                 currentLocationResource
             ) { visitedLocations, currentLocation ->
-                VisitedLocationsInformationModelData(
+                VisitedLocationsInfoModelData(
                     visitedLocations = visitedLocations ?: emptyList(),
                     currentLocation = currentLocation
                 )

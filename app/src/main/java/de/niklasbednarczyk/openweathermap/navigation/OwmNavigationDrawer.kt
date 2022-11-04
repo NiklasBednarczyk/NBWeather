@@ -10,13 +10,13 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocationsInformationModelData
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocationsInfoModelData
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
 
 @Composable
 fun OwmNavigationDrawer(
     navigator: OwmNavigator,
-    visitedLocationsInformation: VisitedLocationsInformationModelData,
+    visitedLocationsInfo: VisitedLocationsInfoModelData,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
@@ -24,7 +24,7 @@ fun OwmNavigationDrawer(
         drawerContent = {
             DrawerSheet(
                 navigator = navigator,
-                visitedLocationsInformation = visitedLocationsInformation,
+                visitedLocationsInfo = visitedLocationsInfo,
             )
         },
         gesturesEnabled = true, //TODO (#9) Maybe enable only when on location
@@ -35,14 +35,14 @@ fun OwmNavigationDrawer(
 @Composable
 private fun DrawerSheet(
     navigator: OwmNavigator,
-    visitedLocationsInformation: VisitedLocationsInformationModelData
+    visitedLocationsInfo: VisitedLocationsInfoModelData
 ) {
     val closeDrawer = { navigator.closeDrawer() }
 
     ModalDrawerSheet {
         LazyColumn {
-            items(visitedLocationsInformation.visitedLocations) { visitedLocation ->
-                val isSelected = visitedLocation == visitedLocationsInformation.currentLocation
+            items(visitedLocationsInfo.visitedLocations) { visitedLocation ->
+                val isSelected = visitedLocation == visitedLocationsInfo.currentLocation
                 DrawerItem(
                     closeDrawer = closeDrawer,
                     navigateToDestination = {

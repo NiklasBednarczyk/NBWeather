@@ -24,10 +24,10 @@ fun SearchOverviewScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     OwmResourceView(
-        resource = uiState.value.visitedLocationsInformationResource
-    ) { visitedLocationsInformation ->
+        resource = uiState.value.visitedLocationsInfoResource
+    ) { visitedLocationsInfo ->
         val navIcon =
-            if (visitedLocationsInformation.currentLocation != null) navigationIcon else emptyIcon
+            if (visitedLocationsInfo.currentLocation != null) navigationIcon else emptyIcon
 
         OwmScaffold(
             topBar = {
@@ -54,7 +54,7 @@ fun SearchOverviewScreen(
         ) {
             if (uiState.value.searchTerm.isEmpty()) {
                 SearchOverviewManageView(
-                    visitedLocations = visitedLocationsInformation.visitedLocations,
+                    visitedLocations = visitedLocationsInfo.visitedLocations,
                     findingLocationInProgress = uiState.value.findingLocationInProgress,
                     navigateToLocation = navigateToLocation,
                 )
