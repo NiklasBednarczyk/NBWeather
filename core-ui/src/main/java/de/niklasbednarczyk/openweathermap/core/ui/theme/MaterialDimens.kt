@@ -7,4 +7,9 @@ val listContentPadding = PaddingValues(
     vertical = 8.dp
 )
 
+val navigationDrawerDividerPadding = PaddingValues(
+    horizontal = 28.dp,
+    vertical = 8.dp
+)
+
 val topAppBarElevation = 3.dp // Level 2

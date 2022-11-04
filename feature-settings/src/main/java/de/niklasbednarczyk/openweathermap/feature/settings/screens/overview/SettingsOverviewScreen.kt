@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.compositions.settings.OwmSettings
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmTopAppBar
@@ -20,7 +22,7 @@ fun SettingsOverviewScreen(
             OwmTopAppBar(
                 scrollBehavior = scrollBehavior,
                 navigationIcon = navigationIcon,
-                title = "Settings" //TODO (#15) Do with string resource
+                title = stringResource(R.string.screen_settings_overview_title)
             )
         },
         snackbarChannel = viewModel.snackbarChannel

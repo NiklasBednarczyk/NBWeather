@@ -6,11 +6,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.compose.currentBackStackEntryAsState
+import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
+import de.niklasbednarczyk.openweathermap.core.ui.theme.navigationDrawerDividerPadding
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocationsInfoModelData
+import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
 
 @Composable
@@ -19,6 +24,10 @@ fun OwmNavigationDrawer(
     visitedLocationsInfo: VisitedLocationsInfoModelData,
     content: @Composable () -> Unit
 ) {
+    val currentBackStackEntryState = navigator.navController.currentBackStackEntryAsState()
+    val currentDestinationRoute = currentBackStackEntryState.value?.destination?.route
+    val gesturesEnabled = currentDestinationRoute == LocationDestinations.Overview.route
+
     ModalNavigationDrawer(
         drawerState = navigator.drawerState,
         drawerContent = {
@@ -27,7 +36,7 @@ fun OwmNavigationDrawer(
                 visitedLocationsInfo = visitedLocationsInfo,
             )
         },
-        gesturesEnabled = true, //TODO (#9) Maybe enable only when on location
+        gesturesEnabled = gesturesEnabled,
         content = content
     )
 }
@@ -41,6 +50,8 @@ private fun DrawerSheet(
 
     ModalDrawerSheet {
         LazyColumn {
+            // TODO (#20) Add header with app icon
+
             items(visitedLocationsInfo.visitedLocations) { visitedLocation ->
                 val isSelected = visitedLocation == visitedLocationsInfo.currentLocation
                 DrawerItem(
@@ -59,12 +70,13 @@ private fun DrawerSheet(
                 )
             }
             item {
+                DrawerDivider()
                 DrawerItem(
                     closeDrawer = closeDrawer,
                     navigateToDestination = {
                         navigator.navigate(SettingsDestinations.Overview)
                     },
-                    label = "Settings", //TODO (#15) Replace with actual strings.xml
+                    label = stringResource(R.string.screen_settings_overview_title),
                     icon = OwmIcons.Settings
                 )
             }
@@ -90,5 +102,12 @@ private fun DrawerItem(
             closeDrawer()
             navigateToDestination()
         }
+    )
+}
+
+@Composable
+private fun DrawerDivider() {
+    Divider(
+        Modifier.padding(navigationDrawerDividerPadding)
     )
 }
