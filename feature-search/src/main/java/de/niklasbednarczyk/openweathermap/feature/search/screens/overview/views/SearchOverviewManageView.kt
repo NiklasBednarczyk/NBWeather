@@ -7,6 +7,8 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
+import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPadding
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
@@ -15,20 +17,22 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelDat
 fun SearchOverviewManageView(
     visitedLocations: List<LocationModelData>,
     findingLocationInProgress: Boolean,
-    navigateToLocation: (Double, Double) -> Unit
+    navigateToLocation: (Double, Double) -> Unit,
+    removeVisitedLocation: (LocationModelData) -> Unit
 ) {
-    // TODO (#10) Add Delete
-
-    // TODO (#10) Add DragAndDrop (Order change)
-
     LazyColumn(
         contentPadding = listContentPadding
     ) {
-        items(visitedLocations) { visitedLocation ->
+        items(
+            items = visitedLocations,
+            key = { item -> item.hashCode() }
+        ) { visitedLocation ->
             VisitedLocation(
+                modifier = Modifier.animateItemPlacement(),
                 visitedLocation = visitedLocation,
-                findingLocationInProgress = findingLocationInProgress,
-                navigateToLocation = navigateToLocation
+                enabled = !findingLocationInProgress,
+                navigateToLocation = navigateToLocation,
+                removeVisitedLocation = removeVisitedLocation
             )
         }
     }
@@ -36,21 +40,33 @@ fun SearchOverviewManageView(
 
 @Composable
 private fun VisitedLocation(
+    modifier: Modifier = Modifier,
     visitedLocation: LocationModelData,
-    findingLocationInProgress: Boolean,
-    navigateToLocation: (Double, Double) -> Unit
+    enabled: Boolean,
+    navigateToLocation: (Double, Double) -> Unit,
+    removeVisitedLocation: (LocationModelData) -> Unit
 ) {
-    val itemModifier = if (findingLocationInProgress) {
-        Modifier
-    } else {
+    val clickableModifier = if (enabled) {
         Modifier.clickable {
             navigateToLocation(visitedLocation.latitude, visitedLocation.longitude)
         }
+    } else {
+        Modifier
     }
 
     ListItem(
-        modifier = itemModifier,
+        modifier = modifier.then(clickableModifier),
         headlineText = {
             Text(text = visitedLocation.localizedNameAndCountry.asString())
-        })
+        },
+        trailingContent = {
+            OwmIconButton(
+                icon = OwmIcons.Delete,
+                enabled = enabled,
+                onClick = {
+                    removeVisitedLocation(visitedLocation)
+                }
+            )
+        }
+    )
 }

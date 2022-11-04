@@ -57,6 +57,7 @@ fun SearchOverviewScreen(
                     visitedLocations = visitedLocationsInfo.visitedLocations,
                     findingLocationInProgress = uiState.value.findingLocationInProgress,
                     navigateToLocation = navigateToLocation,
+                    removeVisitedLocation = viewModel::removeVisitedLocation
                 )
             } else {
                 SearchOverviewSearchView(

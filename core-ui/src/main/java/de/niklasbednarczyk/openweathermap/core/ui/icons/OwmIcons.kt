@@ -23,6 +23,13 @@ object OwmIcons {
             OwmString.Resource(R.string.icon_content_description_cancel)
     }
 
+    object Delete : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.Delete
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.Delete
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_delete)
+    }
+
     object Drawer : OwmIconModel {
         override val imageVectorFilled: ImageVector = Icons.Filled.Menu
         override val imageVectorOutlined: ImageVector = Icons.Outlined.Menu

@@ -4,6 +4,7 @@
 
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
+    <string name="icon_content_description_delete">Delete</string>
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_error_no_internet">No internet</string>

@@ -133,4 +133,14 @@ class GeocodingRepository @Inject constructor(
         }
     }
 
+    suspend fun removeVisitedLocation(
+        location: LocationModelData
+    ) = withContext(Dispatchers.IO) {
+        val local = geocodingDao.getLocation(location.latitude, location.longitude).firstOrNull()
+        if (local != null) {
+            val newLocal = local.copy(lastVisitedTimestampEpochSeconds = null)
+            geocodingDao.updateLocation(newLocal)
+        }
+    }
+
 }

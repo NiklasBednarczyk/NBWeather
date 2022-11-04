@@ -65,6 +65,8 @@ internal interface OwmConventionPlugin : Plugin<Project> {
                 freeCompilerArgs = freeCompilerArgs + listOf(
                     // Enables animation navigation
                     "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
+                    // Enables animateItemPlacement
+                    "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
                     // Enables material 3
                     "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     // Enables permissions

@@ -7,6 +7,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarActionModel
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
+import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GmsLocationRepository
 import kotlinx.coroutines.flow.*
@@ -67,6 +68,12 @@ class SearchOverviewViewModel @Inject constructor(
         }
         updateStateFlow(searchTermFlow) {
             searchTerm
+        }
+    }
+
+    fun removeVisitedLocation(location: LocationModelData) {
+        launchSuspend {
+            geocodingRepository.removeVisitedLocation(location)
         }
     }
 
