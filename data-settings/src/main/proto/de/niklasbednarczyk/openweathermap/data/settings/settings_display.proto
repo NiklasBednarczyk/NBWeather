@@ -5,31 +5,59 @@ option java_multiple_files = true;
 
 message SettingsDisplayProto {
 
-  enum TemperatureUnitProto {
-    CELSIUS = 0;
-    FAHRENHEIT = 1;
-    KELVIN = 2;
+  enum DataLanguageProto {
+    AFRIKAANS = 0;
+    ALBANIAN = 1;
+    ARABIC = 2;
+    AZERBAIJANI = 3;
+    BULGARIAN = 4;
+    CATALAN = 5;
+    CZECH = 6;
+    DANISH = 7;
+    GERMAN = 8;
+    GREEK = 9;
+    ENGLISH = 10;
+    BASQUE = 11;
+    PERSIAN_FARSI = 12;
+    FINNISH = 13;
+    FRENCH = 14;
+    GALICIAN = 15;
+    HEBREW = 16;
+    HINDI = 17;
+    CROATIAN = 18;
+    HUNGARIAN = 19;
+    INDONESIAN = 20;
+    ITALIAN = 21;
+    JAPANESE = 22;
+    KOREAN = 23;
+    LATVIAN = 24;
+    LITHUANIAN = 25;
+    MACEDONIAN = 26;
+    NORWEGIAN = 27;
+    DUTCH = 28;
+    POLISH = 29;
+    PORTUGUESE = 30;
+    PORTUGUES_BRASIL = 31;
+    ROMANIAN = 32;
+    RUSSIAN = 33;
+    SWEDISH = 34;
+    SLOVAK = 35;
+    SLOVENIAN = 36;
+    SPANISH = 37;
+    SERBIAN = 38;
+    THAI = 39;
+    TURKISH = 40;
+    UKRAINIAN = 41;
+    VIETNAMESE = 42;
+    CHINESE_SIMPLIFIED = 43;
+    CHINESE_TRADITIONAL = 44;
+    ZULU = 45;
   }
 
-  enum WindSpeedUnitProto {
-    KILOMETRE_PER_HOUR = 0;
-    MILE_PER_HOUR = 1;
-    METRE_PER_SECOND = 2;
-  }
-
-  enum PressureUnitProto {
-    HECTOPASCAL = 0;
-    INCH_OF_MERCURY = 1;
-  }
-
-  enum DistanceUnitProto {
-    KILOMETRE = 0;
-    MILE = 1;
-  }
-
-  enum PrecipitationUnitProto {
-    MILLIMETRE = 0;
-    INCH = 1;
+  enum UnitsProto {
+    STANDARD = 0;
+    METRIC = 1;
+    IMPERIAL = 2;
   }
 
   enum TimeFormatProto {
@@ -38,11 +66,8 @@ message SettingsDisplayProto {
     SYSTEM_DEFAULT = 2;
   }
 
-  TemperatureUnitProto temperatureUnit = 1;
-  WindSpeedUnitProto windSpeedUnit = 2;
-  PressureUnitProto pressureUnit = 3;
-  DistanceUnitProto distanceUnit = 4;
-  PrecipitationUnitProto precipitationUnit = 5;
-  TimeFormatProto timeFormat = 6;
+  DataLanguageProto dataLanguage = 1;
+  UnitsProto units = 2;
+  TimeFormatProto timeFormat = 3;
 
 }

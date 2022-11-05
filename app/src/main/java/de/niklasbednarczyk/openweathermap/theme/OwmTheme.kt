@@ -5,9 +5,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.SettingsAppearanceModelData
 
 @Composable
 fun OwmTheme(
+    appearance: SettingsAppearanceModelData,
     content: @Composable () -> Unit
 ) {
 

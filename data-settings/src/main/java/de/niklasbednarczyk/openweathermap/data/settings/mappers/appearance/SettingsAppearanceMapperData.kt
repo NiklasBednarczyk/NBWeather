@@ -9,7 +9,6 @@ internal object SettingsAppearanceMapperData :
     override fun protoToDisk(proto: SettingsAppearanceProto): SettingsAppearanceModelData {
         return SettingsAppearanceModelData(
             theme = ThemeMapperData.protoToDisk(proto.theme),
-            useDynamicColorScheme = proto.useDynamicColorScheme,
             colorScheme = ColorSchemeMapperData.protoToDisk(proto.colorScheme)
         )
     }

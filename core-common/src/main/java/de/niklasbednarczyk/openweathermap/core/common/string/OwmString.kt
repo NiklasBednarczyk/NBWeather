@@ -2,11 +2,10 @@ package de.niklasbednarczyk.openweathermap.core.common.string
 
 sealed interface OwmString {
 
-    @JvmInline
-    value class Resource(val resId: Int) : OwmString
+    class Resource(val resId: Int, vararg val args: Any) : OwmString
 
     @JvmInline
-    value class Value(val value: String) : OwmString {
+    value class Value private constructor(val value: String) : OwmString {
 
         companion object {
 

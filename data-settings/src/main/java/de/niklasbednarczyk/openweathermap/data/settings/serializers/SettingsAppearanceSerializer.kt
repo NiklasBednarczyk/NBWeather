@@ -3,6 +3,7 @@ package de.niklasbednarczyk.openweathermap.data.settings.serializers
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
+import de.niklasbednarczyk.openweathermap.core.common.constants.ConstantsCoreCommon
 import de.niklasbednarczyk.openweathermap.core.data.disk.constants.ConstantsCoreDisk
 import de.niklasbednarczyk.openweathermap.data.settings.proto.appearance.SettingsAppearanceProto
 import java.io.InputStream
@@ -13,15 +14,16 @@ internal object SettingsAppearanceSerializer : Serializer<SettingsAppearanceProt
     private val defaultTheme: SettingsAppearanceProto.ThemeProto =
         SettingsAppearanceProto.ThemeProto.SYSTEM_DEFAULT
 
-    private const val defaultUseDynamicColorScheme: Boolean = true
-
     private val defaultColorScheme: SettingsAppearanceProto.ColorSchemeProto =
-        SettingsAppearanceProto.ColorSchemeProto.YELLOW
+        if (ConstantsCoreCommon.DynamicColor.isAvailable) {
+            SettingsAppearanceProto.ColorSchemeProto.DYNAMIC_COLOR
+        } else {
+            SettingsAppearanceProto.ColorSchemeProto.YELLOW
+        }
 
 
     override val defaultValue: SettingsAppearanceProto = SettingsAppearanceProto.newBuilder()
         .setTheme(defaultTheme)
-        .setUseDynamicColorScheme(defaultUseDynamicColorScheme)
         .setColorScheme(defaultColorScheme)
         .build()
 

@@ -11,41 +11,64 @@ import java.util.*
 
 internal object SettingsDisplaySerializer : Serializer<SettingsDisplayProto> {
 
-    private val isImperial: Boolean = Locale.getDefault() == Locale.US
+    private fun getLanguage(language: String): String {
+        return Locale(language).language
+    }
 
-    private val defaultTemperatureUnit: SettingsDisplayProto.TemperatureUnitProto =
-        if (isImperial) {
-            SettingsDisplayProto.TemperatureUnitProto.FAHRENHEIT
-        } else {
-            SettingsDisplayProto.TemperatureUnitProto.CELSIUS
+    private val defaultDataLanguage: SettingsDisplayProto.DataLanguageProto =
+        when (Locale.getDefault().language) {
+            getLanguage("af") -> SettingsDisplayProto.DataLanguageProto.AFRIKAANS
+            getLanguage("sq") -> SettingsDisplayProto.DataLanguageProto.ALBANIAN
+            getLanguage("ar") -> SettingsDisplayProto.DataLanguageProto.ARABIC
+            getLanguage("az") -> SettingsDisplayProto.DataLanguageProto.AZERBAIJANI
+            getLanguage("bg") -> SettingsDisplayProto.DataLanguageProto.BULGARIAN
+            getLanguage("ca") -> SettingsDisplayProto.DataLanguageProto.CATALAN
+            getLanguage("cs") -> SettingsDisplayProto.DataLanguageProto.CZECH
+            getLanguage("da") -> SettingsDisplayProto.DataLanguageProto.DANISH
+            getLanguage("de") -> SettingsDisplayProto.DataLanguageProto.GERMAN
+            getLanguage("el") -> SettingsDisplayProto.DataLanguageProto.GREEK
+            getLanguage("en") -> SettingsDisplayProto.DataLanguageProto.ENGLISH
+            getLanguage("eu") -> SettingsDisplayProto.DataLanguageProto.BASQUE
+            getLanguage("fa") -> SettingsDisplayProto.DataLanguageProto.PERSIAN_FARSI
+            getLanguage("fi") -> SettingsDisplayProto.DataLanguageProto.FINNISH
+            getLanguage("fr") -> SettingsDisplayProto.DataLanguageProto.FRENCH
+            getLanguage("gl") -> SettingsDisplayProto.DataLanguageProto.GALICIAN
+            getLanguage("he") -> SettingsDisplayProto.DataLanguageProto.HEBREW
+            getLanguage("hi") -> SettingsDisplayProto.DataLanguageProto.HINDI
+            getLanguage("hr") -> SettingsDisplayProto.DataLanguageProto.CROATIAN
+            getLanguage("hu") -> SettingsDisplayProto.DataLanguageProto.HUNGARIAN
+            getLanguage("id") -> SettingsDisplayProto.DataLanguageProto.INDONESIAN
+            getLanguage("it") -> SettingsDisplayProto.DataLanguageProto.ITALIAN
+            getLanguage("ja") -> SettingsDisplayProto.DataLanguageProto.JAPANESE
+            getLanguage("ko") -> SettingsDisplayProto.DataLanguageProto.KOREAN
+            getLanguage("lv") -> SettingsDisplayProto.DataLanguageProto.LATVIAN
+            getLanguage("lt") -> SettingsDisplayProto.DataLanguageProto.LITHUANIAN
+            getLanguage("mk") -> SettingsDisplayProto.DataLanguageProto.MACEDONIAN
+            getLanguage("no") -> SettingsDisplayProto.DataLanguageProto.NORWEGIAN
+            getLanguage("nl") -> SettingsDisplayProto.DataLanguageProto.DUTCH
+            getLanguage("pl") -> SettingsDisplayProto.DataLanguageProto.POLISH
+            getLanguage("pt") -> SettingsDisplayProto.DataLanguageProto.PORTUGUESE
+            getLanguage("ro") -> SettingsDisplayProto.DataLanguageProto.ROMANIAN
+            getLanguage("ru") -> SettingsDisplayProto.DataLanguageProto.RUSSIAN
+            getLanguage("sv") -> SettingsDisplayProto.DataLanguageProto.SWEDISH
+            getLanguage("sk") -> SettingsDisplayProto.DataLanguageProto.SLOVAK
+            getLanguage("sl") -> SettingsDisplayProto.DataLanguageProto.SLOVENIAN
+            getLanguage("es") -> SettingsDisplayProto.DataLanguageProto.SPANISH
+            getLanguage("sr") -> SettingsDisplayProto.DataLanguageProto.SERBIAN
+            getLanguage("th") -> SettingsDisplayProto.DataLanguageProto.THAI
+            getLanguage("tr") -> SettingsDisplayProto.DataLanguageProto.TURKISH
+            getLanguage("uk") -> SettingsDisplayProto.DataLanguageProto.UKRAINIAN
+            getLanguage("vi") -> SettingsDisplayProto.DataLanguageProto.VIETNAMESE
+            getLanguage("zh") -> SettingsDisplayProto.DataLanguageProto.CHINESE_SIMPLIFIED
+            getLanguage("zu") -> SettingsDisplayProto.DataLanguageProto.ZULU
+            else -> SettingsDisplayProto.DataLanguageProto.ENGLISH
         }
 
-    private val defaultWindSpeedUnit: SettingsDisplayProto.WindSpeedUnitProto =
-        if (isImperial) {
-            SettingsDisplayProto.WindSpeedUnitProto.MILE_PER_HOUR
+    private val defaultUnits: SettingsDisplayProto.UnitsProto =
+        if (Locale.getDefault() == Locale.US) {
+            SettingsDisplayProto.UnitsProto.IMPERIAL
         } else {
-            SettingsDisplayProto.WindSpeedUnitProto.KILOMETRE_PER_HOUR
-        }
-
-    private val defaultPressureUnit: SettingsDisplayProto.PressureUnitProto =
-        if (isImperial) {
-            SettingsDisplayProto.PressureUnitProto.INCH_OF_MERCURY
-        } else {
-            SettingsDisplayProto.PressureUnitProto.HECTOPASCAL
-        }
-
-    private val defaultDistanceUnit: SettingsDisplayProto.DistanceUnitProto =
-        if (isImperial) {
-            SettingsDisplayProto.DistanceUnitProto.MILE
-        } else {
-            SettingsDisplayProto.DistanceUnitProto.KILOMETRE
-        }
-
-    private val defaultPrecipitationUnit: SettingsDisplayProto.PrecipitationUnitProto =
-        if (isImperial) {
-            SettingsDisplayProto.PrecipitationUnitProto.INCH
-        } else {
-            SettingsDisplayProto.PrecipitationUnitProto.MILLIMETRE
+            SettingsDisplayProto.UnitsProto.METRIC
         }
 
     private val defaultTimeFormat: SettingsDisplayProto.TimeFormatProto =
@@ -53,11 +76,8 @@ internal object SettingsDisplaySerializer : Serializer<SettingsDisplayProto> {
 
 
     override val defaultValue: SettingsDisplayProto = SettingsDisplayProto.newBuilder()
-        .setTemperatureUnit(defaultTemperatureUnit)
-        .setWindSpeedUnit(defaultWindSpeedUnit)
-        .setPressureUnit(defaultPressureUnit)
-        .setDistanceUnit(defaultDistanceUnit)
-        .setPrecipitationUnit(defaultPrecipitationUnit)
+        .setDataLanguage(defaultDataLanguage)
+        .setUnits(defaultUnits)
         .setTimeFormat(defaultTimeFormat)
         .build()
 

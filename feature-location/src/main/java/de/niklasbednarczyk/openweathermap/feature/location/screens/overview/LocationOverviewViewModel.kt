@@ -4,13 +4,16 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
 class LocationOverviewViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val geocodingRepository: GeocodingRepository,
+    private val settingsDisplayRepository: SettingsDisplayRepository
 ) : OwmViewModel<LocationOverviewUiState>(LocationOverviewUiState()) {
 
     init {
@@ -27,7 +30,11 @@ class LocationOverviewViewModel @Inject constructor(
         }
 
         collectFlow(
-            { geocodingRepository.getCurrentLocation() },
+            {
+                settingsDisplayRepository.getData().flatMapLatest { settingsDisplay ->
+                    geocodingRepository.getCurrentLocation(settingsDisplay.dataLanguage)
+                }
+            },
             { oldUiState, output -> oldUiState.copy(locationResource = output) }
         )
 

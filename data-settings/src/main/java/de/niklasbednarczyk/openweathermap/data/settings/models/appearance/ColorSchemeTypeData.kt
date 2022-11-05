@@ -6,5 +6,6 @@ enum class ColorSchemeTypeData {
     BLUE,
     CYAN,
     MAGENTA,
-    YELLOW
+    YELLOW,
+    DYNAMIC_COLOR
 }

@@ -4,17 +4,13 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
-import de.niklasbednarczyk.openweathermap.core.ui.settings.OwmLocalSettings
-import de.niklasbednarczyk.openweathermap.core.ui.settings.OwmSettingsModel
 import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.SettingsAppearanceModelData
-import de.niklasbednarczyk.openweathermap.data.settings.models.display.SettingsDisplayModelData
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawer
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigator
@@ -26,12 +22,11 @@ fun OwmApp(
 ) {
     val uiState = viewModel.uiState.collectAsState()
 
-    SetupSettings(
-        appearance = uiState.value.settingsAppearance,
-        display = uiState.value.settingsDisplay
-    ) {
-        OwmTheme {
-            SetupSystemBar()
+    val appearance = uiState.value.settingsAppearance
+
+    if (appearance != null) {
+        OwmTheme(appearance) {
+            SetupSystemBar(appearance)
 
             val navigator = OwmNavigator.rememberOwmNavigator()
 
@@ -58,7 +53,7 @@ fun OwmApp(
 }
 
 @Composable
-private fun SetupSystemBar() {
+private fun SetupSystemBar(appearance: SettingsAppearanceModelData) {
     val systemUiController = rememberSystemUiController()
     val darkIcons = !isSystemInDarkTheme() //TODO (#15) Replace with settings is in dark theme
     SideEffect {
@@ -75,24 +70,5 @@ private fun SetupBackPressWithNavigationDrawer(
 ) {
     BackHandler(enabled = navigator.drawerState.isOpen) {
         navigator.closeDrawer()
-    }
-}
-
-@Composable
-private fun SetupSettings(
-    appearance: SettingsAppearanceModelData?,
-    display: SettingsDisplayModelData?,
-    content: @Composable () -> Unit
-) {
-    if (appearance != null && display != null) {
-        val settings = OwmSettingsModel(
-            appearance = appearance,
-            display = display
-        )
-        CompositionLocalProvider(
-            OwmLocalSettings provides settings
-        ) {
-            content()
-        }
     }
 }

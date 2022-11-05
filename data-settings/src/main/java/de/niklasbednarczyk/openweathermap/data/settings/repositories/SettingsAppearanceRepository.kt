@@ -34,15 +34,6 @@ class SettingsAppearanceRepository @Inject constructor(
         }
     }
 
-    suspend fun updateUseDynamicColorScheme(useDynamicColorScheme: Boolean) {
-        diskStore.updateData { currentProto ->
-            currentProto
-                .toBuilder()
-                .setUseDynamicColorScheme(useDynamicColorScheme)
-                .build()
-        }
-    }
-
     suspend fun updateColorScheme(colorScheme: ColorSchemeTypeData) {
         diskStore.updateData { currentProto ->
             currentProto

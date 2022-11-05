@@ -8,11 +8,8 @@ internal object SettingsDisplayMapperData :
     OneWayMapperDisk<SettingsDisplayProto, SettingsDisplayModelData> {
     override fun protoToDisk(proto: SettingsDisplayProto): SettingsDisplayModelData {
         return SettingsDisplayModelData(
-            temperatureUnit = TemperatureUnitMapperData.protoToDisk(proto.temperatureUnit),
-            windSpeedUnit = WindSpeedUnitMapperData.protoToDisk(proto.windSpeedUnit),
-            pressureUnit = PressureUnitMapperData.protoToDisk(proto.pressureUnit),
-            distanceUnit = DistanceUnitMapperData.protoToDisk(proto.distanceUnit),
-            precipitationUnit = PrecipitationUnitMapperData.protoToDisk(proto.precipitationUnit),
+            dataLanguage = DataLanguageMapperData.protoToDisk(proto.dataLanguage),
+            units = UnitsMapperData.protoToDisk(proto.units),
             timeFormat = TimeFormatMapperData.protoToDisk(proto.timeFormat)
         )
     }

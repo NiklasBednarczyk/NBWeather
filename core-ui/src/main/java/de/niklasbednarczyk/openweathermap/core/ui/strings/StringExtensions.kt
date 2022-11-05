@@ -15,7 +15,7 @@ fun OwmString?.asString(): String {
 @Composable
 private fun OwmString?.asStringNullable(): String? {
     return when (this) {
-        is OwmString.Resource -> stringResource(resId)
+        is OwmString.Resource -> stringResource(resId, *args)
         is OwmString.Value -> value
         null -> null
     }
@@ -27,7 +27,7 @@ fun OwmString?.asString(context: Context): String {
 
 private fun OwmString?.asStringNullable(context: Context): String? {
     return when (this) {
-        is OwmString.Resource -> context.getString(resId)
+        is OwmString.Resource -> context.getString(resId, *args)
         is OwmString.Value -> value
         null -> null
     }

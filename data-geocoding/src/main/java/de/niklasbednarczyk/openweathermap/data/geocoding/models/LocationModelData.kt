@@ -1,62 +1,73 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.models
 
-import de.niklasbednarczyk.openweathermap.core.common.language.OwmLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.display.OwmDataLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
+import de.niklasbednarczyk.openweathermap.data.geocoding.R
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 
 data class LocationModelData(
-    private val name: String?,
-    private val localNames: LocalNamesModelData?,
-    private val country: String?,
-    private val state: String?,
+    val localizedName: OwmString?,
+    val stateAndCountry: OwmString?,
+    val localizedNameAndCountry: OwmString?,
     val latitude: Double,
     val longitude: Double
 ) {
 
-    val localizedName: OwmString.Value?
-        get() {
-            val localName = when (OwmLanguageType.fromLocale()) {
-                OwmLanguageType.DE -> localNames?.de
-                OwmLanguageType.EN -> localNames?.en
-            }
-            val value = localName ?: name
-            return OwmString.Value.from(value)
-        }
-
-    val stateAndCountry: OwmString.Value?
-        get() {
-            val value = when {
-                state != null && country != null -> "$state, $country"
-                state == null && country != null -> country
-                else -> null
-            }
-            return OwmString.Value.from(value)
-        }
-
-    val localizedNameAndCountry: OwmString.Value?
-        get() {
-            val localName = localizedName
-            val value = if (country == null || localName == null) {
-                null
-            } else {
-                "${localName.value}, $country"
-            }
-            return OwmString.Value.from(value)
-        }
-
     companion object {
 
+        private fun toData(
+            name: String?,
+            localName: LocalNameModelData,
+            country: String?,
+            state: String?,
+            latitude: Double,
+            longitude: Double
+        ): LocationModelData {
+            val localizedNameValue = localName.value ?: name
+            val stateAndCountry = when {
+                state != null && country != null -> OwmString.Resource(
+                    R.string.format_comma,
+                    state,
+                    country
+                )
+                state == null && country != null -> OwmString.Value.from(country)
+                else -> OwmString.Value.from(null)
+            }
+            val localizedNameAndCountry = when {
+                localizedNameValue != null && country != null -> OwmString.Resource(
+                    R.string.format_comma,
+                    localizedNameValue,
+                    country
+                )
+                localizedNameValue != null && country == null -> OwmString.Value.from(
+                    localizedNameValue
+                )
+                else -> OwmString.Value.from(null)
+            }
 
-        internal fun remoteToData(remoteList: List<LocationModelRemote>): List<LocationModelData> {
+            return LocationModelData(
+                localizedName = OwmString.Value.from(localizedNameValue),
+                stateAndCountry = stateAndCountry,
+                localizedNameAndCountry = localizedNameAndCountry,
+                latitude = latitude,
+                longitude = longitude
+            )
+
+        }
+
+        internal fun remoteToData(
+            remoteList: List<LocationModelRemote>,
+            dataLanguage: OwmDataLanguageType
+        ): List<LocationModelData> {
             return remoteList.map { remote ->
-                LocationModelData(
+                toData(
                     name = remote.name,
-                    localNames = LocalNamesModelData.remoteToData(remote.localNames),
+                    localName = LocalNameModelData.remoteToData(remote.localNames, dataLanguage),
                     country = remote.country,
                     state = remote.state,
                     latitude = remote.lat,
-                    longitude = remote.lon,
+                    longitude = remote.lon
                 )
             }
         }
@@ -69,7 +80,7 @@ data class LocationModelData(
             if (remote == null) return null
             return LocationModelLocal(
                 name = remote.name,
-                localNames = LocalNamesModelData.remoteToLocal(remote.localNames),
+                localNames = LocalNameModelData.remoteToLocal(remote.localNames),
                 country = remote.country,
                 state = remote.state,
                 latitude = latitude,
@@ -84,12 +95,13 @@ data class LocationModelData(
         }
 
         internal fun localToData(
-            local: LocationModelLocal?
+            local: LocationModelLocal?,
+            dataLanguage: OwmDataLanguageType
         ): LocationModelData? {
             if (local == null) return null
-            return LocationModelData(
+            return toData(
                 name = local.name,
-                localNames = LocalNamesModelData.localToData(local.localNames),
+                localName = LocalNameModelData.localToData(local.localNames, dataLanguage),
                 country = local.country,
                 state = local.state,
                 latitude = local.latitude,
@@ -98,10 +110,11 @@ data class LocationModelData(
         }
 
         internal fun localListToData(
-            localList: List<LocationModelLocal>?
+            localList: List<LocationModelLocal>?,
+            dataLanguage: OwmDataLanguageType
         ): List<LocationModelData>? {
             return localList?.mapNotNull { local ->
-                localToData(local)
+                localToData(local, dataLanguage)
             }
 
         }

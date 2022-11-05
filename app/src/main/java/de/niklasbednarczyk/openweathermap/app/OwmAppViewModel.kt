@@ -5,6 +5,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,18 +17,17 @@ class OwmAppViewModel @Inject constructor(
 
     init {
         collectFlow(
-            { geocodingRepository.getVisitedLocationsInfo() },
+            {
+                settingsDisplayRepository.getData().flatMapLatest { settingsDisplay ->
+                    geocodingRepository.getVisitedLocationsInfo(settingsDisplay.dataLanguage)
+                }
+            },
             { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
         )
 
         collectFlow(
             { settingsAppearanceRepository.getData() },
             { oldUiState, output -> oldUiState.copy(settingsAppearance = output) }
-        )
-
-        collectFlow(
-            { settingsDisplayRepository.getData() },
-            { oldUiState, output -> oldUiState.copy(settingsDisplay = output) }
         )
 
     }

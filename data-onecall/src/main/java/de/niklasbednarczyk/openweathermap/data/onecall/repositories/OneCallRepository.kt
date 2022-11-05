@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
-import de.niklasbednarczyk.openweathermap.core.common.language.OwmLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.display.OwmDataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.display.OwmUnitsType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOfflineMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.remoteName
@@ -26,10 +27,10 @@ class OneCallRepository @Inject constructor(
 
     suspend fun getOneCall(
         latitude: Double,
-        longitude: Double
+        longitude: Double,
+        dataLanguage: OwmDataLanguageType,
+        units: OwmUnitsType
     ): Flow<OwmResource<OneCallModelData>> {
-        val language = OwmLanguageType.fromLocale()
-
         return object :
             LocalRemoteOfflineMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
             override fun getLocal(): Flow<OneCallModelLocal?> {
@@ -40,7 +41,8 @@ class OneCallRepository @Inject constructor(
                 return oneCallService.getOneCall(
                     latitude,
                     longitude,
-                    language.remoteName
+                    dataLanguage.remoteName,
+                    units.remoteName
                 )
             }
 
@@ -57,7 +59,7 @@ class OneCallRepository @Inject constructor(
             }
 
             override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
-                return local.metadata.isExpired || local.metadata.language != language
+                return local.metadata.isExpired || local.metadata.dataLanguage != dataLanguage || local.metadata.units != units
             }
 
             override fun clearLocal(local: OneCallModelLocal) {
@@ -72,7 +74,7 @@ class OneCallRepository @Inject constructor(
 
             override fun insertLocal(remote: OneCallModelRemote) {
                 val oneCallMetadata = OneCallMetadataModelData.remoteToLocal(
-                    remote, latitude, longitude, language
+                    remote, latitude, longitude, dataLanguage, units
                 )
                 val metadataId = oneCallDao.insertOneCall(oneCallMetadata)
 

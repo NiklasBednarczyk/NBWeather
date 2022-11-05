@@ -11,13 +11,15 @@ import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GmsLocationRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchOverviewViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
-    private val gmsLocationRepository: GmsLocationRepository
+    private val gmsLocationRepository: GmsLocationRepository,
+    private val settingsDisplayRepository: SettingsDisplayRepository
 ) : OwmViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
 
     companion object {
@@ -31,24 +33,33 @@ class SearchOverviewViewModel @Inject constructor(
 
     init {
         collectFlow(
-            { geocodingRepository.getVisitedLocationsInfo() },
+            {
+                settingsDisplayRepository.getData().flatMapLatest { settingsDisplay ->
+                    geocodingRepository.getVisitedLocationsInfo(settingsDisplay.dataLanguage)
+                }
+            },
             { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
         )
 
         collectFlow(
             {
-                searchTermFlow
-                    .debounce(DEBOUNCE_VALUE)
-                    .distinctUntilChanged()
-                    .flatMapLatest { searchTerm ->
-                        if (searchTerm.isNotBlank()) {
-                            geocodingRepository.getLocationsByLocationName(searchTerm)
-                        } else {
-                            flowOf(null)
+                settingsDisplayRepository.getData().flatMapLatest { settingsDisplay ->
+                    searchTermFlow
+                        .debounce(DEBOUNCE_VALUE)
+                        .distinctUntilChanged()
+                        .flatMapLatest { searchTerm ->
+                            if (searchTerm.isNotBlank()) {
+                                geocodingRepository.getLocationsByLocationName(
+                                    searchTerm,
+                                    settingsDisplay.dataLanguage
+                                )
+                            } else {
+                                flowOf(null)
+                            }
                         }
-                    }.catch {
-                        flowOf(OwmResource.Error())
-                    }
+                }.catch {
+                    flowOf(OwmResource.Error())
+                }
             },
             { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
         )
