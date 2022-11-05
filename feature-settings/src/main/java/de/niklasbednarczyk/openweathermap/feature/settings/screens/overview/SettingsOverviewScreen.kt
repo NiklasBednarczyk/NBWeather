@@ -29,11 +29,11 @@ fun SettingsOverviewScreen(
     ) {
         //TODO (#15) Do right design
 
-        val units = OwmSettings.units
+        val display = OwmSettings.display
 
         Column {
-            TextButton(onClick = { viewModel.toggleTemperatureUnit(units.temperatureUnit) }) {
-                Text(text = units.temperatureUnit.name)
+            TextButton(onClick = { viewModel.toggleTemperatureUnit(display.temperatureUnit) }) {
+                Text(text = display.temperatureUnit.name)
             }
         }
     }

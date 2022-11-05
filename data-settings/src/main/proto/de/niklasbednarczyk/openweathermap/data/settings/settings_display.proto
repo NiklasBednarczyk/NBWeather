@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_package = "de.niklasbednarczyk.openweathermap.data.settings.proto.display";
+option java_multiple_files = true;
+
+message SettingsDisplayProto {
+
+  enum TemperatureUnitProto {
+    CELSIUS = 0;
+    FAHRENHEIT = 1;
+    KELVIN = 2;
+  }
+
+  enum WindSpeedUnitProto {
+    KILOMETRE_PER_HOUR = 0;
+    MILE_PER_HOUR = 1;
+    METRE_PER_SECOND = 2;
+  }
+
+  enum PressureUnitProto {
+    HECTOPASCAL = 0;
+    INCH_OF_MERCURY = 1;
+  }
+
+  enum DistanceUnitProto {
+    KILOMETRE = 0;
+    MILE = 1;
+  }
+
+  enum PrecipitationUnitProto {
+    MILLIMETRE = 0;
+    INCH = 1;
+  }
+
+  enum TimeFormatProto {
+    HOUR_12 = 0;
+    HOUR_24 = 1;
+    SYSTEM_DEFAULT = 2;
+  }
+
+  TemperatureUnitProto temperatureUnit = 1;
+  WindSpeedUnitProto windSpeedUnit = 2;
+  PressureUnitProto pressureUnit = 3;
+  DistanceUnitProto distanceUnit = 4;
+  PrecipitationUnitProto precipitationUnit = 5;
+  TimeFormatProto timeFormat = 6;
+
+}

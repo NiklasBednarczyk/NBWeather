@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_package = "de.niklasbednarczyk.openweathermap.data.settings.proto.appearance";
+option java_multiple_files = true;
+
+message SettingsAppearanceProto {
+
+  enum ThemeProto {
+    LIGHT = 0;
+    DARK = 1;
+    SYSTEM_DEFAULT = 2;
+  }
+
+  enum ColorSchemeProto {
+    RED = 0;
+    GREEN = 1;
+    BLUE = 2;
+    CYAN = 3;
+    MAGENTA = 4;
+    YELLOW = 5;
+  }
+
+  ThemeProto theme = 1;
+  bool useDynamicColorScheme = 2;
+  ColorSchemeProto colorScheme = 3;
+
+}

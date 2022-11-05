@@ -3,13 +3,15 @@ package de.niklasbednarczyk.openweathermap.app
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsUnitsRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsAppearanceRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class OwmAppViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
-    private val settingsUnitsRepository: SettingsUnitsRepository
+    private val settingsAppearanceRepository: SettingsAppearanceRepository,
+    private val settingsDisplayRepository: SettingsDisplayRepository
 ) : OwmViewModel<OwmAppUiState>(OwmAppUiState()) {
 
     init {
@@ -19,8 +21,13 @@ class OwmAppViewModel @Inject constructor(
         )
 
         collectFlow(
-            { settingsUnitsRepository.getData() },
-            { oldUiState, output -> oldUiState.copy(settingsUnits = output) }
+            { settingsAppearanceRepository.getData() },
+            { oldUiState, output -> oldUiState.copy(settingsAppearance = output) }
+        )
+
+        collectFlow(
+            { settingsDisplayRepository.getData() },
+            { oldUiState, output -> oldUiState.copy(settingsDisplay = output) }
         )
 
     }

@@ -4,7 +4,8 @@ internal object ConstantsDataSettings {
 
     object DataStore {
 
-        const val SETTINGS_UNITS_FILE_NAME = "settings_units.pb"
+        const val SETTINGS_APPEARANCE_FILE_NAME = "settings_appearance.pb"
+        const val SETTINGS_DISPLAY_FILE_NAME = "settings_display.pb"
 
     }
 

@@ -10,10 +10,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.settings.OwmLocalSettings
 import de.niklasbednarczyk.openweathermap.core.ui.settings.OwmSettingsModel
-import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
-import de.niklasbednarczyk.openweathermap.data.settings.models.units.SettingsUnitsModelData
+import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.SettingsAppearanceModelData
+import de.niklasbednarczyk.openweathermap.data.settings.models.display.SettingsDisplayModelData
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawer
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigator
@@ -26,7 +27,8 @@ fun OwmApp(
     val uiState = viewModel.uiState.collectAsState()
 
     SetupSettings(
-        settingsUnits = uiState.value.settingsUnits
+        appearance = uiState.value.settingsAppearance,
+        display = uiState.value.settingsDisplay
     ) {
         OwmTheme {
             SetupSystemBar()
@@ -78,12 +80,14 @@ private fun SetupBackPressWithNavigationDrawer(
 
 @Composable
 private fun SetupSettings(
-    settingsUnits: SettingsUnitsModelData?,
+    appearance: SettingsAppearanceModelData?,
+    display: SettingsDisplayModelData?,
     content: @Composable () -> Unit
 ) {
-    if (settingsUnits != null) {
+    if (appearance != null && display != null) {
         val settings = OwmSettingsModel(
-            units = settingsUnits
+            appearance = appearance,
+            display = display
         )
         CompositionLocalProvider(
             OwmLocalSettings provides settings
