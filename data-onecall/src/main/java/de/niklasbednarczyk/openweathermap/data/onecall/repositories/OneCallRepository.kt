@@ -2,7 +2,7 @@ package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
 import de.niklasbednarczyk.openweathermap.core.common.language.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOfflineMediator
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.remoteName
 import de.niklasbednarczyk.openweathermap.data.onecall.local.daos.*
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallModelLocal
@@ -27,7 +27,7 @@ class OneCallRepository @Inject constructor(
     suspend fun getOneCall(
         latitude: Double,
         longitude: Double
-    ): Flow<Resource<OneCallModelData>> {
+    ): Flow<OwmResource<OneCallModelData>> {
         val language = OwmLanguageType.fromLocale()
 
         return object :

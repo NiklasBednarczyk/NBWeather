@@ -3,7 +3,7 @@ package de.niklasbednarczyk.openweathermap.data.geocoding.repositories
 import de.niklasbednarczyk.openweathermap.core.data.localremote.local.utils.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOnlineMediator
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.daos.GeocodingDao
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
@@ -27,7 +27,7 @@ class GeocodingRepository @Inject constructor(
 
     suspend fun getLocationsByLocationName(
         locationName: String
-    ): Flow<Resource<List<LocationModelData>>> {
+    ): Flow<OwmResource<List<LocationModelData>>> {
         return object :
             LocalRemoteOnlineMediator<List<LocationModelData>, List<LocationModelRemote>>() {
 
@@ -46,7 +46,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    private fun getVisitedLocations(): Flow<Resource<List<LocationModelData>?>> {
+    private fun getVisitedLocations(): Flow<OwmResource<List<LocationModelData>?>> {
         return object : LocalMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
             override fun getLocal(): Flow<List<LocationModelLocal>?> {
                 return geocodingDao.getVisitedLocations()
@@ -59,7 +59,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    fun getCurrentLocation(): Flow<Resource<LocationModelData?>> {
+    fun getCurrentLocation(): Flow<OwmResource<LocationModelData?>> {
         return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
                 return geocodingDao.getCurrentLocation()
@@ -72,13 +72,13 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    fun getVisitedLocationsInfo(): Flow<Resource<VisitedLocationsInfoModelData>?> {
+    fun getVisitedLocationsInfo(): Flow<OwmResource<VisitedLocationsInfoModelData>?> {
         return combine(
             getVisitedLocations(),
             getCurrentLocation(),
             getIsInitialCurrentLocationSet()
         ) { visitedLocationsResource, currentLocationResource, isInitialCurrentLocationSetResource ->
-            Resource.combine(
+            OwmResource.combine(
                 visitedLocationsResource,
                 currentLocationResource,
                 isInitialCurrentLocationSetResource
@@ -92,14 +92,14 @@ class GeocodingRepository @Inject constructor(
         }
     }
 
-    private fun getIsInitialCurrentLocationSet(): Flow<Resource<Boolean>> {
+    private fun getIsInitialCurrentLocationSet(): Flow<OwmResource<Boolean>> {
         return getCurrentLocation().transformWhile { resource ->
             val newResource = resource.map { oldData ->
                 oldData != null
             }
             emit(newResource)
 
-            resource !is Resource.Success
+            resource !is OwmResource.Success
         }
     }
 

@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
@@ -25,7 +25,7 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelDat
 
 @Composable
 fun SearchOverviewSearchView(
-    searchedLocationsResource: Resource<List<LocationModelData>>?,
+    searchedLocationsResource: OwmResource<List<LocationModelData>>?,
     navigateToLocation: (Double, Double) -> Unit
 ) {
 

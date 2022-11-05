@@ -2,7 +2,7 @@ package de.niklasbednarczyk.openweathermap.core.data.localremote.mediators
 
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.helper.LocalMediatorHelper
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.helper.RemoteMediatorHelper
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
@@ -15,20 +15,20 @@ abstract class LocalRemoteOfflineMediator<Data, Local, Remote> :
 
     protected abstract fun shouldGetRemote(local: Local): Boolean
 
-    private fun onSuccess(local: Local?): Resource<Data> {
+    private fun onSuccess(local: Local?): OwmResource<Data> {
         return if (local != null) {
-            Resource.Success(localToData(local))
+            OwmResource.Success(localToData(local))
         } else {
             onLocalFailed()
         }
     }
 
-    suspend operator fun invoke(): Flow<Resource<Data>> = flow {
-        emit(Resource.Loading)
+    suspend operator fun invoke(): Flow<OwmResource<Data>> = flow {
+        emit(OwmResource.Loading)
 
         val localFirst = getLocal().firstOrNull()
 
-        val flow: Flow<Resource<Data>> =
+        val flow: Flow<OwmResource<Data>> =
             if (localFirst == null || shouldGetRemote(localFirst)) {
                 try {
                     val remote = getRemote()

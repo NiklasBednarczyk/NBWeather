@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.airpollution.repositories
 
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOfflineMediator
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.data.airpollution.local.daos.AirPollutionDao
 import de.niklasbednarczyk.openweathermap.data.airpollution.local.daos.AirPollutionForecastDao
 import de.niklasbednarczyk.openweathermap.data.airpollution.local.models.AirPollutionForecastMetadataEntityLocal
@@ -23,7 +23,7 @@ class AirPollutionRepository @Inject constructor(
     suspend fun getAirPollutionForecast(
         latitude: Double,
         longitude: Double,
-    ): Flow<Resource<List<AirPollutionModelData>>> {
+    ): Flow<OwmResource<List<AirPollutionModelData>>> {
         return object :
             LocalRemoteOfflineMediator<List<AirPollutionModelData>, AirPollutionForecastModelLocal, AirPollutionForecastModelRemote>() {
             override fun getLocal(): Flow<AirPollutionForecastModelLocal?> {

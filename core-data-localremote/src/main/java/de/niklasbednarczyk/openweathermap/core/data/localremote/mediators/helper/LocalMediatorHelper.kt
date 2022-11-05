@@ -2,7 +2,7 @@ package de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.helpe
 
 import android.util.Log
 import de.niklasbednarczyk.openweathermap.core.data.localremote.constants.ConstantsCoreLocalRemote
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import kotlinx.coroutines.flow.Flow
 
 internal interface LocalMediatorHelper<Data, Local> {
@@ -11,10 +11,10 @@ internal interface LocalMediatorHelper<Data, Local> {
 
     fun localToData(local: Local): Data
 
-    fun onLocalFailed(): Resource<Data> {
+    fun onLocalFailed(): OwmResource<Data> {
         //TODO (#5) Better logging
         Log.e(ConstantsCoreLocalRemote.Logging.TAG, "Query failed")
-        return Resource.Error()
+        return OwmResource.Error()
     }
 
 }

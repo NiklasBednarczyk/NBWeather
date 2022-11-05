@@ -2,28 +2,28 @@ package de.niklasbednarczyk.openweathermap.core.ui.resource
 
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.ErrorType
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmErrorType
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
 
 @Composable
 fun <T> OwmResourceView(
-    resource: Resource<T>?,
+    resource: OwmResource<T>?,
     nullContent: @Composable () -> Unit = {},
-    errorContent: @Composable (type: ErrorType?) -> Unit = { type -> ErrorView(type) },
+    errorContent: @Composable (type: OwmErrorType?) -> Unit = { type -> ErrorView(type) },
     loadingContent: @Composable () -> Unit = {},
     successContent: @Composable (data: T) -> Unit
 ) {
     when (resource) {
-        is Resource.Error -> {
+        is OwmResource.Error -> {
             errorContent(resource.type)
         }
-        is Resource.Loading -> {
+        is OwmResource.Loading -> {
             loadingContent()
         }
-        is Resource.Success -> {
+        is OwmResource.Success -> {
             successContent(resource.data)
         }
         null -> {
@@ -33,14 +33,14 @@ fun <T> OwmResourceView(
 }
 
 @Composable
-private fun ErrorView(type: ErrorType?) {
+private fun ErrorView(type: OwmErrorType?) {
     val stringResId = when (type) {
-        ErrorType.NO_INTERNET -> R.string.error_text_no_internet
+        OwmErrorType.NO_INTERNET -> R.string.error_text_no_internet
         null -> R.string.error_text_unknown
     }
 
     val icon = when (type) {
-        ErrorType.NO_INTERNET -> OwmIcons.ErrorNoInternet
+        OwmErrorType.NO_INTERNET -> OwmIcons.ErrorNoInternet
         null -> OwmIcons.ErrorUnknown
     }
 

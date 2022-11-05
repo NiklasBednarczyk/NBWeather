@@ -3,7 +3,7 @@ package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.Resource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarActionModel
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarModel
@@ -47,7 +47,7 @@ class SearchOverviewViewModel @Inject constructor(
                             flowOf(null)
                         }
                     }.catch {
-                        flowOf(Resource.Error())
+                        flowOf(OwmResource.Error())
                     }
             },
             { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
