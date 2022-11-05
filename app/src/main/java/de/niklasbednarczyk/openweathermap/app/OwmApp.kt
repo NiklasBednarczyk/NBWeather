@@ -10,8 +10,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import de.niklasbednarczyk.openweathermap.core.ui.compositions.settings.OwmLocalSettings
-import de.niklasbednarczyk.openweathermap.core.ui.compositions.settings.OwmSettingsModel
+import de.niklasbednarczyk.openweathermap.core.ui.settings.OwmLocalSettings
+import de.niklasbednarczyk.openweathermap.core.ui.settings.OwmSettingsModel
 import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.data.settings.models.units.SettingsUnitsModelData
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost

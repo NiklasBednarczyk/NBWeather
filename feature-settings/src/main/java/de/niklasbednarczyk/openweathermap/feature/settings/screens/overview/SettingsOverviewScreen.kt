@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.R
-import de.niklasbednarczyk.openweathermap.core.ui.compositions.settings.OwmSettings
+import de.niklasbednarczyk.openweathermap.core.ui.settings.OwmSettings
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmTopAppBar
 

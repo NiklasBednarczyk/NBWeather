@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.ui.compositions.settings
+package de.niklasbednarczyk.openweathermap.core.ui.settings
 
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.openweathermap.data.settings.models.units.SettingsUnitsModelData
