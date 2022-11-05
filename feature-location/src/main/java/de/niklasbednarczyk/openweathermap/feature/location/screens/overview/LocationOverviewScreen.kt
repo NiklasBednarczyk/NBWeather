@@ -28,7 +28,7 @@ fun LocationOverviewScreen(
                 OwmCenterAlignedTopAppBar(
                     scrollBehavior = scrollBehavior,
                     navigationIcon = navigationIcon,
-                    title = location.localizedNameAndCountry.asString(),
+                    title = location?.localizedNameAndCountry.asString(),
                     actions = {
                         OwmIconButton(
                             icon = OwmIcons.Search,

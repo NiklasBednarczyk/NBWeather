@@ -4,5 +4,5 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 data class LocationOverviewUiState(
-    val locationResource: Resource<LocationModelData>? = null
+    val locationResource: Resource<LocationModelData?>? = null
 )

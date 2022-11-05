@@ -11,7 +11,10 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocations
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.services.GeocodingService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -56,7 +59,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    private fun getCurrentLocationNullable(): Flow<Resource<LocationModelData?>> {
+    fun getCurrentLocation(): Flow<Resource<LocationModelData?>> {
         return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
                 return geocodingDao.getCurrentLocation()
@@ -72,7 +75,7 @@ class GeocodingRepository @Inject constructor(
     fun getVisitedLocationsInfo(): Flow<Resource<VisitedLocationsInfoModelData>?> {
         return combine(
             getVisitedLocations(),
-            getCurrentLocationNullable(),
+            getCurrentLocation(),
             getIsInitialCurrentLocationSet()
         ) { visitedLocationsResource, currentLocationResource, isInitialCurrentLocationSetResource ->
             Resource.combine(
@@ -89,25 +92,8 @@ class GeocodingRepository @Inject constructor(
         }
     }
 
-    fun getCurrentLocation(): Flow<Resource<LocationModelData>> {
-        return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
-            override fun getLocal(): Flow<LocationModelLocal?> {
-                return geocodingDao.getCurrentLocation()
-            }
-
-            override fun localToData(local: LocationModelLocal?): LocationModelData? {
-                return LocationModelData.localToData(local)
-            }
-
-        }().map { currentLocationResource ->
-            currentLocationResource.map { oldData ->
-                oldData
-            }
-        }
-    }
-
     private fun getIsInitialCurrentLocationSet(): Flow<Resource<Boolean>> {
-        return getCurrentLocationNullable().transformWhile { resource ->
+        return getCurrentLocation().transformWhile { resource ->
             val newResource = resource.map { oldData ->
                 oldData != null
             }
