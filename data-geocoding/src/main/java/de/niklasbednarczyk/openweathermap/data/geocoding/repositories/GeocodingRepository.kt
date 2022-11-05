@@ -72,15 +72,18 @@ class GeocodingRepository @Inject constructor(
     fun getVisitedLocationsInfo(): Flow<Resource<VisitedLocationsInfoModelData>?> {
         return combine(
             getVisitedLocations(),
-            getCurrentLocationNullable()
-        ) { visitedLocationsResource, currentLocationResource ->
-            Resource.merge(
+            getCurrentLocationNullable(),
+            getIsInitialCurrentLocationSet()
+        ) { visitedLocationsResource, currentLocationResource, isInitialCurrentLocationSetResource ->
+            Resource.combine(
                 visitedLocationsResource,
-                currentLocationResource
-            ) { visitedLocations, currentLocation ->
+                currentLocationResource,
+                isInitialCurrentLocationSetResource
+            ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
                 VisitedLocationsInfoModelData(
                     visitedLocations = visitedLocations ?: emptyList(),
-                    currentLocation = currentLocation
+                    currentLocation = currentLocation,
+                    isInitialCurrentLocationSet = isInitialCurrentLocationSet
                 )
             }
         }
@@ -103,7 +106,7 @@ class GeocodingRepository @Inject constructor(
         }
     }
 
-    fun getIsInitialCurrentLocationSet(): Flow<Resource<Boolean>> {
+    private fun getIsInitialCurrentLocationSet(): Flow<Resource<Boolean>> {
         return getCurrentLocationNullable().transformWhile { resource ->
             val newResource = resource.map { oldData ->
                 oldData != null

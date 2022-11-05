@@ -109,6 +109,13 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
+    fun onBackPressedWhenNoCurrentLocation() {
+        val snackbar = OwmSnackbarModel(
+            message = OwmString.Resource(R.string.snackbar_back_pressed_when_no_current_location_message)
+        )
+        sendSnackbar(snackbar)
+    }
+
     private fun getCurrentLocation(
         onSuccess: (Double, Double) -> Unit
     ) {

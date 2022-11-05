@@ -7,5 +7,4 @@ import de.niklasbednarczyk.openweathermap.data.settings.models.units.SettingsUni
 data class OwmAppUiState(
     val settingsUnits: SettingsUnitsModelData? = null,
     val visitedLocationsInfoResource: Resource<VisitedLocationsInfoModelData>? = null,
-    val isInitialCurrentLocationSetResource: Resource<Boolean>? = null
 )

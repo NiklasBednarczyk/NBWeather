@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 abstract class OwmViewModelBasic : ViewModel() {
 
-    val snackbarChannel = Channel<OwmSnackbarModel>(Channel.CONFLATED)
+    val snackbarChannel = Channel<OwmSnackbarModel>(Channel.RENDEZVOUS)
 
     protected fun launchSuspend(
         invokeSuspend: suspend () -> Unit

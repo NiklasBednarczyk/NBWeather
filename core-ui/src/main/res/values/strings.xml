@@ -16,6 +16,7 @@
     <string name="screen_search_overview_search_no_results">No locations found</string>
     <string name="screen_settings_overview_title">Settings</string>
 
+    <string name="snackbar_back_pressed_when_no_current_location_message">You need to select a location</string>
     <string name="snackbar_location_found_canceled_message">Location request was canceled</string>
     <string name="snackbar_location_found_canceled_action_label">Try again</string>
     <string name="snackbar_location_found_failure_message">Location request failed</string>

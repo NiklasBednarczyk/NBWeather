@@ -19,11 +19,6 @@ class OwmAppViewModel @Inject constructor(
         )
 
         collectFlow(
-            { geocodingRepository.getIsInitialCurrentLocationSet() },
-            { oldUiState, output -> oldUiState.copy(isInitialCurrentLocationSetResource = output) }
-        )
-
-        collectFlow(
             { settingsUnitsRepository.getData() },
             { oldUiState, output -> oldUiState.copy(settingsUnits = output) }
         )

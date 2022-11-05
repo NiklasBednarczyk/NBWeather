@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,7 +19,7 @@ import de.niklasbednarczyk.openweathermap.feature.search.screens.overview.views.
 fun SearchOverviewScreen(
     viewModel: SearchOverviewViewModel = hiltViewModel(),
     navigationIcon: @Composable () -> Unit,
-    navigateToLocation: (Double, Double) -> Unit
+    navigateToLocation: (Double, Double) -> Unit,
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
@@ -26,8 +27,13 @@ fun SearchOverviewScreen(
     OwmResourceView(
         resource = uiState.value.visitedLocationsInfoResource
     ) { visitedLocationsInfo ->
-        val navIcon =
-            if (visitedLocationsInfo.currentLocation != null) navigationIcon else emptyIcon
+        val showNavigationIcon = visitedLocationsInfo.currentLocation != null
+
+        val navIcon = if (showNavigationIcon) navigationIcon else emptyIcon
+
+        BackHandler(visitedLocationsInfo.isInitialCurrentLocationSet && !showNavigationIcon) {
+            viewModel.onBackPressedWhenNoCurrentLocation()
+        }
 
         OwmScaffold(
             topBar = {

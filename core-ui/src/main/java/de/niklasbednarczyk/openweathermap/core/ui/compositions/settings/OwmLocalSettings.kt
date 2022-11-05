@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.core.ui.compositions.settings
 
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.compositionLocalOf
 
 val OwmLocalSettings =
-    staticCompositionLocalOf<OwmSettingsModel> { error("No OwmSettingsModel provided") }
+    compositionLocalOf<OwmSettingsModel> { error("No OwmSettingsModel provided") }
