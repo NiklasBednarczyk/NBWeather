@@ -13,7 +13,6 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationM
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.services.GeocodingService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.withContext
@@ -81,23 +80,18 @@ class GeocodingRepository @Inject constructor(
     fun getVisitedLocationsInfo(
         dataLanguageType: OwmDataLanguageType
     ): Flow<OwmResource<VisitedLocationsInfoModelData>?> {
-        return combine(
+        return OwmResource.combineResourceFlows(
             getVisitedLocations(dataLanguageType),
             getCurrentLocation(dataLanguageType),
             getIsInitialCurrentLocationSet(dataLanguageType)
-        ) { visitedLocationsResource, currentLocationResource, isInitialCurrentLocationSetResource ->
-            OwmResource.combine(
-                visitedLocationsResource,
-                currentLocationResource,
-                isInitialCurrentLocationSetResource
-            ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
-                VisitedLocationsInfoModelData(
-                    visitedLocations = visitedLocations ?: emptyList(),
-                    currentLocation = currentLocation,
-                    isInitialCurrentLocationSet = isInitialCurrentLocationSet
-                )
-            }
+        ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
+            VisitedLocationsInfoModelData(
+                visitedLocations = visitedLocations ?: emptyList(),
+                currentLocation = currentLocation,
+                isInitialCurrentLocationSet = isInitialCurrentLocationSet
+            )
         }
+
     }
 
     private fun getIsInitialCurrentLocationSet(

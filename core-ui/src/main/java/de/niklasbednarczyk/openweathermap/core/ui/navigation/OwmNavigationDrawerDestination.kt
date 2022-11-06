@@ -1,3 +1,0 @@
-package de.niklasbednarczyk.openweathermap.core.ui.navigation
-
-interface OwmNavigationDrawerDestination : OwmNavigationDestination

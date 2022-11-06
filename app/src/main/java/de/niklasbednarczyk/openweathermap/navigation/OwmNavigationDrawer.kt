@@ -6,22 +6,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
-import de.niklasbednarczyk.openweathermap.core.ui.R
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
-import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.navigationDrawerDividerPadding
-import de.niklasbednarczyk.openweathermap.data.geocoding.models.VisitedLocationsInfoModelData
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
-import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
 
 @Composable
 fun OwmNavigationDrawer(
     navigator: OwmNavigator,
-    visitedLocationsInfo: VisitedLocationsInfoModelData,
+    drawerItems: List<OwmNavigationDrawerItem>,
     content: @Composable () -> Unit
 ) {
     val currentBackStackEntryState = navigator.navController.currentBackStackEntryAsState()
@@ -33,7 +29,7 @@ fun OwmNavigationDrawer(
         drawerContent = {
             DrawerSheet(
                 navigator = navigator,
-                visitedLocationsInfo = visitedLocationsInfo,
+                drawerItems = drawerItems,
             )
         },
         gesturesEnabled = gesturesEnabled,
@@ -44,41 +40,47 @@ fun OwmNavigationDrawer(
 @Composable
 private fun DrawerSheet(
     navigator: OwmNavigator,
-    visitedLocationsInfo: VisitedLocationsInfoModelData
+    drawerItems: List<OwmNavigationDrawerItem>,
 ) {
     val closeDrawer = { navigator.closeDrawer() }
 
     ModalDrawerSheet {
         LazyColumn {
-            // TODO (#20) Add header with app icon
-
-            items(visitedLocationsInfo.visitedLocations) { visitedLocation ->
-                val isSelected = visitedLocation == visitedLocationsInfo.currentLocation
-                DrawerItem(
-                    closeDrawer = closeDrawer,
-                    navigateToDestination = {
-                        if (!isSelected) {
-                            navigator.navigateToLocation(
-                                visitedLocation.latitude,
-                                visitedLocation.longitude
-                            )
-                        }
-                    },
-                    label = visitedLocation.localizedNameAndCountry.asString(),
-                    icon = OwmIcons.Location,
-                    selected = isSelected
-                )
-            }
-            item {
-                DrawerDivider()
-                DrawerItem(
-                    closeDrawer = closeDrawer,
-                    navigateToDestination = {
-                        navigator.navigate(SettingsDestinations.Overview)
-                    },
-                    label = stringResource(R.string.screen_settings_overview_title),
-                    icon = OwmIcons.Settings
-                )
+            items(drawerItems) { drawerItem ->
+                when (drawerItem) {
+                    is OwmNavigationDrawerItem.Divider -> {
+                        Divider(
+                            Modifier.padding(navigationDrawerDividerPadding)
+                        )
+                    }
+                    is OwmNavigationDrawerItem.Item.Location -> {
+                        DrawerItem(
+                            closeDrawer = closeDrawer,
+                            navigateToDestination = {
+                                if (!drawerItem.selected) {
+                                    navigator.navigateToLocation(
+                                        drawerItem.latitude,
+                                        drawerItem.longitude
+                                    )
+                                }
+                            },
+                            label = drawerItem.label,
+                            icon = drawerItem.icon,
+                            selected = drawerItem.selected
+                        )
+                    }
+                    is OwmNavigationDrawerItem.Item.Other -> {
+                        DrawerItem(
+                            closeDrawer = closeDrawer,
+                            navigateToDestination = {
+                                navigator.navigateToDestination(drawerItem.destination)
+                            },
+                            label = drawerItem.label,
+                            icon = drawerItem.icon,
+                            selected = drawerItem.selected
+                        )
+                    }
+                }
             }
         }
     }
@@ -89,25 +91,18 @@ private fun DrawerSheet(
 private fun DrawerItem(
     closeDrawer: () -> Unit,
     navigateToDestination: () -> Unit,
-    label: String,
+    label: OwmString?,
     icon: OwmIconModel,
-    selected: Boolean = false
+    selected: Boolean
 ) {
     NavigationDrawerItem(
         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
-        label = { Text(text = label) },
+        label = { Text(text = label.asString()) },
         icon = { OwmIcon(icon = icon) },
         selected = selected,
         onClick = {
             closeDrawer()
             navigateToDestination()
         }
-    )
-}
-
-@Composable
-private fun DrawerDivider() {
-    Divider(
-        Modifier.padding(navigationDrawerDividerPadding)
     )
 }

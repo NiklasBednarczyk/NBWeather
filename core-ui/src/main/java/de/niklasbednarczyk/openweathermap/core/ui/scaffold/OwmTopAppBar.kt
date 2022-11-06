@@ -76,7 +76,7 @@ private val containerColorWithScrolling: Color
 fun OwmTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     navigationIcon: @Composable () -> Unit,
-    title: String,
+    title: OwmString?,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     OwmTopAppBarWithStatusBar(scrollBehavior = scrollBehavior) { modifier ->
@@ -86,7 +86,7 @@ fun OwmTopAppBar(
             navigationIcon = navigationIcon,
             title = {
                 OwmTextSingleLine(
-                    text = title,
+                    text = title.asString(),
                     style = MaterialTheme.typography.titleLarge
                 )
             },
@@ -99,7 +99,7 @@ fun OwmTopAppBar(
 fun OwmCenterAlignedTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     navigationIcon: @Composable () -> Unit,
-    title: String,
+    title: OwmString?,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     OwmTopAppBarWithStatusBar(scrollBehavior = scrollBehavior) { modifier ->
@@ -109,7 +109,7 @@ fun OwmCenterAlignedTopAppBar(
             navigationIcon = navigationIcon,
             title = {
                 OwmTextSingleLine(
-                    text = title,
+                    text = title.asString(),
                     style = MaterialTheme.typography.titleLarge
                 )
             },

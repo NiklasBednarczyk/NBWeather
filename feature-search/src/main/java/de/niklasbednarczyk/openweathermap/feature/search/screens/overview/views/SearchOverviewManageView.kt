@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 @Composable
@@ -21,7 +21,7 @@ fun SearchOverviewManageView(
     removeVisitedLocation: (LocationModelData) -> Unit
 ) {
     LazyColumn(
-        contentPadding = listContentPadding
+        contentPadding = listContentPaddingValues
     ) {
         items(
             items = visitedLocations,

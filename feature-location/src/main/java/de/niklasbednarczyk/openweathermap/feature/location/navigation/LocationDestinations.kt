@@ -3,11 +3,11 @@ package de.niklasbednarczyk.openweathermap.feature.location.navigation
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDrawerDestination
+import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 
 object LocationDestinations {
 
-    object Overview : OwmNavigationDrawerDestination {
+    object Overview : OwmNavigationDestination.Drawer {
         const val KEY_LATITUDE = "keyLatitude"
         const val KEY_LONGITUDE = "keyLongitude"
 

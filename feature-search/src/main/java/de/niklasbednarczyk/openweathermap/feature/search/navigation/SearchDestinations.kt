@@ -4,7 +4,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestin
 
 object SearchDestinations {
 
-    object Overview : OwmNavigationDestination {
+    object Overview : OwmNavigationDestination.Overview {
         override val route: String
             get() = "search_overview"
     }

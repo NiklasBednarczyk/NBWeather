@@ -14,20 +14,59 @@ fun NavGraphBuilder.owmComposable(
     destination: OwmNavigationDestination,
     content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
 ) {
-    val enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)? =
-        if (destination is OwmNavigationDrawerDestination) {
-            null
-        } else {
-            { enterUp() }
+    when (destination) {
+        is OwmNavigationDestination.Detail -> {
+            owmComposableDestination(
+                destination = destination,
+                enterTransition = {
+                    enterUp()
+                },
+                exitTransition = {
+                    exitDown()
+                },
+                content = content
+            )
         }
-
-    val exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? =
-        if (destination is OwmNavigationDrawerDestination) {
-            null
-        } else {
-            { exitDown() }
+        is OwmNavigationDestination.Drawer -> {
+            owmComposableDestination(
+                destination = destination,
+                enterTransition = null,
+                exitTransition = null,
+                content = content
+            )
         }
+        is OwmNavigationDestination.Overview -> {
+            owmComposableDestination(
+                destination = destination,
+                enterTransition = {
+                    val initialRoute = initialState.destination.route
+                    if (destination.navigatesTo.any { navigatesTo -> navigatesTo.route == initialRoute }) {
+                        null
+                    } else {
+                        enterUp()
+                    }
+                },
+                exitTransition = {
+                    val targetRoute = targetState.destination.route
+                    if (destination.navigatesTo.any { navigatesTo -> navigatesTo.route == targetRoute }) {
+                        null
+                    } else {
+                        exitDown()
+                    }
+                },
+                content = content
+            )
+        }
+    }
 
+}
+
+private fun NavGraphBuilder.owmComposableDestination(
+    destination: OwmNavigationDestination,
+    enterTransition: (AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition?)?,
+    exitTransition: (AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition?)? = null,
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
+) {
     composable(
         route = destination.route,
         arguments = destination.arguments,
@@ -35,7 +74,6 @@ fun NavGraphBuilder.owmComposable(
         exitTransition = exitTransition,
         content = content
     )
-
 }
 
 private const val TWEEN_DURATION = 300

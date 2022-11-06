@@ -18,7 +18,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
 import de.niklasbednarczyk.openweathermap.core.ui.placeholder.owmPlaceholder
 import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.core.ui.theme.placeholderTextShape
 import de.niklasbednarczyk.openweathermap.core.ui.theme.placeholderVerticalPadding
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
@@ -137,7 +137,7 @@ private fun List(
     content: LazyListScope.() -> Unit
 ) {
     LazyColumn(
-        contentPadding = listContentPadding,
+        contentPadding = listContentPaddingValues,
         content = content
     )
 }

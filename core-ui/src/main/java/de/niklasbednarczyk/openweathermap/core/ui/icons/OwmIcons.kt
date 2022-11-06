@@ -23,6 +23,20 @@ object OwmIcons {
             OwmString.Resource(R.string.icon_content_description_cancel)
     }
 
+    object ColorScheme : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.Palette
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.Palette
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_color_scheme)
+    }
+
+    object DataLanguage : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.Translate
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.Translate
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_data_language)
+    }
+
     object Delete : OwmIconModel {
         override val imageVectorFilled: ImageVector = Icons.Filled.Delete
         override val imageVectorOutlined: ImageVector = Icons.Outlined.Delete
@@ -77,6 +91,27 @@ object OwmIcons {
         override val imageVectorOutlined: ImageVector = Icons.Outlined.Settings
         override val contentDescription: OwmString =
             OwmString.Resource(R.string.icon_content_description_settings)
+    }
+
+    object Theme : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.DarkMode
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.DarkMode
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_theme)
+    }
+
+    object TimeFormat : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.Schedule
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.Schedule
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_time_format)
+    }
+
+    object Units : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.Thermostat
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.Thermostat
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_units)
     }
 
 }

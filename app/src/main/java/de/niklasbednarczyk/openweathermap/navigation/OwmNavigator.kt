@@ -10,7 +10,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
-import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDrawerDestination
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -37,30 +36,48 @@ class OwmNavigator(
 
     }
 
-    fun navigate(destination: OwmNavigationDestination, customRoute: String? = null) {
+    private fun navigate(destination: OwmNavigationDestination, customRoute: String? = null) {
         val route = customRoute ?: destination.route
 
-        if (destination is OwmNavigationDrawerDestination) {
-            navController.navigate(route) {
-                val destinationId = navController.findDestination(destination.route)?.id
-                if (navController.backQueue.any { it.destination.id == destinationId }) {
-                    if (destinationId != null) {
-                        popUpTo(destinationId) {
-                            inclusive = true
+        when (destination) {
+            is OwmNavigationDestination.Drawer -> {
+                navController.navigate(route) {
+                    val destinationId = navController.findDestination(destination.route)?.id
+                    if (navController.backQueue.any { it.destination.id == destinationId }) {
+                        if (destinationId != null) {
+                            popUpTo(destinationId) {
+                                inclusive = true
+                            }
+                        }
+                    } else {
+                        val currentDestinationId = navController.currentDestination?.id
+                        if (currentDestinationId != null) {
+                            popUpTo(currentDestinationId) {
+                                inclusive = true
+                            }
                         }
                     }
-                } else {
-                    val currentDestinationId = navController.currentDestination?.id
-                    if (currentDestinationId != null) {
-                        popUpTo(currentDestinationId) {
+                }
+            }
+            is OwmNavigationDestination.Detail -> {
+                navController.navigate(route)
+
+            }
+            is OwmNavigationDestination.Overview -> {
+                navController.navigate(route) {
+                    val previousId = navController.previousBackStackEntry?.destination?.id
+                    if (previousId != null) {
+                        popUpTo(previousId) {
                             inclusive = true
                         }
                     }
                 }
             }
-        } else {
-            navController.navigate(route)
         }
+    }
+
+    fun navigateToDestination(destination: OwmNavigationDestination) {
+        navigate(destination)
     }
 
     fun navigateToLocation(latitude: Double, longitude: Double) {
