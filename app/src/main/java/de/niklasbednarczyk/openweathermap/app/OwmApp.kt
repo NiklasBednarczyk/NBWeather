@@ -22,8 +22,6 @@ fun OwmApp(
 ) {
     val uiState = viewModel.uiState.collectAsState()
 
-    //TODO (#15) Separate locationInfo from isInitialCurrentLocationSet to prevent app loading and navigation not showing correctly
-
     val appearance = uiState.value.settingsAppearance
 
     if (appearance != null) {
@@ -36,15 +34,12 @@ fun OwmApp(
 
             Surface {
                 OwmResourceView(
-                    resource = uiState.value.locationInfo
-                ) { locationInfo ->
-
-                    val drawerItems = locationInfo.first
-                    val isInitialCurrentLocationSet = locationInfo.second
+                    resource = uiState.value.isInitialCurrentLocationSet
+                ) { isInitialCurrentLocationSet ->
 
                     OwmNavigationDrawer(
                         navigator = navigator,
-                        drawerItems = drawerItems
+                        drawerItems = uiState.value.drawerItems
                     ) {
                         OwmNavHost(
                             navigator = navigator,

@@ -3,7 +3,7 @@ package de.niklasbednarczyk.openweathermap.app
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource.Companion.mapResource
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource.Companion.transformToList
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
@@ -29,43 +29,48 @@ class OwmAppViewModel @Inject constructor(
         destination = SettingsDestinations.Overview
     )
 
-    private val locationInfoFlow: Flow<OwmResource<Pair<List<OwmNavigationDrawerItem>, Boolean>>?> =
+    private val drawerItemsFlow: Flow<List<OwmNavigationDrawerItem>> =
         settingsDisplayRepository.getData().flatMapLatest { display ->
-            geocodingRepository.getVisitedLocationsInfo(display.dataLanguage)
-                .mapResource { visitedLocationsInfo ->
-                    val items = mutableListOf<OwmNavigationDrawerItem>()
+            val dataLanguage = display.dataLanguage
+            OwmResource.combineResourceFlows(
+                geocodingRepository.getVisitedLocations(dataLanguage),
+                geocodingRepository.getCurrentLocation(dataLanguage)
+            ) { visitedLocations, currentLocation ->
+                val items = mutableListOf<OwmNavigationDrawerItem>()
 
-                    val locationItems =
-                        visitedLocationsInfo.visitedLocations.map { visitedLocation ->
-                            val currentLocation = visitedLocationsInfo.currentLocation
-                            val sameLatitude = visitedLocation.latitude == currentLocation?.latitude
-                            val sameLongitude =
-                                visitedLocation.longitude == currentLocation?.longitude
-                            val selected = sameLatitude && sameLongitude
+                val locationItems = visitedLocations?.map { visitedLocation ->
+                    val sameLatitude = visitedLocation.latitude == currentLocation?.latitude
+                    val sameLongitude =
+                        visitedLocation.longitude == currentLocation?.longitude
+                    val selected = sameLatitude && sameLongitude
 
-                            OwmNavigationDrawerItem.Item.Location(
-                                label = visitedLocation.localizedNameAndCountry,
-                                icon = OwmIcons.Location,
-                                selected = selected,
-                                latitude = visitedLocation.latitude,
-                                longitude = visitedLocation.longitude
-                            )
-                        }
-                    items.addAll(locationItems)
+                    OwmNavigationDrawerItem.Item.Location(
+                        label = visitedLocation.localizedNameAndCountry,
+                        icon = OwmIcons.Location,
+                        selected = selected,
+                        latitude = visitedLocation.latitude,
+                        longitude = visitedLocation.longitude
+                    )
+                } ?: emptyList()
+                items.addAll(locationItems)
 
-                    items.add(OwmNavigationDrawerItem.Divider)
+                items.add(OwmNavigationDrawerItem.Divider)
 
-                    items.add(settingsItem)
+                items.add(settingsItem)
 
-                    Pair(items, visitedLocationsInfo.isInitialCurrentLocationSet)
-                }
+                items
+            }.transformToList()
         }
-
 
     init {
         collectFlow(
-            { locationInfoFlow },
-            { oldUiState, output -> oldUiState.copy(locationInfo = output) }
+            { drawerItemsFlow },
+            { oldUiState, output -> oldUiState.copy(drawerItems = output) }
+        )
+
+        collectFlow(
+            { geocodingRepository.getIsInitialCurrentLocationSet() },
+            { oldUiState, output -> oldUiState.copy(isInitialCurrentLocationSet = output) }
         )
 
         collectFlow(

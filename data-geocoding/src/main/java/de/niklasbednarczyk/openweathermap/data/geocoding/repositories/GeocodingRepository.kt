@@ -47,7 +47,7 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
-    private fun getVisitedLocations(
+    fun getVisitedLocations(
         dataLanguageType: OwmDataLanguageType
     ): Flow<OwmResource<List<LocationModelData>?>> {
         return object : LocalMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
@@ -78,12 +78,12 @@ class GeocodingRepository @Inject constructor(
     }
 
     fun getVisitedLocationsInfo(
-        dataLanguageType: OwmDataLanguageType
+        dataLanguage: OwmDataLanguageType
     ): Flow<OwmResource<VisitedLocationsInfoModelData>?> {
         return OwmResource.combineResourceFlows(
-            getVisitedLocations(dataLanguageType),
-            getCurrentLocation(dataLanguageType),
-            getIsInitialCurrentLocationSet(dataLanguageType)
+            getVisitedLocations(dataLanguage),
+            getCurrentLocation(dataLanguage),
+            getIsInitialCurrentLocationSet(dataLanguage)
         ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
             VisitedLocationsInfoModelData(
                 visitedLocations = visitedLocations ?: emptyList(),
@@ -94,10 +94,10 @@ class GeocodingRepository @Inject constructor(
 
     }
 
-    private fun getIsInitialCurrentLocationSet(
-        dataLanguageType: OwmDataLanguageType
+    fun getIsInitialCurrentLocationSet(
+        dataLanguage: OwmDataLanguageType = OwmDataLanguageType.ENGLISH
     ): Flow<OwmResource<Boolean>> {
-        return getCurrentLocation(dataLanguageType).transformWhile { resource ->
+        return getCurrentLocation(dataLanguage).transformWhile { resource ->
             val newResource = resource.map { oldData ->
                 oldData != null
             }

@@ -36,6 +36,17 @@ sealed interface OwmResource<out T> {
             }
         }
 
+        fun <T> Flow<OwmResource<List<T>>?>.transformToList(
+        ): Flow<List<T>> {
+            return this.map { resource ->
+                if (resource is Success) {
+                    resource.data
+                } else {
+                    emptyList()
+                }
+            }
+        }
+
         fun <T1, T2, R> combineResourceFlows(
             flow1: Flow<OwmResource<T1>>,
             flow2: Flow<OwmResource<T2>>,
