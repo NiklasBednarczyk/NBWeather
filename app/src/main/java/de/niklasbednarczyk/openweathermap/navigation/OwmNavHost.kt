@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.openweathermap.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconButton
@@ -36,7 +38,9 @@ fun OwmNavHost(
 
     AnimatedNavHost(
         navController = navigator.navController,
-        startDestination = startDestination
+        startDestination = startDestination,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
     ) {
         locationGraph(
             navigationIconDrawer = navigationIconDrawer,
