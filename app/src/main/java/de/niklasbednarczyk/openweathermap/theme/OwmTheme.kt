@@ -1,11 +1,15 @@
 package de.niklasbednarczyk.openweathermap.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.annotation.ColorInt
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.SettingsAppearanceModelData
+import de.niklasbednarczyk.openweathermap.library.materialcolorutilities.scheme.Scheme
 
 @Composable
 fun OwmTheme(
@@ -13,12 +17,18 @@ fun OwmTheme(
     content: @Composable () -> Unit
 ) {
 
-    //TODO (#15) Replace with settings colorScheme and theme
+    val sourceColorInt = appearance.colorScheme.sourceColorInt
+    val isLightTheme = appearance.theme.isLightTheme
 
-    val colorScheme = if (isSystemInDarkTheme()) {
-        darkColorScheme()
+    val colorScheme = if (sourceColorInt != null) {
+        createColorScheme(sourceColorInt, isLightTheme)
     } else {
-        lightColorScheme()
+        val context = LocalContext.current
+        if (isLightTheme) {
+            dynamicLightColorScheme(context)
+        } else {
+            dynamicDarkColorScheme(context)
+        }
     }
 
     MaterialTheme(
@@ -27,3 +37,47 @@ fun OwmTheme(
     )
 
 }
+
+private fun createColorScheme(
+    @ColorInt sourceColorInt: Int,
+    isLightColorScheme: Boolean
+): ColorScheme {
+    val scheme = if (isLightColorScheme) {
+        Scheme.light(sourceColorInt)
+    } else {
+        Scheme.dark(sourceColorInt)
+    }
+
+    return ColorScheme(
+        primary = Color(scheme.primary),
+        onPrimary = Color(scheme.onPrimary),
+        primaryContainer = Color(scheme.primaryContainer),
+        onPrimaryContainer = Color(scheme.onPrimaryContainer),
+        inversePrimary = Color(scheme.inversePrimary),
+        secondary = Color(scheme.secondary),
+        onSecondary = Color(scheme.onSecondary),
+        secondaryContainer = Color(scheme.secondaryContainer),
+        onSecondaryContainer = Color(scheme.onSecondaryContainer),
+        tertiary = Color(scheme.tertiary),
+        onTertiary = Color(scheme.onTertiary),
+        tertiaryContainer = Color(scheme.tertiaryContainer),
+        onTertiaryContainer = Color(scheme.onTertiaryContainer),
+        background = Color(scheme.background),
+        onBackground = Color(scheme.onBackground),
+        surface = Color(scheme.surface),
+        onSurface = Color(scheme.onSurface),
+        surfaceVariant = Color(scheme.surfaceVariant),
+        onSurfaceVariant = Color(scheme.onSurfaceVariant),
+        surfaceTint = Color(scheme.primary),
+        inverseSurface = Color(scheme.inverseSurface),
+        inverseOnSurface = Color(scheme.inverseOnSurface),
+        error = Color(scheme.error),
+        onError = Color(scheme.onError),
+        errorContainer = Color(scheme.errorContainer),
+        onErrorContainer = Color(scheme.onErrorContainer),
+        outline = Color(scheme.outline),
+        outlineVariant = Color(scheme.outlineVariant),
+        scrim = Color(scheme.scrim)
+    )
+}
+

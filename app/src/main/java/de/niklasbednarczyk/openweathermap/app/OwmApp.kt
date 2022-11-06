@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.openweathermap.app
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -15,6 +14,7 @@ import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawer
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigator
 import de.niklasbednarczyk.openweathermap.theme.OwmTheme
+import de.niklasbednarczyk.openweathermap.theme.isLightTheme
 
 @Composable
 fun OwmApp(
@@ -55,7 +55,7 @@ fun OwmApp(
 @Composable
 private fun SetupSystemBar(appearance: SettingsAppearanceModelData) {
     val systemUiController = rememberSystemUiController()
-    val darkIcons = !isSystemInDarkTheme() //TODO (#15) Replace with settings is in dark theme
+    val darkIcons = appearance.theme.isLightTheme
     SideEffect {
         systemUiController.setSystemBarsColor(
             color = Color.Transparent,

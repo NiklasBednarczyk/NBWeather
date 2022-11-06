@@ -40,3 +40,6 @@ include(":data-settings")
 include(":feature-location")
 include(":feature-search")
 include(":feature-settings")
+
+//TODO (Material) Remove when available as gradle dependency
+include(":library-materialcolorutilities")

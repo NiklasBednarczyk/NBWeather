@@ -1,6 +1,7 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 
 class LayerUiConventionPlugin : OwmConventionPlugin {
 
@@ -19,6 +20,8 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
             implementation(project(":core-common"))
             implementation(project(":core-data-disk"))
             implementation(project(":core-data-localremote"))
+
+            implementation(project(":library-materialcolorutilities"))
 
             implementation(libs.getLibrary("androidx.activity.activityCompose"))
             implementation(libs.getLibrary("androidx.compose.material.materialIconsExtended"))
