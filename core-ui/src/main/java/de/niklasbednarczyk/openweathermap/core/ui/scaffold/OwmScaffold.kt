@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarModel
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 @Composable
 fun OwmScaffold(
     topBar: @Composable (scrollBehavior: TopAppBarScrollBehavior) -> Unit,
-    snackbarChannel: Channel<OwmSnackbarModel>,
+    snackbarChannel: Channel<OwmSnackbarModel>? = null,
+    bottomBar: @Composable () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -47,6 +49,7 @@ fun OwmScaffold(
                 hostState = snackbarHostState
             )
         },
+        bottomBar = bottomBar,
         content = { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 content()
@@ -58,24 +61,26 @@ fun OwmScaffold(
 @Composable
 private fun SetupSnackbarChannel(
     snackbarHostState: SnackbarHostState,
-    snackbarChannel: Channel<OwmSnackbarModel>
+    snackbarChannel: Channel<OwmSnackbarModel>?
 ) {
-    val context = LocalContext.current
+    if (snackbarChannel != null) {
+        val context = LocalContext.current
 
-    LaunchedEffect(snackbarChannel) {
-        snackbarChannel.receiveAsFlow().collect { snackbar ->
+        LaunchedEffect(snackbarChannel) {
+            snackbarChannel.receiveAsFlow().collect { snackbar ->
 
-            val message = snackbar.message.asString(context)
-            val actionLabel = snackbar.action?.label?.asString(context)
+                val message = snackbar.message.asString(context)
+                val actionLabel = snackbar.action?.label?.asString(context)
 
-            val result = snackbarHostState.showSnackbar(
-                message = message,
-                actionLabel = actionLabel,
-                duration = SnackbarDuration.Short
-            )
+                val result = snackbarHostState.showSnackbar(
+                    message = message,
+                    actionLabel = actionLabel,
+                    duration = SnackbarDuration.Short
+                )
 
-            if (result == SnackbarResult.ActionPerformed) {
-                snackbar.action?.onPerformed?.invoke()
+                if (result == SnackbarResult.ActionPerformed) {
+                    snackbar.action?.onPerformed?.invoke()
+                }
             }
         }
     }

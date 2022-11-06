@@ -25,8 +25,7 @@ fun SettingsTimeFormatScreen(
                 navigationIcon = navigationIcon,
                 title = OwmString.Resource(R.string.screen_settings_time_format_title)
             )
-        },
-        snackbarChannel = viewModel.snackbarChannel
+        }
     ) {
 
         OwmRadioGroupView(

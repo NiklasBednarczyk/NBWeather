@@ -25,8 +25,7 @@ fun SettingsDataLanguageScreen(
                 navigationIcon = navigationIcon,
                 title = OwmString.Resource(R.string.screen_settings_data_language_title)
             )
-        },
-        snackbarChannel = viewModel.snackbarChannel
+        }
     ) {
 
         OwmRadioGroupView(

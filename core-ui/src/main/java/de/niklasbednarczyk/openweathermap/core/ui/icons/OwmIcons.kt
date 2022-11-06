@@ -30,6 +30,13 @@ object OwmIcons {
             OwmString.Resource(R.string.icon_content_description_color_scheme)
     }
 
+    object Daily : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.DateRange
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.DateRange
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_daily)
+    }
+
     object DataLanguage : OwmIconModel {
         override val imageVectorFilled: ImageVector = Icons.Filled.Translate
         override val imageVectorOutlined: ImageVector = Icons.Outlined.Translate
@@ -51,13 +58,6 @@ object OwmIcons {
             OwmString.Resource(R.string.icon_content_description_drawer)
     }
 
-    object FindLocation : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.MyLocation
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.MyLocation
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_find_location)
-    }
-
     object ErrorNoInternet : OwmIconModel {
         override val imageVectorFilled: ImageVector = Icons.Filled.CloudOff
         override val imageVectorOutlined: ImageVector = Icons.Outlined.CloudOff
@@ -70,6 +70,20 @@ object OwmIcons {
         override val imageVectorOutlined: ImageVector = Icons.Outlined.Error
         override val contentDescription: OwmString =
             OwmString.Resource(R.string.icon_content_description_error_unknown)
+    }
+
+    object FindLocation : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.MyLocation
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.MyLocation
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_find_location)
+    }
+
+    object Hourly : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.WatchLater
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.WatchLater
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_hourly)
     }
 
     object Location : OwmIconModel {
@@ -101,10 +115,17 @@ object OwmIcons {
     }
 
     object TimeFormat : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Schedule
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Schedule
+        override val imageVectorFilled: ImageVector = Icons.Filled.Watch
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.Watch
         override val contentDescription: OwmString =
             OwmString.Resource(R.string.icon_content_description_time_format)
+    }
+
+    object Today : OwmIconModel {
+        override val imageVectorFilled: ImageVector = Icons.Filled.Today
+        override val imageVectorOutlined: ImageVector = Icons.Outlined.Today
+        override val contentDescription: OwmString =
+            OwmString.Resource(R.string.icon_content_description_today)
     }
 
     object Units : OwmIconModel {

@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -8,7 +9,8 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmCenterAlignedTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
-import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.navigationbar.OwmNavigationBar
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 
 @Composable
 fun LocationOverviewScreen(
@@ -18,6 +20,9 @@ fun LocationOverviewScreen(
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
+
+
+    //TODO (#9) Add swipeToRefresh
 
 
     OwmResourceView(
@@ -37,8 +42,30 @@ fun LocationOverviewScreen(
                     }
                 )
             },
-            snackbarChannel = viewModel.snackbarChannel
+            bottomBar = {
+                OwmNavigationBar(
+                    selectedNavigationBarItem = uiState.value.selectedNavigationBarItem,
+                    selectNavigationBarItem = viewModel::updateSelectedNavigationBarItem
+                )
+            }
         ) {
+            when(uiState.value.selectedNavigationBarItem) {
+                LocationOverviewNavigationBarItem.TODAY -> {
+                    //TODO (#9) Do right design
+                    Text("TODAY")
+                }
+                LocationOverviewNavigationBarItem.HOURLY -> {
+                    //TODO (#9) Do right design
+                    Text("HOURLY")
+                }
+                LocationOverviewNavigationBarItem.DAILY -> {
+                    //TODO (#9) Do right design
+                    Text("DAILY")
+                }
+            }
+
+
+
         }
     }
 

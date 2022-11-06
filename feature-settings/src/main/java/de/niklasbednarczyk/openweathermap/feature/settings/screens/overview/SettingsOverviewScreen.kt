@@ -43,8 +43,7 @@ fun SettingsOverviewScreen(
                 navigationIcon = navigationIcon,
                 title = OwmString.Resource(R.string.screen_settings_overview_title)
             )
-        },
-        snackbarChannel = viewModel.snackbarChannel
+        }
     ) {
         val items = uiState.value.items
         val firstItemIsHeader = items.firstOrNull() is SettingsOverviewItemModel.Header

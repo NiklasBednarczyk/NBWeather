@@ -25,8 +25,7 @@ fun SettingsColorSchemeScreen(
                 navigationIcon = navigationIcon,
                 title = OwmString.Resource(R.string.screen_settings_color_scheme_title)
             )
-        },
-        snackbarChannel = viewModel.snackbarChannel
+        }
     ) {
 
         OwmRadioGroupView(

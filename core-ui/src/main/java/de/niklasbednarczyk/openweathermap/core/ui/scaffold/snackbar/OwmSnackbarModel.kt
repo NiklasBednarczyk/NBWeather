@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.ui.scaffold
+package de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar
 
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 

@@ -5,8 +5,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
-import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarActionModel
-import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmSnackbarModel
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarActionModel
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarModel
+import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmSnackbarViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
@@ -20,7 +21,7 @@ class SearchOverviewViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
     private val gmsLocationRepository: GmsLocationRepository,
     private val settingsDisplayRepository: SettingsDisplayRepository
-) : OwmViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
+) : OwmViewModel<SearchOverviewUiState>(SearchOverviewUiState()), OwmSnackbarViewModel {
 
     companion object {
         private const val DEBOUNCE_VALUE = 300L

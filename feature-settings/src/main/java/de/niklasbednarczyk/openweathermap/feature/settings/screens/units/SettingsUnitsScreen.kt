@@ -25,8 +25,7 @@ fun SettingsUnitsScreen(
                 navigationIcon = navigationIcon,
                 title = OwmString.Resource(R.string.screen_settings_units_title)
             )
-        },
-        snackbarChannel = viewModel.snackbarChannel
+        }
     ) {
 
         OwmRadioGroupView(
