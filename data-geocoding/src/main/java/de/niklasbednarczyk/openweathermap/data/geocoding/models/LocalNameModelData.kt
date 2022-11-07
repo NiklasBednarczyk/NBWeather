@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.models
 
-import de.niklasbednarczyk.openweathermap.core.common.display.OwmDataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocalNamesModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocalNamesModelRemote
 
@@ -11,53 +11,53 @@ internal value class LocalNameModelData(val value: String?) {
 
         internal fun remoteToData(
             remote: LocalNamesModelRemote?,
-            dataLanguage: OwmDataLanguageType
+            language: OwmLanguageType
         ): LocalNameModelData {
-            val localName = when (dataLanguage) {
-                OwmDataLanguageType.AFRIKAANS -> remote?.af
-                OwmDataLanguageType.ALBANIAN -> remote?.sq
-                OwmDataLanguageType.ARABIC -> remote?.ar
-                OwmDataLanguageType.AZERBAIJANI -> remote?.az
-                OwmDataLanguageType.BULGARIAN -> remote?.bg
-                OwmDataLanguageType.CATALAN -> remote?.ca
-                OwmDataLanguageType.CZECH -> remote?.cs
-                OwmDataLanguageType.DANISH -> remote?.da
-                OwmDataLanguageType.GERMAN -> remote?.de
-                OwmDataLanguageType.GREEK -> remote?.el
-                OwmDataLanguageType.ENGLISH -> remote?.en
-                OwmDataLanguageType.BASQUE -> remote?.eu
-                OwmDataLanguageType.PERSIAN_FARSI -> remote?.fa
-                OwmDataLanguageType.FINNISH -> remote?.fi
-                OwmDataLanguageType.FRENCH -> remote?.fr
-                OwmDataLanguageType.GALICIAN -> remote?.gl
-                OwmDataLanguageType.HEBREW -> remote?.he
-                OwmDataLanguageType.HINDI -> remote?.hi
-                OwmDataLanguageType.CROATIAN -> remote?.hr
-                OwmDataLanguageType.HUNGARIAN -> remote?.hu
-                OwmDataLanguageType.INDONESIAN -> remote?.id
-                OwmDataLanguageType.ITALIAN -> remote?.it
-                OwmDataLanguageType.JAPANESE -> remote?.ja
-                OwmDataLanguageType.KOREAN -> remote?.ko
-                OwmDataLanguageType.LATVIAN -> remote?.lv
-                OwmDataLanguageType.LITHUANIAN -> remote?.lt
-                OwmDataLanguageType.MACEDONIAN -> remote?.mk
-                OwmDataLanguageType.NORWEGIAN -> remote?.no
-                OwmDataLanguageType.DUTCH -> remote?.nl
-                OwmDataLanguageType.POLISH -> remote?.pl
-                OwmDataLanguageType.PORTUGUESE, OwmDataLanguageType.PORTUGUES_BRASIL -> remote?.pt
-                OwmDataLanguageType.ROMANIAN -> remote?.ro
-                OwmDataLanguageType.RUSSIAN -> remote?.ru
-                OwmDataLanguageType.SWEDISH -> remote?.sv
-                OwmDataLanguageType.SLOVAK -> remote?.sk
-                OwmDataLanguageType.SLOVENIAN -> remote?.sl
-                OwmDataLanguageType.SPANISH -> remote?.es
-                OwmDataLanguageType.SERBIAN -> remote?.sr
-                OwmDataLanguageType.THAI -> remote?.th
-                OwmDataLanguageType.TURKISH -> remote?.tr
-                OwmDataLanguageType.UKRAINIAN -> remote?.uk
-                OwmDataLanguageType.VIETNAMESE -> remote?.vi
-                OwmDataLanguageType.CHINESE_SIMPLIFIED, OwmDataLanguageType.CHINESE_TRADITIONAL -> remote?.zh
-                OwmDataLanguageType.ZULU -> remote?.zu
+            val localName = when (language) {
+                OwmLanguageType.AFRIKAANS -> remote?.af
+                OwmLanguageType.ALBANIAN -> remote?.sq
+                OwmLanguageType.ARABIC -> remote?.ar
+                OwmLanguageType.AZERBAIJANI -> remote?.az
+                OwmLanguageType.BULGARIAN -> remote?.bg
+                OwmLanguageType.CATALAN -> remote?.ca
+                OwmLanguageType.CZECH -> remote?.cs
+                OwmLanguageType.DANISH -> remote?.da
+                OwmLanguageType.GERMAN -> remote?.de
+                OwmLanguageType.GREEK -> remote?.el
+                OwmLanguageType.ENGLISH -> remote?.en
+                OwmLanguageType.BASQUE -> remote?.eu
+                OwmLanguageType.PERSIAN_FARSI -> remote?.fa
+                OwmLanguageType.FINNISH -> remote?.fi
+                OwmLanguageType.FRENCH -> remote?.fr
+                OwmLanguageType.GALICIAN -> remote?.gl
+                OwmLanguageType.HEBREW -> remote?.he
+                OwmLanguageType.HINDI -> remote?.hi
+                OwmLanguageType.CROATIAN -> remote?.hr
+                OwmLanguageType.HUNGARIAN -> remote?.hu
+                OwmLanguageType.INDONESIAN -> remote?.id
+                OwmLanguageType.ITALIAN -> remote?.it
+                OwmLanguageType.JAPANESE -> remote?.ja
+                OwmLanguageType.KOREAN -> remote?.ko
+                OwmLanguageType.LATVIAN -> remote?.lv
+                OwmLanguageType.LITHUANIAN -> remote?.lt
+                OwmLanguageType.MACEDONIAN -> remote?.mk
+                OwmLanguageType.NORWEGIAN -> remote?.no
+                OwmLanguageType.DUTCH -> remote?.nl
+                OwmLanguageType.POLISH -> remote?.pl
+                OwmLanguageType.PORTUGUESE, OwmLanguageType.PORTUGUES_BRASIL -> remote?.pt
+                OwmLanguageType.ROMANIAN -> remote?.ro
+                OwmLanguageType.RUSSIAN -> remote?.ru
+                OwmLanguageType.SWEDISH -> remote?.sv
+                OwmLanguageType.SLOVAK -> remote?.sk
+                OwmLanguageType.SLOVENIAN -> remote?.sl
+                OwmLanguageType.SPANISH -> remote?.es
+                OwmLanguageType.SERBIAN -> remote?.sr
+                OwmLanguageType.THAI -> remote?.th
+                OwmLanguageType.TURKISH -> remote?.tr
+                OwmLanguageType.UKRAINIAN -> remote?.uk
+                OwmLanguageType.VIETNAMESE -> remote?.vi
+                OwmLanguageType.CHINESE_SIMPLIFIED, OwmLanguageType.CHINESE_TRADITIONAL -> remote?.zh
+                OwmLanguageType.ZULU -> remote?.zu
             }
             return LocalNameModelData(localName)
         }
@@ -113,53 +113,53 @@ internal value class LocalNameModelData(val value: String?) {
 
         internal fun localToData(
             local: LocalNamesModelLocal?,
-            dataLanguage: OwmDataLanguageType
+            language: OwmLanguageType
         ): LocalNameModelData {
-            val localName = when (dataLanguage) {
-                OwmDataLanguageType.AFRIKAANS -> local?.af
-                OwmDataLanguageType.ALBANIAN -> local?.sq
-                OwmDataLanguageType.ARABIC -> local?.ar
-                OwmDataLanguageType.AZERBAIJANI -> local?.az
-                OwmDataLanguageType.BULGARIAN -> local?.bg
-                OwmDataLanguageType.CATALAN -> local?.ca
-                OwmDataLanguageType.CZECH -> local?.cs
-                OwmDataLanguageType.DANISH -> local?.da
-                OwmDataLanguageType.GERMAN -> local?.de
-                OwmDataLanguageType.GREEK -> local?.el
-                OwmDataLanguageType.ENGLISH -> local?.en
-                OwmDataLanguageType.BASQUE -> local?.eu
-                OwmDataLanguageType.PERSIAN_FARSI -> local?.fa
-                OwmDataLanguageType.FINNISH -> local?.fi
-                OwmDataLanguageType.FRENCH -> local?.fr
-                OwmDataLanguageType.GALICIAN -> local?.gl
-                OwmDataLanguageType.HEBREW -> local?.he
-                OwmDataLanguageType.HINDI -> local?.hi
-                OwmDataLanguageType.CROATIAN -> local?.hr
-                OwmDataLanguageType.HUNGARIAN -> local?.hu
-                OwmDataLanguageType.INDONESIAN -> local?.id
-                OwmDataLanguageType.ITALIAN -> local?.it
-                OwmDataLanguageType.JAPANESE -> local?.ja
-                OwmDataLanguageType.KOREAN -> local?.ko
-                OwmDataLanguageType.LATVIAN -> local?.lv
-                OwmDataLanguageType.LITHUANIAN -> local?.lt
-                OwmDataLanguageType.MACEDONIAN -> local?.mk
-                OwmDataLanguageType.NORWEGIAN -> local?.no
-                OwmDataLanguageType.DUTCH -> local?.nl
-                OwmDataLanguageType.POLISH -> local?.pl
-                OwmDataLanguageType.PORTUGUESE, OwmDataLanguageType.PORTUGUES_BRASIL -> local?.pt
-                OwmDataLanguageType.ROMANIAN -> local?.ro
-                OwmDataLanguageType.RUSSIAN -> local?.ru
-                OwmDataLanguageType.SWEDISH -> local?.sv
-                OwmDataLanguageType.SLOVAK -> local?.sk
-                OwmDataLanguageType.SLOVENIAN -> local?.sl
-                OwmDataLanguageType.SPANISH -> local?.es
-                OwmDataLanguageType.SERBIAN -> local?.sr
-                OwmDataLanguageType.THAI -> local?.th
-                OwmDataLanguageType.TURKISH -> local?.tr
-                OwmDataLanguageType.UKRAINIAN -> local?.uk
-                OwmDataLanguageType.VIETNAMESE -> local?.vi
-                OwmDataLanguageType.CHINESE_SIMPLIFIED, OwmDataLanguageType.CHINESE_TRADITIONAL -> local?.zh
-                OwmDataLanguageType.ZULU -> local?.zu
+            val localName = when (language) {
+                OwmLanguageType.AFRIKAANS -> local?.af
+                OwmLanguageType.ALBANIAN -> local?.sq
+                OwmLanguageType.ARABIC -> local?.ar
+                OwmLanguageType.AZERBAIJANI -> local?.az
+                OwmLanguageType.BULGARIAN -> local?.bg
+                OwmLanguageType.CATALAN -> local?.ca
+                OwmLanguageType.CZECH -> local?.cs
+                OwmLanguageType.DANISH -> local?.da
+                OwmLanguageType.GERMAN -> local?.de
+                OwmLanguageType.GREEK -> local?.el
+                OwmLanguageType.ENGLISH -> local?.en
+                OwmLanguageType.BASQUE -> local?.eu
+                OwmLanguageType.PERSIAN_FARSI -> local?.fa
+                OwmLanguageType.FINNISH -> local?.fi
+                OwmLanguageType.FRENCH -> local?.fr
+                OwmLanguageType.GALICIAN -> local?.gl
+                OwmLanguageType.HEBREW -> local?.he
+                OwmLanguageType.HINDI -> local?.hi
+                OwmLanguageType.CROATIAN -> local?.hr
+                OwmLanguageType.HUNGARIAN -> local?.hu
+                OwmLanguageType.INDONESIAN -> local?.id
+                OwmLanguageType.ITALIAN -> local?.it
+                OwmLanguageType.JAPANESE -> local?.ja
+                OwmLanguageType.KOREAN -> local?.ko
+                OwmLanguageType.LATVIAN -> local?.lv
+                OwmLanguageType.LITHUANIAN -> local?.lt
+                OwmLanguageType.MACEDONIAN -> local?.mk
+                OwmLanguageType.NORWEGIAN -> local?.no
+                OwmLanguageType.DUTCH -> local?.nl
+                OwmLanguageType.POLISH -> local?.pl
+                OwmLanguageType.PORTUGUESE, OwmLanguageType.PORTUGUES_BRASIL -> local?.pt
+                OwmLanguageType.ROMANIAN -> local?.ro
+                OwmLanguageType.RUSSIAN -> local?.ru
+                OwmLanguageType.SWEDISH -> local?.sv
+                OwmLanguageType.SLOVAK -> local?.sk
+                OwmLanguageType.SLOVENIAN -> local?.sl
+                OwmLanguageType.SPANISH -> local?.es
+                OwmLanguageType.SERBIAN -> local?.sr
+                OwmLanguageType.THAI -> local?.th
+                OwmLanguageType.TURKISH -> local?.tr
+                OwmLanguageType.UKRAINIAN -> local?.uk
+                OwmLanguageType.VIETNAMESE -> local?.vi
+                OwmLanguageType.CHINESE_SIMPLIFIED, OwmLanguageType.CHINESE_TRADITIONAL -> local?.zh
+                OwmLanguageType.ZULU -> local?.zu
             }
             return LocalNameModelData(localName)
         }

@@ -35,13 +35,6 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_daily)
     }
 
-    object DataLanguage : OwmIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_translate_24
-        override val contentDescription: OwmString
-            get() = OwmString.Resource(R.string.icon_content_description_data_language)
-    }
-
     object Delete : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_delete_24
@@ -86,6 +79,13 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_hourly)
     }
 
+    object Language : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_translate_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_language)
+    }
+
     object Location : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_place_24
@@ -112,13 +112,6 @@ object OwmIcons {
             get() = R.drawable.ic_baseline_dark_mode_24
         override val contentDescription: OwmString
             get() = OwmString.Resource(R.string.icon_content_description_theme)
-    }
-
-    object TimeFormat : OwmIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_watch_24
-        override val contentDescription: OwmString
-            get() = OwmString.Resource(R.string.icon_content_description_time_format)
     }
 
     object Today : OwmIconModel.FilledAndOutlined {

@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.models
 
-import de.niklasbednarczyk.openweathermap.core.common.display.OwmDataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.data.geocoding.R
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
@@ -58,12 +58,12 @@ data class LocationModelData(
 
         internal fun remoteToData(
             remoteList: List<LocationModelRemote>,
-            dataLanguage: OwmDataLanguageType
+            language: OwmLanguageType
         ): List<LocationModelData> {
             return remoteList.map { remote ->
                 toData(
                     name = remote.name,
-                    localName = LocalNameModelData.remoteToData(remote.localNames, dataLanguage),
+                    localName = LocalNameModelData.remoteToData(remote.localNames, language),
                     country = remote.country,
                     state = remote.state,
                     latitude = remote.lat,
@@ -96,12 +96,12 @@ data class LocationModelData(
 
         internal fun localToData(
             local: LocationModelLocal?,
-            dataLanguage: OwmDataLanguageType
+            language: OwmLanguageType
         ): LocationModelData? {
             if (local == null) return null
             return toData(
                 name = local.name,
-                localName = LocalNameModelData.localToData(local.localNames, dataLanguage),
+                localName = LocalNameModelData.localToData(local.localNames, language),
                 country = local.country,
                 state = local.state,
                 latitude = local.latitude,
@@ -111,10 +111,10 @@ data class LocationModelData(
 
         internal fun localListToData(
             localList: List<LocationModelLocal>?,
-            dataLanguage: OwmDataLanguageType
+            language: OwmLanguageType
         ): List<LocationModelData>? {
             return localList?.mapNotNull { local ->
-                localToData(local, dataLanguage)
+                localToData(local, language)
             }
 
         }

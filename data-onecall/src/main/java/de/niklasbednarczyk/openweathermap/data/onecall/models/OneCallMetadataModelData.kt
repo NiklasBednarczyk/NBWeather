@@ -1,12 +1,13 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.common.display.OwmDataLanguageType
-import de.niklasbednarczyk.openweathermap.core.common.display.OwmUnitsType
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmUnitsType
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.OneCallModelRemote
 
 data class OneCallMetadataModelData(
-    val timezoneOffset: Long? //TODO (#9) Make value class
+    val timezoneOffset: Long?,
+    val units: OwmUnitsType
 ) {
 
     companion object {
@@ -15,11 +16,11 @@ data class OneCallMetadataModelData(
             remote: OneCallModelRemote,
             latitude: Double,
             longitude: Double,
-            dataLanguage: OwmDataLanguageType,
+            language: OwmLanguageType,
             units: OwmUnitsType
         ): OneCallMetadataEntityLocal {
             return OneCallMetadataEntityLocal(
-                dataLanguage = dataLanguage,
+                language = language,
                 units = units,
                 latitude = latitude,
                 longitude = longitude,
@@ -32,7 +33,8 @@ data class OneCallMetadataModelData(
             local: OneCallMetadataEntityLocal
         ): OneCallMetadataModelData {
             return OneCallMetadataModelData(
-                timezoneOffset = local.timezoneOffset
+                timezoneOffset = local.timezoneOffset,
+                units = local.units
             )
         }
 

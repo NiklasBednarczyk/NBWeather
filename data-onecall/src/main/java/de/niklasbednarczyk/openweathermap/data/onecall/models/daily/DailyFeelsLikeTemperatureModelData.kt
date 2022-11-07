@@ -1,14 +1,14 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models.daily
 
-import de.niklasbednarczyk.openweathermap.data.onecall.values.TemperatureValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.number.TemperatureValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.daily.DailyFeelsLikeTemperatureModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.daily.DailyFeelsLikeTemperatureModelRemote
 
 data class DailyFeelsLikeTemperatureModelData(
-    val morningTemperature: TemperatureValue,
-    val dayTemperature: TemperatureValue,
-    val eveningTemperature: TemperatureValue,
-    val nightTemperature: TemperatureValue
+    val morningTemperature: TemperatureValue?,
+    val dayTemperature: TemperatureValue?,
+    val eveningTemperature: TemperatureValue?,
+    val nightTemperature: TemperatureValue?
 ) {
 
     companion object {
@@ -30,10 +30,10 @@ data class DailyFeelsLikeTemperatureModelData(
         ): DailyFeelsLikeTemperatureModelData? {
             if (local == null) return null
             return DailyFeelsLikeTemperatureModelData(
-                morningTemperature = TemperatureValue(local.morn),
-                dayTemperature = TemperatureValue(local.day),
-                eveningTemperature = TemperatureValue(local.eve),
-                nightTemperature = TemperatureValue(local.night)
+                morningTemperature = TemperatureValue.from(local.morn),
+                dayTemperature = TemperatureValue.from(local.day),
+                eveningTemperature = TemperatureValue.from(local.eve),
+                nightTemperature = TemperatureValue.from(local.night)
             )
         }
 

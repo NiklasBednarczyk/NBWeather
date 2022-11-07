@@ -1,28 +1,29 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.DateTimeValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.CurrentWeatherModelRemote
-import de.niklasbednarczyk.openweathermap.data.onecall.values.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.number.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees.WindDegreesValue
 
 data class CurrentWeatherModelData(
-    val currentTime: DateTimeValue,
-    val sunrise: DateTimeValue,
-    val sunset: DateTimeValue,
-    val currentTemperature: TemperatureValue,
-    val feelsLikeTemperature: TemperatureValue,
-    val pressure: PressureValue,
-    val humidity: PercentValue,
-    val dewPointTemperature: TemperatureValue,
-    val cloudiness: PercentValue,
-    val uvIndex: UVIndexValue,
-    val visibility: DistanceValue,
-    val windSpeed: SpeedValue,
-    val windGust: SpeedValue,
-    val windDegrees: WindDegreesValue,
-    val rain1hVolume: VolumeValue,
-    val snow1hVolume: VolumeValue,
+    val currentTime: DateTimeValue?,
+    val sunrise: DateTimeValue?,
+    val sunset: DateTimeValue?,
+    val currentTemperature: TemperatureValue?,
+    val feelsLikeTemperature: TemperatureValue?,
+    val pressure: PressureValue?,
+    val humidity: PercentValue?,
+    val dewPointTemperature: TemperatureValue?,
+    val cloudiness: PercentValue?,
+    val uvIndex: UVIndexValue?,
+    val visibility: DistanceValue?,
+    val windSpeed: WindSpeedValue?,
+    val windGust: WindSpeedValue?,
+    val windDegrees: WindDegreesValue?,
+    val rain1hVolume: PrecipitationValue?,
+    val snow1hVolume: PrecipitationValue?,
     val weather: WeatherModelData?
 ) {
 
@@ -58,22 +59,22 @@ data class CurrentWeatherModelData(
             local: CurrentWeatherEntityLocal?
         ): CurrentWeatherModelData {
             return CurrentWeatherModelData(
-                currentTime = DateTimeValue(local?.dt),
-                sunrise = DateTimeValue(local?.sunrise),
-                sunset = DateTimeValue(local?.sunset),
-                currentTemperature = TemperatureValue(local?.temp),
-                feelsLikeTemperature = TemperatureValue(local?.feelsLike),
-                pressure = PressureValue(local?.pressure),
-                humidity = PercentValue(local?.humidity),
-                dewPointTemperature = TemperatureValue(local?.dewPoint),
-                cloudiness = PercentValue(local?.clouds),
-                uvIndex = UVIndexValue(local?.uvi),
-                visibility = DistanceValue(local?.visibility),
-                windSpeed = SpeedValue(local?.windSpeed),
-                windGust = SpeedValue(local?.windGust),
-                windDegrees = WindDegreesValue(local?.windDeg),
-                rain1hVolume = VolumeValue(local?.rain1h),
-                snow1hVolume = VolumeValue(local?.snow1h),
+                currentTime = DateTimeValue.from(local?.dt),
+                sunrise = DateTimeValue.from(local?.sunrise),
+                sunset = DateTimeValue.from(local?.sunset),
+                currentTemperature = TemperatureValue.from(local?.temp),
+                feelsLikeTemperature = TemperatureValue.from(local?.feelsLike),
+                pressure = PressureValue.from(local?.pressure),
+                humidity = PercentValue.from(local?.humidity),
+                dewPointTemperature = TemperatureValue.from(local?.dewPoint),
+                cloudiness = PercentValue.from(local?.clouds),
+                uvIndex = UVIndexValue.from(local?.uvi),
+                visibility = DistanceValue.from(local?.visibility),
+                windSpeed = WindSpeedValue.from(local?.windSpeed),
+                windGust = WindSpeedValue.from(local?.windGust),
+                windDegrees = WindDegreesValue.from(local?.windDeg),
+                rain1hVolume = PrecipitationValue.from(local?.rain1h),
+                snow1hVolume = PrecipitationValue.from(local?.snow1h),
                 weather = WeatherModelData.localToData(local?.weather)
             )
         }

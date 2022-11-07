@@ -7,7 +7,6 @@ plugins {
 dependencies {
     implementation(project(":core-ui"))
 
-    implementation(project(":data-airpollution"))
     implementation(project(":data-geocoding"))
     implementation(project(":data-onecall"))
     implementation(project(":data-settings"))

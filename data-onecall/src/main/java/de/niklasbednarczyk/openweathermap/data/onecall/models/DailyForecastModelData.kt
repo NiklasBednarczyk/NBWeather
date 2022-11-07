@@ -1,34 +1,35 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.DateTimeValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.DailyForecastEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.models.daily.DailyFeelsLikeTemperatureModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.models.daily.DailyTemperatureModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.DailyForecastModelRemote
-import de.niklasbednarczyk.openweathermap.data.onecall.values.*
-import de.niklasbednarczyk.openweathermap.data.onecall.values.MoonPhaseValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.moon.MoonPhaseValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.number.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees.WindDegreesValue
 
 data class DailyForecastModelData(
-    val forecastTime: DateTimeValue,
-    val sunrise: DateTimeValue,
-    val sunset: DateTimeValue,
-    val moonrise: DateTimeValue,
-    val moonset: DateTimeValue,
-    val moonPhase: MoonPhaseValue,
+    val forecastTime: DateTimeValue?,
+    val sunrise: DateTimeValue?,
+    val sunset: DateTimeValue?,
+    val moonrise: DateTimeValue?,
+    val moonset: DateTimeValue?,
+    val moonPhase: MoonPhaseValue?,
     val temperature: DailyTemperatureModelData?,
     val feelsLikeTemperature: DailyFeelsLikeTemperatureModelData?,
-    val pressure: PressureValue,
-    val humidity: PercentValue,
-    val dewPointTemperature: TemperatureValue,
-    val windSpeed: SpeedValue,
-    val windGust: SpeedValue,
-    val windDegrees: WindDegreesValue,
-    val cloudiness: PercentValue,
-    val uvIndex: UVIndexValue,
-    val probabilityOfPrecipitation: ProbabilityValue,
-    val rainVolume: VolumeValue,
-    val snowVolume: VolumeValue,
+    val pressure: PressureValue?,
+    val humidity: PercentValue?,
+    val dewPointTemperature: TemperatureValue?,
+    val windSpeed: WindSpeedValue?,
+    val windGust: WindSpeedValue?,
+    val windDegrees: WindDegreesValue?,
+    val cloudiness: PercentValue?,
+    val uvIndex: UVIndexValue?,
+    val probabilityOfPrecipitation: ProbabilityValue?,
+    val rainVolume: PrecipitationValue?,
+    val snowVolume: PrecipitationValue?,
     val weather: WeatherModelData?
 ) {
 
@@ -70,25 +71,25 @@ data class DailyForecastModelData(
         ): List<DailyForecastModelData> {
             return localList?.map { local ->
                 DailyForecastModelData(
-                    forecastTime = DateTimeValue(local.dt),
-                    sunrise = DateTimeValue(local.sunrise),
-                    sunset = DateTimeValue(local.sunset),
-                    moonrise = DateTimeValue(local.moonrise),
-                    moonset = DateTimeValue(local.moonset),
-                    moonPhase = MoonPhaseValue(local.moonPhase),
+                    forecastTime = DateTimeValue.from(local.dt),
+                    sunrise = DateTimeValue.from(local.sunrise),
+                    sunset = DateTimeValue.from(local.sunset),
+                    moonrise = DateTimeValue.from(local.moonrise),
+                    moonset = DateTimeValue.from(local.moonset),
+                    moonPhase = MoonPhaseValue.from(local.moonPhase),
                     temperature = DailyTemperatureModelData.localToData(local.temp),
                     feelsLikeTemperature = DailyFeelsLikeTemperatureModelData.localToData(local.feelsLike),
-                    pressure = PressureValue(local.pressure),
-                    humidity = PercentValue(local.humidity),
-                    dewPointTemperature = TemperatureValue(local.dewPoint),
-                    windSpeed = SpeedValue(local.windSpeed),
-                    windGust = SpeedValue(local.windGust),
-                    windDegrees = WindDegreesValue(local.windDeg),
-                    cloudiness = PercentValue(local.clouds),
-                    uvIndex = UVIndexValue(local.uvi),
-                    probabilityOfPrecipitation = ProbabilityValue(local.pop),
-                    rainVolume = VolumeValue(local.rain),
-                    snowVolume = VolumeValue(local.snow),
+                    pressure = PressureValue.from(local.pressure),
+                    humidity = PercentValue.from(local.humidity),
+                    dewPointTemperature = TemperatureValue.from(local.dewPoint),
+                    windSpeed = WindSpeedValue.from(local.windSpeed),
+                    windGust = WindSpeedValue.from(local.windGust),
+                    windDegrees = WindDegreesValue.from(local.windDeg),
+                    cloudiness = PercentValue.from(local.clouds),
+                    uvIndex = UVIndexValue.from(local.uvi),
+                    probabilityOfPrecipitation = ProbabilityValue.from(local.pop),
+                    rainVolume = PrecipitationValue.from(local.rain),
+                    snowVolume = PrecipitationValue.from(local.snow),
                     weather = WeatherModelData.localToData(local.weather)
                 )
             } ?: emptyList()

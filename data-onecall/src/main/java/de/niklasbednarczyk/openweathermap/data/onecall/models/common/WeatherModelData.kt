@@ -1,13 +1,13 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models.common
 
-import de.niklasbednarczyk.openweathermap.data.onecall.values.weather.WeatherDescriptionValue
-import de.niklasbednarczyk.openweathermap.data.onecall.values.weather.WeatherIconValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.common.WeatherModelRemote
+import de.niklasbednarczyk.openweathermap.data.onecall.values.weather.WeatherDescriptionValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.weather.WeatherIconValue
 
 data class WeatherModelData(
-    val description: WeatherDescriptionValue,
-    val icon: WeatherIconValue
+    val description: WeatherDescriptionValue?,
+    val icon: WeatherIconValue?
 ) {
 
     companion object {
@@ -29,8 +29,8 @@ data class WeatherModelData(
         ): WeatherModelData? {
             if (local == null) return null
             return WeatherModelData(
-                description = WeatherDescriptionValue(local.description),
-                icon = WeatherIconValue(local.icon)
+                description = WeatherDescriptionValue.from(local.description),
+                icon = WeatherIconValue.from(local.icon)
             )
         }
 

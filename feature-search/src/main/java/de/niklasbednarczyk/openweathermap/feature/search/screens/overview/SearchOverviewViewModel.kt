@@ -12,7 +12,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GmsLocationRepository
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class SearchOverviewViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
     private val gmsLocationRepository: GmsLocationRepository,
-    private val settingsDisplayRepository: SettingsDisplayRepository
+    private val settingsDataRepository: SettingsDataRepository
 ) : OwmViewModel<SearchOverviewUiState>(SearchOverviewUiState()), OwmSnackbarViewModel {
 
     companion object {
@@ -35,8 +35,8 @@ class SearchOverviewViewModel @Inject constructor(
     init {
         collectFlow(
             {
-                settingsDisplayRepository.getData().flatMapLatest { settingsDisplay ->
-                    geocodingRepository.getVisitedLocationsInfo(settingsDisplay.dataLanguage)
+                settingsDataRepository.getData().flatMapLatest { data ->
+                    geocodingRepository.getVisitedLocationsInfo(data.language)
                 }
             },
             { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
@@ -44,7 +44,7 @@ class SearchOverviewViewModel @Inject constructor(
 
         collectFlow(
             {
-                settingsDisplayRepository.getData().flatMapLatest { settingsDisplay ->
+                settingsDataRepository.getData().flatMapLatest { data ->
                     searchTermFlow
                         .debounce(DEBOUNCE_VALUE)
                         .distinctUntilChanged()
@@ -52,7 +52,7 @@ class SearchOverviewViewModel @Inject constructor(
                             if (searchTerm.isNotBlank()) {
                                 geocodingRepository.getLocationsByLocationName(
                                     searchTerm,
-                                    settingsDisplay.dataLanguage
+                                    data.language
                                 )
                             } else {
                                 flowOf(null)

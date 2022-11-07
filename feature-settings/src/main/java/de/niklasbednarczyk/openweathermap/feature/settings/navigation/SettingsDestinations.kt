@@ -9,9 +9,9 @@ object SettingsDestinations {
             get() = "settings_color_scheme"
     }
 
-    object DataLanguage : OwmNavigationDestination.Detail {
+    object Language : OwmNavigationDestination.Detail {
         override val route: String
-            get() = "settings_data_language"
+            get() = "settings_language"
     }
 
     object Overview : OwmNavigationDestination.Overview {
@@ -21,9 +21,8 @@ object SettingsDestinations {
         override val navigatesTo: List<OwmNavigationDestination>
             get() = listOf(
                 ColorScheme,
-                DataLanguage,
+                Language,
                 Theme,
-                TimeFormat,
                 Units
             )
     }
@@ -31,11 +30,6 @@ object SettingsDestinations {
     object Theme : OwmNavigationDestination.Detail {
         override val route: String
             get() = "settings_theme"
-    }
-
-    object TimeFormat : OwmNavigationDestination.Detail {
-        override val route: String
-            get() = "settings_time_format"
     }
 
     object Units : OwmNavigationDestination.Detail {

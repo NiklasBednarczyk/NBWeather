@@ -11,6 +11,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmCenterAlignedTopAp
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.navigationbar.OwmNavigationBar
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewTodayView
 
 @Composable
 fun LocationOverviewScreen(
@@ -49,20 +50,25 @@ fun LocationOverviewScreen(
                 )
             }
         ) {
-            when(uiState.value.selectedNavigationBarItem) {
-                LocationOverviewNavigationBarItem.TODAY -> {
-                    //TODO (#9) Do right design
-                    Text("TODAY")
-                }
-                LocationOverviewNavigationBarItem.HOURLY -> {
-                    //TODO (#9) Do right design
-                    Text("HOURLY")
-                }
-                LocationOverviewNavigationBarItem.DAILY -> {
-                    //TODO (#9) Do right design
-                    Text("DAILY")
+            //TODO (#9) Do right design with placeholders
+
+
+            OwmResourceView(uiState.value.viewDataResource) { viewData ->
+                when(uiState.value.selectedNavigationBarItem) {
+                    LocationOverviewNavigationBarItem.TODAY -> {
+                        LocationOverviewTodayView(viewData.todayItems)
+                    }
+                    LocationOverviewNavigationBarItem.HOURLY -> {
+                        Text("HOURLY")
+                    }
+                    LocationOverviewNavigationBarItem.DAILY -> {
+                        Text("DAILY")
+                    }
                 }
             }
+
+
+
 
 
 

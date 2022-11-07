@@ -1,13 +1,13 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.DateTimeValue
-import de.niklasbednarczyk.openweathermap.data.onecall.values.VolumeValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.number.PrecipitationValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.MinutelyForecastEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.MinutelyForecastModelRemote
 
 data class MinutelyForecastModelData(
-    val forecastTime: DateTimeValue,
-    val precipitation: VolumeValue
+    val forecastTime: DateTimeValue?,
+    val precipitation: PrecipitationValue?
 ) {
 
     companion object {
@@ -30,8 +30,8 @@ data class MinutelyForecastModelData(
         ): List<MinutelyForecastModelData> {
             return localList?.map { local ->
                 MinutelyForecastModelData(
-                    forecastTime = DateTimeValue(local.dt),
-                    precipitation = VolumeValue(local.precipitation)
+                    forecastTime = DateTimeValue.from(local.dt),
+                    precipitation = PrecipitationValue.from(local.precipitation)
                 )
             } ?: emptyList()
         }

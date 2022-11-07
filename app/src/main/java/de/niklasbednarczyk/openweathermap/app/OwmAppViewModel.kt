@@ -9,7 +9,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsAppearanceRepository
-import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDisplayRepository
+import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawerItem
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class OwmAppViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
     private val settingsAppearanceRepository: SettingsAppearanceRepository,
-    settingsDisplayRepository: SettingsDisplayRepository
+    settingsDataRepository: SettingsDataRepository
 ) : OwmViewModel<OwmAppUiState>(OwmAppUiState()) {
 
     private val settingsItem = OwmNavigationDrawerItem.Item.Other(
@@ -30,11 +30,11 @@ class OwmAppViewModel @Inject constructor(
     )
 
     private val drawerItemsFlow: Flow<List<OwmNavigationDrawerItem>> =
-        settingsDisplayRepository.getData().flatMapLatest { display ->
-            val dataLanguage = display.dataLanguage
+        settingsDataRepository.getData().flatMapLatest { data ->
+            val language = data.language
             OwmResource.combineResourceFlows(
-                geocodingRepository.getVisitedLocations(dataLanguage),
-                geocodingRepository.getCurrentLocation(dataLanguage)
+                geocodingRepository.getVisitedLocations(language),
+                geocodingRepository.getCurrentLocation(language)
             ) { visitedLocations, currentLocation ->
                 val items = mutableListOf<OwmNavigationDrawerItem>()
 

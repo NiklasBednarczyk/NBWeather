@@ -9,8 +9,12 @@ sealed interface OwmString {
 
         companion object {
 
+            fun from(value: String): Value {
+                return Value(value)
+            }
+
             fun from(value: String?): Value? {
-                return if (value != null) Value(value) else null
+                return if (value != null) from(value) else null
             }
 
         }

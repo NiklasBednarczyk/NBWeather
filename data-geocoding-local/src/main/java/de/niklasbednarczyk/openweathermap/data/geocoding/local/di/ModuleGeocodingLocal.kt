@@ -18,7 +18,7 @@ class ModuleGeocodingLocal {
 
     @Provides
     @Singleton
-    internal fun provideDatabaseAirPollution(
+    internal fun provideDatabaseGeocoding(
         @ApplicationContext context: Context
     ): DatabaseGeocoding = Room.databaseBuilder(
         context,
@@ -28,7 +28,7 @@ class ModuleGeocodingLocal {
 
     @Provides
     @Singleton
-    fun provideAirPollutionDao(
+    fun provideGeocodingDao(
         databaseGeocoding: DatabaseGeocoding
     ): GeocodingDao = databaseGeocoding.geocodingDao()
 

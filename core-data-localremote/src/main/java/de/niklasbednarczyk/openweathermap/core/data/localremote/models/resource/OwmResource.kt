@@ -1,8 +1,6 @@
 package de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
 sealed interface OwmResource<out T> {
     data class Success<T>(val data: T) : OwmResource<T>
@@ -28,11 +26,30 @@ sealed interface OwmResource<out T> {
 
     companion object {
 
-        fun <T, R> Flow<OwmResource<T>?>.mapResource(
-            mapData: (oldData: T) -> R?
-        ): Flow<OwmResource<R>?> {
+        fun <T, R> Flow<OwmResource<T>>.mapResource(
+            mapData: (oldData: T) -> R
+        ): Flow<OwmResource<R>> {
             return this.map { resource ->
-                resource?.map(mapData)
+                resource.map(mapData)
+            }
+        }
+
+        fun <T, R> Flow<OwmResource<T?>>.flatMapLatestResource(
+            transformData: suspend (data: T) -> Flow<OwmResource<R>>
+        ): Flow<OwmResource<R>> {
+            return this.flatMapLatest { resource ->
+                when (resource) {
+                    is Success -> {
+                        val data = resource.data
+                        if (data != null) {
+                            transformData(data)
+                        } else {
+                            flowOf(Error())
+                        }
+                    }
+                    is Loading -> flowOf(Loading)
+                    is Error -> flowOf(Error(resource.type))
+                }
             }
         }
 

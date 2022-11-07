@@ -5,10 +5,9 @@ import androidx.navigation.NavGraphBuilder
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.owmComposable
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.colorscheme.SettingsColorSchemeScreen
-import de.niklasbednarczyk.openweathermap.feature.settings.screens.datalanguage.SettingsDataLanguageScreen
+import de.niklasbednarczyk.openweathermap.feature.settings.screens.language.SettingsLanguageScreen
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.overview.SettingsOverviewScreen
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.theme.SettingsThemeScreen
-import de.niklasbednarczyk.openweathermap.feature.settings.screens.timeformat.SettingsTimeFormatScreen
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.units.SettingsUnitsScreen
 
 fun NavGraphBuilder.settingsGraph(
@@ -23,8 +22,8 @@ fun NavGraphBuilder.settingsGraph(
             navigateToOverview = navigateToOverview
         )
     }
-    owmComposable(SettingsDestinations.DataLanguage) {
-        SettingsDataLanguageScreen(
+    owmComposable(SettingsDestinations.Language) {
+        SettingsLanguageScreen(
             navigationIcon = navigationIconBack,
             navigateToOverview = navigateToOverview
         )
@@ -37,12 +36,6 @@ fun NavGraphBuilder.settingsGraph(
     }
     owmComposable(SettingsDestinations.Theme) {
         SettingsThemeScreen(
-            navigationIcon = navigationIconBack,
-            navigateToOverview = navigateToOverview
-        )
-    }
-    owmComposable(SettingsDestinations.TimeFormat) {
-        SettingsTimeFormatScreen(
             navigationIcon = navigationIconBack,
             navigateToOverview = navigateToOverview
         )

@@ -1,27 +1,28 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.values.DateTimeValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.HourlyForecastEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.HourlyForecastModelRemote
-import de.niklasbednarczyk.openweathermap.data.onecall.values.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.number.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees.WindDegreesValue
 
 data class HourlyForecastModelData(
-    val forecastTime: DateTimeValue,
-    val temperature: TemperatureValue,
-    val feelsLikeTemperature: TemperatureValue,
-    val pressure: PressureValue,
-    val humidity: PercentValue,
-    val dewPointTemperature: TemperatureValue,
-    val uvIndex: UVIndexValue,
-    val cloudiness: PercentValue,
-    val visibility: DistanceValue,
-    val windSpeed: SpeedValue,
-    val windGust: SpeedValue,
-    val windDegrees: WindDegreesValue,
-    val probabilityOfPrecipitation: ProbabilityValue,
-    val rain1hVolume: VolumeValue,
-    val snow1hVolume: VolumeValue,
+    val forecastTime: DateTimeValue?,
+    val temperature: TemperatureValue?,
+    val feelsLikeTemperature: TemperatureValue?,
+    val pressure: PressureValue?,
+    val humidity: PercentValue?,
+    val dewPointTemperature: TemperatureValue?,
+    val uvIndex: UVIndexValue?,
+    val cloudiness: PercentValue?,
+    val visibility: DistanceValue?,
+    val windSpeed: WindSpeedValue?,
+    val windGust: WindSpeedValue?,
+    val windDegrees: WindDegreesValue?,
+    val probabilityOfPrecipitation: ProbabilityValue?,
+    val rain1hVolume: PrecipitationValue?,
+    val snow1hVolume: PrecipitationValue?,
     val weather: WeatherModelData?
 ) {
 
@@ -59,21 +60,21 @@ data class HourlyForecastModelData(
         ): List<HourlyForecastModelData> {
             return localList?.map { local ->
                 HourlyForecastModelData(
-                    forecastTime = DateTimeValue(local.dt),
-                    temperature = TemperatureValue(local.temp),
-                    feelsLikeTemperature = TemperatureValue(local.feelsLike),
-                    pressure = PressureValue(local.pressure),
-                    humidity = PercentValue(local.humidity),
-                    dewPointTemperature = TemperatureValue(local.dewPoint),
-                    uvIndex = UVIndexValue(local.uvi),
-                    cloudiness = PercentValue(local.clouds),
-                    visibility = DistanceValue(local.visibility),
-                    windSpeed = SpeedValue(local.windSpeed),
-                    windGust = SpeedValue(local.windGust),
-                    windDegrees = WindDegreesValue(local.windDeg),
-                    probabilityOfPrecipitation = ProbabilityValue(local.pop),
-                    rain1hVolume = VolumeValue(local.rain1h),
-                    snow1hVolume = VolumeValue(local.snow1h),
+                    forecastTime = DateTimeValue.from(local.dt),
+                    temperature = TemperatureValue.from(local.temp),
+                    feelsLikeTemperature = TemperatureValue.from(local.feelsLike),
+                    pressure = PressureValue.from(local.pressure),
+                    humidity = PercentValue.from(local.humidity),
+                    dewPointTemperature = TemperatureValue.from(local.dewPoint),
+                    uvIndex = UVIndexValue.from(local.uvi),
+                    cloudiness = PercentValue.from(local.clouds),
+                    visibility = DistanceValue.from(local.visibility),
+                    windSpeed = WindSpeedValue.from(local.windSpeed),
+                    windGust = WindSpeedValue.from(local.windGust),
+                    windDegrees = WindDegreesValue.from(local.windDeg),
+                    probabilityOfPrecipitation = ProbabilityValue.from(local.pop),
+                    rain1hVolume = PrecipitationValue.from(local.rain1h),
+                    snow1hVolume = PrecipitationValue.from(local.snow1h),
                     weather = WeatherModelData.localToData(local.weather)
                 )
             } ?: emptyList()

@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.repositories
 
-import de.niklasbednarczyk.openweathermap.core.common.display.OwmDataLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.core.data.localremote.local.utils.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOnlineMediator
@@ -27,7 +27,7 @@ class GeocodingRepository @Inject constructor(
 
     suspend fun getLocationsByLocationName(
         locationName: String,
-        dataLanguageType: OwmDataLanguageType
+        language: OwmLanguageType
     ): Flow<OwmResource<List<LocationModelData>>> {
         return object :
             LocalRemoteOnlineMediator<List<LocationModelData>, List<LocationModelRemote>>() {
@@ -41,14 +41,14 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun remoteToData(remote: List<LocationModelRemote>): List<LocationModelData> {
-                return LocationModelData.remoteToData(remote, dataLanguageType)
+                return LocationModelData.remoteToData(remote, language)
             }
 
         }()
     }
 
     fun getVisitedLocations(
-        dataLanguageType: OwmDataLanguageType
+        language: OwmLanguageType
     ): Flow<OwmResource<List<LocationModelData>?>> {
         return object : LocalMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
             override fun getLocal(): Flow<List<LocationModelLocal>?> {
@@ -56,14 +56,14 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun localToData(local: List<LocationModelLocal>?): List<LocationModelData>? {
-                return LocationModelData.localListToData(local, dataLanguageType)
+                return LocationModelData.localListToData(local, language)
             }
 
         }()
     }
 
     fun getCurrentLocation(
-        dataLanguageType: OwmDataLanguageType
+        language: OwmLanguageType
     ): Flow<OwmResource<LocationModelData?>> {
         return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
@@ -71,19 +71,19 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun localToData(local: LocationModelLocal?): LocationModelData? {
-                return LocationModelData.localToData(local, dataLanguageType)
+                return LocationModelData.localToData(local, language)
             }
 
         }()
     }
 
     fun getVisitedLocationsInfo(
-        dataLanguage: OwmDataLanguageType
+        language: OwmLanguageType
     ): Flow<OwmResource<VisitedLocationsInfoModelData>?> {
         return OwmResource.combineResourceFlows(
-            getVisitedLocations(dataLanguage),
-            getCurrentLocation(dataLanguage),
-            getIsInitialCurrentLocationSet(dataLanguage)
+            getVisitedLocations(language),
+            getCurrentLocation(language),
+            getIsInitialCurrentLocationSet(language)
         ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
             VisitedLocationsInfoModelData(
                 visitedLocations = visitedLocations ?: emptyList(),
@@ -95,9 +95,9 @@ class GeocodingRepository @Inject constructor(
     }
 
     fun getIsInitialCurrentLocationSet(
-        dataLanguage: OwmDataLanguageType = OwmDataLanguageType.ENGLISH
+        language: OwmLanguageType = OwmLanguageType.ENGLISH
     ): Flow<OwmResource<Boolean>> {
-        return getCurrentLocation(dataLanguage).transformWhile { resource ->
+        return getCurrentLocation(language).transformWhile { resource ->
             val newResource = resource.map { oldData ->
                 oldData != null
             }
