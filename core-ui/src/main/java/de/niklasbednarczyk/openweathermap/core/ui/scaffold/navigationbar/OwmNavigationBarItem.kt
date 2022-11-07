@@ -7,6 +7,6 @@ interface OwmNavigationBarItem {
 
     val label: OwmString
 
-    val icon: OwmIconModel
+    val icon: OwmIconModel.FilledAndOutlined
 
 }

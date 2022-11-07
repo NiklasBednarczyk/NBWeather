@@ -1,138 +1,140 @@
 package de.niklasbednarczyk.openweathermap.core.ui.icons
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.ui.graphics.vector.ImageVector
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 
 object OwmIcons {
 
-    object Back : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.ArrowBack
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.ArrowBack
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_back)
+    object Back : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_arrow_back_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_back)
     }
 
-    object Cancel : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Close
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Close
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_cancel)
+    object Cancel : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_close_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_cancel)
     }
 
-    object ColorScheme : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Palette
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Palette
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_color_scheme)
+    object ColorScheme : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_palette_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_color_scheme)
     }
 
-    object Daily : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.DateRange
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.DateRange
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_daily)
+    object Daily : OwmIconModel.FilledAndOutlined {
+        override val resIdFilled: Int
+            get() = R.drawable.ic_baseline_date_range_24
+        override val resIdOutlined: Int
+            get() = R.drawable.ic_outline_date_range_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_daily)
     }
 
-    object DataLanguage : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Translate
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Translate
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_data_language)
+    object DataLanguage : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_translate_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_data_language)
     }
 
-    object Delete : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Delete
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Delete
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_delete)
+    object Delete : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_delete_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_delete)
     }
 
-    object Drawer : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Menu
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Menu
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_drawer)
+    object Drawer : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_menu_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_drawer)
     }
 
-    object ErrorNoInternet : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.CloudOff
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.CloudOff
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_error_no_internet)
+    object ErrorNoInternet : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_cloud_off_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_error_no_internet)
     }
 
-    object ErrorUnknown : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Error
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Error
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_error_unknown)
+    object ErrorUnknown : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_error_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_error_unknown)
     }
 
-    object FindLocation : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.MyLocation
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.MyLocation
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_find_location)
+    object FindLocation : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_my_location_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_find_location)
     }
 
-    object Hourly : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.WatchLater
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.WatchLater
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_hourly)
+    object Hourly : OwmIconModel.FilledAndOutlined {
+        override val resIdFilled: Int
+            get() = R.drawable.ic_baseline_watch_later_24
+        override val resIdOutlined: Int
+            get() = R.drawable.ic_outline_watch_later_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_hourly)
     }
 
-    object Location : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Place
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Place
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_location)
+    object Location : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_place_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_location)
     }
 
-    object Search : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Search
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Search
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_search)
+    object Search : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_search_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_search)
     }
 
-    object Settings : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Settings
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Settings
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_settings)
+    object Settings : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_settings_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_settings)
     }
 
-    object Theme : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.DarkMode
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.DarkMode
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_theme)
+    object Theme : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_dark_mode_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_theme)
     }
 
-    object TimeFormat : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Watch
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Watch
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_time_format)
+    object TimeFormat : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_watch_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_time_format)
     }
 
-    object Today : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Today
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Today
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_today)
+    object Today : OwmIconModel.FilledAndOutlined {
+        override val resIdFilled: Int
+            get() = R.drawable.ic_baseline_today_24
+        override val resIdOutlined: Int
+            get() = R.drawable.ic_outline_today_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_today)
     }
 
-    object Units : OwmIconModel {
-        override val imageVectorFilled: ImageVector = Icons.Filled.Thermostat
-        override val imageVectorOutlined: ImageVector = Icons.Outlined.Thermostat
-        override val contentDescription: OwmString =
-            OwmString.Resource(R.string.icon_content_description_units)
+    object Units : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_thermostat_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_units)
     }
 
 }

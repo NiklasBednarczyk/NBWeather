@@ -11,7 +11,7 @@ enum class LocationOverviewNavigationBarItem : OwmNavigationBarItem {
     HOURLY,
     DAILY;
 
-    override val icon: OwmIconModel
+    override val icon: OwmIconModel.FilledAndOutlined
         get() = when (this) {
             TODAY -> OwmIcons.Today
             HOURLY -> OwmIcons.Hourly

@@ -24,7 +24,6 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
             implementation(project(":library-materialcolorutilities"))
 
             implementation(libs.getLibrary("androidx.activity.activityCompose"))
-            implementation(libs.getLibrary("androidx.compose.material.materialIconsExtended"))
             implementation(libs.getLibrary("androidx.compose.material3.material3"))
             implementation(libs.getLibrary("androidx.compose.ui.ui"))
             implementation(libs.getLibrary("androidx.core.coreKtx"))
