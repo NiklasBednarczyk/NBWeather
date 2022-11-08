@@ -2,6 +2,7 @@ package de.niklasbednarczyk.openweathermap.data.onecall.repositories
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmUnitsType
+import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOfflineMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.remote.extensions.remoteName
@@ -48,14 +49,7 @@ class OneCallRepository @Inject constructor(
 
 
             override fun localToData(local: OneCallModelLocal): OneCallModelData {
-                return OneCallModelData(
-                    metadata = OneCallMetadataModelData.localToData(local.metadata),
-                    currentWeather = CurrentWeatherModelData.localToData(local.currentWeather),
-                    minutelyForecasts = MinutelyForecastModelData.localToData(local.minutelyForecasts),
-                    hourlyForecasts = HourlyForecastModelData.localToData(local.hourlyForecasts),
-                    dailyForecasts = DailyForecastModelData.localToData(local.dailyForecasts),
-                    nationalWeatherAlerts = NationalWeatherAlertModelData.localToData(local.nationalWeatherAlerts)
-                )
+                return OneCallModelData.localToData(local)
             }
 
             override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
@@ -106,5 +100,20 @@ class OneCallRepository @Inject constructor(
         }()
     }
 
+    fun getOneCallLocal(
+        latitude: Double,
+        longitude: Double
+    ): Flow<OwmResource<OneCallModelData?>> {
+        return object :
+            LocalMediator<OneCallModelData, OneCallModelLocal>() {
+            override fun getLocal(): Flow<OneCallModelLocal?> {
+                return oneCallDao.getOneCall(latitude, longitude)
+            }
+
+            override fun localToData(local: OneCallModelLocal): OneCallModelData {
+                return OneCallModelData.localToData(local)
+            }
+        }()
+    }
 
 }

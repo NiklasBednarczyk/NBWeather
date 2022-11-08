@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import kotlinx.coroutines.CoroutineScope
@@ -83,6 +84,13 @@ class OwmNavigator(
     fun navigateToLocation(latitude: Double, longitude: Double) {
         val route = LocationDestinations.Overview.createRoute(latitude, longitude)
         navigate(LocationDestinations.Overview, route)
+    }
+
+    fun navigateToAlerts(latitude: Double?, longitude: Double?) {
+        if (latitude != null && longitude != null) {
+            val route = LocationDestinations.Alerts.createRoute(latitude, longitude)
+            navigate(LocationDestinations.Alerts, route)
+        }
     }
 
     fun popBackStack() {

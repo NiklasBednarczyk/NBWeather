@@ -63,6 +63,13 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_error_unknown)
     }
 
+    object Expand : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_expand_more_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_expand)
+    }
+
     object FindLocation : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_my_location_24
@@ -128,6 +135,13 @@ object OwmIcons {
             get() = R.drawable.ic_baseline_thermostat_24
         override val contentDescription: OwmString
             get() = OwmString.Resource(R.string.icon_content_description_units)
+    }
+
+    object Warning : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_warning_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_warning)
     }
 
 }

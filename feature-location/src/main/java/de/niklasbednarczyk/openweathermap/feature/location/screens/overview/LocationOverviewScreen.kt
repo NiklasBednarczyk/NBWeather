@@ -17,7 +17,8 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.view
 fun LocationOverviewScreen(
     viewModel: LocationOverviewViewModel = hiltViewModel(),
     navigationIcon: @Composable () -> Unit,
-    navigateToSearch: () -> Unit
+    navigateToSearch: () -> Unit,
+    navigateToAlerts: (Double?, Double?) -> Unit
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
@@ -54,9 +55,16 @@ fun LocationOverviewScreen(
 
 
             OwmResourceView(uiState.value.viewDataResource) { viewData ->
-                when(uiState.value.selectedNavigationBarItem) {
+                when (uiState.value.selectedNavigationBarItem) {
                     LocationOverviewNavigationBarItem.TODAY -> {
-                        LocationOverviewTodayView(viewData.todayItems)
+                        LocationOverviewTodayView(
+                            todayItems = viewData.todayItems,
+                            navigateToAlerts = {
+                                navigateToAlerts(
+                                    location?.latitude,
+                                    location?.longitude
+                                )
+                            })
                     }
                     LocationOverviewNavigationBarItem.HOURLY -> {
                         Text("HOURLY")
@@ -66,10 +74,6 @@ fun LocationOverviewScreen(
                     }
                 }
             }
-
-
-
-
 
 
         }

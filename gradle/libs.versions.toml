@@ -42,6 +42,7 @@ androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", 
 androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidXRoom" }
 androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidXRoom" }
 com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "comAndroidToolsDesugarJdkLibs" }
+com-google-accompanist-accompanistFlowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistNavigationAnimation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistPermissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistPlaceholderMaterial = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "comGoogleAccompanist" }

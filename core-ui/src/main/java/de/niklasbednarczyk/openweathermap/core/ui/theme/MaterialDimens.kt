@@ -4,9 +4,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
 
 val listContentPaddingVertical = 8.dp
-
 val listContentPaddingValues = PaddingValues(
     vertical = listContentPaddingVertical
+)
+
+val listItemPaddingValuesHorizontal = PaddingValues(
+    start = 16.dp,
+    end = 24.dp
 )
 
 val navigationDrawerDividerPadding = PaddingValues(

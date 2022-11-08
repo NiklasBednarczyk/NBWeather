@@ -40,9 +40,11 @@ fun OwmNavHost(
     ) {
         locationGraph(
             navigationIconDrawer = navigationIconDrawer,
+            navigationIconBack = navigationIconBack,
             navigateToSearch = {
                 navigator.navigateToDestination(SearchDestinations.Overview)
-            }
+            },
+            navigateToAlerts = navigator::navigateToAlerts
         )
         searchGraph(
             navigationIconBack = navigationIconBack,

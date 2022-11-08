@@ -30,6 +30,7 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
             implementation(libs.getLibrary("androidx.hilt.hiltNavigationCompose"))
             implementation(libs.getLibrary("androidx.lifecycle.lifecycleRuntimeKtx"))
             implementation(libs.getLibrary("androidx.navigation.navigationCompose"))
+            implementation(libs.getLibrary("com.google.accompanist.accompanistFlowlayout"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistNavigationAnimation"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistPermissions"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistPlaceholderMaterial"))

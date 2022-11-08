@@ -13,7 +13,7 @@ value class TemperatureValue private constructor(override val value: Double) :
         get() = UnitsValue.RoundingType.ZERO_DIGITS
 
     val displayValueWithShortUnit: OwmString
-        get() = OwmString.Resource(R.string.formatted_temperature_value_short_unit, formattedValue)
+        get() = OwmString.Resource(R.string.format_temperature_value_short_unit, formattedValue)
 
     override fun getUnit(units: OwmUnitsType): OwmString {
         val resId = when (units) {

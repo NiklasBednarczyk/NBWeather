@@ -13,25 +13,34 @@ import java.util.*
 @JvmInline
 value class DateTimeValue private constructor(val value: Long) {
 
-    fun getTime(timezoneOffset: TimezoneOffsetValue?): OwmString? {
+    //TODO (#9) Add time format back to settings to use getDateTimeFormattedFromPattern (also make part of getFormattedString method)
+    private fun getTime(timezoneOffset: TimezoneOffsetValue?): String? {
         val dateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
         return getFormattedString(timezoneOffset, dateTimeFormatter)
     }
 
-    fun getDate(timezoneOffset: TimezoneOffsetValue?): OwmString? {
-        val skeleton = DateFormat.getBestDateTimePattern(Locale.getDefault(), DATE_FORMAT)
-        val dateTimeFormatter = DateTimeFormatter.ofPattern(skeleton)
-        return getFormattedString(timezoneOffset, dateTimeFormatter)
+    private fun getDate(timezoneOffset: TimezoneOffsetValue?): String? {
+        return getFormattedString(timezoneOffset, getDateTimeFormattedFromPattern(DATE_PATTERN))
     }
+
+    fun getDateTime(timezoneOffset: TimezoneOffsetValue?): String? {
+        return getFormattedString(timezoneOffset, getDateTimeFormattedFromPattern(DATE_TIME_PATTERN))
+    }
+
+    private fun getDateTimeFormattedFromPattern(pattern: String): DateTimeFormatter {
+        val skeleton = DateFormat.getBestDateTimePattern(Locale.getDefault(), pattern)
+        return DateTimeFormatter.ofPattern(skeleton)
+    }
+
 
     private fun getFormattedString(
         timezoneOffset: TimezoneOffsetValue?,
         dateTimeFormatter: DateTimeFormatter
-    ): OwmString? {
+    ): String? {
         return owmNullSafe(timezoneOffset) {
             val localDateTime = getLocalDateTime(it)
             val formattedValue = localDateTime.format(dateTimeFormatter)
-            OwmString.Value.from(formattedValue)
+            formattedValue
         }
     }
 
@@ -44,7 +53,8 @@ value class DateTimeValue private constructor(val value: Long) {
 
     companion object {
 
-        private const val DATE_FORMAT = "MMM d"
+        private const val DATE_PATTERN = "MMM d"
+        private const val DATE_TIME_PATTERN = "MMM d hh:mm "
 
         internal fun from(value: Long?): DateTimeValue? {
             return owmNullSafe(value) { DateTimeValue(it) }

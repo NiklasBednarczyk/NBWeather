@@ -2,6 +2,9 @@
     <string name="error_text_no_internet">No internet connection</string>
     <string name="error_text_unknown">Something went wrong</string>
 
+    <string name="format_date_range" translatable="false">%1$s - %2$s</string>
+    <string name="format_plus_prefix" translatable="false">+%1$s</string>
+
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
     <string name="icon_content_description_color_scheme">Color scheme</string>
@@ -10,6 +13,7 @@
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_error_no_internet">No internet</string>
     <string name="icon_content_description_error_unknown">Error</string>
+    <string name="icon_content_description_expand">Expand</string>
     <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_hourly">Hourly</string>
     <string name="icon_content_description_language">Language</string>
@@ -19,11 +23,12 @@
     <string name="icon_content_description_theme">Theme</string>
     <string name="icon_content_description_today">Today</string>
     <string name="icon_content_description_units">Units</string>
+    <string name="icon_content_description_warning">Warning</string>
 
+    <string name="screen_location_alert_overview_title">Alerts</string>
     <string name="screen_location_overview_tab_daily">Daily</string>
     <string name="screen_location_overview_tab_hourly">Hourly</string>
     <string name="screen_location_overview_tab_today">Today</string>
-
     <string name="screen_search_overview_search_no_results">No locations found</string>
 
     <string name="screen_settings_color_scheme_title">Color scheme</string>
