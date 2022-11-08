@@ -4,7 +4,7 @@ import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeV
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.CurrentWeatherEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.CurrentWeatherModelRemote
-import de.niklasbednarczyk.openweathermap.data.onecall.values.number.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.units.*
 import de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees.WindDegreesValue
 
 data class CurrentWeatherModelData(

@@ -1,8 +1,9 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models.daily
 
-import de.niklasbednarczyk.openweathermap.data.onecall.values.number.TemperatureValue
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.daily.DailyFeelsLikeTemperatureModelLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.daily.DailyFeelsLikeTemperatureModelRemote
+import de.niklasbednarczyk.openweathermap.data.onecall.values.units.TemperatureValue
 
 data class DailyFeelsLikeTemperatureModelData(
     val morningTemperature: TemperatureValue?,
@@ -16,25 +17,27 @@ data class DailyFeelsLikeTemperatureModelData(
         internal fun remoteToLocal(
             remote: DailyFeelsLikeTemperatureModelRemote?,
         ): DailyFeelsLikeTemperatureModelLocal? {
-            if (remote == null) return null
-            return DailyFeelsLikeTemperatureModelLocal(
-                morn = remote.morn,
-                day = remote.day,
-                eve = remote.eve,
-                night = remote.night
-            )
+            return owmNullSafe(remote) { model ->
+                DailyFeelsLikeTemperatureModelLocal(
+                    morn = model.morn,
+                    day = model.day,
+                    eve = model.eve,
+                    night = model.night
+                )
+            }
         }
 
         internal fun localToData(
             local: DailyFeelsLikeTemperatureModelLocal?
         ): DailyFeelsLikeTemperatureModelData? {
-            if (local == null) return null
-            return DailyFeelsLikeTemperatureModelData(
-                morningTemperature = TemperatureValue.from(local.morn),
-                dayTemperature = TemperatureValue.from(local.day),
-                eveningTemperature = TemperatureValue.from(local.eve),
-                nightTemperature = TemperatureValue.from(local.night)
-            )
+            return owmNullSafe(local) { model ->
+                DailyFeelsLikeTemperatureModelData(
+                    morningTemperature = TemperatureValue.from(model.morn),
+                    dayTemperature = TemperatureValue.from(model.day),
+                    eveningTemperature = TemperatureValue.from(model.eve),
+                    nightTemperature = TemperatureValue.from(model.night)
+                )
+            }
         }
 
     }

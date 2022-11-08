@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.openweathermap.core.common.string
 
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
+
 sealed interface OwmString {
 
     class Resource(val resId: Int, vararg val args: Any) : OwmString
@@ -14,7 +16,7 @@ sealed interface OwmString {
             }
 
             fun from(value: String?): Value? {
-                return if (value != null) from(value) else null
+                return owmNullSafe(value) { from(it) }
             }
 
         }

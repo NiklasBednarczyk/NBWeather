@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.models
 
 import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeValue
-import de.niklasbednarczyk.openweathermap.data.onecall.values.number.PrecipitationValue
+import de.niklasbednarczyk.openweathermap.data.onecall.values.units.PrecipitationValue
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.MinutelyForecastEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.MinutelyForecastModelRemote
 

@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.data.onecall.models.daily.DailyTempera
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.DailyForecastModelRemote
 import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeValue
 import de.niklasbednarczyk.openweathermap.data.onecall.values.moon.MoonPhaseValue
-import de.niklasbednarczyk.openweathermap.data.onecall.values.number.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.units.*
 import de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees.WindDegreesValue
 
 data class DailyForecastModelData(

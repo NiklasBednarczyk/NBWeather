@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.models
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.data.geocoding.R
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
@@ -77,15 +78,16 @@ data class LocationModelData(
             latitude: Double,
             longitude: Double
         ): LocationModelLocal? {
-            if (remote == null) return null
-            return LocationModelLocal(
-                name = remote.name,
-                localNames = LocalNameModelData.remoteToLocal(remote.localNames),
-                country = remote.country,
-                state = remote.state,
-                latitude = latitude,
-                longitude = longitude,
-            )
+            return owmNullSafe(remote) { model ->
+                LocationModelLocal(
+                    name = model.name,
+                    localNames = LocalNameModelData.remoteToLocal(model.localNames),
+                    country = model.country,
+                    state = model.state,
+                    latitude = latitude,
+                    longitude = longitude,
+                )
+            }
         }
 
         internal fun remoteListToLocal(remoteList: List<LocationModelRemote>?): List<LocationModelLocal> {
@@ -98,15 +100,16 @@ data class LocationModelData(
             local: LocationModelLocal?,
             language: OwmLanguageType
         ): LocationModelData? {
-            if (local == null) return null
-            return toData(
-                name = local.name,
-                localName = LocalNameModelData.localToData(local.localNames, language),
-                country = local.country,
-                state = local.state,
-                latitude = local.latitude,
-                longitude = local.longitude
-            )
+            return owmNullSafe(local) { model ->
+                toData(
+                    name = model.name,
+                    localName = LocalNameModelData.localToData(model.localNames, language),
+                    country = model.country,
+                    state = model.state,
+                    latitude = model.latitude,
+                    longitude = model.longitude
+                )
+            }
         }
 
         internal fun localListToData(

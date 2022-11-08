@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.values.weather
 
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
+
 @JvmInline
 value class WeatherIconValue private constructor(val type: WeatherIconType) {
 
@@ -7,7 +9,7 @@ value class WeatherIconValue private constructor(val type: WeatherIconType) {
 
         internal fun from(icon: String?): WeatherIconValue? {
             val type = WeatherIconType.from(icon)
-            return if (type != null) WeatherIconValue(type) else null
+            return owmNullSafe(type) { WeatherIconValue(it) }
         }
 
     }

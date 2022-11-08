@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.values.moon
 
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
+
 @JvmInline
 value class MoonPhaseValue private constructor(val type: MoonPhaseType) {
 
@@ -7,7 +9,7 @@ value class MoonPhaseValue private constructor(val type: MoonPhaseType) {
 
         internal fun from(value: Double?): MoonPhaseValue? {
             val type = MoonPhaseType.from(value)
-            return if (type != null) MoonPhaseValue(type) else null
+            return owmNullSafe(type) { MoonPhaseValue(it) }
         }
 
     }

@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.openweathermap.core.data.localremote.mediators
 
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.helper.LocalMediatorHelper
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import kotlinx.coroutines.Dispatchers
@@ -8,7 +9,7 @@ import kotlinx.coroutines.flow.*
 abstract class LocalMediator<Data, Local> : LocalMediatorHelper<Data, Local> {
 
     private fun mapToResource(local: Local?): OwmResource<Data?> {
-        val data = if (local != null) localToData(local) else null
+        val data = owmNullSafe(local) { localToData(it) }
         return OwmResource.Success(data)
     }
 

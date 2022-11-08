@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today
 
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 
 sealed interface LocationOverviewTodayItem {
@@ -14,7 +15,9 @@ sealed interface LocationOverviewTodayItem {
     class DayTemperatures : LocationOverviewTodayItem
 
     //TODO (#9) Header
-    class Header : LocationOverviewTodayItem
+    data class Header(
+        val test: OwmString?
+    ) : LocationOverviewTodayItem
 
     //TODO (#9) Sun and moon
     class SunAndMoon : LocationOverviewTodayItem
@@ -25,6 +28,11 @@ sealed interface LocationOverviewTodayItem {
             oneCall: OneCallModelData
         ): List<LocationOverviewTodayItem> {
             val items = mutableListOf<LocationOverviewTodayItem>()
+
+            val header = Header(
+                test = oneCall.currentWeather.currentTime?.getDate(oneCall.metadata.timezoneOffset)
+            )
+            items.add(header)
 
             //TODO (#9) Make items
 

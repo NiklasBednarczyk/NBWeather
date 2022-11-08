@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees
 
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
+
 @JvmInline
 value class WindDegreesValue private constructor(val type: WindDegreesType) {
 
@@ -7,7 +9,7 @@ value class WindDegreesValue private constructor(val type: WindDegreesType) {
 
         internal fun from(value: Long?): WindDegreesValue? {
             val type = WindDegreesType.from(value)
-            return if (type != null) WindDegreesValue(type) else null
+            return owmNullSafe(type) { WindDegreesValue(it) }
         }
 
     }

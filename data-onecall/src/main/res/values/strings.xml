@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="formatted_temperature_value_short_unit">%1$s°</string>
+
+    <string name="unit_distance" translatable="false">km</string>
+    <string name="unit_percent" translatable="false">%%</string>
+    <string name="unit_precipitation" translatable="false">mm</string>
+    <string name="unit_pressure" translatable="false">hPa</string>
+    <string name="unit_probability" translatable="false">%%</string>
+    <string name="unit_temperature_standard" translatable="false">°K</string>
+    <string name="unit_temperature_metric" translatable="false">°C</string>
+    <string name="unit_temperature_imperial" translatable="false">°F</string>
+    <string name="unit_uv_index" translatable="false">/11</string>
+    <string name="unit_wind_speed_standard" translatable="false">m/s</string>
+    <string name="unit_wind_speed_metric" translatable="false">m/s</string>
+    <string name="unit_wind_speed_imperial" translatable="false">mph</string>
+
+</resources>

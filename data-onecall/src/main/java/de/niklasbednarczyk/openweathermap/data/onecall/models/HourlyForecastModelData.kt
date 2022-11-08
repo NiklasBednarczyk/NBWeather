@@ -4,7 +4,7 @@ import de.niklasbednarczyk.openweathermap.data.onecall.local.models.HourlyForeca
 import de.niklasbednarczyk.openweathermap.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.HourlyForecastModelRemote
 import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.DateTimeValue
-import de.niklasbednarczyk.openweathermap.data.onecall.values.number.*
+import de.niklasbednarczyk.openweathermap.data.onecall.values.units.*
 import de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees.WindDegreesValue
 
 data class HourlyForecastModelData(

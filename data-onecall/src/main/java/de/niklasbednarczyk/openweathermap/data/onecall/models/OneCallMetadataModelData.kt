@@ -4,9 +4,10 @@ import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmUnitsType
 import de.niklasbednarczyk.openweathermap.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.openweathermap.data.onecall.remote.models.OneCallModelRemote
+import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.TimezoneOffsetValue
 
 data class OneCallMetadataModelData(
-    val timezoneOffset: Long?,
+    val timezoneOffset: TimezoneOffsetValue?,
     val units: OwmUnitsType
 ) {
 
@@ -33,7 +34,7 @@ data class OneCallMetadataModelData(
             local: OneCallMetadataEntityLocal
         ): OneCallMetadataModelData {
             return OneCallMetadataModelData(
-                timezoneOffset = local.timezoneOffset,
+                timezoneOffset = TimezoneOffsetValue.from(local.timezoneOffset),
                 units = local.units
             )
         }
