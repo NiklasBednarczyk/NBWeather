@@ -1,15 +1,23 @@
 package de.niklasbednarczyk.openweathermap.data.settings.serializers
 
+import android.content.Context
+import android.text.format.DateFormat
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
+import dagger.hilt.android.qualifiers.ApplicationContext
 import de.niklasbednarczyk.openweathermap.core.data.disk.constants.ConstantsCoreDisk
 import de.niklasbednarczyk.openweathermap.data.settings.proto.data.SettingsDataProto
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-internal object SettingsDataSerializer : Serializer<SettingsDataProto> {
+@Singleton
+internal class SettingsDataSerializer @Inject constructor(
+    @ApplicationContext private val context: Context
+) : Serializer<SettingsDataProto> {
 
     private fun getLanguage(language: String): String {
         return Locale(language).language
@@ -71,9 +79,18 @@ internal object SettingsDataSerializer : Serializer<SettingsDataProto> {
             SettingsDataProto.UnitsProto.METRIC
         }
 
+    private val defaultTimeFormat: SettingsDataProto.TimeFormatProto =
+        if (DateFormat.is24HourFormat(context)) {
+            SettingsDataProto.TimeFormatProto.HOUR_24
+        } else {
+            SettingsDataProto.TimeFormatProto.HOUR_12
+        }
+
+
     override val defaultValue: SettingsDataProto = SettingsDataProto.newBuilder()
         .setLanguage(defaultLanguage)
         .setUnits(defaultUnits)
+        .setTimeFormat(defaultTimeFormat)
         .build()
 
     override suspend fun readFrom(input: InputStream): SettingsDataProto {

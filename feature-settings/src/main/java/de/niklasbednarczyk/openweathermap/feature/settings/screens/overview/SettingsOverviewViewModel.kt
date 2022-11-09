@@ -68,6 +68,14 @@ class SettingsOverviewViewModel @Inject constructor(
                 destination = SettingsDestinations.Units
             )
         )
+        items.add(
+            SettingsOverviewItemModel.Item(
+                icon = OwmIcons.TimeFormat,
+                title = OwmString.Resource(R.string.screen_settings_time_format_title),
+                value = data.timeFormat.getString(),
+                destination = SettingsDestinations.TimeFormat
+            )
+        )
 
         items
     }

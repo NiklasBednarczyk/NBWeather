@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.openweathermap.feature.settings.extensions
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmUnitsType
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
@@ -86,6 +87,14 @@ fun OwmUnitsType.getString(): OwmString {
         OwmUnitsType.STANDARD -> R.string.screen_settings_units_value_standard
         OwmUnitsType.METRIC -> R.string.screen_settings_units_value_metric
         OwmUnitsType.IMPERIAL -> R.string.screen_settings_units_value_imperial
+    }
+    return OwmString.Resource(resId)
+}
+
+fun OwmTimeFormatType.getString(): OwmString {
+    val resId = when (this) {
+        OwmTimeFormatType.HOUR_12 -> R.string.screen_settings_time_format_value_hour_12
+        OwmTimeFormatType.HOUR_24 -> R.string.screen_settings_time_format_value_hour_24
     }
     return OwmString.Resource(resId)
 }

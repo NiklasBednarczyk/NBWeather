@@ -8,6 +8,7 @@ import de.niklasbednarczyk.openweathermap.feature.settings.screens.colorscheme.S
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.language.SettingsLanguageScreen
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.overview.SettingsOverviewScreen
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.theme.SettingsThemeScreen
+import de.niklasbednarczyk.openweathermap.feature.settings.screens.timeformat.SettingsTimeFormatScreen
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.units.SettingsUnitsScreen
 
 fun NavGraphBuilder.settingsGraph(
@@ -36,6 +37,12 @@ fun NavGraphBuilder.settingsGraph(
     }
     owmComposable(SettingsDestinations.Theme) {
         SettingsThemeScreen(
+            navigationIcon = navigationIconBack,
+            navigateToOverview = navigateToOverview
+        )
+    }
+    owmComposable(SettingsDestinations.TimeFormat) {
+        SettingsTimeFormatScreen(
             navigationIcon = navigationIconBack,
             navigateToOverview = navigateToOverview
         )

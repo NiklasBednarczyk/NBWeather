@@ -1,44 +1,53 @@
 package de.niklasbednarczyk.openweathermap.data.onecall.values.datetime
 
 import android.text.format.DateFormat
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
-import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
 
 @JvmInline
 value class DateTimeValue private constructor(val value: Long) {
 
-    //TODO (#9) Add time format back to settings to use getDateTimeFormattedFromPattern (also make part of getFormattedString method)
-    private fun getTime(timezoneOffset: TimezoneOffsetValue?): String? {
-        val dateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-        return getFormattedString(timezoneOffset, dateTimeFormatter)
+    fun getTime(
+        timezoneOffset: TimezoneOffsetValue?,
+        timeFormat: OwmTimeFormatType
+    ): String? {
+        val pattern = when (timeFormat) {
+            OwmTimeFormatType.HOUR_12 -> TIME_PATTERN_HOUR_12
+            OwmTimeFormatType.HOUR_24 -> TIME_PATTERN_HOUR_24
+        }
+        return getFormattedString(timezoneOffset, pattern)
     }
 
-    private fun getDate(timezoneOffset: TimezoneOffsetValue?): String? {
-        return getFormattedString(timezoneOffset, getDateTimeFormattedFromPattern(DATE_PATTERN))
+    fun getDate(timezoneOffset: TimezoneOffsetValue?): String? {
+        return getFormattedString(timezoneOffset, DATE_PATTERN)
     }
 
-    fun getDateTime(timezoneOffset: TimezoneOffsetValue?): String? {
-        return getFormattedString(timezoneOffset, getDateTimeFormattedFromPattern(DATE_TIME_PATTERN))
-    }
+    fun getDateTime(
+        timezoneOffset: TimezoneOffsetValue?,
+        timeFormat: OwmTimeFormatType
+    ): String? {
+        val pattern = when (timeFormat) {
+            OwmTimeFormatType.HOUR_12 -> DATE_TIME_PATTERN_HOUR_12
+            OwmTimeFormatType.HOUR_24 -> DATE_TIME_PATTERN_HOUR_24
+        }
 
-    private fun getDateTimeFormattedFromPattern(pattern: String): DateTimeFormatter {
-        val skeleton = DateFormat.getBestDateTimePattern(Locale.getDefault(), pattern)
-        return DateTimeFormatter.ofPattern(skeleton)
+        return getFormattedString(timezoneOffset, pattern)
     }
 
 
     private fun getFormattedString(
         timezoneOffset: TimezoneOffsetValue?,
-        dateTimeFormatter: DateTimeFormatter
+        pattern: String
     ): String? {
         return owmNullSafe(timezoneOffset) {
             val localDateTime = getLocalDateTime(it)
+            val skeleton = DateFormat.getBestDateTimePattern(Locale.getDefault(), pattern)
+            val dateTimeFormatter = DateTimeFormatter.ofPattern(skeleton)
             val formattedValue = localDateTime.format(dateTimeFormatter)
             formattedValue
         }
@@ -53,8 +62,13 @@ value class DateTimeValue private constructor(val value: Long) {
 
     companion object {
 
+        private const val TIME_PATTERN_HOUR_12 = "hh:mm"
+        private const val TIME_PATTERN_HOUR_24 = "HH:mm"
+
         private const val DATE_PATTERN = "MMM d"
-        private const val DATE_TIME_PATTERN = "MMM d hh:mm "
+
+        private const val DATE_TIME_PATTERN_HOUR_12 = "MMM d hh:mm"
+        private const val DATE_TIME_PATTERN_HOUR_24 = "MMM d HH:mm"
 
         internal fun from(value: Long?): DateTimeValue? {
             return owmNullSafe(value) { DateTimeValue(it) }

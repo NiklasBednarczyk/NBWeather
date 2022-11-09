@@ -9,7 +9,8 @@ internal object SettingsDataMapperData :
     override fun protoToDisk(proto: SettingsDataProto): SettingsDataModelData {
         return SettingsDataModelData(
             language = LanguageMapperData.protoToDisk(proto.language),
-            units = UnitsMapperData.protoToDisk(proto.units)
+            units = UnitsMapperData.protoToDisk(proto.units),
+            timeFormat = TimeFormatMapperData.protoToDisk(proto.timeFormat)
         )
     }
 }

@@ -121,6 +121,13 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_theme)
     }
 
+    object TimeFormat : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_watch_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_time_format)
+    }
+
     object Today : OwmIconModel.FilledAndOutlined {
         override val resIdFilled: Int
             get() = R.drawable.ic_baseline_today_24

@@ -23,6 +23,7 @@ object SettingsDestinations {
                 ColorScheme,
                 Language,
                 Theme,
+                TimeFormat,
                 Units
             )
     }
@@ -30,6 +31,11 @@ object SettingsDestinations {
     object Theme : OwmNavigationDestination.Detail {
         override val route: String
             get() = "settings_theme"
+    }
+
+    object TimeFormat : OwmNavigationDestination.Detail {
+        override val route: String
+            get() = "settings_time_format"
     }
 
     object Units : OwmNavigationDestination.Detail {

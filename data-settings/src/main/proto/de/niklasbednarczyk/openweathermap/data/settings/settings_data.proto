@@ -60,7 +60,13 @@ message SettingsDataProto {
     IMPERIAL = 2;
   }
 
+  enum TimeFormatProto {
+    HOUR_12 = 0;
+    HOUR_24 = 1;
+  }
+
   LanguageProto language = 1;
   UnitsProto units = 2;
+  TimeFormatProto timeFormat = 3;
 
 }

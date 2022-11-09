@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.alerts.models
 
+import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
@@ -15,14 +16,14 @@ data class LocationAlertModel(
 
     companion object {
 
-        fun from(oneCall: OneCallModelData?): List<LocationAlertModel> {
+        fun from(oneCall: OneCallModelData?, timeFormat: OwmTimeFormatType): List<LocationAlertModel> {
             return owmNullSafe(oneCall) { oC ->
                 val timezoneOffset = oC.metadata.timezoneOffset
                 val alerts = oC.nationalWeatherAlerts
 
                 alerts.map { alert ->
-                    val startDate = alert.startDate?.getDateTime(timezoneOffset)
-                    val endDate = alert.endDate?.getDateTime(timezoneOffset)
+                    val startDate = alert.startDate?.getDateTime(timezoneOffset, timeFormat)
+                    val endDate = alert.endDate?.getDateTime(timezoneOffset, timeFormat)
 
                     val startEndRange = owmNullSafe(startDate, endDate) { sD, eD ->
                         OwmString.Resource(R.string.format_date_range, sD, eD)
