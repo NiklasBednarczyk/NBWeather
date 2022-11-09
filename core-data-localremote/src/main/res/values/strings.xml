@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="format_comma" translatable="false">%1$s, %2$s</string>
     <string name="format_date_time">%1$s %2$s</string>
     <string name="format_temperature_value_short_unit">%1$s°</string>
 

@@ -3,7 +3,7 @@ package de.niklasbednarczyk.openweathermap.data.geocoding.models
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.data.geocoding.R
+import de.niklasbednarczyk.openweathermap.core.data.localremote.R
 import de.niklasbednarczyk.openweathermap.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.openweathermap.data.geocoding.remote.models.LocationModelRemote
 
