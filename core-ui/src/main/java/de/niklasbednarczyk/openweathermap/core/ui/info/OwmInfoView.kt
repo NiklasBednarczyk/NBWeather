@@ -14,8 +14,8 @@ import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenHorizontalPadding
-import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenVerticalPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.screenHorizontalPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.screenVerticalPadding
 
 @Composable
 fun OwmInfoView(
@@ -26,8 +26,8 @@ fun OwmInfoView(
         modifier = Modifier
             .fillMaxSize()
             .padding(
-                horizontal = defaultScreenHorizontalPadding,
-                vertical = defaultScreenVerticalPadding
+                horizontal = screenHorizontalPadding,
+                vertical = screenVerticalPadding
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,

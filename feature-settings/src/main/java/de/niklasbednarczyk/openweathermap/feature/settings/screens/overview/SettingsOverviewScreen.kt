@@ -21,7 +21,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestin
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.defaultScreenHorizontalPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.screenHorizontalPadding
 import de.niklasbednarczyk.openweathermap.core.ui.theme.dividerPaddingVertical
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingVertical
@@ -70,7 +70,7 @@ fun SettingsOverviewScreen(
                     is SettingsOverviewItemModel.Header -> {
                         Text(
                             modifier = Modifier.padding(
-                                horizontal = defaultScreenHorizontalPadding,
+                                horizontal = screenHorizontalPadding,
                                 vertical = 16.dp
                             ),
                             text = item.text.asString(),

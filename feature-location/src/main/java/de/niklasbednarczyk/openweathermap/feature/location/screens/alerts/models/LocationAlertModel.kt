@@ -9,14 +9,15 @@ import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 data class LocationAlertModel(
     val eventName: OwmString?,
     val startEndRange: OwmString?,
-    val description: OwmString?,
-    val senderName: OwmString?,
-    val tags: List<OwmString>
+    val expandableItems: List<LocationAlertExpandableItem>
 ) {
 
     companion object {
 
-        fun from(oneCall: OneCallModelData?, timeFormat: OwmTimeFormatType): List<LocationAlertModel> {
+        fun from(
+            oneCall: OneCallModelData?,
+            timeFormat: OwmTimeFormatType
+        ): List<LocationAlertModel> {
             return owmNullSafe(oneCall) { oC ->
                 val timezoneOffset = oC.metadata.timezoneOffset
                 val alerts = oC.nationalWeatherAlerts
@@ -29,14 +30,27 @@ data class LocationAlertModel(
                         OwmString.Resource(R.string.format_date_range, sD, eD)
                     }
 
-                    val tags = alert.tags ?: emptyList()
+                    val expandableItems = mutableListOf<LocationAlertExpandableItem>()
+
+                    val description = LocationAlertExpandableItem.Description(
+                        text = alert.description
+                    )
+                    expandableItems.add(description)
+
+                    val sender = LocationAlertExpandableItem.Sender(
+                        text = alert.senderName
+                    )
+                    expandableItems.add(sender)
+
+                    val tags = LocationAlertExpandableItem.Tags(
+                        tags = alert.tags ?: emptyList()
+                    )
+                    expandableItems.add(tags)
 
                     LocationAlertModel(
                         eventName = alert.eventName,
                         startEndRange = startEndRange,
-                        description = alert.description,
-                        senderName = alert.senderName,
-                        tags = tags
+                        expandableItems = expandableItems
                     )
                 }
 

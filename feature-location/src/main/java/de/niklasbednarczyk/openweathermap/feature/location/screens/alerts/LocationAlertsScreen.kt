@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.flowlayout.FlowRow
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
@@ -22,10 +21,8 @@ import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listItemPaddingValuesHorizontal
-
-private val verticalPadding = 16.dp
+import de.niklasbednarczyk.openweathermap.core.ui.theme.*
+import de.niklasbednarczyk.openweathermap.feature.location.screens.alerts.models.LocationAlertExpandableItem
 
 @Composable
 fun LocationAlertsScreen(
@@ -66,31 +63,41 @@ fun LocationAlertsScreen(
                             Column(
                                 modifier = Modifier
                                     .padding(listItemPaddingValuesHorizontal)
-                                    .padding(vertical = verticalPadding),
-                                verticalArrangement = Arrangement.spacedBy(verticalPadding)
+                                    .padding(vertical = columnVerticalPadding),
+                                verticalArrangement = Arrangement.spacedBy(columnVerticalPadding)
                             ) {
-                                Text(
-                                    text = alert.description.asString(),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                                Text(
-                                    text = alert.senderName.asString(),
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                                FlowRow(
-                                    mainAxisSpacing = 8.dp,
-                                    crossAxisSpacing = 4.dp
-                                ) {
-                                    alert.tags.forEach { tag ->
-                                        Text(
-                                            modifier = Modifier
-                                                .owmBorder(
-                                                    shape = MaterialTheme.shapes.extraSmall
-                                                )
-                                                .padding(8.dp),
-                                            text = tag.asString(),
-                                            style = MaterialTheme.typography.bodySmall
-                                        )
+                                alert.expandableItems.forEach { expandableItem ->
+                                    when (expandableItem) {
+                                        is LocationAlertExpandableItem.Description -> {
+                                            Text(
+                                                text = expandableItem.text.asString(),
+                                                style = MaterialTheme.typography.bodyMedium
+                                            )
+                                        }
+                                        is LocationAlertExpandableItem.Sender -> {
+                                            Text(
+                                                text = expandableItem.text.asString(),
+                                                style = MaterialTheme.typography.bodySmall
+                                            )
+                                        }
+                                        is LocationAlertExpandableItem.Tags -> {
+                                            FlowRow(
+                                                mainAxisSpacing = flowRowMainAxisSpacing,
+                                                crossAxisSpacing = flowRowCrossAxisSpacing
+                                            ) {
+                                                expandableItem.tags.forEach { tag ->
+                                                    Text(
+                                                        modifier = Modifier
+                                                            .owmBorder(
+                                                                shape = MaterialTheme.shapes.extraSmall
+                                                            )
+                                                            .padding(tagPadding),
+                                                        text = tag.asString(),
+                                                        style = MaterialTheme.typography.bodySmall
+                                                    )
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
