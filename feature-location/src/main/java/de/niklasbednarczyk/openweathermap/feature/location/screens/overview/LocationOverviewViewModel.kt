@@ -42,7 +42,7 @@ class LocationOverviewViewModel @Inject constructor(
             oneCallRepository.getOneCall(latitude, longitude, language, units)
                 .mapResource { oneCall ->
                     LocationOverviewViewData(
-                        todayItems = LocationOverviewTodayItem.from(oneCall)
+                        todayItems = LocationOverviewTodayItem.from(oneCall, data.timeFormat)
                     )
                 }
         }

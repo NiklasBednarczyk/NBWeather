@@ -25,6 +25,24 @@
     <string name="icon_content_description_today">Today</string>
     <string name="icon_content_description_units">Units</string>
     <string name="icon_content_description_warning">Warning</string>
+    <string name="icon_content_description_weather_day_broken_clouds">Broken clouds (Day)</string>
+    <string name="icon_content_description_weather_day_clear_sky">Clear sky (Day)</string>
+    <string name="icon_content_description_weather_day_few_clouds">Few clouds (Day)</string>
+    <string name="icon_content_description_weather_day_mist">Mist (Day)</string>
+    <string name="icon_content_description_weather_day_rain">Rain (Day)</string>
+    <string name="icon_content_description_weather_day_scattered_clouds">Scattered clouds (Day)</string>
+    <string name="icon_content_description_weather_day_shower_rain">Shower rain (Day)</string>
+    <string name="icon_content_description_weather_day_snow">Snow (Day)</string>
+    <string name="icon_content_description_weather_day_thunderstorm">Thunderstorm (Day)</string>
+    <string name="icon_content_description_weather_night_broken_clouds">Broken clouds (Night)</string>
+    <string name="icon_content_description_weather_night_clear_sky">Clear sky (Night)</string>
+    <string name="icon_content_description_weather_night_few_clouds">Few clouds (Night)</string>
+    <string name="icon_content_description_weather_night_mist">Mist (Night)</string>
+    <string name="icon_content_description_weather_night_rain">Rain (Night)</string>
+    <string name="icon_content_description_weather_night_scattered_clouds">Scattered clouds (Night)</string>
+    <string name="icon_content_description_weather_night_shower_rain">Shower rain (Night)</string>
+    <string name="icon_content_description_weather_night_snow">Snow (Night)</string>
+    <string name="icon_content_description_weather_night_thunderstorm">Thunderstorm (Night)</string>
 
     <string name="screen_location_alert_overview_title">Alerts</string>
     <string name="screen_location_overview_tab_daily">Daily</string>
@@ -109,5 +127,7 @@
     <string name="snackbar_location_found_failure_action_label">Try again</string>
 
     <string name="top_app_bar_search_placeholder">Search</string>
+
+    <string name="value_temperature_feels_like_prefix">Feels like&#160;</string>
 
 </resources>

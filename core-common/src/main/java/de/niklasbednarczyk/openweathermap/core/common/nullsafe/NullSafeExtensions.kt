@@ -22,3 +22,30 @@ fun <T1, T2, R> owmNullSafe(
         null
     }
 }
+
+fun <T1, T2, T3, R> owmNullSafe(
+    value1: T1?,
+    value2: T2?,
+    value3: T3?,
+    transform: (value1: T1, value2: T2, value3: T3) -> R?
+): R? {
+    return if (value1 != null && value2 != null && value3 != null) {
+        transform(value1, value2, value3)
+    } else {
+        null
+    }
+}
+
+fun <T1, T2, T3, T4, R> owmNullSafe(
+    value1: T1?,
+    value2: T2?,
+    value3: T3?,
+    value4: T4?,
+    transform: (value1: T1, value2: T2, value3: T3, value4: T4) -> R?
+): R? {
+    return if (value1 != null && value2 != null && value3 != null && value4 != null) {
+        transform(value1, value2, value3, value4)
+    } else {
+        null
+    }
+}

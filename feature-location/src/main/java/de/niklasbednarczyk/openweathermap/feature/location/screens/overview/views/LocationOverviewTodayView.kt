@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.*
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayAlertView
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayHeaderView
 
 @Composable
 fun LocationOverviewTodayView(
@@ -22,7 +23,11 @@ fun LocationOverviewTodayView(
                 }
                 is LocationOverviewTodayCurrentWeatherModel -> {}
                 is LocationOverviewTodayDayTemperaturesModel -> {}
-                is LocationOverviewTodayHeaderModel -> {}
+                is LocationOverviewTodayHeaderModel -> {
+                    LocationOverviewTodayHeaderView(
+                        header = todayItem
+                    )
+                }
                 is LocationOverviewTodaySunAndMoonModel -> {}
             }
         }

@@ -3,6 +3,7 @@ package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.mod
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.data.onecall.models.NationalWeatherAlertModelData
+import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 
 data class LocationOverviewTodayAlertModel(
     val text: OwmString,
@@ -11,7 +12,8 @@ data class LocationOverviewTodayAlertModel(
 
     companion object {
 
-        fun from(alerts: List<NationalWeatherAlertModelData>): LocationOverviewTodayAlertModel? {
+        fun from(oneCall: OneCallModelData): LocationOverviewTodayAlertModel? {
+            val alerts = oneCall.nationalWeatherAlerts
             val size = alerts.size
             val text = alerts.firstOrNull()?.eventName ?: return null
             return when (size) {

@@ -151,4 +151,130 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_warning)
     }
 
+    object WeatherDayBrokenClouds : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_cloudy
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_broken_clouds)
+    }
+
+    object WeatherDayClearSky : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_day_sunny
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_clear_sky)
+    }
+
+    object WeatherDayFewClouds : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_day_cloudy
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_few_clouds)
+    }
+
+    object WeatherDayMist : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_day_fog
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_mist)
+    }
+
+    object WeatherDayRain : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_day_rain
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_rain)
+    }
+
+    object WeatherDayScatteredClouds : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_cloud
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_scattered_clouds)
+    }
+
+    object WeatherDayShowerRain : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_day_showers
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_shower_rain)
+    }
+
+    object WeatherDaySnow : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_day_snow
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_snow)
+    }
+
+    object WeatherDayThunderstorm : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_day_lightning
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_day_thunderstorm)
+    }
+
+    object WeatherNightBrokenClouds : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_cloudy
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_broken_clouds)
+    }
+
+    object WeatherNightClearSky : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_night_clear
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_clear_sky)
+    }
+
+    object WeatherNightFewClouds : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_night_alt_cloudy
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_few_clouds)
+    }
+
+    object WeatherNightMist : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_night_fog
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_mist)
+    }
+
+    object WeatherNightRain : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_night_alt_rain
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_rain)
+    }
+
+    object WeatherNightScatteredClouds : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_cloud
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_scattered_clouds)
+    }
+
+    object WeatherNightShowerRain : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_night_alt_showers
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_shower_rain)
+    }
+
+    object WeatherNightSnow : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_night_alt_snow
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_snow)
+    }
+
+    object WeatherNightThunderstorm : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_night_alt_lightning
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_weather_night_thunderstorm)
+    }
+
 }
