@@ -6,7 +6,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.radio.OwmRadioGroupModel
 import de.niklasbednarczyk.openweathermap.core.ui.radio.OwmRadioOptionModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
-import de.niklasbednarczyk.openweathermap.feature.settings.extensions.getString
+import de.niklasbednarczyk.openweathermap.feature.settings.extensions.displayText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class SettingsTimeFormatViewModel @Inject constructor(
     private val radioOptions = OwmTimeFormatType.values().map { timeFormat ->
         OwmRadioOptionModel(
             key = timeFormat,
-            text = timeFormat.getString()
+            text = timeFormat.displayText
         )
     }
 

@@ -4,8 +4,8 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.data.onecall.values.weather.WeatherIconType
 
-fun WeatherIconType.getIcon(): OwmIconModel {
-    return when (this) {
+val WeatherIconType.icon: OwmIconModel
+    get() = when (this) {
         WeatherIconType.D_CLEAR_SKY -> OwmIcons.WeatherDayClearSky
         WeatherIconType.D_FEW_CLOUDS -> OwmIcons.WeatherDayFewClouds
         WeatherIconType.D_SCATTERED_CLOUDS -> OwmIcons.WeatherDayScatteredClouds
@@ -25,4 +25,3 @@ fun WeatherIconType.getIcon(): OwmIconModel {
         WeatherIconType.N_SNOW -> OwmIcons.WeatherNightSnow
         WeatherIconType.N_MIST -> OwmIcons.WeatherNightMist
     }
-}

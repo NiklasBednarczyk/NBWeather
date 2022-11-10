@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
-import de.niklasbednarczyk.openweathermap.feature.settings.extensions.getString
+import de.niklasbednarczyk.openweathermap.feature.settings.extensions.displayText
 import de.niklasbednarczyk.openweathermap.feature.settings.navigation.SettingsDestinations
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.overview.models.SettingsOverviewItemModel
 import kotlinx.coroutines.flow.Flow
@@ -36,7 +36,7 @@ class SettingsOverviewViewModel @Inject constructor(
             SettingsOverviewItemModel.Item(
                 icon = OwmIcons.Theme,
                 title = OwmString.Resource(R.string.screen_settings_theme_title),
-                value = appearance.theme.getString(),
+                value = appearance.theme.displayText,
                 destination = SettingsDestinations.Theme
             )
         )
@@ -44,7 +44,7 @@ class SettingsOverviewViewModel @Inject constructor(
             SettingsOverviewItemModel.Item(
                 icon = OwmIcons.ColorScheme,
                 title = OwmString.Resource(R.string.screen_settings_color_scheme_title),
-                value = appearance.colorScheme.getString(),
+                value = appearance.colorScheme.displayText,
                 destination = SettingsDestinations.ColorScheme
             )
         )
@@ -56,7 +56,7 @@ class SettingsOverviewViewModel @Inject constructor(
             SettingsOverviewItemModel.Item(
                 icon = OwmIcons.Language,
                 title = OwmString.Resource(R.string.screen_settings_language_title),
-                value = data.language.getString(),
+                value = data.language.displayText,
                 destination = SettingsDestinations.Language
             )
         )
@@ -64,7 +64,7 @@ class SettingsOverviewViewModel @Inject constructor(
             SettingsOverviewItemModel.Item(
                 icon = OwmIcons.Units,
                 title = OwmString.Resource(R.string.screen_settings_units_title),
-                value = data.units.getString(),
+                value = data.units.displayText,
                 destination = SettingsDestinations.Units
             )
         )
@@ -72,7 +72,7 @@ class SettingsOverviewViewModel @Inject constructor(
             SettingsOverviewItemModel.Item(
                 icon = OwmIcons.TimeFormat,
                 title = OwmString.Resource(R.string.screen_settings_time_format_title),
-                value = data.timeFormat.getString(),
+                value = data.timeFormat.displayText,
                 destination = SettingsDestinations.TimeFormat
             )
         )

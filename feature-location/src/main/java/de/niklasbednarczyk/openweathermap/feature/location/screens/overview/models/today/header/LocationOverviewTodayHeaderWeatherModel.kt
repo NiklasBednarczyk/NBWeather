@@ -6,7 +6,7 @@ import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.data.onecall.models.CurrentWeatherModelData
-import de.niklasbednarczyk.openweathermap.feature.location.extensions.getIcon
+import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
 
 data class LocationOverviewTodayHeaderWeatherModel(
     val currentTemperature: OwmString,
@@ -43,7 +43,7 @@ data class LocationOverviewTodayHeaderWeatherModel(
                     feelsLikePrefix = feelsLikePrefix,
                     temperatureUnit = currentTemperature.getUnit(units),
                     weatherDescription = weatherDescription.value,
-                    weatherIcon = weatherIcon.type.getIcon()
+                    weatherIcon = weatherIcon.type.icon
                 )
             }
 

@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
+import de.niklasbednarczyk.openweathermap.core.ui.text.OwmTextCombined
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayHeaderModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.header.LocationOverviewTodayHeaderWeatherModel
 
@@ -45,27 +46,16 @@ private fun Weather(
             text = weather.weatherDescription.asString(),
             style = MaterialTheme.typography.titleLarge
         )
-        Row {
-            val style = MaterialTheme.typography.displayLarge
-            Text(
-                text = weather.currentTemperature.asString(),
-                style = style
-            )
-            Text(
-                text = weather.temperatureUnit.asString(),
-                style = style
-            )
-        }
-        Row {
-            val style = MaterialTheme.typography.titleLarge
-            Text(
-                text = weather.feelsLikePrefix.asString(),
-                style = style
-            )
-            Text(
-                text = weather.feelsLikeTemperature.asString(),
-                style = style
-            )
-        }
+        OwmTextCombined(
+            MaterialTheme.typography.displayLarge,
+            weather.currentTemperature,
+            weather.temperatureUnit
+        )
+        OwmTextCombined(
+            MaterialTheme.typography.titleLarge,
+            weather.feelsLikePrefix,
+            weather.feelsLikeTemperature
+        )
     }
 }
+

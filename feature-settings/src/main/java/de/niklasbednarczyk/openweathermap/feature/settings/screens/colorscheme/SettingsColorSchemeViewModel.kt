@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.radio.OwmRadioOptionModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.ColorSchemeTypeData
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsAppearanceRepository
-import de.niklasbednarczyk.openweathermap.feature.settings.extensions.getString
+import de.niklasbednarczyk.openweathermap.feature.settings.extensions.displayText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class SettingsColorSchemeViewModel @Inject constructor(
     }.map { colorScheme ->
         OwmRadioOptionModel(
             key = colorScheme,
-            text = colorScheme.getString()
+            text = colorScheme.displayText
         )
     }
 
