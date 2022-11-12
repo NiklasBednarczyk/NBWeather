@@ -14,7 +14,6 @@ internal object ColorSchemeMapperData :
             SettingsAppearanceProto.ColorSchemeProto.CYAN -> ColorSchemeTypeData.CYAN
             SettingsAppearanceProto.ColorSchemeProto.MAGENTA -> ColorSchemeTypeData.MAGENTA
             SettingsAppearanceProto.ColorSchemeProto.YELLOW -> ColorSchemeTypeData.YELLOW
-            SettingsAppearanceProto.ColorSchemeProto.DYNAMIC_COLOR -> ColorSchemeTypeData.DYNAMIC_COLOR
             SettingsAppearanceProto.ColorSchemeProto.UNRECOGNIZED -> ColorSchemeTypeData.YELLOW
         }
     }
@@ -27,7 +26,6 @@ internal object ColorSchemeMapperData :
             ColorSchemeTypeData.CYAN -> SettingsAppearanceProto.ColorSchemeProto.CYAN
             ColorSchemeTypeData.MAGENTA -> SettingsAppearanceProto.ColorSchemeProto.MAGENTA
             ColorSchemeTypeData.YELLOW -> SettingsAppearanceProto.ColorSchemeProto.YELLOW
-            ColorSchemeTypeData.DYNAMIC_COLOR -> SettingsAppearanceProto.ColorSchemeProto.DYNAMIC_COLOR
         }
     }
 

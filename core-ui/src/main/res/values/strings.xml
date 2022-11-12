@@ -53,7 +53,6 @@
     <string name="screen_settings_color_scheme_title">Color scheme</string>
     <string name="screen_settings_color_scheme_value_blue">Blue</string>
     <string name="screen_settings_color_scheme_value_cyan">Cyan</string>
-    <string name="screen_settings_color_scheme_value_dynamic_color">Dynamic color</string>
     <string name="screen_settings_color_scheme_value_green">Green</string>
     <string name="screen_settings_color_scheme_value_magenta">Magenta</string>
     <string name="screen_settings_color_scheme_value_red">Red</string>

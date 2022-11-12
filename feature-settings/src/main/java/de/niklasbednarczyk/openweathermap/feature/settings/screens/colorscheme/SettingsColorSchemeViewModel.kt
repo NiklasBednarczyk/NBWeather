@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.openweathermap.feature.settings.screens.colorscheme
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.niklasbednarczyk.openweathermap.core.common.constants.ConstantsCoreCommon
 import de.niklasbednarczyk.openweathermap.core.ui.radio.OwmRadioGroupModel
 import de.niklasbednarczyk.openweathermap.core.ui.radio.OwmRadioOptionModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
@@ -17,13 +16,7 @@ class SettingsColorSchemeViewModel @Inject constructor(
     private val settingsAppearanceRepository: SettingsAppearanceRepository,
 ) : OwmViewModel<SettingsColorSchemeUiState>(SettingsColorSchemeUiState()) {
 
-    private val radioOptions = ColorSchemeTypeData.values().filter { colorScheme ->
-        if (ConstantsCoreCommon.DynamicColor.isAvailable) {
-            true
-        } else {
-            colorScheme != ColorSchemeTypeData.DYNAMIC_COLOR
-        }
-    }.map { colorScheme ->
+    private val radioOptions = ColorSchemeTypeData.values().map { colorScheme ->
         OwmRadioOptionModel(
             key = colorScheme,
             text = colorScheme.displayText

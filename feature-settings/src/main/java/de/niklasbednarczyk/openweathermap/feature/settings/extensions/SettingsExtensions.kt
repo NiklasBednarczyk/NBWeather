@@ -27,7 +27,6 @@ val ColorSchemeTypeData.displayText: OwmString
             ColorSchemeTypeData.CYAN -> R.string.screen_settings_color_scheme_value_cyan
             ColorSchemeTypeData.MAGENTA -> R.string.screen_settings_color_scheme_value_magenta
             ColorSchemeTypeData.YELLOW -> R.string.screen_settings_color_scheme_value_yellow
-            ColorSchemeTypeData.DYNAMIC_COLOR -> R.string.screen_settings_color_scheme_value_dynamic_color
         }
         return OwmString.Resource(resId)
     }

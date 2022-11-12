@@ -3,11 +3,11 @@ package de.niklasbednarczyk.openweathermap.theme
 import androidx.annotation.ColorInt
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmCustomColorsModel
+import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmLocalCustomColors
 import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.SettingsAppearanceModelData
 import de.niklasbednarczyk.openweathermap.library.materialcolorutilities.scheme.Scheme
 
@@ -20,22 +20,16 @@ fun OwmTheme(
     val sourceColorInt = appearance.colorScheme.sourceColorInt
     val isLightTheme = appearance.theme.isLightTheme
 
-    val colorScheme = if (sourceColorInt != null) {
-        createColorScheme(sourceColorInt, isLightTheme)
-    } else {
-        val context = LocalContext.current
-        if (isLightTheme) {
-            dynamicLightColorScheme(context)
-        } else {
-            dynamicDarkColorScheme(context)
-        }
+    val colorScheme = createColorScheme(sourceColorInt, isLightTheme)
+
+    val customColors = OwmCustomColorsModel.from(sourceColorInt)
+
+    CompositionLocalProvider(OwmLocalCustomColors provides customColors) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            content = content
+        )
     }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        content = content
-    )
-
 }
 
 private fun createColorScheme(
