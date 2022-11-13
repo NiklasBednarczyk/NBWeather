@@ -20,6 +20,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.OwmTextCombined
 import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmCustomColors
+import de.niklasbednarczyk.openweathermap.core.ui.theme.spacerTextHeight
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayHeaderModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.header.LocationOverviewTodayHeaderWeatherModel
 import kotlin.math.max
@@ -34,26 +35,45 @@ fun LocationOverviewTodayHeaderView(
 ) {
     var innerSize by remember { mutableStateOf(IntSize.Zero) }
 
-    //TODO (#9) Add precipitation text on top
-    //TODO (#9) Show time of data CenterTop
+    //TODO (#9) Maybe animate precipitation value drawing
+    //TODO (#9) Have better system to show precipitation
 
-    Box(
-        modifier = Modifier.fillMaxWidth()
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        PrecipitationCircle(
-            modifier = Modifier.align(Alignment.Center),
-            innerSize = innerSize
+        Text(
+            text = header.precipitation.headline.asString(),
+            style = MaterialTheme.typography.titleMedium
         )
-        Weather(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(innerPadding + precipitationMarkerLength + timeMarkerLength)
-                .onGloballyPositioned { layoutCoordinates ->
-                    innerSize = layoutCoordinates.size
-                },
-            weather = header.weather
+        Spacer(
+            modifier = Modifier.height(spacerTextHeight)
         )
+        Text(
+            text = header.precipitation.currentTime.asString(),
+            style = MaterialTheme.typography.titleSmall
+        )
+        Box(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            PrecipitationCircle(
+                modifier = Modifier.align(Alignment.Center),
+                innerSize = innerSize,
+                factors = header.precipitation.factors,
+                dataExists = header.precipitation.currentTime != null
+            )
+            Weather(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(innerPadding + precipitationMarkerLength + timeMarkerLength)
+                    .onGloballyPositioned { layoutCoordinates ->
+                        innerSize = layoutCoordinates.size
+                    },
+                weather = header.weather
+            )
+        }
     }
+
 
 }
 
@@ -99,9 +119,11 @@ private fun PrecipitationCircle(
     precipitationMarkerBackgroundBrushColor1: Color = OwmCustomColors.colors.green,
     precipitationMarkerBackgroundBrushColor2: Color = OwmCustomColors.colors.yellow,
     precipitationMarkerBackgroundBrushColor3: Color = OwmCustomColors.colors.red,
-    precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+    precipitationMarkerForegroundColorRegular: Color = MaterialTheme.colorScheme.surfaceVariant,
+    precipitationMarkerForegroundColorFallback: Color = MaterialTheme.colorScheme.inverseSurface,
     timeMarkerColor: Color = MaterialTheme.colorScheme.inverseSurface,
-    times: Int = 60 //TODO (#9) Replace with items.size
+    factors: List<Float>,
+    dataExists: Boolean
 ) {
     with(LocalDensity.current) {
         val innerPaddingPx = remember {
@@ -135,10 +157,14 @@ private fun PrecipitationCircle(
                 end = precipitationMarkerBackgroundEnd
             )
 
-            repeat(times) { index ->
+            val precipitationMarkerForegroundColor = if (dataExists) {
+                precipitationMarkerForegroundColorRegular
+            } else {
+                precipitationMarkerForegroundColorFallback
+            }
 
-
-                rotate(index / times.toFloat() * 360) {
+            factors.forEachIndexed { index, factor ->
+                rotate(index / factors.size.toFloat() * 360) {
                     drawLine(
                         brush = precipitationMarkerBackgroundBrush,
                         start = precipitationMarkerBackgroundStart,
@@ -146,16 +172,13 @@ private fun PrecipitationCircle(
                         strokeWidth = precipitationMarkerStrokeWidthPx
                     )
 
-                    //TODO (#9) Calculate factor
-                    val precipitationMarkerForegroundFactor = 0.25f
-                    val precipitationMarkerForegroundLengthPx =
-                        precipitationMarkerLengthPx * precipitationMarkerForegroundFactor
+                    val precipitationMarkerForegroundLengthPx = precipitationMarkerLengthPx * factor
                     val precipitationMarkerForegroundStart =
                         precipitationMarkerBackgroundEnd + Offset(
                             0f,
                             precipitationMarkerForegroundLengthPx
                         )
-                    //TODO (#9) Set different color in case of no data
+
                     drawLine(
                         color = precipitationMarkerForegroundColor,
                         start = precipitationMarkerForegroundStart,
@@ -168,12 +191,14 @@ private fun PrecipitationCircle(
             val timeMarkerStart = center - Offset(0f, radius + precipitationMarkerLengthPx)
             val timeMarkerEnd = timeMarkerStart - Offset(0f, timeMarkerLengthPx)
 
-            drawLine(
-                color = timeMarkerColor,
-                start = timeMarkerStart,
-                end = timeMarkerEnd,
-                strokeWidth = timeMarkerStrokeWidthPx
-            )
+            if (dataExists) {
+                drawLine(
+                    color = timeMarkerColor,
+                    start = timeMarkerStart,
+                    end = timeMarkerEnd,
+                    strokeWidth = timeMarkerStrokeWidthPx
+                )
+            }
         }
     }
 

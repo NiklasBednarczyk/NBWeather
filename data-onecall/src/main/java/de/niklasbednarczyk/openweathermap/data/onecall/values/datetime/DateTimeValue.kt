@@ -3,6 +3,7 @@ package de.niklasbednarczyk.openweathermap.data.onecall.values.datetime
 import android.text.format.DateFormat
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -12,7 +13,7 @@ import java.util.*
 @JvmInline
 value class DateTimeValue private constructor(val value: Long) {
 
-    fun getTime(
+    fun getTimeFormattedValue(
         timezoneOffset: TimezoneOffsetValue?,
         timeFormat: OwmTimeFormatType
     ): String? {
@@ -20,14 +21,29 @@ value class DateTimeValue private constructor(val value: Long) {
             OwmTimeFormatType.HOUR_12 -> TIME_PATTERN_HOUR_12
             OwmTimeFormatType.HOUR_24 -> TIME_PATTERN_HOUR_24
         }
-        return getFormattedString(timezoneOffset, pattern)
+        return getFormattedValue(timezoneOffset, pattern)
     }
 
-    fun getDate(timezoneOffset: TimezoneOffsetValue?): String? {
-        return getFormattedString(timezoneOffset, DATE_PATTERN)
+    fun getTimeString(
+        timezoneOffset: TimezoneOffsetValue?,
+        timeFormat: OwmTimeFormatType
+    ): OwmString? {
+        return OwmString.Value.from(getTimeFormattedValue(timezoneOffset, timeFormat))
     }
 
-    fun getDateTime(
+    fun getDateFormattedValue(
+        timezoneOffset: TimezoneOffsetValue?
+    ): String? {
+        return getFormattedValue(timezoneOffset, DATE_PATTERN)
+    }
+
+    fun getDateString(
+        timezoneOffset: TimezoneOffsetValue?
+    ): OwmString? {
+        return OwmString.Value.from(getDateFormattedValue(timezoneOffset))
+    }
+
+    fun getDateTimeFormattedValue(
         timezoneOffset: TimezoneOffsetValue?,
         timeFormat: OwmTimeFormatType
     ): String? {
@@ -36,11 +52,18 @@ value class DateTimeValue private constructor(val value: Long) {
             OwmTimeFormatType.HOUR_24 -> DATE_TIME_PATTERN_HOUR_24
         }
 
-        return getFormattedString(timezoneOffset, pattern)
+        return getFormattedValue(timezoneOffset, pattern)
+    }
+
+    fun getDateTimeString(
+        timezoneOffset: TimezoneOffsetValue?,
+        timeFormat: OwmTimeFormatType
+    ): OwmString? {
+        return OwmString.Value.from(getDateTimeFormattedValue(timezoneOffset, timeFormat))
     }
 
 
-    private fun getFormattedString(
+    private fun getFormattedValue(
         timezoneOffset: TimezoneOffsetValue?,
         pattern: String
     ): String? {

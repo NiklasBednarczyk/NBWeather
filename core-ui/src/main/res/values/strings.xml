@@ -45,6 +45,12 @@
     <string name="icon_content_description_weather_night_thunderstorm">Thunderstorm (Night)</string>
 
     <string name="screen_location_alert_overview_title">Alerts</string>
+    <string name="screen_location_overview_today_precipitation_text_breaking">A break in precipitation in %1$s minutes</string>
+    <string name="screen_location_overview_today_precipitation_text_ending">Precipitation ending in %1$s minutes</string>
+    <string name="screen_location_overview_today_precipitation_text_full">Precipitation won’t end within an hour</string>
+    <string name="screen_location_overview_today_precipitation_text_none">No precipitation within an hour</string>
+    <string name="screen_location_overview_today_precipitation_text_no_data">No precipitation data found</string>
+    <string name="screen_location_overview_today_precipitation_text_starting">Precipitation starting in %1$s minutes</string>
     <string name="screen_location_overview_tab_daily">Daily</string>
     <string name="screen_location_overview_tab_hourly">Hourly</string>
     <string name="screen_location_overview_tab_today">Today</string>

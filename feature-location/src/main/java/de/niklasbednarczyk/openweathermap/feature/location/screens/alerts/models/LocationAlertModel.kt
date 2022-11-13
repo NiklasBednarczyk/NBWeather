@@ -23,8 +23,8 @@ data class LocationAlertModel(
                 val alerts = oC.nationalWeatherAlerts
 
                 alerts.map { alert ->
-                    val startDate = alert.startDate?.getDateTime(timezoneOffset, timeFormat)
-                    val endDate = alert.endDate?.getDateTime(timezoneOffset, timeFormat)
+                    val startDate = alert.startDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
+                    val endDate = alert.endDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
 
                     val startEndRange = owmNullSafe(startDate, endDate) { sD, eD ->
                         OwmString.Resource(R.string.format_date_range, sD, eD)

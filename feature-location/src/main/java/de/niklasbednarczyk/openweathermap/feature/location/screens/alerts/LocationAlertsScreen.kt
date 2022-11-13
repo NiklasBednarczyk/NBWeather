@@ -63,8 +63,8 @@ fun LocationAlertsScreen(
                             Column(
                                 modifier = Modifier
                                     .padding(listItemPaddingValuesHorizontal)
-                                    .padding(vertical = columnVerticalPadding),
-                                verticalArrangement = Arrangement.spacedBy(columnVerticalPadding)
+                                    .padding(vertical = columnVerticalArrangement),
+                                verticalArrangement = Arrangement.spacedBy(columnVerticalArrangement)
                             ) {
                                 alert.expandableItems.forEach { expandableItem ->
                                     when (expandableItem) {

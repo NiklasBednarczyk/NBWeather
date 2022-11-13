@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
-val columnVerticalPadding = 16.dp
+val columnVerticalArrangement = 16.dp
 
 val dividerPaddingVertical = 8.dp
 
@@ -19,5 +19,7 @@ val placeholderVerticalPadding = 4.dp
 
 val screenHorizontalPadding = 16.dp
 val screenVerticalPadding = 8.dp
+
+val spacerTextHeight = 4.dp
 
 val tagPadding = 8.dp
