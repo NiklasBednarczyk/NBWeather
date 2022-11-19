@@ -35,8 +35,17 @@ fun LocationOverviewTodayHeaderView(
 ) {
     var innerSize by remember { mutableStateOf(IntSize.Zero) }
 
+    val showPrecipitationCircle = header.precipitation.factors.isNotEmpty()
+
+    val weatherPaddingModifier = if (showPrecipitationCircle) {
+        Modifier.padding(innerPadding + precipitationMarkerLength + timeMarkerLength)
+    } else {
+        Modifier
+    }
+
     //TODO (#9) Maybe animate precipitation value drawing
     //TODO (#9) Have better system to show precipitation
+    //TODO (#9) Check if index in text is correct
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -60,12 +69,13 @@ fun LocationOverviewTodayHeaderView(
                 modifier = Modifier.align(Alignment.Center),
                 innerSize = innerSize,
                 factors = header.precipitation.factors,
-                dataExists = header.precipitation.currentTime != null
+                showPrecipitationCircle = showPrecipitationCircle,
+                showTimeMarker = header.precipitation.currentTime != null
             )
             Weather(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .padding(innerPadding + precipitationMarkerLength + timeMarkerLength)
+                    .then(weatherPaddingModifier)
                     .onGloballyPositioned { layoutCoordinates ->
                         innerSize = layoutCoordinates.size
                     },
@@ -119,12 +129,14 @@ private fun PrecipitationCircle(
     precipitationMarkerBackgroundBrushColor1: Color = OwmCustomColors.colors.green,
     precipitationMarkerBackgroundBrushColor2: Color = OwmCustomColors.colors.yellow,
     precipitationMarkerBackgroundBrushColor3: Color = OwmCustomColors.colors.red,
-    precipitationMarkerForegroundColorRegular: Color = MaterialTheme.colorScheme.surfaceVariant,
-    precipitationMarkerForegroundColorFallback: Color = MaterialTheme.colorScheme.inverseSurface,
+    precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     timeMarkerColor: Color = MaterialTheme.colorScheme.inverseSurface,
     factors: List<Float>,
-    dataExists: Boolean
+    showPrecipitationCircle: Boolean,
+    showTimeMarker: Boolean
 ) {
+    if (!showPrecipitationCircle) return
+
     with(LocalDensity.current) {
         val innerPaddingPx = remember {
             innerPadding.toPx()
@@ -157,12 +169,6 @@ private fun PrecipitationCircle(
                 end = precipitationMarkerBackgroundEnd
             )
 
-            val precipitationMarkerForegroundColor = if (dataExists) {
-                precipitationMarkerForegroundColorRegular
-            } else {
-                precipitationMarkerForegroundColorFallback
-            }
-
             factors.forEachIndexed { index, factor ->
                 rotate(index / factors.size.toFloat() * 360) {
                     drawLine(
@@ -191,7 +197,7 @@ private fun PrecipitationCircle(
             val timeMarkerStart = center - Offset(0f, radius + precipitationMarkerLengthPx)
             val timeMarkerEnd = timeMarkerStart - Offset(0f, timeMarkerLengthPx)
 
-            if (dataExists) {
+            if (showTimeMarker) {
                 drawLine(
                     color = timeMarkerColor,
                     start = timeMarkerStart,

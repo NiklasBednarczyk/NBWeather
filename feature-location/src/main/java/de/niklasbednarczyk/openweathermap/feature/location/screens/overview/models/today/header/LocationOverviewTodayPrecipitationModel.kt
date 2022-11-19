@@ -13,16 +13,11 @@ data class LocationOverviewTodayPrecipitationModel(
 ) {
 
     val factors: List<Float>
-        get() {
-            return if (forecasts.isNotEmpty()) {
-                forecasts.map { forecast ->
-                    val value = 1 - forecast.div(FORECAST_HIGHEST_VALUE).toFloat()
-                    max(value, 0f)
-                }
-            } else {
-                List(FORECAST_SIZE_LIMIT) { 1f }
-            }
+        get() = forecasts.map { forecast ->
+            val value = 1 - forecast.div(FORECAST_HIGHEST_VALUE).toFloat()
+            max(value, 0f)
         }
+
 
     val headline: OwmString?
         get() {
@@ -71,7 +66,7 @@ data class LocationOverviewTodayPrecipitationModel(
 
     companion object {
 
-        const val FORECAST_SIZE_LIMIT = 60
+        private const val FORECAST_SIZE_LIMIT = 60
         private const val FORECAST_HIGHEST_VALUE = 50
 
         fun from(
