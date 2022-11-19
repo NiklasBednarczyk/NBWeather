@@ -9,7 +9,7 @@ import de.niklasbednarczyk.openweathermap.data.onecall.models.CurrentWeatherMode
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
 
 data class LocationOverviewTodayHeaderWeatherModel(
-    val currentTemperature: OwmString,
+    val currentTemperature: OwmString?,
     val feelsLikeTemperature: OwmString,
     val feelsLikePrefix: OwmString,
     val temperatureUnit: OwmString,

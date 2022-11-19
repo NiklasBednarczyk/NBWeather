@@ -20,7 +20,7 @@ sealed interface UnitsValue {
             return decimalFormat.format(value)
         }
 
-    val displayValue: OwmString
+    val displayValue: OwmString?
         get() = OwmString.Value.from(formattedValue)
 
     interface Dependent : UnitsValue {

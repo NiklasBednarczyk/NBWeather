@@ -15,38 +15,44 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 
 @Composable
 fun OwmExpandableView(
-    header: @Composable (icon: @Composable () -> Unit) -> Unit,
-    expandableContent: @Composable () -> Unit
+    header: @Composable (icon: @Composable (() -> Unit)?) -> Unit,
+    expandableContent: @Composable () -> Unit,
+    canBeExpanded: Boolean = true
 ) {
-    var expandedRemembered by rememberSaveable { mutableStateOf(false) }
+    if (canBeExpanded) {
+        var expandedRemembered by rememberSaveable { mutableStateOf(false) }
 
-    val visibleState = remember {
-        MutableTransitionState(expandedRemembered)
-    }
-    val transition = updateTransition(visibleState, "OwmExpandableView")
-    val iconRotation by transition.animateFloat(label = "iconRotation") { expanded ->
-        if (expanded) 180f else 0f
-    }
-
-    Column(
-        modifier = Modifier.clickable {
-            visibleState.targetState = !visibleState.targetState
-            expandedRemembered = !expandedRemembered
+        val visibleState = remember {
+            MutableTransitionState(expandedRemembered)
         }
-    ) {
-        header(
-            icon = {
-                OwmIcon(
-                    modifier = Modifier.rotate(iconRotation),
-                    icon = OwmIcons.Expand
-                )
+        val transition = updateTransition(visibleState, "OwmExpandableView")
+        val iconRotation by transition.animateFloat(label = "iconRotation") { expanded ->
+            if (expanded) 180f else 0f
+        }
+
+        Column(
+            modifier = Modifier.clickable {
+                visibleState.targetState = !visibleState.targetState
+                expandedRemembered = !expandedRemembered
             }
-        )
-        AnimatedVisibility(
-            visibleState = visibleState
         ) {
-            expandableContent()
+            header(
+                icon = {
+                    OwmIcon(
+                        modifier = Modifier.rotate(iconRotation),
+                        icon = OwmIcons.Expand
+                    )
+                }
+            )
+            AnimatedVisibility(
+                visibleState = visibleState
+            ) {
+                expandableContent()
+            }
         }
+    } else {
+        header(
+            icon = null
+        )
     }
-
 }

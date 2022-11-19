@@ -23,8 +23,10 @@ data class LocationAlertModel(
                 val alerts = oC.nationalWeatherAlerts
 
                 alerts.map { alert ->
-                    val startDate = alert.startDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
-                    val endDate = alert.endDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
+                    val startDate =
+                        alert.startDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
+                    val endDate =
+                        alert.endDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
 
                     val startEndRange = owmNullSafe(startDate, endDate) { sD, eD ->
                         OwmString.Resource(R.string.format_date_range, sD, eD)
@@ -32,20 +34,32 @@ data class LocationAlertModel(
 
                     val expandableItems = mutableListOf<LocationAlertExpandableItem>()
 
-                    val description = LocationAlertExpandableItem.Description(
-                        text = alert.description
-                    )
-                    expandableItems.add(description)
+                    val description = alert.description
+                    if (description != null) {
+                        expandableItems.add(
+                            LocationAlertExpandableItem.Description(
+                                text = description
+                            )
+                        )
+                    }
 
-                    val sender = LocationAlertExpandableItem.Sender(
-                        text = alert.senderName
-                    )
-                    expandableItems.add(sender)
+                    val senderName = alert.senderName
+                    if (senderName != null) {
+                        expandableItems.add(
+                            LocationAlertExpandableItem.Sender(
+                                text = senderName
+                            )
+                        )
+                    }
 
-                    val tags = LocationAlertExpandableItem.Tags(
-                        tags = alert.tags ?: emptyList()
-                    )
-                    expandableItems.add(tags)
+                    val tags = alert.tags
+                    if (tags?.isNotEmpty() == true) {
+                        expandableItems.add(
+                            LocationAlertExpandableItem.Tags(
+                                tags = tags
+                            )
+                        )
+                    }
 
                     LocationAlertModel(
                         eventName = alert.eventName,

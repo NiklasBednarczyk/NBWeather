@@ -11,12 +11,14 @@ sealed interface OwmString {
 
         companion object {
 
-            fun from(value: String): Value {
-                return Value(value)
-            }
-
             fun from(value: String?): Value? {
-                return owmNullSafe(value) { from(it) }
+                return owmNullSafe(value) { v ->
+                    if (v.isNotBlank()) {
+                        Value(v)
+                    } else {
+                        null
+                    }
+                }
             }
 
         }

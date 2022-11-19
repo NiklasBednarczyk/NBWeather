@@ -43,7 +43,7 @@ data class NationalWeatherAlertModelData(
                     startDate = DateTimeValue.from(local.start),
                     endDate = DateTimeValue.from(local.end),
                     description = OwmString.Value.from(local.description),
-                    tags = local.tags?.map { tag -> OwmString.Value.from(tag) }
+                    tags = local.tags?.mapNotNull { tag -> OwmString.Value.from(tag) }
                 )
             } ?: emptyList()
         }

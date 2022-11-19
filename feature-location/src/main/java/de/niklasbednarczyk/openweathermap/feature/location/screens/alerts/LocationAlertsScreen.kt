@@ -48,6 +48,7 @@ fun LocationAlertsScreen(
             ) {
                 items(alerts) { alert ->
                     OwmExpandableView(
+                        canBeExpanded = alert.expandableItems.isNotEmpty(),
                         header = { icon ->
                             ListItem(
                                 headlineText = {
