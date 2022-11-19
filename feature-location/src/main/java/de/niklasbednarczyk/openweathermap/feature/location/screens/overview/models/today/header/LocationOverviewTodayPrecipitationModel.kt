@@ -14,7 +14,17 @@ data class LocationOverviewTodayPrecipitationModel(
 
     val factors: List<Float>
         get() = forecasts.map { forecast ->
-            val value = 1 - forecast.div(FORECAST_HIGHEST_VALUE).toFloat()
+            val multiplier = 1.0.div(FORECAST_STEP_COUNT)
+
+            val factor = when (forecast) {
+                in FORECAST_STEP_0_VALUE..FORECAST_STEP_1_VALUE -> forecast.div(FORECAST_STEP_1_VALUE).times(multiplier).plus(multiplier.times(0))
+                in FORECAST_STEP_1_VALUE..FORECAST_STEP_2_VALUE -> forecast.div(FORECAST_STEP_2_VALUE).times(multiplier).plus(multiplier.times(1))
+                in FORECAST_STEP_2_VALUE..FORECAST_STEP_3_VALUE -> forecast.div(FORECAST_STEP_3_VALUE).times(multiplier).plus(multiplier.times(2))
+                in FORECAST_STEP_3_VALUE..FORECAST_STEP_4_VALUE -> forecast.div(FORECAST_STEP_4_VALUE).times(multiplier).plus(multiplier.times(3))
+                else -> 1.0
+            }
+
+            val value = 1 - factor.toFloat()
             max(value, 0f)
         }
 
@@ -67,7 +77,13 @@ data class LocationOverviewTodayPrecipitationModel(
     companion object {
 
         private const val FORECAST_SIZE_LIMIT = 60
-        private const val FORECAST_HIGHEST_VALUE = 50
+        private const val FORECAST_STEP_0_VALUE = 0.0
+        private const val FORECAST_STEP_1_VALUE = 1.0
+        private const val FORECAST_STEP_2_VALUE = 10.0
+        private const val FORECAST_STEP_3_VALUE = 25.0
+        private const val FORECAST_STEP_4_VALUE = 50.0
+        private const val FORECAST_STEP_COUNT = 4
+
 
         fun from(
             minutelyForecasts: List<MinutelyForecastModelData>,

@@ -44,8 +44,6 @@ fun LocationOverviewTodayHeaderView(
     }
 
     //TODO (#9) Maybe animate precipitation value drawing
-    //TODO (#9) Have better system to show precipitation
-    //TODO (#9) Check if index in text is correct
 
     Column(
         modifier = Modifier.fillMaxWidth(),
