@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today
 
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -42,8 +44,6 @@ fun LocationOverviewTodayHeaderView(
     } else {
         Modifier
     }
-
-    //TODO (#9) Maybe animate precipitation value drawing
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -152,6 +152,23 @@ private fun PrecipitationCircle(
             timeMarkerStrokeWidth.toPx()
         }
 
+        val animatedFactors = factors.map { factor ->
+            Pair(factor, mutableStateOf(1f))
+        }
+        animatedFactors.forEachIndexed { index, animatedFactor ->
+            LaunchedEffect(animatedFactor) {
+                animate(
+                    initialValue = 1f,
+                    targetValue = animatedFactor.first,
+                    animationSpec = tween(600, index.times(10))
+                ) { value, _ ->
+                    animatedFactor.second.value = value
+                }
+            }
+        }
+
+
+
         Canvas(modifier = modifier) {
             val diameter = max(innerSize.height, innerSize.width) + 2 * innerPaddingPx
             val radius = diameter / 2f
@@ -167,7 +184,7 @@ private fun PrecipitationCircle(
                 end = precipitationMarkerBackgroundEnd
             )
 
-            factors.forEachIndexed { index, factor ->
+            animatedFactors.forEachIndexed { index, animatedFactor ->
                 rotate(index / factors.size.toFloat() * 360) {
                     drawLine(
                         brush = precipitationMarkerBackgroundBrush,
@@ -176,6 +193,7 @@ private fun PrecipitationCircle(
                         strokeWidth = precipitationMarkerStrokeWidthPx
                     )
 
+                    val factor = animatedFactor.second.value
                     val precipitationMarkerForegroundLengthPx = precipitationMarkerLengthPx * factor
                     val precipitationMarkerForegroundStart =
                         precipitationMarkerBackgroundEnd + Offset(
