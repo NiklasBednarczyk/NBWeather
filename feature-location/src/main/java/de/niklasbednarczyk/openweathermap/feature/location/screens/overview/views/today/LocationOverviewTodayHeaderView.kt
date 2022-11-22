@@ -35,7 +35,7 @@ private val timeMarkerLength = precipitationMarkerLength / 2
 fun LocationOverviewTodayHeaderView(
     header: LocationOverviewTodayHeaderModel
 ) {
-    var innerSize by remember { mutableStateOf(IntSize.Zero) }
+    var innerSize by remember { mutableStateOf<IntSize?>(null) }
 
     val showPrecipitationCircle = header.precipitation.factors.isNotEmpty()
 
@@ -121,7 +121,7 @@ private fun Weather(
 @Composable
 private fun PrecipitationCircle(
     modifier: Modifier = Modifier,
-    innerSize: IntSize,
+    innerSize: IntSize?,
     precipitationMarkerStrokeWidth: Dp = 4.dp,
     timeMarkerStrokeWidth: Dp = precipitationMarkerStrokeWidth / 2,
     precipitationMarkerBackgroundBrushColor1: Color = OwmCustomColors.colors.green,
@@ -134,6 +134,7 @@ private fun PrecipitationCircle(
     showTimeMarker: Boolean
 ) {
     if (!showPrecipitationCircle) return
+    if (innerSize == null) return
 
     with(LocalDensity.current) {
         val innerPaddingPx = remember {
