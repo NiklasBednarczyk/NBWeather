@@ -21,5 +21,6 @@ val screenHorizontalPadding = 16.dp
 val screenVerticalPadding = 8.dp
 
 val spacerTextHeight = 4.dp
+val spacerTextWidth = 2.dp
 
 val tagPadding = 8.dp

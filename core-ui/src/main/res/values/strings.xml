@@ -7,23 +7,32 @@
 
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
+    <string name="icon_content_description_cloudiness">Cloudiness</string>
     <string name="icon_content_description_color_scheme">Color scheme</string>
     <string name="icon_content_description_daily">Daily</string>
     <string name="icon_content_description_delete">Delete</string>
+    <string name="icon_content_description_dew_point">Dew Point</string>
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_error_no_internet">No internet</string>
     <string name="icon_content_description_error_unknown">Error</string>
     <string name="icon_content_description_expand">Expand</string>
     <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_hourly">Hourly</string>
+    <string name="icon_content_description_humidity">Humidity</string>
     <string name="icon_content_description_language">Language</string>
     <string name="icon_content_description_location">Location</string>
+    <string name="icon_content_description_pressure">Pressure</string>
+    <string name="icon_content_description_probability_of_precipitation">Probability of precipitation</string>
+    <string name="icon_content_description_rain">Rain</string>
     <string name="icon_content_description_search">Search</string>
     <string name="icon_content_description_settings">Settings</string>
+    <string name="icon_content_description_snow">Snow</string>
     <string name="icon_content_description_theme">Theme</string>
     <string name="icon_content_description_time_format">Time format</string>
     <string name="icon_content_description_today">Today</string>
     <string name="icon_content_description_units">Units</string>
+    <string name="icon_content_description_uv_index">UV Index</string>
+    <string name="icon_content_description_visibility">Visibility</string>
     <string name="icon_content_description_warning">Warning</string>
     <string name="icon_content_description_weather_day_broken_clouds">Broken clouds (Day)</string>
     <string name="icon_content_description_weather_day_clear_sky">Clear sky (Day)</string>
@@ -43,8 +52,25 @@
     <string name="icon_content_description_weather_night_shower_rain">Shower rain (Night)</string>
     <string name="icon_content_description_weather_night_snow">Snow (Night)</string>
     <string name="icon_content_description_weather_night_thunderstorm">Thunderstorm (Night)</string>
-
+    <string name="icon_content_description_wind_degrees">Wind degrees</string>
+    <string name="icon_content_description_wind_direction">Wind direction</string>
+    <string name="icon_content_description_wind_gust">Wind gust</string>
+    <string name="icon_content_description_wind_speed">Wind speed</string>
+    
     <string name="screen_location_alert_overview_title">Alerts</string>
+    <string name="screen_location_overview_today_card_current_weather_title">Current weather</string>
+    <string name="screen_location_overview_today_current_weather_title_cloudiness">Cloudiness</string>
+    <string name="screen_location_overview_today_current_weather_title_dew_point">Dew point</string>
+    <string name="screen_location_overview_today_current_weather_title_humidity">Humidity</string>
+    <string name="screen_location_overview_today_current_weather_title_pressure">Pressure</string>
+    <string name="screen_location_overview_today_current_weather_title_probability_of_precipitation">Precipitation</string>
+    <string name="screen_location_overview_today_current_weather_title_rain">Rain</string>
+    <string name="screen_location_overview_today_current_weather_title_snow">Snow</string>
+    <string name="screen_location_overview_today_current_weather_title_uv_index">UV index</string>
+    <string name="screen_location_overview_today_current_weather_title_visibility">Visibility</string>
+    <string name="screen_location_overview_today_current_weather_title_wind_direction">Wind direction</string>
+    <string name="screen_location_overview_today_current_weather_title_wind_gust">Wind gust</string>
+    <string name="screen_location_overview_today_current_weather_title_wind_speed">Wind speed</string>
     <string name="screen_location_overview_today_precipitation_text_breaking">A break in precipitation in %1$s minutes</string>
     <string name="screen_location_overview_today_precipitation_text_ending">Precipitation ending in %1$s minutes</string>
     <string name="screen_location_overview_today_precipitation_text_full">Precipitation won’t end within an hour</string>
@@ -54,6 +80,25 @@
     <string name="screen_location_overview_tab_daily">Daily</string>
     <string name="screen_location_overview_tab_hourly">Hourly</string>
     <string name="screen_location_overview_tab_today">Today</string>
+
+    <string name="screen_location_wind_degrees_value_n">N</string>
+    <string name="screen_location_wind_degrees_value_nne">NNE</string>
+    <string name="screen_location_wind_degrees_value_ne">NE</string>
+    <string name="screen_location_wind_degrees_value_ene">ENE</string>
+    <string name="screen_location_wind_degrees_value_e">E</string>
+    <string name="screen_location_wind_degrees_value_ese">ESE</string>
+    <string name="screen_location_wind_degrees_value_se">SE</string>
+    <string name="screen_location_wind_degrees_value_sse">SSE</string>
+    <string name="screen_location_wind_degrees_value_s">S</string>
+    <string name="screen_location_wind_degrees_value_ssw">SSW</string>
+    <string name="screen_location_wind_degrees_value_sw">SW</string>
+    <string name="screen_location_wind_degrees_value_wsw">WSW</string>
+    <string name="screen_location_wind_degrees_value_w">W</string>
+    <string name="screen_location_wind_degrees_value_wnw">WNW</string>
+    <string name="screen_location_wind_degrees_value_nw">NW</string>
+    <string name="screen_location_wind_degrees_value_nnw">NNW</string>
+
+
     <string name="screen_search_overview_search_no_results">No locations found</string>
 
     <string name="screen_settings_color_scheme_title">Color scheme</string>

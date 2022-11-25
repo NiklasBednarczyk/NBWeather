@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme

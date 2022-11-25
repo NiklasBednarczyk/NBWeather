@@ -19,6 +19,13 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_cancel)
     }
 
+    object Cloudiness : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_cloud_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_cloudiness)
+    }
+
     object ColorScheme : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_palette_24
@@ -40,6 +47,13 @@ object OwmIcons {
             get() = R.drawable.ic_baseline_delete_24
         override val contentDescription: OwmString
             get() = OwmString.Resource(R.string.icon_content_description_delete)
+    }
+
+    object DewPoint : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_thermometer
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_dew_point)
     }
 
     object Drawer : OwmIconModel.Default {
@@ -86,6 +100,13 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_hourly)
     }
 
+    object Humidity : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_humidity
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_humidity)
+    }
+
     object Language : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_translate_24
@@ -100,6 +121,27 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_location)
     }
 
+    object Pressure : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_barometer
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_pressure)
+    }
+
+    object ProbabilityOfPrecipitation : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_umbrella
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_probability_of_precipitation)
+    }
+
+    object Rain : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_raindrop
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_rain)
+    }
+
     object Search : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_search_24
@@ -112,6 +154,13 @@ object OwmIcons {
             get() = R.drawable.ic_baseline_settings_24
         override val contentDescription: OwmString
             get() = OwmString.Resource(R.string.icon_content_description_settings)
+    }
+
+    object Snow : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_snowflake_cold
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_snow)
     }
 
     object Theme : OwmIconModel.Default {
@@ -142,6 +191,20 @@ object OwmIcons {
             get() = R.drawable.ic_baseline_thermostat_24
         override val contentDescription: OwmString
             get() = OwmString.Resource(R.string.icon_content_description_units)
+    }
+
+    object UVIndex : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_light_mode_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_uv_index)
+    }
+
+    object Visibility : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_visibility_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_visibility)
     }
 
     object Warning : OwmIconModel.Default {
@@ -275,6 +338,34 @@ object OwmIcons {
             get() = R.drawable.wi_night_alt_lightning
         override val contentDescription: OwmString
             get() = OwmString.Resource(R.string.icon_content_description_weather_night_thunderstorm)
+    }
+
+    object WindDegrees : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_wind_deg
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_wind_degrees)
+    }
+
+    object WindDirection : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_navigation_24
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_wind_direction)
+    }
+
+    object WindGust : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_strong_wind
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_wind_gust)
+    }
+
+    object WindSpeed : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_windy
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_wind_speed)
     }
 
 }

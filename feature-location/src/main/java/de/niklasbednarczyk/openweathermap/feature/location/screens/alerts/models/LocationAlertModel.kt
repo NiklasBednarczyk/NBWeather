@@ -2,6 +2,7 @@ package de.niklasbednarczyk.openweathermap.feature.location.screens.alerts.model
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
@@ -53,10 +54,10 @@ data class LocationAlertModel(
                     }
 
                     val tags = alert.tags
-                    if (tags?.isNotEmpty() == true) {
+                    owmNullSafeList(tags) { t ->
                         expandableItems.add(
                             LocationAlertExpandableItem.Tags(
-                                tags = tags
+                                tags = t
                             )
                         )
                     }

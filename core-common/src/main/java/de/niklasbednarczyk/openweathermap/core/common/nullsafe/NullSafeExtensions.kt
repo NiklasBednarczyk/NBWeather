@@ -11,6 +11,17 @@ fun <T1, R> owmNullSafe(
     }
 }
 
+fun <T1, R> owmNullSafeList(
+    value1: List<T1>?,
+    transform: (value: List<T1>) -> R?
+): R? {
+    return if (value1 != null && value1.isNotEmpty()) {
+        transform(value1)
+    } else {
+        null
+    }
+}
+
 fun <T1, T2, R> owmNullSafe(
     value1: T1?,
     value2: T2?,
