@@ -35,11 +35,16 @@ fun LocationOverviewTodayCurrentWeatherView(
             verticalArrangement = Arrangement.spacedBy(columnVerticalArrangement),
         ) {
             currentWeather.items.chunked(rowItemCount).forEach { rowItems ->
-                Row {
+                Row(
+                    modifier = Modifier.height(IntrinsicSize.Max)
+                ) {
                     rowItems.forEach { item ->
                         Column(
-                            modifier = Modifier.weight(1f),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.SpaceAround
                         ) {
                             Text(
                                 text = item.title.asString(),
@@ -47,7 +52,7 @@ fun LocationOverviewTodayCurrentWeatherView(
                             )
                             OwmIcon(icon = item.icon)
                             Row(
-                                verticalAlignment = Alignment.Bottom
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
                                 when (item) {
                                     is LocationOverviewTodayCurrentWeatherItem.Icon -> {

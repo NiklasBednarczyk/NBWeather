@@ -33,13 +33,13 @@ fun LocationOverviewTodayView(
                         currentWeather = todayItem
                     )
                 }
-                is LocationOverviewTodayDayTemperaturesModel -> {}
                 is LocationOverviewTodayHeaderModel -> {
                     LocationOverviewTodayHeaderView(
                         header = todayItem
                     )
                 }
                 is LocationOverviewTodaySunAndMoonModel -> {}
+                is LocationOverviewTodayTemperaturesModel -> {}
             }
         }
     }

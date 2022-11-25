@@ -8,7 +8,6 @@ import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.currentweather.LocationOverviewTodayCurrentWeatherItem
 
-//TODO (#9) Current weather
 data class LocationOverviewTodayCurrentWeatherModel(
     val items: List<LocationOverviewTodayCurrentWeatherItem>
 ) : LocationOverviewTodayItem {
