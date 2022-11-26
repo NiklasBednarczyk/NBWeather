@@ -18,6 +18,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
+import de.niklasbednarczyk.openweathermap.core.ui.R
+import de.niklasbednarczyk.openweathermap.core.ui.card.OwmCard
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.OwmTextCombined
@@ -33,7 +36,9 @@ private val timeMarkerLength = precipitationMarkerLength / 2
 
 @Composable
 fun LocationOverviewTodayHeaderView(
-    header: LocationOverviewTodayHeaderModel
+    header: LocationOverviewTodayHeaderModel,
+    shouldAnimateTodayHeader: Boolean,
+    setShouldAnimateTodayHeader: (Boolean) -> Unit
 ) {
     var innerSize by remember { mutableStateOf<IntSize?>(null) }
 
@@ -45,40 +50,44 @@ fun LocationOverviewTodayHeaderView(
         Modifier
     }
 
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = header.precipitation.headline.asString(),
-            style = MaterialTheme.typography.titleMedium
-        )
-        Spacer(
-            modifier = Modifier.height(spacerTextHeight)
-        )
-        Text(
-            text = header.precipitation.currentTime.asString(),
-            style = MaterialTheme.typography.titleSmall
-        )
-        Box(
-            modifier = Modifier.fillMaxWidth()
+    OwmCard(title = OwmString.Resource(R.string.screen_location_overview_today_card_header_title)) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            PrecipitationCircle(
-                modifier = Modifier.align(Alignment.Center),
-                innerSize = innerSize,
-                factors = header.precipitation.factors,
-                showPrecipitationCircle = showPrecipitationCircle,
-                showTimeMarker = header.precipitation.currentTime != null
+            Text(
+                text = header.precipitation.headline.asString(),
+                style = MaterialTheme.typography.titleMedium
             )
-            Weather(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .then(weatherPaddingModifier)
-                    .onGloballyPositioned { layoutCoordinates ->
-                        innerSize = layoutCoordinates.size
-                    },
-                weather = header.weather
+            Spacer(
+                modifier = Modifier.height(spacerTextHeight)
             )
+            Text(
+                text = header.precipitation.currentTime.asString(),
+                style = MaterialTheme.typography.titleSmall
+            )
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                PrecipitationCircle(
+                    modifier = Modifier.align(Alignment.Center),
+                    innerSize = innerSize,
+                    factors = header.precipitation.factors,
+                    showPrecipitationCircle = showPrecipitationCircle,
+                    showTimeMarker = header.precipitation.currentTime != null,
+                    shouldAnimateTodayHeader = shouldAnimateTodayHeader,
+                    setShouldAnimateTodayHeader = setShouldAnimateTodayHeader
+                )
+                Weather(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .then(weatherPaddingModifier)
+                        .onGloballyPositioned { layoutCoordinates ->
+                            innerSize = layoutCoordinates.size
+                        },
+                    weather = header.weather
+                )
+            }
         }
     }
 
@@ -127,11 +136,13 @@ private fun PrecipitationCircle(
     precipitationMarkerBackgroundBrushColor1: Color = OwmCustomColors.colors.green,
     precipitationMarkerBackgroundBrushColor2: Color = OwmCustomColors.colors.yellow,
     precipitationMarkerBackgroundBrushColor3: Color = OwmCustomColors.colors.red,
-    precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+    precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surface,
     timeMarkerColor: Color = MaterialTheme.colorScheme.inverseSurface,
     factors: List<Float>,
     showPrecipitationCircle: Boolean,
-    showTimeMarker: Boolean
+    showTimeMarker: Boolean,
+    shouldAnimateTodayHeader: Boolean,
+    setShouldAnimateTodayHeader: (Boolean) -> Unit
 ) {
     if (!showPrecipitationCircle) return
     if (innerSize == null) return
@@ -156,16 +167,28 @@ private fun PrecipitationCircle(
         val animatedFactors = factors.map { factor ->
             Pair(factor, mutableStateOf(1f))
         }
+
         animatedFactors.forEachIndexed { index, animatedFactor ->
-            LaunchedEffect(animatedFactor) {
-                animate(
-                    initialValue = 1f,
-                    targetValue = animatedFactor.first,
-                    animationSpec = tween(600, index.times(10))
-                ) { value, _ ->
-                    animatedFactor.second.value = value
+            val targetValue = animatedFactor.first
+            val factor = animatedFactor.second
+
+            if (shouldAnimateTodayHeader) {
+                LaunchedEffect(animatedFactor) {
+                    animate(
+                        initialValue = 1f,
+                        targetValue = targetValue,
+                        animationSpec = tween(600, index.times(10))
+                    ) { value, _ ->
+                        factor.value = value
+                        if (index == animatedFactors.lastIndex && value == targetValue) {
+                            setShouldAnimateTodayHeader(false)
+                        }
+                    }
                 }
+            } else {
+                factor.value = targetValue
             }
+
         }
 
 

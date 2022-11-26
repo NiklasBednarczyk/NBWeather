@@ -10,11 +10,14 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.mode
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayAlertView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayCurrentWeatherView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayHeaderView
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayTemperaturesView
 
 @Composable
 fun LocationOverviewTodayView(
     todayItems: List<LocationOverviewTodayItem>,
-    navigateToAlerts: () -> Unit
+    navigateToAlerts: () -> Unit,
+    shouldAnimateTodayHeader: Boolean,
+    setShouldAnimateTodayHeader: (Boolean) -> Unit
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValues,
@@ -35,11 +38,17 @@ fun LocationOverviewTodayView(
                 }
                 is LocationOverviewTodayHeaderModel -> {
                     LocationOverviewTodayHeaderView(
-                        header = todayItem
+                        header = todayItem,
+                        shouldAnimateTodayHeader = shouldAnimateTodayHeader,
+                        setShouldAnimateTodayHeader = setShouldAnimateTodayHeader
                     )
                 }
                 is LocationOverviewTodaySunAndMoonModel -> {}
-                is LocationOverviewTodayTemperaturesModel -> {}
+                is LocationOverviewTodayTemperaturesModel -> {
+                    LocationOverviewTodayTemperaturesView(
+                        temperatures = todayItem
+                    )
+                }
             }
         }
     }

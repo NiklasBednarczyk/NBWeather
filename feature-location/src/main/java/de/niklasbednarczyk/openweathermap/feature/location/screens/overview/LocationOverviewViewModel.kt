@@ -79,4 +79,10 @@ class LocationOverviewViewModel @Inject constructor(
         }
     }
 
+    fun setShouldAnimateTodayHeader(shouldAnimateTodayHeader: Boolean) {
+        updateUiState { oldUiState ->
+            oldUiState.copy(shouldAnimateTodayHeader = shouldAnimateTodayHeader)
+        }
+    }
+
 }

@@ -64,7 +64,10 @@ fun LocationOverviewScreen(
                                     location?.latitude,
                                     location?.longitude
                                 )
-                            })
+                            },
+                            shouldAnimateTodayHeader = uiState.value.shouldAnimateTodayHeader,
+                            setShouldAnimateTodayHeader = viewModel::setShouldAnimateTodayHeader
+                        )
                     }
                     LocationOverviewNavigationBarItem.HOURLY -> {
                         Text("HOURLY")

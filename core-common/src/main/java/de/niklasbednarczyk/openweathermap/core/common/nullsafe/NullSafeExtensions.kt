@@ -2,7 +2,7 @@ package de.niklasbednarczyk.openweathermap.core.common.nullsafe
 
 fun <T1, R> owmNullSafe(
     value1: T1?,
-    transform: (value: T1) -> R?
+    transform: (value1: T1) -> R?
 ): R? {
     return if (value1 != null) {
         transform(value1)
@@ -13,12 +13,14 @@ fun <T1, R> owmNullSafe(
 
 fun <T1, R> owmNullSafeList(
     value1: List<T1>?,
-    transform: (value: List<T1>) -> R?
+    transform: (value1: List<T1>) -> R?
 ): R? {
-    return if (value1 != null && value1.isNotEmpty()) {
-        transform(value1)
-    } else {
-        null
+    return owmNullSafe(value1) { v1 ->
+        if (v1.isNotEmpty()) {
+            transform(v1)
+        } else {
+            null
+        }
     }
 }
 
@@ -31,6 +33,20 @@ fun <T1, T2, R> owmNullSafe(
         transform(value1, value2)
     } else {
         null
+    }
+}
+
+fun <T1, T2, R> owmNullSafeList(
+    value1: List<T1>?,
+    value2: List<T2>?,
+    transform: (value1: List<T1>, value2: List<T2>) -> R?
+): R? {
+    return owmNullSafe(value1, value2) { v1, v2 ->
+        if (v1.isNotEmpty() && v2.isNotEmpty()) {
+            transform(v1, v2)
+        } else {
+            null
+        }
     }
 }
 

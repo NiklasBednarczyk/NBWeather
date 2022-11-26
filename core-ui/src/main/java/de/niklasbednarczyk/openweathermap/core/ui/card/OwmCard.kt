@@ -17,7 +17,7 @@ private val innerPadding = 16.dp
 
 @Composable
 fun OwmCard(
-    title: OwmString,
+    title: OwmString?,
     content: @Composable () -> Unit
 ) {
     Card(

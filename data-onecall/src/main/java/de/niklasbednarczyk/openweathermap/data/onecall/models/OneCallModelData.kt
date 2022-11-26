@@ -11,6 +11,8 @@ data class OneCallModelData(
     val nationalWeatherAlerts: List<NationalWeatherAlertModelData>
 ) {
 
+    val today = dailyForecasts.firstOrNull()
+
     companion object {
 
         fun localToData(local: OneCallModelLocal): OneCallModelData {

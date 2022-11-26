@@ -4,6 +4,7 @@
 
     <string name="format_date_range" translatable="false">%1$s - %2$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
+    <string name="format_temperature_feels_like" translatable="false">%1$s (%2$s)</string>
 
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
@@ -56,9 +57,11 @@
     <string name="icon_content_description_wind_direction">Wind direction</string>
     <string name="icon_content_description_wind_gust">Wind gust</string>
     <string name="icon_content_description_wind_speed">Wind speed</string>
-    
+
     <string name="screen_location_alert_overview_title">Alerts</string>
     <string name="screen_location_overview_today_card_current_weather_title">Current weather</string>
+    <string name="screen_location_overview_today_card_header_title">Overview</string>
+    <string name="screen_location_overview_today_card_temperatures_title">Temperatures</string>
     <string name="screen_location_overview_today_current_weather_title_cloudiness">Cloudiness</string>
     <string name="screen_location_overview_today_current_weather_title_dew_point">Dew point</string>
     <string name="screen_location_overview_today_current_weather_title_humidity">Humidity</string>
@@ -77,27 +80,31 @@
     <string name="screen_location_overview_today_precipitation_text_none">No precipitation within an hour</string>
     <string name="screen_location_overview_today_precipitation_text_no_data">No precipitation data found</string>
     <string name="screen_location_overview_today_precipitation_text_starting">Precipitation starting in %1$s minutes</string>
+    <string name="screen_location_overview_today_temperatures_day_day_title">Day</string>
+    <string name="screen_location_overview_today_temperatures_day_evening_title">Evening</string>
+    <string name="screen_location_overview_today_temperatures_day_morning_title">Morning</string>
+    <string name="screen_location_overview_today_temperatures_day_night_title">Night</string>
+    <string name="screen_location_overview_today_temperatures_threshold_max_title">Max</string>
+    <string name="screen_location_overview_today_temperatures_threshold_min_title">Min</string>
     <string name="screen_location_overview_tab_daily">Daily</string>
     <string name="screen_location_overview_tab_hourly">Hourly</string>
     <string name="screen_location_overview_tab_today">Today</string>
-
-    <string name="screen_location_wind_degrees_value_n">N</string>
-    <string name="screen_location_wind_degrees_value_nne">NNE</string>
-    <string name="screen_location_wind_degrees_value_ne">NE</string>
-    <string name="screen_location_wind_degrees_value_ene">ENE</string>
     <string name="screen_location_wind_degrees_value_e">E</string>
+    <string name="screen_location_wind_degrees_value_ene">ENE</string>
     <string name="screen_location_wind_degrees_value_ese">ESE</string>
+    <string name="screen_location_wind_degrees_value_n">N</string>
+    <string name="screen_location_wind_degrees_value_ne">NE</string>
+    <string name="screen_location_wind_degrees_value_nne">NNE</string>
+    <string name="screen_location_wind_degrees_value_nnw">NNW</string>
+    <string name="screen_location_wind_degrees_value_nw">NW</string>
+    <string name="screen_location_wind_degrees_value_s">S</string>
     <string name="screen_location_wind_degrees_value_se">SE</string>
     <string name="screen_location_wind_degrees_value_sse">SSE</string>
-    <string name="screen_location_wind_degrees_value_s">S</string>
     <string name="screen_location_wind_degrees_value_ssw">SSW</string>
     <string name="screen_location_wind_degrees_value_sw">SW</string>
-    <string name="screen_location_wind_degrees_value_wsw">WSW</string>
     <string name="screen_location_wind_degrees_value_w">W</string>
     <string name="screen_location_wind_degrees_value_wnw">WNW</string>
-    <string name="screen_location_wind_degrees_value_nw">NW</string>
-    <string name="screen_location_wind_degrees_value_nnw">NNW</string>
-
+    <string name="screen_location_wind_degrees_value_wsw">WSW</string>
 
     <string name="screen_search_overview_search_no_results">No locations found</string>
 

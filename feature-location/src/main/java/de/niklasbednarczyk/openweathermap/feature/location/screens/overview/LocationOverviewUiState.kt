@@ -8,5 +8,6 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.mode
 data class LocationOverviewUiState(
     val selectedNavigationBarItem: LocationOverviewNavigationBarItem = LocationOverviewNavigationBarItem.TODAY,
     val locationResource: OwmResource<LocationModelData?>? = null,
-    val viewDataResource: OwmResource<LocationOverviewViewData>? = null
+    val viewDataResource: OwmResource<LocationOverviewViewData>? = null,
+    val shouldAnimateTodayHeader: Boolean = true
 )

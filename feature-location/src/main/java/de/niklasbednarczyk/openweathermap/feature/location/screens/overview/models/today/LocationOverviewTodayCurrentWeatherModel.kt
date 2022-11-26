@@ -17,7 +17,7 @@ data class LocationOverviewTodayCurrentWeatherModel(
         fun from(
             oneCall: OneCallModelData
         ): LocationOverviewTodayCurrentWeatherModel? {
-            val today = oneCall.dailyForecasts.firstOrNull()
+            val today = oneCall.today
             val currentWeather = oneCall.currentWeather
             val units = oneCall.metadata.units
 

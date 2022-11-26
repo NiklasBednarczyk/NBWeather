@@ -19,6 +19,8 @@ sealed interface LocationOverviewTodayItem {
 
             items.add(LocationOverviewTodayCurrentWeatherModel.from(oneCall))
 
+            items.add(LocationOverviewTodayTemperaturesModel.from(oneCall))
+
             return items.filterNotNull()
         }
 
