@@ -15,7 +15,12 @@ import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangemen
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodaySunAndMoonModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.sunandmoon.LocationOverviewTodaySunAndMoonItem
 
-//TODO (#9) Make grid row view for current weather, temperatures and sunAndMoon
+/*
+    //TODO (#9) Make grid row view for current weather, temperatures and sunAndMoon
+    Items with Icons, items without icons
+    Some with value, some with units, some with icon value
+
+ */
 
 @Composable
 fun LocationOverviewTodaySunAndMoonView(

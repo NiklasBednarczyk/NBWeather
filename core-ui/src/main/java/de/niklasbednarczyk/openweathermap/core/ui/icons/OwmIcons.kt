@@ -373,11 +373,11 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_snow)
     }
 
-    object SunTime : OwmIconModel.Default {
+    object Daylight : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.wi_horizon_alt
         override val contentDescription: OwmString
-            get() = OwmString.Resource(R.string.icon_content_description_sun_time)
+            get() = OwmString.Resource(R.string.icon_content_description_daylight)
     }
 
     object Sunrise : OwmIconModel.Default {

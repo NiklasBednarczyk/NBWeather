@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -70,10 +69,10 @@ fun LocationOverviewScreen(
                         )
                     }
                     LocationOverviewNavigationBarItem.HOURLY -> {
-                        Text("HOURLY")
+                        //TODO (#9) Add hourly
                     }
                     LocationOverviewNavigationBarItem.DAILY -> {
-                        Text("DAILY")
+                        //TODO (#9) Add daily
                     }
                 }
             }

@@ -39,11 +39,11 @@ data class LocationOverviewTodaySunAndMoonModel(
             )
 
             sunItems.add(
-                owmNullSafe(today.sunTime) { sunTime ->
+                owmNullSafe(today.daylight) { daylight ->
                     LocationOverviewTodaySunAndMoonItem.Icon(
-                        icon = OwmIcons.SunTime,
-                        title = OwmString.Resource(R.string.icon_content_description_sun_time),
-                        value = sunTime
+                        icon = OwmIcons.Daylight,
+                        title = OwmString.Resource(R.string.icon_content_description_daylight),
+                        value = daylight
                     )
                 } ?: LocationOverviewTodaySunAndMoonItem.Placeholder
             )

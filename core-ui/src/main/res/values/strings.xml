@@ -11,6 +11,7 @@
     <string name="icon_content_description_cloudiness">Cloudiness</string>
     <string name="icon_content_description_color_scheme">Color scheme</string>
     <string name="icon_content_description_daily">Daily</string>
+    <string name="icon_content_description_daylight">Daylight</string>
     <string name="icon_content_description_delete">Delete</string>
     <string name="icon_content_description_dew_point">Dew Point</string>
     <string name="icon_content_description_drawer">Drawer</string>
@@ -58,7 +59,6 @@
     <string name="icon_content_description_search">Search</string>
     <string name="icon_content_description_settings">Settings</string>
     <string name="icon_content_description_snow">Snow</string>
-    <string name="icon_content_description_sun_time">Daylight</string>
     <string name="icon_content_description_sunrise">Sunrise</string>
     <string name="icon_content_description_sunset">Sunset</string>
     <string name="icon_content_description_theme">Theme</string>
@@ -114,6 +114,7 @@
     <string name="screen_location_overview_today_precipitation_text_none">No precipitation within an hour</string>
     <string name="screen_location_overview_today_precipitation_text_no_data">No precipitation data found</string>
     <string name="screen_location_overview_today_precipitation_text_starting">Precipitation starting in %1$s minutes</string>
+    <string name="screen_location_overview_today_sun_and_moon_daylight">Daylight</string>
     <string name="screen_location_overview_today_sun_and_moon_moon_phase">Moon phase</string>
     <string name="screen_location_overview_today_sun_and_moon_moon_phase_first_quarter_moon">First quarter moon</string>
     <string name="screen_location_overview_today_sun_and_moon_moon_phase_full_moon">Full moon</string>
@@ -125,7 +126,6 @@
     <string name="screen_location_overview_today_sun_and_moon_moon_phase_waxing_gibbous">Waxing Gibbous</string>
     <string name="screen_location_overview_today_sun_and_moon_moonrise">Moonrise</string>
     <string name="screen_location_overview_today_sun_and_moon_moonset">Moonset</string>
-    <string name="screen_location_overview_today_sun_and_moon_sun_time">Daylight</string>
     <string name="screen_location_overview_today_sun_and_moon_sunrise">Sunrise</string>
     <string name="screen_location_overview_today_sun_and_moon_sunset">Sunset</string>
     <string name="screen_location_overview_today_temperatures_day_day_title">Day</string>

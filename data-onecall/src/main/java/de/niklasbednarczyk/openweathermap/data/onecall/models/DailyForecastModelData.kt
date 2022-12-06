@@ -37,36 +37,28 @@ data class DailyForecastModelData(
     val weather: WeatherModelData?
 ) {
 
-    val sunTime: OwmString?
-        get() = getTime(sunrise, sunset)
+    val daylight: OwmString?
+        get() {
+            val sunriseValue = sunrise?.value ?: return null
+            val sunsetValue = sunset?.value ?: return null
 
-    val moonTime: OwmString?
-        get() = getTime(moonrise, moonset)
+            val duration = abs(sunriseValue - sunsetValue).seconds
 
-    private fun getTime(
-        rise: DateTimeValue?,
-        set: DateTimeValue?
-    ): OwmString? {
-        val riseValue = rise?.value ?: return null
-        val setValue = set?.value ?: return null
+            return duration.toComponents { hours, minutes, seconds, _ ->
+                val mins = if (seconds > 30) {
+                    minutes + 1
+                } else {
+                    minutes
+                }
 
-        val duration = abs(riseValue - setValue).seconds
-
-        return duration.toComponents { hours, minutes, seconds, _ ->
-            val mins = if (seconds > 30) {
-                minutes + 1
-            } else {
-                minutes
+                OwmString.Resource(
+                    R.string.format_hours_minutes,
+                    hours,
+                    mins
+                )
             }
 
-            OwmString.Resource(
-                R.string.format_hours_minutes,
-                hours,
-                mins
-            )
         }
-    }
-
 
     companion object {
 
