@@ -7,10 +7,7 @@ import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangement
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.*
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayAlertView
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayCurrentWeatherView
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayHeaderView
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayTemperaturesView
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.*
 
 @Composable
 fun LocationOverviewTodayView(
@@ -43,7 +40,11 @@ fun LocationOverviewTodayView(
                         setShouldAnimateTodayHeader = setShouldAnimateTodayHeader
                     )
                 }
-                is LocationOverviewTodaySunAndMoonModel -> {}
+                is LocationOverviewTodaySunAndMoonModel -> {
+                    LocationOverviewTodaySunAndMoonView(
+                        sunAndMoon = todayItem
+                    )
+                }
                 is LocationOverviewTodayTemperaturesModel -> {
                     LocationOverviewTodayTemperaturesView(
                         temperatures = todayItem

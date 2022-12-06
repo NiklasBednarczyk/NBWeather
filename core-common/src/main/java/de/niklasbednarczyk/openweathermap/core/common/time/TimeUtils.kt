@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.data.localremote.local.utils
+package de.niklasbednarczyk.openweathermap.core.common.time
 
 import java.time.Instant
 

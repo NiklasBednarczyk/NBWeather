@@ -121,6 +121,216 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_location)
     }
 
+    object MoonPhaseFirstQuarter : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_first_quarter
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_first_quarter_moon)
+    }
+
+    object MoonPhaseFull : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_full
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_full_moon)
+    }
+
+    object MoonPhaseLastQuarter : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_third_quarter
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_last_quarter_moon)
+    }
+
+    object MoonPhaseNew : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_new
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_new_moon)
+    }
+
+    object MoonPhaseWaningCrescent1 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_crescent_1
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_crescent_1)
+    }
+
+    object MoonPhaseWaningCrescent2 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_crescent_2
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_crescent_2)
+    }
+
+    object MoonPhaseWaningCrescent3 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_crescent_3
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_crescent_3)
+    }
+
+    object MoonPhaseWaningCrescent4 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_crescent_4
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_crescent_4)
+    }
+
+    object MoonPhaseWaningCrescent5 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_crescent_5
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_crescent_5)
+    }
+
+    object MoonPhaseWaningCrescent6 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_crescent_6
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_crescent_6)
+    }
+
+    object MoonPhaseWaningGibbous1 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_gibbous_1
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_gibbous_1)
+    }
+
+    object MoonPhaseWaningGibbous2 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_gibbous_2
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_gibbous_2)
+    }
+
+    object MoonPhaseWaningGibbous3 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_gibbous_3
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_gibbous_3)
+    }
+
+    object MoonPhaseWaningGibbous4 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_gibbous_4
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_gibbous_4)
+    }
+
+    object MoonPhaseWaningGibbous5 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_gibbous_5
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_gibbous_5)
+    }
+
+    object MoonPhaseWaningGibbous6 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waning_gibbous_6
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waning_gibbous_6)
+    }
+
+    object MoonPhaseWaxingCrescent1 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_crescent_1
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_crescent_1)
+    }
+
+    object MoonPhaseWaxingCrescent2 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_crescent_2
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_crescent_2)
+    }
+
+    object MoonPhaseWaxingCrescent3 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_crescent_3
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_crescent_3)
+    }
+
+    object MoonPhaseWaxingCrescent4 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_crescent_4
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_crescent_4)
+    }
+
+    object MoonPhaseWaxingCrescent5 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_crescent_5
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_crescent_5)
+    }
+
+    object MoonPhaseWaxingCrescent6 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_crescent_6
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_crescent_6)
+    }
+
+    object MoonPhaseWaxingGibbous1 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_gibbous_1
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_gibbous_1)
+    }
+
+    object MoonPhaseWaxingGibbous2 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_gibbous_2
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_gibbous_2)
+    }
+
+    object MoonPhaseWaxingGibbous3 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_gibbous_3
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_gibbous_3)
+    }
+
+    object MoonPhaseWaxingGibbous4 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_gibbous_4
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_gibbous_4)
+    }
+
+    object MoonPhaseWaxingGibbous5 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_gibbous_5
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_gibbous_5)
+    }
+
+    object MoonPhaseWaxingGibbous6 : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moon_alt_waxing_gibbous_6
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moon_phase_waxing_gibbous_6)
+    }
+
+    object Moonrise : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moonrise
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moonrise)
+    }
+
+    object Moonset : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_moonset
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_moonset)
+    }
+
     object Pressure : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.wi_barometer
@@ -161,6 +371,27 @@ object OwmIcons {
             get() = R.drawable.wi_snowflake_cold
         override val contentDescription: OwmString
             get() = OwmString.Resource(R.string.icon_content_description_snow)
+    }
+
+    object SunTime : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_horizon_alt
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_sun_time)
+    }
+
+    object Sunrise : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_sunrise
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_sunrise)
+    }
+
+    object Sunset : OwmIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.wi_sunset
+        override val contentDescription: OwmString
+            get() = OwmString.Resource(R.string.icon_content_description_sunset)
     }
 
     object Theme : OwmIconModel.Default {

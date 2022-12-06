@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.openweathermap.data.geocoding.repositories
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmLanguageType
-import de.niklasbednarczyk.openweathermap.core.data.localremote.local.utils.getCurrentTimestampEpochSeconds
+import de.niklasbednarczyk.openweathermap.core.common.time.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.mediators.LocalRemoteOnlineMediator
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
