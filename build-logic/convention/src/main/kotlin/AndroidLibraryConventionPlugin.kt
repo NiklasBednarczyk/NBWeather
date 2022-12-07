@@ -9,6 +9,7 @@ class AndroidLibraryConventionPlugin : OwmConventionPlugin {
         with(pluginManager) {
             apply("com.android.library")
             apply("org.jetbrains.kotlin.android")
+            apply("com.github.ben-manes.versions")
         }
 
         extensions.configure<LibraryExtension> {

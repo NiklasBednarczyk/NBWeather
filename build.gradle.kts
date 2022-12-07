@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.secrets) apply false
+    alias(libs.plugins.versions) apply false
 }
