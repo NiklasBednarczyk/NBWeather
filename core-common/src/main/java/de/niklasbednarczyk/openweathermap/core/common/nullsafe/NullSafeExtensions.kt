@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.openweathermap.core.common.nullsafe
 
-fun <T1, R> owmNullSafe(
+inline fun <T1, R> owmNullSafe(
     value1: T1?,
     transform: (value1: T1) -> R?
 ): R? {
@@ -11,7 +11,7 @@ fun <T1, R> owmNullSafe(
     }
 }
 
-fun <T1, R> owmNullSafeList(
+inline fun <T1, R> owmNullSafeList(
     value1: List<T1>?,
     transform: (value1: List<T1>) -> R?
 ): R? {
@@ -24,7 +24,7 @@ fun <T1, R> owmNullSafeList(
     }
 }
 
-fun <T1, T2, R> owmNullSafe(
+inline fun <T1, T2, R> owmNullSafe(
     value1: T1?,
     value2: T2?,
     transform: (value1: T1, value2: T2) -> R?
@@ -36,7 +36,7 @@ fun <T1, T2, R> owmNullSafe(
     }
 }
 
-fun <T1, T2, R> owmNullSafeList(
+inline fun <T1, T2, R> owmNullSafeList(
     value1: List<T1>?,
     value2: List<T2>?,
     transform: (value1: List<T1>, value2: List<T2>) -> R?
@@ -50,7 +50,7 @@ fun <T1, T2, R> owmNullSafeList(
     }
 }
 
-fun <T1, T2, T3, R> owmNullSafe(
+inline fun <T1, T2, T3, R> owmNullSafe(
     value1: T1?,
     value2: T2?,
     value3: T3?,
@@ -63,7 +63,7 @@ fun <T1, T2, T3, R> owmNullSafe(
     }
 }
 
-fun <T1, T2, T3, T4, R> owmNullSafe(
+inline fun <T1, T2, T3, T4, R> owmNullSafe(
     value1: T1?,
     value2: T2?,
     value3: T3?,

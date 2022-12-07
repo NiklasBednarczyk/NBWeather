@@ -23,9 +23,9 @@ import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.card.OwmCard
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.text.OwmTextCombined
+import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
+import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmCustomColors
-import de.niklasbednarczyk.openweathermap.core.ui.theme.spacerTextHeight
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayHeaderModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.header.LocationOverviewTodayHeaderWeatherModel
 import kotlin.math.max
@@ -60,7 +60,7 @@ fun LocationOverviewTodayHeaderView(
                 style = MaterialTheme.typography.titleMedium
             )
             Spacer(
-                modifier = Modifier.height(spacerTextHeight)
+                modifier = Modifier.height(columnVerticalArrangementSmallDp)
             )
             Text(
                 text = header.precipitation.currentTime.asString(),
@@ -113,15 +113,20 @@ private fun Weather(
             text = weather.weatherDescription.asString(),
             style = MaterialTheme.typography.titleLarge
         )
-        OwmTextCombined(
-            MaterialTheme.typography.displayLarge,
-            weather.currentTemperature,
-            weather.temperatureUnit
+        Text(
+            text = owmCombinedString(
+                weather.currentTemperature,
+                weather.temperatureUnit,
+                separator = "",
+            ).asString(),
+            style = MaterialTheme.typography.displayLarge
         )
-        OwmTextCombined(
-            MaterialTheme.typography.titleLarge,
-            weather.feelsLikePrefix,
-            weather.feelsLikeTemperature
+        Text(
+            text = owmCombinedString(
+                weather.feelsLikePrefix,
+                weather.feelsLikeTemperature
+            ).asString(),
+            style = MaterialTheme.typography.titleLarge
         )
     }
 }

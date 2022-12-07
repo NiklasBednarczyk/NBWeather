@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.alerts
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -64,8 +63,8 @@ fun LocationAlertsScreen(
                             Column(
                                 modifier = Modifier
                                     .padding(listItemPaddingValuesHorizontal)
-                                    .padding(vertical = columnVerticalArrangement),
-                                verticalArrangement = Arrangement.spacedBy(columnVerticalArrangement)
+                                    .padding(vertical = columnVerticalArrangementDefaultDp),
+                                verticalArrangement = columnVerticalArrangementDefault
                             ) {
                                 alert.expandableItems.forEach { expandableItem ->
                                     when (expandableItem) {

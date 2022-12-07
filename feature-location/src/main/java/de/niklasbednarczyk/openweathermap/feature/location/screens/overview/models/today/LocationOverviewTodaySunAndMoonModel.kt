@@ -5,15 +5,15 @@ import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
+import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.sunandmoon.LocationOverviewTodaySunAndMoonItem
 
 data class LocationOverviewTodaySunAndMoonModel(
-    val sunItems: List<LocationOverviewTodaySunAndMoonItem>,
-    val moonItems: List<LocationOverviewTodaySunAndMoonItem>
+    val sunItems: List<OwmGridItem>,
+    val moonItems: List<OwmGridItem>
 ) : LocationOverviewTodayItem {
 
     companion object {
@@ -26,68 +26,80 @@ data class LocationOverviewTodaySunAndMoonModel(
             val today = oneCall.today ?: return null
             val timezoneOffset = oneCall.metadata.timezoneOffset
 
-            val sunItems = mutableListOf<LocationOverviewTodaySunAndMoonItem>()
+            val sunItems = mutableListOf<OwmGridItem>()
 
             sunItems.add(
                 owmNullSafe(today.sunrise) { sunrise ->
-                    LocationOverviewTodaySunAndMoonItem.Icon(
-                        icon = OwmIcons.Sunrise,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_sunrise),
-                        value = sunrise.getTimeString(timezoneOffset, timeFormat)
+                        icon = OwmIcons.Sunrise,
+                        value = OwmGridItem.Value.Texts(
+                            sunrise.getTimeString(timezoneOffset, timeFormat)
+                        )
                     )
-                } ?: LocationOverviewTodaySunAndMoonItem.Placeholder
+                } ?: OwmGridItem.Placeholder
             )
 
             sunItems.add(
                 owmNullSafe(today.daylight) { daylight ->
-                    LocationOverviewTodaySunAndMoonItem.Icon(
+                    OwmGridItem.Item(
+                        title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_daylight),
                         icon = OwmIcons.Daylight,
-                        title = OwmString.Resource(R.string.icon_content_description_daylight),
-                        value = daylight
+                        value = OwmGridItem.Value.Texts(
+                            daylight
+                        )
                     )
-                } ?: LocationOverviewTodaySunAndMoonItem.Placeholder
+                } ?: OwmGridItem.Placeholder
             )
 
             sunItems.add(
                 owmNullSafe(today.sunset) { sunset ->
-                    LocationOverviewTodaySunAndMoonItem.Icon(
-                        icon = OwmIcons.Sunset,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_sunset),
-                        value = sunset.getTimeString(timezoneOffset, timeFormat)
+                        icon = OwmIcons.Sunset,
+                        value = OwmGridItem.Value.Texts(
+                            sunset.getTimeString(timezoneOffset, timeFormat)
+                        )
                     )
-                } ?: LocationOverviewTodaySunAndMoonItem.Placeholder
+                } ?: OwmGridItem.Placeholder
             )
 
-            val moonItems = mutableListOf<LocationOverviewTodaySunAndMoonItem>()
+            val moonItems = mutableListOf<OwmGridItem>()
 
             moonItems.add(
-                owmNullSafe(today.moonrise) { moonrise ->
-                    LocationOverviewTodaySunAndMoonItem.Icon(
-                        icon = OwmIcons.Moonrise,
+                owmNullSafe(today.moonrise) { sunrise ->
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moonrise),
-                        value = moonrise.getTimeString(timezoneOffset, timeFormat)
+                        icon = OwmIcons.Sunrise,
+                        value = OwmGridItem.Value.Texts(
+                            sunrise.getTimeString(timezoneOffset, timeFormat)
+                        )
                     )
-                } ?: LocationOverviewTodaySunAndMoonItem.Placeholder
+                } ?: OwmGridItem.Placeholder
             )
 
             moonItems.add(
                 owmNullSafe(today.moonPhase?.type) { moonPhaseType ->
-                    LocationOverviewTodaySunAndMoonItem.Icon(
-                        icon = moonPhaseType.icon,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moon_phase),
-                        value = moonPhaseType.displayText
+                        icon = moonPhaseType.icon,
+                        value = OwmGridItem.Value.Texts(
+                            moonPhaseType.displayText
+                        )
                     )
-                } ?: LocationOverviewTodaySunAndMoonItem.Placeholder
+                } ?: OwmGridItem.Placeholder
             )
 
             moonItems.add(
                 owmNullSafe(today.moonset) { moonset ->
-                    LocationOverviewTodaySunAndMoonItem.Icon(
-                        icon = OwmIcons.Moonset,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moonset),
-                        value = moonset.getTimeString(timezoneOffset, timeFormat)
+                        icon = OwmIcons.Sunrise,
+                        value = OwmGridItem.Value.Texts(
+                            moonset.getTimeString(timezoneOffset, timeFormat)
+                        )
                     )
-                } ?: LocationOverviewTodaySunAndMoonItem.Placeholder
+                } ?: OwmGridItem.Placeholder
             )
 
             return owmNullSafeList(

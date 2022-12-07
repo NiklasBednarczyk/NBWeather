@@ -1,15 +1,16 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today
 
+import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
+import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.currentweather.LocationOverviewTodayCurrentWeatherItem
 
 data class LocationOverviewTodayCurrentWeatherModel(
-    val items: List<LocationOverviewTodayCurrentWeatherItem>
+    val items: List<OwmGridItem>
 ) : LocationOverviewTodayItem {
 
     companion object {
@@ -21,137 +22,161 @@ data class LocationOverviewTodayCurrentWeatherModel(
             val currentWeather = oneCall.currentWeather
             val units = oneCall.metadata.units
 
-            val items = mutableListOf<LocationOverviewTodayCurrentWeatherItem>()
+            val items = mutableListOf<OwmGridItem>()
 
-            today?.probabilityOfPrecipitation?.let { probabilityOfPrecipitation ->
+            owmNullSafe(today?.probabilityOfPrecipitation) { probabilityOfPrecipitation ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.ProbabilityOfPrecipitation,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_probability_of_precipitation),
-                        value = probabilityOfPrecipitation.displayValue,
-                        unit = probabilityOfPrecipitation.unit
+                        icon = OwmIcons.ProbabilityOfPrecipitation,
+                        value = OwmGridItem.Value.Texts(
+                            probabilityOfPrecipitation.displayValue,
+                            probabilityOfPrecipitation.unit
+                        )
                     )
                 )
             }
 
-            currentWeather.rain1hVolume?.let { rain1hVolume ->
+            owmNullSafe(currentWeather.rain1hVolume) { rain1hVolume ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.Rain,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_rain),
-                        value = rain1hVolume.displayValue,
-                        unit = rain1hVolume.unit
+                        icon = OwmIcons.Rain,
+                        value = OwmGridItem.Value.Texts(
+                            rain1hVolume.displayValue,
+                            rain1hVolume.unit
+                        )
                     )
                 )
             }
 
-            currentWeather.snow1hVolume?.let { snow1hVolume ->
+            owmNullSafe(currentWeather.snow1hVolume) { snow1hVolume ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.Snow,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_snow),
-                        value = snow1hVolume.displayValue,
-                        unit = snow1hVolume.unit
+                        icon = OwmIcons.Snow,
+                        value = OwmGridItem.Value.Texts(
+                            snow1hVolume.displayValue,
+                            snow1hVolume.unit
+                        )
                     )
                 )
             }
 
-            currentWeather.windSpeed?.let { windSpeed ->
+            owmNullSafe(currentWeather.windSpeed) { windSpeed ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.WindSpeed,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_wind_speed),
-                        value = windSpeed.displayValue,
-                        unit = windSpeed.getUnit(units)
+                        icon = OwmIcons.WindSpeed,
+                        value = OwmGridItem.Value.Texts(
+                            windSpeed.displayValue,
+                            windSpeed.getUnit(units)
+                        )
                     )
                 )
             }
 
-            currentWeather.windGust?.let { windGust ->
+            owmNullSafe(currentWeather.windGust) { windGust ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.WindGust,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_wind_gust),
-                        value = windGust.displayValue,
-                        unit = windGust.getUnit(units)
+                        icon = OwmIcons.WindGust,
+                        value = OwmGridItem.Value.Texts(
+                            windGust.displayValue,
+                            windGust.getUnit(units)
+                        )
                     )
                 )
             }
 
-            currentWeather.windDegrees?.let { windDegrees ->
+            owmNullSafe(currentWeather.windDegrees) { windDegrees ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Icon(
-                        icon = OwmIcons.WindDirection,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_wind_direction),
-                        value = OwmIcons.WindDegrees,
-                        rotationDegrees = windDegrees.rotationDegrees,
-                        unit = windDegrees.type?.displayText ?: return@let null
+                        icon = OwmIcons.WindDirection,
+                        value = OwmGridItem.Value.IconWithUnit(
+                            icon = OwmIcons.WindDegrees,
+                            rotationDegrees = windDegrees.rotationDegrees,
+                            unit = windDegrees.type?.displayText ?: return@owmNullSafe null
+                        )
                     )
                 )
             }
 
-            currentWeather.pressure?.let { pressure ->
+            owmNullSafe(currentWeather.pressure) { pressure ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.Pressure,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_pressure),
-                        value = pressure.displayValue,
-                        unit = pressure.unit
+                        icon = OwmIcons.Pressure,
+                        value = OwmGridItem.Value.Texts(
+                            pressure.displayValue,
+                            pressure.unit
+                        )
                     )
                 )
             }
 
-            currentWeather.humidity?.let { humidity ->
+            owmNullSafe(currentWeather.humidity) { humidity ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.Humidity,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_humidity),
-                        value = humidity.displayValue,
-                        unit = humidity.unit
+                        icon = OwmIcons.Humidity,
+                        value = OwmGridItem.Value.Texts(
+                            humidity.displayValue,
+                            humidity.unit
+                        )
                     )
                 )
             }
 
-            currentWeather.dewPointTemperature?.let { dewPointTemperature ->
+            owmNullSafe(currentWeather.dewPointTemperature) { dewPointTemperature ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.DewPoint,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_dew_point),
-                        value = dewPointTemperature.displayValue,
-                        unit = dewPointTemperature.getUnit(units)
+                        icon = OwmIcons.DewPoint,
+                        value = OwmGridItem.Value.Texts(
+                            dewPointTemperature.displayValue,
+                            dewPointTemperature.getUnit(units)
+                        )
                     )
                 )
             }
 
-            currentWeather.cloudiness?.let { cloudiness ->
+            owmNullSafe(currentWeather.cloudiness) { cloudiness ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.Cloudiness,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_cloudiness),
-                        value = cloudiness.displayValue,
-                        unit = cloudiness.unit
+                        icon = OwmIcons.Cloudiness,
+                        value = OwmGridItem.Value.Texts(
+                            cloudiness.displayValue,
+                            cloudiness.unit
+                        )
                     )
                 )
             }
 
-            currentWeather.uvIndex?.let { uvIndex ->
+            owmNullSafe(currentWeather.uvIndex) { uvIndex ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.UVIndex,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_uv_index),
-                        value = uvIndex.displayValue,
-                        unit = uvIndex.unit
+                        icon = OwmIcons.UVIndex,
+                        value = OwmGridItem.Value.Texts(
+                            uvIndex.displayValue,
+                            uvIndex.unit
+                        )
                     )
                 )
             }
 
-            currentWeather.visibility?.let { visibility ->
+            owmNullSafe(currentWeather.visibility) { visibility ->
                 items.add(
-                    LocationOverviewTodayCurrentWeatherItem.Text(
-                        icon = OwmIcons.Visibility,
+                    OwmGridItem.Item(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_visibility),
-                        value = visibility.displayValue,
-                        unit = visibility.unit
+                        icon = OwmIcons.Visibility,
+                        value = OwmGridItem.Value.Texts(
+                            visibility.displayValue,
+                            visibility.unit
+                        )
                     )
                 )
             }

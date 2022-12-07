@@ -1,10 +1,9 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangement
+import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementDefault
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.*
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.*
@@ -18,7 +17,7 @@ fun LocationOverviewTodayView(
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValues,
-        verticalArrangement = Arrangement.spacedBy(columnVerticalArrangement)
+        verticalArrangement = columnVerticalArrangementDefault
     ) {
         items(todayItems) { todayItem ->
             when (todayItem) {

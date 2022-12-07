@@ -233,6 +233,6 @@
 
     <string name="top_app_bar_search_placeholder">Search</string>
 
-    <string name="value_temperature_feels_like_prefix">Feels like&#160;</string>
+    <string name="value_temperature_feels_like_prefix">Feels like</string>
 
 </resources>

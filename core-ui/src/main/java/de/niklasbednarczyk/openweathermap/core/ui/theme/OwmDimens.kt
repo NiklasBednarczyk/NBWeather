@@ -1,11 +1,15 @@
 package de.niklasbednarczyk.openweathermap.core.ui.theme
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
-val columnVerticalArrangement = 16.dp
+val columnVerticalArrangementDefaultDp = 16.dp
+val columnVerticalArrangementDefault = Arrangement.spacedBy(columnVerticalArrangementDefaultDp)
+val columnVerticalArrangementSmallDp = 4.dp
+val columnVerticalArrangementSmall = Arrangement.spacedBy(columnVerticalArrangementSmallDp)
 
 val dividerPaddingVertical = 8.dp
 
@@ -17,10 +21,9 @@ val placeholderTextShape: Shape
     get() = MaterialTheme.shapes.medium
 val placeholderVerticalPadding = 4.dp
 
+val rowHorizontalArrangement = Arrangement.spacedBy(4.dp)
+
 val screenHorizontalPadding = 16.dp
 val screenVerticalPadding = 8.dp
-
-val spacerTextHeight = 4.dp
-val spacerTextWidth = 2.dp
 
 val tagPadding = 8.dp
