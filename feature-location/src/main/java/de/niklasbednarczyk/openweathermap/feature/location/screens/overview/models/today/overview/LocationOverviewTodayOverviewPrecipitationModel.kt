@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.header
+package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.data.onecall.models.MinutelyForecastMo
 import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.TimezoneOffsetValue
 import kotlin.math.max
 
-data class LocationOverviewTodayPrecipitationModel(
+data class LocationOverviewTodayOverviewPrecipitationModel(
     private val forecasts: List<Double>,
     val currentTime: OwmString?
 ) {
@@ -89,7 +89,7 @@ data class LocationOverviewTodayPrecipitationModel(
             minutelyForecasts: List<MinutelyForecastModelData>,
             timeFormat: OwmTimeFormatType,
             timezoneOffset: TimezoneOffsetValue?
-        ): LocationOverviewTodayPrecipitationModel {
+        ): LocationOverviewTodayOverviewPrecipitationModel {
 
             val forecasts = minutelyForecasts.mapNotNull { minutelyForecast ->
                 minutelyForecast.precipitation?.value
@@ -99,7 +99,7 @@ data class LocationOverviewTodayPrecipitationModel(
             val currentTime = currentForecastTime?.getTimeString(timezoneOffset, timeFormat)
 
 
-            return LocationOverviewTodayPrecipitationModel(
+            return LocationOverviewTodayOverviewPrecipitationModel(
                 forecasts = forecasts,
                 currentTime = currentTime
             )

@@ -15,7 +15,7 @@ sealed interface LocationOverviewTodayItem {
 
             items.add(LocationOverviewTodayAlertModel.from(oneCall))
 
-            items.add(LocationOverviewTodayHeaderModel.from(oneCall, timeFormat))
+            items.add(LocationOverviewTodayOverviewModel.from(oneCall, timeFormat))
 
             items.add(LocationOverviewTodayCurrentWeatherModel.from(oneCall))
 

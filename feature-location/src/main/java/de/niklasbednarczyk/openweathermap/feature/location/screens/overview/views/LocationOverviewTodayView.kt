@@ -12,8 +12,8 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.view
 fun LocationOverviewTodayView(
     todayItems: List<LocationOverviewTodayItem>,
     navigateToAlerts: () -> Unit,
-    shouldAnimateTodayHeader: Boolean,
-    setShouldAnimateTodayHeader: (Boolean) -> Unit
+    shouldAnimateTodayOverview: Boolean,
+    setShouldAnimateTodayOverview: (Boolean) -> Unit
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValues,
@@ -32,11 +32,11 @@ fun LocationOverviewTodayView(
                         currentWeather = todayItem
                     )
                 }
-                is LocationOverviewTodayHeaderModel -> {
-                    LocationOverviewTodayHeaderView(
+                is LocationOverviewTodayOverviewModel -> {
+                    LocationOverviewTodayOverviewView(
                         header = todayItem,
-                        shouldAnimateTodayHeader = shouldAnimateTodayHeader,
-                        setShouldAnimateTodayHeader = setShouldAnimateTodayHeader
+                        shouldAnimateTodayOverview = shouldAnimateTodayOverview,
+                        setShouldAnimateTodayOverview = setShouldAnimateTodayOverview
                     )
                 }
                 is LocationOverviewTodaySunAndMoonModel -> {

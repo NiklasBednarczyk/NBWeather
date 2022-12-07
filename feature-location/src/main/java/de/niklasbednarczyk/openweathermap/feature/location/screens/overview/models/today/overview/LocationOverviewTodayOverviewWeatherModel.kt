@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.header
+package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmUnitsType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
@@ -8,7 +8,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.data.onecall.models.CurrentWeatherModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
 
-data class LocationOverviewTodayHeaderWeatherModel(
+data class LocationOverviewTodayOverviewWeatherModel(
     val currentTemperature: OwmString?,
     val feelsLikeTemperature: OwmString,
     val feelsLikePrefix: OwmString,
@@ -22,7 +22,7 @@ data class LocationOverviewTodayHeaderWeatherModel(
         fun from(
             currentWeather: CurrentWeatherModelData,
             units: OwmUnitsType
-        ): LocationOverviewTodayHeaderWeatherModel? {
+        ): LocationOverviewTodayOverviewWeatherModel? {
             val currentTemperatureData = currentWeather.currentTemperature
             val feelsLikeTemperatureData = currentWeather.feelsLikeTemperature
             val weatherDescriptionData = currentWeather.weather?.description
@@ -37,7 +37,7 @@ data class LocationOverviewTodayHeaderWeatherModel(
                 weatherIconData
             ) { currentTemperature, feelsLikeTemperature, weatherDescription, weatherIcon ->
 
-                LocationOverviewTodayHeaderWeatherModel(
+                LocationOverviewTodayOverviewWeatherModel(
                     currentTemperature = currentTemperature.displayValue,
                     feelsLikeTemperature = feelsLikeTemperature.displayValueWithShortUnit,
                     feelsLikePrefix = feelsLikePrefix,

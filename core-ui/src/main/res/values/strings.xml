@@ -93,7 +93,7 @@
 
     <string name="screen_location_alert_overview_title">Alerts</string>
     <string name="screen_location_overview_today_card_current_weather_title">Current weather</string>
-    <string name="screen_location_overview_today_card_header_title">Overview</string>
+    <string name="screen_location_overview_today_card_overview_title">Overview</string>
     <string name="screen_location_overview_today_card_sun_and_moon_title">Sun and moon</string>
     <string name="screen_location_overview_today_card_temperatures_title">Temperatures</string>
     <string name="screen_location_overview_today_current_weather_title_cloudiness">Cloudiness</string>

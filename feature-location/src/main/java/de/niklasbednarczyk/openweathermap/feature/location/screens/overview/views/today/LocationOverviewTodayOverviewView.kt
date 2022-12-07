@@ -26,8 +26,8 @@ import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmCustomColors
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayHeaderModel
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.header.LocationOverviewTodayHeaderWeatherModel
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayOverviewModel
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview.LocationOverviewTodayOverviewWeatherModel
 import kotlin.math.max
 
 private val innerPadding = 32.dp
@@ -35,10 +35,10 @@ private val precipitationMarkerLength = 24.dp
 private val timeMarkerLength = precipitationMarkerLength / 2
 
 @Composable
-fun LocationOverviewTodayHeaderView(
-    header: LocationOverviewTodayHeaderModel,
-    shouldAnimateTodayHeader: Boolean,
-    setShouldAnimateTodayHeader: (Boolean) -> Unit
+fun LocationOverviewTodayOverviewView(
+    header: LocationOverviewTodayOverviewModel,
+    shouldAnimateTodayOverview: Boolean,
+    setShouldAnimateTodayOverview: (Boolean) -> Unit
 ) {
     var innerSize by remember { mutableStateOf<IntSize?>(null) }
 
@@ -50,7 +50,7 @@ fun LocationOverviewTodayHeaderView(
         Modifier
     }
 
-    OwmCard(title = OwmString.Resource(R.string.screen_location_overview_today_card_header_title)) {
+    OwmCard(title = OwmString.Resource(R.string.screen_location_overview_today_card_overview_title)) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -75,8 +75,8 @@ fun LocationOverviewTodayHeaderView(
                     factors = header.precipitation.factors,
                     showPrecipitationCircle = showPrecipitationCircle,
                     showTimeMarker = header.precipitation.currentTime != null,
-                    shouldAnimateTodayHeader = shouldAnimateTodayHeader,
-                    setShouldAnimateTodayHeader = setShouldAnimateTodayHeader
+                    shouldAnimateTodayOverview = shouldAnimateTodayOverview,
+                    setShouldAnimateTodayOverview = setShouldAnimateTodayOverview
                 )
                 Weather(
                     modifier = Modifier
@@ -97,7 +97,7 @@ fun LocationOverviewTodayHeaderView(
 @Composable
 private fun Weather(
     modifier: Modifier = Modifier,
-    weather: LocationOverviewTodayHeaderWeatherModel
+    weather: LocationOverviewTodayOverviewWeatherModel
 ) {
     Column(
         modifier = modifier.width(IntrinsicSize.Max),
@@ -146,8 +146,8 @@ private fun PrecipitationCircle(
     factors: List<Float>,
     showPrecipitationCircle: Boolean,
     showTimeMarker: Boolean,
-    shouldAnimateTodayHeader: Boolean,
-    setShouldAnimateTodayHeader: (Boolean) -> Unit
+    shouldAnimateTodayOverview: Boolean,
+    setShouldAnimateTodayOverview: (Boolean) -> Unit
 ) {
     if (!showPrecipitationCircle) return
     if (innerSize == null) return
@@ -177,7 +177,7 @@ private fun PrecipitationCircle(
             val targetValue = animatedFactor.first
             val factor = animatedFactor.second
 
-            if (shouldAnimateTodayHeader) {
+            if (shouldAnimateTodayOverview) {
                 LaunchedEffect(animatedFactor) {
                     animate(
                         initialValue = 1f,
@@ -186,7 +186,7 @@ private fun PrecipitationCircle(
                     ) { value, _ ->
                         factor.value = value
                         if (index == animatedFactors.lastIndex && value == targetValue) {
-                            setShouldAnimateTodayHeader(false)
+                            setShouldAnimateTodayOverview(false)
                         }
                     }
                 }
