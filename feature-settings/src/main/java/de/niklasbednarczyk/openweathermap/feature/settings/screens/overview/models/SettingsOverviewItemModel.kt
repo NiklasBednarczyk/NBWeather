@@ -14,8 +14,8 @@ sealed interface SettingsOverviewItemModel {
 
     data class Item(
         val icon: OwmIconModel,
-        val title: OwmString,
-        val value: OwmString,
+        val title: OwmString?,
+        val value: OwmString?,
         val destination: OwmNavigationDestination
     ) : SettingsOverviewItemModel
 

@@ -10,10 +10,10 @@ import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
 
 data class LocationOverviewTodayOverviewWeatherModel(
     val currentTemperature: OwmString?,
-    val feelsLikeTemperature: OwmString,
-    val feelsLikePrefix: OwmString,
-    val temperatureUnit: OwmString,
-    val weatherDescription: OwmString,
+    val feelsLikeTemperature: OwmString?,
+    val feelsLikePrefix: OwmString?,
+    val temperatureUnit: OwmString?,
+    val weatherDescription: OwmString?,
     val weatherIcon: OwmIconModel
 ) {
 

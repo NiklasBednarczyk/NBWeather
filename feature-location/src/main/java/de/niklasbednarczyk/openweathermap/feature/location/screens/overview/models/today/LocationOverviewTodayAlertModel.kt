@@ -6,7 +6,7 @@ import de.niklasbednarczyk.openweathermap.data.onecall.models.NationalWeatherAle
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 
 data class LocationOverviewTodayAlertModel(
-    val text: OwmString,
+    val text: OwmString?,
     val moreAlerts: OwmString?
 ) : LocationOverviewTodayItem {
 
