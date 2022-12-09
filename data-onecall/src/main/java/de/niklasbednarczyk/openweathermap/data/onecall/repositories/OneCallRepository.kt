@@ -30,7 +30,8 @@ class OneCallRepository @Inject constructor(
         latitude: Double,
         longitude: Double,
         language: OwmLanguageType,
-        units: OwmUnitsType
+        units: OwmUnitsType,
+        forceUpdate: Boolean = false
     ): Flow<OwmResource<OneCallModelData>> {
         return object :
             LocalRemoteOfflineMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
@@ -53,7 +54,7 @@ class OneCallRepository @Inject constructor(
             }
 
             override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
-                return local.metadata.isExpired || local.metadata.language != language || local.metadata.units != units
+                return forceUpdate || local.metadata.isExpired || local.metadata.language != language || local.metadata.units != units
             }
 
             override fun clearLocal(local: OneCallModelLocal) {

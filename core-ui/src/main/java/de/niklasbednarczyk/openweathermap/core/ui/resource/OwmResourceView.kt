@@ -6,7 +6,6 @@ import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
-import de.niklasbednarczyk.openweathermap.core.ui.uistate.OwmResourceUiState
 
 @Composable
 fun OwmResourceView(

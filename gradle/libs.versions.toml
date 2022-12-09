@@ -47,6 +47,7 @@ com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desuga
 com-google-accompanist-accompanistFlowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistNavigationAnimation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistPermissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "comGoogleAccompanist" }
+com-google-accompanist-accompanistSwiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistSystemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "comGoogleAccompanist" }
 com-google-android-gms-playServicesLocation = { group = "com.google.android.gms", name = "play-services-location", version.ref = "comGoogleAndroidGmsPlayServicesLocation" }
 com-google-android-material-material = { group = "com.google.android.material", name = "material", version.ref = "comGoogleAndroidMaterial" }

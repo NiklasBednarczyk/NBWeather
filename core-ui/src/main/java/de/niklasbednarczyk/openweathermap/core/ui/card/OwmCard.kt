@@ -17,6 +17,8 @@ import de.niklasbednarczyk.openweathermap.core.ui.theme.screenHorizontalPadding
 
 private val innerPadding = 16.dp
 
+private const val durationMillis = 300
+
 @Composable
 fun <T : OwmCardItem> OwmCard(
     item: OwmListItem<T>,
@@ -30,8 +32,8 @@ fun <T : OwmCardItem> OwmCard(
         AnimatedContent(
             targetState = item,
             transitionSpec = {
-                fadeIn(animationSpec = tween(300, 300)) with
-                        fadeOut(animationSpec = tween(300)) using
+                fadeIn(animationSpec = tween(durationMillis, durationMillis)) with
+                        fadeOut(animationSpec = tween(durationMillis)) using
                         SizeTransform()
             }
 

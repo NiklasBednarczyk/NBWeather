@@ -6,7 +6,7 @@ import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarActionModel
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarModel
-import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmSnackbarViewModel
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarViewModel
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository

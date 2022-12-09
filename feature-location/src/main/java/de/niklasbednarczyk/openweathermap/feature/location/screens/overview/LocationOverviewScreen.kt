@@ -9,6 +9,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.navigationbar.OwmNavigationBar
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmCenterAlignedTopAppBar
+import de.niklasbednarczyk.openweathermap.core.ui.swiperefresh.OwmSwipeRefreshView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewTodayView
 
@@ -21,9 +22,6 @@ fun LocationOverviewScreen(
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
-
-
-    //TODO (#9) Add swipeToRefresh
 
     OwmScaffold(
         topBar = { scrollBehavior ->
@@ -47,23 +45,27 @@ fun LocationOverviewScreen(
         }
     ) {
         OwmResourceView(uiState.value) {
-            when (uiState.value.selectedNavigationBarItem) {
-                LocationOverviewNavigationBarItem.TODAY -> {
-                    LocationOverviewTodayView(
-                        todayItems = uiState.value.viewData.todayItems,
-                        navigateToAlerts = {
-                            navigateToAlerts(
-                                uiState.value.location?.latitude,
-                                uiState.value.location?.longitude
-                            )
-                        }
-                    )
-                }
-                LocationOverviewNavigationBarItem.HOURLY -> {
-                    //TODO (#9) Add hourly
-                }
-                LocationOverviewNavigationBarItem.DAILY -> {
-                    //TODO (#9) Add daily
+            OwmSwipeRefreshView(
+                refreshFlow = viewModel.viewDataFlow,
+            ) {
+                when (uiState.value.selectedNavigationBarItem) {
+                    LocationOverviewNavigationBarItem.TODAY -> {
+                        LocationOverviewTodayView(
+                            todayItems = uiState.value.viewData.todayItems,
+                            navigateToAlerts = {
+                                navigateToAlerts(
+                                    uiState.value.location?.latitude,
+                                    uiState.value.location?.longitude
+                                )
+                            }
+                        )
+                    }
+                    LocationOverviewNavigationBarItem.HOURLY -> {
+                        //TODO (#9) Add hourly
+                    }
+                    LocationOverviewNavigationBarItem.DAILY -> {
+                        //TODO (#9) Add daily
+                    }
                 }
             }
         }

@@ -1,6 +1,5 @@
-package de.niklasbednarczyk.openweathermap.core.ui.viewmodel
+package de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar
 
-import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarModel
 import kotlinx.coroutines.channels.Channel
 
 interface OwmSnackbarViewModel {

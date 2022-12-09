@@ -5,7 +5,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource.Companion.flatMapLatestResource
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource.Companion.mapResource
-import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmNavigationBarViewModel
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.navigationbar.OwmNavigationBarViewModel
+import de.niklasbednarczyk.openweathermap.core.ui.swiperefresh.OwmSwipeRefreshFlow
 import de.niklasbednarczyk.openweathermap.core.ui.viewmodel.OwmViewModel
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
@@ -23,8 +24,8 @@ import javax.inject.Inject
 class LocationOverviewViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val geocodingRepository: GeocodingRepository,
-    oneCallRepository: OneCallRepository,
-    settingsDataRepository: SettingsDataRepository
+    private val oneCallRepository: OneCallRepository,
+    private val settingsDataRepository: SettingsDataRepository
 ) : OwmViewModel<LocationOverviewUiState>(LocationOverviewUiState()),
     OwmNavigationBarViewModel<LocationOverviewNavigationBarItem> {
 
@@ -33,18 +34,25 @@ class LocationOverviewViewModel @Inject constructor(
             geocodingRepository.getCurrentLocation(data.language)
         }
 
-    private val viewDataFlow = settingsDataRepository.getData().flatMapLatest { data ->
-        val language = data.language
-        val units = data.units
-        currentLocationFlow.flatMapLatestResource { currentLocation ->
-            val latitude = currentLocation.latitude
-            val longitude = currentLocation.longitude
-            oneCallRepository.getOneCall(latitude, longitude, language, units)
-                .mapResource { oneCall ->
-                    LocationOverviewViewData(
-                        todayItems = LocationOverviewTodayItem.from(oneCall, data.timeFormat)
-                    )
+    val viewDataFlow = object : OwmSwipeRefreshFlow<LocationOverviewViewData>() {
+        override fun getFlow(forceUpdate: Boolean): Flow<OwmResource<LocationOverviewViewData>> {
+            return settingsDataRepository.getData().flatMapLatest { data ->
+                val language = data.language
+                val units = data.units
+                currentLocationFlow.flatMapLatestResource { currentLocation ->
+                    val latitude = currentLocation.latitude
+                    val longitude = currentLocation.longitude
+                    oneCallRepository.getOneCall(latitude, longitude, language, units, forceUpdate)
+                        .mapResource { oneCall ->
+                            LocationOverviewViewData(
+                                todayItems = LocationOverviewTodayItem.from(
+                                    oneCall,
+                                    data.timeFormat
+                                )
+                            )
+                        }
                 }
+            }
         }
     }
 
@@ -72,7 +80,7 @@ class LocationOverviewViewModel @Inject constructor(
         )
 
         collectFlow(
-            { viewDataFlow },
+            { viewDataFlow() },
             { oldUiState, output ->
                 oldUiState.copy(
                     errorType = output.errorTypeOrNull,
