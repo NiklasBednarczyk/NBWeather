@@ -12,7 +12,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmall
+import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.rowHorizontalArrangement
 
 private val titleTextStyle
@@ -70,52 +70,67 @@ private fun Item(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = columnVerticalArrangementSmall
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            text = gridModel.title.asString(),
-            style = titleTextStyle
-        )
-        owmNullSafe(gridModel.icon) { icon ->
-            OwmIcon(
-                icon = icon
+        Column {
+            Text(
+                text = gridModel.title.asString(),
+                style = titleTextStyle
             )
+            ItemSpacer()
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = rowHorizontalArrangement
-        ) {
-            when (gridModel.value) {
-                is OwmGridValueItem.IconWithUnit -> {
-                    OwmIcon(
-                        modifier = Modifier.rotate(gridModel.value.rotationDegrees),
-                        icon = gridModel.value.icon
-                    )
-                    Text(
-                        text = gridModel.value.unit.asString(),
-                        style = valueTextStyle
-                    )
-                }
-                is OwmGridValueItem.Texts -> {
-                    val text = owmCombinedString(*gridModel.value.texts)
-                    Text(
-                        text = text.asString(),
-                        style = valueTextStyle
-                    )
-                }
-                is OwmGridValueItem.TextsWithFormat -> {
-                    val text =
-                        owmCombinedString(
-                            *gridModel.value.texts,
-                            formatResId = gridModel.value.formatResId
+        owmNullSafe(gridModel.icon) { icon ->
+            Column {
+                ItemSpacer()
+                OwmIcon(
+                    icon = icon
+                )
+                ItemSpacer()
+            }
+        }
+        Column {
+            ItemSpacer()
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = rowHorizontalArrangement
+            ) {
+                when (gridModel.value) {
+                    is OwmGridValueItem.IconWithUnit -> {
+                        OwmIcon(
+                            modifier = Modifier.rotate(gridModel.value.rotationDegrees),
+                            icon = gridModel.value.icon
                         )
-                    Text(
-                        text = text.asString(),
-                        style = valueTextStyle
-                    )
+                        Text(
+                            text = gridModel.value.unit.asString(),
+                            style = valueTextStyle
+                        )
+                    }
+                    is OwmGridValueItem.Texts -> {
+                        val text = owmCombinedString(*gridModel.value.texts)
+                        Text(
+                            text = text.asString(),
+                            style = valueTextStyle
+                        )
+                    }
+                    is OwmGridValueItem.TextsWithFormat -> {
+                        val text =
+                            owmCombinedString(
+                                *gridModel.value.texts,
+                                formatResId = gridModel.value.formatResId
+                            )
+                        Text(
+                            text = text.asString(),
+                            style = valueTextStyle
+                        )
+                    }
                 }
             }
         }
-
     }
+}
+
+@Composable
+private fun ItemSpacer() {
+    val height = columnVerticalArrangementSmallDp
+    Spacer(modifier = Modifier.height(height))
 }
