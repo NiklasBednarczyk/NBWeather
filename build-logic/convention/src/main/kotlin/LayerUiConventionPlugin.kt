@@ -34,7 +34,6 @@ class LayerUiConventionPlugin : OwmConventionPlugin {
             implementation(libs.getLibrary("com.google.accompanist.accompanistFlowlayout"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistNavigationAnimation"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistPermissions"))
-            implementation(libs.getLibrary("com.google.accompanist.accompanistPlaceholderMaterial"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistSystemuicontroller"))
             implementation(libs.getLibrary("com.google.android.material.material"))
         }

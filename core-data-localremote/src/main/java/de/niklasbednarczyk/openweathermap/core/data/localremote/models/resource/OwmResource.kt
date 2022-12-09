@@ -4,15 +4,21 @@ import kotlinx.coroutines.flow.*
 
 sealed interface OwmResource<out T> {
     data class Success<T>(val data: T) : OwmResource<T>
-    data class Error(val type: OwmErrorType? = null) : OwmResource<Nothing>
+    data class Error(val errorType: OwmErrorType = OwmErrorType.UNKNOWN) : OwmResource<Nothing>
     object Loading : OwmResource<Nothing>
+
+    val dataOrNull: T?
+        get() = if (this is Success) data else null
+
+    val errorTypeOrNull: OwmErrorType?
+        get() = if (this is Error) errorType else null
 
     fun <R> map(
         mapData: (oldData: T) -> R?
     ): OwmResource<R> {
         return when (this) {
             is Loading -> Loading
-            is Error -> Error(type)
+            is Error -> Error(errorType)
             is Success -> {
                 val newData = mapData(data)
                 if (newData != null) {
@@ -48,7 +54,7 @@ sealed interface OwmResource<out T> {
                         }
                     }
                     is Loading -> flowOf(Loading)
-                    is Error -> flowOf(Error(resource.type))
+                    is Error -> flowOf(Error(resource.errorType))
                 }
             }
         }
@@ -75,8 +81,8 @@ sealed interface OwmResource<out T> {
                         val newData = transformData(resource1.data, resource2.data)
                         Success(newData)
                     }
-                    resource1 is Error -> Error(resource1.type)
-                    resource2 is Error -> Error(resource2.type)
+                    resource1 is Error -> Error(resource1.errorType)
+                    resource2 is Error -> Error(resource2.errorType)
                     else -> Loading
                 }
             }
@@ -94,9 +100,9 @@ sealed interface OwmResource<out T> {
                         val newData = transformData(resource1.data, resource2.data, resource3.data)
                         Success(newData)
                     }
-                    resource1 is Error -> Error(resource1.type)
-                    resource2 is Error -> Error(resource2.type)
-                    resource3 is Error -> Error(resource3.type)
+                    resource1 is Error -> Error(resource1.errorType)
+                    resource2 is Error -> Error(resource2.errorType)
+                    resource3 is Error -> Error(resource3.errorType)
                     else -> Loading
                 }
             }

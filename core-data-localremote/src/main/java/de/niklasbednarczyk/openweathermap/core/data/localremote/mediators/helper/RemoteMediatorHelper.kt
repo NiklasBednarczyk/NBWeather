@@ -15,7 +15,7 @@ internal interface RemoteMediatorHelper<Data, Remote> {
         Log.e(ConstantsCoreLocalRemote.Logging.TAG, throwable.message.toString())
         val type = when (throwable) {
             is UnknownHostException -> OwmErrorType.NO_INTERNET
-            else -> null
+            else -> OwmErrorType.UNKNOWN
         }
         return OwmResource.Error(type)
     }

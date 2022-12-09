@@ -3,7 +3,6 @@ package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarActionModel
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarModel
@@ -39,7 +38,12 @@ class SearchOverviewViewModel @Inject constructor(
                     geocodingRepository.getVisitedLocationsInfo(data.language)
                 }
             },
-            { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
+            { oldUiState, output ->
+                oldUiState.copy(
+                    errorType = output?.errorTypeOrNull,
+                    visitedLocationsInfo = output?.dataOrNull
+                )
+            }
         )
 
         collectFlow(
@@ -58,11 +62,14 @@ class SearchOverviewViewModel @Inject constructor(
                                 flowOf(null)
                             }
                         }
-                }.catch {
-                    flowOf(OwmResource.Error())
                 }
             },
-            { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
+            { oldUiState, output ->
+                oldUiState.copy(
+                    errorType = output?.errorTypeOrNull,
+                    searchedLocations = output?.dataOrNull
+                )
+            }
         )
 
         updateUiState { oldUiState ->
@@ -71,15 +78,15 @@ class SearchOverviewViewModel @Inject constructor(
     }
 
     fun onClearSearchTerm() {
-        updateUiState { oldUiState ->
-            oldUiState.copy(searchedLocationsResource = null)
-        }
         onSearchTermChanged("")
     }
 
     fun onSearchTermChanged(searchTerm: String) {
         updateUiState { oldUiState ->
-            oldUiState.copy(searchTerm = searchTerm)
+            oldUiState.copy(
+                searchTerm = searchTerm,
+                searchedLocations = null
+            )
         }
         updateStateFlow(searchTermFlow) {
             searchTerm
@@ -134,7 +141,6 @@ class SearchOverviewViewModel @Inject constructor(
         startFindingLocation()
         gmsLocationRepository.getCurrentLocation(
             onSuccess = { latitude, longitude ->
-                stopFindingLocation()
                 onSuccess(latitude, longitude)
             },
             onCanceled = {

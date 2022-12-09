@@ -3,45 +3,34 @@ package de.niklasbednarczyk.openweathermap.core.ui.resource
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmErrorType
-import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
+import de.niklasbednarczyk.openweathermap.core.ui.uistate.OwmResourceUiState
 
 @Composable
-fun <T> OwmResourceView(
-    resource: OwmResource<T>?,
-    nullContent: @Composable () -> Unit = {},
-    errorContent: @Composable (type: OwmErrorType?) -> Unit = { type -> ErrorView(type) },
-    loadingContent: @Composable () -> Unit = {},
-    successContent: @Composable (data: T) -> Unit
+fun OwmResourceView(
+    uiState: OwmResourceUiState,
+    content: @Composable () -> Unit
 ) {
-    when (resource) {
-        is OwmResource.Error -> {
-            errorContent(resource.type)
-        }
-        is OwmResource.Loading -> {
-            loadingContent()
-        }
-        is OwmResource.Success -> {
-            successContent(resource.data)
-        }
-        null -> {
-            nullContent()
-        }
+    val errorType = uiState.errorType
+    if (errorType != null) {
+        ErrorView(errorType)
+    } else {
+        content()
     }
 }
 
 @Composable
-private fun ErrorView(type: OwmErrorType?) {
+private fun ErrorView(type: OwmErrorType) {
     val stringResId = when (type) {
         OwmErrorType.NO_INTERNET -> R.string.error_text_no_internet
-        null -> R.string.error_text_unknown
+        OwmErrorType.UNKNOWN -> R.string.error_text_unknown
     }
 
     val icon = when (type) {
         OwmErrorType.NO_INTERNET -> OwmIcons.ErrorNoInternet
-        null -> OwmIcons.ErrorUnknown
+        OwmErrorType.UNKNOWN -> OwmIcons.ErrorUnknown
     }
 
     OwmInfoView(

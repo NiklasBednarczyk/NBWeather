@@ -1,9 +1,10 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today
 
-import androidx.compose.animation.core.animate
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -18,15 +19,15 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.ui.R
-import de.niklasbednarczyk.openweathermap.core.ui.card.OwmCard
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
+import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
+import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementDefaultDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmCustomColors
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayOverviewModel
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview.LocationOverviewTodayOverviewAlertModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview.LocationOverviewTodayOverviewWeatherModel
 import kotlin.math.max
 
@@ -36,13 +37,12 @@ private val timeMarkerLength = precipitationMarkerLength / 2
 
 @Composable
 fun LocationOverviewTodayOverviewView(
-    header: LocationOverviewTodayOverviewModel,
-    shouldAnimateTodayOverview: Boolean,
-    setShouldAnimateTodayOverview: (Boolean) -> Unit
+    overview: LocationOverviewTodayOverviewModel,
+    navigateToAlerts: () -> Unit,
 ) {
     var innerSize by remember { mutableStateOf<IntSize?>(null) }
 
-    val showPrecipitationCircle = header.precipitation.factors.isNotEmpty()
+    val showPrecipitationCircle = overview.precipitation.factors.isNotEmpty()
 
     val weatherPaddingModifier = if (showPrecipitationCircle) {
         Modifier.padding(innerPadding + precipitationMarkerLength + timeMarkerLength)
@@ -50,48 +50,74 @@ fun LocationOverviewTodayOverviewView(
         Modifier
     }
 
-    OwmCard(title = OwmString.Resource(R.string.screen_location_overview_today_card_overview_title)) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val alert = overview.alert
+        if (alert != null) {
+            Alert(
+                alert = alert,
+                navigateToAlerts = navigateToAlerts
+            )
+            Spacer(modifier = Modifier.height(columnVerticalArrangementDefaultDp))
+        }
+        Text(
+            text = overview.precipitation.headline.asString(),
+            style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(
+            modifier = Modifier.height(columnVerticalArrangementSmallDp)
+        )
+        Text(
+            text = overview.precipitation.currentTime.asString(),
+            style = MaterialTheme.typography.titleSmall
+        )
+        Box(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = header.precipitation.headline.asString(),
-                style = MaterialTheme.typography.titleMedium
+            PrecipitationCircle(
+                modifier = Modifier.align(Alignment.Center),
+                innerSize = innerSize,
+                factors = overview.precipitation.factors,
+                showPrecipitationCircle = showPrecipitationCircle,
+                showTimeMarker = overview.precipitation.currentTime != null,
             )
-            Spacer(
-                modifier = Modifier.height(columnVerticalArrangementSmallDp)
+            Weather(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .then(weatherPaddingModifier)
+                    .onGloballyPositioned { layoutCoordinates ->
+                        innerSize = layoutCoordinates.size
+                    },
+                weather = overview.weather
             )
-            Text(
-                text = header.precipitation.currentTime.asString(),
-                style = MaterialTheme.typography.titleSmall
-            )
-            Box(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                PrecipitationCircle(
-                    modifier = Modifier.align(Alignment.Center),
-                    innerSize = innerSize,
-                    factors = header.precipitation.factors,
-                    showPrecipitationCircle = showPrecipitationCircle,
-                    showTimeMarker = header.precipitation.currentTime != null,
-                    shouldAnimateTodayOverview = shouldAnimateTodayOverview,
-                    setShouldAnimateTodayOverview = setShouldAnimateTodayOverview
-                )
-                Weather(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .then(weatherPaddingModifier)
-                        .onGloballyPositioned { layoutCoordinates ->
-                            innerSize = layoutCoordinates.size
-                        },
-                    weather = header.weather
-                )
-            }
         }
     }
+}
 
-
+@Composable
+private fun Alert(
+    alert: LocationOverviewTodayOverviewAlertModel,
+    navigateToAlerts: () -> Unit
+) {
+    ListItem(
+        modifier = Modifier.clickable {
+            navigateToAlerts()
+        },
+        leadingContent = {
+            OwmIcon(icon = OwmIcons.Warning)
+        },
+        headlineText = {
+            Text(alert.text.asString())
+        },
+        trailingContent = {
+            Text(alert.moreAlerts.asString())
+        },
+        colors = ListItemDefaults.colors(
+            leadingIconColor = MaterialTheme.colorScheme.error,
+        )
+    )
 }
 
 @Composable
@@ -146,8 +172,6 @@ private fun PrecipitationCircle(
     factors: List<Float>,
     showPrecipitationCircle: Boolean,
     showTimeMarker: Boolean,
-    shouldAnimateTodayOverview: Boolean,
-    setShouldAnimateTodayOverview: (Boolean) -> Unit
 ) {
     if (!showPrecipitationCircle) return
     if (innerSize == null) return
@@ -169,35 +193,6 @@ private fun PrecipitationCircle(
             timeMarkerStrokeWidth.toPx()
         }
 
-        val animatedFactors = factors.map { factor ->
-            Pair(factor, mutableStateOf(1f))
-        }
-
-        animatedFactors.forEachIndexed { index, animatedFactor ->
-            val targetValue = animatedFactor.first
-            val factor = animatedFactor.second
-
-            if (shouldAnimateTodayOverview) {
-                LaunchedEffect(animatedFactor) {
-                    animate(
-                        initialValue = 1f,
-                        targetValue = targetValue,
-                        animationSpec = tween(600, index.times(10))
-                    ) { value, _ ->
-                        factor.value = value
-                        if (index == animatedFactors.lastIndex && value == targetValue) {
-                            setShouldAnimateTodayOverview(false)
-                        }
-                    }
-                }
-            } else {
-                factor.value = targetValue
-            }
-
-        }
-
-
-
         Canvas(modifier = modifier) {
             val diameter = max(innerSize.height, innerSize.width) + 2 * innerPaddingPx
             val radius = diameter / 2f
@@ -213,7 +208,7 @@ private fun PrecipitationCircle(
                 end = precipitationMarkerBackgroundEnd
             )
 
-            animatedFactors.forEachIndexed { index, animatedFactor ->
+            factors.forEachIndexed { index, factor ->
                 rotate(index / factors.size.toFloat() * 360) {
                     drawLine(
                         brush = precipitationMarkerBackgroundBrush,
@@ -222,7 +217,6 @@ private fun PrecipitationCircle(
                         strokeWidth = precipitationMarkerStrokeWidthPx
                     )
 
-                    val factor = animatedFactor.second.value
                     val precipitationMarkerForegroundLengthPx = precipitationMarkerLengthPx * factor
                     val precipitationMarkerForegroundStart =
                         precipitationMarkerBackgroundEnd + Offset(

@@ -2,6 +2,7 @@ package de.niklasbednarczyk.openweathermap.core.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,11 @@ abstract class OwmViewModel<UiState>(initialUiState: UiState) : ViewModel() {
         makeNewUiState: (oldUiState: UiState, output: Output) -> UiState
     ) {
         launchSuspend {
-            getFlow().collect { output ->
+            getFlow()
+                .catch {
+                    flowOf(OwmResource.Error())
+                }
+                .collect { output ->
                 _uiState.update { oldUiState ->
                     makeNewUiState(oldUiState, output)
                 }

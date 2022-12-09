@@ -63,12 +63,22 @@ class LocationOverviewViewModel @Inject constructor(
 
         collectFlow(
             { currentLocationFlow },
-            { oldUiState, output -> oldUiState.copy(locationResource = output) }
+            { oldUiState, output ->
+                oldUiState.copy(
+                    errorType = output.errorTypeOrNull,
+                    location = output.dataOrNull
+                )
+            }
         )
 
         collectFlow(
             { viewDataFlow },
-            { oldUiState, output -> oldUiState.copy(viewDataResource = output) }
+            { oldUiState, output ->
+                oldUiState.copy(
+                    errorType = output.errorTypeOrNull,
+                    viewData = output.dataOrNull ?: LocationOverviewViewData.empty()
+                )
+            }
         )
 
     }
@@ -76,12 +86,6 @@ class LocationOverviewViewModel @Inject constructor(
     override fun updateSelectedNavigationBarItem(navigationBarItem: LocationOverviewNavigationBarItem) {
         updateUiState { oldUiState ->
             oldUiState.copy(selectedNavigationBarItem = navigationBarItem)
-        }
-    }
-
-    fun setShouldAnimateTodayOverview(shouldAnimateTodayOverview: Boolean) {
-        updateUiState { oldUiState ->
-            oldUiState.copy(shouldAnimateTodayOverview = shouldAnimateTodayOverview)
         }
     }
 

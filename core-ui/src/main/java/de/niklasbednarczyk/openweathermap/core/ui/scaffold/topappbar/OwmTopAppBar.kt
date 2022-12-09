@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.core.ui.scaffold
+package de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -16,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
@@ -121,11 +120,11 @@ fun OwmCenterAlignedTopAppBar(
 @Composable
 fun OwmSearchTopAppBar(
     searchTerm: String,
+    enabled: Boolean = true,
     navigationIcon: @Composable () -> Unit,
     trailingIconWhenEmpty: @Composable () -> Unit = emptyIcon,
     onSearchTermChanged: (String) -> Unit,
     onClearSearchTerm: () -> Unit,
-    shouldShowLoadingProgress: Boolean? = null
 ) {
 
     val trailingIcon = if (searchTerm.isEmpty()) {
@@ -141,7 +140,9 @@ fun OwmSearchTopAppBar(
 
     val colors = TextFieldDefaults.outlinedTextFieldColors(
         focusedBorderColor = Color.Transparent,
-        unfocusedBorderColor = Color.Transparent
+        unfocusedBorderColor = Color.Transparent,
+        disabledBorderColor = Color.Transparent,
+        errorBorderColor = Color.Transparent
     )
 
     val placeholder =
@@ -164,6 +165,7 @@ fun OwmSearchTopAppBar(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = searchTerm,
+            enabled = enabled,
             onValueChange = onSearchTermChanged,
             placeholder = placeholder,
             singleLine = true,
@@ -173,26 +175,7 @@ fun OwmSearchTopAppBar(
             colors = colors,
             keyboardOptions = keyboardOptions
         )
-
-        val progressIndicatorModifier = Modifier
-            .semantics(mergeDescendants = true) {}
-            .fillMaxWidth()
-        when (shouldShowLoadingProgress) {
-            true -> {
-                LinearProgressIndicator(
-                    modifier = progressIndicatorModifier
-                )
-            }
-            false -> {
-                LinearProgressIndicator(
-                    modifier = progressIndicatorModifier,
-                    progress = 0f
-                )
-            }
-            null -> {
-                Divider()
-            }
-        }
+        Divider()
     }
 
 

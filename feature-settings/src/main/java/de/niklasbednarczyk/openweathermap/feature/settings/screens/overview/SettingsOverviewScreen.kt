@@ -19,7 +19,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestination
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
-import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmTopAppBar
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.screenHorizontalPadding
 import de.niklasbednarczyk.openweathermap.core.ui.theme.dividerPaddingVertical

@@ -7,7 +7,7 @@ import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.radio.OwmRadioGroupView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
-import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmTopAppBar
+import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmTopAppBar
 
 @Composable
 fun SettingsColorSchemeScreen(

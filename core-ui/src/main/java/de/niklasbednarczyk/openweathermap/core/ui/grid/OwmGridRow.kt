@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
+import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmall
@@ -24,13 +25,13 @@ private val valueTextStyle
 
 @Composable
 fun OwmGridRow(
-    items: List<OwmGridItem>,
+    items: List<OwmListItem<OwmGridModel>>,
     itemCount: Int = items.size
 ) {
     val itemsWithPlaceholders = items.toMutableList()
     val remainingNeededItems = itemCount - items.size
     repeat(remainingNeededItems) {
-        itemsWithPlaceholders.add(OwmGridItem.Placeholder)
+        itemsWithPlaceholders.add(OwmListItem.Empty)
     }
 
     Row(
@@ -45,13 +46,13 @@ fun OwmGridRow(
 
         itemsWithPlaceholders.forEach { item ->
             when (item) {
-                is OwmGridItem.Item -> {
+                is OwmListItem.Full -> {
                     Item(
                         modifier = itemModifier,
-                        item = item
+                        gridModel = item.data
                     )
                 }
-                is OwmGridItem.Placeholder -> {
+                is OwmListItem.Empty -> {
                     Spacer(modifier = itemModifier)
                 }
             }
@@ -64,7 +65,7 @@ fun OwmGridRow(
 @Composable
 private fun Item(
     modifier: Modifier,
-    item: OwmGridItem.Item
+    gridModel: OwmGridModel
 ) {
     Column(
         modifier = modifier,
@@ -72,10 +73,10 @@ private fun Item(
         verticalArrangement = columnVerticalArrangementSmall
     ) {
         Text(
-            text = item.title.asString(),
+            text = gridModel.title.asString(),
             style = titleTextStyle
         )
-        owmNullSafe(item.icon) { icon ->
+        owmNullSafe(gridModel.icon) { icon ->
             OwmIcon(
                 icon = icon
             )
@@ -84,27 +85,30 @@ private fun Item(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = rowHorizontalArrangement
         ) {
-            when (item.value) {
-                is OwmGridItem.Value.IconWithUnit -> {
+            when (gridModel.value) {
+                is OwmGridValueItem.IconWithUnit -> {
                     OwmIcon(
-                        modifier = Modifier.rotate(item.value.rotationDegrees),
-                        icon = item.value.icon
+                        modifier = Modifier.rotate(gridModel.value.rotationDegrees),
+                        icon = gridModel.value.icon
                     )
                     Text(
-                        text = item.value.unit.asString(),
+                        text = gridModel.value.unit.asString(),
                         style = valueTextStyle
                     )
                 }
-                is OwmGridItem.Value.Texts -> {
-                    val text = owmCombinedString(*item.value.texts)
+                is OwmGridValueItem.Texts -> {
+                    val text = owmCombinedString(*gridModel.value.texts)
                     Text(
                         text = text.asString(),
                         style = valueTextStyle
                     )
                 }
-                is OwmGridItem.Value.TextsWithFormat -> {
+                is OwmGridValueItem.TextsWithFormat -> {
                     val text =
-                        owmCombinedString(*item.value.texts, formatResId = item.value.formatResId)
+                        owmCombinedString(
+                            *gridModel.value.texts,
+                            formatResId = gridModel.value.formatResId
+                        )
                     Text(
                         text = text.asString(),
                         style = valueTextStyle

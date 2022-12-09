@@ -44,17 +44,11 @@ data class DailyForecastModelData(
 
             val duration = abs(sunriseValue - sunsetValue).seconds
 
-            return duration.toComponents { hours, minutes, seconds, _ ->
-                val mins = if (seconds > 30) {
-                    minutes + 1
-                } else {
-                    minutes
-                }
-
+            return duration.toComponents { hours, minutes, _, _ ->
                 OwmString.Resource(
                     R.string.format_hours_minutes,
                     hours,
-                    mins
+                    minutes
                 )
             }
 

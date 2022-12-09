@@ -1,0 +1,7 @@
+package de.niklasbednarczyk.openweathermap.core.ui.uistate
+
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmErrorType
+
+interface OwmResourceUiState {
+    val errorType: OwmErrorType?
+}

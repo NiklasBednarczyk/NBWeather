@@ -3,6 +3,8 @@ package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.vie
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import de.niklasbednarczyk.openweathermap.core.ui.card.OwmCard
+import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementDefault
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.*
@@ -10,48 +12,41 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.view
 
 @Composable
 fun LocationOverviewTodayView(
-    todayItems: List<LocationOverviewTodayItem>,
+    todayItems: List<OwmListItem<LocationOverviewTodayItem>>,
     navigateToAlerts: () -> Unit,
-    shouldAnimateTodayOverview: Boolean,
-    setShouldAnimateTodayOverview: (Boolean) -> Unit
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValues,
         verticalArrangement = columnVerticalArrangementDefault
     ) {
-        items(todayItems) { todayItem ->
-            when (todayItem) {
-                is LocationOverviewTodayAlertModel -> {
-                    LocationOverviewTodayAlertView(
-                        alert = todayItem,
-                        navigateToAlerts = navigateToAlerts
-                    )
+        items(todayItems) { listItem ->
+            OwmCard(item = listItem) { todayItem ->
+                when (todayItem) {
+                    is LocationOverviewTodayCurrentWeatherModel -> {
+                        LocationOverviewTodayCurrentWeatherView(
+                            currentWeather = todayItem
+                        )
+                    }
+                    is LocationOverviewTodayOverviewModel -> {
+                        LocationOverviewTodayOverviewView(
+                            overview = todayItem,
+                            navigateToAlerts = navigateToAlerts,
+                        )
+                    }
+                    is LocationOverviewTodaySunAndMoonModel -> {
+                        LocationOverviewTodaySunAndMoonView(
+                            sunAndMoon = todayItem
+                        )
+                    }
+                    is LocationOverviewTodayTemperaturesModel -> {
+                        LocationOverviewTodayTemperaturesView(
+                            temperatures = todayItem
+                        )
+                    }
                 }
-                is LocationOverviewTodayCurrentWeatherModel -> {
-                    LocationOverviewTodayCurrentWeatherView(
-                        currentWeather = todayItem
-                    )
-                }
-                is LocationOverviewTodayOverviewModel -> {
-                    LocationOverviewTodayOverviewView(
-                        header = todayItem,
-                        shouldAnimateTodayOverview = shouldAnimateTodayOverview,
-                        setShouldAnimateTodayOverview = setShouldAnimateTodayOverview
-                    )
-                }
-                is LocationOverviewTodaySunAndMoonModel -> {
-                    LocationOverviewTodaySunAndMoonView(
-                        sunAndMoon = todayItem
-                    )
-                }
-                is LocationOverviewTodayTemperaturesModel -> {
-                    LocationOverviewTodayTemperaturesView(
-                        temperatures = todayItem
-                    )
-                }
+
+
             }
         }
     }
-
-
 }

@@ -16,7 +16,6 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelDat
 @Composable
 fun SearchOverviewManageView(
     visitedLocations: List<LocationModelData>,
-    findingLocationInProgress: Boolean,
     navigateToLocation: (Double, Double) -> Unit,
     removeVisitedLocation: (LocationModelData) -> Unit
 ) {
@@ -30,7 +29,6 @@ fun SearchOverviewManageView(
             VisitedLocation(
                 modifier = Modifier.animateItemPlacement(),
                 visitedLocation = visitedLocation,
-                enabled = !findingLocationInProgress,
                 navigateToLocation = navigateToLocation,
                 removeVisitedLocation = removeVisitedLocation
             )
@@ -42,27 +40,19 @@ fun SearchOverviewManageView(
 private fun VisitedLocation(
     modifier: Modifier = Modifier,
     visitedLocation: LocationModelData,
-    enabled: Boolean,
     navigateToLocation: (Double, Double) -> Unit,
     removeVisitedLocation: (LocationModelData) -> Unit
 ) {
-    val clickableModifier = if (enabled) {
-        Modifier.clickable {
-            navigateToLocation(visitedLocation.latitude, visitedLocation.longitude)
-        }
-    } else {
-        Modifier
-    }
-
     ListItem(
-        modifier = modifier.then(clickableModifier),
+        modifier = modifier.clickable {
+            navigateToLocation(visitedLocation.latitude, visitedLocation.longitude)
+        },
         headlineText = {
             Text(text = visitedLocation.localizedNameAndCountry.asString())
         },
         trailingContent = {
             OwmIconButton(
                 icon = OwmIcons.Delete,
-                enabled = enabled,
                 onClick = {
                     removeVisitedLocation(visitedLocation)
                 }

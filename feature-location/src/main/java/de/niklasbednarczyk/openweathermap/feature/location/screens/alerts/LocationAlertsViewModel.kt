@@ -36,7 +36,12 @@ class LocationAlertsViewModel @Inject constructor(
                     getAlertFlow(latitude, longitude, data.timeFormat)
                 }
             },
-            { oldUiState, output -> oldUiState.copy(alertsResource = output) }
+            { oldUiState, output ->
+                oldUiState.copy(
+                    errorType = output.errorTypeOrNull,
+                    alerts = output.dataOrNull ?: emptyList()
+                )
+            }
         )
 
     }
