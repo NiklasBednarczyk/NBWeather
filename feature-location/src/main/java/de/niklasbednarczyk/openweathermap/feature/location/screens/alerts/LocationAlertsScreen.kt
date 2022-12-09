@@ -20,6 +20,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
+import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.*
 import de.niklasbednarczyk.openweathermap.feature.location.screens.alerts.models.LocationAlertExpandableItem
 
@@ -53,7 +54,12 @@ fun LocationAlertsScreen(
                                     Text(alert.eventName.asString())
                                 },
                                 supportingText = {
-                                    Text(alert.startEndRange.asString())
+                                    val text = owmCombinedString(
+                                        alert.startDate,
+                                        alert.endDate,
+                                        formatResId = alert.startEndDateFormatResId
+                                    )
+                                    Text(text.asString())
                                 },
                                 trailingContent = icon
                             )

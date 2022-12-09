@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.openweathermap.feature.location.screens.alerts.models
 
+import androidx.annotation.StringRes
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
@@ -9,7 +10,9 @@ import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 
 data class LocationAlertModel(
     val eventName: OwmString?,
-    val startEndRange: OwmString?,
+    val startDate: OwmString?,
+    val endDate: OwmString?,
+    @StringRes val startEndDateFormatResId: Int,
     val expandableItems: List<LocationAlertExpandableItem>
 ) {
 
@@ -23,15 +26,13 @@ data class LocationAlertModel(
                 val timezoneOffset = oC.metadata.timezoneOffset
                 val alerts = oC.nationalWeatherAlerts
 
+                val startEndDateFormatResId = R.string.format_date_range
+
                 alerts.map { alert ->
                     val startDate =
-                        alert.startDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
+                        alert.startDate?.getDateTimeString(timezoneOffset, timeFormat)
                     val endDate =
-                        alert.endDate?.getDateTimeFormattedValue(timezoneOffset, timeFormat)
-
-                    val startEndRange = owmNullSafe(startDate, endDate) { sD, eD ->
-                        OwmString.Resource(R.string.format_date_range, sD, eD)
-                    }
+                        alert.endDate?.getDateTimeString(timezoneOffset, timeFormat)
 
                     val expandableItems = mutableListOf<LocationAlertExpandableItem>()
 
@@ -64,7 +65,9 @@ data class LocationAlertModel(
 
                     LocationAlertModel(
                         eventName = alert.eventName,
-                        startEndRange = startEndRange,
+                        startDate = startDate,
+                        endDate = endDate,
+                        startEndDateFormatResId = startEndDateFormatResId,
                         expandableItems = expandableItems
                     )
                 }

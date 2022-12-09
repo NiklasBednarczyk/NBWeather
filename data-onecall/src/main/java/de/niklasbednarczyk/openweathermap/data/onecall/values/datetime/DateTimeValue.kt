@@ -13,55 +13,27 @@ import java.util.*
 @JvmInline
 value class DateTimeValue private constructor(val value: Long) {
 
-    fun getTimeFormattedValue(
-        timezoneOffset: TimezoneOffsetValue?,
-        timeFormat: OwmTimeFormatType
-    ): String? {
-        val pattern = when (timeFormat) {
-            OwmTimeFormatType.HOUR_12 -> TIME_PATTERN_HOUR_12
-            OwmTimeFormatType.HOUR_24 -> TIME_PATTERN_HOUR_24
-        }
-        return getFormattedValue(timezoneOffset, pattern)
-    }
-
     fun getTimeString(
         timezoneOffset: TimezoneOffsetValue?,
         timeFormat: OwmTimeFormatType
     ): OwmString? {
-        return OwmString.Value.from(getTimeFormattedValue(timezoneOffset, timeFormat))
-    }
-
-    fun getDateFormattedValue(
-        timezoneOffset: TimezoneOffsetValue?
-    ): String? {
-        return getFormattedValue(timezoneOffset, DATE_PATTERN)
-    }
-
-    fun getDateString(
-        timezoneOffset: TimezoneOffsetValue?
-    ): OwmString? {
-        return OwmString.Value.from(getDateFormattedValue(timezoneOffset))
-    }
-
-    fun getDateTimeFormattedValue(
-        timezoneOffset: TimezoneOffsetValue?,
-        timeFormat: OwmTimeFormatType
-    ): String? {
         val pattern = when (timeFormat) {
-            OwmTimeFormatType.HOUR_12 -> DATE_TIME_PATTERN_HOUR_12
-            OwmTimeFormatType.HOUR_24 -> DATE_TIME_PATTERN_HOUR_24
+            OwmTimeFormatType.HOUR_12 -> TIME_PATTERN_HOUR_12
+            OwmTimeFormatType.HOUR_24 -> TIME_PATTERN_HOUR_24
         }
-
-        return getFormattedValue(timezoneOffset, pattern)
+        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern))
     }
 
     fun getDateTimeString(
         timezoneOffset: TimezoneOffsetValue?,
         timeFormat: OwmTimeFormatType
     ): OwmString? {
-        return OwmString.Value.from(getDateTimeFormattedValue(timezoneOffset, timeFormat))
+        val pattern = when (timeFormat) {
+            OwmTimeFormatType.HOUR_12 -> DATE_TIME_PATTERN_HOUR_12
+            OwmTimeFormatType.HOUR_24 -> DATE_TIME_PATTERN_HOUR_24
+        }
+        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern))
     }
-
 
     private fun getFormattedValue(
         timezoneOffset: TimezoneOffsetValue?,
@@ -82,13 +54,10 @@ value class DateTimeValue private constructor(val value: Long) {
         return LocalDateTime.ofInstant(instant, zoneOffset)
     }
 
-
     companion object {
 
         private const val TIME_PATTERN_HOUR_12 = "hh:mm"
         private const val TIME_PATTERN_HOUR_24 = "HH:mm"
-
-        private const val DATE_PATTERN = "MMM d"
 
         private const val DATE_TIME_PATTERN_HOUR_12 = "MMM d hh:mm"
         private const val DATE_TIME_PATTERN_HOUR_24 = "MMM d HH:mm"
