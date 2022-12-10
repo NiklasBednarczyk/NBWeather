@@ -8,6 +8,7 @@ val listContentPaddingValues = PaddingValues(
     vertical = listContentPaddingVertical
 )
 
+val listItemPaddingValuesVerticalOneLine = PaddingValues(vertical = 8.dp)
 val listItemPaddingValuesHorizontal = PaddingValues(
     start = 16.dp,
     end = 24.dp

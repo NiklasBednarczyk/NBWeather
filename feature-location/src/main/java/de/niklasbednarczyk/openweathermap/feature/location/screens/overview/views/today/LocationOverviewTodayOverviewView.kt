@@ -115,7 +115,10 @@ private fun Alert(
             Text(alert.moreAlerts.asString())
         },
         colors = ListItemDefaults.colors(
-            leadingIconColor = MaterialTheme.colorScheme.error,
+            leadingIconColor = MaterialTheme.colorScheme.onErrorContainer,
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            headlineColor = MaterialTheme.colorScheme.onErrorContainer,
+            trailingIconColor = MaterialTheme.colorScheme.onErrorContainer
         )
     )
 }
@@ -167,7 +170,7 @@ private fun PrecipitationCircle(
     precipitationMarkerBackgroundBrushColor1: Color = OwmCustomColors.colors.green,
     precipitationMarkerBackgroundBrushColor2: Color = OwmCustomColors.colors.yellow,
     precipitationMarkerBackgroundBrushColor3: Color = OwmCustomColors.colors.red,
-    precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surface,
+    precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     timeMarkerColor: Color = MaterialTheme.colorScheme.inverseSurface,
     factors: List<Float>,
     showPrecipitationCircle: Boolean,

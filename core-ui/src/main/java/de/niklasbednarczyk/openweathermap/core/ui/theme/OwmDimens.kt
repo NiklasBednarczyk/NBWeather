@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.openweathermap.core.ui.theme
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
@@ -15,11 +16,6 @@ val dividerPaddingVertical = 8.dp
 
 val flowRowMainAxisSpacing = 8.dp
 val flowRowCrossAxisSpacing = 4.dp
-
-val placeholderTextShape: Shape
-    @Composable
-    get() = MaterialTheme.shapes.medium
-val placeholderVerticalPadding = 4.dp
 
 val rowHorizontalArrangement = Arrangement.spacedBy(4.dp)
 

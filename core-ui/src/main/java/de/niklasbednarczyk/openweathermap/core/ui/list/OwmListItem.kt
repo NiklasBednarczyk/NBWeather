@@ -11,6 +11,15 @@ sealed interface OwmListItem<out T> {
             return (1..itemCount).toList().map { Empty }
         }
 
+        fun <T> List<T?>.toOwmList(): List<OwmListItem<T>> {
+            return this.map { item ->
+                if (item != null) {
+                    Full(item)
+                } else {
+                    Empty
+                }
+            }
+        }
 
     }
 }

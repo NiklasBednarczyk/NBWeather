@@ -578,13 +578,6 @@ object OwmIcons {
             get() = OwmString.Resource(R.string.icon_content_description_wind_degrees)
     }
 
-    object WindDirection : OwmIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_navigation_24
-        override val contentDescription: OwmString
-            get() = OwmString.Resource(R.string.icon_content_description_wind_direction)
-    }
-
     object WindGust : OwmIconModel.Default {
         override val resId: Int
             get() = R.drawable.wi_strong_wind

@@ -13,36 +13,51 @@ import java.util.*
 @JvmInline
 value class DateTimeValue private constructor(val value: Long) {
 
-    fun getTimeString(
+    fun getDateWeekdayWithDateString(
         timezoneOffset: TimezoneOffsetValue?,
-        timeFormat: OwmTimeFormatType
+        changeForLocale: Boolean = true
     ): OwmString? {
-        val pattern = when (timeFormat) {
-            OwmTimeFormatType.HOUR_12 -> TIME_PATTERN_HOUR_12
-            OwmTimeFormatType.HOUR_24 -> TIME_PATTERN_HOUR_24
-        }
-        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern))
+        val pattern = DATE_PATTERN_WEEKDAY_WITH_DATE
+        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern, changeForLocale))
     }
 
     fun getDateTimeString(
         timezoneOffset: TimezoneOffsetValue?,
-        timeFormat: OwmTimeFormatType
+        timeFormat: OwmTimeFormatType,
+        changeForLocale: Boolean = true
     ): OwmString? {
         val pattern = when (timeFormat) {
             OwmTimeFormatType.HOUR_12 -> DATE_TIME_PATTERN_HOUR_12
             OwmTimeFormatType.HOUR_24 -> DATE_TIME_PATTERN_HOUR_24
         }
-        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern))
+        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern, changeForLocale))
+    }
+
+    fun getTimeString(
+        timezoneOffset: TimezoneOffsetValue?,
+        timeFormat: OwmTimeFormatType,
+        changeForLocale: Boolean = true
+    ): OwmString? {
+        val pattern = when (timeFormat) {
+            OwmTimeFormatType.HOUR_12 -> TIME_PATTERN_HOUR_12
+            OwmTimeFormatType.HOUR_24 -> TIME_PATTERN_HOUR_24
+        }
+        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern, changeForLocale))
     }
 
     private fun getFormattedValue(
         timezoneOffset: TimezoneOffsetValue?,
-        pattern: String
+        pattern: String,
+        changeForLocale: Boolean
     ): String? {
         return owmNullSafe(timezoneOffset) {
             val localDateTime = getLocalDateTime(it)
-            val skeleton = DateFormat.getBestDateTimePattern(Locale.getDefault(), pattern)
-            val dateTimeFormatter = DateTimeFormatter.ofPattern(skeleton)
+            val changedPattern = if (changeForLocale) {
+                DateFormat.getBestDateTimePattern(Locale.getDefault(), pattern)
+            } else {
+                pattern
+            }
+            val dateTimeFormatter = DateTimeFormatter.ofPattern(changedPattern)
             val formattedValue = localDateTime.format(dateTimeFormatter)
             formattedValue
         }
@@ -56,11 +71,13 @@ value class DateTimeValue private constructor(val value: Long) {
 
     companion object {
 
-        private const val TIME_PATTERN_HOUR_12 = "hh:mm"
-        private const val TIME_PATTERN_HOUR_24 = "HH:mm"
+        private const val DATE_PATTERN_WEEKDAY_WITH_DATE = "EEEE MMM d"
 
-        private const val DATE_TIME_PATTERN_HOUR_12 = "MMM d hh:mm"
+        private const val DATE_TIME_PATTERN_HOUR_12 = "MMM d hh:mm a"
         private const val DATE_TIME_PATTERN_HOUR_24 = "MMM d HH:mm"
+
+        private const val TIME_PATTERN_HOUR_12 = "hh:mm a"
+        private const val TIME_PATTERN_HOUR_24 = "HH:mm"
 
         internal fun from(value: Long?): DateTimeValue? {
             return owmNullSafe(value) { DateTimeValue(it) }

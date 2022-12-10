@@ -7,26 +7,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
+import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
+import de.niklasbednarczyk.openweathermap.core.ui.icons.owmIconFit
 import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.rowHorizontalArrangement
 
-private val titleTextStyle
-    @Composable
-    get() = MaterialTheme.typography.titleSmall
-
-private val valueTextStyle
-    @Composable
-    get() = MaterialTheme.typography.bodyMedium
-
 @Composable
 fun OwmGridRow(
-    items: List<OwmListItem<OwmGridModel>>,
-    itemCount: Int = items.size
+    modifier: Modifier = Modifier,
+    items: List<OwmListItem<OwmGridItem>>,
+    itemCount: Int = items.size,
 ) {
     val itemsWithPlaceholders = items.toMutableList()
     val remainingNeededItems = itemCount - items.size
@@ -35,9 +29,9 @@ fun OwmGridRow(
     }
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(IntrinsicSize.Max)
+            .height(IntrinsicSize.Max),
     ) {
 
         val itemModifier = Modifier
@@ -47,10 +41,26 @@ fun OwmGridRow(
         itemsWithPlaceholders.forEach { item ->
             when (item) {
                 is OwmListItem.Full -> {
-                    Item(
-                        modifier = itemModifier,
-                        gridModel = item.data
-                    )
+                    when (item.data) {
+                        is OwmGridItem.OneLine -> {
+                            ItemOneLine(
+                                modifier = itemModifier,
+                                item = item.data
+                            )
+                        }
+                        is OwmGridItem.TwoLines -> {
+                            ItemTwoLines(
+                                modifier = itemModifier,
+                                item = item.data
+                            )
+                        }
+                        is OwmGridItem.ThreeLines -> {
+                            ItemThreeLines(
+                                modifier = itemModifier,
+                                item = item.data
+                            )
+                        }
+                    }
                 }
                 is OwmListItem.Empty -> {
                     Spacer(modifier = itemModifier)
@@ -63,74 +73,131 @@ fun OwmGridRow(
 }
 
 @Composable
-private fun Item(
+private fun ItemOneLine(
     modifier: Modifier,
-    gridModel: OwmGridModel
+    item: OwmGridItem.OneLine
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
-        Column {
-            Text(
-                text = gridModel.title.asString(),
-                style = titleTextStyle
-            )
-            ItemSpacer()
-        }
-        owmNullSafe(gridModel.icon) { icon ->
-            Column {
-                ItemSpacer()
-                OwmIcon(
-                    icon = icon
-                )
-                ItemSpacer()
-            }
-        }
-        Column {
-            ItemSpacer()
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = rowHorizontalArrangement
-            ) {
-                when (gridModel.value) {
-                    is OwmGridValueItem.IconWithUnit -> {
-                        OwmIcon(
-                            modifier = Modifier.rotate(gridModel.value.rotationDegrees),
-                            icon = gridModel.value.icon
-                        )
-                        Text(
-                            text = gridModel.value.unit.asString(),
-                            style = valueTextStyle
-                        )
-                    }
-                    is OwmGridValueItem.Texts -> {
-                        val text = owmCombinedString(*gridModel.value.texts)
-                        Text(
-                            text = text.asString(),
-                            style = valueTextStyle
-                        )
-                    }
-                    is OwmGridValueItem.TextsWithFormat -> {
-                        val text =
-                            owmCombinedString(
-                                *gridModel.value.texts,
-                                formatResId = gridModel.value.formatResId
-                            )
-                        Text(
-                            text = text.asString(),
-                            style = valueTextStyle
-                        )
-                    }
-                }
-            }
-        }
+    ItemColumn(modifier) {
+        Value(item.value)
     }
 }
 
 @Composable
+private fun ItemTwoLines(
+    modifier: Modifier,
+    item: OwmGridItem.TwoLines
+) {
+    ItemColumn(modifier) {
+        Title(item.title)
+        ItemSpacer()
+        Value(item.value)
+    }
+}
+
+@Composable
+private fun ItemThreeLines(
+    modifier: Modifier,
+    item: OwmGridItem.ThreeLines
+) {
+    ItemColumn(modifier) {
+        Title(item.title)
+        ItemSpacer()
+        Icon(gridIcon = item.gridIcon)
+        ItemSpacer()
+        Value(item.value)
+    }
+}
+
+@Composable
+private fun ItemColumn(
+    modifier: Modifier = Modifier,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween,
+        content = content
+    )
+}
+
+@Composable
 private fun ItemSpacer() {
-    val height = columnVerticalArrangementSmallDp
-    Spacer(modifier = Modifier.height(height))
+    Spacer(modifier = Modifier.height(columnVerticalArrangementSmallDp))
+}
+
+@Composable
+private fun Title(
+    title: OwmString?
+) {
+    Text(
+        text = title.asString(),
+        style = MaterialTheme.typography.titleSmall
+    )
+}
+
+@Composable
+private fun Icon(
+    modifier: Modifier = Modifier,
+    gridIcon: OwmGridIconModel
+) {
+    OwmIcon(
+        modifier = modifier.rotate(gridIcon.rotationDegrees),
+        icon = gridIcon.icon,
+    )
+}
+
+@Composable
+private fun Value(
+    value: OwmGridValueItem
+) {
+    val textStyle = MaterialTheme.typography.bodyMedium
+
+    Box(
+        modifier = Modifier.fillMaxHeight(),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        when (value) {
+            is OwmGridValueItem.Icon -> {
+                Icon(
+                    gridIcon = value.gridIcon,
+                )
+            }
+            is OwmGridValueItem.IconWithTexts -> {
+                Row(
+                    modifier = Modifier.height(IntrinsicSize.Min),
+                    horizontalArrangement = rowHorizontalArrangement
+                ) {
+                    Icon(
+                        modifier = Modifier.owmIconFit(),
+                        gridIcon = value.gridIcon,
+                    )
+                    val text = owmCombinedString(*value.texts)
+                    Text(
+                        text = text.asString(),
+                        style = textStyle,
+                    )
+                }
+
+            }
+            is OwmGridValueItem.Texts -> {
+                val text = owmCombinedString(*value.texts)
+                Text(
+                    text = text.asString(),
+                    style = textStyle,
+                )
+            }
+            is OwmGridValueItem.TextsWithFormat -> {
+                val text =
+                    owmCombinedString(
+                        *value.texts,
+                        formatResId = value.formatResId
+                    )
+                Text(
+                    text = text.asString(),
+                    style = textStyle
+                )
+            }
+        }
+    }
 }

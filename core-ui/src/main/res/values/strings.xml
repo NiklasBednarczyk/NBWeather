@@ -87,7 +87,6 @@
     <string name="icon_content_description_weather_night_snow">Snow (Night)</string>
     <string name="icon_content_description_weather_night_thunderstorm">Thunderstorm (Night)</string>
     <string name="icon_content_description_wind_degrees">Wind degrees</string>
-    <string name="icon_content_description_wind_direction">Wind direction</string>
     <string name="icon_content_description_wind_gust">Wind gust</string>
     <string name="icon_content_description_wind_speed">Wind speed</string>
 

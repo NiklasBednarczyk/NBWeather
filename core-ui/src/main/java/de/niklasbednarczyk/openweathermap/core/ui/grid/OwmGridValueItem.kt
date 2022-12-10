@@ -2,14 +2,16 @@ package de.niklasbednarczyk.openweathermap.core.ui.grid
 
 import androidx.annotation.StringRes
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 
 sealed interface OwmGridValueItem {
 
-    data class IconWithUnit(
-        val icon: OwmIconModel,
-        val rotationDegrees: Float,
-        val unit: OwmString?
+    data class Icon(
+        val gridIcon: OwmGridIconModel
+    ) : OwmGridValueItem
+
+    class IconWithTexts(
+        val gridIcon: OwmGridIconModel,
+        vararg val texts: OwmString?
     ) : OwmGridValueItem
 
     class Texts(

@@ -3,6 +3,7 @@ package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.mod
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.ui.card.OwmCardItem
 import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
+import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem.Companion.toOwmList
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 
 sealed interface LocationOverviewTodayItem : OwmCardItem {
@@ -23,7 +24,7 @@ sealed interface LocationOverviewTodayItem : OwmCardItem {
 
             items.add(LocationOverviewTodaySunAndMoonModel.from(oneCall, timeFormat))
 
-            return items.filterNotNull().map { item -> OwmListItem.Full(item) }
+            return items.filterNotNull().toOwmList()
         }
 
 

@@ -15,6 +15,7 @@ import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDat
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewViewData
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.hourly.LocationOverviewHourlyModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -39,6 +40,7 @@ class LocationOverviewViewModel @Inject constructor(
             return settingsDataRepository.getData().flatMapLatest { data ->
                 val language = data.language
                 val units = data.units
+                val timeFormat = data.timeFormat
                 currentLocationFlow.flatMapLatestResource { currentLocation ->
                     val latitude = currentLocation.latitude
                     val longitude = currentLocation.longitude
@@ -46,8 +48,12 @@ class LocationOverviewViewModel @Inject constructor(
                         .mapResource { oneCall ->
                             LocationOverviewViewData(
                                 todayItems = LocationOverviewTodayItem.from(
-                                    oneCall,
-                                    data.timeFormat
+                                    oneCall = oneCall,
+                                    timeFormat = timeFormat
+                                ),
+                                hourlyItems = LocationOverviewHourlyModel.from(
+                                    oneCall = oneCall,
+                                    timeFormat = timeFormat
                                 )
                             )
                         }
