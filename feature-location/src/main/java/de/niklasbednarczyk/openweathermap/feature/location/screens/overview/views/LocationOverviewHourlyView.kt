@@ -20,6 +20,8 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.mode
 fun LocationOverviewHourlyView(
     hourlyItems: List<OwmListItem<LocationOverviewHourlyModel>>
 ) {
+    val widthSizeClass = getWidthSizeClass()
+
     LazyColumn(
         contentPadding = listContentPaddingValues,
         verticalArrangement = columnVerticalArrangementDefault
@@ -27,7 +29,7 @@ fun LocationOverviewHourlyView(
         items(hourlyItems) { listItem ->
             OwmCard(item = listItem) { hourlyModel ->
                 hourlyModel.hours.forEach { hour ->
-                    val items = when (getWidthSizeClass()) {
+                    val items = when (widthSizeClass) {
                         WindowWidthSizeClass.Compact -> hour.itemsCompact
                         WindowWidthSizeClass.Medium -> hour.itemsMedium
                         WindowWidthSizeClass.Expanded -> hour.itemsExpanded
@@ -46,6 +48,4 @@ fun LocationOverviewHourlyView(
             }
         }
     }
-
-
 }
