@@ -6,15 +6,13 @@ import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridValueItem
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem.Companion.toOwmList
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.temperatureWithFeelsLikeGridValue
 
 data class LocationOverviewTodayTemperaturesModel(
     override val cardTitle: OwmString?,
-    val thresholdItems: List<OwmListItem<OwmGridItem>>,
-    val dayItems: List<OwmListItem<OwmGridItem>>
+    val thresholdItems: List<OwmGridItem>,
+    val dayItems: List<OwmGridItem>
 ) : LocationOverviewTodayItem {
 
     companion object {
@@ -109,8 +107,8 @@ data class LocationOverviewTodayTemperaturesModel(
                 }
 
                 owmNullSafeList(
-                    thresholdItems.toOwmList(),
-                    dayItems.toOwmList()
+                    thresholdItems,
+                    dayItems
                 ) { tItems, dItems ->
                     LocationOverviewTodayTemperaturesModel(
                         cardTitle = cardTitle,

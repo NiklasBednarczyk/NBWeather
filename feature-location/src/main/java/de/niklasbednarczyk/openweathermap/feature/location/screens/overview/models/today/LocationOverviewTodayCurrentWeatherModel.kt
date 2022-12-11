@@ -4,19 +4,16 @@ import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridIconModel.Companion.toGridIcon
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridValueItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem.Companion.toOwmList
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
 
 data class LocationOverviewTodayCurrentWeatherModel(
     override val cardTitle: OwmString?,
-    val items: List<OwmListItem<OwmGridItem>>
+    val items: List<OwmGridItem>
 ) : LocationOverviewTodayItem {
 
     companion object {
@@ -189,7 +186,7 @@ data class LocationOverviewTodayCurrentWeatherModel(
             }
 
             return owmNullSafeList(
-                items.toOwmList()
+                items
             ) { i ->
                 LocationOverviewTodayCurrentWeatherModel(
                     cardTitle = cardTitle,

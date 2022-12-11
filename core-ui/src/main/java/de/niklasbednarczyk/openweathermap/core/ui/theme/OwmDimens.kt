@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
+val cardPadding = 16.dp
+
 val columnVerticalArrangementDefaultDp = 16.dp
 val columnVerticalArrangementDefault = Arrangement.spacedBy(columnVerticalArrangementDefaultDp)
 val columnVerticalArrangementSmallDp = 4.dp
@@ -21,5 +23,7 @@ val rowHorizontalArrangement = Arrangement.spacedBy(4.dp)
 
 val screenHorizontalPadding = 16.dp
 val screenVerticalPadding = 8.dp
+
+val stickyHeaderPadding = 16.dp
 
 val tagPadding = 8.dp

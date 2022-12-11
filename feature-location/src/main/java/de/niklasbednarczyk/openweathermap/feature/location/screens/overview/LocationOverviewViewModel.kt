@@ -51,7 +51,7 @@ class LocationOverviewViewModel @Inject constructor(
                                     oneCall = oneCall,
                                     timeFormat = timeFormat
                                 ),
-                                hourlyItems = LocationOverviewHourlyModel.from(
+                                hourlyMap = LocationOverviewHourlyModel.from(
                                     oneCall = oneCall,
                                     timeFormat = timeFormat
                                 )
@@ -77,22 +77,12 @@ class LocationOverviewViewModel @Inject constructor(
 
         collectFlow(
             { currentLocationFlow },
-            { oldUiState, output ->
-                oldUiState.copy(
-                    errorType = output.errorTypeOrNull,
-                    location = output.dataOrNull
-                )
-            }
+            { oldUiState, output -> oldUiState.copy(locationResource = output) }
         )
 
         collectFlow(
             { viewDataFlow() },
-            { oldUiState, output ->
-                oldUiState.copy(
-                    errorType = output.errorTypeOrNull,
-                    viewData = output.dataOrNull ?: LocationOverviewViewData.empty()
-                )
-            }
+            { oldUiState, output -> oldUiState.copy(viewDataResource = output) }
         )
 
     }

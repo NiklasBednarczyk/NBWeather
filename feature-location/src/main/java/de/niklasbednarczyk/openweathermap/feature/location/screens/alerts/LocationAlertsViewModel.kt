@@ -37,10 +37,7 @@ class LocationAlertsViewModel @Inject constructor(
                 }
             },
             { oldUiState, output ->
-                oldUiState.copy(
-                    errorType = output.errorTypeOrNull,
-                    alerts = output.dataOrNull ?: emptyList()
-                )
+                oldUiState.copy(alertsResource = output)
             }
         )
 

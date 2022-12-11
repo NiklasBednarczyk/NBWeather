@@ -8,20 +8,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
-import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmLoadingView
+import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceWithLoadingView
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 @Composable
 fun SearchOverviewSearchView(
-    searchedLocations: List<LocationModelData>?,
+    searchedLocationsResource: OwmResource<List<LocationModelData>>?,
     navigateToLocation: (Double, Double) -> Unit
 ) {
-    if (searchedLocations != null) {
+    OwmResourceWithLoadingView(searchedLocationsResource) { searchedLocations ->
         if (searchedLocations.isEmpty()) {
             NoResults()
         } else {
@@ -30,8 +31,6 @@ fun SearchOverviewSearchView(
                 navigateToLocation = navigateToLocation
             )
         }
-    } else {
-        OwmLoadingView()
     }
 }
 

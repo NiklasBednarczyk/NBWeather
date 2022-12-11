@@ -8,8 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
-import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
+import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceWithoutLoadingView
 import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.SettingsAppearanceModelData
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavHost
 import de.niklasbednarczyk.openweathermap.navigation.OwmNavigationDrawer
@@ -34,17 +33,15 @@ fun OwmApp(
             SetupBackPressWithNavigationDrawer(navigator = navigator)
 
             Surface {
-                OwmResourceView(uiState.value) {
-                    owmNullSafe(uiState.value.isInitialCurrentLocationSet) { isInitialCurrentLocationSet ->
-                        OwmNavigationDrawer(
+                OwmResourceWithoutLoadingView(uiState.value.isInitialCurrentLocationSetResource) { isInitialCurrentLocationSet ->
+                    OwmNavigationDrawer(
+                        navigator = navigator,
+                        drawerItems = uiState.value.drawerItems
+                    ) {
+                        OwmNavHost(
                             navigator = navigator,
-                            drawerItems = uiState.value.drawerItems
-                        ) {
-                            OwmNavHost(
-                                navigator = navigator,
-                                isInitialCurrentLocationSet = isInitialCurrentLocationSet
-                            )
-                        }
+                            isInitialCurrentLocationSet = isInitialCurrentLocationSet
+                        )
                     }
                 }
             }

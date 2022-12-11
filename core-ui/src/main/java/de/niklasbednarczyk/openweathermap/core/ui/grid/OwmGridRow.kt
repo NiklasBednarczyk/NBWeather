@@ -10,7 +10,6 @@ import androidx.compose.ui.draw.rotate
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.owmIconFit
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmallDp
@@ -19,13 +18,13 @@ import de.niklasbednarczyk.openweathermap.core.ui.theme.rowHorizontalArrangement
 @Composable
 fun OwmGridRow(
     modifier: Modifier = Modifier,
-    items: List<OwmListItem<OwmGridItem>>,
+    items: List<OwmGridItem?>,
     itemCount: Int = items.size,
 ) {
     val itemsWithPlaceholders = items.toMutableList()
     val remainingNeededItems = itemCount - items.size
     repeat(remainingNeededItems) {
-        itemsWithPlaceholders.add(OwmListItem.Empty)
+        itemsWithPlaceholders.add(null)
     }
 
     Row(
@@ -39,32 +38,29 @@ fun OwmGridRow(
             .fillMaxHeight()
 
         itemsWithPlaceholders.forEach { item ->
-            when (item) {
-                is OwmListItem.Full -> {
-                    when (item.data) {
-                        is OwmGridItem.OneLine -> {
-                            ItemOneLine(
-                                modifier = itemModifier,
-                                item = item.data
-                            )
-                        }
-                        is OwmGridItem.TwoLines -> {
-                            ItemTwoLines(
-                                modifier = itemModifier,
-                                item = item.data
-                            )
-                        }
-                        is OwmGridItem.ThreeLines -> {
-                            ItemThreeLines(
-                                modifier = itemModifier,
-                                item = item.data
-                            )
-                        }
+            if (item != null) {
+                when (item) {
+                    is OwmGridItem.OneLine -> {
+                        ItemOneLine(
+                            modifier = itemModifier,
+                            item = item
+                        )
+                    }
+                    is OwmGridItem.TwoLines -> {
+                        ItemTwoLines(
+                            modifier = itemModifier,
+                            item = item
+                        )
+                    }
+                    is OwmGridItem.ThreeLines -> {
+                        ItemThreeLines(
+                            modifier = itemModifier,
+                            item = item
+                        )
                     }
                 }
-                is OwmListItem.Empty -> {
-                    Spacer(modifier = itemModifier)
-                }
+            } else {
+                Spacer(modifier = itemModifier)
             }
         }
 

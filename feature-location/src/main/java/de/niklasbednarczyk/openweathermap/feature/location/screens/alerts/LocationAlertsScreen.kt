@@ -16,7 +16,7 @@ import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.border.owmBorder
 import de.niklasbednarczyk.openweathermap.core.ui.expandable.OwmExpandableView
-import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceView
+import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceWithoutLoadingView
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
@@ -41,11 +41,11 @@ fun LocationAlertsScreen(
             )
         }
     ) {
-        OwmResourceView(uiState.value) {
+        OwmResourceWithoutLoadingView(uiState.value.alertsResource) { alerts ->
             LazyColumn(
                 contentPadding = listContentPaddingValues
             ) {
-                items(uiState.value.alerts) { alert ->
+                items(alerts) { alert ->
                     OwmExpandableView(
                         canBeExpanded = alert.expandableItems.isNotEmpty(),
                         header = { icon ->

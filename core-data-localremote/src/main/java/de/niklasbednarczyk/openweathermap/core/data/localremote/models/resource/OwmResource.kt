@@ -7,12 +7,6 @@ sealed interface OwmResource<out T> {
     data class Error(val errorType: OwmErrorType = OwmErrorType.UNKNOWN) : OwmResource<Nothing>
     object Loading : OwmResource<Nothing>
 
-    val dataOrNull: T?
-        get() = if (this is Success) data else null
-
-    val errorTypeOrNull: OwmErrorType?
-        get() = if (this is Error) errorType else null
-
     fun <R> map(
         mapData: (oldData: T) -> R?
     ): OwmResource<R> {

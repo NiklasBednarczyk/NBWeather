@@ -4,15 +4,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.openweathermap.core.ui.card.OwmCard
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementDefault
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.*
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.*
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayCurrentWeatherView
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayOverviewView
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodaySunAndMoonView
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayTemperaturesView
 
 @Composable
 fun LocationOverviewTodayView(
-    todayItems: List<OwmListItem<LocationOverviewTodayItem>>,
+    todayItems: List<LocationOverviewTodayItem>,
     navigateToAlerts: () -> Unit,
 ) {
     LazyColumn(
@@ -44,8 +46,6 @@ fun LocationOverviewTodayView(
                         )
                     }
                 }
-
-
             }
         }
     }

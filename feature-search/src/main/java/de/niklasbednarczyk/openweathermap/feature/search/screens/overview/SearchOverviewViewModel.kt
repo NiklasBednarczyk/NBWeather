@@ -3,6 +3,7 @@ package de.niklasbednarczyk.openweathermap.feature.search.screens.overview
 import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
+import de.niklasbednarczyk.openweathermap.core.data.localremote.models.resource.OwmResource
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarActionModel
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.snackbar.OwmSnackbarModel
@@ -38,12 +39,7 @@ class SearchOverviewViewModel @Inject constructor(
                     geocodingRepository.getVisitedLocationsInfo(data.language)
                 }
             },
-            { oldUiState, output ->
-                oldUiState.copy(
-                    errorType = output?.errorTypeOrNull,
-                    visitedLocationsInfo = output?.dataOrNull
-                )
-            }
+            { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
         )
 
         collectFlow(
@@ -64,12 +60,7 @@ class SearchOverviewViewModel @Inject constructor(
                         }
                 }
             },
-            { oldUiState, output ->
-                oldUiState.copy(
-                    errorType = output?.errorTypeOrNull,
-                    searchedLocations = output?.dataOrNull
-                )
-            }
+            { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
         )
 
         updateUiState { oldUiState ->
@@ -85,7 +76,7 @@ class SearchOverviewViewModel @Inject constructor(
         updateUiState { oldUiState ->
             oldUiState.copy(
                 searchTerm = searchTerm,
-                searchedLocations = null
+                searchedLocationsResource = OwmResource.Loading
             )
         }
         updateStateFlow(searchTermFlow) {

@@ -9,16 +9,14 @@ import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridIconModel.Companio
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridValueItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem
-import de.niklasbednarczyk.openweathermap.core.ui.list.OwmListItem.Companion.toOwmList
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
 
 data class LocationOverviewTodaySunAndMoonModel(
     override val cardTitle: OwmString?,
-    val sunItems: List<OwmListItem<OwmGridItem>>,
-    val moonItems: List<OwmListItem<OwmGridItem>>
+    val sunItems: List<OwmGridItem?>,
+    val moonItems: List<OwmGridItem?>
 ) : LocationOverviewTodayItem {
 
     companion object {
@@ -113,8 +111,8 @@ data class LocationOverviewTodaySunAndMoonModel(
             )
 
             return owmNullSafeList(
-                sunItems.toOwmList(),
-                moonItems.toOwmList()
+                sunItems,
+                moonItems
             ) { sItems, mItems ->
                 LocationOverviewTodaySunAndMoonModel(
                     cardTitle = cardTitle,
