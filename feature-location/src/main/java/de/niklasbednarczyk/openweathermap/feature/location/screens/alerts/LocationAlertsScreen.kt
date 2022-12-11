@@ -43,7 +43,7 @@ fun LocationAlertsScreen(
     ) {
         OwmResourceWithoutLoadingView(uiState.value.alertsResource) { alerts ->
             LazyColumn(
-                contentPadding = listContentPaddingValues
+                contentPadding = listContentPaddingValuesVertical
             ) {
                 items(alerts) { alert ->
                     OwmExpandableView(

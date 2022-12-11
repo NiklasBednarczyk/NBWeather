@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValuesVertical
 
 @Composable
 fun <T> OwmRadioGroupView(
@@ -30,7 +30,7 @@ fun <T> OwmRadioGroupView(
 
         LazyColumn(
             modifier = Modifier.selectableGroup(),
-            contentPadding = listContentPaddingValues
+            contentPadding = listContentPaddingValuesVertical
         ) {
             items(options) { option ->
                 val selected = option.key == radioGroup.selectedKey

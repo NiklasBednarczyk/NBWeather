@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.openweathermap.core.ui.card.OwmCard
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementDefault
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValuesVertical
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.*
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayCurrentWeatherView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today.LocationOverviewTodayOverviewView
@@ -18,7 +18,7 @@ fun LocationOverviewTodayView(
     navigateToAlerts: () -> Unit,
 ) {
     LazyColumn(
-        contentPadding = listContentPaddingValues,
+        contentPadding = listContentPaddingValuesVertical,
         verticalArrangement = columnVerticalArrangementDefault
     ) {
         items(todayItems) { listItem ->

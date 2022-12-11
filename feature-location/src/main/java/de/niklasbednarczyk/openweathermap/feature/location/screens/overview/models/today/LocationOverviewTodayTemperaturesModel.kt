@@ -5,9 +5,9 @@ import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridValueItem
+import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueItem
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
-import de.niklasbednarczyk.openweathermap.feature.location.extensions.temperatureWithFeelsLikeGridValue
+import de.niklasbednarczyk.openweathermap.feature.location.extensions.temperatureWithFeelsLikeValue
 
 data class LocationOverviewTodayTemperaturesModel(
     override val cardTitle: OwmString?,
@@ -36,7 +36,7 @@ data class LocationOverviewTodayTemperaturesModel(
                     thresholdItems.add(
                         OwmGridItem.TwoLines(
                             title = OwmString.Resource(R.string.screen_location_overview_today_temperatures_threshold_min_title),
-                            value = OwmGridValueItem.Texts(
+                            value = OwmValueItem.Texts(
                                 minDailyTemperature.displayValue,
                                 minDailyTemperature.getUnit(units)
                             )
@@ -48,7 +48,7 @@ data class LocationOverviewTodayTemperaturesModel(
                     thresholdItems.add(
                         OwmGridItem.TwoLines(
                             title = OwmString.Resource(R.string.screen_location_overview_today_temperatures_threshold_max_title),
-                            value = OwmGridValueItem.Texts(
+                            value = OwmValueItem.Texts(
                                 maxDailyTemperature.displayValue,
                                 maxDailyTemperature.getUnit(units)
                             )
@@ -65,7 +65,7 @@ data class LocationOverviewTodayTemperaturesModel(
                     dayItems.add(
                         OwmGridItem.TwoLines(
                             title = OwmString.Resource(R.string.screen_location_overview_today_temperatures_day_morning_title),
-                            value = temperatureWithFeelsLikeGridValue(temp, feelsLikeTemp)
+                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
                         )
                     )
                 }
@@ -77,7 +77,7 @@ data class LocationOverviewTodayTemperaturesModel(
                     dayItems.add(
                         OwmGridItem.TwoLines(
                             title = OwmString.Resource(R.string.screen_location_overview_today_temperatures_day_day_title),
-                            value = temperatureWithFeelsLikeGridValue(temp, feelsLikeTemp)
+                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
                         )
                     )
                 }
@@ -89,7 +89,7 @@ data class LocationOverviewTodayTemperaturesModel(
                     dayItems.add(
                         OwmGridItem.TwoLines(
                             title = OwmString.Resource(R.string.screen_location_overview_today_temperatures_day_evening_title),
-                            value = temperatureWithFeelsLikeGridValue(temp, feelsLikeTemp)
+                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
                         )
                     )
                 }
@@ -101,7 +101,7 @@ data class LocationOverviewTodayTemperaturesModel(
                     dayItems.add(
                         OwmGridItem.TwoLines(
                             title = OwmString.Resource(R.string.screen_location_overview_today_temperatures_day_night_title),
-                            value = temperatureWithFeelsLikeGridValue(temp, feelsLikeTemp)
+                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
                         )
                     )
                 }

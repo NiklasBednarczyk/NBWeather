@@ -3,17 +3,16 @@ package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.mod
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridIconModel.Companion.toGridIcon
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridValueItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
+import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueIconModel.Companion.toValueIcon
+import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueItem
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
-import de.niklasbednarczyk.openweathermap.feature.location.extensions.temperatureWithFeelsLikeGridValue
+import de.niklasbednarczyk.openweathermap.feature.location.extensions.probabilityOfPrecipitationValue
+import de.niklasbednarczyk.openweathermap.feature.location.extensions.temperatureWithFeelsLikeValue
 
 data class LocationOverviewHourlyModel(
-//    override val cardTitle: OwmString?,
-//    val hours: List<LocationOverviewHourlyHourModel>
     val forecastTimeValue: Long,
     val itemsCompact: List<OwmGridItem?>,
     val itemsMedium: List<OwmGridItem?>,
@@ -45,7 +44,7 @@ data class LocationOverviewHourlyModel(
                                 )
                             ) { time ->
                                 OwmGridItem.OneLine(
-                                    value = OwmGridValueItem.Texts(
+                                    value = OwmValueItem.Texts(
                                         time
                                     )
                                 )
@@ -57,8 +56,8 @@ data class LocationOverviewHourlyModel(
                                 hourlyForecast.weather?.icon
                             ) { weatherIcon ->
                                 OwmGridItem.OneLine(
-                                    value = OwmGridValueItem.Icon(
-                                        gridIcon = weatherIcon.type.icon.toGridIcon()
+                                    value = OwmValueItem.Icon(
+                                        valueIcon = weatherIcon.type.icon.toValueIcon()
                                     )
                                 )
                             }
@@ -70,7 +69,7 @@ data class LocationOverviewHourlyModel(
                                 hourlyForecast.feelsLikeTemperature
                             ) { temperature, feelsLikeTemperature ->
                                 OwmGridItem.OneLine(
-                                    value = temperatureWithFeelsLikeGridValue(
+                                    value = temperatureWithFeelsLikeValue(
                                         temperature,
                                         feelsLikeTemperature
                                     )
@@ -83,10 +82,8 @@ data class LocationOverviewHourlyModel(
                                 hourlyForecast.probabilityOfPrecipitation
                             ) { probabilityOfPrecipitation ->
                                 OwmGridItem.OneLine(
-                                    value = OwmGridValueItem.IconWithTexts(
-                                        gridIcon = OwmIcons.ProbabilityOfPrecipitation.toGridIcon(),
-                                        probabilityOfPrecipitation.displayValue,
-                                        probabilityOfPrecipitation.unit
+                                    value = probabilityOfPrecipitationValue(
+                                        probabilityOfPrecipitation
                                     )
                                 )
                             }
@@ -116,8 +113,8 @@ data class LocationOverviewHourlyModel(
                                     }
 
                                 OwmGridItem.OneLine(
-                                    value = OwmGridValueItem.IconWithTexts(
-                                        gridIcon = OwmIcons.WindDegrees.toGridIcon(windDegrees.rotationDegrees),
+                                    value = OwmValueItem.IconWithTexts(
+                                        valueIcon = OwmIcons.WindDegrees.toValueIcon(windDegrees.rotationDegrees),
                                         texts = texts.toTypedArray()
                                     )
                                 )
@@ -129,8 +126,8 @@ data class LocationOverviewHourlyModel(
                         val rainGridItem =
                             owmNullSafe(hourlyForecast.rain1hVolume) { rain1hVolume ->
                                 OwmGridItem.OneLine(
-                                    value = OwmGridValueItem.IconWithTexts(
-                                        gridIcon = OwmIcons.Rain.toGridIcon(),
+                                    value = OwmValueItem.IconWithTexts(
+                                        valueIcon = OwmIcons.Rain.toValueIcon(),
                                         rain1hVolume.displayValue,
                                         rain1hVolume.unit
                                     )
@@ -140,8 +137,8 @@ data class LocationOverviewHourlyModel(
                         val snowGridItem =
                             owmNullSafe(hourlyForecast.snow1hVolume) { snow1hVolume ->
                                 OwmGridItem.OneLine(
-                                    value = OwmGridValueItem.IconWithTexts(
-                                        gridIcon = OwmIcons.Snow.toGridIcon(),
+                                    value = OwmValueItem.IconWithTexts(
+                                        valueIcon = OwmIcons.Snow.toValueIcon(),
                                         snow1hVolume.displayValue,
                                         snow1hVolume.unit
                                     )

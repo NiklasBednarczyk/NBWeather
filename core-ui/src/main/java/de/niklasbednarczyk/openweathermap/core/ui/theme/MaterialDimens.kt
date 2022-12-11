@@ -3,8 +3,12 @@ package de.niklasbednarczyk.openweathermap.core.ui.theme
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
 
+val listContentPaddingHorizontal = 8.dp
+val listContentPaddingValuesHorizontal = PaddingValues(
+    horizontal = listContentPaddingHorizontal
+)
 val listContentPaddingVertical = 8.dp
-val listContentPaddingValues = PaddingValues(
+val listContentPaddingValuesVertical = PaddingValues(
     vertical = listContentPaddingVertical
 )
 

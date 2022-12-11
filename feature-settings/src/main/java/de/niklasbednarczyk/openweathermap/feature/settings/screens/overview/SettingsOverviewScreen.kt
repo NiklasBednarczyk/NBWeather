@@ -23,7 +23,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmTopAppBa
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.screenHorizontalPadding
 import de.niklasbednarczyk.openweathermap.core.ui.theme.dividerPaddingVertical
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValuesVertical
 import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingVertical
 import de.niklasbednarczyk.openweathermap.feature.settings.screens.overview.models.SettingsOverviewItemModel
 
@@ -52,7 +52,7 @@ fun SettingsOverviewScreen(
                 bottom = listContentPaddingVertical
             )
         } else {
-            listContentPaddingValues
+            listContentPaddingValuesVertical
         }
 
         LazyColumn(

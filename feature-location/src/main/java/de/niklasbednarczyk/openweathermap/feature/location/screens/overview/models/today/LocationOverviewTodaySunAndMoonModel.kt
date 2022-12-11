@@ -5,9 +5,9 @@ import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridIconModel.Companion.toGridIcon
+import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueIconModel.Companion.toValueIcon
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridValueItem
+import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
@@ -38,8 +38,8 @@ data class LocationOverviewTodaySunAndMoonModel(
                 owmNullSafe(today.sunrise) { sunrise ->
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_sunrise),
-                        gridIcon = OwmIcons.Sunrise.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Sunrise.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             sunrise.getTimeString(timezoneOffset, timeFormat)
                         )
                     )
@@ -50,8 +50,8 @@ data class LocationOverviewTodaySunAndMoonModel(
                 owmNullSafe(today.daylight) { daylight ->
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_daylight),
-                        gridIcon = OwmIcons.Daylight.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Daylight.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             daylight
                         )
                     )
@@ -62,8 +62,8 @@ data class LocationOverviewTodaySunAndMoonModel(
                 owmNullSafe(today.sunset) { sunset ->
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_sunset),
-                        gridIcon = OwmIcons.Sunset.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Sunset.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             sunset.getTimeString(timezoneOffset, timeFormat)
                         )
                     )
@@ -76,8 +76,8 @@ data class LocationOverviewTodaySunAndMoonModel(
                 owmNullSafe(today.moonrise) { sunrise ->
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moonrise),
-                        gridIcon = OwmIcons.Sunrise.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Sunrise.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             sunrise.getTimeString(timezoneOffset, timeFormat)
                         )
                     )
@@ -89,8 +89,8 @@ data class LocationOverviewTodaySunAndMoonModel(
                 owmNullSafe(today.moonPhase?.type) { moonPhaseType ->
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moon_phase),
-                        gridIcon = moonPhaseType.icon.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = moonPhaseType.icon.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             moonPhaseType.displayText
                         )
 
@@ -102,8 +102,8 @@ data class LocationOverviewTodaySunAndMoonModel(
                 owmNullSafe(today.moonset) { moonset ->
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moonset),
-                        gridIcon = OwmIcons.Sunrise.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Sunrise.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             moonset.getTimeString(timezoneOffset, timeFormat)
                         )
                     )

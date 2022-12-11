@@ -4,9 +4,9 @@ import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafeList
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridIconModel.Companion.toGridIcon
+import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueIconModel.Companion.toValueIcon
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
-import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridValueItem
+import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
@@ -34,8 +34,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_probability_of_precipitation),
-                        gridIcon = OwmIcons.ProbabilityOfPrecipitation.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.ProbabilityOfPrecipitation.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             probabilityOfPrecipitation.displayValue,
                             probabilityOfPrecipitation.unit
                         )
@@ -47,8 +47,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_rain),
-                        gridIcon = OwmIcons.Rain.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Rain.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             rain1hVolume.displayValue,
                             rain1hVolume.unit
                         )
@@ -60,8 +60,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_snow),
-                        gridIcon = OwmIcons.Snow.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Snow.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             snow1hVolume.displayValue,
                             snow1hVolume.unit
                         )
@@ -73,8 +73,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_wind_speed),
-                        gridIcon = OwmIcons.WindSpeed.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.WindSpeed.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             windSpeed.displayValue,
                             windSpeed.getUnit(units)
                         )
@@ -86,8 +86,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_wind_gust),
-                        gridIcon = OwmIcons.WindGust.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.WindGust.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             windGust.displayValue,
                             windGust.getUnit(units)
                         )
@@ -99,8 +99,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_wind_direction),
-                        gridIcon = OwmIcons.WindDegrees.toGridIcon(windDegrees.rotationDegrees),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.WindDegrees.toValueIcon(windDegrees.rotationDegrees),
+                        value = OwmValueItem.Texts(
                             windDegrees.type?.displayText ?: return@owmNullSafe null
                         )
                     )
@@ -111,8 +111,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_pressure),
-                        gridIcon = OwmIcons.Pressure.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Pressure.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             pressure.displayValue,
                             pressure.unit
                         )
@@ -124,8 +124,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_humidity),
-                        gridIcon = OwmIcons.Humidity.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Humidity.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             humidity.displayValue,
                             humidity.unit
                         )
@@ -137,8 +137,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_dew_point),
-                        gridIcon = OwmIcons.DewPoint.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.DewPoint.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             dewPointTemperature.displayValue,
                             dewPointTemperature.getUnit(units)
                         )
@@ -150,8 +150,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_cloudiness),
-                        gridIcon = OwmIcons.Cloudiness.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Cloudiness.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             cloudiness.displayValue,
                             cloudiness.unit
                         )
@@ -163,8 +163,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_uv_index),
-                        gridIcon = OwmIcons.UVIndex.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.UVIndex.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             uvIndex.displayValue,
                             uvIndex.unit
                         )
@@ -176,8 +176,8 @@ data class LocationOverviewTodayCurrentWeatherModel(
                 items.add(
                     OwmGridItem.ThreeLines(
                         title = OwmString.Resource(R.string.screen_location_overview_today_current_weather_title_visibility),
-                        gridIcon = OwmIcons.Visibility.toGridIcon(),
-                        value = OwmGridValueItem.Texts(
+                        valueIcon = OwmIcons.Visibility.toValueIcon(),
+                        value = OwmValueItem.Texts(
                             visibility.displayValue,
                             visibility.unit
                         )

@@ -12,6 +12,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.scaffold.navigationbar.OwmNavi
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmCenterAlignedTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.swiperefresh.OwmSwipeRefreshView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewDailyView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewHourlyView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewTodayView
 
@@ -69,7 +70,9 @@ fun LocationOverviewScreen(
                             )
                         }
                         LocationOverviewNavigationBarItem.DAILY -> {
-                            //TODO (#9) Add daily
+                            LocationOverviewDailyView(
+                                dailyModels = viewData.dailyModels
+                            )
                         }
                     }
                 }

@@ -14,7 +14,7 @@ import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
 import de.niklasbednarczyk.openweathermap.core.ui.info.OwmInfoView
 import de.niklasbednarczyk.openweathermap.core.ui.resource.OwmResourceWithLoadingView
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValuesVertical
 import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelData
 
 @Composable
@@ -48,7 +48,7 @@ private fun List(
     navigateToLocation: (Double, Double) -> Unit
 ) {
     LazyColumn(
-        contentPadding = listContentPaddingValues
+        contentPadding = listContentPaddingValuesVertical
     ) {
         items(searchedLocations) { searchedLocation ->
             Item(

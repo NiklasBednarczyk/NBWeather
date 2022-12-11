@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmCustomColorsModel
-import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmLocalCustomColors
+import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.LocalOwmCustomColors
 import de.niklasbednarczyk.openweathermap.data.settings.models.appearance.SettingsAppearanceModelData
 import de.niklasbednarczyk.openweathermap.library.materialcolorutilities.scheme.Scheme
 
@@ -24,7 +24,7 @@ fun OwmTheme(
 
     val customColors = OwmCustomColorsModel.from(sourceColorInt)
 
-    CompositionLocalProvider(OwmLocalCustomColors provides customColors) {
+    CompositionLocalProvider(LocalOwmCustomColors provides customColors) {
         MaterialTheme(
             colorScheme = colorScheme,
             content = content

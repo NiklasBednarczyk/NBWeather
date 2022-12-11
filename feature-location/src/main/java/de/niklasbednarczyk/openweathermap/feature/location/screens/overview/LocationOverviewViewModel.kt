@@ -15,6 +15,7 @@ import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDat
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewViewData
+import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.daily.LocationOverviewDailyModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.hourly.LocationOverviewHourlyModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayItem
 import kotlinx.coroutines.flow.Flow
@@ -54,6 +55,9 @@ class LocationOverviewViewModel @Inject constructor(
                                 hourlyMap = LocationOverviewHourlyModel.from(
                                     oneCall = oneCall,
                                     timeFormat = timeFormat
+                                ),
+                                dailyModels = LocationOverviewDailyModel.from(
+                                    oneCall = oneCall
                                 )
                             )
                         }

@@ -20,6 +20,9 @@ sealed interface UnitsValue {
             return decimalFormat.format(value)
         }
 
+    val roundedValue: Double?
+        get() = formattedValue.toDoubleOrNull()
+
     val displayValue: OwmString?
         get() = OwmString.Value.from(formattedValue)
 

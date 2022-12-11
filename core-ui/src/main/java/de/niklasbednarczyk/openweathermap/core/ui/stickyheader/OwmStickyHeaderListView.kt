@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValues
+import de.niklasbednarczyk.openweathermap.core.ui.theme.listContentPaddingValuesVertical
 import de.niklasbednarczyk.openweathermap.core.ui.theme.stickyHeaderPadding
 
 @Composable
@@ -21,7 +21,7 @@ fun <T> OwmStickyHeaderListView(
     item: @Composable (item: T) -> Unit
 ) {
     LazyColumn(
-        contentPadding = listContentPaddingValues
+        contentPadding = listContentPaddingValuesVertical
     ) {
         stickyHeaderMap.forEach { (title, items) ->
             if (title != null) {

@@ -1,16 +1,16 @@
-package de.niklasbednarczyk.openweathermap.core.ui.grid
+package de.niklasbednarczyk.openweathermap.core.ui.values
 
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 
-data class OwmGridIconModel(
+data class OwmValueIconModel(
     val icon: OwmIconModel,
     val rotationDegrees: Float
 ) {
 
     companion object {
 
-        fun OwmIconModel.toGridIcon(rotationDegrees: Float = 0f): OwmGridIconModel {
-            return OwmGridIconModel(
+        fun OwmIconModel.toValueIcon(rotationDegrees: Float = 0f): OwmValueIconModel {
+            return OwmValueIconModel(
                 icon = this,
                 rotationDegrees = rotationDegrees
             )

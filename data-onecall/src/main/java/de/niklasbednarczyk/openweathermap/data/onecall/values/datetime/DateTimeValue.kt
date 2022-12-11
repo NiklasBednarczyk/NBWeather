@@ -13,6 +13,21 @@ import java.util.*
 @JvmInline
 value class DateTimeValue private constructor(val value: Long) {
 
+    fun getDateDayOfMonthString(
+        timezoneOffset: TimezoneOffsetValue?,
+        changeForLocale: Boolean = true
+    ): OwmString? {
+        val pattern = DATE_PATTERN_DAY_OF_MONTH
+        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern, changeForLocale))
+    }
+
+    fun getDateWeekdayAbbreviationString(
+        timezoneOffset: TimezoneOffsetValue?,
+    ): OwmString? {
+        val pattern = DATE_PATTERN_WEEKDAY_ABBREVIATION
+        return OwmString.Value.from(getFormattedValue(timezoneOffset, pattern, false))
+    }
+
     fun getDateWeekdayWithDateString(
         timezoneOffset: TimezoneOffsetValue?,
         changeForLocale: Boolean = true
@@ -71,7 +86,9 @@ value class DateTimeValue private constructor(val value: Long) {
 
     companion object {
 
-        private const val DATE_PATTERN_WEEKDAY_WITH_DATE = "EEEE MMM d"
+        private const val DATE_PATTERN_DAY_OF_MONTH = "d"
+        private const val DATE_PATTERN_WEEKDAY_ABBREVIATION = "eeeee"
+        private const val DATE_PATTERN_WEEKDAY_WITH_DATE = "eeee MMM d"
 
         private const val DATE_TIME_PATTERN_HOUR_12 = "MMM d hh:mm a"
         private const val DATE_TIME_PATTERN_HOUR_24 = "MMM d HH:mm"
