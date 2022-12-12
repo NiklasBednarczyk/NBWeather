@@ -92,6 +92,13 @@ class OwmNavigator(
         }
     }
 
+    fun navigateToDaily(forecastTime: Long, latitude: Double?, longitude: Double?) {
+        if (latitude != null && longitude != null) {
+            val route = LocationDestinations.Daily.createRoute(forecastTime, latitude, longitude)
+            navigate(LocationDestinations.Daily, route)
+        }
+    }
+
     fun navigateToHourly(forecastTime: Long, latitude: Double?, longitude: Double?) {
         if (latitude != null && longitude != null) {
             val route = LocationDestinations.Hourly.createRoute(forecastTime, latitude, longitude)

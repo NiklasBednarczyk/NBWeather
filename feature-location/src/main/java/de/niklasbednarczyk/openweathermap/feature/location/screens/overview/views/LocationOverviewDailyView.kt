@@ -32,7 +32,8 @@ private val temperatureTextStyle
 
 @Composable
 fun LocationOverviewDailyView(
-    dailyModels: List<LocationOverviewDailyModel>
+    dailyModels: List<LocationOverviewDailyModel>,
+    navigateToDaily: (Long) -> Unit
 ) {
     val titleStyle = MaterialTheme.typography.titleLarge
 
@@ -57,7 +58,7 @@ fun LocationOverviewDailyView(
                             .width(IntrinsicSize.Max)
                             .height(this@BoxWithConstraints.maxHeight)
                             .clickable {
-                                //TODO (#9) Navigate to dailies screen
+                                navigateToDaily(dailyModel.forecastTime)
                             }
                             .padding(
                                 horizontal = screenHorizontalPadding,

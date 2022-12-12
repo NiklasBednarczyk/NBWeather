@@ -11,18 +11,19 @@ import de.niklasbednarczyk.openweathermap.core.ui.scaffold.OwmScaffold
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.navigationbar.OwmNavigationBar
 import de.niklasbednarczyk.openweathermap.core.ui.scaffold.topappbar.OwmCenterAlignedTopAppBar
 import de.niklasbednarczyk.openweathermap.core.ui.swiperefresh.OwmSwipeRefreshView
+import de.niklasbednarczyk.openweathermap.feature.location.cards.views.LocationCardsView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewDailyView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewHourlyView
-import de.niklasbednarczyk.openweathermap.feature.location.cards.views.LocationCardsView
 
 @Composable
 fun LocationOverviewScreen(
     viewModel: LocationOverviewViewModel = hiltViewModel(),
     navigationIcon: @Composable () -> Unit,
-    navigateToSearch: () -> Unit,
     navigateToAlerts: (Double?, Double?) -> Unit,
-    navigateToHourly: (Long, Double?, Double?) -> Unit
+    navigateToDaily: (Long, Double?, Double?) -> Unit,
+    navigateToHourly: (Long, Double?, Double?) -> Unit,
+    navigateToSearch: () -> Unit
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
@@ -79,7 +80,14 @@ fun LocationOverviewScreen(
                         }
                         LocationOverviewNavigationBarItem.DAILY -> {
                             LocationOverviewDailyView(
-                                dailyModels = viewData.dailyModels
+                                dailyModels = viewData.dailyModels,
+                                navigateToDaily = { forecastTime ->
+                                    navigateToDaily(
+                                        forecastTime,
+                                        location?.latitude,
+                                        location?.longitude
+                                    )
+                                }
                             )
                         }
                     }

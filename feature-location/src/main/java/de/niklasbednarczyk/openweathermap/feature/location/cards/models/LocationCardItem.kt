@@ -10,6 +10,65 @@ sealed interface LocationCardItem : OwmCardItem {
 
     companion object {
 
+        fun forDaily(
+            timezoneOffset: TimezoneOffsetValue?,
+            units: OwmUnitsType,
+            timeFormat: OwmTimeFormatType,
+            dailyForecast: DailyForecastModelData
+        ): List<LocationCardItem> {
+            val items = mutableListOf<LocationCardItem?>()
+
+            items.add(
+                LocationCardOverviewItem.from(
+                    timeFormat = timeFormat,
+                    units = units,
+                    timezoneOffset = timezoneOffset,
+                    temperature = dailyForecast.temperature?.dayTemperature,
+                    feelsLikeTemperature = dailyForecast.feelsLikeTemperature?.dayTemperature,
+                    weather = dailyForecast.weather,
+                    alerts = null,
+                    minutelyForecasts = null
+                )
+            )
+
+            items.add(
+                LocationCardWeatherModel.from(
+                    units = units,
+                    pressure = dailyForecast.pressure,
+                    humidity = dailyForecast.humidity,
+                    dewPointTemperature = dailyForecast.dewPointTemperature,
+                    cloudiness = dailyForecast.cloudiness,
+                    uvIndex = dailyForecast.uvIndex,
+                    visibility = null,
+                    windSpeed = dailyForecast.windSpeed,
+                    windGust = dailyForecast.windGust,
+                    windDegrees = dailyForecast.windDegrees,
+                    rain1hVolume = dailyForecast.rainVolume,
+                    snow1hVolume = dailyForecast.snowVolume,
+                    probabilityOfPrecipitation = dailyForecast.probabilityOfPrecipitation
+                )
+            )
+
+            items.add(
+                LocationCardTemperaturesModel.from(
+                    units = units,
+                    temperature = dailyForecast.temperature,
+                    feelsLikeTemperature = dailyForecast.feelsLikeTemperature
+                )
+            )
+
+            items.add(
+                LocationCardSunAndMoonModel.from(
+                    timeFormat = timeFormat,
+                    timezoneOffset = timezoneOffset,
+                    dailyForecast = dailyForecast
+                )
+            )
+
+            return items.filterNotNull()
+        }
+
+
         fun forHourly(
             timezoneOffset: TimezoneOffsetValue?,
             units: OwmUnitsType,
