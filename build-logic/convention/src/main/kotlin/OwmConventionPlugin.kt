@@ -71,6 +71,8 @@ internal interface OwmConventionPlugin : Plugin<Project> {
                     "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     // Enables material 3 window size class
                     "-opt-in=androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi",
+                    // Enables pager
+                    "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
                     // Enables permissions
                     "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
                     // Enables flatMapLatest

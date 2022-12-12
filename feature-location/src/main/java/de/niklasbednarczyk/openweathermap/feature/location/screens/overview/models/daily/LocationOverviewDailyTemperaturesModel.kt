@@ -29,13 +29,13 @@ data class LocationOverviewDailyTemperaturesModel(
                 temperatureCurrent = minTemperatureCurrent,
                 temperatureValueAll = minTemperatureAll,
                 temperatureDifferenceAll = temperatureDifferenceAll,
-                prefixResId = R.string.screen_location_overview_today_temperatures_threshold_min_title
+                prefixResId = R.string.screen_location_common_temperatures_min
             )
             val maxTemperatureModel = LocationOverviewDailyTemperatureModel.from(
                 temperatureCurrent = maxTemperatureCurrent,
                 temperatureValueAll = maxTemperatureAll,
                 temperatureDifferenceAll = temperatureDifferenceAll,
-                prefixResId = R.string.screen_location_overview_today_temperatures_threshold_max_title
+                prefixResId = R.string.screen_location_common_temperatures_max
             )
 
             return owmNullSafe(

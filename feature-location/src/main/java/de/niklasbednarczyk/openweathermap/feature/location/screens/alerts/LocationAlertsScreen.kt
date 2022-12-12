@@ -37,7 +37,7 @@ fun LocationAlertsScreen(
             OwmTopAppBar(
                 scrollBehavior = scrollBehavior,
                 navigationIcon = navigationIcon,
-                title = OwmString.Resource(R.string.screen_location_alert_overview_title)
+                title = OwmString.Resource(R.string.screen_location_alerts_title)
             )
         }
     ) {

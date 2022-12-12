@@ -14,14 +14,15 @@ import de.niklasbednarczyk.openweathermap.core.ui.swiperefresh.OwmSwipeRefreshVi
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewDailyView
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewHourlyView
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.LocationOverviewTodayView
+import de.niklasbednarczyk.openweathermap.feature.location.cards.views.LocationCardsView
 
 @Composable
 fun LocationOverviewScreen(
     viewModel: LocationOverviewViewModel = hiltViewModel(),
     navigationIcon: @Composable () -> Unit,
     navigateToSearch: () -> Unit,
-    navigateToAlerts: (Double?, Double?) -> Unit
+    navigateToAlerts: (Double?, Double?) -> Unit,
+    navigateToHourly: (Long, Double?, Double?) -> Unit
 ) {
 
     val uiState = viewModel.uiState.collectAsState()
@@ -54,8 +55,8 @@ fun LocationOverviewScreen(
                 ) {
                     when (uiState.value.selectedNavigationBarItem) {
                         LocationOverviewNavigationBarItem.TODAY -> {
-                            LocationOverviewTodayView(
-                                todayItems = viewData.todayItems,
+                            LocationCardsView(
+                                cardItems = viewData.todayCardItems,
                                 navigateToAlerts = {
                                     navigateToAlerts(
                                         location?.latitude,
@@ -66,7 +67,14 @@ fun LocationOverviewScreen(
                         }
                         LocationOverviewNavigationBarItem.HOURLY -> {
                             LocationOverviewHourlyView(
-                                hourlyMap = viewData.hourlyMap
+                                hourlyMap = viewData.hourlyMap,
+                                navigateToHourly = { forecastTime ->
+                                    navigateToHourly(
+                                        forecastTime,
+                                        location?.latitude,
+                                        location?.longitude
+                                    )
+                                }
                             )
                         }
                         LocationOverviewNavigationBarItem.DAILY -> {

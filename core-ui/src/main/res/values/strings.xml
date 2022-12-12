@@ -90,68 +90,74 @@
     <string name="icon_content_description_wind_gust">Wind gust</string>
     <string name="icon_content_description_wind_speed">Wind speed</string>
 
-    <string name="screen_location_alert_overview_title">Alerts</string>
-    <string name="screen_location_overview_today_card_current_weather_title">Current weather</string>
-    <string name="screen_location_overview_today_card_overview_title">Overview</string>
-    <string name="screen_location_overview_today_card_sun_and_moon_title">Sun and moon</string>
-    <string name="screen_location_overview_today_card_temperatures_title">Temperatures</string>
-    <string name="screen_location_overview_today_current_weather_title_cloudiness">Cloudiness</string>
-    <string name="screen_location_overview_today_current_weather_title_dew_point">Dew point</string>
-    <string name="screen_location_overview_today_current_weather_title_humidity">Humidity</string>
-    <string name="screen_location_overview_today_current_weather_title_pressure">Pressure</string>
-    <string name="screen_location_overview_today_current_weather_title_probability_of_precipitation">Precipitation</string>
-    <string name="screen_location_overview_today_current_weather_title_rain">Rain</string>
-    <string name="screen_location_overview_today_current_weather_title_snow">Snow</string>
-    <string name="screen_location_overview_today_current_weather_title_uv_index">UV index</string>
-    <string name="screen_location_overview_today_current_weather_title_visibility">Visibility</string>
-    <string name="screen_location_overview_today_current_weather_title_wind_direction">Wind direction</string>
-    <string name="screen_location_overview_today_current_weather_title_wind_gust">Wind gust</string>
-    <string name="screen_location_overview_today_current_weather_title_wind_speed">Wind speed</string>
-    <string name="screen_location_overview_today_precipitation_text_breaking">A break in precipitation in %1$s minutes</string>
-    <string name="screen_location_overview_today_precipitation_text_ending">Precipitation ending in %1$s minutes</string>
-    <string name="screen_location_overview_today_precipitation_text_full">Precipitation won’t end within an hour</string>
-    <string name="screen_location_overview_today_precipitation_text_none">No precipitation within an hour</string>
-    <string name="screen_location_overview_today_precipitation_text_no_data">No precipitation data found</string>
-    <string name="screen_location_overview_today_precipitation_text_starting">Precipitation starting in %1$s minutes</string>
-    <string name="screen_location_overview_today_sun_and_moon_daylight">Daylight</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase">Moon phase</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_first_quarter_moon">First quarter moon</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_full_moon">Full moon</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_last_quarter_moon">Last quarter moon</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_new_moon">New moon</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_waning_crescent">Waning Crescent</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_waning_gibbous">Waning Gibbous</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_waxing_crescent">Waxing Crescent</string>
-    <string name="screen_location_overview_today_sun_and_moon_moon_phase_waxing_gibbous">Waxing Gibbous</string>
-    <string name="screen_location_overview_today_sun_and_moon_moonrise">Moonrise</string>
-    <string name="screen_location_overview_today_sun_and_moon_moonset">Moonset</string>
-    <string name="screen_location_overview_today_sun_and_moon_sunrise">Sunrise</string>
-    <string name="screen_location_overview_today_sun_and_moon_sunset">Sunset</string>
-    <string name="screen_location_overview_today_temperatures_day_day_title">Day</string>
-    <string name="screen_location_overview_today_temperatures_day_evening_title">Evening</string>
-    <string name="screen_location_overview_today_temperatures_day_morning_title">Morning</string>
-    <string name="screen_location_overview_today_temperatures_day_night_title">Night</string>
-    <string name="screen_location_overview_today_temperatures_threshold_max_title">Max</string>
-    <string name="screen_location_overview_today_temperatures_threshold_min_title">Min</string>
+    <string name="screen_location_alerts_title">Alerts</string>
+
+    <string name="screen_location_card_overview_title">Overview</string>
+    <string name="screen_location_card_overview_value_precipitation_breaking">A break in precipitation in %1$s minutes</string>
+    <string name="screen_location_card_overview_value_precipitation_ending">Precipitation ending in %1$s minutes</string>
+    <string name="screen_location_card_overview_value_precipitation_full">Precipitation won’t end within an hour</string>
+    <string name="screen_location_card_overview_value_precipitation_none">No precipitation within an hour</string>
+    <string name="screen_location_card_overview_value_precipitation_no_data">No precipitation data found</string>
+    <string name="screen_location_card_overview_value_precipitation_starting">Precipitation starting in %1$s minutes</string>
+
+    <string name="screen_location_card_weather_title">Weather</string>
+    <string name="screen_location_card_weather_value_cloudiness">Cloudiness</string>
+    <string name="screen_location_card_weather_value_dew_point">Dew point</string>
+    <string name="screen_location_card_weather_value_humidity">Humidity</string>
+    <string name="screen_location_card_weather_value_pressure">Pressure</string>
+    <string name="screen_location_card_weather_value_probability_of_precipitation">Precipitation</string>
+    <string name="screen_location_card_weather_value_rain">Rain</string>
+    <string name="screen_location_card_weather_value_snow">Snow</string>
+    <string name="screen_location_card_weather_value_uv_index">UV index</string>
+    <string name="screen_location_card_weather_value_visibility">Visibility</string>
+    <string name="screen_location_card_weather_value_wind_direction">Wind direction</string>
+    <string name="screen_location_card_weather_value_wind_gust">Wind gust</string>
+    <string name="screen_location_card_weather_value_wind_speed">Wind speed</string>
+
+    <string name="screen_location_card_sun_and_moon_title">Sun and moon</string>
+    <string name="screen_location_card_sun_and_moon_value_daylight">Daylight</string>
+    <string name="screen_location_card_sun_and_moon_value_moon_phase">Moon phase</string>
+    <string name="screen_location_card_sun_and_moon_value_moonrise">Moonrise</string>
+    <string name="screen_location_card_sun_and_moon_value_moonset">Moonset</string>
+    <string name="screen_location_card_sun_and_moon_value_sunrise">Sunrise</string>
+    <string name="screen_location_card_sun_and_moon_value_sunset">Sunset</string>
+
+    <string name="screen_location_card_temperatures_title">Temperatures</string>
+    <string name="screen_location_card_temperatures_value_day">Day</string>
+    <string name="screen_location_card_temperatures_value_evening">Evening</string>
+    <string name="screen_location_card_temperatures_value_morning">Morning</string>
+    <string name="screen_location_card_temperatures_value_night">Night</string>
+
+    <string name="screen_location_common_moon_phase_first_quarter_moon">First quarter moon</string>
+    <string name="screen_location_common_moon_phase_full_moon">Full moon</string>
+    <string name="screen_location_common_moon_phase_last_quarter_moon">Last quarter moon</string>
+    <string name="screen_location_common_moon_phase_new_moon">New moon</string>
+    <string name="screen_location_common_moon_phase_waning_crescent">Waning Crescent</string>
+    <string name="screen_location_common_moon_phase_waning_gibbous">Waning Gibbous</string>
+    <string name="screen_location_common_moon_phase_waxing_crescent">Waxing Crescent</string>
+    <string name="screen_location_common_moon_phase_waxing_gibbous">Waxing Gibbous</string>
+    <string name="screen_location_common_temperatures_max">Max</string>
+    <string name="screen_location_common_temperatures_min">Min</string>
+    <string name="screen_location_common_wind_degrees_e">E</string>
+    <string name="screen_location_common_wind_degrees_ene">ENE</string>
+    <string name="screen_location_common_wind_degrees_ese">ESE</string>
+    <string name="screen_location_common_wind_degrees_n">N</string>
+    <string name="screen_location_common_wind_degrees_ne">NE</string>
+    <string name="screen_location_common_wind_degrees_nne">NNE</string>
+    <string name="screen_location_common_wind_degrees_nnw">NNW</string>
+    <string name="screen_location_common_wind_degrees_nw">NW</string>
+    <string name="screen_location_common_wind_degrees_s">S</string>
+    <string name="screen_location_common_wind_degrees_se">SE</string>
+    <string name="screen_location_common_wind_degrees_sse">SSE</string>
+    <string name="screen_location_common_wind_degrees_ssw">SSW</string>
+    <string name="screen_location_common_wind_degrees_sw">SW</string>
+    <string name="screen_location_common_wind_degrees_w">W</string>
+    <string name="screen_location_common_wind_degrees_wnw">WNW</string>
+    <string name="screen_location_common_wind_degrees_wsw">WSW</string>
+
     <string name="screen_location_overview_tab_daily">Daily</string>
     <string name="screen_location_overview_tab_hourly">Hourly</string>
     <string name="screen_location_overview_tab_today">Today</string>
-    <string name="screen_location_wind_degrees_value_e">E</string>
-    <string name="screen_location_wind_degrees_value_ene">ENE</string>
-    <string name="screen_location_wind_degrees_value_ese">ESE</string>
-    <string name="screen_location_wind_degrees_value_n">N</string>
-    <string name="screen_location_wind_degrees_value_ne">NE</string>
-    <string name="screen_location_wind_degrees_value_nne">NNE</string>
-    <string name="screen_location_wind_degrees_value_nnw">NNW</string>
-    <string name="screen_location_wind_degrees_value_nw">NW</string>
-    <string name="screen_location_wind_degrees_value_s">S</string>
-    <string name="screen_location_wind_degrees_value_se">SE</string>
-    <string name="screen_location_wind_degrees_value_sse">SSE</string>
-    <string name="screen_location_wind_degrees_value_ssw">SSW</string>
-    <string name="screen_location_wind_degrees_value_sw">SW</string>
-    <string name="screen_location_wind_degrees_value_w">W</string>
-    <string name="screen_location_wind_degrees_value_wnw">WNW</string>
-    <string name="screen_location_wind_degrees_value_wsw">WSW</string>
 
     <string name="screen_search_overview_search_no_results">No locations found</string>
 
@@ -162,6 +168,7 @@
     <string name="screen_settings_color_scheme_value_magenta">Magenta</string>
     <string name="screen_settings_color_scheme_value_red">Red</string>
     <string name="screen_settings_color_scheme_value_yellow">Yellow</string>
+
     <string name="screen_settings_language_title">Language</string>
     <string name="screen_settings_language_value_afrikaans">Afrikaans</string>
     <string name="screen_settings_language_value_albanian">Albanian</string>
@@ -209,16 +216,20 @@
     <string name="screen_settings_language_value_ukrainian">Ukrainian</string>
     <string name="screen_settings_language_value_vietnamese">Vietnamese</string>
     <string name="screen_settings_language_value_zulu">Zulu</string>
+
     <string name="screen_settings_overview_header_appearance">Appearance</string>
     <string name="screen_settings_overview_header_data">Data</string>
     <string name="screen_settings_overview_title">Settings</string>
+
     <string name="screen_settings_theme_title">Theme</string>
     <string name="screen_settings_theme_value_dark">Dark</string>
     <string name="screen_settings_theme_value_light">Light</string>
     <string name="screen_settings_theme_value_system_default">System default</string>
+
     <string name="screen_settings_time_format_title">Time format</string>
     <string name="screen_settings_time_format_value_hour_12">12-hour format</string>
     <string name="screen_settings_time_format_value_hour_24">24-hour format</string>
+
     <string name="screen_settings_units_title">Units</string>
     <string name="screen_settings_units_value_imperial">Imperial (°F, mph)</string>
     <string name="screen_settings_units_value_metric">Metric (°C, m/s)</string>

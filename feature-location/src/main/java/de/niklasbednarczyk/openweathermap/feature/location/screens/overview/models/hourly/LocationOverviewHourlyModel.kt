@@ -13,7 +13,7 @@ import de.niklasbednarczyk.openweathermap.feature.location.extensions.probabilit
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.temperatureWithFeelsLikeValue
 
 data class LocationOverviewHourlyModel(
-    val forecastTimeValue: Long,
+    val forecastTime: Long,
     val itemsCompact: List<OwmGridItem?>,
     val itemsMedium: List<OwmGridItem?>,
     val itemsExpanded: List<OwmGridItem?>
@@ -169,7 +169,7 @@ data class LocationOverviewHourlyModel(
                             hourlyForecast.forecastTime?.value,
                         ) { forecastTime ->
                             LocationOverviewHourlyModel(
-                                forecastTimeValue = forecastTime,
+                                forecastTime = forecastTime,
                                 itemsCompact = itemsCompact,
                                 itemsMedium = itemsMedium,
                                 itemsExpanded = itemsExpanded

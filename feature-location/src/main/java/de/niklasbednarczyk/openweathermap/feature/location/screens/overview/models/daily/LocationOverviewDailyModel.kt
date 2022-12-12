@@ -10,7 +10,7 @@ import de.niklasbednarczyk.openweathermap.feature.location.extensions.probabilit
 import kotlin.math.abs
 
 data class LocationOverviewDailyModel(
-    val forecastTimeValue: Long,
+    val forecastTime: Long,
     val weekday: OwmString?,
     val dayOfMonth: OwmString?,
     val weatherIcon: OwmIconModel,
@@ -58,9 +58,9 @@ data class LocationOverviewDailyModel(
                     weatherIcon,
                     temperatures,
                     probabilityOfPrecipitation,
-                ) { forecastTimeValue, wIcon, temp, pop ->
+                ) { forecastTime, wIcon, temp, pop ->
                     LocationOverviewDailyModel(
-                        forecastTimeValue = forecastTimeValue,
+                        forecastTime = forecastTime,
                         weekday = weekday,
                         dayOfMonth = dayOfMonth,
                         weatherIcon = wIcon,

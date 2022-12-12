@@ -1,12 +1,10 @@
-package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview
+package de.niklasbednarczyk.openweathermap.feature.location.cards.models.overview
 
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.R
 import de.niklasbednarczyk.openweathermap.data.onecall.models.NationalWeatherAlertModelData
-import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayItem
 
-data class LocationOverviewTodayOverviewAlertModel(
+data class LocationCardOverviewAlertModel(
     val text: OwmString?,
     val moreAlerts: OwmString?
 ) {
@@ -15,12 +13,12 @@ data class LocationOverviewTodayOverviewAlertModel(
 
         fun from(
             alerts: List<NationalWeatherAlertModelData>
-        ): LocationOverviewTodayOverviewAlertModel? {
+        ): LocationCardOverviewAlertModel? {
             val size = alerts.size
             val text = alerts.firstOrNull()?.eventName ?: return null
             return when (size) {
                 0 -> null
-                1 -> LocationOverviewTodayOverviewAlertModel(
+                1 -> LocationCardOverviewAlertModel(
                     text = text,
                     moreAlerts = null,
                 )
@@ -30,7 +28,7 @@ data class LocationOverviewTodayOverviewAlertModel(
                         R.string.format_plus_prefix,
                         moreAlertsNo
                     )
-                    LocationOverviewTodayOverviewAlertModel(
+                    LocationCardOverviewAlertModel(
                         text = text,
                         moreAlerts = moreAlerts
                     )

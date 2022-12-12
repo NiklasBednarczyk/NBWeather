@@ -50,6 +50,7 @@ class LocationAlertsViewModel @Inject constructor(
     ): Flow<OwmResource<List<LocationAlertModel>>> {
         return if (latitude != null && longitude != null) {
             oneCallRepository.getOneCallLocal(latitude, longitude).mapResource { oneCall ->
+                if (oneCall == null) return@mapResource null
                 LocationAlertModel.from(oneCall, timeFormat)
             }
         } else {

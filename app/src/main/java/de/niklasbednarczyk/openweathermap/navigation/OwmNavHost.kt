@@ -44,7 +44,8 @@ fun OwmNavHost(
             navigateToSearch = {
                 navigator.navigateToDestination(SearchDestinations.Overview)
             },
-            navigateToAlerts = navigator::navigateToAlerts
+            navigateToAlerts = navigator::navigateToAlerts,
+            navigateToHourly = navigator::navigateToHourly
         )
         searchGraph(
             navigationIconBack = navigationIconBack,

@@ -11,34 +11,34 @@ import de.niklasbednarczyk.openweathermap.data.onecall.values.winddegrees.WindDe
 val MoonPhaseType.displayText: OwmString
     get() {
         val resId = when (this) {
-            MoonPhaseType.NEW_MOON -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_new_moon
+            MoonPhaseType.NEW_MOON -> R.string.screen_location_common_moon_phase_new_moon
             MoonPhaseType.WAXING_CRESCENT_1,
             MoonPhaseType.WAXING_CRESCENT_2,
             MoonPhaseType.WAXING_CRESCENT_3,
             MoonPhaseType.WAXING_CRESCENT_4,
             MoonPhaseType.WAXING_CRESCENT_5,
-            MoonPhaseType.WAXING_CRESCENT_6 -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_waxing_crescent
-            MoonPhaseType.FIRST_QUARTER_MOON -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_first_quarter_moon
+            MoonPhaseType.WAXING_CRESCENT_6 -> R.string.screen_location_common_moon_phase_waxing_crescent
+            MoonPhaseType.FIRST_QUARTER_MOON -> R.string.screen_location_common_moon_phase_first_quarter_moon
             MoonPhaseType.WAXING_GIBBOUS_1,
             MoonPhaseType.WAXING_GIBBOUS_2,
             MoonPhaseType.WAXING_GIBBOUS_3,
             MoonPhaseType.WAXING_GIBBOUS_4,
             MoonPhaseType.WAXING_GIBBOUS_5,
-            MoonPhaseType.WAXING_GIBBOUS_6 -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_waxing_gibbous
-            MoonPhaseType.FULL_MOON -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_full_moon
+            MoonPhaseType.WAXING_GIBBOUS_6 -> R.string.screen_location_common_moon_phase_waxing_gibbous
+            MoonPhaseType.FULL_MOON -> R.string.screen_location_common_moon_phase_full_moon
             MoonPhaseType.WANING_GIBBOUS_1,
             MoonPhaseType.WANING_GIBBOUS_2,
             MoonPhaseType.WANING_GIBBOUS_3,
             MoonPhaseType.WANING_GIBBOUS_4,
             MoonPhaseType.WANING_GIBBOUS_5,
-            MoonPhaseType.WANING_GIBBOUS_6 -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_waning_gibbous
-            MoonPhaseType.LAST_QUARTER_MOON -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_last_quarter_moon
+            MoonPhaseType.WANING_GIBBOUS_6 -> R.string.screen_location_common_moon_phase_waning_gibbous
+            MoonPhaseType.LAST_QUARTER_MOON -> R.string.screen_location_common_moon_phase_last_quarter_moon
             MoonPhaseType.WANING_CRESCENT_1,
             MoonPhaseType.WANING_CRESCENT_2,
             MoonPhaseType.WANING_CRESCENT_3,
             MoonPhaseType.WANING_CRESCENT_4,
             MoonPhaseType.WANING_CRESCENT_5,
-            MoonPhaseType.WANING_CRESCENT_6 -> R.string.screen_location_overview_today_sun_and_moon_moon_phase_waning_crescent
+            MoonPhaseType.WANING_CRESCENT_6 -> R.string.screen_location_common_moon_phase_waning_crescent
         }
         return OwmString.Resource(resId)
     }
@@ -100,22 +100,22 @@ val WeatherIconType.icon: OwmIconModel
 val WindDegreesType.displayText: OwmString
     get() {
         val resId = when (this) {
-            WindDegreesType.N -> R.string.screen_location_wind_degrees_value_n
-            WindDegreesType.NNE -> R.string.screen_location_wind_degrees_value_nne
-            WindDegreesType.NE -> R.string.screen_location_wind_degrees_value_ne
-            WindDegreesType.ENE -> R.string.screen_location_wind_degrees_value_ene
-            WindDegreesType.E -> R.string.screen_location_wind_degrees_value_e
-            WindDegreesType.ESE -> R.string.screen_location_wind_degrees_value_ese
-            WindDegreesType.SE -> R.string.screen_location_wind_degrees_value_se
-            WindDegreesType.SSE -> R.string.screen_location_wind_degrees_value_sse
-            WindDegreesType.S -> R.string.screen_location_wind_degrees_value_s
-            WindDegreesType.SSW -> R.string.screen_location_wind_degrees_value_ssw
-            WindDegreesType.SW -> R.string.screen_location_wind_degrees_value_sw
-            WindDegreesType.WSW -> R.string.screen_location_wind_degrees_value_wsw
-            WindDegreesType.W -> R.string.screen_location_wind_degrees_value_w
-            WindDegreesType.WNW -> R.string.screen_location_wind_degrees_value_wnw
-            WindDegreesType.NW -> R.string.screen_location_wind_degrees_value_nw
-            WindDegreesType.NNW -> R.string.screen_location_wind_degrees_value_nnw
+            WindDegreesType.N -> R.string.screen_location_common_wind_degrees_n
+            WindDegreesType.NNE -> R.string.screen_location_common_wind_degrees_nne
+            WindDegreesType.NE -> R.string.screen_location_common_wind_degrees_ne
+            WindDegreesType.ENE -> R.string.screen_location_common_wind_degrees_ene
+            WindDegreesType.E -> R.string.screen_location_common_wind_degrees_e
+            WindDegreesType.ESE -> R.string.screen_location_common_wind_degrees_ese
+            WindDegreesType.SE -> R.string.screen_location_common_wind_degrees_se
+            WindDegreesType.SSE -> R.string.screen_location_common_wind_degrees_sse
+            WindDegreesType.S -> R.string.screen_location_common_wind_degrees_s
+            WindDegreesType.SSW -> R.string.screen_location_common_wind_degrees_ssw
+            WindDegreesType.SW -> R.string.screen_location_common_wind_degrees_sw
+            WindDegreesType.WSW -> R.string.screen_location_common_wind_degrees_wsw
+            WindDegreesType.W -> R.string.screen_location_common_wind_degrees_w
+            WindDegreesType.WNW -> R.string.screen_location_common_wind_degrees_wnw
+            WindDegreesType.NW -> R.string.screen_location_common_wind_degrees_nw
+            WindDegreesType.NNW -> R.string.screen_location_common_wind_degrees_nnw
         }
         return OwmString.Resource(resId)
     }

@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.views.today
+package de.niklasbednarczyk.openweathermap.feature.location.cards.views.card
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
@@ -26,9 +26,9 @@ import de.niklasbednarczyk.openweathermap.core.ui.text.owmCombinedString
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementDefaultDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.openweathermap.core.ui.theme.customcolors.OwmCustomColors
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayOverviewModel
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview.LocationOverviewTodayOverviewAlertModel
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.overview.LocationOverviewTodayOverviewWeatherModel
+import de.niklasbednarczyk.openweathermap.feature.location.cards.models.LocationCardOverviewItem
+import de.niklasbednarczyk.openweathermap.feature.location.cards.models.overview.LocationCardOverviewAlertModel
+import de.niklasbednarczyk.openweathermap.feature.location.cards.models.overview.LocationCardOverviewWeatherModel
 import kotlin.math.max
 
 private val innerPadding = 32.dp
@@ -36,13 +36,49 @@ private val precipitationMarkerLength = 24.dp
 private val timeMarkerLength = precipitationMarkerLength / 2
 
 @Composable
-fun LocationOverviewTodayOverviewView(
-    overview: LocationOverviewTodayOverviewModel,
-    navigateToAlerts: () -> Unit,
+fun LocationCardOverviewView(
+    overviewItem: LocationCardOverviewItem,
+    navigateToAlerts: (() -> Unit)?,
+) {
+    when (overviewItem) {
+        is LocationCardOverviewItem.JustWeather -> {
+            JustWeather(
+                weather = overviewItem.weather
+            )
+        }
+        is LocationCardOverviewItem.WithAlertsAndPrecipitation -> {
+            if (navigateToAlerts != null) {
+                WithAlertsAndPrecipitation(
+                    model = overviewItem,
+                    navigateToAlerts = navigateToAlerts
+                )
+            } else {
+                JustWeather(
+                    weather = overviewItem.weather
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun JustWeather(
+    weather: LocationCardOverviewWeatherModel,
+) {
+    Weather(
+        modifier = Modifier.fillMaxWidth(),
+        weather = weather
+    )
+}
+
+@Composable
+private fun WithAlertsAndPrecipitation(
+    model: LocationCardOverviewItem.WithAlertsAndPrecipitation,
+    navigateToAlerts: () -> Unit
 ) {
     var innerSize by remember { mutableStateOf<IntSize?>(null) }
 
-    val showPrecipitationCircle = overview.precipitation.factors.isNotEmpty()
+    val showPrecipitationCircle = model.precipitation.factors.isNotEmpty()
 
     val weatherPaddingModifier = if (showPrecipitationCircle) {
         Modifier.padding(innerPadding + precipitationMarkerLength + timeMarkerLength)
@@ -54,7 +90,7 @@ fun LocationOverviewTodayOverviewView(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val alert = overview.alert
+        val alert = model.alert
         if (alert != null) {
             Alert(
                 alert = alert,
@@ -63,14 +99,14 @@ fun LocationOverviewTodayOverviewView(
             Spacer(modifier = Modifier.height(columnVerticalArrangementDefaultDp))
         }
         Text(
-            text = overview.precipitation.headline.asString(),
+            text = model.precipitation.headline.asString(),
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(
             modifier = Modifier.height(columnVerticalArrangementSmallDp)
         )
         Text(
-            text = overview.precipitation.currentTime.asString(),
+            text = model.precipitation.currentTime.asString(),
             style = MaterialTheme.typography.titleSmall
         )
         Box(
@@ -79,9 +115,9 @@ fun LocationOverviewTodayOverviewView(
             PrecipitationCircle(
                 modifier = Modifier.align(Alignment.Center),
                 innerSize = innerSize,
-                factors = overview.precipitation.factors,
+                factors = model.precipitation.factors,
                 showPrecipitationCircle = showPrecipitationCircle,
-                showTimeMarker = overview.precipitation.currentTime != null,
+                showTimeMarker = model.precipitation.currentTime != null,
             )
             Weather(
                 modifier = Modifier
@@ -90,7 +126,7 @@ fun LocationOverviewTodayOverviewView(
                     .onGloballyPositioned { layoutCoordinates ->
                         innerSize = layoutCoordinates.size
                     },
-                weather = overview.weather
+                weather = model.weather
             )
         }
     }
@@ -98,7 +134,7 @@ fun LocationOverviewTodayOverviewView(
 
 @Composable
 private fun Alert(
-    alert: LocationOverviewTodayOverviewAlertModel,
+    alert: LocationCardOverviewAlertModel,
     navigateToAlerts: () -> Unit
 ) {
     ListItem(
@@ -126,7 +162,7 @@ private fun Alert(
 @Composable
 private fun Weather(
     modifier: Modifier = Modifier,
-    weather: LocationOverviewTodayOverviewWeatherModel
+    weather: LocationCardOverviewWeatherModel
 ) {
     Column(
         modifier = modifier.width(IntrinsicSize.Max),
@@ -144,7 +180,7 @@ private fun Weather(
         )
         Text(
             text = owmCombinedString(
-                weather.currentTemperature,
+                weather.temperature,
                 weather.temperatureUnit,
                 separator = "",
             ).asString(),

@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today
+package de.niklasbednarczyk.openweathermap.feature.location.cards.models
 
 import de.niklasbednarczyk.openweathermap.core.common.data.OwmTimeFormatType
 import de.niklasbednarczyk.openweathermap.core.common.nullsafe.owmNullSafe
@@ -9,35 +9,37 @@ import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueIconModel.Compa
 import de.niklasbednarczyk.openweathermap.core.ui.grid.OwmGridItem
 import de.niklasbednarczyk.openweathermap.core.ui.values.OwmValueItem
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcons
+import de.niklasbednarczyk.openweathermap.data.onecall.models.DailyForecastModelData
 import de.niklasbednarczyk.openweathermap.data.onecall.models.OneCallModelData
+import de.niklasbednarczyk.openweathermap.data.onecall.values.datetime.TimezoneOffsetValue
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.displayText
 import de.niklasbednarczyk.openweathermap.feature.location.extensions.icon
 
-data class LocationOverviewTodaySunAndMoonModel(
+data class LocationCardSunAndMoonModel(
     override val cardTitle: OwmString?,
     val sunItems: List<OwmGridItem?>,
     val moonItems: List<OwmGridItem?>
-) : LocationOverviewTodayItem {
+) : LocationCardItem {
 
     companion object {
 
 
         fun from(
-            oneCall: OneCallModelData,
-            timeFormat: OwmTimeFormatType
-        ): LocationOverviewTodaySunAndMoonModel? {
+            timeFormat: OwmTimeFormatType,
+            timezoneOffset: TimezoneOffsetValue?,
+            dailyForecast: DailyForecastModelData?
+        ): LocationCardSunAndMoonModel? {
             val cardTitle =
-                OwmString.Resource(R.string.screen_location_overview_today_card_sun_and_moon_title)
+                OwmString.Resource(R.string.screen_location_card_sun_and_moon_title)
 
-            val today = oneCall.today ?: return null
-            val timezoneOffset = oneCall.metadata.timezoneOffset
+            if (dailyForecast == null) return null
 
             val sunItems = mutableListOf<OwmGridItem?>()
 
             sunItems.add(
-                owmNullSafe(today.sunrise) { sunrise ->
+                owmNullSafe(dailyForecast.sunrise) { sunrise ->
                     OwmGridItem.ThreeLines(
-                        title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_sunrise),
+                        title = OwmString.Resource(R.string.screen_location_card_sun_and_moon_value_sunrise),
                         valueIcon = OwmIcons.Sunrise.toValueIcon(),
                         value = OwmValueItem.Texts(
                             sunrise.getTimeString(timezoneOffset, timeFormat)
@@ -47,9 +49,9 @@ data class LocationOverviewTodaySunAndMoonModel(
             )
 
             sunItems.add(
-                owmNullSafe(today.daylight) { daylight ->
+                owmNullSafe(dailyForecast.daylight) { daylight ->
                     OwmGridItem.ThreeLines(
-                        title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_daylight),
+                        title = OwmString.Resource(R.string.screen_location_card_sun_and_moon_value_daylight),
                         valueIcon = OwmIcons.Daylight.toValueIcon(),
                         value = OwmValueItem.Texts(
                             daylight
@@ -59,9 +61,9 @@ data class LocationOverviewTodaySunAndMoonModel(
             )
 
             sunItems.add(
-                owmNullSafe(today.sunset) { sunset ->
+                owmNullSafe(dailyForecast.sunset) { sunset ->
                     OwmGridItem.ThreeLines(
-                        title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_sunset),
+                        title = OwmString.Resource(R.string.screen_location_card_sun_and_moon_value_sunset),
                         valueIcon = OwmIcons.Sunset.toValueIcon(),
                         value = OwmValueItem.Texts(
                             sunset.getTimeString(timezoneOffset, timeFormat)
@@ -73,9 +75,9 @@ data class LocationOverviewTodaySunAndMoonModel(
             val moonItems = mutableListOf<OwmGridItem?>()
 
             moonItems.add(
-                owmNullSafe(today.moonrise) { sunrise ->
+                owmNullSafe(dailyForecast.moonrise) { sunrise ->
                     OwmGridItem.ThreeLines(
-                        title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moonrise),
+                        title = OwmString.Resource(R.string.screen_location_card_sun_and_moon_value_moonrise),
                         valueIcon = OwmIcons.Sunrise.toValueIcon(),
                         value = OwmValueItem.Texts(
                             sunrise.getTimeString(timezoneOffset, timeFormat)
@@ -86,9 +88,9 @@ data class LocationOverviewTodaySunAndMoonModel(
             )
 
             moonItems.add(
-                owmNullSafe(today.moonPhase?.type) { moonPhaseType ->
+                owmNullSafe(dailyForecast.moonPhase?.type) { moonPhaseType ->
                     OwmGridItem.ThreeLines(
-                        title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moon_phase),
+                        title = OwmString.Resource(R.string.screen_location_card_sun_and_moon_value_moon_phase),
                         valueIcon = moonPhaseType.icon.toValueIcon(),
                         value = OwmValueItem.Texts(
                             moonPhaseType.displayText
@@ -99,9 +101,9 @@ data class LocationOverviewTodaySunAndMoonModel(
             )
 
             moonItems.add(
-                owmNullSafe(today.moonset) { moonset ->
+                owmNullSafe(dailyForecast.moonset) { moonset ->
                     OwmGridItem.ThreeLines(
-                        title = OwmString.Resource(R.string.screen_location_overview_today_sun_and_moon_moonset),
+                        title = OwmString.Resource(R.string.screen_location_card_sun_and_moon_value_moonset),
                         valueIcon = OwmIcons.Sunrise.toValueIcon(),
                         value = OwmValueItem.Texts(
                             moonset.getTimeString(timezoneOffset, timeFormat)
@@ -114,7 +116,7 @@ data class LocationOverviewTodaySunAndMoonModel(
                 sunItems,
                 moonItems
             ) { sItems, mItems ->
-                LocationOverviewTodaySunAndMoonModel(
+                LocationCardSunAndMoonModel(
                     cardTitle = cardTitle,
                     sunItems = sItems,
                     moonItems = mItems

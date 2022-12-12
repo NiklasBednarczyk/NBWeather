@@ -12,12 +12,12 @@ import de.niklasbednarczyk.openweathermap.data.geocoding.models.LocationModelDat
 import de.niklasbednarczyk.openweathermap.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.openweathermap.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.openweathermap.data.settings.repositories.SettingsDataRepository
+import de.niklasbednarczyk.openweathermap.feature.location.cards.models.LocationCardItem
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.LocationOverviewViewData
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.daily.LocationOverviewDailyModel
 import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.hourly.LocationOverviewHourlyModel
-import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.models.today.LocationOverviewTodayItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
@@ -48,9 +48,14 @@ class LocationOverviewViewModel @Inject constructor(
                     oneCallRepository.getOneCall(latitude, longitude, language, units, forceUpdate)
                         .mapResource { oneCall ->
                             LocationOverviewViewData(
-                                todayItems = LocationOverviewTodayItem.from(
-                                    oneCall = oneCall,
-                                    timeFormat = timeFormat
+                                todayCardItems = LocationCardItem.forToday(
+                                    timeFormat = timeFormat,
+                                    timezoneOffset = oneCall.metadata.timezoneOffset,
+                                    units = oneCall.metadata.units,
+                                    currentWeather = oneCall.currentWeather,
+                                    today = oneCall.today,
+                                    alerts = oneCall.nationalWeatherAlerts,
+                                    minutelyForecasts = oneCall.minutelyForecasts
                                 ),
                                 hourlyMap = LocationOverviewHourlyModel.from(
                                     oneCall = oneCall,

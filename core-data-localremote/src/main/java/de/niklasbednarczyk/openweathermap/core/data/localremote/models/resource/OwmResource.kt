@@ -27,7 +27,7 @@ sealed interface OwmResource<out T> {
     companion object {
 
         fun <T, R> Flow<OwmResource<T>>.mapResource(
-            mapData: (oldData: T) -> R
+            mapData: (oldData: T) -> R?
         ): Flow<OwmResource<R>> {
             return this.map { resource ->
                 resource.map(mapData)

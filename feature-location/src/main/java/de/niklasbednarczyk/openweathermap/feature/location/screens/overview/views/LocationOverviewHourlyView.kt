@@ -14,7 +14,8 @@ import de.niklasbednarczyk.openweathermap.feature.location.screens.overview.mode
 
 @Composable
 fun LocationOverviewHourlyView(
-    hourlyMap: Map<OwmString?, List<LocationOverviewHourlyModel>>
+    hourlyMap: Map<OwmString?, List<LocationOverviewHourlyModel>>,
+    navigateToHourly: (Long) -> Unit
 ) {
     val widthSizeClass = getWidthSizeClass()
 
@@ -28,7 +29,7 @@ fun LocationOverviewHourlyView(
         OwmGridRow(
             modifier = Modifier
                 .clickable {
-                    //TODO (#9) Navigate to hours screen
+                    navigateToHourly(hourly.forecastTime)
                 }
                 .padding(listItemPaddingValuesVerticalOneLine),
             items = items
