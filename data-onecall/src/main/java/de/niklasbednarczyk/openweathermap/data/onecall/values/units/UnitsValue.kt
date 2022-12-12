@@ -6,6 +6,10 @@ import java.text.DecimalFormat
 
 sealed interface UnitsValue {
 
+    companion object {
+        private val REGEX_NEGATIVE_ZERO = Regex("^-(?=0(\\.0*)?$)")
+    }
+
     val value: Number
 
     val roundingType: RoundingType
@@ -17,7 +21,8 @@ sealed interface UnitsValue {
                 RoundingType.ONE_DIGIT -> "#,##0.0"
             }
             val decimalFormat = DecimalFormat(pattern)
-            return decimalFormat.format(value)
+            val formattedValue = decimalFormat.format(value)
+            return formattedValue.replace(REGEX_NEGATIVE_ZERO, "")
         }
 
     val roundedValue: Double?

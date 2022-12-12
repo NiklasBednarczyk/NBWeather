@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
@@ -40,55 +42,66 @@ fun LocationOverviewDailyView(
 
     val heightSizeClass = getHeightSizeClass()
 
-    LazyRow(
-        contentPadding = listContentPaddingValuesHorizontal
-    ) {
-        items(dailyModels) { dailyModel ->
-            Column(
-                modifier = Modifier
-                    .width(IntrinsicSize.Max)
-                    .clickable {
-                        //TODO (#9) Navigate to dailies screen
-                    }
-                    .padding(
-                        horizontal = screenHorizontalPadding,
-                        vertical = screenVerticalPadding
-                    ),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = columnVerticalArrangementSmall
+    BoxWithConstraints {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            LazyRow(
+                contentPadding = listContentPaddingValuesHorizontal
             ) {
-                Text(
-                    modifier = itemModifier,
-                    text = dailyModel.weekday.asString(),
-                    style = titleStyle,
-                    textAlign = textAlign
-                )
-                ColumnSpacer()
-                Text(
-                    modifier = itemModifier,
-                    text = dailyModel.dayOfMonth.asString(),
-                    style = titleStyle,
-                    textAlign = textAlign
-                )
-                ColumnSpacer()
-                OwmIcon(
-                    modifier = itemModifier,
-                    icon = dailyModel.weatherIcon
-                )
-                ColumnSpacer()
-                Temperatures(
-                    modifier = itemModifier.weight(1f),
-                    heightSizeClass = heightSizeClass,
-                    temperatures = dailyModel.temperatures
-                )
-                ColumnSpacer()
-                OwmValueView(
-                    modifier = itemModifier,
-                    value = dailyModel.probabilityOfPrecipitation
-                )
+                items(dailyModels) { dailyModel ->
+                    Column(
+                        modifier = Modifier
+                            .width(IntrinsicSize.Max)
+                            .height(this@BoxWithConstraints.maxHeight)
+                            .clickable {
+                                //TODO (#9) Navigate to dailies screen
+                            }
+                            .padding(
+                                horizontal = screenHorizontalPadding,
+                                vertical = screenVerticalPadding
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = columnVerticalArrangementSmall
+                    ) {
+                        Text(
+                            modifier = itemModifier,
+                            text = dailyModel.weekday.asString(),
+                            style = titleStyle,
+                            textAlign = textAlign
+                        )
+                        ColumnSpacer()
+                        Text(
+                            modifier = itemModifier,
+                            text = dailyModel.dayOfMonth.asString(),
+                            style = titleStyle,
+                            textAlign = textAlign
+                        )
+                        ColumnSpacer()
+                        OwmIcon(
+                            modifier = itemModifier,
+                            icon = dailyModel.weatherIcon
+                        )
+                        ColumnSpacer()
+                        Temperatures(
+                            modifier = itemModifier.weight(1f),
+                            heightSizeClass = heightSizeClass,
+                            temperatures = dailyModel.temperatures
+                        )
+                        ColumnSpacer()
+                        OwmValueView(
+                            modifier = itemModifier,
+                            value = dailyModel.probabilityOfPrecipitation
+                        )
+                    }
+                }
             }
         }
     }
+
+
 }
 
 @Composable
