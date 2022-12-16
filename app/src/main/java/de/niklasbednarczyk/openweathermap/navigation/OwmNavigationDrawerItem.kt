@@ -6,9 +6,11 @@ import de.niklasbednarczyk.openweathermap.core.ui.navigation.OwmNavigationDestin
 
 sealed interface OwmNavigationDrawerItem {
 
-    // TODO (#20) Add header with app icon
-
     object Divider : OwmNavigationDrawerItem
+
+    data class Headline(
+        val label: OwmString?
+    ) : OwmNavigationDrawerItem
 
     sealed interface Item : OwmNavigationDrawerItem {
         val label: OwmString?
@@ -27,7 +29,7 @@ sealed interface OwmNavigationDrawerItem {
             override val label: OwmString?,
             override val icon: OwmIconModel,
             val destination: OwmNavigationDestination
-        ): Item {
+        ) : Item {
             override val selected: Boolean
                 get() = false
         }

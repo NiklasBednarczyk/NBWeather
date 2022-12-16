@@ -23,6 +23,10 @@ class OwmAppViewModel @Inject constructor(
     settingsDataRepository: SettingsDataRepository
 ) : OwmViewModel<OwmAppUiState>(OwmAppUiState()) {
 
+    private val headline = OwmNavigationDrawerItem.Headline(
+        label = OwmString.Resource(de.niklasbednarczyk.openweathermap.R.string.app_name)
+    )
+
     private val settingsItem = OwmNavigationDrawerItem.Item.Other(
         label = OwmString.Resource(R.string.screen_settings_overview_title),
         icon = OwmIcons.Settings,
@@ -37,6 +41,8 @@ class OwmAppViewModel @Inject constructor(
                 geocodingRepository.getCurrentLocation(language)
             ) { visitedLocations, currentLocation ->
                 val items = mutableListOf<OwmNavigationDrawerItem>()
+
+                items.add(headline)
 
                 val locationItems = visitedLocations?.map { visitedLocation ->
                     val sameLatitude = visitedLocation.latitude == currentLocation?.latitude

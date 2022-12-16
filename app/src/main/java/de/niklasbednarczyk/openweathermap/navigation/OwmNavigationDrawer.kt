@@ -1,17 +1,20 @@
 package de.niklasbednarczyk.openweathermap.navigation
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import de.niklasbednarczyk.openweathermap.core.common.string.OwmString
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIcon
 import de.niklasbednarczyk.openweathermap.core.ui.icons.OwmIconModel
 import de.niklasbednarczyk.openweathermap.core.ui.strings.asString
-import de.niklasbednarczyk.openweathermap.core.ui.theme.navigationDrawerDividerPadding
+import de.niklasbednarczyk.openweathermap.core.ui.theme.*
 import de.niklasbednarczyk.openweathermap.feature.location.navigation.LocationDestinations
 
 @Composable
@@ -52,6 +55,21 @@ private fun DrawerSheet(
                         Divider(
                             Modifier.padding(navigationDrawerDividerPadding)
                         )
+                    }
+                    is OwmNavigationDrawerItem.Headline -> {
+                        Box(
+                            modifier = Modifier
+                                .height(navigationDrawerHeadlineHeight)
+                                .padding(navigationDrawerHeadlinePadding),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Text(
+                                text = drawerItem.label.asString(),
+                                style = navigationDrawerHeadlineTextStyle,
+                                color = navigationDrawerHeadlineColor
+                            )
+                        }
+
                     }
                     is OwmNavigationDrawerItem.Item.Location -> {
                         DrawerItem(
