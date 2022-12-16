@@ -1,7 +1,7 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.library")
-    id("de.niklasbednarczyk.openweathermap.layer.data.localremote.local")
+    id("de.niklasbednarczyk.nbweather.android.library")
+    id("de.niklasbednarczyk.nbweather.layer.data.localremote.local")
 }
 android {
-    namespace = "de.niklasbednarczyk.openweathermap.core.data.localremote.local"
+    namespace = "de.niklasbednarczyk.nbweather.core.data.localremote.local"
 }

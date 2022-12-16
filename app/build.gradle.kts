@@ -1,12 +1,12 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.application")
-    id("de.niklasbednarczyk.openweathermap.dependency.hilt")
-    id("de.niklasbednarczyk.openweathermap.layer.ui")
+    id("de.niklasbednarczyk.nbweather.android.application")
+    id("de.niklasbednarczyk.nbweather.dependency.hilt")
+    id("de.niklasbednarczyk.nbweather.layer.ui")
 }
 
 android {
     defaultConfig {
-        applicationId = "de.niklasbednarczyk.openweathermap"
+        applicationId = "de.niklasbednarczyk.nbweather"
         versionCode = 1
         versionName = "1.0"
 
@@ -31,7 +31,7 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    namespace = "de.niklasbednarczyk.openweathermap"
+    namespace = "de.niklasbednarczyk.nbweather"
 }
 
 dependencies {

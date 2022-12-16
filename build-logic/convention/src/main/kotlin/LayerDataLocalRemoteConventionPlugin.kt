@@ -2,7 +2,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.dependencies
 
-class LayerDataLocalRemoteConventionPlugin : OwmConventionPlugin {
+class LayerDataLocalRemoteConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
         dependencies {

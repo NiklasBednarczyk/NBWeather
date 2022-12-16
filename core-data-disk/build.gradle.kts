@@ -1,7 +1,7 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.library")
-    id("de.niklasbednarczyk.openweathermap.layer.data.disk")
+    id("de.niklasbednarczyk.nbweather.android.library")
+    id("de.niklasbednarczyk.nbweather.layer.data.disk")
 }
 android {
-    namespace = "de.niklasbednarczyk.openweathermap.core.data.disk"
+    namespace = "de.niklasbednarczyk.nbweather.core.data.disk"
 }

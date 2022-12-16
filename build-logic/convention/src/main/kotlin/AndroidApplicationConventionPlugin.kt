@@ -3,7 +3,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.configure
 
-class AndroidApplicationConventionPlugin : OwmConventionPlugin {
+class AndroidApplicationConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
         with(pluginManager) {

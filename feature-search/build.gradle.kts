@@ -1,7 +1,7 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.library")
-    id("de.niklasbednarczyk.openweathermap.dependency.hilt")
-    id("de.niklasbednarczyk.openweathermap.layer.ui")
+    id("de.niklasbednarczyk.nbweather.android.library")
+    id("de.niklasbednarczyk.nbweather.dependency.hilt")
+    id("de.niklasbednarczyk.nbweather.layer.ui")
 }
 
 dependencies {
@@ -11,5 +11,5 @@ dependencies {
     implementation(project(":data-settings"))
 }
 android {
-    namespace = "de.niklasbednarczyk.openweathermap.feature.search"
+    namespace = "de.niklasbednarczyk.nbweather.feature.search"
 }

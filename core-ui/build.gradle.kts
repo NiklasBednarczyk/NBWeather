@@ -1,7 +1,7 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.library")
-    id("de.niklasbednarczyk.openweathermap.layer.ui")
+    id("de.niklasbednarczyk.nbweather.android.library")
+    id("de.niklasbednarczyk.nbweather.layer.ui")
 }
 android {
-    namespace = "de.niklasbednarczyk.openweathermap.core.ui"
+    namespace = "de.niklasbednarczyk.nbweather.core.ui"
 }

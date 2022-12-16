@@ -1,7 +1,7 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.library")
-    id("de.niklasbednarczyk.openweathermap.dependency.hilt")
-    id("de.niklasbednarczyk.openweathermap.layer.data.localremote")
+    id("de.niklasbednarczyk.nbweather.android.library")
+    id("de.niklasbednarczyk.nbweather.dependency.hilt")
+    id("de.niklasbednarczyk.nbweather.layer.data.localremote")
 }
 
 dependencies {
@@ -11,5 +11,5 @@ dependencies {
     implementation(project(":data-geocoding-remote"))
 }
 android {
-    namespace = "de.niklasbednarczyk.openweathermap.data.geocoding"
+    namespace = "de.niklasbednarczyk.nbweather.data.geocoding"
 }

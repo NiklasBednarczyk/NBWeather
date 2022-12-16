@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_package = "de.niklasbednarczyk.openweathermap.data.settings.proto.appearance";
+option java_package = "de.niklasbednarczyk.nbweather.data.settings.proto.appearance";
 option java_multiple_files = true;
 
 message SettingsAppearanceProto {

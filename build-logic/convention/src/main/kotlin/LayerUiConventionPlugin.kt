@@ -3,7 +3,7 @@ import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 
-class LayerUiConventionPlugin : OwmConventionPlugin {
+class LayerUiConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
         getCommonExtensionOrNull()?.apply {

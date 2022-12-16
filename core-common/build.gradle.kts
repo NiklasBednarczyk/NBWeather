@@ -1,6 +1,6 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.library")
+    id("de.niklasbednarczyk.nbweather.android.library")
 }
 android {
-    namespace = "de.niklasbednarczyk.openweathermap.core.common"
+    namespace = "de.niklasbednarczyk.nbweather.core.common"
 }

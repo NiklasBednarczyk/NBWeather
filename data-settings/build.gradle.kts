@@ -1,12 +1,12 @@
 plugins {
-    id("de.niklasbednarczyk.openweathermap.android.library")
-    id("de.niklasbednarczyk.openweathermap.dependency.hilt")
-    id("de.niklasbednarczyk.openweathermap.layer.data.disk")
+    id("de.niklasbednarczyk.nbweather.android.library")
+    id("de.niklasbednarczyk.nbweather.dependency.hilt")
+    id("de.niklasbednarczyk.nbweather.layer.data.disk")
 }
 
 dependencies {
     implementation(project(":core-data-disk"))
 }
 android {
-    namespace = "de.niklasbednarczyk.openweathermap.data.settings"
+    namespace = "de.niklasbednarczyk.nbweather.data.settings"
 }
