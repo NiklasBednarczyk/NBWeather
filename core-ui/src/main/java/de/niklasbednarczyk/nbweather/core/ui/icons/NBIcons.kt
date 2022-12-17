@@ -5,6 +5,13 @@ import de.niklasbednarczyk.nbweather.core.ui.R
 
 object NBIcons {
 
+    object About : NBIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_info_24
+        override val contentDescription: NBString
+            get() = NBString.Resource(R.string.icon_content_description_about)
+    }
+
     object Back : NBIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_arrow_back_24
@@ -63,6 +70,13 @@ object NBIcons {
             get() = NBString.Resource(R.string.icon_content_description_drawer)
     }
 
+    object Email : NBIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_email_24
+        override val contentDescription: NBString
+            get() = NBString.Resource(R.string.icon_content_description_email)
+    }
+
     object ErrorNoInternet : NBIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_cloud_off_24
@@ -89,6 +103,13 @@ object NBIcons {
             get() = R.drawable.ic_baseline_my_location_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_find_location)
+    }
+
+    object GitHub : NBIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.github_mark
+        override val contentDescription: NBString
+            get() = NBString.Resource(R.string.icon_content_description_github)
     }
 
     object Hourly : NBIconModel.FilledAndOutlined {
@@ -569,6 +590,13 @@ object NBIcons {
             get() = R.drawable.wi_night_alt_lightning
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_weather_night_thunderstorm)
+    }
+
+    object Website : NBIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.ic_baseline_link_24
+        override val contentDescription: NBString
+            get() = NBString.Resource(R.string.icon_content_description_website)
     }
 
     object WindDegrees : NBIconModel.Default {

@@ -18,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
-import de.niklasbednarczyk.nbweather.core.ui.theme.*
-import de.niklasbednarczyk.nbweather.core.ui.theme.customcolors.NBCustomColors
+import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueView
 import de.niklasbednarczyk.nbweather.core.ui.windowsize.getHeightSizeClass
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily.LocationOverviewDailyModel
@@ -195,8 +195,8 @@ private fun TemperaturesGraph(
                 .weight(temperatures.barFactor)
                 .background(
                     brush = Brush.linearGradient(
-                        0.0f to NBCustomColors.colors.red,
-                        1.0f to NBCustomColors.colors.blue
+                        0.0f to NBTheme.customColors.red,
+                        1.0f to NBTheme.customColors.blue
                     ),
                     shape = MaterialTheme.shapes.large
                 )

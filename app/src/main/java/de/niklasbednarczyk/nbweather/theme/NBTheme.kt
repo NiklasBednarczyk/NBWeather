@@ -1,14 +1,17 @@
 package de.niklasbednarczyk.nbweather.theme
 
-import androidx.annotation.ColorInt
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import de.niklasbednarczyk.nbweather.core.ui.theme.customcolors.NBCustomColorsModel
-import de.niklasbednarczyk.nbweather.core.ui.theme.customcolors.LocalNBCustomColors
+import de.niklasbednarczyk.nbweather.core.ui.theme.LocalNBTheme
+import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
+import de.niklasbednarczyk.nbweather.core.ui.theme.NBThemeModel
+import de.niklasbednarczyk.nbweather.data.settings.models.appearance.ColorSchemeTypeData
 import de.niklasbednarczyk.nbweather.data.settings.models.appearance.SettingsAppearanceModelData
+import de.niklasbednarczyk.nbweather.data.settings.models.appearance.ThemeTypeData
 import de.niklasbednarczyk.nbweather.library.materialcolorutilities.scheme.Scheme
 
 @Composable
@@ -17,29 +20,40 @@ fun NBTheme(
     content: @Composable () -> Unit
 ) {
 
-    val sourceColorInt = appearance.colorScheme.sourceColorInt
-    val isLightTheme = appearance.theme.isLightTheme
+    val sourceColorInt = when (appearance.colorScheme) {
+        ColorSchemeTypeData.RED -> 0xFF0000
+        ColorSchemeTypeData.GREEN -> 0x00FF00
+        ColorSchemeTypeData.BLUE -> 0x0000FF
+        ColorSchemeTypeData.CYAN -> 0x00FFFF
+        ColorSchemeTypeData.MAGENTA -> 0xFF00FF
+        ColorSchemeTypeData.YELLOW -> 0xFFFF00
+    }
 
-    val colorScheme = createColorScheme(sourceColorInt, isLightTheme)
+    val isLightTheme = when (appearance.theme) {
+        ThemeTypeData.LIGHT -> true
+        ThemeTypeData.DARK -> false
+        ThemeTypeData.SYSTEM_DEFAULT -> !isSystemInDarkTheme()
+    }
 
-    val customColors = NBCustomColorsModel.from(sourceColorInt)
+    val nbTheme = NBThemeModel(
+        sourceColorInt = sourceColorInt,
+        isLightTheme = isLightTheme
+    )
 
-    CompositionLocalProvider(LocalNBCustomColors provides customColors) {
+    CompositionLocalProvider(LocalNBTheme provides nbTheme) {
         MaterialTheme(
-            colorScheme = colorScheme,
+            colorScheme = createColorScheme(),
             content = content
         )
     }
 }
 
-private fun createColorScheme(
-    @ColorInt sourceColorInt: Int,
-    isLightColorScheme: Boolean
-): ColorScheme {
-    val scheme = if (isLightColorScheme) {
-        Scheme.light(sourceColorInt)
+@Composable
+private fun createColorScheme(): ColorScheme {
+    val scheme = if (NBTheme.isLightTheme) {
+        Scheme.light(NBTheme.sourceColorInt)
     } else {
-        Scheme.dark(sourceColorInt)
+        Scheme.dark(NBTheme.sourceColorInt)
     }
 
     return ColorScheme(

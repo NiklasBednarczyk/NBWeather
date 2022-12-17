@@ -14,7 +14,7 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.info.NBInfoView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.listContentPaddingValuesVertical
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 @Composable

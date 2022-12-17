@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.listContentPaddingValuesVertical
-import de.niklasbednarczyk.nbweather.core.ui.theme.stickyHeaderPadding
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingValuesVertical
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.stickyHeaderPadding
 
 @Composable
 fun <T> NBStickyHeaderListView(

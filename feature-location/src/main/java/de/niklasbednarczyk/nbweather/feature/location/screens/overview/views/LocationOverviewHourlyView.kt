@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridRow
 import de.niklasbednarczyk.nbweather.core.ui.stickyheader.NBStickyHeaderListView
-import de.niklasbednarczyk.nbweather.core.ui.theme.listItemPaddingValuesVerticalOneLine
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listItemPaddingValuesVerticalOneLine
 import de.niklasbednarczyk.nbweather.core.ui.windowsize.getWidthSizeClass
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.hourly.LocationOverviewHourlyModel
 

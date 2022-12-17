@@ -21,10 +21,10 @@ import de.niklasbednarczyk.nbweather.core.ui.navigation.NBNavigationDestination
 import de.niklasbednarczyk.nbweather.core.ui.scaffold.NBScaffold
 import de.niklasbednarczyk.nbweather.core.ui.scaffold.topappbar.NBTopAppBar
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.screenHorizontalPadding
-import de.niklasbednarczyk.nbweather.core.ui.theme.dividerPaddingVertical
-import de.niklasbednarczyk.nbweather.core.ui.theme.listContentPaddingValuesVertical
-import de.niklasbednarczyk.nbweather.core.ui.theme.listContentPaddingVertical
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.screenHorizontalPadding
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.dividerPaddingVertical
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingValuesVertical
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingVertical
 import de.niklasbednarczyk.nbweather.feature.settings.screens.overview.models.SettingsOverviewItemModel
 
 @Composable

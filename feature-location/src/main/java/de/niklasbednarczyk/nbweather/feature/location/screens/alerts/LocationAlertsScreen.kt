@@ -21,7 +21,7 @@ import de.niklasbednarczyk.nbweather.core.ui.scaffold.NBScaffold
 import de.niklasbednarczyk.nbweather.core.ui.scaffold.topappbar.NBTopAppBar
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
-import de.niklasbednarczyk.nbweather.core.ui.theme.*
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
 import de.niklasbednarczyk.nbweather.feature.location.screens.alerts.models.LocationAlertExpandableItem
 
 @Composable

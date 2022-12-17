@@ -6,6 +6,7 @@
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
     <string name="format_temperature_feels_like" translatable="false">%1$s (%2$s)</string>
 
+    <string name="icon_content_description_about">About this app</string>
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
     <string name="icon_content_description_cloudiness">Cloudiness</string>
@@ -15,10 +16,12 @@
     <string name="icon_content_description_delete">Delete</string>
     <string name="icon_content_description_dew_point">Dew Point</string>
     <string name="icon_content_description_drawer">Drawer</string>
+    <string name="icon_content_description_email">Email</string>
     <string name="icon_content_description_error_no_internet">No internet</string>
     <string name="icon_content_description_error_unknown">Error</string>
     <string name="icon_content_description_expand">Expand</string>
     <string name="icon_content_description_find_location">Find location</string>
+    <string name="icon_content_description_github">GitHub</string>
     <string name="icon_content_description_hourly">Hourly</string>
     <string name="icon_content_description_humidity">Humidity</string>
     <string name="icon_content_description_language">Language</string>
@@ -86,9 +89,20 @@
     <string name="icon_content_description_weather_night_shower_rain">Shower rain (Night)</string>
     <string name="icon_content_description_weather_night_snow">Snow (Night)</string>
     <string name="icon_content_description_weather_night_thunderstorm">Thunderstorm (Night)</string>
+    <string name="icon_content_description_website">Website</string>
     <string name="icon_content_description_wind_degrees">Wind degrees</string>
     <string name="icon_content_description_wind_gust">Wind gust</string>
     <string name="icon_content_description_wind_speed">Wind speed</string>
+
+    <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
+
+    <string name="screen_about_overview_button_email">Feedback</string>
+    <string name="screen_about_overview_button_git_hub">GitHub</string>
+    <string name="screen_about_overview_button_website">Website</string>
+    <string name="screen_about_overview_title">About this app</string>
+    <string name="screen_about_overview_text_erik_flowers">App icon and weather icons provided by Erik Flowers</string>
+    <string name="screen_about_overview_text_niklas_bednarczyk">This app was created by Niklas Bednarczyk</string>
+    <string name="screen_about_overview_text_open_weather">Weather data provided by OpenWeather</string>
 
     <string name="screen_location_alerts_title">Alerts</string>
 
@@ -235,6 +249,7 @@
     <string name="screen_settings_units_value_metric">Metric (°C, m/s)</string>
     <string name="screen_settings_units_value_standard">Standard (°K, m/s)</string>
 
+    <string name="snackbar_about_intent_failed">No fitting app on your phone found</string>
     <string name="snackbar_back_pressed_when_no_current_location_message">You need to select a location</string>
     <string name="snackbar_location_found_canceled_message">Location request was canceled</string>
     <string name="snackbar_location_found_canceled_action_label">Try again</string>

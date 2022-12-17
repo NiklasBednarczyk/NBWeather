@@ -14,7 +14,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.*
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
 import de.niklasbednarczyk.nbweather.feature.location.navigation.LocationDestinations
 
 @Composable

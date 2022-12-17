@@ -23,9 +23,9 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
-import de.niklasbednarczyk.nbweather.core.ui.theme.columnVerticalArrangementDefaultDp
-import de.niklasbednarczyk.nbweather.core.ui.theme.columnVerticalArrangementSmallDp
-import de.niklasbednarczyk.nbweather.core.ui.theme.customcolors.NBCustomColors
+import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementDefaultDp
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.LocationCardOverviewItem
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.overview.LocationCardOverviewAlertModel
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.overview.LocationCardOverviewWeatherModel
@@ -203,9 +203,9 @@ private fun PrecipitationCircle(
     innerSize: IntSize?,
     precipitationMarkerStrokeWidth: Dp = 4.dp,
     timeMarkerStrokeWidth: Dp = precipitationMarkerStrokeWidth / 2,
-    precipitationMarkerBackgroundBrushColor1: Color = NBCustomColors.colors.green,
-    precipitationMarkerBackgroundBrushColor2: Color = NBCustomColors.colors.yellow,
-    precipitationMarkerBackgroundBrushColor3: Color = NBCustomColors.colors.red,
+    precipitationMarkerBackgroundBrushColor1: Color = NBTheme.customColors.green,
+    precipitationMarkerBackgroundBrushColor2: Color = NBTheme.customColors.yellow,
+    precipitationMarkerBackgroundBrushColor3: Color = NBTheme.customColors.red,
     precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     timeMarkerColor: Color = MaterialTheme.colorScheme.inverseSurface,
     factors: List<Float>,

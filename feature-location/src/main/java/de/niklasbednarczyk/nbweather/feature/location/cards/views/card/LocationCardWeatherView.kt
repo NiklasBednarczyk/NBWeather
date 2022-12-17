@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridRow
-import de.niklasbednarczyk.nbweather.core.ui.theme.columnVerticalArrangementDefault
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementDefault
 import de.niklasbednarczyk.nbweather.core.ui.windowsize.getWidthSizeClass
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.LocationCardWeatherModel
 

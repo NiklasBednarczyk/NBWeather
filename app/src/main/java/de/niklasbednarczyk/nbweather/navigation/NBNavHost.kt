@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButton
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
+import de.niklasbednarczyk.nbweather.feature.about.navigation.aboutGraph
 import de.niklasbednarczyk.nbweather.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.nbweather.feature.location.navigation.locationGraph
 import de.niklasbednarczyk.nbweather.feature.search.navigation.SearchDestinations
@@ -38,6 +39,9 @@ fun NBNavHost(
         navController = navigator.navController,
         startDestination = startDestination
     ) {
+        aboutGraph(
+            navigationIconBack = navigationIconBack
+        )
         locationGraph(
             navigationIconDrawer = navigationIconDrawer,
             navigationIconBack = navigationIconBack,

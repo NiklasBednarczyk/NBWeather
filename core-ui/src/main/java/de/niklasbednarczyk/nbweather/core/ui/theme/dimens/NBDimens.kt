@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.core.ui.theme
+package de.niklasbednarczyk.nbweather.core.ui.theme.dimens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.unit.dp

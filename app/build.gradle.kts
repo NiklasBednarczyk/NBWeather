@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":data-geocoding"))
     implementation(project(":data-settings"))
 
+    implementation(project(":feature-about"))
     implementation(project(":feature-location"))
     implementation(project(":feature-search"))
     implementation(project(":feature-settings"))

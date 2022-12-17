@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.cardPadding
-import de.niklasbednarczyk.nbweather.core.ui.theme.screenHorizontalPadding
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.cardPadding
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.screenHorizontalPadding
 
 @Composable
 fun <T : NBCardItem> NBCard(

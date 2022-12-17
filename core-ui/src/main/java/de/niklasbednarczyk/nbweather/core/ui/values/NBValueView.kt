@@ -10,7 +10,7 @@ import androidx.compose.ui.text.TextStyle
 import de.niklasbednarczyk.nbweather.core.ui.icons.nbIconFit
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
-import de.niklasbednarczyk.nbweather.core.ui.theme.rowHorizontalArrangement
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.rowHorizontalArrangement
 
 @Composable
 fun NBValueView(

@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.columnVerticalArrangementSmallDp
+import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconView
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueView

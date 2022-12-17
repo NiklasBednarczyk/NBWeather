@@ -10,6 +10,7 @@ import de.niklasbednarczyk.nbweather.core.ui.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
+import de.niklasbednarczyk.nbweather.feature.about.navigation.AboutDestinations
 import de.niklasbednarczyk.nbweather.feature.settings.navigation.SettingsDestinations
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import kotlinx.coroutines.flow.Flow
@@ -31,6 +32,12 @@ class NBAppViewModel @Inject constructor(
         label = NBString.Resource(R.string.screen_settings_overview_title),
         icon = NBIcons.Settings,
         destination = SettingsDestinations.Overview
+    )
+
+    private val aboutItem = NBNavigationDrawerItem.Item.Other(
+        label = NBString.Resource(R.string.screen_about_overview_title),
+        icon = NBIcons.About,
+        destination = AboutDestinations.Overview
     )
 
     private val drawerItemsFlow: Flow<List<NBNavigationDrawerItem>> =
@@ -63,6 +70,7 @@ class NBAppViewModel @Inject constructor(
                 items.add(NBNavigationDrawerItem.Divider)
 
                 items.add(settingsItem)
+                items.add(aboutItem)
 
                 items
             }.transformToList()

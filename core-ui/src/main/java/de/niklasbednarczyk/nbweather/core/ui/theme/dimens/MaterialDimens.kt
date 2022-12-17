@@ -1,9 +1,12 @@
-package de.niklasbednarczyk.nbweather.core.ui.theme
+package de.niklasbednarczyk.nbweather.core.ui.theme.dimens
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+
+val filledTonalButtonIconSize = 18.dp
+val filledTonalButtonPaddingBetweenElements = 8.dp
 
 val listContentPaddingHorizontal = 8.dp
 val listContentPaddingValuesHorizontal = PaddingValues(

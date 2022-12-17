@@ -1,11 +1,9 @@
-package de.niklasbednarczyk.nbweather.core.ui.theme.customcolors
+package de.niklasbednarczyk.nbweather.core.ui.theme
 
 import androidx.annotation.ColorInt
 import androidx.compose.ui.graphics.Color
 import de.niklasbednarczyk.nbweather.library.materialcolorutilities.blend.Blend
-import javax.annotation.concurrent.Immutable
 
-@Immutable
 data class NBCustomColorsModel(
     val blue: Color,
     val green: Color,

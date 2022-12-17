@@ -34,6 +34,7 @@ include(":data-onecall-local")
 include(":data-onecall-remote")
 include(":data-settings")
 
+include(":feature-about")
 include(":feature-location")
 include(":feature-search")
 include(":feature-settings")

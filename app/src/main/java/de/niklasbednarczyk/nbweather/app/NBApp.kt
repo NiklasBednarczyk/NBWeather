@@ -9,12 +9,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
-import de.niklasbednarczyk.nbweather.data.settings.models.appearance.SettingsAppearanceModelData
+import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
 import de.niklasbednarczyk.nbweather.navigation.NBNavHost
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawer
 import de.niklasbednarczyk.nbweather.navigation.NBNavigator
 import de.niklasbednarczyk.nbweather.theme.NBTheme
-import de.niklasbednarczyk.nbweather.theme.isLightTheme
 
 @Composable
 fun NBApp(
@@ -26,7 +25,7 @@ fun NBApp(
 
     if (appearance != null) {
         NBTheme(appearance) {
-            SetupSystemBar(appearance)
+            SetupSystemBar()
 
             val navigator = NBNavigator.rememberNBNavigator()
 
@@ -50,9 +49,9 @@ fun NBApp(
 }
 
 @Composable
-private fun SetupSystemBar(appearance: SettingsAppearanceModelData) {
+private fun SetupSystemBar() {
     val systemUiController = rememberSystemUiController()
-    val darkIcons = appearance.theme.isLightTheme
+    val darkIcons = NBTheme.isLightTheme
     SideEffect {
         systemUiController.setSystemBarsColor(
             color = Color.Transparent,
