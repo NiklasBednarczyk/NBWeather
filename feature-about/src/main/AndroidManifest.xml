@@ -7,12 +7,6 @@
             <data android:scheme="https" />
             <category android:name="android.intent.category.DEFAULT" />
         </intent>
-
-        <intent>
-            <action android:name="android.intent.action.SENDTO" />
-            <data android:scheme="mailto"/>
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent>
     </queries>
 
 </manifest>

@@ -16,7 +16,6 @@
     <string name="icon_content_description_delete">Delete</string>
     <string name="icon_content_description_dew_point">Dew Point</string>
     <string name="icon_content_description_drawer">Drawer</string>
-    <string name="icon_content_description_email">Email</string>
     <string name="icon_content_description_error_no_internet">No internet</string>
     <string name="icon_content_description_error_unknown">Error</string>
     <string name="icon_content_description_expand">Expand</string>
@@ -96,7 +95,6 @@
 
     <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
 
-    <string name="screen_about_overview_button_email">Feedback</string>
     <string name="screen_about_overview_button_git_hub">GitHub</string>
     <string name="screen_about_overview_button_website">Website</string>
     <string name="screen_about_overview_title">About this app</string>

@@ -12,14 +12,6 @@ import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.About
 
 class AboutOverviewUiState {
 
-    companion object {
-
-        private val buttonEmailIcon = NBIcons.Email
-        private val buttonEmailLabel =
-            NBString.Resource(R.string.screen_about_overview_button_email)
-
-    }
-
     val items: List<AboutOverviewItem>
         get() {
             val items = mutableListOf<AboutOverviewItem>()
@@ -57,10 +49,6 @@ class AboutOverviewUiState {
                     text = NBString.Resource(R.string.screen_about_overview_text_niklas_bednarczyk),
                     buttons = listOf(
                         getGitHubButton(AboutConstants.NiklasBednarczyk.GIT_HUB),
-                        getEmailButton(
-                            emailAddress = AboutConstants.NiklasBednarczyk.EMAIL_ADDRESS,
-                            emailSubject = AboutConstants.NiklasBednarczyk.EMAIL_SUBJECT
-                        )
                     )
                 )
             )
@@ -73,23 +61,6 @@ class AboutOverviewUiState {
     ): Intent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(url)
         addCategory(Intent.CATEGORY_DEFAULT)
-    }
-
-    private fun getEmailButton(
-        emailAddress: String,
-        emailSubject: String
-    ): AboutOverviewButtonModel {
-        val intent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddress))
-            putExtra(Intent.EXTRA_SUBJECT, emailSubject)
-            addCategory(Intent.CATEGORY_DEFAULT)
-        }
-        return AboutOverviewButtonModel(
-            icon = NBIcons.Email,
-            label = NBString.Resource(R.string.screen_about_overview_button_email),
-            intent = intent
-        )
     }
 
     private fun getGitHubButton(

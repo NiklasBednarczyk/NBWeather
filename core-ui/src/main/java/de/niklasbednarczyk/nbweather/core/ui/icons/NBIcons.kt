@@ -70,13 +70,6 @@ object NBIcons {
             get() = NBString.Resource(R.string.icon_content_description_drawer)
     }
 
-    object Email : NBIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_email_24
-        override val contentDescription: NBString
-            get() = NBString.Resource(R.string.icon_content_description_email)
-    }
-
     object ErrorNoInternet : NBIconModel.Default {
         override val resId: Int
             get() = R.drawable.ic_baseline_cloud_off_24
