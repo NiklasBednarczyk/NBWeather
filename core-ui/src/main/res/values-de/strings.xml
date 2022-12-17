@@ -1,0 +1,222 @@
+<resources>
+    <string name="error_text_no_internet">Keine Internetverbindung</string>
+    <string name="error_text_unknown">Etwas ist schief gelaufen</string>
+
+    <string name="icon_content_description_back">Zurück</string>
+    <string name="icon_content_description_cancel">Cancel</string>
+    <string name="icon_content_description_delete">Abbrechen</string>
+    <string name="icon_content_description_drawer">Drawer</string>
+    <string name="icon_content_description_expand">Ausklappen</string>
+    <string name="icon_content_description_find_location">Standort finden</string>
+    <string name="icon_content_description_location">Ort</string>
+    <string name="icon_content_description_moon_phase_waning_crescent_1">Abnehmender Sichelmond 1</string>
+    <string name="icon_content_description_moon_phase_waning_crescent_2">Abnehmender Sichelmond 2</string>
+    <string name="icon_content_description_moon_phase_waning_crescent_3">Abnehmender Sichelmond 3</string>
+    <string name="icon_content_description_moon_phase_waning_crescent_4">Abnehmender Sichelmond 4</string>
+    <string name="icon_content_description_moon_phase_waning_crescent_5">Abnehmender Sichelmond 5</string>
+    <string name="icon_content_description_moon_phase_waning_crescent_6">Abnehmender Sichelmond 6</string>
+    <string name="icon_content_description_moon_phase_waning_gibbous_1">Abnehmender Dreiviertelmond 1</string>
+    <string name="icon_content_description_moon_phase_waning_gibbous_2">Abnehmender Dreiviertelmond 2</string>
+    <string name="icon_content_description_moon_phase_waning_gibbous_3">Abnehmender Dreiviertelmond 3</string>
+    <string name="icon_content_description_moon_phase_waning_gibbous_4">Abnehmender Dreiviertelmond 4</string>
+    <string name="icon_content_description_moon_phase_waning_gibbous_5">Abnehmender Dreiviertelmond 5</string>
+    <string name="icon_content_description_moon_phase_waning_gibbous_6">Abnehmender Dreiviertelmond 6</string>
+    <string name="icon_content_description_moon_phase_waxing_crescent_1">Zunehmender Sichelmond 1</string>
+    <string name="icon_content_description_moon_phase_waxing_crescent_2">Zunehmender Sichelmond 2</string>
+    <string name="icon_content_description_moon_phase_waxing_crescent_3">Zunehmender Sichelmond 3</string>
+    <string name="icon_content_description_moon_phase_waxing_crescent_4">Zunehmender Sichelmond 4</string>
+    <string name="icon_content_description_moon_phase_waxing_crescent_5">Zunehmender Sichelmond 5</string>
+    <string name="icon_content_description_moon_phase_waxing_crescent_6">Zunehmender Sichelmond 6</string>
+    <string name="icon_content_description_moon_phase_waxing_gibbous_1">Zunehmender Dreiviertelmond 1</string>
+    <string name="icon_content_description_moon_phase_waxing_gibbous_2">Zunehmender Dreiviertelmond 2</string>
+    <string name="icon_content_description_moon_phase_waxing_gibbous_3">Zunehmender Dreiviertelmond 3</string>
+    <string name="icon_content_description_moon_phase_waxing_gibbous_4">Zunehmender Dreiviertelmond 4</string>
+    <string name="icon_content_description_moon_phase_waxing_gibbous_5">Zunehmender Dreiviertelmond 5</string>
+    <string name="icon_content_description_moon_phase_waxing_gibbous_6">Zunehmender Dreiviertelmond 6</string>
+    <string name="icon_content_description_warning">Warnung</string>
+    <string name="icon_content_description_weather_day_broken_clouds">Stark bewölkt (Tag)</string>
+    <string name="icon_content_description_weather_day_clear_sky">Klarer Himmel (Tag)</string>
+    <string name="icon_content_description_weather_day_few_clouds">Leicht bewölkt (Tag)</string>
+    <string name="icon_content_description_weather_day_mist">Nebel (Tag)</string>
+    <string name="icon_content_description_weather_day_rain">Regen (Tag)</string>
+    <string name="icon_content_description_weather_day_scattered_clouds">Bewölkt (Tag)</string>
+    <string name="icon_content_description_weather_day_shower_rain">Regenschauer (Tag)</string>
+    <string name="icon_content_description_weather_day_snow">Schnee (Tag)</string>
+    <string name="icon_content_description_weather_day_thunderstorm">Gewitter (Tag)</string>
+    <string name="icon_content_description_weather_night_broken_clouds">Stark bewölkt (Nacht)</string>
+    <string name="icon_content_description_weather_night_clear_sky">Klarer Himmel (Nacht)</string>
+    <string name="icon_content_description_weather_night_few_clouds">Leicht bewölkt (Nacht)</string>
+    <string name="icon_content_description_weather_night_mist">Nebel (Nacht)</string>
+    <string name="icon_content_description_weather_night_rain">Regen (Nacht)</string>
+    <string name="icon_content_description_weather_night_scattered_clouds">Bewölkt (Nacht)</string>
+    <string name="icon_content_description_weather_night_shower_rain">Regenschauer (Nacht)</string>
+    <string name="icon_content_description_weather_night_snow">Schnee (Nacht)</string>
+    <string name="icon_content_description_weather_night_thunderstorm">Gewitter (Nacht)</string>
+    <string name="icon_content_description_wind_degrees">Windgrad</string>
+
+    <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
+
+    <string name="screen_about_overview_button_git_hub">GitHub</string>
+    <string name="screen_about_overview_button_website">Website</string>
+    <string name="screen_about_overview_title">Über diese App</string>
+    <string name="screen_about_overview_text_erik_flowers">App-Symbol und Wettersymbole bereitgestellt von Erik Flowers</string>
+    <string name="screen_about_overview_text_niklas_bednarczyk">Diese App wurde erstellt von Niklas Bednarczyk</string>
+    <string name="screen_about_overview_text_open_weather">Wetterdaten bereitgestellt von OpenWeather</string>
+
+    <string name="screen_location_alerts_title">Meldungen</string>
+
+    <string name="screen_location_card_overview_title">Übersicht</string>
+    <string name="screen_location_card_overview_value_precipitation_breaking">Unterbrechung des Niederschlags in %1$s Minuten</string>
+    <string name="screen_location_card_overview_value_precipitation_ending">Niederschlag endet in %1$s Minuten</string>
+    <string name="screen_location_card_overview_value_precipitation_full">Niederschlag hört nicht in einer Stunde auf</string>
+    <string name="screen_location_card_overview_value_precipitation_none">Kein Niederschlag innerhalb einer Stunde</string>
+    <string name="screen_location_card_overview_value_precipitation_no_data">Keine Niederschlagsdaten gefunden</string>
+    <string name="screen_location_card_overview_value_precipitation_starting">Niederschlag beginnt in %1$s Minuten</string>
+
+    <string name="screen_location_card_weather_title">Wetter</string>
+    <string name="screen_location_card_weather_value_cloudiness">Bewölkung</string>
+    <string name="screen_location_card_weather_value_dew_point">Taupunkt</string>
+    <string name="screen_location_card_weather_value_humidity">Luftfeuchtigkeit</string>
+    <string name="screen_location_card_weather_value_pressure">Druck</string>
+    <string name="screen_location_card_weather_value_probability_of_precipitation">Niederschlag</string>
+    <string name="screen_location_card_weather_value_rain">Regen</string>
+    <string name="screen_location_card_weather_value_snow">Schnee</string>
+    <string name="screen_location_card_weather_value_uv_index">UV-Index</string>
+    <string name="screen_location_card_weather_value_visibility">Sichtbarkeit</string>
+    <string name="screen_location_card_weather_value_wind_direction">Windrichtung</string>
+    <string name="screen_location_card_weather_value_wind_gust">Windböe</string>
+    <string name="screen_location_card_weather_value_wind_speed">Windstärke</string>
+
+    <string name="screen_location_card_sun_and_moon_title">Sonne und Mond</string>
+    <string name="screen_location_card_sun_and_moon_value_daylight">Tageslicht</string>
+    <string name="screen_location_card_sun_and_moon_value_moon_phase">Mondphase</string>
+    <string name="screen_location_card_sun_and_moon_value_moonrise">Mondaufgang</string>
+    <string name="screen_location_card_sun_and_moon_value_moonset">Monduntergang</string>
+    <string name="screen_location_card_sun_and_moon_value_sunrise">Sonnenaufgang</string>
+    <string name="screen_location_card_sun_and_moon_value_sunset">Sonnenuntergang</string>
+
+    <string name="screen_location_card_temperatures_title">Temperaturen</string>
+    <string name="screen_location_card_temperatures_value_day">Tag</string>
+    <string name="screen_location_card_temperatures_value_evening">Abend</string>
+    <string name="screen_location_card_temperatures_value_morning">Morgen</string>
+    <string name="screen_location_card_temperatures_value_night">Nacht</string>
+
+    <string name="screen_location_common_moon_phase_first_quarter_moon">Zunehmender Halbmond</string>
+    <string name="screen_location_common_moon_phase_full_moon">Vollmond</string>
+    <string name="screen_location_common_moon_phase_last_quarter_moon">Abnehmender Halbmond</string>
+    <string name="screen_location_common_moon_phase_new_moon">Neumond</string>
+    <string name="screen_location_common_moon_phase_waning_crescent">Abnehmender Sichelmond</string>
+    <string name="screen_location_common_moon_phase_waning_gibbous">Abnehmender Dreiviertelmond</string>
+    <string name="screen_location_common_moon_phase_waxing_crescent">Zunehmender Sichelmond</string>
+    <string name="screen_location_common_moon_phase_waxing_gibbous">Zunehmender Dreiviertelmond</string>
+    <string name="screen_location_common_temperatures_max">Max</string>
+    <string name="screen_location_common_temperatures_min">Min</string>
+    <string name="screen_location_common_wind_degrees_e">E</string>
+    <string name="screen_location_common_wind_degrees_ene">ENE</string>
+    <string name="screen_location_common_wind_degrees_ese">OSO</string>
+    <string name="screen_location_common_wind_degrees_n">N</string>
+    <string name="screen_location_common_wind_degrees_ne">NO</string>
+    <string name="screen_location_common_wind_degrees_nne">NNO</string>
+    <string name="screen_location_common_wind_degrees_nnw">NNW</string>
+    <string name="screen_location_common_wind_degrees_nw">NW</string>
+    <string name="screen_location_common_wind_degrees_s">S</string>
+    <string name="screen_location_common_wind_degrees_se">SO</string>
+    <string name="screen_location_common_wind_degrees_sse">SSO</string>
+    <string name="screen_location_common_wind_degrees_ssw">SSW</string>
+    <string name="screen_location_common_wind_degrees_sw">SW</string>
+    <string name="screen_location_common_wind_degrees_w">W</string>
+    <string name="screen_location_common_wind_degrees_wnw">WNW</string>
+    <string name="screen_location_common_wind_degrees_wsw">WSW</string>
+
+    <string name="screen_location_overview_tab_daily">Tage</string>
+    <string name="screen_location_overview_tab_hourly">Stunden</string>
+    <string name="screen_location_overview_tab_today">Heute</string>
+
+    <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
+
+    <string name="screen_settings_color_scheme_title">Farbschema</string>
+    <string name="screen_settings_color_scheme_value_blue">Blau</string>
+    <string name="screen_settings_color_scheme_value_cyan">Cyan</string>
+    <string name="screen_settings_color_scheme_value_green">Grün</string>
+    <string name="screen_settings_color_scheme_value_magenta">Magenta</string>
+    <string name="screen_settings_color_scheme_value_red">Rot</string>
+    <string name="screen_settings_color_scheme_value_yellow">Gelb</string>
+
+    <string name="screen_settings_language_title">Sprache</string>
+    <string name="screen_settings_language_value_afrikaans">Afrikaans</string>
+    <string name="screen_settings_language_value_albanian">Albanisch</string>
+    <string name="screen_settings_language_value_arabic">Arabisch</string>
+    <string name="screen_settings_language_value_azerbaijani">Aserbaidschanisch</string>
+    <string name="screen_settings_language_value_basque">Baskisch</string>
+    <string name="screen_settings_language_value_bulgarian">Bulgarisch</string>
+    <string name="screen_settings_language_value_catalan">Katalanisch</string>
+    <string name="screen_settings_language_value_chinese_simplified">Chinesisch (Vereinfacht)</string>
+    <string name="screen_settings_language_value_chinese_traditional">Chinesisch (Traditionell)</string>
+    <string name="screen_settings_language_value_croatian">Kroatisch</string>
+    <string name="screen_settings_language_value_czech">Tschechisch</string>
+    <string name="screen_settings_language_value_danish">Dänisch</string>
+    <string name="screen_settings_language_value_dutch">Niederländisch</string>
+    <string name="screen_settings_language_value_english">Englisch</string>
+    <string name="screen_settings_language_value_finnish">Finnisch</string>
+    <string name="screen_settings_language_value_french">Französisch</string>
+    <string name="screen_settings_language_value_galician">Galizisch</string>
+    <string name="screen_settings_language_value_german">Deutsch</string>
+    <string name="screen_settings_language_value_greek">Griechisch</string>
+    <string name="screen_settings_language_value_hebrew">Hebräisch</string>
+    <string name="screen_settings_language_value_hindi">Hindi</string>
+    <string name="screen_settings_language_value_hungarian">Ungarisch</string>
+    <string name="screen_settings_language_value_indonesian">Indonesisch</string>
+    <string name="screen_settings_language_value_italian">Italienisch</string>
+    <string name="screen_settings_language_value_japanese">Japanisch</string>
+    <string name="screen_settings_language_value_korean">Koreanisch</string>
+    <string name="screen_settings_language_value_latvian">Lettisch</string>
+    <string name="screen_settings_language_value_lithuanian">Litauisch</string>
+    <string name="screen_settings_language_value_macedonian">Mazedonisch</string>
+    <string name="screen_settings_language_value_norwegian">Norwegisch</string>
+    <string name="screen_settings_language_value_persian_farsi">Persisch (Farsi)</string>
+    <string name="screen_settings_language_value_polish">Polnisch</string>
+    <string name="screen_settings_language_value_portuguese">Portugiesisch</string>
+    <string name="screen_settings_language_value_portugues_brasil">Portugiesisch (Brasilien)</string>
+    <string name="screen_settings_language_value_romanian">Rumänisch</string>
+    <string name="screen_settings_language_value_russian">Russisch</string>
+    <string name="screen_settings_language_value_serbian">Serbisch</string>
+    <string name="screen_settings_language_value_slovak">Slowakisch</string>
+    <string name="screen_settings_language_value_slovenian">Slowenisch</string>
+    <string name="screen_settings_language_value_spanish">Spanisch</string>
+    <string name="screen_settings_language_value_swedish">Schwedisch</string>
+    <string name="screen_settings_language_value_thai">Thailändisch</string>
+    <string name="screen_settings_language_value_turkish">Türkisch</string>
+    <string name="screen_settings_language_value_ukrainian">Ukrainisch</string>
+    <string name="screen_settings_language_value_vietnamese">Vietnamesisch</string>
+    <string name="screen_settings_language_value_zulu">Zulu</string>
+
+    <string name="screen_settings_overview_header_appearance">Aussehen</string>
+    <string name="screen_settings_overview_header_data">Daten</string>
+    <string name="screen_settings_overview_title">Einstellungen</string>
+
+    <string name="screen_settings_theme_title">Design</string>
+    <string name="screen_settings_theme_value_dark">Dunkel</string>
+    <string name="screen_settings_theme_value_light">Hell</string>
+    <string name="screen_settings_theme_value_system_default">Systemstandard</string>
+
+    <string name="screen_settings_time_format_title">Zeitformat</string>
+    <string name="screen_settings_time_format_value_hour_12">12-Stunden-Format</string>
+    <string name="screen_settings_time_format_value_hour_24">24-Stunden-Format</string>
+
+    <string name="screen_settings_units_title">Einheiten</string>
+    <string name="screen_settings_units_value_imperial">Imperial (°F, mph)</string>
+    <string name="screen_settings_units_value_metric">Metrisch (°C, m/s)</string>
+    <string name="screen_settings_units_value_standard">Standard (°K, m/s)</string>
+
+    <string name="snackbar_about_intent_failed">Keine passende App auf Ihrem Handy gefunden</string>
+    <string name="snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
+    <string name="snackbar_location_found_canceled_message">Standortanfrage wurde abgebrochen</string>
+    <string name="snackbar_location_found_canceled_action_label">Erneut versuchen</string>
+    <string name="snackbar_location_found_failure_message">Standortanfrage fehlgeschlagen</string>
+    <string name="snackbar_location_found_failure_action_label">Erneut versuchen</string>
+
+    <string name="top_app_bar_search_placeholder">Suche</string>
+
+    <string name="value_temperature_feels_like_prefix">Gefühlt</string>
+
+</resources>

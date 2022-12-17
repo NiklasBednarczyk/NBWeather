@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.ui.icons.nbIconFit
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
@@ -16,7 +17,8 @@ import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.rowHorizontalArrangeme
 fun NBValueView(
     value: NBValueItem,
     modifier: Modifier = Modifier,
-    textStyle: TextStyle = MaterialTheme.typography.bodyMedium
+    textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+    textAlign: TextAlign = TextAlign.Center
 ) {
     Box(
         modifier = modifier,
@@ -41,6 +43,7 @@ fun NBValueView(
                     Text(
                         text = text.asString(),
                         style = textStyle,
+                        textAlign = textAlign
                     )
                 }
 
@@ -50,6 +53,7 @@ fun NBValueView(
                 Text(
                     text = text.asString(),
                     style = textStyle,
+                    textAlign = textAlign
                 )
             }
             is NBValueItem.TextsWithFormat -> {
@@ -60,7 +64,8 @@ fun NBValueView(
                     )
                 Text(
                     text = text.asString(),
-                    style = textStyle
+                    style = textStyle,
+                    textAlign = textAlign
                 )
             }
         }

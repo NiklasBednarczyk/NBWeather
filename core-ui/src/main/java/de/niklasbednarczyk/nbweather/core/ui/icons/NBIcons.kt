@@ -102,7 +102,7 @@ object NBIcons {
         override val resId: Int
             get() = R.drawable.github_mark
         override val contentDescription: NBString
-            get() = NBString.Resource(R.string.icon_content_description_github)
+            get() = NBString.Resource(R.string.icon_content_description_git_hub)
     }
 
     object Hourly : NBIconModel.FilledAndOutlined {

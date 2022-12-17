@@ -53,6 +53,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
 
             defaultConfig {
                 minSdk = libs.getVersionInt("minSdk")
+
+                resourceConfigurations.addAll(listOf("de", "en", "en_GB"))
             }
 
             compileOptions {
