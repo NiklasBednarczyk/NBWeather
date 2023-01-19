@@ -7,7 +7,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import dagger.hilt.android.qualifiers.ApplicationContext
-import de.niklasbednarczyk.nbweather.core.common.logging.nbLogError
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -40,7 +40,7 @@ class GmsLocationRepository @Inject constructor(
                 onCanceled()
             }
             .addOnFailureListener { throwable ->
-                nbLogError(throwable)
+                Timber.e(throwable)
                 onFailure()
             }
     }

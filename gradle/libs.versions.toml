@@ -22,6 +22,7 @@ comGoogleFirebaseFirebaseCrashlyticsKtx = "18.3.2"
 comGoogleGmsGoogleServices = "4.3.13"
 comGoogleProtobuf = "3.21.5"
 comGoogleProtobufPlugin = "0.8.19"
+comJakewhartonTimberTimber = "5.0.1"
 comSquareupMoshi = "1.13.0"
 comSquareupOkhttp3 = "4.10.0"
 comSquareupRetrofit2 = "2.9.0"
@@ -60,6 +61,7 @@ com-google-dagger-hiltCompiler = { group = "com.google.dagger", name = "hilt-com
 com-google-firebase-firebaseCrashlyticsKtx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx", version.ref = "comGoogleFirebaseFirebaseCrashlyticsKtx" }
 com-google-protobuf-protobufJavalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "comGoogleProtobuf" }
 com-google-protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "comGoogleProtobuf" }
+com-jakewharton-timber-timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "comJakewhartonTimberTimber"}
 com-squareup-moshi-moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "comSquareupMoshi" }
 com-squareup-moshi-moshiKotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "comSquareupMoshi" }
 com-squareup-moshi-moshiKotlinCodegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "comSquareupMoshi" }
