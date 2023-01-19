@@ -1,14 +1,13 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
 import android.content.Context
-import android.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import dagger.hilt.android.qualifiers.ApplicationContext
-import de.niklasbednarczyk.nbweather.core.data.localremote.constants.ConstantsCoreLocalRemote
+import de.niklasbednarczyk.nbweather.core.common.logging.nbLogError
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -41,8 +40,7 @@ class GmsLocationRepository @Inject constructor(
                 onCanceled()
             }
             .addOnFailureListener { throwable ->
-                //TODO (#5) Better logging
-                Log.e(ConstantsCoreLocalRemote.Logging.TAG, throwable.message.toString())
+                nbLogError(throwable)
                 onFailure()
             }
     }

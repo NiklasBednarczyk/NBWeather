@@ -18,7 +18,9 @@ abstract class LocalMediator<Data, Local> : LocalMediatorHelper<Data, Local> {
             mapToResource(local)
         }
         .onStart { emit(NBResource.Loading) }
-        .catch { emit(onLocalFailed()) }
+        .catch { throwable ->
+            emit(onLocalFailed(throwable))
+        }
         .flowOn(Dispatchers.IO)
 
 }

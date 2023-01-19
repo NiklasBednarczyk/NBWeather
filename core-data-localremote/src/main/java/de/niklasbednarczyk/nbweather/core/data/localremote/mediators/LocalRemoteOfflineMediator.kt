@@ -19,7 +19,7 @@ abstract class LocalRemoteOfflineMediator<Data, Local, Remote> :
         return if (local != null) {
             NBResource.Success(localToData(local))
         } else {
-            onLocalFailed()
+            onLocalFailed(RuntimeException("Query failed"))
         }
     }
 

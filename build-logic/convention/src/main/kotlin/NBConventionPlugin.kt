@@ -89,6 +89,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
 
         dependencies {
             coreLibraryDesugaring(libs.getLibrary("com.android.tools.desugarJdkLibs"))
+
+            implementation(libs.getLibrary("com.google.firebase.firebaseCrashlyticsKtx"))
         }
 
     }

@@ -2,6 +2,8 @@ plugins {
     id("de.niklasbednarczyk.nbweather.android.application")
     id("de.niklasbednarczyk.nbweather.dependency.hilt")
     id("de.niklasbednarczyk.nbweather.layer.ui")
+
+    id("com.google.gms.google-services")
 }
 
 android {

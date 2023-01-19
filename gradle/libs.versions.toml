@@ -17,6 +17,9 @@ comGoogleAndroidGmsPlayServicesLocation = "21.0.0"
 comGoogleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 comGoogleAndroidMaterial = "1.7.0"
 comGoogleDagger = "2.44.2"
+comGoogleFirebaseFirebaseCrashlyticsGradle = "2.9.2"
+comGoogleFirebaseFirebaseCrashlyticsKtx = "18.3.2"
+comGoogleGmsGoogleServices = "4.3.13"
 comGoogleProtobuf = "3.21.5"
 comGoogleProtobufPlugin = "0.8.19"
 comSquareupMoshi = "1.13.0"
@@ -54,6 +57,7 @@ com-google-android-gms-playServicesLocation = { group = "com.google.android.gms"
 com-google-android-material-material = { group = "com.google.android.material", name = "material", version.ref = "comGoogleAndroidMaterial" }
 com-google-dagger-hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "comGoogleDagger" }
 com-google-dagger-hiltCompiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "comGoogleDagger" }
+com-google-firebase-firebaseCrashlyticsKtx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx", version.ref = "comGoogleFirebaseFirebaseCrashlyticsKtx" }
 com-google-protobuf-protobufJavalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "comGoogleProtobuf" }
 com-google-protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "comGoogleProtobuf" }
 com-squareup-moshi-moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "comSquareupMoshi" }
@@ -72,6 +76,8 @@ protobuf-gradlePlugin = { group = "com.google.protobuf", name = "protobuf-gradle
 [plugins]
 android-application = { id = "com.android.application", version.ref = "comAndroidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "comAndroidGradlePlugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "comGoogleFirebaseFirebaseCrashlyticsGradle" }
+google-services = { id = "com.google.gms.google-services", version.ref = "comGoogleGmsGoogleServices"}
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "comGoogleDagger" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "orgJetbrainsKotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "comGoogleProtobufPlugin" }
