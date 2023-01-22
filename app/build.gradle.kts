@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("de.niklasbednarczyk.nbweather.android.application")
     id("de.niklasbednarczyk.nbweather.dependency.hilt")
@@ -7,6 +9,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file(gradleLocalProperties(rootDir).getProperty("signingconfig.release.storefilepath"))
+            keyAlias = gradleLocalProperties(rootDir).getProperty("signingconfig.release.keyalias")
+            storePassword = gradleLocalProperties(rootDir).getProperty("signingconfig.release.storepassword")
+            keyPassword = gradleLocalProperties(rootDir).getProperty("signingconfig.release.keypassword")
+        }
+    }
     defaultConfig {
         applicationId = "de.niklasbednarczyk.nbweather"
         versionCode = 1
@@ -25,6 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
