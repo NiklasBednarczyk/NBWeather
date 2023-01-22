@@ -63,21 +63,6 @@ inline fun <T1, T2, T3, R> nbNullSafe(
     }
 }
 
-inline fun <T1, T2, T3, R> nbNullSafeList(
-    value1: List<T1>?,
-    value2: List<T2>?,
-    value3: List<T3>?,
-    transform: (value1: List<T1>, value2: List<T2>, value3: List<T3>) -> R?
-): R? {
-    return nbNullSafe(value1, value2, value3) { v1, v2, v3 ->
-        if (v1.isNotEmpty() && v2.isNotEmpty() && v3.isNotEmpty()) {
-            transform(v1, v2, v3)
-        } else {
-            null
-        }
-    }
-}
-
 inline fun <T1, T2, T3, T4, R> nbNullSafe(
     value1: T1?,
     value2: T2?,

@@ -14,8 +14,6 @@ data class LocationOverviewDailyTemperaturesModel(
 
     companion object {
 
-        private const val MIN_WEIGHT = 0.00001f
-
         fun from(
             dailyForecast: DailyForecastModelData,
             minTemperatureAll: Double,
