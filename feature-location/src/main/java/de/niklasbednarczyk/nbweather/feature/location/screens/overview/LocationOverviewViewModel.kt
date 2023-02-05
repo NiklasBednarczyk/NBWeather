@@ -20,6 +20,7 @@ import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.da
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.hourly.LocationOverviewHourlyModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,6 +44,7 @@ class LocationOverviewViewModel @Inject constructor(
                 val units = data.units
                 val timeFormat = data.timeFormat
                 currentLocationFlow.flatMapLatestResource { currentLocation ->
+                    if (currentLocation == null) return@flatMapLatestResource flowOf(NBResource.Loading)
                     val latitude = currentLocation.latitude
                     val longitude = currentLocation.longitude
                     oneCallRepository.getOneCall(latitude, longitude, language, units, forceUpdate)

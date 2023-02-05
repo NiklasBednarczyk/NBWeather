@@ -113,15 +113,20 @@ class GeocodingRepository @Inject constructor(
         longitude: Double
     ) = withContext(Dispatchers.IO) {
         val local = geocodingDao.getLocation(latitude, longitude).firstOrNull()
+        val lastVisitedTimestampEpochSeconds = getCurrentTimestampEpochSeconds()
         if (local != null) {
             val newLocal =
-                local.copy(lastVisitedTimestampEpochSeconds = getCurrentTimestampEpochSeconds())
+                local.copy(lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds)
             geocodingDao.updateLocation(newLocal)
         } else {
-            val remote = geocodingService.getLocationsByCoordinates(latitude, longitude)
-                .firstOrNull()
-            val newLocal = LocationModelData.remoteToLocal(remote, latitude, longitude)
-                ?: return@withContext
+            val remote =
+                geocodingService.getLocationsByCoordinates(latitude, longitude).firstOrNull()
+            val newLocal = LocationModelData.remoteToLocal(
+                remote = remote,
+                latitude = latitude,
+                longitude = longitude,
+                lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds
+            ) ?: return@withContext
             geocodingDao.insertLocation(newLocal)
         }
     }

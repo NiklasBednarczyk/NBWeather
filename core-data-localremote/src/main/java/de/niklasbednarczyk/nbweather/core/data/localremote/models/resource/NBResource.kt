@@ -35,18 +35,11 @@ sealed interface NBResource<out T> {
         }
 
         fun <T, R> Flow<NBResource<T?>>.flatMapLatestResource(
-            transformData: suspend (data: T) -> Flow<NBResource<R>>
+            transformData: suspend (data: T?) -> Flow<NBResource<R>>
         ): Flow<NBResource<R>> {
             return this.flatMapLatest { resource ->
                 when (resource) {
-                    is Success -> {
-                        val data = resource.data
-                        if (data != null) {
-                            transformData(data)
-                        } else {
-                            flowOf(Error())
-                        }
-                    }
+                    is Success -> transformData(resource.data)
                     is Loading -> flowOf(Loading)
                     is Error -> flowOf(Error(resource.errorType))
                 }

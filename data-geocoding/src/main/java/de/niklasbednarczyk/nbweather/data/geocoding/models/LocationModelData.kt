@@ -76,7 +76,8 @@ data class LocationModelData(
         internal fun remoteToLocal(
             remote: LocationModelRemote?,
             latitude: Double,
-            longitude: Double
+            longitude: Double,
+            lastVisitedTimestampEpochSeconds: Long? = null
         ): LocationModelLocal? {
             return nbNullSafe(remote) { model ->
                 LocationModelLocal(
@@ -86,6 +87,7 @@ data class LocationModelData(
                     state = model.state,
                     latitude = latitude,
                     longitude = longitude,
+                    lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds
                 )
             }
         }
