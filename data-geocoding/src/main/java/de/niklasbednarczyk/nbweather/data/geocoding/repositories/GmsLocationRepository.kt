@@ -30,7 +30,7 @@ class GmsLocationRepository @Inject constructor(
         onCanceled: () -> Unit,
         onFailure: () -> Unit
     ) {
-        val onCatch: (t: Throwable) -> Unit = { t ->
+        val onThrowable: (t: Throwable) -> Unit = { t ->
             Timber.e(t)
             onFailure()
         }
@@ -42,18 +42,17 @@ class GmsLocationRepository @Inject constructor(
                         val longitude = location.longitude
                         onSuccess(latitude, longitude)
                     } catch (t: Throwable) {
-                        onCatch(t)
+                        onThrowable(t)
                     }
                 }
                 .addOnCanceledListener {
                     onCanceled()
                 }
                 .addOnFailureListener { throwable ->
-                    Timber.e(throwable)
-                    onFailure()
+                    onThrowable(throwable)
                 }
         } catch (t: Throwable) {
-            onCatch(t)
+            onThrowable(t)
         }
 
     }
