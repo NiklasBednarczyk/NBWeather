@@ -30,12 +30,20 @@ class GmsLocationRepository @Inject constructor(
         onCanceled: () -> Unit,
         onFailure: () -> Unit
     ) {
+        val onCatch: (t: Throwable) -> Unit = { t ->
+            Timber.e(t)
+            onFailure()
+        }
         try {
             fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener { location ->
-                    val latitude = location.latitude
-                    val longitude = location.longitude
-                    onSuccess(latitude, longitude)
+                    try {
+                        val latitude = location.latitude
+                        val longitude = location.longitude
+                        onSuccess(latitude, longitude)
+                    } catch (t: Throwable) {
+                        onCatch(t)
+                    }
                 }
                 .addOnCanceledListener {
                     onCanceled()
@@ -45,8 +53,7 @@ class GmsLocationRepository @Inject constructor(
                     onFailure()
                 }
         } catch (t: Throwable) {
-            Timber.e(t)
-            onFailure()
+            onCatch(t)
         }
 
     }
