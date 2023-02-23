@@ -39,5 +39,4 @@ include(":feature-location")
 include(":feature-search")
 include(":feature-settings")
 
-//TODO (Material) Remove when available as gradle dependency (blocked by Material)
 include(":library-materialcolorutilities")
