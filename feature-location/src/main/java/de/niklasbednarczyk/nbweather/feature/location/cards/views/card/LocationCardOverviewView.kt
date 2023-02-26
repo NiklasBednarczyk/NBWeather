@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -67,7 +68,8 @@ private fun JustWeather(
 ) {
     Weather(
         modifier = Modifier.fillMaxWidth(),
-        weather = weather
+        weather = weather,
+        shouldShowDescription = true
     )
 }
 
@@ -126,7 +128,8 @@ private fun WithAlertsAndPrecipitation(
                     .onGloballyPositioned { layoutCoordinates ->
                         innerSize = layoutCoordinates.size
                     },
-                weather = model.weather
+                weather = model.weather,
+                shouldShowDescription = false
             )
         }
     }
@@ -162,7 +165,9 @@ private fun Alert(
 @Composable
 private fun Weather(
     modifier: Modifier = Modifier,
-    weather: LocationCardOverviewWeatherModel
+    weather: LocationCardOverviewWeatherModel,
+    shouldShowDescription: Boolean,
+    textAlign: TextAlign = TextAlign.Center
 ) {
     Column(
         modifier = modifier.width(IntrinsicSize.Max),
@@ -174,24 +179,29 @@ private fun Weather(
                 .aspectRatio(2f),
             icon = weather.weatherIcon
         )
-        Text(
-            text = weather.weatherDescription.asString(),
-            style = MaterialTheme.typography.titleLarge
-        )
+        if (shouldShowDescription) {
+            Text(
+                text = weather.weatherDescription.asString(),
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = textAlign
+            )
+        }
         Text(
             text = nbCombinedString(
                 weather.temperature,
                 weather.temperatureUnit,
                 separator = "",
             ).asString(),
-            style = MaterialTheme.typography.displayLarge
+            style = MaterialTheme.typography.displayLarge,
+            textAlign = textAlign
         )
         Text(
             text = nbCombinedString(
                 weather.feelsLikePrefix,
                 weather.feelsLikeTemperature
             ).asString(),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
+            textAlign = textAlign
         )
     }
 }
