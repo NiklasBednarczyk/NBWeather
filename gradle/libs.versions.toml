@@ -1,5 +1,6 @@
 [versions]
 androidxActivity = "1.6.1"
+androidxAppcompat = "1.6.1"
 androidxCompose = "1.4.0-alpha03"
 androidxComposeCompiler = "1.4.0-alpha02"
 androidxComposeMaterial3 = "1.1.0-alpha03"
@@ -36,20 +37,22 @@ targetSdk = "33"
 
 [libraries]
 androidx-activity-activityCompose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
+androidx-activity-activityKtx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 androidx-compose-material3-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
 androidx-compose-material3-material3WindowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 androidx-compose-ui-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
+androidx-compose-ui-uiViewbinding = { group = "androidx.compose.ui", name = "ui-viewbinding", version.ref = "androidxCompose" }
 androidx-core-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-datastore-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDatastore" }
-androidx-hilt-hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
+androidx-hilt-hiltNavigationFragment = { group = "androidx.hilt", name = "hilt-navigation-fragment", version.ref = "androidxHilt" }
 androidx-lifecycle-lifecycleRuntimeKtx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
-androidx-navigation-navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-navigation-navigationFragmentKtx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
+androidx-navigation-navigationUiKtx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidXRoom" }
 androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidXRoom" }
 androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidXRoom" }
 com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "comAndroidToolsDesugarJdkLibs" }
 com-google-accompanist-accompanistFlowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "comGoogleAccompanist" }
-com-google-accompanist-accompanistNavigationAnimation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistPager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistPermissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistSwiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "comGoogleAccompanist" }

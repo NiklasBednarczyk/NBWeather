@@ -4,7 +4,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.core.ui.scaffold.navigationbar.NBNavigationBarItem
+import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.navigationbar.NBNavigationBarItem
 
 enum class LocationOverviewNavigationBarItem : NBNavigationBarItem {
     TODAY,

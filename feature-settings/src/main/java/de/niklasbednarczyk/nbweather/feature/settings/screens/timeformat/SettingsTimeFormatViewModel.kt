@@ -4,7 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
 import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupModel
 import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioOptionModel
-import de.niklasbednarczyk.nbweather.core.ui.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.settings.extensions.displayText
 import kotlinx.coroutines.flow.Flow

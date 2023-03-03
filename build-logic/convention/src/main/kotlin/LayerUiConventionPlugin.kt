@@ -9,6 +9,7 @@ class LayerUiConventionPlugin : NBConventionPlugin {
         getCommonExtensionOrNull()?.apply {
             buildFeatures {
                 compose = true
+                viewBinding = true
             }
 
             composeOptions {
@@ -24,15 +25,17 @@ class LayerUiConventionPlugin : NBConventionPlugin {
             implementation(project(":library-materialcolorutilities"))
 
             implementation(libs.getLibrary("androidx.activity.activityCompose"))
+            implementation(libs.getLibrary("androidx.activity.activityKtx"))
             implementation(libs.getLibrary("androidx.compose.material3.material3"))
             implementation(libs.getLibrary("androidx.compose.material3.material3WindowSizeClass"))
             implementation(libs.getLibrary("androidx.compose.ui.ui"))
+            implementation(libs.getLibrary("androidx.compose.ui.uiViewbinding"))
             implementation(libs.getLibrary("androidx.core.coreKtx"))
-            implementation(libs.getLibrary("androidx.hilt.hiltNavigationCompose"))
+            implementation(libs.getLibrary("androidx.hilt.hiltNavigationFragment"))
             implementation(libs.getLibrary("androidx.lifecycle.lifecycleRuntimeKtx"))
-            implementation(libs.getLibrary("androidx.navigation.navigationCompose"))
+            implementation(libs.getLibrary("androidx.navigation.navigationFragmentKtx"))
+            implementation(libs.getLibrary("androidx.navigation.navigationUiKtx"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistFlowlayout"))
-            implementation(libs.getLibrary("com.google.accompanist.accompanistNavigationAnimation"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistPager"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistPermissions"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistSwiperefresh"))

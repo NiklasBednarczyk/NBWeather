@@ -2,7 +2,9 @@ package de.niklasbednarczyk.nbweather.navigation
 
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
-import de.niklasbednarczyk.nbweather.core.ui.navigation.NBNavigationDestination
+import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestination
+import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
+import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 sealed interface NBNavigationDrawerItem {
 
@@ -16,22 +18,29 @@ sealed interface NBNavigationDrawerItem {
         val label: NBString?
         val icon: NBIconModel
         val selected: Boolean
+        val topLevelDestination: NBTopLevelDestination
 
         data class Location(
             override val label: NBString?,
             override val icon: NBIconModel,
             override val selected: Boolean,
-            val latitude: Double,
-            val longitude: Double
-        ) : Item
+            val location: LocationModelData,
+        ) : Item {
+
+            override val topLevelDestination: NBTopLevelDestination
+                get() = NBTopLevelDestinations.Location
+
+        }
 
         data class Other(
             override val label: NBString?,
             override val icon: NBIconModel,
-            val destination: NBNavigationDestination
+            override val topLevelDestination: NBTopLevelDestination
         ) : Item {
+
             override val selected: Boolean
                 get() = false
+
         }
 
     }

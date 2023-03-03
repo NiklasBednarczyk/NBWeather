@@ -7,6 +7,9 @@ sealed interface NBResource<out T> {
     data class Error(val errorType: NBErrorType = NBErrorType.UNKNOWN) : NBResource<Nothing>
     object Loading : NBResource<Nothing>
 
+    val dataOrNull: T?
+        get() = if (this is Success) data else null
+
     fun <R> map(
         mapData: (oldData: T) -> R?
     ): NBResource<R> {

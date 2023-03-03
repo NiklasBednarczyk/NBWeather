@@ -3,7 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.theme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupModel
 import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioOptionModel
-import de.niklasbednarczyk.nbweather.core.ui.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.settings.models.appearance.ThemeTypeData
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.nbweather.feature.settings.extensions.displayText

@@ -2,13 +2,8 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
 import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.scaffold.snackbar.NBSnackbarActionModel
-import de.niklasbednarczyk.nbweather.core.ui.scaffold.snackbar.NBSnackbarModel
-import de.niklasbednarczyk.nbweather.core.ui.scaffold.snackbar.NBSnackbarViewModel
-import de.niklasbednarczyk.nbweather.core.ui.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GmsLocationRepository
@@ -21,7 +16,7 @@ class SearchOverviewViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
     private val gmsLocationRepository: GmsLocationRepository,
     private val settingsDataRepository: SettingsDataRepository
-) : NBViewModel<SearchOverviewUiState>(SearchOverviewUiState()), NBSnackbarViewModel {
+) : NBViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
 
     companion object {
         private const val DEBOUNCE_VALUE = 300L
@@ -92,13 +87,15 @@ class SearchOverviewViewModel @Inject constructor(
 
     fun onFindCurrentLocationClicked(
         locationPermissionsState: MultiplePermissionsState,
-        onSuccess: (Double, Double) -> Unit
+        onSuccess: (Double, Double) -> Unit,
+        onCanceled: () -> Unit,
+        onFailure: () -> Unit
     ) {
         val anyPermissionGranted =
             locationPermissionsState.revokedPermissions.size != locationPermissionsState.permissions.size
 
         if (anyPermissionGranted) {
-            getCurrentLocation(onSuccess)
+            getCurrentLocation(onSuccess, onCanceled, onFailure)
         } else {
             locationPermissionsState.launchMultiplePermissionRequest()
         }
@@ -107,7 +104,9 @@ class SearchOverviewViewModel @Inject constructor(
 
     fun onLocationPermissionsResult(
         locationPermissionResult: Map<String, Boolean>,
-        onSuccess: (Double, Double) -> Unit
+        onSuccess: (Double, Double) -> Unit,
+        onCanceled: () -> Unit,
+        onFailure: () -> Unit
     ) {
         val coarsePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_COARSE]
         val finePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_FINE]
@@ -115,19 +114,18 @@ class SearchOverviewViewModel @Inject constructor(
         val anyPermissionGranted = coarsePermissionGranted == true || finePermissionGranted == true
 
         if (anyPermissionGranted) {
-            getCurrentLocation(onSuccess)
+            getCurrentLocation(
+                onSuccess = onSuccess,
+                onCanceled = onCanceled,
+                onFailure = onFailure
+            )
         }
     }
 
-    fun onBackPressedWhenNoCurrentLocation() {
-        val snackbar = NBSnackbarModel(
-            message = NBString.Resource(R.string.snackbar_back_pressed_when_no_current_location_message)
-        )
-        sendSnackbar(snackbar)
-    }
-
     private fun getCurrentLocation(
-        onSuccess: (Double, Double) -> Unit
+        onSuccess: (Double, Double) -> Unit,
+        onCanceled: () -> Unit,
+        onFailure: () -> Unit
     ) {
         startFindingLocation()
         gmsLocationRepository.getCurrentLocation(
@@ -136,25 +134,11 @@ class SearchOverviewViewModel @Inject constructor(
             },
             onCanceled = {
                 stopFindingLocation()
-                val snackbar = NBSnackbarModel(
-                    message = NBString.Resource(R.string.snackbar_location_found_canceled_message),
-                    action = NBSnackbarActionModel(
-                        label = NBString.Resource(R.string.snackbar_location_found_canceled_action_label),
-                        onPerformed = { startFindingLocation() }
-                    )
-                )
-                sendSnackbar(snackbar)
+                onCanceled()
             },
             onFailure = {
                 stopFindingLocation()
-                val snackbar = NBSnackbarModel(
-                    message = NBString.Resource(R.string.snackbar_location_found_failure_message),
-                    action = NBSnackbarActionModel(
-                        label = NBString.Resource(R.string.snackbar_location_found_failure_action_label),
-                        onPerformed = { startFindingLocation() }
-                    )
-                )
-                sendSnackbar(snackbar)
+                onFailure()
             }
         )
     }
@@ -171,5 +155,10 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
+    fun setCurrentLocation(latitude: Double, longitude: Double) {
+        launchSuspend {
+            geocodingRepository.insertOrUpdateCurrentLocation(latitude, longitude)
+        }
+    }
 
 }

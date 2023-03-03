@@ -1,19 +1,17 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.overview
 
-import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.flatMapLatestResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
-import de.niklasbednarczyk.nbweather.core.ui.scaffold.navigationbar.NBNavigationBarViewModel
+import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.navigationbar.NBNavigationBarViewModel
+import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshFlow
-import de.niklasbednarczyk.nbweather.core.ui.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.LocationCardItem
-import de.niklasbednarczyk.nbweather.feature.location.navigation.LocationDestinations
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.LocationOverviewViewData
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily.LocationOverviewDailyModel
@@ -25,7 +23,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocationOverviewViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val geocodingRepository: GeocodingRepository,
     private val oneCallRepository: OneCallRepository,
     private val settingsDataRepository: SettingsDataRepository
@@ -74,18 +71,6 @@ class LocationOverviewViewModel @Inject constructor(
     }
 
     init {
-        val latitudeString: String? = savedStateHandle[LocationDestinations.Overview.KEY_LATITUDE]
-        val longitudeString: String? = savedStateHandle[LocationDestinations.Overview.KEY_LONGITUDE]
-
-        val latitude = latitudeString?.toDoubleOrNull()
-        val longitude = longitudeString?.toDoubleOrNull()
-
-        if (latitude != null && longitude != null) {
-            launchSuspend {
-                geocodingRepository.insertOrUpdateCurrentLocation(latitude, longitude)
-            }
-        }
-
         collectFlow(
             { currentLocationFlow },
             { oldUiState, output -> oldUiState.copy(locationResource = output) }

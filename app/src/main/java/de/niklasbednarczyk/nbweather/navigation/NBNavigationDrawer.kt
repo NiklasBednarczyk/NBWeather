@@ -9,44 +9,45 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestination
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
-import de.niklasbednarczyk.nbweather.feature.location.navigation.LocationDestinations
+import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 @Composable
 fun NBNavigationDrawer(
-    navigator: NBNavigator,
+    drawerState: DrawerState,
     drawerItems: List<NBNavigationDrawerItem>,
+    closeDrawer: () -> Unit,
+    navigateToTopLevelDestination: (topLevelDestination: NBTopLevelDestination) -> Unit,
+    setCurrentLocation: (location: LocationModelData) -> Unit,
     content: @Composable () -> Unit
 ) {
-    val currentBackStackEntryState = navigator.navController.currentBackStackEntryAsState()
-    val currentDestinationRoute = currentBackStackEntryState.value?.destination?.route
-    val gesturesEnabled = currentDestinationRoute == LocationDestinations.Overview.route
-
     ModalNavigationDrawer(
-        drawerState = navigator.drawerState,
+        drawerState = drawerState,
         drawerContent = {
             DrawerSheet(
-                navigator = navigator,
                 drawerItems = drawerItems,
+                closeDrawer = closeDrawer,
+                navigateToTopLevelDestination = navigateToTopLevelDestination,
+                setCurrentLocation = setCurrentLocation,
             )
         },
-        gesturesEnabled = gesturesEnabled,
+        gesturesEnabled = false,
         content = content
     )
 }
 
 @Composable
 private fun DrawerSheet(
-    navigator: NBNavigator,
     drawerItems: List<NBNavigationDrawerItem>,
+    closeDrawer: () -> Unit,
+    navigateToTopLevelDestination: (topLevelDestination: NBTopLevelDestination) -> Unit,
+    setCurrentLocation: (location: LocationModelData) -> Unit
 ) {
-    val closeDrawer = { navigator.closeDrawer() }
-
     ModalDrawerSheet {
         LazyColumn {
             items(drawerItems) { drawerItem ->
@@ -76,10 +77,7 @@ private fun DrawerSheet(
                             closeDrawer = closeDrawer,
                             navigateToDestination = {
                                 if (!drawerItem.selected) {
-                                    navigator.navigateToLocation(
-                                        drawerItem.latitude,
-                                        drawerItem.longitude
-                                    )
+                                    setCurrentLocation(drawerItem.location)
                                 }
                             },
                             label = drawerItem.label,
@@ -91,7 +89,7 @@ private fun DrawerSheet(
                         DrawerItem(
                             closeDrawer = closeDrawer,
                             navigateToDestination = {
-                                navigator.navigateToDestination(drawerItem.destination)
+                                navigateToTopLevelDestination(drawerItem.topLevelDestination)
                             },
                             label = drawerItem.label,
                             icon = drawerItem.icon,

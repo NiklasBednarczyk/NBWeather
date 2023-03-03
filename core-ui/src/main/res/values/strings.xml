@@ -250,9 +250,7 @@
     <string name="snackbar_about_intent_failed">No fitting app on your phone found</string>
     <string name="snackbar_back_pressed_when_no_current_location_message">You need to select a location</string>
     <string name="snackbar_location_found_canceled_message">Location request was canceled</string>
-    <string name="snackbar_location_found_canceled_action_label">Try again</string>
     <string name="snackbar_location_found_failure_message">Location request failed</string>
-    <string name="snackbar_location_found_failure_action_label">Try again</string>
 
     <string name="top_app_bar_search_placeholder">Search</string>
 

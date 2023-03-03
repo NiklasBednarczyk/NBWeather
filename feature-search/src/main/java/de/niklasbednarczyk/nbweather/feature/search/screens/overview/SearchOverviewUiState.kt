@@ -10,4 +10,9 @@ data class SearchOverviewUiState(
     val shouldShowFindLocation: Boolean = false,
     val visitedLocationsInfoResource: NBResource<VisitedLocationsInfoModelData>? = null,
     val searchedLocationsResource: NBResource<List<LocationModelData>>? = null
-)
+) {
+
+    val showNavigationIcon
+        get() = visitedLocationsInfoResource?.dataOrNull?.currentLocation != null && !findingLocationInProgress
+
+}

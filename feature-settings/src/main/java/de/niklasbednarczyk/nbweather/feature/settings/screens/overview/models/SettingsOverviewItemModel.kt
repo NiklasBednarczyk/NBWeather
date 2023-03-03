@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.overview.models
 
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
-import de.niklasbednarczyk.nbweather.core.ui.navigation.NBNavigationDestination
+import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 
 sealed interface SettingsOverviewItemModel {
 
@@ -16,7 +16,7 @@ sealed interface SettingsOverviewItemModel {
         val icon: NBIconModel,
         val title: NBString?,
         val value: NBString?,
-        val destination: NBNavigationDestination
+        val destination: NBDestination.WithoutArguments
     ) : SettingsOverviewItemModel
 
 }
