@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface MinutelyForecastDao {
 
     @Query("SELECT * FROM minutelyforecastentitylocal WHERE ${ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY} = :metadataId")
-    fun getMinutelyForecasts(metadataId: Long?): Flow<List<MinutelyForecastEntityLocal?>>
+    fun getMinutelyForecasts(metadataId: Long?): Flow<List<MinutelyForecastEntityLocal>?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertMinutelyForecasts(minutelyForecasts: List<MinutelyForecastEntityLocal>)

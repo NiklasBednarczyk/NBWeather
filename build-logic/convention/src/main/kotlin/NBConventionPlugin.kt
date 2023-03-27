@@ -7,6 +7,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.plugins.PluginManager
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
@@ -25,6 +26,10 @@ internal interface NBConventionPlugin : Plugin<Project> {
         (this as ExtensionAware).extensions.configure("kotlinOptions", block)
     }
 
+    fun DependencyHandlerScope.androidTestImplementation(dependencyNotation: Any) {
+        add("androidTestImplementation", dependencyNotation)
+    }
+
     fun DependencyHandlerScope.annotationProcessor(dependencyNotation: Any) {
         add("annotationProcessor", dependencyNotation)
     }
@@ -41,6 +46,19 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("kapt", dependencyNotation)
     }
 
+    fun DependencyHandlerScope.testImplementation(dependencyNotation: Any) {
+        add("testImplementation", dependencyNotation)
+    }
+
+    fun PluginManager.configurePluginsAndroid() {
+        apply("org.jetbrains.kotlin.android")
+        apply("com.github.ben-manes.versions")
+        apply("com.google.firebase.crashlytics")
+    }
+
+    fun Project.plugins(block: PluginManager.() -> Unit) {
+        with(pluginManager, block)
+    }
     fun Project.apply(libs: VersionCatalog)
 
     fun Project.configureKotlinAndroid(
@@ -55,6 +73,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
                 minSdk = libs.getVersionInt("minSdk")
 
                 resourceConfigurations.addAll(listOf("de", "en", "en_GB"))
+
+                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
 
             compileOptions {

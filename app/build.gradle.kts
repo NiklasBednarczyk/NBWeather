@@ -22,7 +22,6 @@ android {
         versionCode = 3
         versionName = "1.0.2"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -37,6 +36,10 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     packagingOptions {

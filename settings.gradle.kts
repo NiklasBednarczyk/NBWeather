@@ -40,3 +40,6 @@ include(":feature-search")
 include(":feature-settings")
 
 include(":library-materialcolorutilities")
+
+include(":test-common")
+include(":test-data-localremote-local")

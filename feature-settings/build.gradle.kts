@@ -1,12 +1,7 @@
 plugins {
-    id("de.niklasbednarczyk.nbweather.android.library")
-    id("de.niklasbednarczyk.nbweather.dependency.hilt")
-    id("de.niklasbednarczyk.nbweather.layer.ui")
+    id("de.niklasbednarczyk.nbweather.library.ui")
 }
-
 dependencies {
-    implementation(project(":core-ui"))
-
     implementation(project(":data-settings"))
 }
 android {

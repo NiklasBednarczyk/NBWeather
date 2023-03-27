@@ -6,7 +6,7 @@ import org.gradle.kotlin.dsl.dependencies
 class LayerDataDiskConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
-        with(pluginManager) {
+        plugins {
             apply("com.google.protobuf")
         }
 

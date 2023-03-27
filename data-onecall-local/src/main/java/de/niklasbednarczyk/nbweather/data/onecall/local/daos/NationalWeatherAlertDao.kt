@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface NationalWeatherAlertDao {
 
     @Query("SELECT * FROM nationalweatheralertentitylocal WHERE ${ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY} = :metadataId")
-    fun getNationalWeatherAlerts(metadataId: Long?): Flow<List<NationalWeatherAlertEntityLocal?>>
+    fun getNationalWeatherAlerts(metadataId: Long?): Flow<List<NationalWeatherAlertEntityLocal>?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertNationalWeatherAlerts(nationalWeatherAlerts: List<NationalWeatherAlertEntityLocal>)

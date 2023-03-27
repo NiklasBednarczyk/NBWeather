@@ -1,12 +1,7 @@
 plugins {
-    id("de.niklasbednarczyk.nbweather.android.library")
-    id("de.niklasbednarczyk.nbweather.dependency.hilt")
-    id("de.niklasbednarczyk.nbweather.layer.data.localremote")
+    id("de.niklasbednarczyk.nbweather.library.data.localremote")
 }
-
 dependencies {
-    implementation(project(":core-data-localremote"))
-
     implementation(project(":data-onecall-local"))
     implementation(project(":data-onecall-remote"))
 }

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface HourlyForecastDao {
 
     @Query("SELECT * FROM hourlyforecastentitylocal WHERE ${ConstantsCoreLocal.ColumnName.METADATA_ID_ENTITY} = :metadataId")
-    fun getHourlyForecasts(metadataId: Long?): Flow<List<HourlyForecastEntityLocal?>>
+    fun getHourlyForecasts(metadataId: Long?): Flow<List<HourlyForecastEntityLocal>?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
     fun insertHourlyForecasts(hourlyForecasts: List<HourlyForecastEntityLocal>)

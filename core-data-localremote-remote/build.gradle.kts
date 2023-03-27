@@ -6,4 +6,8 @@ plugins {
 }
 android {
     namespace = "de.niklasbednarczyk.nbweather.core.data.localremote.remote"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }

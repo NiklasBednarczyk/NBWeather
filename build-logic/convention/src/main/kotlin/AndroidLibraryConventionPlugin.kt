@@ -6,11 +6,9 @@ import org.gradle.kotlin.dsl.configure
 class AndroidLibraryConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
-        with(pluginManager) {
+        plugins {
             apply("com.android.library")
-            apply("org.jetbrains.kotlin.android")
-            apply("com.github.ben-manes.versions")
-            apply("com.google.firebase.crashlytics")
+            configurePluginsAndroid()
         }
 
         extensions.configure<LibraryExtension> {

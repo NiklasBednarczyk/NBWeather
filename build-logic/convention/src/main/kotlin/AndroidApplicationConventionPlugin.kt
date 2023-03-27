@@ -6,11 +6,9 @@ import org.gradle.kotlin.dsl.configure
 class AndroidApplicationConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
-        with(pluginManager) {
+        plugins {
             apply("com.android.application")
-            apply("org.jetbrains.kotlin.android")
-            apply("com.github.ben-manes.versions")
-            apply("com.google.firebase.crashlytics")
+            configurePluginsAndroid()
         }
 
         extensions.configure<BaseAppModuleExtension> {

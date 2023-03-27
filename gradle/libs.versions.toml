@@ -9,8 +9,11 @@ androidxDatastore = "1.0.0"
 androidxHilt = "1.0.0"
 androidxLifecycle = "2.5.1"
 androidxNavigation = "2.5.3"
-androidXRoom = "2.4.3"
+androidxRoom = "2.4.3"
+androidxTestCore = "1.5.0"
+androidxTestRunner = "1.5.2"
 comAndroidGradlePlugin = "7.3.1"
+comAndroidReportingGradlePlugin = "4.2.0-alpha09"
 comAndroidToolsDesugarJdkLibs = "1.1.8"
 comGithubBenManesVersions = "0.44.0"
 comGoogleAccompanist = "0.28.0"
@@ -48,9 +51,11 @@ androidx-hilt-hiltNavigationFragment = { group = "androidx.hilt", name = "hilt-n
 androidx-lifecycle-lifecycleRuntimeKtx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-navigation-navigationFragmentKtx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
 androidx-navigation-navigationUiKtx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
-androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidXRoom" }
-androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidXRoom" }
-androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidXRoom" }
+androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
+androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidxRoom" }
+androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "comAndroidToolsDesugarJdkLibs" }
 com-google-accompanist-accompanistFlowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistPager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "comGoogleAccompanist" }
@@ -72,6 +77,7 @@ com-squareup-okhttp3-okhttp = { group = "com.squareup.okhttp3", name = "okhttp",
 com-squareup-retrofit2-converterMoshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "comSquareupRetrofit2" }
 com-squareup-retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "comSquareupRetrofit2" }
 org-jetbrains-kotlinx-kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "orgJetbrainsKotlinx" }
+org-jetbrains-kotlinx-kotlinxCoroutinesTest = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "orgJetbrainsKotlinx" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "comAndroidGradlePlugin" }
@@ -81,6 +87,7 @@ protobuf-gradlePlugin = { group = "com.google.protobuf", name = "protobuf-gradle
 [plugins]
 android-application = { id = "com.android.application", version.ref = "comAndroidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "comAndroidGradlePlugin" }
+android-reporting = { id = "com.android.reporting", version.ref = "comAndroidReportingGradlePlugin"}
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "comGoogleFirebaseFirebaseCrashlyticsGradle" }
 google-services = { id = "com.google.gms.google-services", version.ref = "comGoogleGmsGoogleServices"}
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "comGoogleDagger" }

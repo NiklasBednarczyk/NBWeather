@@ -5,7 +5,7 @@ import org.gradle.kotlin.dsl.dependencies
 class DependencyHiltConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
-        with(pluginManager) {
+        plugins {
             apply("dagger.hilt.android.plugin")
             apply("kotlin-kapt")
         }

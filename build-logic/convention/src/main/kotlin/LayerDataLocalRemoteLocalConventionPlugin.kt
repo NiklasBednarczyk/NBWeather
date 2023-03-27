@@ -5,7 +5,7 @@ import org.gradle.kotlin.dsl.dependencies
 class LayerDataLocalRemoteLocalConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
-        with(pluginManager) {
+        plugins {
             apply("kotlin-kapt")
         }
 
