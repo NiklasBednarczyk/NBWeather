@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbZip
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.*
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
@@ -112,12 +113,12 @@ class OneCallRepositoryTest : NBRepositoryTest {
             assertValue(remote.current?.snow?.oneH, data.currentWeather.snow1hVolume?.value, true)
             assertClassRemoteWeather(remote.current?.weather, data.currentWeather.weather)
 
-            remote.minutely?.zip(data.minutelyForecasts) { minutelyRemote, minutelyData ->
+            nbZip(remote.minutely, data.minutelyForecasts) { minutelyRemote, minutelyData ->
                 assertValue(minutelyRemote.dt, minutelyData.forecastTime?.value)
                 assertValue(minutelyRemote.precipitation, minutelyData.precipitation?.value)
             }
 
-            remote.hourly?.zip(data.hourlyForecasts) { hourlyRemote, hourlyData ->
+            nbZip(remote.hourly, data.hourlyForecasts) { hourlyRemote, hourlyData ->
                 assertValue(hourlyRemote.dt, hourlyData.forecastTime?.value)
                 assertValue(hourlyRemote.temp, hourlyData.temperature?.value)
                 assertValue(hourlyRemote.feelsLike, hourlyData.feelsLikeTemperature?.value)
@@ -136,19 +137,28 @@ class OneCallRepositoryTest : NBRepositoryTest {
                 assertClassRemoteWeather(hourlyRemote.weather, hourlyData.weather)
             }
 
-            remote.daily?.zip(data.dailyForecasts) { dailyRemote, dailyData ->
+            nbZip(remote.daily, data.dailyForecasts) { dailyRemote, dailyData ->
                 assertValue(dailyRemote.dt, dailyData.forecastTime?.value)
                 assertValue(dailyRemote.sunrise, dailyData.sunrise?.value)
                 assertValue(dailyRemote.sunset, dailyData.sunset?.value)
                 assertValue(dailyRemote.moonrise, dailyData.moonrise?.value)
                 assertValue(dailyRemote.moonset, dailyData.moonset?.value)
                 assertValue(MoonPhaseType.from(dailyRemote.moonPhase), dailyData.moonPhase?.type)
-                assertValue(dailyRemote.temp?.morn, dailyData.temperature?.morningTemperature?.value)
+                assertValue(
+                    dailyRemote.temp?.morn,
+                    dailyData.temperature?.morningTemperature?.value
+                )
                 assertValue(dailyRemote.temp?.day, dailyData.temperature?.dayTemperature?.value)
                 assertValue(dailyRemote.temp?.eve, dailyData.temperature?.eveningTemperature?.value)
                 assertValue(dailyRemote.temp?.night, dailyData.temperature?.nightTemperature?.value)
-                assertValue(dailyRemote.temp?.min, dailyData.temperature?.minDailyTemperature?.value)
-                assertValue(dailyRemote.temp?.max, dailyData.temperature?.maxDailyTemperature?.value)
+                assertValue(
+                    dailyRemote.temp?.min,
+                    dailyData.temperature?.minDailyTemperature?.value
+                )
+                assertValue(
+                    dailyRemote.temp?.max,
+                    dailyData.temperature?.maxDailyTemperature?.value
+                )
                 assertValue(
                     dailyRemote.feelsLike?.morn,
                     dailyData.feelsLikeTemperature?.morningTemperature?.value
@@ -179,7 +189,7 @@ class OneCallRepositoryTest : NBRepositoryTest {
                 assertClassRemoteWeather(dailyRemote.weather, dailyData.weather)
             }
 
-            remote.alerts?.zip(data.nationalWeatherAlerts) { alertRemote, alertData ->
+            nbZip(remote.alerts, data.nationalWeatherAlerts) { alertRemote, alertData ->
                 assertValue(alertRemote.senderName, alertData.senderName?.asString(context))
                 assertValue(alertRemote.event, alertData.eventName?.asString(context))
                 assertValue(alertRemote.start, alertData.startDate?.value)
@@ -293,7 +303,7 @@ class OneCallRepositoryTest : NBRepositoryTest {
     }
 
     @Test
-    fun getOneCallLocal_shouldGetCorrectOneCall()  = testScope.runTest {
+    fun getOneCallLocal_shouldGetCorrectOneCall() = testScope.runTest {
         // Arrange
         subject.getOneCall(
             latitude = LATITUDE,

@@ -42,5 +42,8 @@ include(":feature-settings")
 include(":library-materialcolorutilities")
 
 include(":test-common")
+include(":test-data-disk")
 include(":test-data-localremote")
 include(":test-data-localremote-local")
+include(":test-data-localremote-remote")
+include(":test-ui")

@@ -13,6 +13,7 @@ class DependencyHiltConventionPlugin : NBConventionPlugin {
         dependencies {
             implementation(libs.getLibrary("com.google.dagger.hiltAndroid"))
             kapt(libs.getLibrary("com.google.dagger.hiltCompiler"))
+            kaptTests(libs.getLibrary("com.google.dagger.hiltCompiler"))
         }
     }
 

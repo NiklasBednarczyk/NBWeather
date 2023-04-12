@@ -14,6 +14,7 @@ internal interface NBTestConventionPlugin : NBConventionPlugin {
             val dependencyNotations = listOf(
                 libs.getLibrary("androidx.test.core"),
                 libs.getLibrary("androidx.test.runner"),
+                libs.getLibrary("com.google.dagger.hiltAndroidTesting"),
                 libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest"),
                 kotlin("test")
             )

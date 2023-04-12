@@ -9,10 +9,14 @@ class LibraryUiConventionPlugin : NBConventionPlugin {
         plugins {
             apply("de.niklasbednarczyk.nbweather.android.library")
             apply("de.niklasbednarczyk.nbweather.dependency.hilt")
+            apply("de.niklasbednarczyk.nbweather.dependency.test")
             apply("de.niklasbednarczyk.nbweather.layer.ui")
         }
         dependencies {
             implementation(project(":core-ui"))
+
+            testsImplementation(project(":test-common"))
+            testsImplementation(project(":test-ui"))
         }
     }
 

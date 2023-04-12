@@ -3,6 +3,7 @@ plugins {
     id("de.niklasbednarczyk.nbweather.layer.data.localremote.local")
 }
 dependencies {
+    implementation(project(":core-data-localremote-local"))
     implementation(project(":test-common"))
 }
 android {

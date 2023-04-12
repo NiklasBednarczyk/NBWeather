@@ -43,6 +43,11 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("kapt", dependencyNotation)
     }
 
+    fun DependencyHandlerScope.kaptTests(dependencyNotation: Any) {
+        add("kaptAndroidTest", dependencyNotation)
+        add("kaptTest", dependencyNotation)
+    }
+
     fun DependencyHandlerScope.testsImplementation(dependencyNotation: Any) {
         add("androidTestImplementation", dependencyNotation)
         add("testImplementation", dependencyNotation)
@@ -72,7 +77,7 @@ internal interface NBConventionPlugin : Plugin<Project> {
 
                 resourceConfigurations.addAll(listOf("de", "en", "en_GB"))
 
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                testInstrumentationRunner = "de.niklasbednarczyk.nbweather.test.common.runner.NBTestRunner"
             }
 
             compileOptions {

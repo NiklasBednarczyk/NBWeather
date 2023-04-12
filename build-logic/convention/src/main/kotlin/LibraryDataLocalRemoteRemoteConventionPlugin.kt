@@ -9,10 +9,14 @@ class LibraryDataLocalRemoteRemoteConventionPlugin : NBConventionPlugin {
         plugins {
             apply("de.niklasbednarczyk.nbweather.android.library")
             apply("de.niklasbednarczyk.nbweather.dependency.hilt")
+            apply("de.niklasbednarczyk.nbweather.dependency.test")
             apply("de.niklasbednarczyk.nbweather.layer.data.localremote.remote")
         }
         dependencies {
             implementation(project(":core-data-localremote-remote"))
+
+            testsImplementation(project(":test-common"))
+            testsImplementation(project(":test-data-localremote-remote"))
         }
     }
 

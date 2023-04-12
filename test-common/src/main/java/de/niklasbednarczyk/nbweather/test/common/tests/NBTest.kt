@@ -6,6 +6,7 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.After
 import org.junit.Before
+import java.util.Locale
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -17,13 +18,22 @@ interface NBTest {
         get() = TestScope(UnconfinedTestDispatcher())
 
     val context: Context
-        get() = ApplicationProvider.getApplicationContext<Context>()
+        get() = ApplicationProvider.getApplicationContext()
 
     @Before
     fun setUp() {}
 
     @After
     fun tearDown() {}
+
+    fun setLocale(locale: Locale) {
+        // update locale for date formatters
+        Locale.setDefault(locale)
+        // update locale for app resources
+        val config = context.resources.configuration
+        config.setLocale(locale)
+        context.createConfigurationContext(config)
+    }
 
     fun <T> assertValue(
         expected: T?,
@@ -37,9 +47,9 @@ interface NBTest {
     }
 
     fun <T> assertListIsNotEmpty(
-        actual: List<T>
+        actual: List<T>?
     ) {
-        assertTrue(actual.isNotEmpty())
+        assertTrue(actual?.isNotEmpty() == true)
     }
 
     fun <T> assertListIsEmpty(
@@ -52,7 +62,7 @@ interface NBTest {
         actual: List<T>,
         size: Int
     ) {
-        assertEquals(actual.size, size)
+        assertEquals(size, actual.size)
     }
 
     fun <T> assertListsContainsItemInOrder(

@@ -11,44 +11,52 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesType
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import org.junit.Test
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class OneCallValuesTest : NBTest {
 
     @Test
-    fun dateTimeValue_shouldFormatDateTimeCorrectly() {
-        // Arrange
-        val timestamp = 1672574400L // Sunday, 1 January 2023 12:00:00 (GMT)
-        val dateTimeValue = DateTimeValue.from(timestamp) ?: return
-        val timezoneOffset = TimezoneOffsetValue.from(3600) // GMT+1
+    fun dateTimeValue_shouldFormatDateTimeCorrectlyWithoutLocale() {
+        testDateTimeValue(
+            locale = null,
+            expectedDateDayOfMonth = "4",
+            expectedDateWeekdayAbbreviation = "W",
+            expectedDateWeekdayWithDate = "Wednesday Jan 4",
+            expectedDateTime12 = "Jan 4 03:11 AM",
+            expectedDateTime24 = "Jan 4 03:11",
+            expectedTime12 = "03:11 AM",
+            expectedTime24 = "03:11"
+        )
+    }
 
-        // Act
-        val dateDayOfMonth =
-            dateTimeValue.getDateDayOfMonthString(timezoneOffset, false).asString(context)
-        val dateWeekdayAbbreviation =
-            dateTimeValue.getDateWeekdayAbbreviationString(timezoneOffset).asString(context)
-        val dateWeekdayWithDate =
-            dateTimeValue.getDateWeekdayWithDateString(timezoneOffset, false).asString(context)
-        val dateTime12 =
-            dateTimeValue.getDateTimeString(timezoneOffset, NBTimeFormatType.HOUR_12, false)
-                .asString(context)
-        val dateTime24 =
-            dateTimeValue.getDateTimeString(timezoneOffset, NBTimeFormatType.HOUR_24, false)
-                .asString(context)
-        val time12 = dateTimeValue.getTimeString(timezoneOffset, NBTimeFormatType.HOUR_12, false)
-            .asString(context)
-        val time24 = dateTimeValue.getTimeString(timezoneOffset, NBTimeFormatType.HOUR_24, false)
-            .asString(context)
+    @Test
+    fun dateTimeValue_shouldFormatDateTimeCorrectlyWithLocaleGermany() {
+        testDateTimeValue(
+            locale = Locale.GERMANY,
+            expectedDateDayOfMonth = "4",
+            expectedDateWeekdayAbbreviation = "M",
+            expectedDateWeekdayWithDate = "Mittwoch, 4. Jan.",
+            expectedDateTime12 = "4. Jan., 3:11 AM",
+            expectedDateTime24 = "4. Jan., 03:11",
+            expectedTime12 = "3:11 AM",
+            expectedTime24 = "03:11"
+        )
+    }
 
-        // Assert
-        assertEquals("1", dateDayOfMonth)
-        assertEquals("S", dateWeekdayAbbreviation)
-        assertEquals("Sunday Jan 1", dateWeekdayWithDate)
-        assertEquals("Jan 1 01:00 PM", dateTime12)
-        assertEquals("Jan 1 13:00", dateTime24)
-        assertEquals("01:00 PM", time12)
-        assertEquals("13:00", time24)
+    @Test
+    fun dateTimeValue_shouldFormatDateTimeCorrectlyWithLocaleUS() {
+        testDateTimeValue(
+            locale = Locale.US,
+            expectedDateDayOfMonth = "4",
+            expectedDateWeekdayAbbreviation = "W",
+            expectedDateWeekdayWithDate = "Wednesday, Jan 4",
+            expectedDateTime12 = "Jan 4, 3:11 AM",
+            expectedDateTime24 = "Jan 4, 03:11",
+            expectedTime12 = "3:11 AM",
+            expectedTime24 = "03:11"
+        )
     }
 
     @Test
@@ -366,6 +374,66 @@ class OneCallValuesTest : NBTest {
 
     private fun windDegreeStep(step: Int): Long {
         return 0.plus(step.times(22.5)).toLong()
+    }
+
+    private fun testDateTimeValue(
+        locale: Locale?,
+        expectedDateDayOfMonth: String,
+        expectedDateWeekdayAbbreviation: String,
+        expectedDateWeekdayWithDate: String,
+        expectedDateTime12: String,
+        expectedDateTime24: String,
+        expectedTime12: String,
+        expectedTime24: String,
+    ) {
+        // Arrange
+        val dateTime = 1672798293L // Wednesday, 4 January 2023 02:11:33 (GMT)
+        val timezoneOffset = 3600L // GMT+1
+        val dateTimeValue = DateTimeValue.from(dateTime) ?: return
+        val timezoneOffsetValue = TimezoneOffsetValue.from(timezoneOffset)
+        val changeForLocale = locale != null
+        if (locale != null) {
+            setLocale(locale)
+        }
+
+        // Act
+        val dateDayOfMonth =
+            dateTimeValue.getDateDayOfMonthString(timezoneOffsetValue, changeForLocale)
+                .asString(context)
+        val dateWeekdayAbbreviation =
+            dateTimeValue.getDateWeekdayAbbreviationString(timezoneOffsetValue).asString(context)
+        val dateWeekdayWithDate =
+            dateTimeValue.getDateWeekdayWithDateString(timezoneOffsetValue, changeForLocale)
+                .asString(context)
+        val dateTime12 = dateTimeValue.getDateTimeString(
+            timezoneOffsetValue,
+            NBTimeFormatType.HOUR_12,
+            changeForLocale
+        ).asString(context)
+        val dateTime24 = dateTimeValue.getDateTimeString(
+            timezoneOffsetValue,
+            NBTimeFormatType.HOUR_24,
+            changeForLocale
+        ).asString(context)
+        val time12 = dateTimeValue.getTimeString(
+            timezoneOffsetValue,
+            NBTimeFormatType.HOUR_12,
+            changeForLocale
+        ).asString(context)
+        val time24 = dateTimeValue.getTimeString(
+            timezoneOffsetValue,
+            NBTimeFormatType.HOUR_24,
+            changeForLocale
+        ).asString(context)
+
+        // Assert
+        assertEquals(expectedDateDayOfMonth, dateDayOfMonth)
+        assertEquals(expectedDateWeekdayAbbreviation, dateWeekdayAbbreviation)
+        assertEquals(expectedDateWeekdayWithDate, dateWeekdayWithDate)
+        assertEquals(expectedDateTime12, dateTime12)
+        assertEquals(expectedDateTime24, dateTime24)
+        assertEquals(expectedTime12, time12)
+        assertEquals(expectedTime24, time24)
     }
 
     private fun actAndAssertUnitsDependent(
