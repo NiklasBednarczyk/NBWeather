@@ -23,16 +23,16 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.typeconverters.TypeConve
 @TypeConverters(TypeConvertersLocal::class)
 abstract class DatabaseOneCall : RoomDatabase() {
 
-    abstract fun currentWeatherDao(): CurrentWeatherDao
+    abstract fun currentWeatherDao(): RoomCurrentWeatherDao
 
-    abstract fun dailyForecastDao(): DailyForecastDao
+    abstract fun dailyForecastDao(): RoomDailyForecastDao
 
-    abstract fun hourlyForecastDao(): HourlyForecastDao
+    abstract fun hourlyForecastDao(): RoomHourlyForecastDao
 
-    abstract fun minutelyForecastDao(): MinutelyForecastDao
+    abstract fun minutelyForecastDao(): RoomMinutelyForecastDao
 
-    abstract fun nationalWeatherAlertDao(): NationalWeatherAlertDao
+    abstract fun nationalWeatherAlertDao(): RoomNationalWeatherAlertDao
 
-    abstract fun oneCallDao(): OneCallDao
+    abstract fun oneCallDao(): RoomOneCallDao
 
 }

@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.niklasbednarczyk.nbweather.data.geocoding.local.constants.ConstantsGeocodingLocal
-import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.GeocodingDao
+import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.database.DatabaseGeocoding
 import javax.inject.Singleton
 
@@ -28,8 +28,8 @@ class ModuleGeocodingLocal {
 
     @Provides
     @Singleton
-    fun provideGeocodingDao(
+    fun provideNBGeocodingDao(
         databaseGeocoding: DatabaseGeocoding
-    ): GeocodingDao = databaseGeocoding.geocodingDao()
+    ): NBGeocodingDao = databaseGeocoding.geocodingDao()
 
 }

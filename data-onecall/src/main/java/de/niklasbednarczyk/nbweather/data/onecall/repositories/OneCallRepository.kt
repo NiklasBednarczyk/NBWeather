@@ -10,20 +10,20 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.daos.*
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.*
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.OneCallModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.remote.services.OneCallService
+import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class OneCallRepository @Inject constructor(
-    private val oneCallService: OneCallService,
-    private val currentWeatherDao: CurrentWeatherDao,
-    private val dailyForecastDao: DailyForecastDao,
-    private val hourlyForecastDao: HourlyForecastDao,
-    private val minutelyForecastDao: MinutelyForecastDao,
-    private val nationalWeatherAlertDao: NationalWeatherAlertDao,
-    private val oneCallDao: OneCallDao
+    private val oneCallService: NBOneCallService,
+    private val currentWeatherDao: NBCurrentWeatherDao,
+    private val dailyForecastDao: NBDailyForecastDao,
+    private val hourlyForecastDao: NBHourlyForecastDao,
+    private val minutelyForecastDao: NBMinutelyForecastDao,
+    private val nationalWeatherAlertDao: NBNationalWeatherAlertDao,
+    private val oneCallDao: NBOneCallDao
 ) {
 
     suspend fun getOneCall(
@@ -31,7 +31,7 @@ class OneCallRepository @Inject constructor(
         longitude: Double,
         language: NBLanguageType,
         units: NBUnitsType,
-        forceUpdate: Boolean = false
+        forceUpdate: Boolean
     ): Flow<NBResource<OneCallModelData>> {
         return object :
             LocalRemoteOfflineMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {

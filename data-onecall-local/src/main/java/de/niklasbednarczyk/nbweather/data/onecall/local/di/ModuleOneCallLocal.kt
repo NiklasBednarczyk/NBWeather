@@ -30,36 +30,36 @@ class ModuleOneCallLocal {
     @Singleton
     fun provideCurrentWeatherDao(
         databaseOneCall: DatabaseOneCall
-    ): CurrentWeatherDao = databaseOneCall.currentWeatherDao()
+    ): NBCurrentWeatherDao = databaseOneCall.currentWeatherDao()
 
     @Provides
     @Singleton
     fun provideDailyForecastDao(
         databaseOneCall: DatabaseOneCall
-    ): DailyForecastDao = databaseOneCall.dailyForecastDao()
+    ): NBDailyForecastDao = databaseOneCall.dailyForecastDao()
 
     @Provides
     @Singleton
     fun provideHourlyForecastDao(
         databaseOneCall: DatabaseOneCall
-    ): HourlyForecastDao = databaseOneCall.hourlyForecastDao()
+    ): NBHourlyForecastDao = databaseOneCall.hourlyForecastDao()
 
     @Provides
     @Singleton
     fun provideMinutelyForecastDao(
         databaseOneCall: DatabaseOneCall
-    ): MinutelyForecastDao = databaseOneCall.minutelyForecastDao()
+    ): NBMinutelyForecastDao = databaseOneCall.minutelyForecastDao()
 
     @Provides
     @Singleton
     fun provideNationalWeatherAlertDao(
         databaseOneCall: DatabaseOneCall
-    ): NationalWeatherAlertDao = databaseOneCall.nationalWeatherAlertDao()
+    ): NBNationalWeatherAlertDao = databaseOneCall.nationalWeatherAlertDao()
 
     @Provides
     @Singleton
     fun provideOneCallDao(
         databaseOneCall: DatabaseOneCall
-    ): OneCallDao = databaseOneCall.oneCallDao()
+    ): NBOneCallDao = databaseOneCall.oneCallDao()
 
 }

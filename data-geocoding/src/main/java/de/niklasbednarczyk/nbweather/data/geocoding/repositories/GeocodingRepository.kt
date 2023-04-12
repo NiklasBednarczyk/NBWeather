@@ -5,12 +5,13 @@ import de.niklasbednarczyk.nbweather.core.common.time.getCurrentTimestampEpochSe
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOnlineMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.GeocodingDao
+import de.niklasbednarczyk.nbweather.data.geocoding.constants.ConstantsDataGeocoding
+import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.models.VisitedLocationsInfoModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
-import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.GeocodingService
+import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.NBGeocodingService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -21,8 +22,8 @@ import javax.inject.Singleton
 
 @Singleton
 class GeocodingRepository @Inject constructor(
-    private val geocodingService: GeocodingService,
-    private val geocodingDao: GeocodingDao
+    private val geocodingService: NBGeocodingService,
+    private val geocodingDao: NBGeocodingDao
 ) {
 
     suspend fun getLocationsByLocationName(
@@ -33,7 +34,10 @@ class GeocodingRepository @Inject constructor(
             LocalRemoteOnlineMediator<List<LocationModelData>, List<LocationModelRemote>>() {
 
             override suspend fun getRemote(): List<LocationModelRemote> {
-                return geocodingService.getLocationsByLocationName(locationName)
+                return geocodingService.getLocationsByLocationName(
+                    locationName = locationName,
+                    limit = ConstantsDataGeocoding.Default.LIMIT_LOCATIONS_BY_LOCATION_NAME
+                )
             }
 
             override fun insertLocal(remote: List<LocationModelRemote>) {
@@ -41,7 +45,7 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun remoteToData(remote: List<LocationModelRemote>): List<LocationModelData> {
-                return LocationModelData.remoteToData(remote, language)
+                return LocationModelData.remoteListToData(remote, language)
             }
 
         }()
@@ -77,6 +81,19 @@ class GeocodingRepository @Inject constructor(
         }()
     }
 
+    fun getIsInitialCurrentLocationSet(
+        language: NBLanguageType = NBLanguageType.ENGLISH
+    ): Flow<NBResource<Boolean>> {
+        return getCurrentLocation(language).transformWhile { resource ->
+            val newResource = resource.map { oldData ->
+                oldData != null
+            }
+            emit(newResource)
+
+            resource !is NBResource.Success
+        }
+    }
+
     fun getVisitedLocationsInfo(
         language: NBLanguageType
     ): Flow<NBResource<VisitedLocationsInfoModelData>?> {
@@ -94,20 +111,6 @@ class GeocodingRepository @Inject constructor(
 
     }
 
-    fun getIsInitialCurrentLocationSet(
-        language: NBLanguageType = NBLanguageType.ENGLISH
-    ): Flow<NBResource<Boolean>> {
-        return getCurrentLocation(language).transformWhile { resource ->
-            val newResource = resource.map { oldData ->
-                oldData != null
-            }
-            emit(newResource)
-
-            resource !is NBResource.Success
-        }
-    }
-
-
     suspend fun insertOrUpdateCurrentLocation(
         latitude: Double,
         longitude: Double
@@ -119,8 +122,11 @@ class GeocodingRepository @Inject constructor(
                 local.copy(lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds)
             geocodingDao.updateLocation(newLocal)
         } else {
-            val remote =
-                geocodingService.getLocationsByCoordinates(latitude, longitude).firstOrNull()
+            val remote = geocodingService.getLocationsByCoordinates(
+                latitude = latitude,
+                longitude = longitude,
+                limit = ConstantsDataGeocoding.Default.LIMIT_LOCATIONS_BY_COORDINATES
+            ).firstOrNull()
             val newLocal = LocationModelData.remoteToLocal(
                 remote = remote,
                 latitude = latitude,
@@ -132,9 +138,10 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun removeVisitedLocation(
-        location: LocationModelData
+        latitude: Double,
+        longitude: Double
     ) = withContext(Dispatchers.IO) {
-        val local = geocodingDao.getLocation(location.latitude, location.longitude).firstOrNull()
+        val local = geocodingDao.getLocation(latitude, longitude).firstOrNull()
         if (local != null) {
             val newLocal = local.copy(lastVisitedTimestampEpochSeconds = null)
             geocodingDao.updateLocation(newLocal)

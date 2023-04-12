@@ -81,7 +81,7 @@ class SearchOverviewViewModel @Inject constructor(
 
     fun removeVisitedLocation(location: LocationModelData) {
         launchSuspend {
-            geocodingRepository.removeVisitedLocation(location)
+            geocodingRepository.removeVisitedLocation(location.latitude, location.longitude)
         }
     }
 

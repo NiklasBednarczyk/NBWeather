@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
 import android.content.Context
+import android.location.Location
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -48,8 +49,8 @@ class GmsLocationRepository @Inject constructor(
                 .addOnCanceledListener {
                     onCanceled()
                 }
-                .addOnFailureListener { throwable ->
-                    onThrowable(throwable)
+                .addOnFailureListener { t ->
+                    onThrowable(t)
                 }
         } catch (t: Throwable) {
             onThrowable(t)

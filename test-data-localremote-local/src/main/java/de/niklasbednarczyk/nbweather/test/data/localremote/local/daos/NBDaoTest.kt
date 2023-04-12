@@ -1,10 +1,8 @@
 package de.niklasbednarczyk.nbweather.test.data.localremote.local.daos
 
-import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.test.core.app.ApplicationProvider
-import de.niklasbednarczyk.nbweather.test.common.utils.assertNullOrEmpty
+import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
@@ -13,31 +11,30 @@ import org.junit.Before
 import java.io.IOException
 import kotlin.test.assertNotNull
 
-abstract class NBDaoTest<Database : RoomDatabase, Dao : Any> {
+abstract class NBDaoTest<Database : RoomDatabase, Dao : Any> : NBTest {
 
     protected lateinit var db: Database
-    protected lateinit var dao: Dao
+    protected lateinit var subject: Dao
 
     abstract val databaseClass: Class<Database>
 
     @Before
-    fun createDb() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
+    override fun setUp() {
         db = Room.inMemoryDatabaseBuilder(
             context,
             databaseClass
         ).build()
-        dao = initiateDao()
+        subject = getDao()
         initiateOtherDaos()
     }
 
     @After
     @Throws(IOException::class)
-    fun closeDb() {
+    override fun tearDown() {
         db.close()
     }
 
-    protected abstract fun initiateDao(): Dao
+    protected abstract fun getDao(): Dao
 
     protected open fun initiateOtherDaos() {}
 

@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.data.geocoding.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.GeocodingDao
+import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.RoomGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
 
 @Database(
@@ -14,6 +14,6 @@ import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLo
 )
 abstract class DatabaseGeocoding : RoomDatabase() {
 
-    abstract fun geocodingDao(): GeocodingDao
+    abstract fun geocodingDao(): RoomGeocodingDao
 
 }

@@ -1,8 +1,23 @@
 package de.niklasbednarczyk.nbweather.core.common.string
 
+import android.content.Context
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 
 sealed interface NBString {
+
+    companion object {
+        fun NBString?.asString(context: Context): String {
+            return asStringNullable(context).orEmpty()
+        }
+
+        private fun NBString?.asStringNullable(context: Context): String? {
+            return when (this) {
+                is Resource -> context.getString(resId, *args)
+                is Value -> value
+                null -> null
+            }
+        }
+    }
 
     class Resource(val resId: Int, vararg val args: Any) : NBString
 
@@ -20,7 +35,6 @@ sealed interface NBString {
                     }
                 }
             }
-
         }
 
     }

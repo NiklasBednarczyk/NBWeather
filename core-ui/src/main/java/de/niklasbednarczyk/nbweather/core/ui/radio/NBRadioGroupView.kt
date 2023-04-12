@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
+import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingValuesVertical
 
 @Composable

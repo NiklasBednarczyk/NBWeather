@@ -5,7 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.qualifiers.retrofit.DataRetrofit
-import de.niklasbednarczyk.nbweather.data.onecall.remote.services.OneCallService
+import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
+import de.niklasbednarczyk.nbweather.data.onecall.remote.services.RetrofitOneCallService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -15,8 +16,8 @@ object ModuleOneCallRemote {
 
     @Provides
     @Singleton
-    fun provideOneCallService(
+    fun provideNBOneCallService(
         @DataRetrofit retrofit: Retrofit
-    ): OneCallService = retrofit.create(OneCallService::class.java)
+    ): NBOneCallService = retrofit.create(RetrofitOneCallService::class.java)
 
 }

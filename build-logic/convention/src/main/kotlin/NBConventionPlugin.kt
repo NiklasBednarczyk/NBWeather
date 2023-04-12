@@ -26,9 +26,6 @@ internal interface NBConventionPlugin : Plugin<Project> {
         (this as ExtensionAware).extensions.configure("kotlinOptions", block)
     }
 
-    fun DependencyHandlerScope.androidTestImplementation(dependencyNotation: Any) {
-        add("androidTestImplementation", dependencyNotation)
-    }
 
     fun DependencyHandlerScope.annotationProcessor(dependencyNotation: Any) {
         add("annotationProcessor", dependencyNotation)
@@ -46,7 +43,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("kapt", dependencyNotation)
     }
 
-    fun DependencyHandlerScope.testImplementation(dependencyNotation: Any) {
+    fun DependencyHandlerScope.testsImplementation(dependencyNotation: Any) {
+        add("androidTestImplementation", dependencyNotation)
         add("testImplementation", dependencyNotation)
     }
 

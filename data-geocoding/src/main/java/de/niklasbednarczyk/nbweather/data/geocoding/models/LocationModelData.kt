@@ -58,18 +58,27 @@ data class LocationModelData(
         }
 
         internal fun remoteToData(
+            remote: LocationModelRemote?,
+            language: NBLanguageType
+        ): LocationModelData? {
+            return nbNullSafe(remote) { model ->
+                toData(
+                    name = model.name,
+                    localName = LocalNameModelData.remoteToData(model.localNames, language),
+                    country = model.country,
+                    state = model.state,
+                    latitude = model.lat,
+                    longitude = model.lon
+                )
+            }
+        }
+
+        internal fun remoteListToData(
             remoteList: List<LocationModelRemote>,
             language: NBLanguageType
         ): List<LocationModelData> {
-            return remoteList.map { remote ->
-                toData(
-                    name = remote.name,
-                    localName = LocalNameModelData.remoteToData(remote.localNames, language),
-                    country = remote.country,
-                    state = remote.state,
-                    latitude = remote.lat,
-                    longitude = remote.lon
-                )
+            return remoteList.mapNotNull { remote ->
+                remoteToData(remote, language)
             }
         }
 

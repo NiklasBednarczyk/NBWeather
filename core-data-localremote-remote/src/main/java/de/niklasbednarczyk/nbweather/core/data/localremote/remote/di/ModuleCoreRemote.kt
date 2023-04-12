@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.nbweather.core.data.localremote.remote.di
 
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +9,7 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.remote.constants.Cons
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.interceptors.QueryParameterInterceptor
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.qualifiers.retrofit.DataRetrofit
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.qualifiers.retrofit.GeoRetrofit
+import de.niklasbednarczyk.nbweather.core.data.localremote.remote.utils.createMoshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -23,10 +23,7 @@ object ModuleCoreRemote {
 
     @Provides
     @Singleton
-    internal fun provideMoshi(): Moshi = Moshi
-        .Builder()
-        .addLast(KotlinJsonAdapterFactory())
-        .build()
+    internal fun provideMoshi(): Moshi = createMoshi()
 
     @Provides
     @Singleton

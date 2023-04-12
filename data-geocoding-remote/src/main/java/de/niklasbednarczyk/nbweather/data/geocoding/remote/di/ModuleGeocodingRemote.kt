@@ -5,7 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.qualifiers.retrofit.GeoRetrofit
-import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.GeocodingService
+import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.NBGeocodingService
+import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.RetrofitGeocodingService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -17,6 +18,6 @@ object ModuleGeocodingRemote {
     @Singleton
     fun provideGeocodingService(
         @GeoRetrofit retrofit: Retrofit
-    ): GeocodingService = retrofit.create(GeocodingService::class.java)
+    ): NBGeocodingService = retrofit.create(RetrofitGeocodingService::class.java)
 
 }

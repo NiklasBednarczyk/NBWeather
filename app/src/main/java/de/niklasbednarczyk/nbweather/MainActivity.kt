@@ -19,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.ui.fragment.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
@@ -26,7 +27,6 @@ import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawe
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarViewModel
-import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
 import de.niklasbednarczyk.nbweather.databinding.ContentAppBinding
 import de.niklasbednarczyk.nbweather.feature.about.navigation.graphAbout
@@ -37,6 +37,7 @@ import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawer
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import de.niklasbednarczyk.nbweather.theme.NBTheme
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NBNavControllerContainer {

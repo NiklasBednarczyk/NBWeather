@@ -17,7 +17,10 @@ value class ProbabilityValue private constructor(override val value: Double) :
     companion object {
 
         internal fun from(value: Double?): ProbabilityValue? {
-            return nbNullSafe(value) { ProbabilityValue(it) }
+            return nbNullSafe(value) {
+                val roundedValue = it.times(100) // Decimal to percentage
+                ProbabilityValue(roundedValue)
+            }
         }
 
     }
