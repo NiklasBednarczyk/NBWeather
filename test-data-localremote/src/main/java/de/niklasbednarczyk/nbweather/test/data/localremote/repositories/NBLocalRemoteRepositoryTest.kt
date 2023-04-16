@@ -5,7 +5,7 @@ import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transformWhile
 
-interface NBRepositoryTest : NBTest {
+interface NBLocalRemoteRepositoryTest : NBTest {
 
     suspend fun <T> Flow<NBResource<T>?>.assertResourceSuccess(
         assert: suspend (dataAct: T) -> Unit

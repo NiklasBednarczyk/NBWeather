@@ -7,14 +7,14 @@ import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLo
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.FakeGeocodingService
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.NBGeocodingService
-import de.niklasbednarczyk.nbweather.test.data.localremote.repositories.NBRepositoryTest
+import de.niklasbednarczyk.nbweather.test.data.localremote.repositories.NBLocalRemoteRepositoryTest
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.*
 
-class GeocodingRepositoryTest : NBRepositoryTest {
+class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
     companion object {
         private val LANGUAGE_TYPE = NBLanguageType.ENGLISH

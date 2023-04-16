@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.After
 import org.junit.Before
-import java.util.Locale
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -21,10 +21,12 @@ interface NBTest {
         get() = ApplicationProvider.getApplicationContext()
 
     @Before
-    fun setUp() {}
+    fun setUp() {
+    }
 
     @After
-    fun tearDown() {}
+    fun tearDown() {
+    }
 
     fun setLocale(locale: Locale) {
         // update locale for date formatters

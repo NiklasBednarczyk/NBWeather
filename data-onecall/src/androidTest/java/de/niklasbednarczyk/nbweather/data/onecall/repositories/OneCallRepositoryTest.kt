@@ -14,7 +14,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
-import de.niklasbednarczyk.nbweather.test.data.localremote.repositories.NBRepositoryTest
+import de.niklasbednarczyk.nbweather.test.data.localremote.repositories.NBLocalRemoteRepositoryTest
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -24,7 +24,7 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class OneCallRepositoryTest : NBRepositoryTest {
+class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
 
     companion object {
         private const val LATITUDE = 0.0

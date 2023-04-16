@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.data.settings.proto.data.SettingsDataProto
 
 internal object TimeFormatMapperData :
     TwoWayMapperDisk<SettingsDataProto.TimeFormatProto, NBTimeFormatType> {
-    override fun protoToDisk(proto: SettingsDataProto.TimeFormatProto): NBTimeFormatType {
+    override fun protoToData(proto: SettingsDataProto.TimeFormatProto): NBTimeFormatType {
         return when (proto) {
             SettingsDataProto.TimeFormatProto.HOUR_12 -> NBTimeFormatType.HOUR_12
             SettingsDataProto.TimeFormatProto.HOUR_24 -> NBTimeFormatType.HOUR_24
@@ -14,8 +14,8 @@ internal object TimeFormatMapperData :
         }
     }
 
-    override fun diskToProto(disk: NBTimeFormatType): SettingsDataProto.TimeFormatProto {
-        return when (disk) {
+    override fun dataToProto(data: NBTimeFormatType): SettingsDataProto.TimeFormatProto {
+        return when (data) {
             NBTimeFormatType.HOUR_12 -> SettingsDataProto.TimeFormatProto.HOUR_12
             NBTimeFormatType.HOUR_24 -> SettingsDataProto.TimeFormatProto.HOUR_24
         }

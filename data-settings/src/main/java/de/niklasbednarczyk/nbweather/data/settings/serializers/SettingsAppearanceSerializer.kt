@@ -7,8 +7,10 @@ import de.niklasbednarczyk.nbweather.core.data.disk.constants.ConstantsCoreDisk
 import de.niklasbednarczyk.nbweather.data.settings.proto.appearance.SettingsAppearanceProto
 import java.io.InputStream
 import java.io.OutputStream
+import javax.inject.Inject
 
-internal object SettingsAppearanceSerializer : Serializer<SettingsAppearanceProto> {
+internal class SettingsAppearanceSerializer @Inject constructor() :
+    Serializer<SettingsAppearanceProto> {
 
     private val defaultTheme: SettingsAppearanceProto.ThemeProto =
         SettingsAppearanceProto.ThemeProto.SYSTEM_DEFAULT

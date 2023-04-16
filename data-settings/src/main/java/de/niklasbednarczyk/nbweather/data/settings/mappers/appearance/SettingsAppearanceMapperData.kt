@@ -6,10 +6,10 @@ import de.niklasbednarczyk.nbweather.data.settings.proto.appearance.SettingsAppe
 
 internal object SettingsAppearanceMapperData :
     OneWayMapperDisk<SettingsAppearanceProto, SettingsAppearanceModelData> {
-    override fun protoToDisk(proto: SettingsAppearanceProto): SettingsAppearanceModelData {
+    override fun protoToData(proto: SettingsAppearanceProto): SettingsAppearanceModelData {
         return SettingsAppearanceModelData(
-            theme = ThemeMapperData.protoToDisk(proto.theme),
-            colorScheme = ColorSchemeMapperData.protoToDisk(proto.colorScheme)
+            theme = ThemeMapperData.protoToData(proto.theme),
+            colorScheme = ColorSchemeMapperData.protoToData(proto.colorScheme)
         )
     }
 }

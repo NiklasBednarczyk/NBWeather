@@ -1,11 +1,11 @@
 package de.niklasbednarczyk.nbweather.data.settings.serializers
 
 import android.content.Context
-import android.text.format.DateFormat
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
 import dagger.hilt.android.qualifiers.ApplicationContext
+import de.niklasbednarczyk.nbweather.core.common.time.is24HourFormat
 import de.niklasbednarczyk.nbweather.core.data.disk.constants.ConstantsCoreDisk
 import de.niklasbednarczyk.nbweather.data.settings.proto.data.SettingsDataProto
 import java.io.InputStream
@@ -80,7 +80,7 @@ internal class SettingsDataSerializer @Inject constructor(
         }
 
     private val defaultTimeFormat: SettingsDataProto.TimeFormatProto =
-        if (DateFormat.is24HourFormat(context)) {
+        if (context.is24HourFormat) {
             SettingsDataProto.TimeFormatProto.HOUR_24
         } else {
             SettingsDataProto.TimeFormatProto.HOUR_12

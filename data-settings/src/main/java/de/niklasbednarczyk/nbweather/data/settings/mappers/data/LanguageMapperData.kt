@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.data.settings.proto.data.SettingsDataProto
 
 internal object LanguageMapperData :
     TwoWayMapperDisk<SettingsDataProto.LanguageProto, NBLanguageType> {
-    override fun protoToDisk(proto: SettingsDataProto.LanguageProto): NBLanguageType {
+    override fun protoToData(proto: SettingsDataProto.LanguageProto): NBLanguageType {
         return when (proto) {
             SettingsDataProto.LanguageProto.AFRIKAANS -> NBLanguageType.AFRIKAANS
             SettingsDataProto.LanguageProto.ALBANIAN -> NBLanguageType.ALBANIAN
@@ -58,8 +58,8 @@ internal object LanguageMapperData :
         }
     }
 
-    override fun diskToProto(disk: NBLanguageType): SettingsDataProto.LanguageProto {
-        return when (disk) {
+    override fun dataToProto(data: NBLanguageType): SettingsDataProto.LanguageProto {
+        return when (data) {
             NBLanguageType.AFRIKAANS -> SettingsDataProto.LanguageProto.AFRIKAANS
             NBLanguageType.ALBANIAN -> SettingsDataProto.LanguageProto.ALBANIAN
             NBLanguageType.ARABIC -> SettingsDataProto.LanguageProto.ARABIC

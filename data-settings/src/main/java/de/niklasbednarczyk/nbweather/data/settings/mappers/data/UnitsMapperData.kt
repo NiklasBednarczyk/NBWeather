@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.data.settings.proto.data.SettingsDataProto
 
 internal object UnitsMapperData :
     TwoWayMapperDisk<SettingsDataProto.UnitsProto, NBUnitsType> {
-    override fun protoToDisk(proto: SettingsDataProto.UnitsProto): NBUnitsType {
+    override fun protoToData(proto: SettingsDataProto.UnitsProto): NBUnitsType {
         return when (proto) {
             SettingsDataProto.UnitsProto.STANDARD -> NBUnitsType.STANDARD
             SettingsDataProto.UnitsProto.METRIC -> NBUnitsType.METRIC
@@ -15,8 +15,8 @@ internal object UnitsMapperData :
         }
     }
 
-    override fun diskToProto(disk: NBUnitsType): SettingsDataProto.UnitsProto {
-        return when (disk) {
+    override fun dataToProto(data: NBUnitsType): SettingsDataProto.UnitsProto {
+        return when (data) {
             NBUnitsType.STANDARD -> SettingsDataProto.UnitsProto.STANDARD
             NBUnitsType.METRIC -> SettingsDataProto.UnitsProto.METRIC
             NBUnitsType.IMPERIAL -> SettingsDataProto.UnitsProto.IMPERIAL

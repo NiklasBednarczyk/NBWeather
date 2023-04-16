@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.nbweather.core.data.disk.mappers
 
-interface OneWayMapperDisk<Proto, Disk> {
+interface OneWayMapperDisk<Proto, Data> {
 
-    fun protoToDisk(proto: Proto): Disk
+    fun protoToData(proto: Proto): Data
 
 }

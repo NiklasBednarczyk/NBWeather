@@ -6,11 +6,11 @@ import de.niklasbednarczyk.nbweather.data.settings.proto.data.SettingsDataProto
 
 internal object SettingsDataMapperData :
     OneWayMapperDisk<SettingsDataProto, SettingsDataModelData> {
-    override fun protoToDisk(proto: SettingsDataProto): SettingsDataModelData {
+    override fun protoToData(proto: SettingsDataProto): SettingsDataModelData {
         return SettingsDataModelData(
-            language = LanguageMapperData.protoToDisk(proto.language),
-            units = UnitsMapperData.protoToDisk(proto.units),
-            timeFormat = TimeFormatMapperData.protoToDisk(proto.timeFormat)
+            language = LanguageMapperData.protoToData(proto.language),
+            units = UnitsMapperData.protoToData(proto.units),
+            timeFormat = TimeFormatMapperData.protoToData(proto.timeFormat)
         )
     }
 }

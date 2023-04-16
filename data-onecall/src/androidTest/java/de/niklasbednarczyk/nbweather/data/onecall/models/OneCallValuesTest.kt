@@ -18,9 +18,10 @@ import kotlin.test.assertNull
 class OneCallValuesTest : NBTest {
 
     @Test
-    fun dateTimeValue_shouldFormatDateTimeCorrectlyWithoutLocale() {
+    fun dateTimeValue_shouldFormatDateTimeCorrectlyWhenNotChangingForLocale() {
         testDateTimeValue(
-            locale = null,
+            locale = Locale.US,
+            changeForLocale = false,
             expectedDateDayOfMonth = "4",
             expectedDateWeekdayAbbreviation = "W",
             expectedDateWeekdayWithDate = "Wednesday Jan 4",
@@ -32,9 +33,10 @@ class OneCallValuesTest : NBTest {
     }
 
     @Test
-    fun dateTimeValue_shouldFormatDateTimeCorrectlyWithLocaleGermany() {
+    fun dateTimeValue_shouldFormatDateTimeCorrectlyWhenChangingForLocaleGermany() {
         testDateTimeValue(
             locale = Locale.GERMANY,
+            changeForLocale = true,
             expectedDateDayOfMonth = "4",
             expectedDateWeekdayAbbreviation = "M",
             expectedDateWeekdayWithDate = "Mittwoch, 4. Jan.",
@@ -46,9 +48,10 @@ class OneCallValuesTest : NBTest {
     }
 
     @Test
-    fun dateTimeValue_shouldFormatDateTimeCorrectlyWithLocaleUS() {
+    fun dateTimeValue_shouldFormatDateTimeCorrectlyWhenChangingForLocaleUS() {
         testDateTimeValue(
             locale = Locale.US,
+            changeForLocale = true,
             expectedDateDayOfMonth = "4",
             expectedDateWeekdayAbbreviation = "W",
             expectedDateWeekdayWithDate = "Wednesday, Jan 4",
@@ -377,7 +380,8 @@ class OneCallValuesTest : NBTest {
     }
 
     private fun testDateTimeValue(
-        locale: Locale?,
+        locale: Locale,
+        changeForLocale: Boolean,
         expectedDateDayOfMonth: String,
         expectedDateWeekdayAbbreviation: String,
         expectedDateWeekdayWithDate: String,
@@ -391,10 +395,7 @@ class OneCallValuesTest : NBTest {
         val timezoneOffset = 3600L // GMT+1
         val dateTimeValue = DateTimeValue.from(dateTime) ?: return
         val timezoneOffsetValue = TimezoneOffsetValue.from(timezoneOffset)
-        val changeForLocale = locale != null
-        if (locale != null) {
-            setLocale(locale)
-        }
+        setLocale(locale)
 
         // Act
         val dateDayOfMonth =

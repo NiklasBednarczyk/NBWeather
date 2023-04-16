@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.data.settings.proto.appearance.SettingsAppe
 
 internal object ColorSchemeMapperData :
     TwoWayMapperDisk<SettingsAppearanceProto.ColorSchemeProto, ColorSchemeTypeData> {
-    override fun protoToDisk(proto: SettingsAppearanceProto.ColorSchemeProto): ColorSchemeTypeData {
+    override fun protoToData(proto: SettingsAppearanceProto.ColorSchemeProto): ColorSchemeTypeData {
         return when (proto) {
             SettingsAppearanceProto.ColorSchemeProto.RED -> ColorSchemeTypeData.RED
             SettingsAppearanceProto.ColorSchemeProto.GREEN -> ColorSchemeTypeData.GREEN
@@ -18,8 +18,8 @@ internal object ColorSchemeMapperData :
         }
     }
 
-    override fun diskToProto(disk: ColorSchemeTypeData): SettingsAppearanceProto.ColorSchemeProto {
-        return when (disk) {
+    override fun dataToProto(data: ColorSchemeTypeData): SettingsAppearanceProto.ColorSchemeProto {
+        return when (data) {
             ColorSchemeTypeData.RED -> SettingsAppearanceProto.ColorSchemeProto.RED
             ColorSchemeTypeData.GREEN -> SettingsAppearanceProto.ColorSchemeProto.GREEN
             ColorSchemeTypeData.BLUE -> SettingsAppearanceProto.ColorSchemeProto.BLUE
