@@ -17,7 +17,7 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 fun SearchOverviewManageView(
     visitedLocations: List<LocationModelData>,
     navigateToLocation: (Double, Double) -> Unit,
-    removeVisitedLocation: (LocationModelData) -> Unit
+    removeVisitedLocation: (Double, Double) -> Unit
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValuesVertical
@@ -41,11 +41,13 @@ private fun VisitedLocation(
     modifier: Modifier = Modifier,
     visitedLocation: LocationModelData,
     navigateToLocation: (Double, Double) -> Unit,
-    removeVisitedLocation: (LocationModelData) -> Unit
+    removeVisitedLocation: (Double, Double) -> Unit
 ) {
+    val latitude = visitedLocation.latitude
+    val longitude = visitedLocation.longitude
     ListItem(
         modifier = modifier.clickable {
-            navigateToLocation(visitedLocation.latitude, visitedLocation.longitude)
+            navigateToLocation(latitude, longitude)
         },
         headlineText = {
             Text(text = visitedLocation.localizedNameAndCountry.asString())
@@ -54,7 +56,7 @@ private fun VisitedLocation(
             NBIconButton(
                 icon = NBIcons.Delete,
                 onClick = {
-                    removeVisitedLocation(visitedLocation)
+                    removeVisitedLocation(latitude, longitude)
                 }
             )
         }

@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("de.niklasbednarczyk.nbweather.android.application")
     id("de.niklasbednarczyk.nbweather.dependency.hilt")
+    id("de.niklasbednarczyk.nbweather.dependency.test")
     id("de.niklasbednarczyk.nbweather.layer.ui")
 
     id("com.google.gms.google-services")
@@ -60,4 +61,7 @@ dependencies {
     implementation(project(":feature-location"))
     implementation(project(":feature-search"))
     implementation(project(":feature-settings"))
+
+    androidTestImplementation(project(":test-common"))
+    androidTestImplementation(project(":test-ui"))
 }

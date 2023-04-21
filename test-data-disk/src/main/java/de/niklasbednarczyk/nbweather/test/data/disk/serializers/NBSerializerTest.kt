@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Test
 import java.io.ByteArrayInputStream
 import kotlin.test.assertEquals
-import de.niklasbednarczyk.nbweather.test.data.disk.utils.writeTo
+import de.niklasbednarczyk.nbweather.test.data.disk.extentions.writeTo
 
 abstract class NBSerializerTest<Proto>: NBTest {
 

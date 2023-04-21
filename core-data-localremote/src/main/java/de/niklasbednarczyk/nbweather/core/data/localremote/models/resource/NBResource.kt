@@ -1,6 +1,8 @@
 package de.niklasbednarczyk.nbweather.core.data.localremote.models.resource
 
+import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import kotlinx.coroutines.flow.*
+import kotlin.Error
 
 sealed interface NBResource<out T> {
     data class Success<T>(val data: T) : NBResource<T>
@@ -28,6 +30,9 @@ sealed interface NBResource<out T> {
     }
 
     companion object {
+
+        val <T> NBResource<T>?.isSuccessOrError
+            get() = this is Success || this is Error
 
         fun <T, R> Flow<NBResource<T>>.mapResource(
             mapData: (oldData: T) -> R?
@@ -97,6 +102,27 @@ sealed interface NBResource<out T> {
                 }
             }
         }
+
+        suspend fun <T> Flow<NBResource<T>?>.collectUntilResource(
+            collectData: suspend (data: T) -> Unit
+        ) {
+            collectUntil(
+                stopCollecting = { resource ->
+                    resource.isSuccessOrError
+                },
+                collectData = { resource ->
+                    when (resource) {
+                        is Success -> {
+                            collectData(resource.data)
+                        }
+                        else -> {
+                            throw RuntimeException("Resource is not of type Success")
+                        }
+                    }
+                }
+            )
+        }
+
 
     }
 

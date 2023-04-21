@@ -3,11 +3,13 @@ package de.niklasbednarczyk.nbweather.data.onecall.remote.services
 import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbZip
+import de.niklasbednarczyk.nbweather.core.data.localremote.remote.qualifiers.retrofit.DataRetrofit
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.OneCallModelRemote
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.common.WeatherModelRemote
 import de.niklasbednarczyk.nbweather.test.data.localremote.remote.services.NBServiceLatLongTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import retrofit2.Retrofit
 import javax.inject.Inject
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
@@ -20,8 +22,15 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
         private const val UNITS = "standard"
     }
 
+    @DataRetrofit
     @Inject
-    lateinit var subject: NBOneCallService
+    lateinit var retrofit: Retrofit
+
+    private lateinit var subject: RetrofitOneCallService
+
+    override fun createSubject() {
+        subject = retrofit.create(RetrofitOneCallService::class.java)
+    }
 
     @Test
     fun getOneCall_shouldGetOneCallBasedOnLanguageAndUnits() = runTest {

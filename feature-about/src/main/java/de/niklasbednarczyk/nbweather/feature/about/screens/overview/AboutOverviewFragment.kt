@@ -157,9 +157,9 @@ class AboutOverviewFragment : NBFragmentUiState<AboutOverviewUiState>() {
 
     private fun onIntentFailed() {
         val snackbar = NBSnackbarModel(
-            message = NBString.Resource(R.string.snackbar_about_intent_failed)
+            message = NBString.Resource(R.string.snackbar_about_intent_failed_message)
         )
-        snackbarViewModel.send(snackbar)
+        sendSnackbar(snackbar)
     }
 
 

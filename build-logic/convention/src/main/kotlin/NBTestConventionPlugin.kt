@@ -1,5 +1,6 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.plugins.PluginManager
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
@@ -8,23 +9,27 @@ internal interface NBTestConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
         plugins {
-            apply("de.niklasbednarczyk.nbweather.android.library")
+            applyPlugins()
         }
         dependencies {
-            val dependencyNotations = listOf(
-                libs.getLibrary("androidx.test.core"),
-                libs.getLibrary("androidx.test.runner"),
-                libs.getLibrary("com.google.dagger.hiltAndroidTesting"),
-                libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest"),
-                kotlin("test")
+            val dependencyNotationPairs = listOf(
+                Pair(libs.getLibrary("androidx.test.core"), true),
+                Pair(libs.getLibrary("androidx.test.runner"), false),
+                Pair(libs.getLibrary("com.google.dagger.hiltAndroidTesting"), true),
+                Pair(libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest"), false),
+                Pair(kotlin("test"), false)
             )
-            dependencyNotations.forEach { dependencyNotation ->
-                setDependency(dependencyNotation)
+            dependencyNotationPairs.forEach { dependencyNotationPair ->
+                val dependencyNotation = dependencyNotationPair.first
+                val alsoImplementation = dependencyNotationPair.second
+                setDependency(dependencyNotation, alsoImplementation)
             }
 
         }
     }
 
-    fun DependencyHandlerScope.setDependency(dependencyNotation: Any)
+    fun DependencyHandlerScope.setDependency(dependencyNotation: Any, alsoImplementation: Boolean)
+
+    fun PluginManager.applyPlugins() {}
 
 }

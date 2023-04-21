@@ -137,7 +137,9 @@ private fun NBTopAppBarSearch(
         {
             NBIconButton(
                 icon = NBIcons.Cancel,
-                onClick = item.onClearSearchTerm
+                onClick = {
+                    item.onSearchTermChanged("")
+                }
             )
         }
     }

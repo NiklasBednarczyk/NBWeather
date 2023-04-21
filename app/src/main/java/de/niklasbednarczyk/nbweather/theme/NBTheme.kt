@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.theme
 
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -35,13 +34,6 @@ fun NBTheme(
         ThemeTypeData.DARK -> false
         ThemeTypeData.SYSTEM_DEFAULT -> !isSystemInDarkTheme()
     }
-
-    val defaultNightMode = if (isLightTheme) {
-        AppCompatDelegate.MODE_NIGHT_NO
-    } else {
-        AppCompatDelegate.MODE_NIGHT_YES
-    }
-    AppCompatDelegate.setDefaultNightMode(defaultNightMode)
 
     val nbTheme = NBThemeModel(
         sourceColorInt = sourceColorInt,

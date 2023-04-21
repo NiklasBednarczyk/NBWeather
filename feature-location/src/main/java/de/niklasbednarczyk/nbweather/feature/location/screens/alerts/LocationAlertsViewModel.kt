@@ -2,11 +2,11 @@ package de.niklasbednarczyk.nbweather.feature.location.screens.alerts
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
 import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
+import de.niklasbednarczyk.nbweather.data.settings.models.data.SettingsDataModelData
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.location.navigation.DestinationsLocation
 import de.niklasbednarczyk.nbweather.feature.location.screens.alerts.models.LocationAlertModel
@@ -33,7 +33,7 @@ class LocationAlertsViewModel @Inject constructor(
         collectFlow(
             {
                 settingsDataRepository.getData().flatMapLatest { data ->
-                    getAlertFlow(latitude, longitude, data.timeFormat)
+                    getAlertFlow(latitude, longitude, data)
                 }
             },
             { oldUiState, output ->
@@ -43,20 +43,27 @@ class LocationAlertsViewModel @Inject constructor(
 
     }
 
-    private fun getAlertFlow(
+    private suspend fun getAlertFlow(
         latitude: Double?,
         longitude: Double?,
-        timeFormat: NBTimeFormatType
+        data: SettingsDataModelData
     ): Flow<NBResource<List<LocationAlertModel>>> {
         return if (latitude != null && longitude != null) {
-            oneCallRepository.getOneCallLocal(latitude, longitude).mapResource { oneCall ->
-                if (oneCall == null) return@mapResource null
-                LocationAlertModel.from(oneCall, timeFormat)
+            oneCallRepository.getOneCall(
+                latitude = latitude,
+                longitude = longitude,
+                language = data.language,
+                units = data.units,
+                forceUpdate = false
+            ).mapResource { oneCall ->
+                LocationAlertModel.from(
+                    oneCall = oneCall,
+                    timeFormat = data.timeFormat
+                )
             }
         } else {
             flowOf(NBResource.Error())
         }
-
     }
 
 }

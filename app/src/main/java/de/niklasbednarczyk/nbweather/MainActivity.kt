@@ -26,7 +26,6 @@ import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDe
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerEventType
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
-import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarViewModel
 import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
 import de.niklasbednarczyk.nbweather.databinding.ContentAppBinding
 import de.niklasbednarczyk.nbweather.feature.about.navigation.graphAbout
@@ -45,8 +44,6 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
     private val viewModel: MainViewModel by viewModels()
 
     private val navigationDrawerViewModel: NBNavigationDrawerViewModel by viewModels()
-
-    private val snackbarViewModel: NBSnackbarViewModel by viewModels()
 
     override val navController: NavController
         get() {
@@ -142,7 +139,6 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
                 isInitialCurrentLocationSet = isInitialCurrentLocationSet,
                 navHostFragment = navHostFragment
             )
-            setupSnackbar(this.root)
         }
 
     }
@@ -168,16 +164,6 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
         }
     }
 
-
-    private fun setupSnackbar(view: View) {
-        snackbarViewModel.setupChannel { snackbarModel ->
-            val message = snackbarModel.message.asString(this)
-
-            val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
-
-            snackbar.show()
-        }
-    }
 
 }
 

@@ -15,7 +15,6 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestination
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 @Composable
 fun NBNavigationDrawer(
@@ -23,7 +22,7 @@ fun NBNavigationDrawer(
     drawerItems: List<NBNavigationDrawerItem>,
     closeDrawer: () -> Unit,
     navigateToTopLevelDestination: (topLevelDestination: NBTopLevelDestination) -> Unit,
-    setCurrentLocation: (location: LocationModelData) -> Unit,
+    setCurrentLocation: (latitude: Double, longitude: Double) -> Unit,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
@@ -46,7 +45,7 @@ private fun DrawerSheet(
     drawerItems: List<NBNavigationDrawerItem>,
     closeDrawer: () -> Unit,
     navigateToTopLevelDestination: (topLevelDestination: NBTopLevelDestination) -> Unit,
-    setCurrentLocation: (location: LocationModelData) -> Unit
+    setCurrentLocation: (latitude: Double, longitude: Double) -> Unit,
 ) {
     ModalDrawerSheet {
         LazyColumn {
@@ -77,7 +76,8 @@ private fun DrawerSheet(
                             closeDrawer = closeDrawer,
                             navigateToDestination = {
                                 if (!drawerItem.selected) {
-                                    setCurrentLocation(drawerItem.location)
+                                    val location = drawerItem.location
+                                    setCurrentLocation(location.latitude, location.longitude)
                                 }
                             },
                             label = drawerItem.label,

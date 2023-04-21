@@ -2,7 +2,6 @@ package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
-import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.extensions.remoteName
@@ -97,22 +96,6 @@ class OneCallRepository @Inject constructor(
                     remote.alerts, metadataId
                 )
                 nationalWeatherAlertDao.insertNationalWeatherAlerts(nationalWeatherAlerts)
-            }
-        }()
-    }
-
-    fun getOneCallLocal(
-        latitude: Double,
-        longitude: Double
-    ): Flow<NBResource<OneCallModelData?>> {
-        return object :
-            LocalMediator<OneCallModelData, OneCallModelLocal>() {
-            override fun getLocal(): Flow<OneCallModelLocal?> {
-                return oneCallDao.getOneCall(latitude, longitude)
-            }
-
-            override fun localToData(local: OneCallModelLocal): OneCallModelData {
-                return OneCallModelData.localToData(local)
             }
         }()
     }

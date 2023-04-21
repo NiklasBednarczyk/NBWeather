@@ -1,11 +1,13 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.remote.services
 
 import dagger.hilt.android.testing.HiltAndroidTest
+import de.niklasbednarczyk.nbweather.core.data.localremote.remote.qualifiers.retrofit.GeoRetrofit
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.nbweather.test.data.localremote.remote.services.NBServiceLatLongTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import retrofit2.HttpException
+import retrofit2.Retrofit
 import javax.inject.Inject
 import kotlin.test.assertNotNull
 
@@ -16,8 +18,15 @@ class RetrofitGeocodingServiceTest : NBServiceLatLongTest {
         private const val LIMIT = 5
     }
 
+    @GeoRetrofit
     @Inject
-    lateinit var subject: NBGeocodingService
+    lateinit var retrofit: Retrofit
+
+    private lateinit var subject: RetrofitGeocodingService
+
+    override fun createSubject() {
+        subject = retrofit.create(RetrofitGeocodingService::class.java)
+    }
 
     @Test
     fun getLocationsByLocationName_shouldGetLocations() = runTest {

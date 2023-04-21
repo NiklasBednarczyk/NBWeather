@@ -34,7 +34,6 @@ sealed interface NBTopAppBarItem {
         val showNavigationIcon: Boolean = true,
         val trailingIconWhenEmpty: @Composable () -> Unit = emptyIcon,
         val onSearchTermChanged: (String) -> Unit,
-        val onClearSearchTerm: () -> Unit
     ) : NBTopAppBarItem
 
 

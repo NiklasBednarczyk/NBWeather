@@ -15,8 +15,8 @@ class LibraryUiConventionPlugin : NBConventionPlugin {
         dependencies {
             implementation(project(":core-ui"))
 
-            testsImplementation(project(":test-common"))
-            testsImplementation(project(":test-ui"))
+            androidTestImplementation(project(":test-common"))
+            androidTestImplementation(project(":test-ui"))
         }
     }
 

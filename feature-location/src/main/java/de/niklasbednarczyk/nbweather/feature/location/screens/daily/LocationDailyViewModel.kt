@@ -46,12 +46,16 @@ class LocationDailyViewModel @Inject constructor(
     ): Flow<NBResource<LocationDailyViewData>> {
         return if (latitude != null && longitude != null) {
             settingsDataRepository.getData().flatMapLatest { data ->
-                val timeFormat = data.timeFormat
-                oneCallRepository.getOneCallLocal(latitude, longitude).mapResource { oneCall ->
-                    if (oneCall == null) return@mapResource null
+                oneCallRepository.getOneCall(
+                    latitude = latitude,
+                    longitude = longitude,
+                    language = data.language,
+                    units = data.units,
+                    forceUpdate = false
+                ).mapResource { oneCall ->
                     LocationDailyViewData.from(
                         oneCall = oneCall,
-                        timeFormat = timeFormat,
+                        timeFormat = data.timeFormat,
                         forecastTime = forecastTime
                     )
                 }

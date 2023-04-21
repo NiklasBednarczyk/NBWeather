@@ -3,9 +3,9 @@ package de.niklasbednarczyk.nbweather.test.data.disk.repositories
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import de.niklasbednarczyk.nbweather.core.data.disk.repositories.RepositoryDisk
+import de.niklasbednarczyk.nbweather.core.data.disk.utils.createFakeDataStore
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
-import de.niklasbednarczyk.nbweather.test.data.disk.utils.createFakeDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

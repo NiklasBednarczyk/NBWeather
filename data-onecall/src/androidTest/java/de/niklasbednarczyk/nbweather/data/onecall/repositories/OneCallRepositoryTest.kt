@@ -4,6 +4,7 @@ import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbZip
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.*
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
@@ -22,7 +23,6 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 
 class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
 
@@ -92,7 +92,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             language = LANGUAGE,
             units = UNITS,
             forceUpdate = true
-        ).assertResourceSuccess { data ->
+        ).collectUntilResource { data ->
             assertValue(remote.timezoneOffset, data.metadata.timezoneOffset?.value)
 
             assertValue(remote.current?.dt, data.currentWeather.currentTime?.value)
@@ -211,7 +211,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             language = NBLanguageType.ENGLISH,
             units = UNITS,
             forceUpdate = false
-        ).assertResourceSuccess {
+        ).collectUntilResource {
             val timezoneOffsetLocal = modifyTimezoneOffset()
 
             // Act + Assert
@@ -221,7 +221,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
                 language = NBLanguageType.GERMAN,
                 units = UNITS,
                 forceUpdate = false
-            ).assertResourceSuccess { data ->
+            ).collectUntilResource { data ->
                 assertTimezoneOffset(timezoneOffsetLocal, data, false)
             }
         }
@@ -236,7 +236,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             language = LANGUAGE,
             units = NBUnitsType.METRIC,
             forceUpdate = false
-        ).assertResourceSuccess {
+        ).collectUntilResource {
             val timezoneOffsetLocal = modifyTimezoneOffset()
 
             // Act + Assert
@@ -246,7 +246,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
                 language = LANGUAGE,
                 units = NBUnitsType.IMPERIAL,
                 forceUpdate = false
-            ).assertResourceSuccess { data ->
+            ).collectUntilResource { data ->
                 assertTimezoneOffset(timezoneOffsetLocal, data, false)
             }
         }
@@ -261,7 +261,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             language = LANGUAGE,
             units = UNITS,
             forceUpdate = false
-        ).assertResourceSuccess {
+        ).collectUntilResource {
             val timezoneOffsetLocal = modifyTimezoneOffset()
 
             // Act + Assert
@@ -271,7 +271,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
                 language = LANGUAGE,
                 units = UNITS,
                 forceUpdate = false
-            ).assertResourceSuccess { data ->
+            ).collectUntilResource { data ->
                 assertTimezoneOffset(timezoneOffsetLocal, data, true)
             }
         }
@@ -286,7 +286,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             language = LANGUAGE,
             units = UNITS,
             forceUpdate = false
-        ).assertResourceSuccess {
+        ).collectUntilResource {
             val timezoneOffsetLocal = modifyTimezoneOffset()
 
             // Act + Assert
@@ -296,36 +296,8 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
                 language = LANGUAGE,
                 units = UNITS,
                 forceUpdate = true
-            ).assertResourceSuccess { data ->
+            ).collectUntilResource { data ->
                 assertTimezoneOffset(timezoneOffsetLocal, data, false)
-            }
-        }
-    }
-
-    @Test
-    fun getOneCallLocal_shouldGetCorrectOneCall() = testScope.runTest {
-        // Arrange
-        subject.getOneCall(
-            latitude = LATITUDE,
-            longitude = LONGITUDE,
-            language = LANGUAGE,
-            units = UNITS,
-            forceUpdate = false
-        ).assertResourceSuccess { dataAssert ->
-            // Act + Assert
-            subject.getOneCallLocal(
-                latitude = LATITUDE,
-                longitude = LONGITUDE
-            ).assertResourceSuccess { dataAct ->
-                assertNotNull(dataAct)
-                assertEquals(dataAssert, dataAct)
-            }
-            subject.getOneCallLocal(
-                latitude = LATITUDE + 1,
-                longitude = LONGITUDE + 1
-            ).assertResourceSuccess { dataAct ->
-                assertNull(dataAct)
-                assertNotEquals(dataAssert, dataAct)
             }
         }
     }

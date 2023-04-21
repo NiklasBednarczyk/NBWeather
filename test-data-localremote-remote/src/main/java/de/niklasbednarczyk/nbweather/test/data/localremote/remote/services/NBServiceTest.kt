@@ -14,6 +14,9 @@ interface NBServiceTest : NBTest {
     @Before
     override fun setUp() {
         hiltAndroidRule.inject()
+        createSubject()
     }
+
+    fun createSubject()
 
 }

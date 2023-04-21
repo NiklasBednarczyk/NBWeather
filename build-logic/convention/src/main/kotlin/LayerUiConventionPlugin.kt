@@ -37,9 +37,9 @@ class LayerUiConventionPlugin : NBConventionPlugin {
             implementation(libs.getLibrary("androidx.navigation.navigationUiKtx"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistFlowlayout"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistPager"))
-            implementation(libs.getLibrary("com.google.accompanist.accompanistPermissions"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistSwiperefresh"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistSystemuicontroller"))
+            implementation(libs.getLibrary("com.google.android.gms.playServicesLocation"))
             implementation(libs.getLibrary("com.google.android.material.material"))
         }
     }

@@ -208,10 +208,13 @@
     <string name="screen_settings_units_value_metric">Metrisch (°C, m/s)</string>
     <string name="screen_settings_units_value_standard">Standard (°K, m/s)</string>
 
-    <string name="snackbar_about_intent_failed">Keine passende App auf Ihrem Handy gefunden</string>
+    <string name="snackbar_about_intent_failed_message">Keine passende App auf Ihrem Handy gefunden</string>
     <string name="snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
+    <string name="snackbar_location_found_action_label">Erneut versuchen</string>
     <string name="snackbar_location_found_canceled_message">Standortanfrage wurde abgebrochen</string>
     <string name="snackbar_location_found_failure_message">Standortanfrage fehlgeschlagen</string>
+    <string name="snackbar_location_permission_denied_action_label">Einstellungen</string>
+    <string name="snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
 
     <string name="top_app_bar_search_placeholder">Suche</string>
 

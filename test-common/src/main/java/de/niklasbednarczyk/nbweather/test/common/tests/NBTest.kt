@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import java.util.*
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 interface NBTest {
 
@@ -55,16 +55,16 @@ interface NBTest {
     }
 
     fun <T> assertListIsEmpty(
-        actual: List<T>
+        actual: List<T>?
     ) {
-        assertTrue(actual.isEmpty())
+        assertTrue(actual?.isEmpty() == true)
     }
 
     fun <T> assertListHasSize(
-        actual: List<T>,
+        actual: List<T>?,
         size: Int
     ) {
-        assertEquals(size, actual.size)
+        assertEquals(size, actual?.size)
     }
 
     fun <T> assertListsContainsItemInOrder(
@@ -95,6 +95,27 @@ interface NBTest {
         assertTrue(actual?.containsAll(items.toList()) == false)
     }
 
+    fun <T> assertListConsecutiveItems(
+        actual: List<T>,
+        predicate: (T) -> Boolean
+    ) {
+        actual.windowed(2).forEach { items ->
+            assertFalse(items.all(predicate))
+        }
+    }
+
+    fun <K, T> assertMapIsEmpty(
+        actual: Map<K, T>?
+    ) {
+        assertTrue(actual?.isEmpty() == true)
+    }
+
+    fun <K, T> assertMapIsNotEmpty(
+        actual: Map<K, T>?
+    ) {
+        assertTrue(actual?.isNotEmpty() == true)
+    }
+
     fun assertNullOrEmpty(
         actual: Any?
     ) {
@@ -111,5 +132,24 @@ interface NBTest {
         assertTrue(actual.isNullOrEmpty())
     }
 
+    fun assertNotNullOrEmpty(
+        actual: String?
+    ) {
+        assertTrue(actual?.isNotEmpty() == true)
+    }
+
+    fun assertIsClass(
+        actual: Any?,
+        classJava: Class<*>
+    ) {
+        assertThat(actual, instanceOf(classJava))
+    }
+
+    fun assertIsNotClass(
+        actual: Any?,
+        classJava: Class<*>
+    ) {
+        assertThat(actual, not(instanceOf(classJava)))
+    }
 
 }

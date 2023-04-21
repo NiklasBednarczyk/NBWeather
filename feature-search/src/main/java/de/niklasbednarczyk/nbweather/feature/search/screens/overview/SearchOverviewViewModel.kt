@@ -1,12 +1,10 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
-import com.google.accompanist.permissions.MultiplePermissionsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
-import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GmsLocationRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -14,15 +12,11 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchOverviewViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
-    private val gmsLocationRepository: GmsLocationRepository,
-    private val settingsDataRepository: SettingsDataRepository
+    private val settingsDataRepository: SettingsDataRepository,
 ) : NBViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
 
     companion object {
         private const val DEBOUNCE_VALUE = 300L
-
-        const val LOCATION_PERMISSION_COARSE = android.Manifest.permission.ACCESS_COARSE_LOCATION
-        const val LOCATION_PERMISSION_FINE = android.Manifest.permission.ACCESS_FINE_LOCATION
     }
 
     private val searchTermFlow = MutableStateFlow(uiState.value.searchTerm)
@@ -57,14 +51,6 @@ class SearchOverviewViewModel @Inject constructor(
             },
             { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
         )
-
-        updateUiState { oldUiState ->
-            oldUiState.copy(shouldShowFindLocation = gmsLocationRepository.isGooglePlayServiceAvailable)
-        }
-    }
-
-    fun onClearSearchTerm() {
-        onSearchTermChanged("")
     }
 
     fun onSearchTermChanged(searchTerm: String) {
@@ -79,85 +65,27 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
-    fun removeVisitedLocation(location: LocationModelData) {
+    fun removeVisitedLocation(latitude: Double, longitude: Double) {
         launchSuspend {
-            geocodingRepository.removeVisitedLocation(location.latitude, location.longitude)
-        }
-    }
-
-    fun onFindCurrentLocationClicked(
-        locationPermissionsState: MultiplePermissionsState,
-        onSuccess: (Double, Double) -> Unit,
-        onCanceled: () -> Unit,
-        onFailure: () -> Unit
-    ) {
-        val anyPermissionGranted =
-            locationPermissionsState.revokedPermissions.size != locationPermissionsState.permissions.size
-
-        if (anyPermissionGranted) {
-            getCurrentLocation(onSuccess, onCanceled, onFailure)
-        } else {
-            locationPermissionsState.launchMultiplePermissionRequest()
-        }
-
-    }
-
-    fun onLocationPermissionsResult(
-        locationPermissionResult: Map<String, Boolean>,
-        onSuccess: (Double, Double) -> Unit,
-        onCanceled: () -> Unit,
-        onFailure: () -> Unit
-    ) {
-        val coarsePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_COARSE]
-        val finePermissionGranted = locationPermissionResult[LOCATION_PERMISSION_FINE]
-
-        val anyPermissionGranted = coarsePermissionGranted == true || finePermissionGranted == true
-
-        if (anyPermissionGranted) {
-            getCurrentLocation(
-                onSuccess = onSuccess,
-                onCanceled = onCanceled,
-                onFailure = onFailure
-            )
-        }
-    }
-
-    private fun getCurrentLocation(
-        onSuccess: (Double, Double) -> Unit,
-        onCanceled: () -> Unit,
-        onFailure: () -> Unit
-    ) {
-        startFindingLocation()
-        gmsLocationRepository.getCurrentLocation(
-            onSuccess = { latitude, longitude ->
-                onSuccess(latitude, longitude)
-            },
-            onCanceled = {
-                stopFindingLocation()
-                onCanceled()
-            },
-            onFailure = {
-                stopFindingLocation()
-                onFailure()
-            }
-        )
-    }
-
-    private fun startFindingLocation() {
-        updateUiState { oldUiState ->
-            oldUiState.copy(findingLocationInProgress = true)
-        }
-    }
-
-    private fun stopFindingLocation() {
-        updateUiState { oldUiState ->
-            oldUiState.copy(findingLocationInProgress = false)
+            geocodingRepository.removeVisitedLocation(latitude, longitude)
         }
     }
 
     fun setCurrentLocation(latitude: Double, longitude: Double) {
         launchSuspend {
             geocodingRepository.insertOrUpdateCurrentLocation(latitude, longitude)
+        }
+    }
+
+    fun startFindingLocation() {
+        updateUiState { oldUiState ->
+            oldUiState.copy(findingLocationInProgress = true)
+        }
+    }
+
+    fun stopFindingLocation() {
+        updateUiState { oldUiState ->
+            oldUiState.copy(findingLocationInProgress = false)
         }
     }
 

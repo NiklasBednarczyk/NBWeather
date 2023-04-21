@@ -96,11 +96,11 @@ class MainViewModel @Inject constructor(
 
     }
 
-    fun setCurrentLocation(location: LocationModelData) {
+    fun setCurrentLocation(latitude: Double, longitude: Double) {
         launchSuspend {
             geocodingRepository.insertOrUpdateCurrentLocation(
-                latitude = location.latitude,
-                longitude = location.longitude
+                latitude = latitude,
+                longitude = longitude
             )
         }
     }

@@ -7,7 +7,6 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.VisitedLocationsInfoM
 data class SearchOverviewUiState(
     val searchTerm: String = "",
     val findingLocationInProgress: Boolean = false,
-    val shouldShowFindLocation: Boolean = false,
     val visitedLocationsInfoResource: NBResource<VisitedLocationsInfoModelData>? = null,
     val searchedLocationsResource: NBResource<List<LocationModelData>>? = null
 ) {

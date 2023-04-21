@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
@@ -46,7 +47,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
         // Act + Assert
         subject.getLocationsByLocationName(locationName, LANGUAGE_TYPE)
-            .assertResourceSuccess { dataAct ->
+            .collectUntilResource { dataAct ->
                 assertListsContainSameItems(dataArrange.mapToLatLong(), dataAct.mapToLatLong())
             }
     }
@@ -57,7 +58,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getVisitedLocations(LANGUAGE_TYPE).assertResourceSuccess { dataAct ->
+        subject.getVisitedLocations(LANGUAGE_TYPE).collectUntilResource { dataAct ->
             assertListDoesContain(dataAct?.mapToLatLong(), 1.toLatLong(), 3.toLatLong())
             assertListDoesNotContain(dataAct?.mapToLatLong(), 2.toLatLong())
         }
@@ -69,7 +70,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getCurrentLocation(LANGUAGE_TYPE).assertResourceSuccess { dataAct ->
+        subject.getCurrentLocation(LANGUAGE_TYPE).collectUntilResource { dataAct ->
             assertEquals(1.toLatLong(), dataAct?.toLatLong())
         }
     }
@@ -80,7 +81,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithoutTimestamps()
 
         // Act + Assert
-        subject.getCurrentLocation(LANGUAGE_TYPE).assertResourceSuccess { dataAct ->
+        subject.getCurrentLocation(LANGUAGE_TYPE).collectUntilResource { dataAct ->
             assertNull(dataAct)
         }
     }
@@ -91,7 +92,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getIsInitialCurrentLocationSet(LANGUAGE_TYPE).assertResourceSuccess { dataAct ->
+        subject.getIsInitialCurrentLocationSet(LANGUAGE_TYPE).collectUntilResource { dataAct ->
             assertTrue(dataAct)
         }
     }
@@ -102,7 +103,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithoutTimestamps()
 
         // Act + Assert
-        subject.getIsInitialCurrentLocationSet(LANGUAGE_TYPE).assertResourceSuccess { dataAct ->
+        subject.getIsInitialCurrentLocationSet(LANGUAGE_TYPE).collectUntilResource { dataAct ->
             assertFalse(dataAct)
         }
     }
@@ -113,7 +114,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getVisitedLocationsInfo(LANGUAGE_TYPE).assertResourceSuccess { dataAct ->
+        subject.getVisitedLocationsInfo(LANGUAGE_TYPE).collectUntilResource { dataAct ->
             assertListIsNotEmpty(dataAct.visitedLocations)
             assertNotNull(dataAct.currentLocation)
             assertTrue(dataAct.isInitialCurrentLocationSet)
@@ -126,7 +127,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithoutTimestamps()
 
         // Act + Assert
-        subject.getVisitedLocationsInfo(LANGUAGE_TYPE).assertResourceSuccess { dataAct ->
+        subject.getVisitedLocationsInfo(LANGUAGE_TYPE).collectUntilResource { dataAct ->
             assertListIsEmpty(dataAct.visitedLocations)
             assertNull(dataAct.currentLocation)
             assertFalse(dataAct.isInitialCurrentLocationSet)

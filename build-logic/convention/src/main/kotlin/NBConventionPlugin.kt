@@ -26,6 +26,9 @@ internal interface NBConventionPlugin : Plugin<Project> {
         (this as ExtensionAware).extensions.configure("kotlinOptions", block)
     }
 
+    fun DependencyHandlerScope.androidTestImplementation(dependencyNotation: Any) {
+        add("androidTestImplementation", dependencyNotation)
+    }
 
     fun DependencyHandlerScope.annotationProcessor(dependencyNotation: Any) {
         add("annotationProcessor", dependencyNotation)
@@ -43,14 +46,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("kapt", dependencyNotation)
     }
 
-    fun DependencyHandlerScope.kaptTests(dependencyNotation: Any) {
+    fun DependencyHandlerScope.kaptAndroidTest(dependencyNotation: Any) {
         add("kaptAndroidTest", dependencyNotation)
-        add("kaptTest", dependencyNotation)
-    }
-
-    fun DependencyHandlerScope.testsImplementation(dependencyNotation: Any) {
-        add("androidTestImplementation", dependencyNotation)
-        add("testImplementation", dependencyNotation)
     }
 
     fun PluginManager.configurePluginsAndroid() {
@@ -62,6 +59,7 @@ internal interface NBConventionPlugin : Plugin<Project> {
     fun Project.plugins(block: PluginManager.() -> Unit) {
         with(pluginManager, block)
     }
+
     fun Project.apply(libs: VersionCatalog)
 
     fun Project.configureKotlinAndroid(
@@ -77,7 +75,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
 
                 resourceConfigurations.addAll(listOf("de", "en", "en_GB"))
 
-                testInstrumentationRunner = "de.niklasbednarczyk.nbweather.test.common.runner.NBTestRunner"
+                testInstrumentationRunner =
+                    "de.niklasbednarczyk.nbweather.test.common.runner.NBTestRunner"
             }
 
             compileOptions {
