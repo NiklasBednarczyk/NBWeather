@@ -82,7 +82,7 @@
     <string name="screen_location_card_weather_value_rain">Regen</string>
     <string name="screen_location_card_weather_value_snow">Schnee</string>
     <string name="screen_location_card_weather_value_uv_index">UV-Index</string>
-    <string name="screen_location_card_weather_value_visibility">Sichtbarkeit</string>
+    <string name="screen_location_card_weather_value_visibility">Sichtweite</string>
     <string name="screen_location_card_weather_value_wind_direction">Windrichtung</string>
     <string name="screen_location_card_weather_value_wind_gust">Windböe</string>
     <string name="screen_location_card_weather_value_wind_speed">Windstärke</string>
@@ -96,9 +96,9 @@
     <string name="screen_location_card_sun_and_moon_value_sunset">Sonnenuntergang</string>
 
     <string name="screen_location_card_temperatures_title">Temperaturen</string>
-    <string name="screen_location_card_temperatures_value_day">Tag</string>
     <string name="screen_location_card_temperatures_value_evening">Abend</string>
     <string name="screen_location_card_temperatures_value_morning">Morgen</string>
+    <string name="screen_location_card_temperatures_value_day">Mittag</string>
     <string name="screen_location_card_temperatures_value_night">Nacht</string>
 
     <string name="screen_location_common_moon_phase_first_quarter_moon">Zunehmender Halbmond</string>

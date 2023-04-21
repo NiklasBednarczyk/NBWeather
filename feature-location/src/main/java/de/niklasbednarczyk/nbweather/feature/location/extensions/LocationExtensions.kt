@@ -1,10 +1,15 @@
 package de.niklasbednarczyk.nbweather.feature.location.extensions
 
+import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
+import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconModel.Companion.toValueIcon
+import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesType
 
@@ -119,3 +124,18 @@ val WindDegreesType.displayText: NBString
         }
         return NBString.Resource(resId)
     }
+
+fun ProbabilityValue.toValueItem(): NBValueItem {
+    return NBValueItem.IconWithTexts(
+        valueIcon = NBIcons.ProbabilityOfPrecipitation.toValueIcon(),
+        displayValue,
+        unit
+    )
+}
+
+fun TemperatureValue.toValueItemWithUnit(units: NBUnitsType): NBValueItem {
+    return NBValueItem.Texts(
+        displayValue,
+        getUnit(units)
+    )
+}

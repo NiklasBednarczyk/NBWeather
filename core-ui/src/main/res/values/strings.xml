@@ -4,7 +4,6 @@
 
     <string name="format_date_range" translatable="false">%1$s - %2$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
-    <string name="format_temperature_feels_like" translatable="false">%1$s (%2$s)</string>
 
     <string name="icon_content_description_about" translatable="false">@string/screen_about_overview_title</string>
     <string name="icon_content_description_back">Back</string>
@@ -135,9 +134,9 @@
     <string name="screen_location_card_sun_and_moon_value_sunset">Sunset</string>
 
     <string name="screen_location_card_temperatures_title">Temperatures</string>
-    <string name="screen_location_card_temperatures_value_day">Day</string>
     <string name="screen_location_card_temperatures_value_evening">Evening</string>
     <string name="screen_location_card_temperatures_value_morning">Morning</string>
+    <string name="screen_location_card_temperatures_value_day">Noon</string>
     <string name="screen_location_card_temperatures_value_night">Night</string>
 
     <string name="screen_location_common_moon_phase_first_quarter_moon">First quarter moon</string>

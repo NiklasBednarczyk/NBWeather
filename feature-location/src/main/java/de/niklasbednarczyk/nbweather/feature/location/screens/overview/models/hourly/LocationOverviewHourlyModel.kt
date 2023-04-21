@@ -9,8 +9,8 @@ import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconModel.Companion.t
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.feature.location.extensions.icon
-import de.niklasbednarczyk.nbweather.feature.location.extensions.probabilityOfPrecipitationValue
-import de.niklasbednarczyk.nbweather.feature.location.extensions.temperatureWithFeelsLikeValue
+import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
+import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItem
 
 data class LocationOverviewHourlyModel(
     val forecastTime: Long,
@@ -64,15 +64,9 @@ data class LocationOverviewHourlyModel(
                         )
 
                         itemsCompact.add(
-                            nbNullSafe(
-                                hourlyForecast.temperature,
-                                hourlyForecast.feelsLikeTemperature
-                            ) { temperature, feelsLikeTemperature ->
+                            nbNullSafe(hourlyForecast.temperature) { temperature ->
                                 NBGridItem.OneLine(
-                                    value = temperatureWithFeelsLikeValue(
-                                        temperature,
-                                        feelsLikeTemperature
-                                    )
+                                    value = temperature.toValueItemWithUnit(units)
                                 )
                             }
                         )
@@ -82,9 +76,7 @@ data class LocationOverviewHourlyModel(
                                 hourlyForecast.probabilityOfPrecipitation
                             ) { probabilityOfPrecipitation ->
                                 NBGridItem.OneLine(
-                                    value = probabilityOfPrecipitationValue(
-                                        probabilityOfPrecipitation
-                                    )
+                                    value = probabilityOfPrecipitation.toValueItem()
                                 )
                             }
                         )

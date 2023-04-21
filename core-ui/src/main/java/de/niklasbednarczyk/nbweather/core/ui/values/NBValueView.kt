@@ -1,6 +1,9 @@
 package de.niklasbednarczyk.nbweather.core.ui.values
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,18 +53,6 @@ fun NBValueView(
             }
             is NBValueItem.Texts -> {
                 val text = nbCombinedString(*value.texts)
-                Text(
-                    text = text.asString(),
-                    style = textStyle,
-                    textAlign = textAlign
-                )
-            }
-            is NBValueItem.TextsWithFormat -> {
-                val text =
-                    nbCombinedString(
-                        *value.texts,
-                        formatResId = value.formatResId
-                    )
                 Text(
                     text = text.asString(),
                     style = textStyle,

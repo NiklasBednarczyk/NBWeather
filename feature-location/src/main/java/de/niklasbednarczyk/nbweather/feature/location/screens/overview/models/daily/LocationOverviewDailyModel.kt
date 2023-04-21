@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.feature.location.extensions.icon
-import de.niklasbednarczyk.nbweather.feature.location.extensions.probabilityOfPrecipitationValue
+import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItem
 import kotlin.math.abs
 
 data class LocationOverviewDailyModel(
@@ -49,9 +49,7 @@ data class LocationOverviewDailyModel(
                 )
 
                 val probabilityOfPrecipitation =
-                    nbNullSafe(dailyForecast.probabilityOfPrecipitation) { probabilityOfPrecipitation ->
-                        probabilityOfPrecipitationValue(probabilityOfPrecipitation)
-                    }
+                    dailyForecast.probabilityOfPrecipitation?.toValueItem()
 
                 nbNullSafe(
                     dailyForecast.forecastTime?.value,

@@ -52,8 +52,7 @@ sealed interface LocationCardItem : NBCardItem {
             items.add(
                 LocationCardTemperaturesModel.from(
                     units = units,
-                    temperature = dailyForecast.temperature,
-                    feelsLikeTemperature = dailyForecast.feelsLikeTemperature
+                    temperature = dailyForecast.temperature
                 )
             )
 
@@ -156,8 +155,7 @@ sealed interface LocationCardItem : NBCardItem {
             items.add(
                 LocationCardTemperaturesModel.from(
                     units = units,
-                    temperature = today?.temperature,
-                    feelsLikeTemperature = today?.feelsLikeTemperature
+                    temperature = today?.temperature
                 )
             )
 

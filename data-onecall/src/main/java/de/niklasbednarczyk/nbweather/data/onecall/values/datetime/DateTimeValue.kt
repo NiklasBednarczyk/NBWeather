@@ -87,7 +87,7 @@ value class DateTimeValue private constructor(val value: Long) {
     companion object {
 
         private const val DATE_PATTERN_DAY_OF_MONTH = "d"
-        private const val DATE_PATTERN_WEEKDAY_ABBREVIATION = "eeeee"
+        private const val DATE_PATTERN_WEEKDAY_ABBREVIATION = "eee"
         private const val DATE_PATTERN_WEEKDAY_WITH_DATE = "eeee MMM d"
 
         private const val DATE_TIME_PATTERN_HOUR_12 = "MMM d hh:mm a"

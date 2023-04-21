@@ -6,10 +6,8 @@ import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridItem
-import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
-import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyFeelsLikeTemperatureModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyTemperatureModelData
-import de.niklasbednarczyk.nbweather.feature.location.extensions.temperatureWithFeelsLikeValue
+import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
 
 data class LocationCardTemperaturesModel(
     override val cardTitle: NBString?,
@@ -22,15 +20,11 @@ data class LocationCardTemperaturesModel(
         fun from(
             units: NBUnitsType,
             temperature: DailyTemperatureModelData?,
-            feelsLikeTemperature: DailyFeelsLikeTemperatureModelData?
         ): LocationCardTemperaturesModel? {
             val cardTitle =
                 NBString.Resource(R.string.screen_location_card_temperatures_title)
 
-            return nbNullSafe(
-                temperature,
-                feelsLikeTemperature
-            ) { temperatureModel, feelsLikeTemperatureModel ->
+            return nbNullSafe(temperature) { temperatureModel ->
 
                 val thresholdItems = mutableListOf<NBGridItem>()
 
@@ -38,10 +32,7 @@ data class LocationCardTemperaturesModel(
                     thresholdItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_common_temperatures_min),
-                            value = NBValueItem.Texts(
-                                minDailyTemperature.displayValue,
-                                minDailyTemperature.getUnit(units)
-                            )
+                            value = minDailyTemperature.toValueItemWithUnit(units)
                         )
                     )
                 }
@@ -50,60 +41,45 @@ data class LocationCardTemperaturesModel(
                     thresholdItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_common_temperatures_max),
-                            value = NBValueItem.Texts(
-                                maxDailyTemperature.displayValue,
-                                maxDailyTemperature.getUnit(units)
-                            )
+                            value = maxDailyTemperature.toValueItemWithUnit(units)
                         )
                     )
                 }
 
                 val dayItems = mutableListOf<NBGridItem>()
 
-                nbNullSafe(
-                    temperatureModel.morningTemperature,
-                    feelsLikeTemperatureModel.morningTemperature
-                ) { temp, feelsLikeTemp ->
+                nbNullSafe(temperatureModel.morningTemperature) { temp ->
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_morning),
-                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
+                            value = temp.toValueItemWithUnit(units)
                         )
                     )
                 }
 
-                nbNullSafe(
-                    temperatureModel.dayTemperature,
-                    feelsLikeTemperatureModel.dayTemperature
-                ) { temp, feelsLikeTemp ->
+                nbNullSafe(temperatureModel.dayTemperature) { temp ->
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_day),
-                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
+                            value = temp.toValueItemWithUnit(units)
                         )
                     )
                 }
 
-                nbNullSafe(
-                    temperatureModel.eveningTemperature,
-                    feelsLikeTemperatureModel.eveningTemperature
-                ) { temp, feelsLikeTemp ->
+                nbNullSafe(temperatureModel.eveningTemperature) { temp ->
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_evening),
-                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
+                            value = temp.toValueItemWithUnit(units)
                         )
                     )
                 }
 
-                nbNullSafe(
-                    temperatureModel.nightTemperature,
-                    feelsLikeTemperatureModel.nightTemperature
-                ) { temp, feelsLikeTemp ->
+                nbNullSafe(temperatureModel.nightTemperature) { temp ->
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_night),
-                            value = temperatureWithFeelsLikeValue(temp, feelsLikeTemp)
+                            value = temp.toValueItemWithUnit(units)
                         )
                     )
                 }

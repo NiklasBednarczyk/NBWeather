@@ -12,6 +12,7 @@ import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.*
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 import de.niklasbednarczyk.nbweather.feature.location.extensions.displayText
+import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
 
 data class LocationCardWeatherModel(
     override val cardTitle: NBString?,
@@ -147,10 +148,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_dew_point),
                         valueIcon = NBIcons.DewPoint.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            dewPointTemperatureValue.displayValue,
-                            dewPointTemperatureValue.getUnit(units)
-                        )
+                        value = dewPointTemperatureValue.toValueItemWithUnit(units)
                     )
                 )
             }
