@@ -97,8 +97,6 @@ internal interface NBConventionPlugin : Plugin<Project> {
                     "-opt-in=androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi",
                     // Enables pager
                     "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
-                    // Enables permissions
-                    "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
                     // Enables flatMapLatest
                     "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     // Enables debounce
