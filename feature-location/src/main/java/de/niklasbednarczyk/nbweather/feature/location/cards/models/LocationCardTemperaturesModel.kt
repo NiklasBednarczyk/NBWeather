@@ -11,8 +11,8 @@ import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWith
 
 data class LocationCardTemperaturesModel(
     override val cardTitle: NBString?,
-    val thresholdItems: List<NBGridItem>,
-    val dayItems: List<NBGridItem>
+    val thresholdItems: List<NBGridItem.TwoLines?>,
+    val dayItems: List<NBGridItem.TwoLines?>
 ) : LocationCardItem {
 
     companion object {
@@ -26,7 +26,7 @@ data class LocationCardTemperaturesModel(
 
             return nbNullSafe(temperature) { temperatureModel ->
 
-                val thresholdItems = mutableListOf<NBGridItem>()
+                val thresholdItems = mutableListOf<NBGridItem.TwoLines?>()
 
                 nbNullSafe(temperatureModel.minDailyTemperature) { minDailyTemperature ->
                     thresholdItems.add(
@@ -46,7 +46,7 @@ data class LocationCardTemperaturesModel(
                     )
                 }
 
-                val dayItems = mutableListOf<NBGridItem>()
+                val dayItems = mutableListOf<NBGridItem.TwoLines?>()
 
                 nbNullSafe(temperatureModel.morningTemperature) { temp ->
                     dayItems.add(

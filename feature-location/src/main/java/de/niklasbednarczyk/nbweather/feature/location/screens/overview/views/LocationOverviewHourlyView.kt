@@ -6,7 +6,7 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridRow
+import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridRowOneLine
 import de.niklasbednarczyk.nbweather.core.ui.stickyheader.NBStickyHeaderListView
 import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listItemPaddingValuesVerticalOneLine
 import de.niklasbednarczyk.nbweather.core.ui.windowsize.getWidthSizeClass
@@ -26,7 +26,7 @@ fun LocationOverviewHourlyView(
             WindowWidthSizeClass.Expanded -> hourly.itemsExpanded
             else -> hourly.itemsCompact
         }
-        NBGridRow(
+        NBGridRowOneLine(
             modifier = Modifier
                 .clickable {
                     navigateToHourly(hourly.forecastTime)

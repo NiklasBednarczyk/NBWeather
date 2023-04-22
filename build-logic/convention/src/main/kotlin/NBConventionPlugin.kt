@@ -95,6 +95,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
                     "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     // Enables material 3 window size class
                     "-opt-in=androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi",
+                    // Enables hyphenation
+                    "-opt-in=androidx.compose.ui.text.ExperimentalTextApi",
                     // Enables pager
                     "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
                     // Enables flatMapLatest

@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.ui.icons.nbIconFit
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
+import de.niklasbednarczyk.nbweather.core.ui.text.nbHyphenated
 import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.rowHorizontalArrangement
 
 @Composable
@@ -21,11 +22,14 @@ fun NBValueView(
     value: NBValueItem,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
-    textAlign: TextAlign = TextAlign.Center
+    textAlign: TextAlign = TextAlign.Center,
+    contentAlignment: Alignment = Alignment.Center
 ) {
+    val textStyleHyphenated = textStyle.nbHyphenated()
+
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = contentAlignment
     ) {
         when (value) {
             is NBValueItem.Icon -> {
@@ -45,7 +49,7 @@ fun NBValueView(
                     val text = nbCombinedString(*value.texts)
                     Text(
                         text = text.asString(),
-                        style = textStyle,
+                        style = textStyleHyphenated,
                         textAlign = textAlign
                     )
                 }
@@ -55,7 +59,7 @@ fun NBValueView(
                 val text = nbCombinedString(*value.texts)
                 Text(
                     text = text.asString(),
-                    style = textStyle,
+                    style = textStyleHyphenated,
                     textAlign = textAlign
                 )
             }

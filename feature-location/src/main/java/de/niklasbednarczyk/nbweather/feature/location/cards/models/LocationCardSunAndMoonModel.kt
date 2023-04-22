@@ -16,8 +16,8 @@ import de.niklasbednarczyk.nbweather.feature.location.extensions.icon
 
 data class LocationCardSunAndMoonModel(
     override val cardTitle: NBString?,
-    val sunItems: List<NBGridItem?>,
-    val moonItems: List<NBGridItem?>
+    val sunItems: List<NBGridItem.ThreeLines?>,
+    val moonItems: List<NBGridItem.ThreeLines?>
 ) : LocationCardItem {
 
     companion object {
@@ -33,7 +33,7 @@ data class LocationCardSunAndMoonModel(
 
             if (dailyForecast == null) return null
 
-            val sunItems = mutableListOf<NBGridItem?>()
+            val sunItems = mutableListOf<NBGridItem.ThreeLines?>()
 
             sunItems.add(
                 nbNullSafe(dailyForecast.sunrise) { sunrise ->
@@ -71,7 +71,7 @@ data class LocationCardSunAndMoonModel(
                 }
             )
 
-            val moonItems = mutableListOf<NBGridItem?>()
+            val moonItems = mutableListOf<NBGridItem.ThreeLines?>()
 
             moonItems.add(
                 nbNullSafe(dailyForecast.moonrise) { moonrise ->

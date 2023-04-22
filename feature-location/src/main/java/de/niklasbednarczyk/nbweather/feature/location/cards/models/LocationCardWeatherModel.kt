@@ -16,7 +16,7 @@ import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWith
 
 data class LocationCardWeatherModel(
     override val cardTitle: NBString?,
-    val items: List<NBGridItem>
+    val items: List<NBGridItem.ThreeLines?>
 ) : LocationCardItem {
 
     companion object {
@@ -38,7 +38,7 @@ data class LocationCardWeatherModel(
         ): LocationCardWeatherModel? {
             val cardTitle = NBString.Resource(R.string.screen_location_card_weather_title)
 
-            val items = mutableListOf<NBGridItem>()
+            val items = mutableListOf<NBGridItem.ThreeLines?>()
 
             nbNullSafe(probabilityOfPrecipitation) { probabilityOfPrecipitationValue ->
                 items.add(

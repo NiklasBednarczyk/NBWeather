@@ -9,14 +9,14 @@ import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconModel.Companion.t
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.feature.location.extensions.icon
-import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
 import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItem
+import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
 
 data class LocationOverviewHourlyModel(
     val forecastTime: Long,
-    val itemsCompact: List<NBGridItem?>,
-    val itemsMedium: List<NBGridItem?>,
-    val itemsExpanded: List<NBGridItem?>
+    val itemsCompact: List<NBGridItem.OneLine?>,
+    val itemsMedium: List<NBGridItem.OneLine?>,
+    val itemsExpanded: List<NBGridItem.OneLine?>
 ) {
 
     companion object {
@@ -33,7 +33,7 @@ data class LocationOverviewHourlyModel(
                     hourly.forecastTime?.getDateWeekdayWithDateString(timezoneOffset)
                 }.mapValues { entry ->
                     entry.value.mapNotNull { hourlyForecast ->
-                        val itemsCompact = mutableListOf<NBGridItem?>()
+                        val itemsCompact = mutableListOf<NBGridItem.OneLine?>()
 
                         itemsCompact.add(
                             nbNullSafe(
