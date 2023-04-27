@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
+import android.content.Context
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineMediator
@@ -9,6 +10,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.daos.*
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.*
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.OneCallModelRemote
+import de.niklasbednarczyk.nbweather.data.onecall.remote.services.FakeOneCallService
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -24,6 +26,36 @@ class OneCallRepository @Inject constructor(
     private val nationalWeatherAlertDao: NBNationalWeatherAlertDao,
     private val oneCallDao: NBOneCallDao
 ) {
+
+    companion object {
+
+        fun createFake(
+            context: Context
+        ): OneCallRepository {
+            val currentWeatherDao = FakeCurrentWeatherDao()
+            val dailyForecastDao = FakeDailyForecastDao()
+            val hourlyForecastDao = FakeHourlyForecastDao()
+            val minutelyForecastDao = FakeMinutelyForecastDao()
+            val nationalWeatherAlertDao = FakeNationalWeatherAlertDao()
+
+            return OneCallRepository(
+                oneCallService = FakeOneCallService(context),
+                currentWeatherDao = currentWeatherDao,
+                dailyForecastDao = dailyForecastDao,
+                hourlyForecastDao = hourlyForecastDao,
+                minutelyForecastDao = minutelyForecastDao,
+                nationalWeatherAlertDao = nationalWeatherAlertDao,
+                oneCallDao = FakeOneCallDao(
+                    currentWeatherDao = currentWeatherDao,
+                    dailyForecastDao = dailyForecastDao,
+                    hourlyForecastDao = hourlyForecastDao,
+                    minutelyForecastDao = minutelyForecastDao,
+                    nationalWeatherAlertDao = nationalWeatherAlertDao
+                )
+            )
+        }
+    }
+
 
     suspend fun getOneCall(
         latitude: Double,

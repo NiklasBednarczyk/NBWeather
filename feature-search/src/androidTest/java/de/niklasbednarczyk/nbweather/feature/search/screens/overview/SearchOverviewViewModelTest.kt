@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
-import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
@@ -8,20 +7,18 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBUiTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import javax.inject.Inject
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
-@HiltAndroidTest
-class SearchOverviewViewModelTest : NBUiTest {
+class SearchOverviewViewModelTest : NBViewModelTest {
 
     companion object {
         private val LAT_LONG_1 = Pair(38.8950368, -77.0365427)
@@ -32,24 +29,19 @@ class SearchOverviewViewModelTest : NBUiTest {
         private val LANGUAGE = NBLanguageType.ENGLISH
     }
 
-    @BindValue
-    @get:Rule(order = NBUiTest.TEMPORARY_FOLDER_ORDER)
-    override val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
+    @get:Rule
+    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
 
     private lateinit var subject: SearchOverviewViewModel
 
-    @Inject
-    lateinit var geocodingRepository: GeocodingRepository
-
-    @Inject
-    lateinit var settingsDataRepository: SettingsDataRepository
+    private lateinit var geocodingRepository: GeocodingRepository
 
     @Before
     override fun setUp() {
-        super.setUp()
+        geocodingRepository = GeocodingRepository.createFake(context)
         subject = SearchOverviewViewModel(
             geocodingRepository = geocodingRepository,
-            settingsDataRepository = settingsDataRepository
+            settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
         )
     }
 

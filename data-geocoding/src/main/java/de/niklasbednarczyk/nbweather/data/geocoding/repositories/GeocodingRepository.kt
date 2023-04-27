@@ -1,16 +1,19 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
+import android.content.Context
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.time.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOnlineMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.data.geocoding.constants.ConstantsDataGeocoding
+import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.models.VisitedLocationsInfoModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
+import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.FakeGeocodingService
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.NBGeocodingService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +28,19 @@ class GeocodingRepository @Inject constructor(
     private val geocodingService: NBGeocodingService,
     private val geocodingDao: NBGeocodingDao
 ) {
+
+    companion object {
+
+        fun createFake(
+            context: Context
+        ): GeocodingRepository {
+            return GeocodingRepository(
+                geocodingService = FakeGeocodingService(context),
+                geocodingDao = FakeGeocodingDao()
+            )
+        }
+
+    }
 
     suspend fun getLocationsByLocationName(
         locationName: String,

@@ -1,37 +1,31 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.language
 
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBUiTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import javax.inject.Inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-@HiltAndroidTest
-class SettingsLanguageViewModelTest : NBUiTest {
+class SettingsLanguageViewModelTest : NBViewModelTest {
 
-    @Inject
-    lateinit var settingsDataRepository: SettingsDataRepository
-
-    @BindValue
-    @get:Rule(order = NBUiTest.TEMPORARY_FOLDER_ORDER)
-    override val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
+    @get:Rule
+    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
 
     private lateinit var subject: SettingsLanguageViewModel
 
+    private lateinit var settingsDataRepository: SettingsDataRepository
+
     @Before
     override fun setUp() {
-        super.setUp()
+        settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
         subject = SettingsLanguageViewModel(
             settingsDataRepository = settingsDataRepository
         )

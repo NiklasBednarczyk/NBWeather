@@ -9,13 +9,13 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.*
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesType
-import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
+import de.niklasbednarczyk.nbweather.test.data.localremote.NBLocalRemoteModelTest
 import org.junit.Test
 import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
-class OneCallValuesTest : NBTest {
+class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun dateTimeValue_shouldFormatDateTimeCorrectlyWhenNotChangingForLocale() {

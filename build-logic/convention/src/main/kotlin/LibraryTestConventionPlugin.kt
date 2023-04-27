@@ -7,7 +7,7 @@ class LibraryTestConventionPlugin : NBTestConventionPlugin {
         dependencyNotation: Any,
         alsoImplementation: Boolean
     ) {
-        implementation(dependencyNotation)
+        debugImplementation(dependencyNotation)
     }
 
     override fun PluginManager.applyPlugins() {

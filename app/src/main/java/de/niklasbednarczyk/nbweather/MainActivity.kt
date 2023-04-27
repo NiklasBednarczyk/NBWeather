@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
 
         val navController = navHostFragment.getFragment<NavHostFragment>().navController
         navController.graph = navController.createGraph(
-            startDestination = startDestination.routeForNavigation
+            startDestination = startDestination.routeForGraph
         ) {
             graphAbout()
             graphLocation()

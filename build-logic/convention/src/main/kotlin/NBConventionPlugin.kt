@@ -38,6 +38,10 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("coreLibraryDesugaring", dependencyNotation)
     }
 
+    fun DependencyHandlerScope.debugImplementation(dependencyNotation: Any) {
+        add("debugImplementation", dependencyNotation)
+    }
+
     fun DependencyHandlerScope.implementation(dependencyNotation: Any) {
         add("implementation", dependencyNotation)
     }

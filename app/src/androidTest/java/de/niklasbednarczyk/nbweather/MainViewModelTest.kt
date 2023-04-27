@@ -1,28 +1,23 @@
 package de.niklasbednarczyk.nbweather
 
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBUiTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import javax.inject.Inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-@HiltAndroidTest
-class MainViewModelTest : NBUiTest {
+class MainViewModelTest : NBViewModelTest {
 
     companion object {
         private const val LATITUDE = 41.2990848
@@ -31,28 +26,20 @@ class MainViewModelTest : NBUiTest {
         private val LANGUAGE = NBLanguageType.ENGLISH
     }
 
-    @BindValue
-    @get:Rule(order = NBUiTest.TEMPORARY_FOLDER_ORDER)
-    override val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
+    @get:Rule
+    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
 
     private lateinit var subject: MainViewModel
 
-    @Inject
-    lateinit var geocodingRepository: GeocodingRepository
-
-    @Inject
-    lateinit var settingsAppearanceRepository: SettingsAppearanceRepository
-
-    @Inject
-    lateinit var settingsDataRepository: SettingsDataRepository
+    private lateinit var geocodingRepository: GeocodingRepository
 
     @Before
     override fun setUp() {
-        super.setUp()
+        geocodingRepository = GeocodingRepository.createFake(context)
         subject = MainViewModel(
             geocodingRepository = geocodingRepository,
-            settingsAppearanceRepository = settingsAppearanceRepository,
-            settingsDataRepository = settingsDataRepository
+            settingsAppearanceRepository = SettingsAppearanceRepository.createFake(temporaryFolder),
+            settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
         )
     }
 

@@ -1,45 +1,36 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.alerts
 
 import androidx.lifecycle.SavedStateHandle
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.location.navigation.DestinationsLocation
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBUiTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import javax.inject.Inject
 
-@HiltAndroidTest
-class LocationAlertsViewModelTest : NBUiTest {
+class LocationAlertsViewModelTest : NBViewModelTest {
 
     companion object {
         private const val LAT_AND_LON = 50.0
     }
 
-    @BindValue
-    @get:Rule(order = NBUiTest.TEMPORARY_FOLDER_ORDER)
-    override val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
+    @get:Rule
+    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
 
     private lateinit var subjectWithoutArgs: LocationAlertsViewModel
     private lateinit var subjectWithArgs: LocationAlertsViewModel
 
-    @Inject
-    lateinit var oneCallRepository: OneCallRepository
-
-    @Inject
-    lateinit var settingsDataRepository: SettingsDataRepository
-
     @Before
     override fun setUp() {
-        super.setUp()
+        val oneCallRepository = OneCallRepository.createFake(context)
+        val settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
+
         subjectWithoutArgs = LocationAlertsViewModel(
             savedStateHandle = SavedStateHandle(),
             oneCallRepository = oneCallRepository,

@@ -1,7 +1,5 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.overview
 
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
@@ -10,48 +8,39 @@ import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBUiTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import javax.inject.Inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-@HiltAndroidTest
-class LocationOverviewViewModelTest : NBUiTest {
+class LocationOverviewViewModelTest : NBViewModelTest {
 
     companion object {
         private const val LATITUDE = 40.17396
         private const val LONGITUDE = -80.2461714
     }
 
-    @BindValue
-    @get:Rule(order = NBUiTest.TEMPORARY_FOLDER_ORDER)
-    override val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
+    @get:Rule
+    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
 
     private lateinit var subject: LocationOverviewViewModel
 
-    @Inject
-    lateinit var geocodingRepository: GeocodingRepository
-
-    @Inject
-    lateinit var oneCallRepository: OneCallRepository
-
-    @Inject
-    lateinit var settingsDataRepository: SettingsDataRepository
+    private lateinit var geocodingRepository: GeocodingRepository
 
     @Before
     override fun setUp() {
-        super.setUp()
+        geocodingRepository = GeocodingRepository.createFake(context)
+
         subject = LocationOverviewViewModel(
             geocodingRepository = geocodingRepository,
-            oneCallRepository = oneCallRepository,
-            settingsDataRepository = settingsDataRepository
+            oneCallRepository = OneCallRepository.createFake(context),
+            settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
         )
     }
 

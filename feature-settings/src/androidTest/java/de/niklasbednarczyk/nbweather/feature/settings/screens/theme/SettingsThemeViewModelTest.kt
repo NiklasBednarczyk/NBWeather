@@ -1,37 +1,31 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.theme
 
-import dagger.hilt.android.testing.BindValue
-import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.data.settings.models.appearance.ThemeTypeData
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBUiTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import javax.inject.Inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-@HiltAndroidTest
-class SettingsThemeViewModelTest : NBUiTest {
+class SettingsThemeViewModelTest : NBViewModelTest {
 
-    @Inject
-    lateinit var settingsAppearanceRepository: SettingsAppearanceRepository
-
-    @BindValue
-    @get:Rule(order = NBUiTest.TEMPORARY_FOLDER_ORDER)
-    override val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
+    @get:Rule
+    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
 
     private lateinit var subject: SettingsThemeViewModel
 
+    private lateinit var settingsAppearanceRepository: SettingsAppearanceRepository
+
     @Before
     override fun setUp() {
-        super.setUp()
+        settingsAppearanceRepository = SettingsAppearanceRepository.createFake(temporaryFolder)
         subject = SettingsThemeViewModel(
             settingsAppearanceRepository = settingsAppearanceRepository
         )
