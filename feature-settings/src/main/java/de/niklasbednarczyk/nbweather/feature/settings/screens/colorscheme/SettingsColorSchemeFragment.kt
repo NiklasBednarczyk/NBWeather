@@ -7,7 +7,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentUiState
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupView
+import de.niklasbednarczyk.nbweather.data.settings.models.appearance.ColorSchemeTypeData
 
 @AndroidEntryPoint
 class SettingsColorSchemeFragment : NBFragmentUiState<SettingsColorSchemeUiState>() {
@@ -22,13 +22,15 @@ class SettingsColorSchemeFragment : NBFragmentUiState<SettingsColorSchemeUiState
 
     @Composable
     override fun ScaffoldContent(viewData: SettingsColorSchemeUiState) {
-        NBRadioGroupView(
-            radioGroup = viewData.radioGroup,
-            onItemSelected = { colorScheme ->
-                viewModel.updateColorScheme(colorScheme)
-                popBackStack()
-            }
+        SettingsColorSchemeContent(
+            uiState = viewData,
+            onItemSelected = ::onItemSelected
         )
+    }
+
+    private fun onItemSelected(item: ColorSchemeTypeData) {
+        viewModel.updateColorScheme(item)
+        popBackStack()
     }
 
 }

@@ -31,6 +31,7 @@ class LayerUiConventionPlugin : NBConventionPlugin {
             implementation(libs.getLibrary("androidx.compose.ui.ui"))
             implementation(libs.getLibrary("androidx.compose.ui.uiViewbinding"))
             implementation(libs.getLibrary("androidx.core.coreKtx"))
+            implementation(libs.getLibrary("androidx.fragment.fragmentKtx"))
             implementation(libs.getLibrary("androidx.hilt.hiltNavigationFragment"))
             implementation(libs.getLibrary("androidx.lifecycle.lifecycleRuntimeKtx"))
             implementation(libs.getLibrary("androidx.navigation.navigationFragmentKtx"))

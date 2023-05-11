@@ -1,17 +1,14 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.alerts.models
 
-import androidx.annotation.StringRes
 import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 
 data class LocationAlertModel(
     val eventName: NBString?,
     val startDate: NBString?,
     val endDate: NBString?,
-    @StringRes val startEndDateFormatResId: Int,
     val expandableItems: List<LocationAlertExpandableItem>
 ) {
 
@@ -23,8 +20,6 @@ data class LocationAlertModel(
         ): List<LocationAlertModel> {
             val timezoneOffset = oneCall.metadata.timezoneOffset
             val alerts = oneCall.nationalWeatherAlerts
-
-            val startEndDateFormatResId = R.string.format_date_range
 
             return alerts.map { alert ->
                 val startDate =
@@ -65,7 +60,6 @@ data class LocationAlertModel(
                     eventName = alert.eventName,
                     startDate = startDate,
                     endDate = endDate,
-                    startEndDateFormatResId = startEndDateFormatResId,
                     expandableItems = expandableItems
                 )
             }

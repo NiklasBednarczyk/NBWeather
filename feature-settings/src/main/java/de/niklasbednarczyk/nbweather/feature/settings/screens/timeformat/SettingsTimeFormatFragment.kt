@@ -3,11 +3,11 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.timeformat
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentUiState
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupView
 
 @AndroidEntryPoint
 class SettingsTimeFormatFragment : NBFragmentUiState<SettingsTimeFormatUiState>() {
@@ -22,13 +22,16 @@ class SettingsTimeFormatFragment : NBFragmentUiState<SettingsTimeFormatUiState>(
 
     @Composable
     override fun ScaffoldContent(viewData: SettingsTimeFormatUiState) {
-        NBRadioGroupView(
-            radioGroup = viewData.radioGroup,
-            onItemSelected = { timeFormat ->
-                viewModel.updateTimeFormat(timeFormat)
-                popBackStack()
-            }
+        SettingsTimeFormatContent(
+            uiState = viewData,
+            onItemSelected = ::onItemSelected
         )
     }
+
+    private fun onItemSelected(item: NBTimeFormatType) {
+        viewModel.updateTimeFormat(item)
+        popBackStack()
+    }
+
 
 }

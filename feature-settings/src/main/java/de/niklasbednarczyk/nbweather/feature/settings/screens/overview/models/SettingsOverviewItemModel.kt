@@ -9,7 +9,7 @@ sealed interface SettingsOverviewItemModel {
     object Divider : SettingsOverviewItemModel
 
     data class Header(
-        val text: NBString
+        val text: NBString?
     ) : SettingsOverviewItemModel
 
     data class Item(

@@ -9,13 +9,7 @@ import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAp
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
-import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithLoadingView
-import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshView
-import de.niklasbednarczyk.nbweather.feature.location.cards.views.LocationCardsView
 import de.niklasbednarczyk.nbweather.feature.location.navigation.DestinationsLocation
-import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
-import de.niklasbednarczyk.nbweather.feature.location.screens.overview.views.LocationOverviewDailyView
-import de.niklasbednarczyk.nbweather.feature.location.screens.overview.views.LocationOverviewHourlyView
 
 @AndroidEntryPoint
 class LocationOverviewFragment : NBFragmentUiState<LocationOverviewUiState>() {
@@ -47,51 +41,13 @@ class LocationOverviewFragment : NBFragmentUiState<LocationOverviewUiState>() {
 
     @Composable
     override fun ScaffoldContent(viewData: LocationOverviewUiState) {
-        val location = viewData.locationResource?.dataOrNull
-
-        NBResourceWithLoadingView(viewData.viewDataResource) { viewDataOverview ->
-            NBSwipeRefreshView(
-                refreshFlow = viewModel.viewDataFlow,
-            ) {
-                when (viewData.selectedNavigationBarItem) {
-                    LocationOverviewNavigationBarItem.TODAY -> {
-                        LocationCardsView(
-                            cardItems = viewDataOverview.todayCardItems,
-                            navigateToAlerts = {
-                                navigateToAlerts(
-                                    location?.latitude,
-                                    location?.longitude
-                                )
-                            }
-                        )
-                    }
-                    LocationOverviewNavigationBarItem.HOURLY -> {
-                        LocationOverviewHourlyView(
-                            hourlyMap = viewDataOverview.hourlyMap,
-                            navigateToHourly = { forecastTime ->
-                                navigateToHourly(
-                                    forecastTime,
-                                    location?.latitude,
-                                    location?.longitude
-                                )
-                            }
-                        )
-                    }
-                    LocationOverviewNavigationBarItem.DAILY -> {
-                        LocationOverviewDailyView(
-                            dailyModels = viewDataOverview.dailyModels,
-                            navigateToDaily = { forecastTime ->
-                                navigateToDaily(
-                                    forecastTime,
-                                    location?.latitude,
-                                    location?.longitude
-                                )
-                            }
-                        )
-                    }
-                }
-            }
-        }
+        LocationOverviewContent(
+            uiState = viewData,
+            viewDataFlow = viewModel.viewDataFlow,
+            navigateToAlerts = ::navigateToAlerts,
+            navigateToDaily = ::navigateToDaily,
+            navigateToHourly = ::navigateToHourly
+        )
     }
 
     private fun navigateToAlerts(latitude: Double?, longitude: Double?) {

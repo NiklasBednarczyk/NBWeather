@@ -13,11 +13,14 @@ internal interface NBTestConventionPlugin : NBConventionPlugin {
         }
         dependencies {
             val dependencyNotationPairs = listOf(
-                Pair(libs.getLibrary("androidx.test.core"), true),
-                Pair(libs.getLibrary("androidx.test.runner"), false),
-                Pair(libs.getLibrary("com.google.dagger.hiltAndroidTesting"), true),
-                Pair(libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest"), false),
-                Pair(kotlin("test"), false)
+                libs.getLibrary("androidx.compose.ui.uiTestJunit4").toPair(),
+                libs.getLibrary("androidx.compose.ui.uiTestManifest").toPair(true),
+                libs.getLibrary("androidx.test.core").toPair(true),
+                libs.getLibrary("androidx.test.espresso.espressoCore").toPair(),
+                libs.getLibrary("androidx.test.runner").toPair(),
+                libs.getLibrary("com.google.dagger.hiltAndroidTesting").toPair(true),
+                libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest").toPair(),
+                kotlin("test").toPair()
             )
             dependencyNotationPairs.forEach { dependencyNotationPair ->
                 val dependencyNotation = dependencyNotationPair.first
@@ -31,5 +34,7 @@ internal interface NBTestConventionPlugin : NBConventionPlugin {
     fun DependencyHandlerScope.setDependency(dependencyNotation: Any, alsoImplementation: Boolean)
 
     fun PluginManager.applyPlugins() {}
+
+    private fun Any.toPair(alsoImplementation: Boolean = false) = Pair(this, alsoImplementation)
 
 }

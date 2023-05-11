@@ -3,11 +3,11 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.language
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentUiState
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupView
 
 @AndroidEntryPoint
 class SettingsLanguageFragment : NBFragmentUiState<SettingsLanguageUiState>() {
@@ -22,14 +22,15 @@ class SettingsLanguageFragment : NBFragmentUiState<SettingsLanguageUiState>() {
 
     @Composable
     override fun ScaffoldContent(viewData: SettingsLanguageUiState) {
-        NBRadioGroupView(
-            radioGroup = viewData.radioGroup,
-            onItemSelected = { language ->
-                viewModel.updateLanguage(language)
-                popBackStack()
-            },
-            sortItemsAlphabetically = true
+        SettingsLanguageContent(
+            uiState = viewData,
+            onItemSelected = ::onItemSelected
         )
+    }
+
+    private fun onItemSelected(item: NBLanguageType) {
+        viewModel.updateLanguage(item)
+        popBackStack()
     }
 
 }

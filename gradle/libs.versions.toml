@@ -6,11 +6,13 @@ androidxComposeCompiler = "1.4.0-alpha02"
 androidxComposeMaterial3 = "1.1.0-alpha03"
 androidxCore = "1.9.0"
 androidxDatastore = "1.0.0"
+androidxFragment = "1.5.7"
 androidxHilt = "1.0.0"
 androidxLifecycle = "2.5.1"
 androidxNavigation = "2.5.3"
 androidxRoom = "2.4.3"
 androidxTestCore = "1.5.0"
+androidxTestEspresso = "3.5.1"
 androidxTestRunner = "1.5.2"
 comAndroidGradlePlugin = "7.3.1"
 comAndroidReportingGradlePlugin = "4.2.0-alpha09"
@@ -44,9 +46,12 @@ androidx-activity-activityKtx = { group = "androidx.activity", name = "activity-
 androidx-compose-material3-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
 androidx-compose-material3-material3WindowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 androidx-compose-ui-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
+androidx-compose-ui-uiTestJunit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
+androidx-compose-ui-uiTestManifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "androidxCompose" }
 androidx-compose-ui-uiViewbinding = { group = "androidx.compose.ui", name = "ui-viewbinding", version.ref = "androidxCompose" }
 androidx-core-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-datastore-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDatastore" }
+androidx-fragment-fragmentKtx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
 androidx-hilt-hiltNavigationFragment = { group = "androidx.hilt", name = "hilt-navigation-fragment", version.ref = "androidxHilt" }
 androidx-lifecycle-lifecycleRuntimeKtx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-navigation-navigationFragmentKtx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
@@ -55,6 +60,7 @@ androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", 
 androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidxRoom" }
 androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
+androidx-test-espresso-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxTestEspresso" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "comAndroidToolsDesugarJdkLibs" }
 com-google-accompanist-accompanistFlowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "comGoogleAccompanist" }

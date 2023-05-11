@@ -5,15 +5,15 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 sealed interface LocationAlertExpandableItem {
 
     data class Description(
-        val text: NBString
+        val text: NBString?
     ) : LocationAlertExpandableItem
 
     data class Sender(
-        val text: NBString
+        val text: NBString?
     ) : LocationAlertExpandableItem
 
     data class Tags(
-        val tags: List<NBString>
+        val tags: List<NBString?>
     ) : LocationAlertExpandableItem
 
 }

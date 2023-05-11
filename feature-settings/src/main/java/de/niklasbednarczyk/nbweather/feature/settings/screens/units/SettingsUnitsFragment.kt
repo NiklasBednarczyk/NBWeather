@@ -3,11 +3,11 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.units
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentUiState
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupView
 
 @AndroidEntryPoint
 class SettingsUnitsFragment : NBFragmentUiState<SettingsUnitsUiState>() {
@@ -22,13 +22,15 @@ class SettingsUnitsFragment : NBFragmentUiState<SettingsUnitsUiState>() {
 
     @Composable
     override fun ScaffoldContent(viewData: SettingsUnitsUiState) {
-        NBRadioGroupView(
-            radioGroup = viewData.radioGroup,
-            onItemSelected = { units ->
-                viewModel.updateUnits(units)
-                popBackStack()
-            }
+        SettingsUnitsContent(
+            uiState = viewData,
+            onItemSelected = ::onItemSelected
         )
+    }
+
+    private fun onItemSelected(item: NBUnitsType) {
+        viewModel.updateUnits(item)
+        popBackStack()
     }
 
 }

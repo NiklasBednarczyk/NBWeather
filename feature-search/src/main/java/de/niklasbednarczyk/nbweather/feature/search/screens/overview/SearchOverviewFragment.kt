@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import androidx.activity.compose.BackHandler
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
@@ -23,12 +22,8 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButton
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
-import de.niklasbednarczyk.nbweather.core.ui.resource.NBLoadingView
-import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarActionModel
 import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarModel
-import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewManageView
-import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewSearchView
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -109,29 +104,12 @@ class SearchOverviewFragment : NBFragmentUiState<SearchOverviewUiState>() {
 
     @Composable
     override fun ScaffoldContent(viewData: SearchOverviewUiState) {
-        NBResourceWithoutLoadingView(viewData.visitedLocationsInfoResource) { visitedLocationsInfo ->
-            BackHandler(!visitedLocationsInfo.isInitialCurrentLocationSet || !viewData.showNavigationIcon) {
-                onBackPressedWhenNoCurrentLocation()
-            }
-            if (viewData.findingLocationInProgress) {
-                NBLoadingView()
-            } else {
-                if (viewData.searchTerm.isEmpty()) {
-                    SearchOverviewManageView(
-                        visitedLocations = visitedLocationsInfo.visitedLocations,
-                        navigateToLocation = ::navigateToLocation,
-                        removeVisitedLocation = viewModel::removeVisitedLocation
-                    )
-                } else {
-                    SearchOverviewSearchView(
-                        searchedLocationsResource = viewData.searchedLocationsResource,
-                        navigateToLocation = ::navigateToLocation
-                    )
-                }
-            }
-        }
-
-
+        SearchOverviewContent(
+            uiState = viewData,
+            onBackPressedWhenNoCurrentLocation = ::onBackPressedWhenNoCurrentLocation,
+            navigateToLocation = ::navigateToLocation,
+            removeVisitedLocation = viewModel::removeVisitedLocation
+        )
     }
 
     private fun navigateToLocation(

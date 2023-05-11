@@ -2,7 +2,6 @@
     <string name="error_text_no_internet">No internet connection</string>
     <string name="error_text_unknown">Something went wrong</string>
 
-    <string name="format_date_range" translatable="false">%1$s - %2$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
 
     <string name="icon_content_description_about" translatable="false">@string/screen_about_overview_title</string>
