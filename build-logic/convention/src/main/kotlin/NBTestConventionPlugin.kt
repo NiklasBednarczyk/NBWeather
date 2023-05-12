@@ -17,6 +17,7 @@ internal interface NBTestConventionPlugin : NBConventionPlugin {
                 libs.getLibrary("androidx.compose.ui.uiTestManifest").toPair(true),
                 libs.getLibrary("androidx.test.core").toPair(true),
                 libs.getLibrary("androidx.test.espresso.espressoCore").toPair(),
+                libs.getLibrary("androidx.test.rules").toPair(),
                 libs.getLibrary("androidx.test.runner").toPair(),
                 libs.getLibrary("com.google.dagger.hiltAndroidTesting").toPair(true),
                 libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest").toPair(),
