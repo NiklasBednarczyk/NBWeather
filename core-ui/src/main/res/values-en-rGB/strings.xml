@@ -1,5 +1,0 @@
-<resources>
-    <string name="screen_settings_color_scheme_title">Colour scheme</string>
-
-    <string name="snackbar_location_found_canceled_message">Location request was cancelled</string>
-</resources>
