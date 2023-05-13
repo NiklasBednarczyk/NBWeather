@@ -56,7 +56,6 @@ internal interface NBConventionPlugin : Plugin<Project> {
 
     fun PluginManager.configurePluginsAndroid() {
         apply("org.jetbrains.kotlin.android")
-        apply("com.github.ben-manes.versions")
         apply("com.google.firebase.crashlytics")
     }
 
