@@ -1,7 +1,8 @@
-import com.google.protobuf.gradle.*
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.dependencies
+import com.google.protobuf.gradle.id
+import org.gradle.kotlin.dsl.project
 
 class LayerDataDiskConventionPlugin : NBConventionPlugin {
 
@@ -28,6 +29,8 @@ class LayerDataDiskConventionPlugin : NBConventionPlugin {
 
         dependencies {
             implementation(project(":core-common"))
+
+            androidTestImplementation(project(":test-common"))
 
             implementation(libs.getLibrary("androidx.datastore.datastore"))
             implementation(libs.getLibrary("com.google.protobuf.protobufJavalite"))

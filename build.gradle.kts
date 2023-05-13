@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.secrets) apply false
     alias(libs.plugins.versions) apply true
@@ -25,7 +26,7 @@ tasks.withType(DependencyUpdatesTask::class) {
 
 fun isStableVersion(version: String): Boolean {
     val stableKeyword =
-        listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+        listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     return stableKeyword || regex.matches(version)
 }

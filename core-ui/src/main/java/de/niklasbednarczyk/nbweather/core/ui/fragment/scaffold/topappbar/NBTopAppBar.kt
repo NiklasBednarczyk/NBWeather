@@ -41,6 +41,7 @@ internal fun NBTopAppBar(
                     onClick = openDrawer
                 )
             }
+
             is NBTopAppBarItem.Material.Small, is NBTopAppBarItem.Search -> {
                 NBIconButton(
                     icon = NBIcons.Back,
@@ -58,6 +59,7 @@ internal fun NBTopAppBar(
                 navigationIcon = navigationIcon
             )
         }
+
         is NBTopAppBarItem.Material.Small -> {
             NBTopAppBarSmall(
                 scrollBehavior = scrollBehavior,
@@ -65,6 +67,7 @@ internal fun NBTopAppBar(
                 navigationIcon = navigationIcon
             )
         }
+
         is NBTopAppBarItem.Search -> {
             NBTopAppBarSearch(
                 item = item,
@@ -150,7 +153,7 @@ private fun NBTopAppBarSearch(
         emptyIcon
     }
 
-    val colors = TextFieldDefaults.outlinedTextFieldColors(
+    val colors = OutlinedTextFieldDefaults.colors(
         focusedBorderColor = Color.Transparent,
         unfocusedBorderColor = Color.Transparent,
         disabledBorderColor = Color.Transparent,

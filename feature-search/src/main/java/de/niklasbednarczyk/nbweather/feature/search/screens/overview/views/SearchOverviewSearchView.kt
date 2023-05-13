@@ -68,12 +68,12 @@ private fun Item(
         modifier = Modifier.clickable {
             navigateToLocation(location.latitude, location.longitude)
         },
-        headlineText = {
+        headlineContent = {
             Text(
                 text = location.localizedName.asString()
             )
         },
-        supportingText = {
+        supportingContent = {
             Text(
                 text = location.stateAndCountry.asString()
             )

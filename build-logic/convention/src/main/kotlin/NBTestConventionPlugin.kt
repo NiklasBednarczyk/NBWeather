@@ -20,7 +20,7 @@ internal interface NBTestConventionPlugin : NBConventionPlugin {
                 libs.getLibrary("androidx.test.rules").toPair(),
                 libs.getLibrary("androidx.test.runner").toPair(),
                 libs.getLibrary("com.google.dagger.hiltAndroidTesting").toPair(true),
-                libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest").toPair(),
+                libs.getLibrary("org.jetbrains.kotlinx.kotlinxCoroutinesTest").toPair(true),
                 kotlin("test").toPair()
             )
             dependencyNotationPairs.forEach { dependencyNotationPair ->

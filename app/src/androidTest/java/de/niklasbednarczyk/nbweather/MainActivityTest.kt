@@ -20,8 +20,6 @@ import org.junit.Test
 class MainActivityTest : NBComposeTest {
 
     companion object {
-        private const val WAIT_UNTIL_TIMEOUT = 1000L
-
         private const val SEARCH_OVERVIEW_SEARCH_TERM = "Washington"
 
         private const val LOCATION_1_NAME = "Washington 1"
@@ -152,7 +150,7 @@ class MainActivityTest : NBComposeTest {
         onNodeWithText(R.string.top_app_bar_search_placeholder)
             .performTextInput(SEARCH_OVERVIEW_SEARCH_TERM)
 
-        waitUntilExists(hasText(locationName))
+        waitUntilAtLeastOneExists(hasText(locationName))
 
         onNodeWithText(locationName)
             .performClick()
@@ -189,7 +187,7 @@ class MainActivityTest : NBComposeTest {
     private fun ComposeContentTestRule.clickDrawerItem(text: String) {
         onNodeWithIcon(NBIcons.Drawer)
             .performClick()
-        waitUntilExists(hasText(getString(de.niklasbednarczyk.nbweather.R.string.app_name)))
+        waitUntilAtLeastOneExists(hasText(getString(de.niklasbednarczyk.nbweather.R.string.app_name)))
         onNodeWithText(text, substring = true)
             .performClick()
     }
@@ -218,21 +216,5 @@ class MainActivityTest : NBComposeTest {
         onNodeWithText(R.string.screen_location_card_overview_title)
             .assertIsDisplayed()
     }
-
-
-    private fun ComposeContentTestRule.waitUntilNodeCount(
-        matcher: SemanticsMatcher,
-        count: Int,
-        timeoutMillis: Long = WAIT_UNTIL_TIMEOUT
-    ) {
-        waitUntil(timeoutMillis) {
-            onAllNodes(matcher).fetchSemanticsNodes().size == count
-        }
-    }
-
-    private fun ComposeContentTestRule.waitUntilExists(
-        matcher: SemanticsMatcher,
-        timeoutMillis: Long = WAIT_UNTIL_TIMEOUT
-    ) = waitUntilNodeCount(matcher, 1, timeoutMillis)
 
 }

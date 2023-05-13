@@ -22,6 +22,8 @@ class LayerUiConventionPlugin : NBConventionPlugin {
             implementation(project(":core-data-disk"))
             implementation(project(":core-data-localremote"))
 
+            androidTestImplementation(project(":test-common"))
+
             implementation(project(":library-materialcolorutilities"))
 
             implementation(libs.getLibrary("androidx.activity.activityCompose"))
@@ -37,7 +39,6 @@ class LayerUiConventionPlugin : NBConventionPlugin {
             implementation(libs.getLibrary("androidx.navigation.navigationFragmentKtx"))
             implementation(libs.getLibrary("androidx.navigation.navigationUiKtx"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistFlowlayout"))
-            implementation(libs.getLibrary("com.google.accompanist.accompanistPager"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistSwiperefresh"))
             implementation(libs.getLibrary("com.google.accompanist.accompanistSystemuicontroller"))
             implementation(libs.getLibrary("com.google.android.gms.playServicesLocation"))

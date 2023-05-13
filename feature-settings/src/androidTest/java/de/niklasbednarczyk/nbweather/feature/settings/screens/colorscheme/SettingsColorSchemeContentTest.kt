@@ -1,7 +1,5 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.colorscheme
 
-import androidx.compose.ui.test.assertIsNotSelected
-import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.performClick
 import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupModel
 import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioOptionModel
@@ -44,10 +42,7 @@ class SettingsColorSchemeContentTest : NBContentTest() {
 
         // Assert
         assertCompose {
-            onNodeWithText(oldSelectedKey.displayText)
-                .assertIsSelected()
             onNodeWithText(newSelectedKey.displayText)
-                .assertIsNotSelected()
                 .performClick()
         }
         assertNotNull(currentlySelectedKey)

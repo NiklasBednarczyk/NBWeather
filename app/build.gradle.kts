@@ -43,7 +43,7 @@ android {
         buildConfig = true
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
@@ -62,6 +62,5 @@ dependencies {
     implementation(project(":feature-search"))
     implementation(project(":feature-settings"))
 
-    androidTestImplementation(project(":test-common"))
     androidTestImplementation(project(":test-ui"))
 }

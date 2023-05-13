@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.core.ui.fragment
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.google.accompanist.pager.rememberPagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerInfoModel
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerUiState
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerViewData

@@ -31,10 +31,10 @@ fun LocationAlertsContent(
                     canBeExpanded = alert.expandableItems.isNotEmpty(),
                     header = { icon ->
                         ListItem(
-                            headlineText = {
+                            headlineContent = {
                                 Text(alert.eventName.asString())
                             },
-                            supportingText = {
+                            supportingContent = {
                                 val text = nbCombinedString(
                                     alert.startDate,
                                     alert.endDate,

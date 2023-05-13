@@ -49,7 +49,7 @@ private fun VisitedLocation(
         modifier = modifier.clickable {
             navigateToLocation(latitude, longitude)
         },
-        headlineText = {
+        headlineContent = {
             Text(text = visitedLocation.localizedNameAndCountry.asString())
         },
         trailingContent = {

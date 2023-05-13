@@ -147,7 +147,7 @@ private fun Alert(
         leadingContent = {
             NBIcon(icon = NBIcons.Warning)
         },
-        headlineText = {
+        headlineContent = {
             Text(alert.text.asString())
         },
         trailingContent = {

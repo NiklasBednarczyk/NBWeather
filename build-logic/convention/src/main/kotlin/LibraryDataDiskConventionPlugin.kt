@@ -15,7 +15,6 @@ class LibraryDataDiskConventionPlugin : NBConventionPlugin {
         dependencies {
             implementation(project(":core-data-disk"))
 
-            androidTestImplementation(project(":test-common"))
             androidTestImplementation(project(":test-data-disk"))
         }
     }

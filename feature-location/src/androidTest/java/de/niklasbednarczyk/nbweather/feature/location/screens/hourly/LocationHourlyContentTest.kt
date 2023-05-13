@@ -3,7 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.location.screens.hourly
 import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onFirst
-import com.google.accompanist.pager.rememberPagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerInfoModel
 import de.niklasbednarczyk.nbweather.feature.location.screens.hourly.models.LocationHourlyHourModel
 import de.niklasbednarczyk.nbweather.feature.location.screens.hourly.models.LocationHourlyViewData

@@ -15,7 +15,6 @@ class LibraryDataLocalRemoteLocalConventionPlugin : NBConventionPlugin {
         dependencies {
             implementation(project(":core-data-localremote-local"))
 
-            androidTestImplementation(project(":test-common"))
             androidTestImplementation(project(":test-data-localremote-local"))
         }
     }

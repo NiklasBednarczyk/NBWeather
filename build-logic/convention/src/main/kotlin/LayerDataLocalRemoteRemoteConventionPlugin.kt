@@ -1,20 +1,23 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 
 class LayerDataLocalRemoteRemoteConventionPlugin : NBConventionPlugin {
 
     override fun Project.apply(libs: VersionCatalog) {
         plugins {
-            apply("kotlin-kapt")
+            apply("com.google.devtools.ksp")
         }
 
         dependencies {
             implementation(project(":core-common"))
 
+            androidTestImplementation(project(":test-common"))
+
             implementation(libs.getLibrary("com.squareup.moshi.moshi"))
             implementation(libs.getLibrary("com.squareup.moshi.moshiKotlin"))
-            kapt(libs.getLibrary("com.squareup.moshi.moshiKotlinCodegen"))
+            ksp(libs.getLibrary("com.squareup.moshi.moshiKotlinCodegen"))
 
             implementation(libs.getLibrary("com.squareup.okhttp3.okhttp"))
 

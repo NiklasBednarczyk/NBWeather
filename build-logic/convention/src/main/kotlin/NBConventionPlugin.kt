@@ -1,6 +1,8 @@
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.google.protobuf.gradle.ProtobufExtension
+import org.gradle.api.Action
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -54,6 +56,10 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("kaptAndroidTest", dependencyNotation)
     }
 
+    fun DependencyHandlerScope.ksp(dependencyNotation: Any) {
+        add("ksp", dependencyNotation)
+    }
+
     fun PluginManager.configurePluginsAndroid() {
         apply("org.jetbrains.kotlin.android")
         apply("com.google.firebase.crashlytics")
@@ -62,6 +68,13 @@ internal interface NBConventionPlugin : Plugin<Project> {
     fun Project.plugins(block: PluginManager.() -> Unit) {
         with(pluginManager, block)
     }
+
+    val Project.protobuf: ProtobufExtension get() =
+        (this as ExtensionAware).extensions.getByName("protobuf") as ProtobufExtension
+
+    fun Project.protobuf(configure: Action<ProtobufExtension>): Unit =
+        (this as ExtensionAware).extensions.configure("protobuf", configure)
+
 
     fun Project.apply(libs: VersionCatalog)
 
@@ -76,15 +89,15 @@ internal interface NBConventionPlugin : Plugin<Project> {
             defaultConfig {
                 minSdk = libs.getVersionInt("minSdk")
 
-                resourceConfigurations.addAll(listOf("de", "en", "en_GB"))
+                resourceConfigurations.addAll(listOf("de", "en"))
 
                 testInstrumentationRunner =
                     "de.niklasbednarczyk.nbweather.test.common.runner.NBTestRunner"
             }
 
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
+                sourceCompatibility = JavaVersion.VERSION_17
+                targetCompatibility = JavaVersion.VERSION_17
                 isCoreLibraryDesugaringEnabled = true
             }
 
@@ -98,17 +111,17 @@ internal interface NBConventionPlugin : Plugin<Project> {
                     "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     // Enables material 3 window size class
                     "-opt-in=androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi",
+                    // Enables waitUntilAtLeastOneExists
+                    "-opt-in=androidx.compose.ui.test.ExperimentalTestApi",
                     // Enables hyphenation
                     "-opt-in=androidx.compose.ui.text.ExperimentalTextApi",
-                    // Enables pager
-                    "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
                     // Enables flatMapLatest
                     "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     // Enables debounce
                     "-opt-in=kotlinx.coroutines.FlowPreview"
                 )
 
-                jvmTarget = JavaVersion.VERSION_1_8.toString()
+                jvmTarget = JavaVersion.VERSION_17.toString()
             }
         }
 

@@ -41,7 +41,7 @@ fun <T> NBRadioGroupView(
                         onClick = { onItemSelected(option.key) },
                         role = Role.RadioButton
                     ),
-                    headlineText = {
+                    headlineContent = {
                         Text(option.text.asString())
                     },
                     leadingContent = {

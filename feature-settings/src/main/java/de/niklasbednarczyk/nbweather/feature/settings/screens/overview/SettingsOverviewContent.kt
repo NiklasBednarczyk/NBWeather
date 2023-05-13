@@ -48,6 +48,7 @@ fun SettingsOverviewContent(
                         )
                     )
                 }
+
                 is SettingsOverviewItemModel.Header -> {
                     Text(
                         modifier = Modifier.padding(
@@ -58,15 +59,16 @@ fun SettingsOverviewContent(
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
+
                 is SettingsOverviewItemModel.Item -> {
                     ListItem(
                         modifier = Modifier.clickable {
                             navigate(item.destination)
                         },
-                        headlineText = {
+                        headlineContent = {
                             Text(item.title.asString())
                         },
-                        supportingText = {
+                        supportingContent = {
                             Text(item.value.asString())
                         },
                         leadingContent = {

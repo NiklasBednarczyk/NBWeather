@@ -1,6 +1,7 @@
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 
 class LayerDataLocalRemoteLocalConventionPlugin : NBConventionPlugin {
 
@@ -11,6 +12,8 @@ class LayerDataLocalRemoteLocalConventionPlugin : NBConventionPlugin {
 
         dependencies {
             implementation(project(":core-common"))
+
+            androidTestImplementation(project(":test-common"))
 
             annotationProcessor(libs.getLibrary("androidx.room.roomCompiler"))
             kapt(libs.getLibrary("androidx.room.roomCompiler"))

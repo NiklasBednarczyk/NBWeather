@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.daily
 
 import androidx.compose.ui.test.*
-import com.google.accompanist.pager.rememberPagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerInfoModel
 import de.niklasbednarczyk.nbweather.feature.location.screens.daily.models.LocationDailyDayModel
 import de.niklasbednarczyk.nbweather.feature.location.screens.daily.models.LocationDailyViewData

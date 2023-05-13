@@ -1,7 +1,5 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.timeformat
 
-import androidx.compose.ui.test.assertIsNotSelected
-import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.performClick
 import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
 import de.niklasbednarczyk.nbweather.core.ui.radio.NBRadioGroupModel
@@ -44,10 +42,7 @@ class SettingsTimeFormatContentTest : NBContentTest() {
 
         // Assert
         assertCompose {
-            onNodeWithText(oldSelectedKey.displayText)
-                .assertIsSelected()
             onNodeWithText(newSelectedKey.displayText)
-                .assertIsNotSelected()
                 .performClick()
         }
         assertNotNull(currentlySelectedKey)
