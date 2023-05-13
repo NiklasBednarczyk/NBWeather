@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.alerts.models
 
 import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
@@ -29,8 +30,7 @@ data class LocationAlertModel(
 
                 val expandableItems = mutableListOf<LocationAlertExpandableItem>()
 
-                val description = alert.description
-                if (description != null) {
+                nbNullSafe(alert.description) { description ->
                     expandableItems.add(
                         LocationAlertExpandableItem.Description(
                             text = description
@@ -38,8 +38,7 @@ data class LocationAlertModel(
                     )
                 }
 
-                val senderName = alert.senderName
-                if (senderName != null) {
+                nbNullSafe(alert.senderName) { senderName ->
                     expandableItems.add(
                         LocationAlertExpandableItem.Sender(
                             text = senderName
@@ -47,11 +46,10 @@ data class LocationAlertModel(
                     )
                 }
 
-                val tags = alert.tags
-                nbNullSafeList(tags) { t ->
+                nbNullSafeList(alert.tags) { tags ->
                     expandableItems.add(
                         LocationAlertExpandableItem.Tags(
-                            tags = t
+                            tags = tags
                         )
                     )
                 }
