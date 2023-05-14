@@ -8,7 +8,7 @@ class DependencyTestConventionPlugin : NBTestConventionPlugin {
     ) {
         androidTestImplementation(dependencyNotation)
         if (alsoImplementation) {
-            debugImplementation(dependencyNotation)
+            implementation(dependencyNotation)
         }
     }
 
