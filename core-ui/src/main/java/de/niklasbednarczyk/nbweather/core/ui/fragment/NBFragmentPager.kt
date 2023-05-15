@@ -1,8 +1,8 @@
 package de.niklasbednarczyk.nbweather.core.ui.fragment
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerInfoModel
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerUiState
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerViewData
@@ -12,7 +12,7 @@ abstract class NBFragmentPager<Item : Any, UiState : NBPagerUiState<ViewData>, V
 
     @Composable
     override fun createViewData(): NBPagerInfoModel<Item>? {
-        val uiState = viewModel.uiState.collectAsState()
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
         val viewData = uiState.value.viewDataResource?.dataOrNull ?: return null
 
         val pagerState = rememberPagerState(viewData.initialPage)

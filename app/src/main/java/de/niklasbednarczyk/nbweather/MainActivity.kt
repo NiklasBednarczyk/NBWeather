@@ -1,25 +1,25 @@
 package de.niklasbednarczyk.nbweather
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.compose.BackHandler
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentContainerView
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.ui.fragment.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
 
 
         setContentView(nbSetContent(this) {
-            val uiState = viewModel.uiState.collectAsState()
+            val uiState = viewModel.uiState.collectAsStateWithLifecycle()
             val appearance = uiState.value.settingsAppearance
 
             if (appearance != null) {
@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
                         drawerState.open()
                     }
                 }
+
                 NBNavigationDrawerEventType.CLOSE -> {
                     scope.launch {
                         drawerState.close()
