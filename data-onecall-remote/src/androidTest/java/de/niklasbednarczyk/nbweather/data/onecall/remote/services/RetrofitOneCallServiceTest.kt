@@ -20,6 +20,7 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
     companion object {
         private const val LANGUAGE = "en"
         private const val UNITS = "standard"
+        private const val EXCLUDE = ""
     }
 
     @DataRetrofit
@@ -43,25 +44,29 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
             latitude = latitude,
             longitude = longitude,
             language = "de",
-            units = UNITS
+            units = UNITS,
+            exclude = EXCLUDE
         )
         val oneCallLanguageEs = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,
             language = "es",
-            units = UNITS
+            units = UNITS,
+            exclude = EXCLUDE
         )
         val oneCallUnitsImperial = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,
             language = LANGUAGE,
-            units = "imperial"
+            units = "imperial",
+            exclude = EXCLUDE
         )
         val oneCallUnitsMetric = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,
             language = LANGUAGE,
-            units = "metric"
+            units = "metric",
+            exclude = EXCLUDE
         )
 
         // Assert
@@ -249,7 +254,8 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
             latitude = latitude,
             longitude = longitude,
             language = LANGUAGE,
-            units = UNITS
+            units = UNITS,
+            exclude = EXCLUDE
         )
     }
 

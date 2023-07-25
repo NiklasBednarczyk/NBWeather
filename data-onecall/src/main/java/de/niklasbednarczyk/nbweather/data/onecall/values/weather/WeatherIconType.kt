@@ -21,7 +21,7 @@ enum class WeatherIconType {
     N_SNOW,
     N_MIST;
 
-    private val remoteName: String
+    private val remoteId: String
         get() = when (this) {
             D_CLEAR_SKY -> "01d"
             D_FEW_CLOUDS -> "02d"
@@ -46,7 +46,7 @@ enum class WeatherIconType {
     companion object {
 
         internal fun from(icon: String?): WeatherIconType? {
-            return values().find { value -> value.remoteName == icon }
+            return values().find { value -> value.remoteId == icon }
         }
 
     }

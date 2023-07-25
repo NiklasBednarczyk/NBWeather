@@ -5,15 +5,11 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
-import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TemporaryFolder
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
@@ -26,9 +22,6 @@ class LocationOverviewViewModelTest : NBViewModelTest {
         private const val LONGITUDE = -80.2461714
     }
 
-    @get:Rule
-    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
-
     private lateinit var subject: LocationOverviewViewModel
 
     private lateinit var geocodingRepository: GeocodingRepository
@@ -39,8 +32,7 @@ class LocationOverviewViewModelTest : NBViewModelTest {
 
         subject = LocationOverviewViewModel(
             geocodingRepository = geocodingRepository,
-            oneCallRepository = OneCallRepository.createFake(context),
-            settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
+            oneCallRepository = OneCallRepository.createFake(context)
         )
     }
 

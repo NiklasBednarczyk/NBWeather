@@ -1,18 +1,12 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
-import dagger.hilt.android.testing.HiltAndroidTest
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
-import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TemporaryFolder
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
@@ -25,12 +19,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         private val LAT_LONG_2 = Pair(40.17396, -80.2461714)
 
         private const val SEARCH_TERM = "Washington"
-
-        private val LANGUAGE = NBLanguageType.ENGLISH
     }
-
-    @get:Rule
-    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
 
     private lateinit var subject: SearchOverviewViewModel
 
@@ -40,8 +29,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     override fun setUp() {
         geocodingRepository = GeocodingRepository.createFake(context)
         subject = SearchOverviewViewModel(
-            geocodingRepository = geocodingRepository,
-            settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
+            geocodingRepository = geocodingRepository
         )
     }
 
@@ -88,7 +76,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         subject.removeVisitedLocation(LAT_LONG_1.first, LAT_LONG_1.second)
 
         // Assert
-        geocodingRepository.getCurrentLocation(LANGUAGE).collectUntil(
+        geocodingRepository.getCurrentLocation().collectUntil(
             stopCollecting = { resource ->
                 val data = resource.dataOrNull
                 val pair = Pair(data?.latitude, data?.longitude)
@@ -108,7 +96,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         subject.setCurrentLocation(LAT_LONG_2.first, LAT_LONG_2.second)
 
         // Assert
-        geocodingRepository.getCurrentLocation(LANGUAGE).collectUntil(
+        geocodingRepository.getCurrentLocation().collectUntil(
             stopCollecting = { resource ->
                 val data = resource.dataOrNull
                 val pair = Pair(data?.latitude, data?.longitude)

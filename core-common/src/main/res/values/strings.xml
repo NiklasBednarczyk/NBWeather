@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="format_comma_2_items" translatable="false">%1$s, %2$s</string>
+    <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
+    <string name="format_units_value_with_symbol_with_space" translatable="false">%1$s %2$s</string>
+    <string name="format_units_value_with_symbol_without_space" translatable="false">%1$s%2$s</string>
+
+    <string name="unit_symbol_distance_kilometer" translatable="false">km</string>
+    <string name="unit_symbol_distance_mile" translatable="false">mi</string>
+    <string name="unit_symbol_precipitation_inch" translatable="false">in</string>
+    <string name="unit_symbol_precipitation_millimeter" translatable="false">mm</string>
+    <string name="unit_symbol_pressure_hectopascal" translatable="false">hPa</string>
+    <string name="unit_symbol_pressure_inch_hg" translatable="false">inHg</string>
+    <string name="unit_symbol_pressure_millimeter_of_mercury" translatable="false">mmHg</string>
+    <string name="unit_symbol_temperature_celsius" translatable="false">°C</string>
+    <string name="unit_symbol_temperature_fahrenheit" translatable="false">°F</string>
+    <string name="unit_symbol_temperature_kelvin" translatable="false">K</string>
+    <string name="unit_symbol_wind_speed_kilometer_per_hour" translatable="false">km/h</string>
+    <string name="unit_symbol_wind_speed_meter_per_second" translatable="false">m/s</string>
+    <string name="unit_symbol_wind_speed_mile_per_hour" translatable="false">mph</string>
+
+</resources>

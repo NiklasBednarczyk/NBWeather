@@ -1,9 +1,8 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.overview
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
-import de.niklasbednarczyk.nbweather.feature.settings.screens.overview.models.SettingsOverviewItemModel
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
+import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
@@ -22,8 +21,7 @@ class SettingsOverviewViewModelTest : NBViewModelTest {
     @Before
     override fun setUp() {
         subject = SettingsOverviewViewModel(
-            settingsAppearanceRepository = SettingsAppearanceRepository.createFake(temporaryFolder),
-            settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
+            settingsUnitsRepository = SettingsUnitsRepository.createFake(temporaryFolder)
         )
     }
 
@@ -36,8 +34,7 @@ class SettingsOverviewViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 testDividerList(
                     items = uiState.items,
-                    dividerClassJava = SettingsOverviewItemModel.Divider::class.java,
-                    headerClassJava = SettingsOverviewItemModel.Header::class.java
+                    dividerClassJava = SettingsListItemModel.Divider::class.java
                 )
             }
         )

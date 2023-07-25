@@ -12,14 +12,20 @@ sealed interface NBString {
 
         private fun NBString?.asStringNullable(context: Context): String? {
             return when (this) {
-                is Resource -> context.getString(resId, *args)
+                is Resource -> {
+                    val arguments = args.toList().map { arg ->
+                        if (arg is NBString?) arg.asString(context) else arg
+                    }
+                    context.getString(resId, *arguments.toTypedArray())
+                }
+
                 is Value -> value
                 null -> null
             }
         }
     }
 
-    class Resource(val resId: Int, vararg val args: Any) : NBString
+    class Resource(val resId: Int, vararg val args: Any?) : NBString
 
     @JvmInline
     value class Value private constructor(val value: String) : NBString {

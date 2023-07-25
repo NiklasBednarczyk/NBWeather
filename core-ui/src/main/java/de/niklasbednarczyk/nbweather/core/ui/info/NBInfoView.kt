@@ -14,8 +14,8 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.screenHorizontalPadding
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.screenVerticalPadding
+import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
+import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
 
 @Composable
 fun NBInfoView(

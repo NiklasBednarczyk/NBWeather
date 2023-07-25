@@ -21,7 +21,7 @@ class LocationHourlyContentTest : NBContentTest(), LocationCardTest {
         val item3 = testItem(3)
 
         val viewData = LocationHourlyViewData(
-            initialKey = item2.forecastTime,
+            initialKey = item2.forecastTime?.value,
             items = listOf(
                 item1,
                 item2,
@@ -92,8 +92,7 @@ class LocationHourlyContentTest : NBContentTest(), LocationCardTest {
     }
 
     private fun testItem(forecastTime: Long): LocationHourlyHourModel = LocationHourlyHourModel(
-        forecastTime = forecastTime,
-        title = createNBString("Title $forecastTime"),
+        forecastTime = createNBDateTimeModel(forecastTime),
         cardItems = createTestCards(forecastTime.toString())
     )
 

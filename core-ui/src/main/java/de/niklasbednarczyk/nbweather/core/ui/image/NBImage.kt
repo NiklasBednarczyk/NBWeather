@@ -4,15 +4,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import de.niklasbednarczyk.nbweather.core.ui.settings.NBSettings
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
 
 @Composable
 fun NBImage(
     modifier: Modifier = Modifier,
     image: NBImageModel
 ) {
-    val resId = if (NBTheme.isLightTheme) {
+    val resId = if (NBSettings.isLightTheme) {
         image.resIdLight
     } else {
         image.resIdDark

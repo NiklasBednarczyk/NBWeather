@@ -66,7 +66,6 @@ Then, in your `local.properties`, you need to enter a new variable with the name
 | Name | Usage |
 | :--: | :---: |
 | [Erik Flowers](https://erikflowers.github.io/weather-icons/) | App icon and weather icons |
-| [Material Color Utilities](https://github.com/material-foundation/material-color-utilities) | Module `library-materialcolorutilities` for creating material 3 color scheme and blending colors |
 | [OpenWeather](https://openweathermap.org/) | Weather data |
 
 ## License

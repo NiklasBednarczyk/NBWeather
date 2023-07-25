@@ -1,7 +1,11 @@
 package de.niklasbednarczyk.nbweather.core.data.localremote.models.resource
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlin.Error
 
 sealed interface NBResource<out T> {
@@ -76,6 +80,7 @@ sealed interface NBResource<out T> {
                         val newData = transformData(resource1.data, resource2.data)
                         Success(newData)
                     }
+
                     resource1 is Error -> Error(resource1.errorType)
                     resource2 is Error -> Error(resource2.errorType)
                     else -> Loading
@@ -95,6 +100,7 @@ sealed interface NBResource<out T> {
                         val newData = transformData(resource1.data, resource2.data, resource3.data)
                         Success(newData)
                     }
+
                     resource1 is Error -> Error(resource1.errorType)
                     resource2 is Error -> Error(resource2.errorType)
                     resource3 is Error -> Error(resource3.errorType)
@@ -115,6 +121,7 @@ sealed interface NBResource<out T> {
                         is Success -> {
                             collectData(resource.data)
                         }
+
                         else -> {
                             throw RuntimeException("Resource is not of type Success")
                         }

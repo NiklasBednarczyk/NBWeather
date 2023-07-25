@@ -1,14 +1,29 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import android.content.Context
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.data.localremote.remote.extensions.remoteName
-import de.niklasbednarczyk.nbweather.data.onecall.local.daos.*
+import de.niklasbednarczyk.nbweather.core.data.localremote.remote.constants.ConstantsCoreRemote
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeCurrentWeatherDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeDailyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeHourlyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeMinutelyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeNationalWeatherAlertDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeOneCallDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBCurrentWeatherDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBDailyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBHourlyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBMinutelyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBNationalWeatherAlertDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBOneCallDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
-import de.niklasbednarczyk.nbweather.data.onecall.models.*
+import de.niklasbednarczyk.nbweather.data.onecall.models.CurrentWeatherModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.HourlyForecastModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.MinutelyForecastModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.NationalWeatherAlertModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.OneCallModelRemote
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.FakeOneCallService
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
@@ -60,8 +75,6 @@ class OneCallRepository @Inject constructor(
     suspend fun getOneCall(
         latitude: Double,
         longitude: Double,
-        language: NBLanguageType,
-        units: NBUnitsType,
         forceUpdate: Boolean
     ): Flow<NBResource<OneCallModelData>> {
         return object :
@@ -72,10 +85,11 @@ class OneCallRepository @Inject constructor(
 
             override suspend fun getRemote(): OneCallModelRemote {
                 return oneCallService.getOneCall(
-                    latitude,
-                    longitude,
-                    language.remoteName,
-                    units.remoteName
+                    latitude = latitude,
+                    longitude = longitude,
+                    exclude = ConstantsCoreRemote.Query.Exclude.VALUE,
+                    language = ConstantsCoreRemote.Query.Language.VALUE,
+                    units = ConstantsCoreRemote.Query.Units.VALUE
                 )
             }
 
@@ -85,7 +99,7 @@ class OneCallRepository @Inject constructor(
             }
 
             override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
-                return forceUpdate || local.metadata.isExpired || local.metadata.language != language || local.metadata.units != units
+                return forceUpdate || local.metadata.isExpired
             }
 
             override fun clearLocal(local: OneCallModelLocal) {
@@ -99,9 +113,13 @@ class OneCallRepository @Inject constructor(
             }
 
             override fun insertLocal(remote: OneCallModelRemote) {
-                val oneCallMetadata = OneCallMetadataModelData.remoteToLocal(
-                    remote, latitude, longitude, language, units
+                val oneCallMetadata = OneCallMetadataEntityLocal(
+                    latitude = latitude,
+                    longitude = longitude,
+                    timezone = remote.timezone,
+                    timezoneOffset = remote.timezoneOffset
                 )
+
                 val metadataId = oneCallDao.insertOneCall(oneCallMetadata)
 
                 val currentWeather = CurrentWeatherModelData.remoteToLocal(

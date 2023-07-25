@@ -1,12 +1,12 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.DateTimeValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.MinutelyForecastEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.MinutelyForecastModelRemote
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
 
 data class MinutelyForecastModelData(
-    val forecastTime: DateTimeValue?,
+    val forecastTime: NBDateTimeModel?,
     val precipitation: PrecipitationValue?
 ) {
 
@@ -26,11 +26,12 @@ data class MinutelyForecastModelData(
         }
 
         internal fun localToData(
-            localList: List<MinutelyForecastEntityLocal>?
+            localList: List<MinutelyForecastEntityLocal>?,
+            timezoneOffset: Long?
         ): List<MinutelyForecastModelData> {
             return localList?.map { local ->
                 MinutelyForecastModelData(
-                    forecastTime = DateTimeValue.from(local.dt),
+                    forecastTime = NBDateTimeModel.from(local.dt, timezoneOffset),
                     precipitation = PrecipitationValue.from(local.precipitation)
                 )
             } ?: emptyList()

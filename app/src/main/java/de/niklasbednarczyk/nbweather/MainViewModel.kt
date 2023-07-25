@@ -8,20 +8,18 @@ import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
     private val settingsAppearanceRepository: SettingsAppearanceRepository,
-    settingsDataRepository: SettingsDataRepository
+    private val settingsUnitsRepository: SettingsUnitsRepository,
 ) : NBViewModel<MainUiState>(MainUiState()) {
 
     companion object {
@@ -44,39 +42,36 @@ class MainViewModel @Inject constructor(
 
 
     private val drawerItemsFlow: Flow<List<NBNavigationDrawerItem>> =
-        settingsDataRepository.getData().flatMapLatest { data ->
-            val language = data.language
-            NBResource.combineResourceFlows(
-                geocodingRepository.getVisitedLocations(language),
-                geocodingRepository.getCurrentLocation(language)
-            ) { visitedLocations, currentLocation ->
-                val items = mutableListOf<NBNavigationDrawerItem>()
+        NBResource.combineResourceFlows(
+            geocodingRepository.getVisitedLocations(),
+            geocodingRepository.getCurrentLocation()
+        ) { visitedLocations, currentLocation ->
+            val items = mutableListOf<NBNavigationDrawerItem>()
 
-                items.add(headline)
+            items.add(headline)
 
-                val locationItems = visitedLocations?.map { visitedLocation ->
-                    val sameLatitude = visitedLocation.latitude == currentLocation?.latitude
-                    val sameLongitude =
-                        visitedLocation.longitude == currentLocation?.longitude
-                    val selected = sameLatitude && sameLongitude
+            val locationItems = visitedLocations?.map { visitedLocation ->
+                val sameLatitude = visitedLocation.latitude == currentLocation?.latitude
+                val sameLongitude =
+                    visitedLocation.longitude == currentLocation?.longitude
+                val selected = sameLatitude && sameLongitude
 
-                    NBNavigationDrawerItem.Item.Location(
-                        label = visitedLocation.localizedNameAndCountry,
-                        icon = NBIcons.Location,
-                        selected = selected,
-                        location = visitedLocation
-                    )
-                } ?: emptyList()
-                items.addAll(locationItems)
+                NBNavigationDrawerItem.Item.Location(
+                    label = visitedLocation.localizedNameAndCountry,
+                    icon = NBIcons.Location,
+                    selected = selected,
+                    location = visitedLocation
+                )
+            } ?: emptyList()
+            items.addAll(locationItems)
 
-                items.add(NBNavigationDrawerItem.Divider)
+            items.add(NBNavigationDrawerItem.Divider)
 
-                items.add(settingsItem)
-                items.add(aboutItem)
+            items.add(settingsItem)
+            items.add(aboutItem)
 
-                items
-            }.transformToList()
-        }
+            items
+        }.transformToList()
 
     init {
         collectFlow(
@@ -91,7 +86,12 @@ class MainViewModel @Inject constructor(
 
         collectFlow(
             { settingsAppearanceRepository.getData() },
-            { oldUiState, output -> oldUiState.copy(settingsAppearance = output) }
+            { oldUiState, output -> oldUiState.copy(appearance = output) }
+        )
+
+        collectFlow(
+            { settingsUnitsRepository.getData() },
+            { oldUiState, output -> oldUiState.copy(units = output) }
         )
 
     }

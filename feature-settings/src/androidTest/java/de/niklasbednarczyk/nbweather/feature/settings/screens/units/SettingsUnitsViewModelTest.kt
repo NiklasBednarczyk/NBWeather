@@ -1,18 +1,15 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.units
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
+import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
 
 class SettingsUnitsViewModelTest : NBViewModelTest {
 
@@ -21,51 +18,25 @@ class SettingsUnitsViewModelTest : NBViewModelTest {
 
     private lateinit var subject: SettingsUnitsViewModel
 
-    private lateinit var settingsDataRepository: SettingsDataRepository
-
     @Before
     override fun setUp() {
-        settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
         subject = SettingsUnitsViewModel(
-            settingsDataRepository = settingsDataRepository
+            settingsUnitsRepository = SettingsUnitsRepository.createFake(temporaryFolder)
         )
     }
 
     @Test
-    fun uiState_shouldHaveCorrectValues() = testScope.runTest {
-        // Arrange
-        val settingsData = settingsDataRepository.getData().first()
-        val expectedSize = NBUnitsType.values().size
-
-        // Act
+    fun uiState_items_shouldHaveCorrectDividers() = testScope.runTest {
         subject.uiState.collectUntil(
             stopCollecting = { uiState ->
-                uiState.radioGroup != null
+                uiState.items.isNotEmpty()
             },
             collectData = { uiState ->
-                // Assert
-                assertEquals(uiState.radioGroup?.selectedKey, settingsData.units)
-                assertListHasSize(uiState.radioGroup?.options, expectedSize)
-            }
-        )
-    }
-
-    @Test
-    fun updateUnits_shouldUpdateCorrectly() = testScope.runTest {
-        // Arrange
-        val settingsDataArrange = settingsDataRepository.getData().first()
-        val newValue = NBUnitsType.IMPERIAL
-
-        // Act
-        subject.updateUnits(newValue)
-        settingsDataRepository.getData().collectUntil(
-            stopCollecting = { settingsDataAct ->
-                settingsDataAct.units == newValue
-            },
-            collectData = { settingsDataAct ->
-                // Assert
-                assertEquals(settingsDataAct.units, newValue)
-                assertNotEquals(settingsDataArrange.units, settingsDataAct.units)
+                testDividerList(
+                    items = uiState.items,
+                    dividerClassJava = SettingsListItemModel.Divider::class.java,
+                    headerClassJava = SettingsListItemModel.Header::class.java
+                )
             }
         )
     }

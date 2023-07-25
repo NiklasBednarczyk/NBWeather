@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="format_comma" translatable="false">%1$s, %2$s</string>
+    <string name="format_comma_2_items" translatable="false">%1$s, %2$s</string>
     <string name="format_hours_minutes" translatable="false">%1$02d h %2$02d min</string>
-    <string name="format_temperature_value_short_unit" translatable="false">%1$s°</string>
+    <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
 
-    <string name="unit_distance" translatable="false">km</string>
-    <string name="unit_percent" translatable="false">%%</string>
-    <string name="unit_precipitation" translatable="false">mm</string>
-    <string name="unit_pressure" translatable="false">hPa</string>
-    <string name="unit_probability" translatable="false">%%</string>
-    <string name="unit_temperature_standard" translatable="false">°K</string>
-    <string name="unit_temperature_metric" translatable="false">°C</string>
-    <string name="unit_temperature_imperial" translatable="false">°F</string>
-    <string name="unit_uv_index" translatable="false">/11</string>
-    <string name="unit_wind_speed_standard" translatable="false">m/s</string>
-    <string name="unit_wind_speed_metric" translatable="false">m/s</string>
-    <string name="unit_wind_speed_imperial" translatable="false">mph</string>
+    <string name="unit_symbol_percent" translatable="false">%%</string>
+    <string name="unit_symbol_probability" translatable="false">%%</string>
+    <string name="unit_symbol_temperature_short_degree" translatable="false">°</string>
+    <string name="unit_symbol_uv_index" translatable="false">/11</string>
 
 </resources>

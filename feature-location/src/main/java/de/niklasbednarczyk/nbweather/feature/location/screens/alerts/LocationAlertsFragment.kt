@@ -13,6 +13,7 @@ class LocationAlertsFragment : NBFragmentUiState<LocationAlertsUiState>() {
 
     override val viewModel: LocationAlertsViewModel by viewModels()
 
+    @Composable
     override fun createTopAppBarItem(viewData: LocationAlertsUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
             title = NBString.Resource(R.string.screen_location_alerts_title)

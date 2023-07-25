@@ -6,11 +6,9 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
 import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.location.navigation.DestinationsLocation
 import de.niklasbednarczyk.nbweather.feature.location.screens.hourly.models.LocationHourlyViewData
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
@@ -18,7 +16,6 @@ import javax.inject.Inject
 class LocationHourlyViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val oneCallRepository: OneCallRepository,
-    private val settingsDataRepository: SettingsDataRepository
 ) : NBViewModel<LocationHourlyUiState>(LocationHourlyUiState()) {
 
     init {
@@ -39,26 +36,21 @@ class LocationHourlyViewModel @Inject constructor(
 
     }
 
-    private fun getViewDataFlow(
+    private suspend fun getViewDataFlow(
         latitude: Double?,
         longitude: Double?,
         forecastTime: Long?,
     ): Flow<NBResource<LocationHourlyViewData>> {
         return if (latitude != null && longitude != null) {
-            settingsDataRepository.getData().flatMapLatest { data ->
-                oneCallRepository.getOneCall(
-                    latitude = latitude,
-                    longitude = longitude,
-                    language = data.language,
-                    units = data.units,
-                    forceUpdate = false
-                ).mapResource { oneCall ->
-                    LocationHourlyViewData.from(
-                        oneCall = oneCall,
-                        timeFormat = data.timeFormat,
-                        forecastTime = forecastTime
-                    )
-                }
+            oneCallRepository.getOneCall(
+                latitude = latitude,
+                longitude = longitude,
+                forceUpdate = false
+            ).mapResource { oneCall ->
+                LocationHourlyViewData.from(
+                    oneCall = oneCall,
+                    forecastTime = forecastTime
+                )
             }
         } else {
             flowOf(NBResource.Error())

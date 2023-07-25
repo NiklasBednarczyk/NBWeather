@@ -3,12 +3,19 @@ package de.niklasbednarczyk.nbweather.data.onecall.models
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.HourlyForecastEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.HourlyForecastModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.DateTimeValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.*
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 
 data class HourlyForecastModelData(
-    val forecastTime: DateTimeValue?,
+    val forecastTime: NBDateTimeModel?,
     val temperature: TemperatureValue?,
     val feelsLikeTemperature: TemperatureValue?,
     val pressure: PressureValue?,
@@ -56,11 +63,12 @@ data class HourlyForecastModelData(
         }
 
         internal fun localToData(
-            localList: List<HourlyForecastEntityLocal>?
+            localList: List<HourlyForecastEntityLocal>?,
+            timezoneOffset: Long?
         ): List<HourlyForecastModelData> {
             return localList?.map { local ->
                 HourlyForecastModelData(
-                    forecastTime = DateTimeValue.from(local.dt),
+                    forecastTime = NBDateTimeModel.from(local.dt, timezoneOffset),
                     temperature = TemperatureValue.from(local.temp),
                     feelsLikeTemperature = TemperatureValue.from(local.feelsLike),
                     pressure = PressureValue.from(local.pressure),

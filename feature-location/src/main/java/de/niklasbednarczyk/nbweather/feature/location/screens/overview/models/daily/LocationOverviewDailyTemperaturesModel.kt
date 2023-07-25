@@ -1,8 +1,8 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily
 
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
-import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
 import de.niklasbednarczyk.nbweather.core.ui.R
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
 
 data class LocationOverviewDailyTemperaturesModel(
     val minTemperature: LocationOverviewDailyTemperatureModel,
@@ -15,23 +15,25 @@ data class LocationOverviewDailyTemperaturesModel(
     companion object {
 
         fun from(
-            dailyForecast: DailyForecastModelData,
-            minTemperatureAll: Double,
-            maxTemperatureAll: Double,
+            minDailyTemperatureRounded: Double,
+            minDailyTemperatureValue: TemperatureValue?,
+            maxDailyTemperatureRounded: Double,
+            maxDailyTemperatureValue: TemperatureValue?,
+            minTemperatureAllRounded: Double,
+            maxTemperatureAllRounded: Double,
             temperatureDifferenceAll: Double
         ): LocationOverviewDailyTemperaturesModel? {
-            val minTemperatureCurrent = dailyForecast.temperature?.minDailyTemperature
-            val maxTemperatureCurrent = dailyForecast.temperature?.maxDailyTemperature
-
             val minTemperatureModel = LocationOverviewDailyTemperatureModel.from(
-                temperatureCurrent = minTemperatureCurrent,
-                temperatureValueAll = minTemperatureAll,
+                temperatureCurrentRounded = minDailyTemperatureRounded,
+                temperatureCurrentValue = minDailyTemperatureValue,
+                temperatureValueAll = minTemperatureAllRounded,
                 temperatureDifferenceAll = temperatureDifferenceAll,
                 prefixResId = R.string.screen_location_common_temperatures_min
             )
             val maxTemperatureModel = LocationOverviewDailyTemperatureModel.from(
-                temperatureCurrent = maxTemperatureCurrent,
-                temperatureValueAll = maxTemperatureAll,
+                temperatureCurrentRounded = maxDailyTemperatureRounded,
+                temperatureCurrentValue = maxDailyTemperatureValue,
+                temperatureValueAll = maxTemperatureAllRounded,
                 temperatureDifferenceAll = temperatureDifferenceAll,
                 prefixResId = R.string.screen_location_common_temperatures_max
             )

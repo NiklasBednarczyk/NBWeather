@@ -8,23 +8,13 @@ object DestinationsSettings {
 
     val topLevel = NBTopLevelDestinations.Settings
 
-    object ColorScheme : NBDestination.WithoutArguments() {
+    object Appearance : NBDestination.WithoutArguments() {
 
         override val topLevelDestination: NBTopLevelDestination
             get() = topLevel
 
         override val path: String
-            get() = "color-scheme"
-
-    }
-
-    object Language : NBDestination.WithoutArguments() {
-
-        override val topLevelDestination: NBTopLevelDestination
-            get() = topLevel
-
-        override val path: String
-            get() = "language"
+            get() = "appearance"
 
     }
 
@@ -35,26 +25,6 @@ object DestinationsSettings {
 
         override val path: String
             get() = "overview"
-
-    }
-
-    object Theme : NBDestination.WithoutArguments() {
-
-        override val topLevelDestination: NBTopLevelDestination
-            get() = topLevel
-
-        override val path: String
-            get() = "theme"
-
-    }
-
-    object TimeFormat : NBDestination.WithoutArguments() {
-
-        override val topLevelDestination: NBTopLevelDestination
-            get() = topLevel
-
-        override val path: String
-            get() = "time-format"
 
     }
 

@@ -3,12 +3,12 @@ package de.niklasbednarczyk.nbweather.data.onecall.models.common
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.common.WeatherModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherDescriptionValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
+import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
 
 data class WeatherModelData(
-    val description: WeatherDescriptionValue?,
-    val icon: WeatherIconValue?
+    val icon: WeatherIconType?,
+    val condition: WeatherConditionType?
 ) {
 
     companion object {
@@ -31,8 +31,8 @@ data class WeatherModelData(
         ): WeatherModelData? {
             return nbNullSafe(local) { model ->
                 WeatherModelData(
-                    description = WeatherDescriptionValue.from(model.description),
-                    icon = WeatherIconValue.from(model.icon)
+                    icon = WeatherIconType.from(model.icon),
+                    condition = WeatherConditionType.from(model.id)
                 )
             }
         }

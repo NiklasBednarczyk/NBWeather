@@ -1,7 +1,15 @@
 package de.niklasbednarczyk.nbweather.feature.about.screens.overview
 
 import android.content.Intent
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
@@ -11,11 +19,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefault
+import de.niklasbednarczyk.nbweather.core.ui.dimens.dividerPaddingVertical
+import de.niklasbednarczyk.nbweather.core.ui.dimens.filledTonalButtonIconSize
+import de.niklasbednarczyk.nbweather.core.ui.dimens.filledTonalButtonPaddingBetweenElements
+import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangement
+import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImage
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImageModel
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewButtonModel
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewItem
 
@@ -38,6 +51,7 @@ fun AboutOverviewContent(
                         modifier = Modifier.padding(dividerPaddingVertical)
                     )
                 }
+
                 is AboutOverviewItem.WithBanner -> {
                     ItemColumn {
                         ItemBanner(
@@ -52,6 +66,7 @@ fun AboutOverviewContent(
                         )
                     }
                 }
+
                 is AboutOverviewItem.WithoutBanner -> {
                     ItemColumn {
                         ItemText(

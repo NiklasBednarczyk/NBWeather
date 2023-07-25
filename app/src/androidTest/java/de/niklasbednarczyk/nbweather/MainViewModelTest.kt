@@ -1,11 +1,10 @@
 package de.niklasbednarczyk.nbweather
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
@@ -22,8 +21,6 @@ class MainViewModelTest : NBViewModelTest {
     companion object {
         private const val LATITUDE = 41.2990848
         private const val LONGITUDE = -91.6923661
-
-        private val LANGUAGE = NBLanguageType.ENGLISH
     }
 
     @get:Rule
@@ -38,8 +35,11 @@ class MainViewModelTest : NBViewModelTest {
         geocodingRepository = GeocodingRepository.createFake(context)
         subject = MainViewModel(
             geocodingRepository = geocodingRepository,
-            settingsAppearanceRepository = SettingsAppearanceRepository.createFake(temporaryFolder),
-            settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
+            settingsAppearanceRepository = SettingsAppearanceRepository.createFake(
+                temporaryFolder,
+                context
+            ),
+            settingsUnitsRepository = SettingsUnitsRepository.createFake(temporaryFolder)
         )
     }
 
@@ -78,11 +78,11 @@ class MainViewModelTest : NBViewModelTest {
         // Arrange + Act
         subject.uiState.collectUntil(
             stopCollecting = { uiState ->
-                uiState.settingsAppearance != null
+                uiState.appearance != null
             },
             collectData = { uiState ->
                 // Assert
-                assertNotNull(uiState.settingsAppearance)
+                assertNotNull(uiState.appearance)
             }
         )
     }
@@ -93,7 +93,7 @@ class MainViewModelTest : NBViewModelTest {
         subject.setCurrentLocation(LATITUDE, LONGITUDE)
 
         // Assert
-        geocodingRepository.getCurrentLocation(LANGUAGE).collectUntil(
+        geocodingRepository.getCurrentLocation().collectUntil(
             stopCollecting = { resource ->
                 resource.isSuccessOrError && resource.dataOrNull != null
             }

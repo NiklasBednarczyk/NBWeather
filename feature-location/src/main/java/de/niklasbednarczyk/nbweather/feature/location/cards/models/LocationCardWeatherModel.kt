@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.feature.location.cards.models
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
@@ -9,10 +8,16 @@ import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconModel.Companion.toValueIcon
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.*
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 import de.niklasbednarczyk.nbweather.feature.location.extensions.displayText
-import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
 
 data class LocationCardWeatherModel(
     override val cardTitle: NBString?,
@@ -22,7 +27,6 @@ data class LocationCardWeatherModel(
     companion object {
 
         fun from(
-            units: NBUnitsType,
             pressure: PressureValue?,
             humidity: PercentValue?,
             dewPointTemperature: TemperatureValue?,
@@ -45,10 +49,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_probability_of_precipitation),
                         valueIcon = NBIcons.ProbabilityOfPrecipitation.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            probabilityOfPrecipitationValue.displayValue,
-                            probabilityOfPrecipitationValue.unit
-                        )
+                        value = NBValueItem.Units(probabilityOfPrecipitationValue)
                     )
                 )
             }
@@ -58,10 +59,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_rain),
                         valueIcon = NBIcons.Rain.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            rain1hVolumeValue.displayValue,
-                            rain1hVolumeValue.unit
-                        )
+                        value = NBValueItem.Units(rain1hVolumeValue)
                     )
                 )
             }
@@ -71,10 +69,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_snow),
                         valueIcon = NBIcons.Snow.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            snow1hVolumeValue.displayValue,
-                            snow1hVolumeValue.unit
-                        )
+                        value = NBValueItem.Units(snow1hVolumeValue)
                     )
                 )
             }
@@ -84,10 +79,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_wind_speed),
                         valueIcon = NBIcons.WindSpeed.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            windSpeedValue.displayValue,
-                            windSpeedValue.getUnit(units)
-                        )
+                        value = NBValueItem.Units(windSpeedValue)
                     )
                 )
             }
@@ -97,10 +89,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_wind_gust),
                         valueIcon = NBIcons.WindGust.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            windGustValue.displayValue,
-                            windGustValue.getUnit(units)
-                        )
+                        value = NBValueItem.Units(windGustValue)
                     )
                 )
             }
@@ -110,7 +99,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_wind_direction),
                         valueIcon = NBIcons.WindDegrees.toValueIcon(windDegreesValue.rotationDegrees),
-                        value = NBValueItem.Texts(
+                        value = NBValueItem.Text(
                             windDegreesValue.type?.displayText ?: return@nbNullSafe null
                         )
                     )
@@ -122,10 +111,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_pressure),
                         valueIcon = NBIcons.Pressure.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            pressureValue.displayValue,
-                            pressureValue.unit
-                        )
+                        value = NBValueItem.Units(pressureValue)
                     )
                 )
             }
@@ -135,10 +121,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_humidity),
                         valueIcon = NBIcons.Humidity.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            humidityValue.displayValue,
-                            humidityValue.unit
-                        )
+                        value = NBValueItem.Units(humidityValue)
                     )
                 )
             }
@@ -148,7 +131,9 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_dew_point),
                         valueIcon = NBIcons.DewPoint.toValueIcon(),
-                        value = dewPointTemperatureValue.toValueItemWithUnit(units)
+                        value = NBValueItem.Units(
+                            unitsValue = dewPointTemperatureValue.getLong()
+                        )
                     )
                 )
             }
@@ -158,10 +143,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_cloudiness),
                         valueIcon = NBIcons.Cloudiness.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            cloudinessValue.displayValue,
-                            cloudinessValue.unit
-                        )
+                        value = NBValueItem.Units(cloudinessValue)
                     )
                 )
             }
@@ -171,10 +153,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_uv_index),
                         valueIcon = NBIcons.UVIndex.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            uvIndexValue.displayValue,
-                            uvIndexValue.unit
-                        )
+                        value = NBValueItem.Units(uvIndexValue)
                     )
                 )
             }
@@ -184,10 +163,7 @@ data class LocationCardWeatherModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_weather_value_visibility),
                         valueIcon = NBIcons.Visibility.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            visibilityValue.displayValue,
-                            visibilityValue.unit
-                        )
+                        value = NBValueItem.Units(visibilityValue)
                     )
                 )
             }

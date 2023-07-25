@@ -2,7 +2,17 @@ package de.niklasbednarczyk.nbweather.feature.location.screens.overview.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -15,11 +25,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
+import de.niklasbednarczyk.nbweather.core.common.datetime.displayNameShort
+import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmallDp
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesHorizontal
+import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
+import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
-import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueView
 import de.niklasbednarczyk.nbweather.core.ui.windowsize.getHeightSizeClass
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily.LocationOverviewDailyModel
@@ -53,12 +67,15 @@ fun LocationOverviewDailyView(
                 contentPadding = listContentPaddingValuesHorizontal
             ) {
                 items(dailyModels) { dailyModel ->
+                    val temperatures = dailyModel.temperatures ?: return@items
                     Column(
                         modifier = Modifier
                             .width(IntrinsicSize.Max)
                             .height(this@BoxWithConstraints.maxHeight)
                             .clickable {
-                                navigateToDaily(dailyModel.forecastTime)
+                                dailyModel.forecastTime?.let { forecastTime ->
+                                    navigateToDaily(forecastTime.value)
+                                }
                             }
                             .padding(
                                 horizontal = screenHorizontalPadding,
@@ -69,14 +86,14 @@ fun LocationOverviewDailyView(
                     ) {
                         Text(
                             modifier = itemModifier,
-                            text = dailyModel.weekday.asString(),
+                            text = dailyModel.forecastTime?.dateDayOfWeekType.displayNameShort.asString(),
                             style = titleStyle,
                             textAlign = textAlign
                         )
                         ColumnSpacer()
                         Text(
                             modifier = itemModifier,
-                            text = dailyModel.dayOfMonth.asString(),
+                            text = dailyModel.forecastTime?.dateDayOfMonth.asString(),
                             style = titleStyle,
                             textAlign = textAlign
                         )
@@ -89,7 +106,7 @@ fun LocationOverviewDailyView(
                         Temperatures(
                             modifier = itemModifier.weight(1f),
                             heightSizeClass = heightSizeClass,
-                            temperatures = dailyModel.temperatures
+                            temperatures = temperatures
                         )
                         ColumnSpacer()
                         NBValueView(
@@ -123,6 +140,7 @@ private fun Temperatures(
                 temperatures = temperatures
             )
         }
+
         WindowHeightSizeClass.Medium, WindowHeightSizeClass.Expanded -> {
             TemperaturesGraph(
                 modifier = modifier,
@@ -156,12 +174,8 @@ private fun TemperaturesTexts(
 private fun TemperaturesText(
     temperature: LocationOverviewDailyTemperatureModel
 ) {
-    val text = nbCombinedString(
-        temperature.prefix,
-        temperature.text
-    )
     Text(
-        text = text.asString(),
+        text = temperature.valueWithPrefix.asString(),
         style = temperatureTextStyle
     )
 }
@@ -184,7 +198,7 @@ private fun TemperaturesGraph(
         )
         Text(
             modifier = itemModifier,
-            text = temperatures.maxTemperature.text.asString(),
+            text = temperatures.maxTemperature.value?.getShort().displayValueWithSymbol.asString(),
             style = temperatureTextStyle,
             textAlign = textAlign
         )
@@ -195,8 +209,8 @@ private fun TemperaturesGraph(
                 .weight(temperatures.barFactor)
                 .background(
                     brush = Brush.linearGradient(
-                        0.0f to NBTheme.customColors.red,
-                        1.0f to NBTheme.customColors.blue
+                        0.0f to MaterialTheme.colorScheme.primary,
+                        1.0f to MaterialTheme.colorScheme.inversePrimary
                     ),
                     shape = MaterialTheme.shapes.large
                 )
@@ -204,7 +218,7 @@ private fun TemperaturesGraph(
         ColumnSpacer()
         Text(
             modifier = itemModifier,
-            text = temperatures.minTemperature.text.asString(),
+            text = temperatures.minTemperature.value?.getShort().displayValueWithSymbol.asString(),
             style = temperatureTextStyle,
             textAlign = textAlign
         )

@@ -1,7 +1,9 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.daily
 
-import androidx.compose.ui.test.*
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.onFirst
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerInfoModel
 import de.niklasbednarczyk.nbweather.feature.location.screens.daily.models.LocationDailyDayModel
 import de.niklasbednarczyk.nbweather.feature.location.screens.daily.models.LocationDailyViewData
@@ -19,7 +21,7 @@ class LocationDailyContentTest : NBContentTest(), LocationCardTest {
         val item3 = testItem(3)
 
         val viewData = LocationDailyViewData(
-            initialKey = item2.forecastTime,
+            initialKey = item2.forecastTime?.value,
             items = listOf(
                 item1,
                 item2,
@@ -90,8 +92,7 @@ class LocationDailyContentTest : NBContentTest(), LocationCardTest {
     }
 
     private fun testItem(forecastTime: Long): LocationDailyDayModel = LocationDailyDayModel(
-        forecastTime = forecastTime,
-        title = createNBString("Title $forecastTime"),
+        forecastTime = createNBDateTimeModel(forecastTime),
         cardItems = createTestCards(forecastTime.toString())
     )
 

@@ -2,12 +2,24 @@ package de.niklasbednarczyk.nbweather.feature.location.cards.views.card
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -20,13 +32,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefaultDp
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmallDp
+import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
+import de.niklasbednarczyk.nbweather.core.ui.common.time
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
-import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementDefaultDp
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementSmallDp
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.LocationCardOverviewItem
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.overview.LocationCardOverviewAlertModel
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.overview.LocationCardOverviewWeatherModel
@@ -69,7 +81,7 @@ private fun JustWeather(
     Weather(
         modifier = Modifier.fillMaxWidth(),
         weather = weather,
-        shouldShowDescription = true
+        shouldShowCondition = true
     )
 }
 
@@ -108,7 +120,7 @@ private fun WithAlertsAndPrecipitation(
             modifier = Modifier.height(columnVerticalArrangementSmallDp)
         )
         Text(
-            text = model.precipitation.currentTime.asString(),
+            text = model.precipitation.currentDateTime.time.asString(),
             style = MaterialTheme.typography.titleSmall
         )
         Box(
@@ -119,7 +131,7 @@ private fun WithAlertsAndPrecipitation(
                 innerSize = innerSize,
                 factors = model.precipitation.factors,
                 showPrecipitationCircle = showPrecipitationCircle,
-                showTimeMarker = model.precipitation.currentTime != null,
+                showTimeMarker = model.precipitation.currentDateTime != null,
             )
             Weather(
                 modifier = Modifier
@@ -129,7 +141,7 @@ private fun WithAlertsAndPrecipitation(
                         innerSize = layoutCoordinates.size
                     },
                 weather = model.weather,
-                shouldShowDescription = false
+                shouldShowCondition = false
             )
         }
     }
@@ -166,7 +178,7 @@ private fun Alert(
 private fun Weather(
     modifier: Modifier = Modifier,
     weather: LocationCardOverviewWeatherModel,
-    shouldShowDescription: Boolean,
+    shouldShowCondition: Boolean,
     textAlign: TextAlign = TextAlign.Center
 ) {
     Column(
@@ -179,27 +191,20 @@ private fun Weather(
                 .aspectRatio(2f),
             icon = weather.weatherIcon
         )
-        if (shouldShowDescription) {
+        if (shouldShowCondition) {
             Text(
-                text = weather.weatherDescription.asString(),
+                text = weather.weatherCondition.asString(),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = textAlign
             )
         }
         Text(
-            text = nbCombinedString(
-                weather.temperature,
-                weather.temperatureUnit,
-                separator = "",
-            ).asString(),
+            text = weather.temperature.displayValueWithSymbol.asString(),
             style = MaterialTheme.typography.displayLarge,
             textAlign = textAlign
         )
         Text(
-            text = nbCombinedString(
-                weather.feelsLikePrefix,
-                weather.feelsLikeTemperature
-            ).asString(),
+            text = weather.feelsLikeTemperatureText.asString(),
             style = MaterialTheme.typography.titleLarge,
             textAlign = textAlign
         )
@@ -213,9 +218,9 @@ private fun PrecipitationCircle(
     innerSize: IntSize?,
     precipitationMarkerStrokeWidth: Dp = 4.dp,
     timeMarkerStrokeWidth: Dp = precipitationMarkerStrokeWidth / 2,
-    precipitationMarkerBackgroundBrushColor1: Color = NBTheme.customColors.green,
-    precipitationMarkerBackgroundBrushColor2: Color = NBTheme.customColors.yellow,
-    precipitationMarkerBackgroundBrushColor3: Color = NBTheme.customColors.red,
+    precipitationMarkerBackgroundBrushColor1: Color = MaterialTheme.colorScheme.primary,
+    precipitationMarkerBackgroundBrushColor2: Color = MaterialTheme.colorScheme.secondary,
+    precipitationMarkerBackgroundBrushColor3: Color = MaterialTheme.colorScheme.tertiary,
     precipitationMarkerForegroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     timeMarkerColor: Color = MaterialTheme.colorScheme.inverseSurface,
     factors: List<Float>,

@@ -10,9 +10,9 @@ import dagger.hilt.components.SingletonComponent
 import de.niklasbednarczyk.nbweather.core.data.disk.utils.createProtoDataStore
 import de.niklasbednarczyk.nbweather.data.settings.constants.ConstantsDataSettings
 import de.niklasbednarczyk.nbweather.data.settings.proto.appearance.SettingsAppearanceProto
-import de.niklasbednarczyk.nbweather.data.settings.proto.data.SettingsDataProto
+import de.niklasbednarczyk.nbweather.data.settings.proto.units.SettingsUnitsProto
 import de.niklasbednarczyk.nbweather.data.settings.serializers.SettingsAppearanceSerializer
-import de.niklasbednarczyk.nbweather.data.settings.serializers.SettingsDataSerializer
+import de.niklasbednarczyk.nbweather.data.settings.serializers.SettingsUnitsSerializer
 import javax.inject.Singleton
 
 @Module
@@ -33,14 +33,14 @@ object ProtoModuleSettingsData {
 
     @Provides
     @Singleton
-    internal fun provideDataStoreSettingsData(
+    internal fun provideDataStoreSettingsUnits(
         @ApplicationContext context: Context,
-        serializer: SettingsDataSerializer,
-    ): DataStore<SettingsDataProto> =
+        serializer: SettingsUnitsSerializer,
+    ): DataStore<SettingsUnitsProto> =
         createProtoDataStore(
             context = context,
             serializer = serializer,
-            fileName = ConstantsDataSettings.DataStore.SETTINGS_DATA_FILE_NAME
+            fileName = ConstantsDataSettings.DataStore.SETTINGS_UNITS_FILE_NAME
         )
 
 }

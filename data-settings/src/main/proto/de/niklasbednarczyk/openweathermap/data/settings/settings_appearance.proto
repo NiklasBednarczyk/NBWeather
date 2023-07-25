@@ -8,19 +8,18 @@ message SettingsAppearanceProto {
   enum ThemeProto {
     LIGHT = 0;
     DARK = 1;
-    SYSTEM_DEFAULT = 2;
   }
 
   enum ColorSchemeProto {
-    RED = 0;
+    BLUE = 0;
     GREEN = 1;
-    BLUE = 2;
-    CYAN = 3;
-    MAGENTA = 4;
-    YELLOW = 5;
+    RED = 2;
+    YELLOW = 3;
   }
 
-  ThemeProto theme = 1;
-  ColorSchemeProto colorScheme = 3;
+  bool useDeviceTheme = 1;
+  ThemeProto theme = 2;
+  bool useDynamicColorScheme = 3;
+  ColorSchemeProto colorScheme = 4;
 
 }

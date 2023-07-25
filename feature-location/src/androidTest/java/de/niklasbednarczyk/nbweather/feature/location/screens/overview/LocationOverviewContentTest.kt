@@ -5,15 +5,15 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.LocationOverviewNavigationBarItem
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.LocationOverviewViewData
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily.LocationOverviewDailyModel
-import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily.LocationOverviewDailyTemperatureModel
-import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily.LocationOverviewDailyTemperaturesModel
 import de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.hourly.LocationOverviewHourlyModel
 import de.niklasbednarczyk.nbweather.feature.location.tests.LocationCardTest
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBContentTest
 import org.junit.Test
+import java.time.DayOfWeek
 
 class LocationOverviewContentTest : NBContentTest(), LocationCardTest {
 
@@ -78,16 +78,16 @@ class LocationOverviewContentTest : NBContentTest(), LocationCardTest {
         // Arrange
         val hourlyItems = listOf(
             NBGridItem.OneLine(
-                value = NBValueItem.Texts(hourlyText)
+                value = NBValueItem.Text(hourlyText)
             )
         )
 
         val viewData = LocationOverviewViewData(
             todayCardItems = createTestCards("Today"),
             hourlyMap = mapOf(
-                createNBString("Day") to listOf(
+                DayOfWeek.MONDAY to listOf(
                     LocationOverviewHourlyModel(
-                        forecastTime = 1,
+                        forecastTime = createNBDateTimeModel(1),
                         itemsCompact = hourlyItems,
                         itemsMedium = hourlyItems,
                         itemsExpanded = hourlyItems
@@ -96,26 +96,17 @@ class LocationOverviewContentTest : NBContentTest(), LocationCardTest {
             ),
             dailyModels = listOf(
                 LocationOverviewDailyModel(
-                    forecastTime = 1,
-                    weekday = dailyText,
-                    dayOfMonth = null,
+                    forecastTime = createNBDateTimeModel(1),
                     weatherIcon = NBIcons.WeatherDayClearSky,
-                    temperatures = LocationOverviewDailyTemperaturesModel(
-                        minTemperature = LocationOverviewDailyTemperatureModel(
-                            text = null,
-                            prefix = null,
-                            factor = 0.00001f
-                        ),
-                        maxTemperature = LocationOverviewDailyTemperatureModel(
-                            text = null,
-                            prefix = null,
-                            factor = 0.00001f
-                        )
-                    ),
-                    probabilityOfPrecipitation = NBValueItem.Texts()
-                )
+                    probabilityOfPrecipitation = NBValueItem.Text(dailyText),
+                    minDailyTemperature = TemperatureValue.from(0.0),
+                    maxDailyTemperature = TemperatureValue.from(10.0),
+                    minTemperatureAll = TemperatureValue.from(0.0),
+                    maxTemperatureAll = TemperatureValue.from(10.0),
+                ),
             )
         )
+
 
         val uiState = LocationOverviewUiState(
             selectedNavigationBarItem = selectedNavigationBarItem,

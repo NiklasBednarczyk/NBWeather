@@ -1,13 +1,12 @@
 package de.niklasbednarczyk.nbweather.feature.location.cards.models
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridItem
+import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyTemperatureModelData
-import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
 
 data class LocationCardTemperaturesModel(
     override val cardTitle: NBString?,
@@ -18,7 +17,6 @@ data class LocationCardTemperaturesModel(
     companion object {
 
         fun from(
-            units: NBUnitsType,
             temperature: DailyTemperatureModelData?,
         ): LocationCardTemperaturesModel? {
             val cardTitle =
@@ -32,7 +30,7 @@ data class LocationCardTemperaturesModel(
                     thresholdItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_common_temperatures_min),
-                            value = minDailyTemperature.toValueItemWithUnit(units)
+                            value = NBValueItem.Units(minDailyTemperature.getLong())
                         )
                     )
                 }
@@ -41,7 +39,7 @@ data class LocationCardTemperaturesModel(
                     thresholdItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_common_temperatures_max),
-                            value = maxDailyTemperature.toValueItemWithUnit(units)
+                            value = NBValueItem.Units(maxDailyTemperature.getLong())
                         )
                     )
                 }
@@ -52,7 +50,7 @@ data class LocationCardTemperaturesModel(
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_morning),
-                            value = temp.toValueItemWithUnit(units)
+                            value = NBValueItem.Units(temp.getLong())
                         )
                     )
                 }
@@ -61,7 +59,7 @@ data class LocationCardTemperaturesModel(
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_day),
-                            value = temp.toValueItemWithUnit(units)
+                            value = NBValueItem.Units(temp.getLong())
                         )
                     )
                 }
@@ -70,7 +68,7 @@ data class LocationCardTemperaturesModel(
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_evening),
-                            value = temp.toValueItemWithUnit(units)
+                            value = NBValueItem.Units(temp.getLong())
                         )
                     )
                 }
@@ -79,7 +77,7 @@ data class LocationCardTemperaturesModel(
                     dayItems.add(
                         NBGridItem.TwoLines(
                             title = NBString.Resource(R.string.screen_location_card_temperatures_value_night),
-                            value = temp.toValueItemWithUnit(units)
+                            value = NBValueItem.Units(temp.getLong())
                         )
                     )
                 }

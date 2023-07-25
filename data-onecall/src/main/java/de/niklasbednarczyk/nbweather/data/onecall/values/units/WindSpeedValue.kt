@@ -1,28 +1,29 @@
 package de.niklasbednarczyk.nbweather.data.onecall.values.units
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class WindSpeedValue private constructor(override val value: Double) : UnitsValue.Dependent {
+value class WindSpeedValue private constructor(override val value: Double) : NBUnitsValue {
 
-    override val roundingType: UnitsValue.RoundingType
-        get() = UnitsValue.RoundingType.ZERO_DIGITS
-
-    override fun getUnit(units: NBUnitsType): NBString {
-        val resId = when (units) {
-            NBUnitsType.STANDARD -> R.string.unit_wind_speed_standard
-            NBUnitsType.METRIC -> R.string.unit_wind_speed_metric
-            NBUnitsType.IMPERIAL -> R.string.unit_wind_speed_imperial
+    override fun getConvertedValue(units: NBUnitsModel): Double {
+        return when (units.windSpeedUnit) {
+            NBWindSpeedUnitType.KILOMETER_PER_HOUR -> value.times(3.6) // meter per second to kilometer per hour
+            NBWindSpeedUnitType.METER_PER_SECOND -> value // meter per second to meter per second
+            NBWindSpeedUnitType.MILE_PER_HOUR -> value.times(2.237) // meter per second to mile per hour
         }
-        return NBString.Resource(resId)
+    }
+
+    override fun getSymbol(units: NBUnitsModel): NBString? {
+        return units.windSpeedUnit.symbol
     }
 
     companion object {
 
-        internal fun from(value: Double?): WindSpeedValue? {
+        fun from(value: Double?): WindSpeedValue? {
             return nbNullSafe(value) { WindSpeedValue(it) }
         }
 

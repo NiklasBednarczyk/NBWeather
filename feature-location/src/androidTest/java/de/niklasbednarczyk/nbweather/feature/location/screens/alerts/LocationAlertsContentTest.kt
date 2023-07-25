@@ -13,8 +13,8 @@ class LocationAlertsContentTest : NBContentTest() {
     @Test
     fun alerts_shouldRenderCorrectly() {
         // Arrange
-        val alert1 = testAlert("1")
-        val alert2 = testAlert("2")
+        val alert1 = testAlert(1)
+        val alert2 = testAlert(2)
 
         val uiState = LocationAlertsUiState(
             alertsResource = createNBResource(
@@ -54,18 +54,20 @@ class LocationAlertsContentTest : NBContentTest() {
     private fun SemanticsNodeInteractionsProvider.assertNotExpanded(alert: LocationAlertModel) {
         onNodeWithText(alert.eventName)
             .assertIsDisplayed()
-        onNodeWithText(alert.startDate, substring = true)
+        onNodeWithText(alert.startDate?.getTime(context), substring = true)
             .assertIsDisplayed()
-        onNodeWithText(alert.endDate, substring = true)
+        onNodeWithText(alert.endDate?.getTime(context), substring = true)
             .assertIsDisplayed()
         alert.expandableItems.forEach { expandableItem ->
             when (expandableItem) {
                 is LocationAlertExpandableItem.Description -> {
                     assertStringIsNotDisplayed(expandableItem.text)
                 }
+
                 is LocationAlertExpandableItem.Sender -> {
                     assertStringIsNotDisplayed(expandableItem.text)
                 }
+
                 is LocationAlertExpandableItem.Tags -> {
                     expandableItem.tags.forEach { tag ->
                         assertStringIsNotDisplayed(tag)
@@ -78,9 +80,9 @@ class LocationAlertsContentTest : NBContentTest() {
     private fun SemanticsNodeInteractionsProvider.assertExpanded(alert: LocationAlertModel) {
         onNodeWithText(alert.eventName)
             .assertIsDisplayed()
-        onNodeWithText(alert.startDate, substring = true)
+        onNodeWithText(alert.startDate?.getTime(context), substring = true)
             .assertIsDisplayed()
-        onNodeWithText(alert.endDate, substring = true)
+        onNodeWithText(alert.endDate?.getTime(context), substring = true)
             .assertIsDisplayed()
         alert.expandableItems.forEach { expandableItem ->
             when (expandableItem) {
@@ -88,10 +90,12 @@ class LocationAlertsContentTest : NBContentTest() {
                     onNodeWithText(expandableItem.text)
                         .assertIsDisplayed()
                 }
+
                 is LocationAlertExpandableItem.Sender -> {
                     onNodeWithText(expandableItem.text)
                         .assertIsDisplayed()
                 }
+
                 is LocationAlertExpandableItem.Tags -> {
                     expandableItem.tags.forEach { tag ->
                         onNodeWithText(tag)
@@ -107,24 +111,27 @@ class LocationAlertsContentTest : NBContentTest() {
             .performClick()
     }
 
-    private fun testAlert(name: String): LocationAlertModel = LocationAlertModel(
-        eventName = createNBString("eventName $name"),
-        startDate = createNBString("startDate $name"),
-        endDate = createNBString("endDate $name"),
-        expandableItems = listOf(
-            LocationAlertExpandableItem.Description(
-                text = createNBString("Description $name")
-            ),
-            LocationAlertExpandableItem.Sender(
-                text = createNBString("Sender $name")
-            ),
-            LocationAlertExpandableItem.Tags(
-                tags = listOf(
-                    createNBString("Tag1 $name"),
-                    createNBString("Tag2 $name")
+    private fun testAlert(number: Long): LocationAlertModel {
+        val name = number.toString()
+        return LocationAlertModel(
+            eventName = createNBString("eventName $name"),
+            startDate = createNBDateTimeModel(timezoneOffsetHours = number.plus(0)),
+            endDate = createNBDateTimeModel(timezoneOffsetHours = number.plus(10)),
+            expandableItems = listOf(
+                LocationAlertExpandableItem.Description(
+                    text = createNBString("Description $name")
+                ),
+                LocationAlertExpandableItem.Sender(
+                    text = createNBString("Sender $name")
+                ),
+                LocationAlertExpandableItem.Tags(
+                    tags = listOf(
+                        createNBString("Tag1 $name"),
+                        createNBString("Tag2 $name")
+                    )
                 )
             )
         )
-    )
+    }
 
 }

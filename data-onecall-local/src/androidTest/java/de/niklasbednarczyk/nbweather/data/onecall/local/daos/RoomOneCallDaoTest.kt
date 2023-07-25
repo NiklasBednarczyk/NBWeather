@@ -1,7 +1,5 @@
 package de.niklasbednarczyk.nbweather.data.onecall.local.daos
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
@@ -31,8 +29,6 @@ class RoomOneCallDaoTest : NBRoomOneCallDaoTest<RoomOneCallDao, OneCallModelLoca
     override fun createArrange(metadataId: Long): OneCallModelLocal {
         val metadata = OneCallMetadataEntityLocal(
             id = metadataId,
-            language = NBLanguageType.ENGLISH,
-            units = NBUnitsType.METRIC,
             latitude = getLatLongFromMetadataId(metadataId),
             longitude = getLatLongFromMetadataId(metadataId),
             timezone = null,
@@ -79,7 +75,10 @@ class RoomOneCallDaoTest : NBRoomOneCallDaoTest<RoomOneCallDao, OneCallModelLoca
         )
 
     override fun createAct(metadataId: Long): Flow<OneCallModelLocal?> =
-        subject.getOneCall(getLatLongFromMetadataId(metadataId), getLatLongFromMetadataId(metadataId))
+        subject.getOneCall(
+            getLatLongFromMetadataId(metadataId),
+            getLatLongFromMetadataId(metadataId)
+        )
 
     override fun assertAreEqual(
         arrange: OneCallModelLocal,

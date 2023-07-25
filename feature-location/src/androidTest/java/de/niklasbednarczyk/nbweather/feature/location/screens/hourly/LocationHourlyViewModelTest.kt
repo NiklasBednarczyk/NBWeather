@@ -4,15 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
 import de.niklasbednarczyk.nbweather.feature.location.navigation.DestinationsLocation
-import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TemporaryFolder
 
 class LocationHourlyViewModelTest : NBViewModelTest {
 
@@ -21,21 +17,16 @@ class LocationHourlyViewModelTest : NBViewModelTest {
         private const val LAT_AND_LON = 50.0
     }
 
-    @get:Rule
-    val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
-
     private lateinit var subjectWithoutArgs: LocationHourlyViewModel
     private lateinit var subjectWithArgs: LocationHourlyViewModel
 
     @Before
     override fun setUp() {
         val oneCallRepository = OneCallRepository.createFake(context)
-        val settingsDataRepository = SettingsDataRepository.createFake(temporaryFolder, context)
 
         subjectWithoutArgs = LocationHourlyViewModel(
             savedStateHandle = SavedStateHandle(),
             oneCallRepository = oneCallRepository,
-            settingsDataRepository = settingsDataRepository
         )
         subjectWithArgs = LocationHourlyViewModel(
             savedStateHandle = SavedStateHandle(
@@ -45,8 +36,7 @@ class LocationHourlyViewModelTest : NBViewModelTest {
                     DestinationsLocation.Hourly.KEY_LONGITUDE to LAT_AND_LON.toString()
                 )
             ),
-            oneCallRepository = oneCallRepository,
-            settingsDataRepository = settingsDataRepository
+            oneCallRepository = oneCallRepository
         )
     }
 

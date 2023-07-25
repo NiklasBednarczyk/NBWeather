@@ -8,6 +8,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
@@ -20,13 +21,17 @@ import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.ui.fragment.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerEventType
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
-import de.niklasbednarczyk.nbweather.core.ui.theme.NBTheme
+import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBAppearance
+import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBUnits
+import de.niklasbednarczyk.nbweather.core.ui.settings.NBSettings
 import de.niklasbednarczyk.nbweather.databinding.ContentAppBinding
 import de.niklasbednarczyk.nbweather.feature.about.navigation.graphAbout
 import de.niklasbednarczyk.nbweather.feature.location.navigation.graphLocation
@@ -60,12 +65,12 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
 
         setContentView(nbSetContent(this) {
             val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-            val appearance = uiState.value.settingsAppearance
-
-            if (appearance != null) {
-                NBTheme(appearance) {
+            SetupSettings(
+                appearance = uiState.value.appearance,
+                units = uiState.value.units
+            ) {
+                NBTheme {
                     SetupSystemBar()
-
                     Surface {
                         NBResourceWithoutLoadingView(uiState.value.isInitialCurrentLocationSetResource) { isInitialCurrentLocationSet ->
                             SetupNavigationDrawer(
@@ -83,12 +88,29 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
     }
 
     @Composable
+    private fun SetupSettings(
+        appearance: NBAppearanceModel?,
+        units: NBUnitsModel?,
+        content: @Composable () -> Unit
+    ) {
+        if (appearance != null && units != null) {
+            CompositionLocalProvider(
+                LocalNBAppearance provides appearance,
+                LocalNBUnits provides units,
+                content = content
+            )
+        }
+    }
+
+
+    @Composable
     private fun SetupSystemBar() {
         val systemUiController = rememberSystemUiController()
-        val darkIcons = NBTheme.isLightTheme
+        val darkIcons = NBSettings.isLightTheme
         SideEffect {
             systemUiController.setSystemBarsColor(
-                color = Color.Transparent, darkIcons = darkIcons
+                color = Color.Transparent,
+                darkIcons = darkIcons
             )
         }
     }

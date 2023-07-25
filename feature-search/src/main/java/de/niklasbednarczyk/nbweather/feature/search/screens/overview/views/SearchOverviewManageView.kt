@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButton
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingValuesVertical
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 @Composable

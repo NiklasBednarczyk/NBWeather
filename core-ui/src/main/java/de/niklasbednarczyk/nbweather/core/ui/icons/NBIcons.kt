@@ -7,51 +7,51 @@ object NBIcons {
 
     object About : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_info_24
+            get() = R.drawable.baseline_info_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_about)
     }
 
+    object Appearance : NBIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.baseline_palette_24
+        override val contentDescription: NBString
+            get() = NBString.Resource(R.string.icon_content_description_appearance)
+    }
+
     object Back : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_arrow_back_24
+            get() = R.drawable.baseline_arrow_back_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_back)
     }
 
     object Cancel : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_close_24
+            get() = R.drawable.baseline_close_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_cancel)
     }
 
     object Cloudiness : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_cloud_24
+            get() = R.drawable.baseline_cloud_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_cloudiness)
     }
 
-    object ColorScheme : NBIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_palette_24
-        override val contentDescription: NBString
-            get() = NBString.Resource(R.string.icon_content_description_color_scheme)
-    }
-
     object Daily : NBIconModel.FilledAndOutlined {
         override val resIdFilled: Int
-            get() = R.drawable.ic_baseline_date_range_24
+            get() = R.drawable.baseline_date_range_24
         override val resIdOutlined: Int
-            get() = R.drawable.ic_outline_date_range_24
+            get() = R.drawable.outline_date_range_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_daily)
     }
 
     object Delete : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_delete_24
+            get() = R.drawable.baseline_delete_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_delete)
     }
@@ -65,35 +65,35 @@ object NBIcons {
 
     object Drawer : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_menu_24
+            get() = R.drawable.baseline_menu_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_drawer)
     }
 
     object ErrorNoInternet : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_cloud_off_24
+            get() = R.drawable.baseline_cloud_off_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_error_no_internet)
     }
 
     object ErrorUnknown : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_error_24
+            get() = R.drawable.baseline_error_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_error_unknown)
     }
 
     object Expand : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_expand_more_24
+            get() = R.drawable.baseline_expand_more_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_expand)
     }
 
     object FindLocation : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_my_location_24
+            get() = R.drawable.baseline_my_location_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_find_location)
     }
@@ -107,9 +107,9 @@ object NBIcons {
 
     object Hourly : NBIconModel.FilledAndOutlined {
         override val resIdFilled: Int
-            get() = R.drawable.ic_baseline_watch_later_24
+            get() = R.drawable.baseline_watch_later_24
         override val resIdOutlined: Int
-            get() = R.drawable.ic_outline_watch_later_24
+            get() = R.drawable.outline_watch_later_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_hourly)
     }
@@ -121,16 +121,9 @@ object NBIcons {
             get() = NBString.Resource(R.string.icon_content_description_humidity)
     }
 
-    object Language : NBIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_translate_24
-        override val contentDescription: NBString
-            get() = NBString.Resource(R.string.icon_content_description_language)
-    }
-
     object Location : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_place_24
+            get() = R.drawable.baseline_place_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_location)
     }
@@ -368,14 +361,14 @@ object NBIcons {
 
     object Search : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_search_24
+            get() = R.drawable.baseline_search_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_search)
     }
 
     object Settings : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_settings_24
+            get() = R.drawable.baseline_settings_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_settings)
     }
@@ -408,53 +401,39 @@ object NBIcons {
             get() = NBString.Resource(R.string.icon_content_description_sunset)
     }
 
-    object Theme : NBIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_dark_mode_24
-        override val contentDescription: NBString
-            get() = NBString.Resource(R.string.icon_content_description_theme)
-    }
-
-    object TimeFormat : NBIconModel.Default {
-        override val resId: Int
-            get() = R.drawable.ic_baseline_watch_24
-        override val contentDescription: NBString
-            get() = NBString.Resource(R.string.icon_content_description_time_format)
-    }
-
     object Today : NBIconModel.FilledAndOutlined {
         override val resIdFilled: Int
-            get() = R.drawable.ic_baseline_today_24
+            get() = R.drawable.baseline_today_24
         override val resIdOutlined: Int
-            get() = R.drawable.ic_outline_today_24
+            get() = R.drawable.outline_today_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_today)
     }
 
     object Units : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_thermostat_24
+            get() = R.drawable.baseline_thermostat_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_units)
     }
 
     object UVIndex : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_light_mode_24
+            get() = R.drawable.baseline_light_mode_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_uv_index)
     }
 
     object Visibility : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_visibility_24
+            get() = R.drawable.baseline_visibility_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_visibility)
     }
 
     object Warning : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_warning_24
+            get() = R.drawable.baseline_warning_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_warning)
     }
@@ -587,7 +566,7 @@ object NBIcons {
 
     object Website : NBIconModel.Default {
         override val resId: Int
-            get() = R.drawable.ic_baseline_link_24
+            get() = R.drawable.baseline_link_24
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_website)
     }

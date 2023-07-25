@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.nbweather.core.ui.values
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
 sealed interface NBValueItem {
@@ -8,13 +10,21 @@ sealed interface NBValueItem {
         val valueIcon: NBValueIconModel
     ) : NBValueItem
 
-    class IconWithTexts(
+    data class IconWithUnits(
         val valueIcon: NBValueIconModel,
-        vararg val texts: NBString?
+        val unitsValue: NBUnitsValue
     ) : NBValueItem
 
-    class Texts(
-        vararg val texts: NBString?,
+    data class Text(
+        val text: NBString?,
+    ) : NBValueItem
+
+    data class Time(
+        val dateTime: NBDateTimeModel
+    ) : NBValueItem
+
+    data class Units(
+        val unitsValue: NBUnitsValue
     ) : NBValueItem
 
 }

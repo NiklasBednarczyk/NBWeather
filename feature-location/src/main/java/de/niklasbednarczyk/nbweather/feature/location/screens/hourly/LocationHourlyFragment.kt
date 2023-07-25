@@ -3,6 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.location.screens.hourly
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.ui.common.dateTimeDayOfWeekShortWithTime
 import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentPager
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerInfoModel
@@ -15,9 +16,10 @@ class LocationHourlyFragment :
 
     override val viewModel: LocationHourlyViewModel by viewModels()
 
+    @Composable
     override fun createTopAppBarItem(viewData: NBPagerInfoModel<LocationHourlyHourModel>?): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
-            title = viewData?.item?.title
+            title = viewData?.item?.forecastTime.dateTimeDayOfWeekShortWithTime
         )
     }
 

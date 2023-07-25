@@ -1,69 +1,90 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.daily
 
+import androidx.compose.runtime.Composable
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.settings.NBSettings
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
 import de.niklasbednarczyk.nbweather.feature.location.extensions.icon
 import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItem
 import kotlin.math.abs
 
 data class LocationOverviewDailyModel(
-    val forecastTime: Long,
-    val weekday: NBString?,
-    val dayOfMonth: NBString?,
+    val forecastTime: NBDateTimeModel?,
     val weatherIcon: NBIconModel,
-    val temperatures: LocationOverviewDailyTemperaturesModel,
     val probabilityOfPrecipitation: NBValueItem,
+    private val minDailyTemperature: TemperatureValue?,
+    private val maxDailyTemperature: TemperatureValue?,
+    private val minTemperatureAll: TemperatureValue?,
+    private val maxTemperatureAll: TemperatureValue?
 ) {
+
+    val temperatures: LocationOverviewDailyTemperaturesModel?
+        @Composable
+        get() {
+            val units = NBSettings.units
+
+            val minDailyTemperatureRounded =
+                minDailyTemperature?.getLong()?.getRoundedValue(units) ?: return null
+            val maxDailyTemperatureRounded =
+                maxDailyTemperature?.getLong()?.getRoundedValue(units) ?: return null
+
+            val minTemperatureAllRounded =
+                minTemperatureAll?.getLong()?.getRoundedValue(units) ?: return null
+            val maxTemperatureAllRounded =
+                maxTemperatureAll?.getLong()?.getRoundedValue(units) ?: return null
+            val temperatureDifferenceAll =
+                abs(maxTemperatureAllRounded.minus(minTemperatureAllRounded))
+
+            return LocationOverviewDailyTemperaturesModel.from(
+                minDailyTemperatureRounded = minDailyTemperatureRounded,
+                minDailyTemperatureValue = minDailyTemperature,
+                maxDailyTemperatureRounded = maxDailyTemperatureRounded,
+                maxDailyTemperatureValue = maxDailyTemperature,
+                minTemperatureAllRounded = minTemperatureAllRounded,
+                maxTemperatureAllRounded = maxTemperatureAllRounded,
+                temperatureDifferenceAll = temperatureDifferenceAll
+            )
+        }
 
     companion object {
 
         fun from(
             oneCall: OneCallModelData
         ): List<LocationOverviewDailyModel> {
-            val timezoneOffset = oneCall.metadata.timezoneOffset
 
             val minTemperatureAll = oneCall.dailyForecasts.minByOrNull { daily ->
-                daily.temperature?.minDailyTemperature?.roundedValue ?: Double.MAX_VALUE
-            }?.temperature?.minDailyTemperature?.roundedValue ?: return emptyList()
+                daily.temperature?.minDailyTemperature?.getLong()?.value?.toDouble()
+                    ?: Double.MAX_VALUE
+            }?.temperature?.minDailyTemperature
             val maxTemperatureAll = oneCall.dailyForecasts.maxByOrNull { daily ->
-                daily.temperature?.maxDailyTemperature?.roundedValue ?: Double.MIN_VALUE
-            }?.temperature?.maxDailyTemperature?.roundedValue ?: return emptyList()
-            val temperatureDifferenceAll = abs(maxTemperatureAll.minus(minTemperatureAll))
+                daily.temperature?.maxDailyTemperature?.getLong()?.value?.toDouble()
+                    ?: Double.MIN_VALUE
+            }?.temperature?.maxDailyTemperature
 
             return oneCall.dailyForecasts.mapNotNull { dailyForecast ->
-                val weekday =
-                    dailyForecast.forecastTime?.getDateWeekdayAbbreviationString(timezoneOffset)
 
-                val dayOfMonth = dailyForecast.forecastTime?.getDateDayOfMonthString(timezoneOffset)
-
-                val weatherIcon = dailyForecast.weather?.icon?.type?.icon
-
-                val temperatures = LocationOverviewDailyTemperaturesModel.from(
-                    dailyForecast = dailyForecast,
-                    minTemperatureAll = minTemperatureAll,
-                    maxTemperatureAll = maxTemperatureAll,
-                    temperatureDifferenceAll = temperatureDifferenceAll
-                )
+                val weatherIcon = dailyForecast.weather?.icon?.icon
 
                 val probabilityOfPrecipitation =
                     dailyForecast.probabilityOfPrecipitation?.toValueItem()
 
                 nbNullSafe(
-                    dailyForecast.forecastTime?.value,
+                    dailyForecast.forecastTime,
                     weatherIcon,
-                    temperatures,
                     probabilityOfPrecipitation,
-                ) { forecastTime, wIcon, temp, pop ->
+                ) { forecastTime, wIcon, pop ->
                     LocationOverviewDailyModel(
                         forecastTime = forecastTime,
-                        weekday = weekday,
-                        dayOfMonth = dayOfMonth,
                         weatherIcon = wIcon,
-                        temperatures = temp,
-                        probabilityOfPrecipitation = pop
+                        probabilityOfPrecipitation = pop,
+                        minDailyTemperature = dailyForecast.temperature?.minDailyTemperature,
+                        maxDailyTemperature = dailyForecast.temperature?.maxDailyTemperature,
+                        minTemperatureAll = minTemperatureAll,
+                        maxTemperatureAll = maxTemperatureAll
                     )
                 }
             }

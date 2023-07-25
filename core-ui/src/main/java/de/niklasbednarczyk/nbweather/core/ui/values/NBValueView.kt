@@ -11,11 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
+import de.niklasbednarczyk.nbweather.core.ui.common.time
+import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangement
 import de.niklasbednarczyk.nbweather.core.ui.icons.nbIconFit
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbHyphenated
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.rowHorizontalArrangement
 
 @Composable
 fun NBValueView(
@@ -37,7 +38,16 @@ fun NBValueView(
                     valueIcon = value.valueIcon,
                 )
             }
-            is NBValueItem.IconWithTexts -> {
+
+            is NBValueItem.Text -> {
+                Text(
+                    text = value.text.asString(),
+                    style = textStyleHyphenated,
+                    textAlign = textAlign
+                )
+            }
+
+            is NBValueItem.IconWithUnits -> {
                 Row(
                     modifier = Modifier.height(IntrinsicSize.Min),
                     horizontalArrangement = rowHorizontalArrangement
@@ -46,19 +56,25 @@ fun NBValueView(
                         modifier = Modifier.nbIconFit(),
                         valueIcon = value.valueIcon,
                     )
-                    val text = nbCombinedString(*value.texts)
                     Text(
-                        text = text.asString(),
+                        text = value.unitsValue.displayValueWithSymbol.asString(),
                         style = textStyleHyphenated,
                         textAlign = textAlign
                     )
                 }
-
             }
-            is NBValueItem.Texts -> {
-                val text = nbCombinedString(*value.texts)
+
+            is NBValueItem.Time -> {
                 Text(
-                    text = text.asString(),
+                    text = value.dateTime.time.asString(),
+                    style = textStyleHyphenated,
+                    textAlign = textAlign
+                )
+            }
+
+            is NBValueItem.Units -> {
+                Text(
+                    text = value.unitsValue.displayValueWithSymbol.asString(),
                     style = textStyleHyphenated,
                     textAlign = textAlign
                 )

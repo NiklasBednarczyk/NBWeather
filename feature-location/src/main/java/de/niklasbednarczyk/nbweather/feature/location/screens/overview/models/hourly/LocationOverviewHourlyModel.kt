@@ -1,8 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.location.screens.overview.models.hourly
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconModel.Companion.toValueIcon
@@ -10,10 +9,10 @@ import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.feature.location.extensions.icon
 import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItem
-import de.niklasbednarczyk.nbweather.feature.location.extensions.toValueItemWithUnit
+import java.time.DayOfWeek
 
 data class LocationOverviewHourlyModel(
-    val forecastTime: Long,
+    val forecastTime: NBDateTimeModel?,
     val itemsCompact: List<NBGridItem.OneLine?>,
     val itemsMedium: List<NBGridItem.OneLine?>,
     val itemsExpanded: List<NBGridItem.OneLine?>
@@ -23,30 +22,21 @@ data class LocationOverviewHourlyModel(
 
         fun from(
             oneCall: OneCallModelData,
-            timeFormat: NBTimeFormatType
-        ): Map<NBString?, List<LocationOverviewHourlyModel>> {
-            val timezoneOffset = oneCall.metadata.timezoneOffset
-            val units = oneCall.metadata.units
+        ): Map<DayOfWeek?, List<LocationOverviewHourlyModel>> {
 
             return oneCall.hourlyForecasts
                 .groupBy { hourly ->
-                    hourly.forecastTime?.getDateWeekdayWithDateString(timezoneOffset)
+                    hourly.forecastTime?.dateDayOfWeekType
                 }.mapValues { entry ->
                     entry.value.mapNotNull { hourlyForecast ->
                         val itemsCompact = mutableListOf<NBGridItem.OneLine?>()
 
                         itemsCompact.add(
                             nbNullSafe(
-                                hourlyForecast.forecastTime?.getTimeString(
-                                    timezoneOffset,
-                                    timeFormat,
-                                    false
-                                )
+                                hourlyForecast.forecastTime
                             ) { time ->
                                 NBGridItem.OneLine(
-                                    value = NBValueItem.Texts(
-                                        time
-                                    )
+                                    value = NBValueItem.Time(time)
                                 )
                             }
                         )
@@ -57,7 +47,7 @@ data class LocationOverviewHourlyModel(
                             ) { weatherIcon ->
                                 NBGridItem.OneLine(
                                     value = NBValueItem.Icon(
-                                        valueIcon = weatherIcon.type.icon.toValueIcon()
+                                        valueIcon = weatherIcon.icon.toValueIcon()
                                     )
                                 )
                             }
@@ -66,7 +56,9 @@ data class LocationOverviewHourlyModel(
                         itemsCompact.add(
                             nbNullSafe(hourlyForecast.temperature) { temperature ->
                                 NBGridItem.OneLine(
-                                    value = temperature.toValueItemWithUnit(units)
+                                    value = NBValueItem.Units(
+                                        unitsValue = temperature.getShort()
+                                    )
                                 )
                             }
                         )
@@ -89,25 +81,10 @@ data class LocationOverviewHourlyModel(
                                 hourlyForecast.windSpeed
                             ) { windDegrees, windSpeed ->
 
-                                val windGust = hourlyForecast.windGust
-
-                                val texts =
-                                    if (windGust != null && windGust.value > windSpeed.value) {
-                                        listOf(
-                                            windGust.displayValue,
-                                            windGust.getUnit(units)
-                                        )
-                                    } else {
-                                        listOf(
-                                            windSpeed.displayValue,
-                                            windSpeed.getUnit(units)
-                                        )
-                                    }
-
                                 NBGridItem.OneLine(
-                                    value = NBValueItem.IconWithTexts(
+                                    value = NBValueItem.IconWithUnits(
                                         valueIcon = NBIcons.WindDegrees.toValueIcon(windDegrees.rotationDegrees),
-                                        texts = texts.toTypedArray()
+                                        unitsValue = windSpeed
                                     )
                                 )
                             }
@@ -118,10 +95,9 @@ data class LocationOverviewHourlyModel(
                         val rainGridItem =
                             nbNullSafe(hourlyForecast.rain1hVolume) { rain1hVolume ->
                                 NBGridItem.OneLine(
-                                    value = NBValueItem.IconWithTexts(
+                                    value = NBValueItem.IconWithUnits(
                                         valueIcon = NBIcons.Rain.toValueIcon(),
-                                        rain1hVolume.displayValue,
-                                        rain1hVolume.unit
+                                        unitsValue = rain1hVolume,
                                     )
                                 )
                             }
@@ -129,10 +105,9 @@ data class LocationOverviewHourlyModel(
                         val snowGridItem =
                             nbNullSafe(hourlyForecast.snow1hVolume) { snow1hVolume ->
                                 NBGridItem.OneLine(
-                                    value = NBValueItem.IconWithTexts(
+                                    value = NBValueItem.IconWithUnits(
                                         valueIcon = NBIcons.Snow.toValueIcon(),
-                                        snow1hVolume.displayValue,
-                                        snow1hVolume.unit
+                                        unitsValue = snow1hVolume,
                                     )
                                 )
                             }
@@ -158,7 +133,7 @@ data class LocationOverviewHourlyModel(
                         )
 
                         nbNullSafe(
-                            hourlyForecast.forecastTime?.value,
+                            hourlyForecast.forecastTime,
                         ) { forecastTime ->
                             LocationOverviewHourlyModel(
                                 forecastTime = forecastTime,

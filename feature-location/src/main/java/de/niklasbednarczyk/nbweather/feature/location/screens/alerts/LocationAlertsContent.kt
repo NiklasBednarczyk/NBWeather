@@ -10,12 +10,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.accompanist.flowlayout.FlowRow
+import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.border.nbBorder
 import de.niklasbednarczyk.nbweather.core.ui.expandable.NBExpandableView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.text.nbCombinedString
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefault
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefaultDp
+import de.niklasbednarczyk.nbweather.core.ui.dimens.flowRowCrossAxisSpacing
+import de.niklasbednarczyk.nbweather.core.ui.dimens.flowRowMainAxisSpacing
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listItemPaddingValuesHorizontal
+import de.niklasbednarczyk.nbweather.core.ui.dimens.tagPadding
+import de.niklasbednarczyk.nbweather.core.ui.R
+import de.niklasbednarczyk.nbweather.core.ui.common.time
 import de.niklasbednarczyk.nbweather.feature.location.screens.alerts.models.LocationAlertExpandableItem
 
 @Composable
@@ -35,12 +43,12 @@ fun LocationAlertsContent(
                                 Text(alert.eventName.asString())
                             },
                             supportingContent = {
-                                val text = nbCombinedString(
-                                    alert.startDate,
-                                    alert.endDate,
-                                    separator = " - "
+                                val startAndEndDate = NBString.Resource(
+                                    R.string.format_range_2_items,
+                                    alert.startDate.time,
+                                    alert.endDate.time
                                 )
-                                Text(text.asString())
+                                Text(startAndEndDate.asString())
                             },
                             trailingContent = icon
                         )
@@ -60,12 +68,14 @@ fun LocationAlertsContent(
                                             style = MaterialTheme.typography.bodyMedium
                                         )
                                     }
+
                                     is LocationAlertExpandableItem.Sender -> {
                                         Text(
                                             text = expandableItem.text.asString(),
                                             style = MaterialTheme.typography.bodySmall
                                         )
                                     }
+
                                     is LocationAlertExpandableItem.Tags -> {
                                         FlowRow(
                                             mainAxisSpacing = flowRowMainAxisSpacing,

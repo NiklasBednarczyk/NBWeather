@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
@@ -13,13 +12,14 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
-
-    companion object {
-        private val LANGUAGE_TYPE = NBLanguageType.ENGLISH
-    }
 
     private lateinit var subject: GeocodingRepository
 
@@ -43,10 +43,10 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         val locationName = "Test"
         val remoteArrange =
             geocodingService.getLocationsByLocationName(locationName, 5)
-        val dataArrange = LocationModelData.remoteListToData(remoteArrange, LANGUAGE_TYPE)
+        val dataArrange = LocationModelData.remoteListToData(remoteArrange)
 
         // Act + Assert
-        subject.getLocationsByLocationName(locationName, LANGUAGE_TYPE)
+        subject.getLocationsByLocationName(locationName)
             .collectUntilResource { dataAct ->
                 assertListsContainSameItems(dataArrange.mapToLatLong(), dataAct.mapToLatLong())
             }
@@ -58,7 +58,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getVisitedLocations(LANGUAGE_TYPE).collectUntilResource { dataAct ->
+        subject.getVisitedLocations().collectUntilResource { dataAct ->
             assertListDoesContain(dataAct?.mapToLatLong(), 1.toLatLong(), 3.toLatLong())
             assertListDoesNotContain(dataAct?.mapToLatLong(), 2.toLatLong())
         }
@@ -70,7 +70,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getCurrentLocation(LANGUAGE_TYPE).collectUntilResource { dataAct ->
+        subject.getCurrentLocation().collectUntilResource { dataAct ->
             assertEquals(1.toLatLong(), dataAct?.toLatLong())
         }
     }
@@ -81,7 +81,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithoutTimestamps()
 
         // Act + Assert
-        subject.getCurrentLocation(LANGUAGE_TYPE).collectUntilResource { dataAct ->
+        subject.getCurrentLocation().collectUntilResource { dataAct ->
             assertNull(dataAct)
         }
     }
@@ -92,7 +92,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getIsInitialCurrentLocationSet(LANGUAGE_TYPE).collectUntilResource { dataAct ->
+        subject.getIsInitialCurrentLocationSet().collectUntilResource { dataAct ->
             assertTrue(dataAct)
         }
     }
@@ -103,7 +103,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithoutTimestamps()
 
         // Act + Assert
-        subject.getIsInitialCurrentLocationSet(LANGUAGE_TYPE).collectUntilResource { dataAct ->
+        subject.getIsInitialCurrentLocationSet().collectUntilResource { dataAct ->
             assertFalse(dataAct)
         }
     }
@@ -114,7 +114,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithTimestamps()
 
         // Act + Assert
-        subject.getVisitedLocationsInfo(LANGUAGE_TYPE).collectUntilResource { dataAct ->
+        subject.getVisitedLocationsInfo().collectUntilResource { dataAct ->
             assertListIsNotEmpty(dataAct.visitedLocations)
             assertNotNull(dataAct.currentLocation)
             assertTrue(dataAct.isInitialCurrentLocationSet)
@@ -127,7 +127,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         arrangeLocationsWithoutTimestamps()
 
         // Act + Assert
-        subject.getVisitedLocationsInfo(LANGUAGE_TYPE).collectUntilResource { dataAct ->
+        subject.getVisitedLocationsInfo().collectUntilResource { dataAct ->
             assertListIsEmpty(dataAct.visitedLocations)
             assertNull(dataAct.currentLocation)
             assertFalse(dataAct.isInitialCurrentLocationSet)

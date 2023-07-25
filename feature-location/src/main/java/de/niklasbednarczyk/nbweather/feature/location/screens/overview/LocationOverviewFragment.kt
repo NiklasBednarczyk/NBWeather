@@ -16,6 +16,7 @@ class LocationOverviewFragment : NBFragmentUiState<LocationOverviewUiState>() {
 
     override val viewModel: LocationOverviewViewModel by viewModels()
 
+    @Composable
     override fun createTopAppBarItem(viewData: LocationOverviewUiState): NBTopAppBarItem {
         val location = viewData.locationResource?.dataOrNull
         return NBTopAppBarItem.Material.CenterAligned(

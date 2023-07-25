@@ -24,8 +24,6 @@ class LayerUiConventionPlugin : NBConventionPlugin {
 
             androidTestImplementation(project(":test-common"))
 
-            implementation(project(":library-materialcolorutilities"))
-
             implementation(libs.getLibrary("androidx.activity.activityCompose"))
             implementation(libs.getLibrary("androidx.activity.activityKtx"))
             implementation(libs.getLibrary("androidx.compose.material3.material3"))

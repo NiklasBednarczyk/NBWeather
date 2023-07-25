@@ -1,12 +1,11 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
 import android.content.Context
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
-import de.niklasbednarczyk.nbweather.core.common.time.getCurrentTimestampEpochSeconds
+import de.niklasbednarczyk.nbweather.core.common.datetime.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOnlineMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.data.geocoding.constants.ConstantsDataGeocoding
+import de.niklasbednarczyk.nbweather.core.data.localremote.remote.constants.ConstantsCoreRemote
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
@@ -43,8 +42,7 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun getLocationsByLocationName(
-        locationName: String,
-        language: NBLanguageType
+        locationName: String
     ): Flow<NBResource<List<LocationModelData>>> {
         return object :
             LocalRemoteOnlineMediator<List<LocationModelData>, List<LocationModelRemote>>() {
@@ -52,7 +50,7 @@ class GeocodingRepository @Inject constructor(
             override suspend fun getRemote(): List<LocationModelRemote> {
                 return geocodingService.getLocationsByLocationName(
                     locationName = locationName,
-                    limit = ConstantsDataGeocoding.Default.LIMIT_LOCATIONS_BY_LOCATION_NAME
+                    limit = ConstantsCoreRemote.Query.Limit.VALUE_BY_LOCATION_NAME
                 )
             }
 
@@ -61,46 +59,40 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun remoteToData(remote: List<LocationModelRemote>): List<LocationModelData> {
-                return LocationModelData.remoteListToData(remote, language)
+                return LocationModelData.remoteListToData(remote)
             }
 
         }()
     }
 
-    fun getVisitedLocations(
-        language: NBLanguageType
-    ): Flow<NBResource<List<LocationModelData>?>> {
+    fun getVisitedLocations(): Flow<NBResource<List<LocationModelData>?>> {
         return object : LocalMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
             override fun getLocal(): Flow<List<LocationModelLocal>?> {
                 return geocodingDao.getVisitedLocations()
             }
 
             override fun localToData(local: List<LocationModelLocal>?): List<LocationModelData>? {
-                return LocationModelData.localListToData(local, language)
+                return LocationModelData.localListToData(local)
             }
 
         }()
     }
 
-    fun getCurrentLocation(
-        language: NBLanguageType
-    ): Flow<NBResource<LocationModelData?>> {
+    fun getCurrentLocation(): Flow<NBResource<LocationModelData?>> {
         return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
                 return geocodingDao.getCurrentLocation()
             }
 
             override fun localToData(local: LocationModelLocal?): LocationModelData? {
-                return LocationModelData.localToData(local, language)
+                return LocationModelData.localToData(local)
             }
 
         }()
     }
 
-    fun getIsInitialCurrentLocationSet(
-        language: NBLanguageType = NBLanguageType.ENGLISH
-    ): Flow<NBResource<Boolean>> {
-        return getCurrentLocation(language).transformWhile { resource ->
+    fun getIsInitialCurrentLocationSet(): Flow<NBResource<Boolean>> {
+        return getCurrentLocation().transformWhile { resource ->
             val newResource = resource.map { oldData ->
                 oldData != null
             }
@@ -110,13 +102,11 @@ class GeocodingRepository @Inject constructor(
         }
     }
 
-    fun getVisitedLocationsInfo(
-        language: NBLanguageType
-    ): Flow<NBResource<VisitedLocationsInfoModelData>?> {
+    fun getVisitedLocationsInfo(): Flow<NBResource<VisitedLocationsInfoModelData>?> {
         return NBResource.combineResourceFlows(
-            getVisitedLocations(language),
-            getCurrentLocation(language),
-            getIsInitialCurrentLocationSet(language)
+            getVisitedLocations(),
+            getCurrentLocation(),
+            getIsInitialCurrentLocationSet()
         ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
             VisitedLocationsInfoModelData(
                 visitedLocations = visitedLocations ?: emptyList(),
@@ -141,7 +131,7 @@ class GeocodingRepository @Inject constructor(
             val remote = geocodingService.getLocationsByCoordinates(
                 latitude = latitude,
                 longitude = longitude,
-                limit = ConstantsDataGeocoding.Default.LIMIT_LOCATIONS_BY_COORDINATES
+                limit = ConstantsCoreRemote.Query.Limit.VALUE_BY_COORDINATES
             ).firstOrNull()
             val newLocal = LocationModelData.remoteToLocal(
                 remote = remote,

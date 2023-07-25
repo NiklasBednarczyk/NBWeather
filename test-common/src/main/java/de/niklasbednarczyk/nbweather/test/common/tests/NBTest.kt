@@ -9,8 +9,12 @@ import org.hamcrest.CoreMatchers.not
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
-import java.util.*
-import kotlin.test.*
+import java.util.Locale
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 interface NBTest {
 
@@ -120,7 +124,7 @@ interface NBTest {
         actual: Any?
     ) {
         if (actual is List<*>?) {
-            assertTrue(actual == null || actual.isEmpty())
+            assertTrue(actual.isNullOrEmpty())
         } else {
             assertNull(actual)
         }

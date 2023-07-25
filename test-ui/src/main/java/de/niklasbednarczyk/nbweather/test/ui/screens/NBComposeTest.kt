@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.test.espresso.Espresso
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
@@ -26,6 +27,14 @@ interface NBComposeTest : NBTest {
     fun createNBString(value: String) = NBString.Value.from(value)
 
     fun <T> createNBResource(data: T) = NBResource.Success(data)
+
+    fun createNBDateTimeModel(
+        epochSeconds: Long = 1672531200,
+        timezoneOffsetHours: Long = 0
+    ): NBDateTimeModel? {
+        val timezoneOffset = timezoneOffsetHours.times(3600)
+        return NBDateTimeModel.from(epochSeconds, timezoneOffset)
+    }
 
     fun SemanticsNodeInteractionsProvider.onNodeWithText(
         @StringRes resId: Int,

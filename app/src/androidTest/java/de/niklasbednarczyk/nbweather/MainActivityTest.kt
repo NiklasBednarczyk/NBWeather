@@ -1,9 +1,16 @@
 package de.niklasbednarczyk.nbweather
 
-import androidx.annotation.StringRes
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onLast
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.test.rule.GrantPermissionRule
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -97,43 +104,24 @@ class MainActivityTest : NBComposeTest {
 
             // LocationOverview -> SettingsOverview
             clickDrawerItem(getString(R.string.screen_settings_overview_title))
-            onNodeWithText(R.string.screen_settings_overview_header_appearance)
+            onNodeWithText(R.string.screen_settings_appearance_title)
                 .assertIsDisplayed()
 
-            // SettingsOverview -> SettingsTheme
-            testSettingsOverviewNavigation(
-                titleResId = R.string.screen_settings_theme_title,
-                valueOldResId = R.string.screen_settings_theme_value_light,
-                valueNewResId = R.string.screen_settings_theme_value_system_default
-            )
+            // SettingsOverview -> SettingsAppearance
+            onNodeWithText(R.string.screen_settings_appearance_title)
+                .performClick()
+            onNodeWithText(R.string.screen_settings_appearance_header_theme)
+                .assertIsDisplayed()
 
-            // SettingsOverview -> SettingsColorScheme
-            testSettingsOverviewNavigation(
-                titleResId = R.string.screen_settings_color_scheme_title,
-                valueOldResId = R.string.screen_settings_color_scheme_value_red,
-                valueNewResId = R.string.screen_settings_color_scheme_value_cyan
-            )
-
-            // SettingsOverview -> SettingsLanguage
-            testSettingsOverviewNavigation(
-                titleResId = R.string.screen_settings_language_title,
-                valueOldResId = R.string.screen_settings_language_value_afrikaans,
-                valueNewResId = R.string.screen_settings_language_value_german
-            )
+            pressBack()
 
             // SettingsOverview -> SettingsUnits
-            testSettingsOverviewNavigation(
-                titleResId = R.string.screen_settings_units_title,
-                valueOldResId = R.string.screen_settings_units_value_standard,
-                valueNewResId = R.string.screen_settings_units_value_imperial
-            )
+            onNodeWithText(R.string.screen_settings_units_title)
+                .performClick()
+            onNodeWithText(R.string.screen_settings_units_header_temperature)
+                .assertIsDisplayed()
 
-            // SettingsOverview -> SettingsTimeFormat
-            testSettingsOverviewNavigation(
-                titleResId = R.string.screen_settings_time_format_title,
-                valueOldResId = R.string.screen_settings_time_format_value_hour_12,
-                valueNewResId = R.string.screen_settings_time_format_value_hour_24
-            )
+            pressBack()
 
             pressBack()
 
@@ -166,22 +154,6 @@ class MainActivityTest : NBComposeTest {
     private fun ComposeContentTestRule.switchTab(icon: NBIconModel) {
         onNodeWithIcon(icon, useUnmergedTree = true)
             .performClick()
-    }
-
-    private fun ComposeContentTestRule.testSettingsOverviewNavigation(
-        @StringRes titleResId: Int,
-        @StringRes valueOldResId: Int,
-        @StringRes valueNewResId: Int,
-    ) {
-        onNodeWithText(valueOldResId)
-            .assertIsDisplayed()
-        onNodeWithText(titleResId)
-            .performClick()
-        onNodeWithText(valueNewResId)
-            .performClick()
-        onNodeWithText(valueNewResId)
-            .assertIsDisplayed()
-
     }
 
     private fun ComposeContentTestRule.clickDrawerItem(text: String) {

@@ -8,9 +8,9 @@ import dagger.hilt.testing.TestInstallIn
 import de.niklasbednarczyk.nbweather.core.data.disk.utils.createFakeDataStore
 import de.niklasbednarczyk.nbweather.data.settings.constants.ConstantsDataSettings
 import de.niklasbednarczyk.nbweather.data.settings.proto.appearance.SettingsAppearanceProto
-import de.niklasbednarczyk.nbweather.data.settings.proto.data.SettingsDataProto
+import de.niklasbednarczyk.nbweather.data.settings.proto.units.SettingsUnitsProto
 import de.niklasbednarczyk.nbweather.data.settings.serializers.SettingsAppearanceSerializer
-import de.niklasbednarczyk.nbweather.data.settings.serializers.SettingsDataSerializer
+import de.niklasbednarczyk.nbweather.data.settings.serializers.SettingsUnitsSerializer
 import org.junit.rules.TemporaryFolder
 import javax.inject.Singleton
 
@@ -35,14 +35,14 @@ object FakeModuleSettingsData {
 
     @Provides
     @Singleton
-    internal fun provideDataStoreSettingsData(
+    internal fun provideDataStoreSettingsUnits(
         temporaryFolder: TemporaryFolder,
-        serializer: SettingsDataSerializer,
-    ): DataStore<SettingsDataProto> =
+        serializer: SettingsUnitsSerializer,
+    ): DataStore<SettingsUnitsProto> =
         createFakeDataStore(
             temporaryFolder = temporaryFolder,
             serializer = serializer,
-            fileName = ConstantsDataSettings.DataStore.SETTINGS_DATA_FILE_NAME
+            fileName = ConstantsDataSettings.DataStore.SETTINGS_UNITS_FILE_NAME
         )
 
 }

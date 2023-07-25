@@ -7,19 +7,39 @@ import de.niklasbednarczyk.nbweather.test.data.disk.serializers.NBSerializerTest
 class SettingsAppearanceSerializerTest : NBSerializerTest<SettingsAppearanceProto>() {
 
     override fun createSerializer(): Serializer<SettingsAppearanceProto> {
-        return SettingsAppearanceSerializer()
+        return SettingsAppearanceSerializer(context)
     }
 
     override val expectedDefaultValue: SettingsAppearanceProto
-        get() = SettingsAppearanceProto.newBuilder()
-            .setTheme(SettingsAppearanceProto.ThemeProto.SYSTEM_DEFAULT)
-            .setColorScheme(SettingsAppearanceProto.ColorSchemeProto.YELLOW)
-            .build()
+        get() {
+            val theme = if (SettingsAppearanceSerializer.isSystemInDarkTheme(context)) {
+                SettingsAppearanceProto.ThemeProto.DARK
+            } else {
+                SettingsAppearanceProto.ThemeProto.LIGHT
+            }
+
+            return SettingsAppearanceProto.newBuilder()
+                .setUseDeviceTheme(true)
+                .setTheme(theme)
+                .setUseDynamicColorScheme(true)
+                .setColorScheme(SettingsAppearanceProto.ColorSchemeProto.YELLOW)
+                .build()
+        }
 
     override val expectedNewValue: SettingsAppearanceProto
-        get() = SettingsAppearanceProto.newBuilder()
-            .setTheme(SettingsAppearanceProto.ThemeProto.DARK)
-            .setColorScheme(SettingsAppearanceProto.ColorSchemeProto.BLUE)
-            .build()
+        get() {
+            val theme = if (SettingsAppearanceSerializer.isSystemInDarkTheme(context)) {
+                SettingsAppearanceProto.ThemeProto.LIGHT
+            } else {
+                SettingsAppearanceProto.ThemeProto.DARK
+            }
+
+            return SettingsAppearanceProto.newBuilder()
+                .setUseDeviceTheme(false)
+                .setTheme(theme)
+                .setUseDynamicColorScheme(false)
+                .setColorScheme(SettingsAppearanceProto.ColorSchemeProto.BLUE)
+                .build()
+        }
 
 }

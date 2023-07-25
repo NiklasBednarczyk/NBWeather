@@ -3,16 +3,17 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsDataRepository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchOverviewViewModel @Inject constructor(
-    private val geocodingRepository: GeocodingRepository,
-    private val settingsDataRepository: SettingsDataRepository,
+    private val geocodingRepository: GeocodingRepository
 ) : NBViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
 
     companion object {
@@ -24,30 +25,25 @@ class SearchOverviewViewModel @Inject constructor(
     init {
         collectFlow(
             {
-                settingsDataRepository.getData().flatMapLatest { data ->
-                    geocodingRepository.getVisitedLocationsInfo(data.language)
-                }
+                geocodingRepository.getVisitedLocationsInfo()
             },
             { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
         )
 
         collectFlow(
             {
-                settingsDataRepository.getData().flatMapLatest { data ->
-                    searchTermFlow
-                        .debounce(DEBOUNCE_VALUE)
-                        .distinctUntilChanged()
-                        .flatMapLatest { searchTerm ->
-                            if (searchTerm.isNotBlank()) {
-                                geocodingRepository.getLocationsByLocationName(
-                                    searchTerm,
-                                    data.language
-                                )
-                            } else {
-                                flowOf(null)
-                            }
+                searchTermFlow
+                    .debounce(DEBOUNCE_VALUE)
+                    .distinctUntilChanged()
+                    .flatMapLatest { searchTerm ->
+                        if (searchTerm.isNotBlank()) {
+                            geocodingRepository.getLocationsByLocationName(
+                                searchTerm,
+                            )
+                        } else {
+                            flowOf(null)
                         }
-                }
+                    }
             },
             { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
         )

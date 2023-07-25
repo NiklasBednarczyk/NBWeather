@@ -81,6 +81,7 @@ abstract class NBFragment<UiState, ViewData> : Fragment(), NBNavControllerContai
     @Composable
     protected abstract fun createViewData(): ViewData
 
+    @Composable
     protected abstract fun createTopAppBarItem(viewData: ViewData): NBTopAppBarItem
 
     @Composable

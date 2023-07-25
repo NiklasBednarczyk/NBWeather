@@ -4,11 +4,16 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.performClick
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
+import de.niklasbednarczyk.nbweather.data.geocoding.models.LocalNamesModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.models.VisitedLocationsInfoModelData
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBContentTest
 import org.junit.Test
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class SearchOverviewContentTest : NBContentTest() {
 
@@ -254,12 +259,16 @@ class SearchOverviewContentTest : NBContentTest() {
     private fun testLocation(
         number: Int
     ): LocationModelData {
-        val name = number.toString()
+        val id = number.toString()
         val latLong = number.toDouble()
         return LocationModelData(
-            localizedName = createNBString("localizedName $name"),
-            localizedNameAndCountry = createNBString("localizedNameAndCountry $name"),
-            stateAndCountry = createNBString("stateAndCountry $name"),
+            localNames = LocalNamesModelData(
+                de = "de $id",
+                en = "en $id"
+            ),
+            name = "name $id",
+            state = "state $id",
+            country = "country $id",
             latitude = latLong,
             longitude = latLong
         )

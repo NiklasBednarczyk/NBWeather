@@ -5,16 +5,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
+import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerDividerPadding
+import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineColor
+import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineHeight
+import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlinePadding
+import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineTextStyle
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestination
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.*
 
 @Composable
 fun NBNavigationDrawer(
@@ -56,6 +66,7 @@ private fun DrawerSheet(
                             Modifier.padding(navigationDrawerDividerPadding)
                         )
                     }
+
                     is NBNavigationDrawerItem.Headline -> {
                         Box(
                             modifier = Modifier
@@ -71,6 +82,7 @@ private fun DrawerSheet(
                         }
 
                     }
+
                     is NBNavigationDrawerItem.Item.Location -> {
                         DrawerItem(
                             closeDrawer = closeDrawer,
@@ -85,6 +97,7 @@ private fun DrawerSheet(
                             selected = drawerItem.selected
                         )
                     }
+
                     is NBNavigationDrawerItem.Item.Other -> {
                         DrawerItem(
                             closeDrawer = closeDrawer,

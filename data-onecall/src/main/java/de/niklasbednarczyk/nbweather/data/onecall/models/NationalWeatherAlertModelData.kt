@@ -3,13 +3,13 @@ package de.niklasbednarczyk.nbweather.data.onecall.models
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.NationalWeatherAlertEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.NationalWeatherAlertModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.DateTimeValue
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 
 data class NationalWeatherAlertModelData(
     val senderName: NBString?,
     val eventName: NBString?,
-    val startDate: DateTimeValue?,
-    val endDate: DateTimeValue?,
+    val startDate: NBDateTimeModel?,
+    val endDate: NBDateTimeModel?,
     val description: NBString?,
     val tags: List<NBString>?
 ) {
@@ -34,14 +34,15 @@ data class NationalWeatherAlertModelData(
         }
 
         internal fun localToData(
-            localList: List<NationalWeatherAlertEntityLocal>?
+            localList: List<NationalWeatherAlertEntityLocal>?,
+            timezoneOffset: Long?
         ): List<NationalWeatherAlertModelData> {
             return localList?.map { local ->
                 NationalWeatherAlertModelData(
                     senderName = NBString.Value.from(local.senderName),
                     eventName = NBString.Value.from(local.event),
-                    startDate = DateTimeValue.from(local.start),
-                    endDate = DateTimeValue.from(local.end),
+                    startDate = NBDateTimeModel.from(local.start, timezoneOffset),
+                    endDate = NBDateTimeModel.from(local.end, timezoneOffset),
                     description = NBString.Value.from(local.description),
                     tags = local.tags?.mapNotNull { tag -> NBString.Value.from(tag) }
                 )

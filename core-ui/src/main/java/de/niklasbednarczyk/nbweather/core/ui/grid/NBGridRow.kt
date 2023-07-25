@@ -13,7 +13,7 @@ import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridItem.Companion.toValueIc
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridItem.Companion.toValueList
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbHyphenated
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementSmall
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconModel
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconView
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem

@@ -12,8 +12,14 @@ object ConstantsCoreRemote {
             const val VALUE = BuildConfig.openweathermapapiKey
         }
 
+        object Exclude {
+            const val NAME = "exclude"
+            const val VALUE = ""
+        }
+
         object Language {
             const val NAME = "lang"
+            const val VALUE = "en"
         }
 
         object Latitude {
@@ -22,6 +28,8 @@ object ConstantsCoreRemote {
 
         object Limit {
             const val NAME = "limit"
+            const val VALUE_BY_COORDINATES = 1
+            const val VALUE_BY_LOCATION_NAME = 5
         }
 
         object LocationName {
@@ -34,6 +42,7 @@ object ConstantsCoreRemote {
 
         object Units {
             const val NAME = "units"
+            const val VALUE = "standard"
         }
 
     }

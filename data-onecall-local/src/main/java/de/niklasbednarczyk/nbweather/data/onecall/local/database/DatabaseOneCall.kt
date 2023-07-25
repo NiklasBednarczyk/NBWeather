@@ -17,7 +17,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.typeconverters.TypeConve
         NationalWeatherAlertEntityLocal::class,
         OneCallMetadataEntityLocal::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(TypeConvertersLocal::class)

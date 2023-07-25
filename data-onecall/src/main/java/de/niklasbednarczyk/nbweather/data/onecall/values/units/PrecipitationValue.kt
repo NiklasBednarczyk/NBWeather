@@ -1,22 +1,35 @@
 package de.niklasbednarczyk.nbweather.data.onecall.values.units
 
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPrecipitationUnitType
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class PrecipitationValue private constructor(override val value: Double) :
-    UnitsValue.Independent {
+value class PrecipitationValue private constructor(override val value: Double) : NBUnitsValue {
 
-    override val roundingType: UnitsValue.RoundingType
-        get() = UnitsValue.RoundingType.ONE_DIGIT
+    override fun getConvertedValue(units: NBUnitsModel): Double {
+        return when (units.precipitationUnit) {
+            NBPrecipitationUnitType.INCH -> value.div(25.4) // millimeter to inch
+            NBPrecipitationUnitType.MILLIMETER -> value // millimeter to millimeter
+        }
+    }
 
-    override val unit: NBString
-        get() = NBString.Resource(R.string.unit_precipitation)
+    override fun getSymbol(units: NBUnitsModel): NBString? {
+        return units.precipitationUnit.symbol
+    }
+
+    override fun getFractionDigits(units: NBUnitsModel): Int {
+        return when (units.precipitationUnit) {
+            NBPrecipitationUnitType.INCH -> 2
+            NBPrecipitationUnitType.MILLIMETER -> 1
+        }
+    }
 
     companion object {
 
-        internal fun from(value: Double?): PrecipitationValue? {
+        fun from(value: Double?): PrecipitationValue? {
             return nbNullSafe(value) { PrecipitationValue(it) }
         }
 

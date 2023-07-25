@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.feature.location.cards.models
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
@@ -10,7 +9,6 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueIconModel.Companion.toValueIcon
 import de.niklasbednarczyk.nbweather.core.ui.values.NBValueItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.TimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.feature.location.extensions.displayText
 import de.niklasbednarczyk.nbweather.feature.location.extensions.icon
 
@@ -22,10 +20,7 @@ data class LocationCardSunAndMoonModel(
 
     companion object {
 
-
         fun from(
-            timeFormat: NBTimeFormatType,
-            timezoneOffset: TimezoneOffsetValue?,
             dailyForecast: DailyForecastModelData?
         ): LocationCardSunAndMoonModel? {
             val cardTitle =
@@ -40,9 +35,7 @@ data class LocationCardSunAndMoonModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_sun_and_moon_value_sunrise),
                         valueIcon = NBIcons.Sunrise.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            sunrise.getTimeString(timezoneOffset, timeFormat)
-                        )
+                        value = NBValueItem.Time(sunrise)
                     )
                 }
             )
@@ -52,7 +45,7 @@ data class LocationCardSunAndMoonModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_sun_and_moon_value_daylight),
                         valueIcon = NBIcons.Daylight.toValueIcon(),
-                        value = NBValueItem.Texts(
+                        value = NBValueItem.Text(
                             daylight
                         )
                     )
@@ -64,9 +57,7 @@ data class LocationCardSunAndMoonModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_sun_and_moon_value_sunset),
                         valueIcon = NBIcons.Sunset.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            sunset.getTimeString(timezoneOffset, timeFormat)
-                        )
+                        value = NBValueItem.Time(sunset)
                     )
                 }
             )
@@ -78,9 +69,7 @@ data class LocationCardSunAndMoonModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_sun_and_moon_value_moonrise),
                         valueIcon = NBIcons.Moonrise.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            moonrise.getTimeString(timezoneOffset, timeFormat)
-                        )
+                        value = NBValueItem.Time(moonrise)
                     )
 
                 }
@@ -91,7 +80,7 @@ data class LocationCardSunAndMoonModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_sun_and_moon_value_moon_phase),
                         valueIcon = moonPhaseType.icon.toValueIcon(),
-                        value = NBValueItem.Texts(
+                        value = NBValueItem.Text(
                             moonPhaseType.displayText
                         )
 
@@ -104,9 +93,7 @@ data class LocationCardSunAndMoonModel(
                     NBGridItem.ThreeLines(
                         title = NBString.Resource(R.string.screen_location_card_sun_and_moon_value_moonset),
                         valueIcon = NBIcons.Moonset.toValueIcon(),
-                        value = NBValueItem.Texts(
-                            moonset.getTimeString(timezoneOffset, timeFormat)
-                        )
+                        value = NBValueItem.Time(moonset)
                     )
                 }
             )

@@ -1,21 +1,29 @@
 package de.niklasbednarczyk.nbweather.data.onecall.values.units
 
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class PercentValue private constructor(override val value: Long) : UnitsValue.Independent {
+value class PercentValue private constructor(override val value: Long) : NBUnitsValue {
 
-    override val roundingType: UnitsValue.RoundingType
-        get() = UnitsValue.RoundingType.ZERO_DIGITS
+    override fun getConvertedValue(units: NBUnitsModel): Double {
+        return value.toDouble()
+    }
 
-    override val unit: NBString
-        get() = NBString.Resource(R.string.unit_percent)
+    override fun getSymbol(units: NBUnitsModel): NBString {
+        return NBString.Resource(R.string.unit_symbol_percent)
+    }
+
+    override fun shouldAddSpaceBetweenValueAndSymbol(units: NBUnitsModel): Boolean {
+        return false
+    }
 
     companion object {
 
-        internal fun from(value: Long?): PercentValue? {
+        fun from(value: Long?): PercentValue? {
             return nbNullSafe(value) { PercentValue(it) }
         }
 

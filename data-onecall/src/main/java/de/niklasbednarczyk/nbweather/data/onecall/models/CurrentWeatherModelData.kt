@@ -1,16 +1,22 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.DateTimeValue
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.CurrentWeatherEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.CurrentWeatherModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.*
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 
 data class CurrentWeatherModelData(
-    val currentTime: DateTimeValue?,
-    val sunrise: DateTimeValue?,
-    val sunset: DateTimeValue?,
+    val currentTime: NBDateTimeModel?,
+    val sunrise: NBDateTimeModel?,
+    val sunset: NBDateTimeModel?,
     val currentTemperature: TemperatureValue?,
     val feelsLikeTemperature: TemperatureValue?,
     val pressure: PressureValue?,
@@ -56,12 +62,13 @@ data class CurrentWeatherModelData(
         }
 
         internal fun localToData(
-            local: CurrentWeatherEntityLocal?
+            local: CurrentWeatherEntityLocal?,
+            timezoneOffset: Long?
         ): CurrentWeatherModelData {
             return CurrentWeatherModelData(
-                currentTime = DateTimeValue.from(local?.dt),
-                sunrise = DateTimeValue.from(local?.sunrise),
-                sunset = DateTimeValue.from(local?.sunset),
+                currentTime = NBDateTimeModel.from(local?.dt, timezoneOffset),
+                sunrise = NBDateTimeModel.from(local?.sunrise, timezoneOffset),
+                sunset = NBDateTimeModel.from(local?.sunset, timezoneOffset),
                 currentTemperature = TemperatureValue.from(local?.temp),
                 feelsLikeTemperature = TemperatureValue.from(local?.feelsLike),
                 pressure = PressureValue.from(local?.pressure),

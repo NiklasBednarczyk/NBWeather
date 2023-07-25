@@ -3,8 +3,8 @@
     <string name="error_text_unknown">Etwas ist schief gelaufen</string>
 
     <string name="icon_content_description_back">Zurück</string>
-    <string name="icon_content_description_cancel">Cancel</string>
-    <string name="icon_content_description_delete">Abbrechen</string>
+    <string name="icon_content_description_cancel">Abbrechen</string>
+    <string name="icon_content_description_delete">Löschen</string>
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_expand">Ausklappen</string>
     <string name="icon_content_description_find_location">Standort finden</string>
@@ -37,7 +37,7 @@
     <string name="icon_content_description_weather_day_broken_clouds">Stark bewölkt (Tag)</string>
     <string name="icon_content_description_weather_day_clear_sky">Klarer Himmel (Tag)</string>
     <string name="icon_content_description_weather_day_few_clouds">Leicht bewölkt (Tag)</string>
-    <string name="icon_content_description_weather_day_mist">Nebel (Tag)</string>
+    <string name="icon_content_description_weather_day_mist">Feuchter Dunst (Tag)</string>
     <string name="icon_content_description_weather_day_rain">Regen (Tag)</string>
     <string name="icon_content_description_weather_day_scattered_clouds">Bewölkt (Tag)</string>
     <string name="icon_content_description_weather_day_shower_rain">Regenschauer (Tag)</string>
@@ -46,7 +46,7 @@
     <string name="icon_content_description_weather_night_broken_clouds">Stark bewölkt (Nacht)</string>
     <string name="icon_content_description_weather_night_clear_sky">Klarer Himmel (Nacht)</string>
     <string name="icon_content_description_weather_night_few_clouds">Leicht bewölkt (Nacht)</string>
-    <string name="icon_content_description_weather_night_mist">Nebel (Nacht)</string>
+    <string name="icon_content_description_weather_night_mist">Feuchter Dunst (Nacht)</string>
     <string name="icon_content_description_weather_night_rain">Regen (Nacht)</string>
     <string name="icon_content_description_weather_night_scattered_clouds">Bewölkt (Nacht)</string>
     <string name="icon_content_description_weather_night_shower_rain">Regenschauer (Nacht)</string>
@@ -72,6 +72,7 @@
     <string name="screen_location_card_overview_value_precipitation_none">Kein Niederschlag innerhalb einer Stunde</string>
     <string name="screen_location_card_overview_value_precipitation_no_data">Keine Niederschlagsdaten gefunden</string>
     <string name="screen_location_card_overview_value_precipitation_starting">Niederschlag beginnt in %1$s Minuten</string>
+    <string name="screen_location_card_overview_value_temperature_feels_like">Gefühlt</string>
 
     <string name="screen_location_card_weather_title">Wetter</string>
     <string name="screen_location_card_weather_value_cloudiness">Bewölkung</string>
@@ -111,8 +112,63 @@
     <string name="screen_location_common_moon_phase_waxing_gibbous">Zunehmender Dreiviertelmond</string>
     <string name="screen_location_common_temperatures_max">Max</string>
     <string name="screen_location_common_temperatures_min">Min</string>
-    <string name="screen_location_common_wind_degrees_e">E</string>
-    <string name="screen_location_common_wind_degrees_ene">ENE</string>
+    <string name="screen_location_common_weather_condition_broken_clouds">Stark bewölkt</string>
+    <string name="screen_location_common_weather_condition_clear_sky">Klarer Himmel</string>
+    <string name="screen_location_common_weather_condition_drizzle_rain">Nieselregen</string>
+    <string name="screen_location_common_weather_condition_drizzle">Sprühregen</string>
+    <string name="screen_location_common_weather_condition_dust">Staub</string>
+    <string name="screen_location_common_weather_condition_extreme_rain">Extremer Regen</string>
+    <string name="screen_location_common_weather_condition_few_clouds">Leicht bewölkt</string>
+    <string name="screen_location_common_weather_condition_fog">Nebel</string>
+    <string name="screen_location_common_weather_condition_freezing_rain">Gefrierender Regen</string>
+    <string name="screen_location_common_weather_condition_haze">Trockener Dunst</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_drizzle_rain">Nieselregen mit starker Intensität</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_drizzle">Sprühregen mit starker Intensität</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_rain">Regen mit starker Intensität</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_shower_rain">Regenschauer mit starker Intensität</string>
+    <string name="screen_location_common_weather_condition_heavy_shower_rain_and_drizzle">Starker Regenschauer und Sprühregen</string>
+    <string name="screen_location_common_weather_condition_heavy_shower_snow">Starker Schneeschauer</string>
+    <string name="screen_location_common_weather_condition_heavy_snow">Starker Schnee</string>
+    <string name="screen_location_common_weather_condition_heavy_thunderstorm">Starkes Gewitter</string>
+    <string name="screen_location_common_weather_condition_light_intensity_drizzle_rain">Nieselregen mit schwacher Intensität</string>
+    <string name="screen_location_common_weather_condition_light_intensity_drizzle">Sprühregen mit schwacher Intensität</string>
+    <string name="screen_location_common_weather_condition_light_intensity_shower_rain">Regenschauer mit schwacher Intensität</string>
+    <string name="screen_location_common_weather_condition_light_rain_and_snow">Schwacher Regen und Schnee</string>
+    <string name="screen_location_common_weather_condition_light_rain">Schwacher Regen</string>
+    <string name="screen_location_common_weather_condition_light_shower_sleet">Schwacher Schneeregenschauer</string>
+    <string name="screen_location_common_weather_condition_light_shower_snow">Schwacher Schneeschauer</string>
+    <string name="screen_location_common_weather_condition_light_snow">Schwacher Schnee</string>
+    <string name="screen_location_common_weather_condition_light_thunderstorm">Schwaches Gewitter</string>
+    <string name="screen_location_common_weather_condition_mist">Feuchter Dunst</string>
+    <string name="screen_location_common_weather_condition_moderate_rain">Mäßiger Regen</string>
+    <string name="screen_location_common_weather_condition_overcast_clouds">Bedeckte Wolken</string>
+    <string name="screen_location_common_weather_condition_ragged_shower_rain">Wiederkehrender Regenschauer</string>
+    <string name="screen_location_common_weather_condition_ragged_thunderstorm">Wiederkehrendes Gewitter</string>
+    <string name="screen_location_common_weather_condition_rain_and_snow">Regen und Schnee</string>
+    <string name="screen_location_common_weather_condition_sand_dust_whirls">Staub- und Sandwirbel</string>
+    <string name="screen_location_common_weather_condition_sand">Sand</string>
+    <string name="screen_location_common_weather_condition_scattered_clouds">Bewölkt</string>
+    <string name="screen_location_common_weather_condition_shower_drizzle">Sprühregenschauer</string>
+    <string name="screen_location_common_weather_condition_shower_rain_and_drizzle">Regenschauer und Sprühregen</string>
+    <string name="screen_location_common_weather_condition_shower_rain">Regenschauer</string>
+    <string name="screen_location_common_weather_condition_shower_sleet">Schneeregenschauer</string>
+    <string name="screen_location_common_weather_condition_shower_snow">Schneeschauer</string>
+    <string name="screen_location_common_weather_condition_sleet">Schneeregen</string>
+    <string name="screen_location_common_weather_condition_smoke">Rauch</string>
+    <string name="screen_location_common_weather_condition_snow">Schnee</string>
+    <string name="screen_location_common_weather_condition_squalls">Böen</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_drizzle">Gewitter mit Sprühregen</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_heavy_drizzle">Gewitter mit starkem Sprühregen</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_heavy_rain">Gewitter mit starkem Regen</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_light_drizzle">Gewitter mit schwachem Sprühregen</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_light_rain">Gewitter mit schwachem Regen</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_rain">Gewitter mit Regen</string>
+    <string name="screen_location_common_weather_condition_thunderstorm">Gewitter</string>
+    <string name="screen_location_common_weather_condition_tornado">Tornado</string>
+    <string name="screen_location_common_weather_condition_very_heavy_rain">Sehr starker Regen</string>
+    <string name="screen_location_common_weather_condition_volcanic_ash">Vulkanische Asche</string>
+    <string name="screen_location_common_wind_degrees_e">O</string>
+    <string name="screen_location_common_wind_degrees_ene">ONO</string>
     <string name="screen_location_common_wind_degrees_ese">OSO</string>
     <string name="screen_location_common_wind_degrees_n">N</string>
     <string name="screen_location_common_wind_degrees_ne">NO</string>
@@ -134,79 +190,28 @@
 
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
 
-    <string name="screen_settings_color_scheme_title">Farbschema</string>
-    <string name="screen_settings_color_scheme_value_blue">Blau</string>
-    <string name="screen_settings_color_scheme_value_cyan">Cyan</string>
-    <string name="screen_settings_color_scheme_value_green">Grün</string>
-    <string name="screen_settings_color_scheme_value_magenta">Magenta</string>
-    <string name="screen_settings_color_scheme_value_red">Rot</string>
-    <string name="screen_settings_color_scheme_value_yellow">Gelb</string>
+    <string name="screen_settings_appearance_header_color_scheme">Farbschema</string>
+    <string name="screen_settings_appearance_header_theme">Design</string>
+    <string name="screen_settings_appearance_title">Aussehen</string>
+    <string name="screen_settings_appearance_value_color_scheme_blue">Blau</string>
+    <string name="screen_settings_appearance_value_color_scheme_green">Grün</string>
+    <string name="screen_settings_appearance_value_color_scheme_red">Rot</string>
+    <string name="screen_settings_appearance_value_color_scheme_yellow">Gelb</string>
+    <string name="screen_settings_appearance_value_theme_dark">Dunkel</string>
+    <string name="screen_settings_appearance_value_theme_light">Hell</string>
+    <string name="screen_settings_appearance_value_use_device_theme_title">Gerätedesign</string>
+    <string name="screen_settings_appearance_value_use_device_theme_value">Benutzt Design entsprechend dem Systemstandard des Gerätes.</string>
+    <string name="screen_settings_appearance_value_use_dynamic_color_scheme_title">Dynamisches Farbschema</string>
+    <string name="screen_settings_appearance_value_use_dynamic_color_scheme_value">Benutzt Farbschema entsprechend dem Hintergrundbild des Gerätes.</string>
 
-    <string name="screen_settings_language_title">Sprache</string>
-    <string name="screen_settings_language_value_afrikaans">Afrikaans</string>
-    <string name="screen_settings_language_value_albanian">Albanisch</string>
-    <string name="screen_settings_language_value_arabic">Arabisch</string>
-    <string name="screen_settings_language_value_azerbaijani">Aserbaidschanisch</string>
-    <string name="screen_settings_language_value_basque">Baskisch</string>
-    <string name="screen_settings_language_value_bulgarian">Bulgarisch</string>
-    <string name="screen_settings_language_value_catalan">Katalanisch</string>
-    <string name="screen_settings_language_value_chinese_simplified">Chinesisch (Vereinfacht)</string>
-    <string name="screen_settings_language_value_chinese_traditional">Chinesisch (Traditionell)</string>
-    <string name="screen_settings_language_value_croatian">Kroatisch</string>
-    <string name="screen_settings_language_value_czech">Tschechisch</string>
-    <string name="screen_settings_language_value_danish">Dänisch</string>
-    <string name="screen_settings_language_value_dutch">Niederländisch</string>
-    <string name="screen_settings_language_value_english">Englisch</string>
-    <string name="screen_settings_language_value_finnish">Finnisch</string>
-    <string name="screen_settings_language_value_french">Französisch</string>
-    <string name="screen_settings_language_value_galician">Galizisch</string>
-    <string name="screen_settings_language_value_german">Deutsch</string>
-    <string name="screen_settings_language_value_greek">Griechisch</string>
-    <string name="screen_settings_language_value_hebrew">Hebräisch</string>
-    <string name="screen_settings_language_value_hindi">Hindi</string>
-    <string name="screen_settings_language_value_hungarian">Ungarisch</string>
-    <string name="screen_settings_language_value_indonesian">Indonesisch</string>
-    <string name="screen_settings_language_value_italian">Italienisch</string>
-    <string name="screen_settings_language_value_japanese">Japanisch</string>
-    <string name="screen_settings_language_value_korean">Koreanisch</string>
-    <string name="screen_settings_language_value_latvian">Lettisch</string>
-    <string name="screen_settings_language_value_lithuanian">Litauisch</string>
-    <string name="screen_settings_language_value_macedonian">Mazedonisch</string>
-    <string name="screen_settings_language_value_norwegian">Norwegisch</string>
-    <string name="screen_settings_language_value_persian_farsi">Persisch (Farsi)</string>
-    <string name="screen_settings_language_value_polish">Polnisch</string>
-    <string name="screen_settings_language_value_portuguese">Portugiesisch</string>
-    <string name="screen_settings_language_value_portugues_brasil">Portugiesisch (Brasilien)</string>
-    <string name="screen_settings_language_value_romanian">Rumänisch</string>
-    <string name="screen_settings_language_value_russian">Russisch</string>
-    <string name="screen_settings_language_value_serbian">Serbisch</string>
-    <string name="screen_settings_language_value_slovak">Slowakisch</string>
-    <string name="screen_settings_language_value_slovenian">Slowenisch</string>
-    <string name="screen_settings_language_value_spanish">Spanisch</string>
-    <string name="screen_settings_language_value_swedish">Schwedisch</string>
-    <string name="screen_settings_language_value_thai">Thailändisch</string>
-    <string name="screen_settings_language_value_turkish">Türkisch</string>
-    <string name="screen_settings_language_value_ukrainian">Ukrainisch</string>
-    <string name="screen_settings_language_value_vietnamese">Vietnamesisch</string>
-    <string name="screen_settings_language_value_zulu">Zulu</string>
-
-    <string name="screen_settings_overview_header_appearance">Aussehen</string>
-    <string name="screen_settings_overview_header_data">Daten</string>
     <string name="screen_settings_overview_title">Einstellungen</string>
 
-    <string name="screen_settings_theme_title">Design</string>
-    <string name="screen_settings_theme_value_dark">Dunkel</string>
-    <string name="screen_settings_theme_value_light">Hell</string>
-    <string name="screen_settings_theme_value_system_default">Systemstandard</string>
-
-    <string name="screen_settings_time_format_title">Zeitformat</string>
-    <string name="screen_settings_time_format_value_hour_12">12-Stunden-Format</string>
-    <string name="screen_settings_time_format_value_hour_24">24-Stunden-Format</string>
-
+    <string name="screen_settings_units_header_distance">Entfernung</string>
+    <string name="screen_settings_units_header_precipitation">Niederschlag</string>
+    <string name="screen_settings_units_header_pressure">Druck</string>
+    <string name="screen_settings_units_header_temperature">Temperatur</string>
+    <string name="screen_settings_units_header_wind_speed">Windgeschwindigkeit</string>
     <string name="screen_settings_units_title">Einheiten</string>
-    <string name="screen_settings_units_value_imperial">Imperial (°F, mph)</string>
-    <string name="screen_settings_units_value_metric">Metrisch (°C, m/s)</string>
-    <string name="screen_settings_units_value_standard">Standard (°K, m/s)</string>
 
     <string name="snackbar_about_intent_failed_message">Keine passende App auf Ihrem Handy gefunden</string>
     <string name="snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
@@ -217,7 +222,5 @@
     <string name="snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
 
     <string name="top_app_bar_search_placeholder">Suche</string>
-
-    <string name="value_temperature_feels_like_prefix">Gefühlt</string>
 
 </resources>

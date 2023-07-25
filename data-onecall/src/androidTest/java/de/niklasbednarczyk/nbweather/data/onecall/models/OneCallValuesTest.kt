@@ -1,66 +1,33 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBDistanceUnitType
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPrecipitationUnitType
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPressureUnitType
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBTemperatureUnitType
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
+import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.DateTimeValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.TimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.*
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesType
 import de.niklasbednarczyk.nbweather.test.data.localremote.NBLocalRemoteModelTest
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class OneCallValuesTest : NBLocalRemoteModelTest {
 
-    @Test
-    fun dateTimeValue_shouldFormatDateTimeCorrectlyWhenNotChangingForLocale() {
-        testDateTimeValue(
-            locale = Locale.US,
-            changeForLocale = false,
-            expectedDateDayOfMonth = "4",
-            expectedDateWeekdayAbbreviation = "Wed",
-            expectedDateWeekdayWithDate = "Wednesday Jan 4",
-            expectedDateTime12 = "Jan 4 03:11 AM",
-            expectedDateTime24 = "Jan 4 03:11",
-            expectedTime12 = "03:11 AM",
-            expectedTime24 = "03:11"
-        )
-    }
-
-    @Test
-    fun dateTimeValue_shouldFormatDateTimeCorrectlyWhenChangingForLocaleGermany() {
-        testDateTimeValue(
-            locale = Locale.GERMANY,
-            changeForLocale = true,
-            expectedDateDayOfMonth = "4",
-            expectedDateWeekdayAbbreviation = "Mi.",
-            expectedDateWeekdayWithDate = "Mittwoch, 4. Jan.",
-            expectedDateTime12 = "4. Jan., 3:11 AM",
-            expectedDateTime24 = "4. Jan., 03:11",
-            expectedTime12 = "3:11 AM",
-            expectedTime24 = "03:11"
-        )
-    }
-
-    @Test
-    fun dateTimeValue_shouldFormatDateTimeCorrectlyWhenChangingForLocaleUS() {
-        testDateTimeValue(
-            locale = Locale.US,
-            changeForLocale = true,
-            expectedDateDayOfMonth = "4",
-            expectedDateWeekdayAbbreviation = "Wed",
-            expectedDateWeekdayWithDate = "Wednesday, Jan 4",
-            expectedDateTime12 = "Jan 4, 3:11 AM",
-            expectedDateTime24 = "Jan 4, 03:11",
-            expectedTime12 = "3:11 AM",
-            expectedTime24 = "03:11"
-        )
-    }
 
     @Test
     fun moonPhaseType_shouldBeCorrectType() {
@@ -156,62 +123,270 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
     }
 
     @Test
-    fun unitsValue_shouldGetCorrectDisplayValuesAndUnits() {
-        // Arrange
-        val distanceValue = DistanceValue.from(11111L)
-        val percentValue = PercentValue.from(22L)
-        val precipitationValue = PrecipitationValue.from(3.33)
-        val pressureValue = PressureValue.from(4444L)
-        val probabilityValue = ProbabilityValue.from(0.555)
-        val temperatureValue = TemperatureValue.from(66.6)
-        val uvIndexValue = UVIndexValue.from(7.7)
-        val windSpeedValue = WindSpeedValue.from(8.8)
+    fun distanceValue_shouldConvertCorrectly() {
+        val value = DistanceValue.from(10000)!!
 
-        // Act + Assert
-        actAndAssertUnitsIndependent(
-            value = distanceValue,
-            expectedDisplayValue = "11",
-            expectedUnit = "km"
+        testUnitsValue(
+            value = value,
+            distanceUnit = NBDistanceUnitType.KILOMETER,
+            expectedDisplayValueWithSymbol = "10.0 km",
         )
-        actAndAssertUnitsIndependent(
-            value = percentValue,
-            expectedDisplayValue = "22",
-            expectedUnit = "%"
+        testUnitsValue(
+            value = value,
+            distanceUnit = NBDistanceUnitType.MILE,
+            expectedDisplayValueWithSymbol = "6.2 mi",
         )
-        actAndAssertUnitsIndependent(
-            value = precipitationValue,
-            expectedDisplayValue = "3.3",
-            expectedUnit = "mm"
+    }
+
+    @Test
+    fun percentValue_shouldConvertCorrectly() {
+        val value = PercentValue.from(84)!!
+
+        testUnitsValue(
+            value = value,
+            expectedDisplayValueWithSymbol = "84%"
         )
-        actAndAssertUnitsIndependent(
-            value = pressureValue,
-            expectedDisplayValue = "4,444",
-            expectedUnit = "hPa"
+    }
+
+    @Test
+    fun precipitationValue_shouldConvertCorrectly() {
+        val value = PrecipitationValue.from(0.91)!!
+
+        testUnitsValue(
+            value = value,
+            precipitationUnit = NBPrecipitationUnitType.MILLIMETER,
+            expectedDisplayValueWithSymbol = "0.9 mm"
         )
-        actAndAssertUnitsIndependent(
-            value = probabilityValue,
-            expectedDisplayValue = "56",
-            expectedUnit = "%"
+        testUnitsValue(
+            value = value,
+            precipitationUnit = NBPrecipitationUnitType.INCH,
+            expectedDisplayValueWithSymbol = "0.04 in"
         )
-        actAndAssertUnitsDependent(
-            value = temperatureValue,
-            expectedDisplayValue = "67",
-            expectedUnitStandard = "°K",
-            expectedUnitMetric = "°C",
-            expectedUnitImperial = "°F"
+    }
+
+    @Test
+    fun pressureValue_shouldConvertCorrectly() {
+        val value = PressureValue.from(1006)!!
+
+        testUnitsValue(
+            value = value,
+            pressureUnit = NBPressureUnitType.HECTOPASCAL,
+            expectedDisplayValueWithSymbol = "1,006 hPa"
         )
-        actAndAssertUnitsIndependent(
-            value = uvIndexValue,
-            expectedDisplayValue = "8",
-            expectedUnit = "/11"
+        testUnitsValue(
+            value = value,
+            pressureUnit = NBPressureUnitType.INCH_HG,
+            expectedDisplayValueWithSymbol = "30 inHg"
         )
-        actAndAssertUnitsDependent(
-            value = windSpeedValue,
-            expectedDisplayValue = "9",
-            expectedUnitStandard = "m/s",
-            expectedUnitMetric = "m/s",
-            expectedUnitImperial = "mph"
+        testUnitsValue(
+            value = value,
+            pressureUnit = NBPressureUnitType.MILLIMETER_OF_MERCURY,
+            expectedDisplayValueWithSymbol = "755 mmHg"
         )
+    }
+
+    @Test
+    fun probabilityValue_shouldConvertCorrectly() {
+        val value = ProbabilityValue.from(0.78)!!
+
+        testUnitsValue(
+            value = value,
+            expectedDisplayValueWithSymbol = "78%"
+        )
+    }
+
+    @Test
+    fun temperatureValue_shouldConvertCorrectly() {
+        val value = TemperatureValue.from(287.64)!!
+
+        testUnitsValue(
+            value = value.getLong(),
+            temperatureUnit = NBTemperatureUnitType.CELSIUS,
+            expectedDisplayValueWithSymbol = "14 °C"
+        )
+        testUnitsValue(
+            value = value.getLong(),
+            temperatureUnit = NBTemperatureUnitType.FAHRENHEIT,
+            expectedDisplayValueWithSymbol = "58 °F"
+        )
+        testUnitsValue(
+            value = value.getLong(),
+            temperatureUnit = NBTemperatureUnitType.KELVIN,
+            expectedDisplayValueWithSymbol = "288K"
+        )
+        testUnitsValue(
+            value = value.getShort(),
+            temperatureUnit = NBTemperatureUnitType.CELSIUS,
+            expectedDisplayValueWithSymbol = "14°"
+        )
+        testUnitsValue(
+            value = value.getShort(),
+            temperatureUnit = NBTemperatureUnitType.FAHRENHEIT,
+            expectedDisplayValueWithSymbol = "58°"
+        )
+        testUnitsValue(
+            value = value.getShort(),
+            temperatureUnit = NBTemperatureUnitType.KELVIN,
+            expectedDisplayValueWithSymbol = "288"
+        )
+    }
+
+    @Test
+    fun uvIndexValue_shouldConvertCorrectly() {
+        val value = UVIndexValue.from(2.92)!!
+
+        testUnitsValue(
+            value = value,
+            expectedDisplayValueWithSymbol = "3/11"
+        )
+    }
+
+    @Test
+    fun windSpeedValue_shouldConvertCorrectly() {
+        val value = WindSpeedValue.from(4.26)!!
+
+        testUnitsValue(
+            value = value,
+            windSpeedUnit = NBWindSpeedUnitType.KILOMETER_PER_HOUR,
+            expectedDisplayValueWithSymbol = "15 km/h"
+        )
+        testUnitsValue(
+            value = value,
+            windSpeedUnit = NBWindSpeedUnitType.METER_PER_SECOND,
+            expectedDisplayValueWithSymbol = "4 m/s"
+        )
+        testUnitsValue(
+            value = value,
+            windSpeedUnit = NBWindSpeedUnitType.MILE_PER_HOUR,
+            expectedDisplayValueWithSymbol = "10 mph"
+        )
+    }
+
+    @Test
+    fun weatherConditionType_shouldBeCorrectType() {
+        // Arrange
+        val nullValue = null
+        val wrongValue = -1L
+
+        // Act
+        val nullType = WeatherConditionType.from(nullValue)
+        val wrongType = WeatherConditionType.from(wrongValue)
+
+        val type200 = WeatherConditionType.from(200L)
+        val type201 = WeatherConditionType.from(201L)
+        val type202 = WeatherConditionType.from(202L)
+        val type210 = WeatherConditionType.from(210L)
+        val type211 = WeatherConditionType.from(211L)
+        val type212 = WeatherConditionType.from(212L)
+        val type221 = WeatherConditionType.from(221L)
+        val type230 = WeatherConditionType.from(230L)
+        val type231 = WeatherConditionType.from(231L)
+        val type232 = WeatherConditionType.from(232L)
+        val type300 = WeatherConditionType.from(300L)
+        val type301 = WeatherConditionType.from(301L)
+        val type302 = WeatherConditionType.from(302L)
+        val type310 = WeatherConditionType.from(310L)
+        val type311 = WeatherConditionType.from(311L)
+        val type312 = WeatherConditionType.from(312L)
+        val type313 = WeatherConditionType.from(313L)
+        val type314 = WeatherConditionType.from(314L)
+        val type321 = WeatherConditionType.from(321L)
+        val type500 = WeatherConditionType.from(500L)
+        val type501 = WeatherConditionType.from(501L)
+        val type502 = WeatherConditionType.from(502L)
+        val type503 = WeatherConditionType.from(503L)
+        val type504 = WeatherConditionType.from(504L)
+        val type511 = WeatherConditionType.from(511L)
+        val type520 = WeatherConditionType.from(520L)
+        val type521 = WeatherConditionType.from(521L)
+        val type522 = WeatherConditionType.from(522L)
+        val type531 = WeatherConditionType.from(531L)
+        val type600 = WeatherConditionType.from(600L)
+        val type601 = WeatherConditionType.from(601L)
+        val type602 = WeatherConditionType.from(602L)
+        val type611 = WeatherConditionType.from(611L)
+        val type612 = WeatherConditionType.from(612L)
+        val type613 = WeatherConditionType.from(613L)
+        val type615 = WeatherConditionType.from(615L)
+        val type616 = WeatherConditionType.from(616L)
+        val type620 = WeatherConditionType.from(620L)
+        val type621 = WeatherConditionType.from(621L)
+        val type622 = WeatherConditionType.from(622L)
+        val type701 = WeatherConditionType.from(701L)
+        val type711 = WeatherConditionType.from(711L)
+        val type721 = WeatherConditionType.from(721L)
+        val type731 = WeatherConditionType.from(731L)
+        val type741 = WeatherConditionType.from(741L)
+        val type751 = WeatherConditionType.from(751L)
+        val type761 = WeatherConditionType.from(761L)
+        val type762 = WeatherConditionType.from(762L)
+        val type771 = WeatherConditionType.from(771L)
+        val type781 = WeatherConditionType.from(781L)
+        val type800 = WeatherConditionType.from(800L)
+        val type801 = WeatherConditionType.from(801L)
+        val type802 = WeatherConditionType.from(802L)
+        val type803 = WeatherConditionType.from(803L)
+        val type804 = WeatherConditionType.from(804L)
+
+        // Assert
+        assertNull(nullType)
+        assertNull(wrongType)
+
+        assertEquals(WeatherConditionType.THUNDERSTORM_WITH_LIGHT_RAIN, type200)
+        assertEquals(WeatherConditionType.THUNDERSTORM_WITH_RAIN, type201)
+        assertEquals(WeatherConditionType.THUNDERSTORM_WITH_HEAVY_RAIN, type202)
+        assertEquals(WeatherConditionType.LIGHT_THUNDERSTORM, type210)
+        assertEquals(WeatherConditionType.THUNDERSTORM, type211)
+        assertEquals(WeatherConditionType.HEAVY_THUNDERSTORM, type212)
+        assertEquals(WeatherConditionType.RAGGED_THUNDERSTORM, type221)
+        assertEquals(WeatherConditionType.THUNDERSTORM_WITH_LIGHT_DRIZZLE, type230)
+        assertEquals(WeatherConditionType.THUNDERSTORM_WITH_DRIZZLE, type231)
+        assertEquals(WeatherConditionType.THUNDERSTORM_WITH_HEAVY_DRIZZLE, type232)
+        assertEquals(WeatherConditionType.LIGHT_INTENSITY_DRIZZLE, type300)
+        assertEquals(WeatherConditionType.DRIZZLE, type301)
+        assertEquals(WeatherConditionType.HEAVY_INTENSITY_DRIZZLE, type302)
+        assertEquals(WeatherConditionType.LIGHT_INTENSITY_DRIZZLE_RAIN, type310)
+        assertEquals(WeatherConditionType.DRIZZLE_RAIN, type311)
+        assertEquals(WeatherConditionType.HEAVY_INTENSITY_DRIZZLE_RAIN, type312)
+        assertEquals(WeatherConditionType.SHOWER_RAIN_AND_DRIZZLE, type313)
+        assertEquals(WeatherConditionType.HEAVY_SHOWER_RAIN_AND_DRIZZLE, type314)
+        assertEquals(WeatherConditionType.SHOWER_DRIZZLE, type321)
+        assertEquals(WeatherConditionType.LIGHT_RAIN, type500)
+        assertEquals(WeatherConditionType.MODERATE_RAIN, type501)
+        assertEquals(WeatherConditionType.HEAVY_INTENSITY_RAIN, type502)
+        assertEquals(WeatherConditionType.VERY_HEAVY_RAIN, type503)
+        assertEquals(WeatherConditionType.EXTREME_RAIN, type504)
+        assertEquals(WeatherConditionType.FREEZING_RAIN, type511)
+        assertEquals(WeatherConditionType.LIGHT_INTENSITY_SHOWER_RAIN, type520)
+        assertEquals(WeatherConditionType.SHOWER_RAIN, type521)
+        assertEquals(WeatherConditionType.HEAVY_INTENSITY_SHOWER_RAIN, type522)
+        assertEquals(WeatherConditionType.RAGGED_SHOWER_RAIN, type531)
+        assertEquals(WeatherConditionType.LIGHT_SNOW, type600)
+        assertEquals(WeatherConditionType.SNOW, type601)
+        assertEquals(WeatherConditionType.HEAVY_SNOW, type602)
+        assertEquals(WeatherConditionType.SLEET, type611)
+        assertEquals(WeatherConditionType.LIGHT_SHOWER_SLEET, type612)
+        assertEquals(WeatherConditionType.SHOWER_SLEET, type613)
+        assertEquals(WeatherConditionType.LIGHT_RAIN_AND_SNOW, type615)
+        assertEquals(WeatherConditionType.RAIN_AND_SNOW, type616)
+        assertEquals(WeatherConditionType.LIGHT_SHOWER_SNOW, type620)
+        assertEquals(WeatherConditionType.SHOWER_SNOW, type621)
+        assertEquals(WeatherConditionType.HEAVY_SHOWER_SNOW, type622)
+        assertEquals(WeatherConditionType.MIST, type701)
+        assertEquals(WeatherConditionType.SMOKE, type711)
+        assertEquals(WeatherConditionType.HAZE, type721)
+        assertEquals(WeatherConditionType.SAND_DUST_WHIRLS, type731)
+        assertEquals(WeatherConditionType.FOG, type741)
+        assertEquals(WeatherConditionType.SAND, type751)
+        assertEquals(WeatherConditionType.DUST, type761)
+        assertEquals(WeatherConditionType.VOLCANIC_ASH, type762)
+        assertEquals(WeatherConditionType.SQUALLS, type771)
+        assertEquals(WeatherConditionType.TORNADO, type781)
+        assertEquals(WeatherConditionType.CLEAR_SKY, type800)
+        assertEquals(WeatherConditionType.FEW_CLOUDS, type801)
+        assertEquals(WeatherConditionType.SCATTERED_CLOUDS, type802)
+        assertEquals(WeatherConditionType.BROKEN_CLOUDS, type803)
+        assertEquals(WeatherConditionType.OVERCAST_CLOUDS, type804)
     }
 
     @Test
@@ -221,75 +396,55 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
         val emptyValue = ""
         val wrongValue = "Test"
 
-        val d01Value = "01d"
-        val d02Value = "02d"
-        val d03Value = "03d"
-        val d04Value = "04d"
-        val d09Value = "09d"
-        val d10Value = "10d"
-        val d11Value = "11d"
-        val d13Value = "13d"
-        val d50Value = "50d"
-
-        val n01Value = "01n"
-        val n02Value = "02n"
-        val n03Value = "03n"
-        val n04Value = "04n"
-        val n09Value = "09n"
-        val n10Value = "10n"
-        val n11Value = "11n"
-        val n13Value = "13n"
-        val n50Value = "50n"
-
         // Act
         val nullType = WeatherIconType.from(nullValue)
         val emptyType = WeatherIconType.from(emptyValue)
         val wrongType = WeatherIconType.from(wrongValue)
 
-        val d01Type = WeatherIconType.from(d01Value)
-        val d02Type = WeatherIconType.from(d02Value)
-        val d03Type = WeatherIconType.from(d03Value)
-        val d04Type = WeatherIconType.from(d04Value)
-        val d09Type = WeatherIconType.from(d09Value)
-        val d10Type = WeatherIconType.from(d10Value)
-        val d11Type = WeatherIconType.from(d11Value)
-        val d13Type = WeatherIconType.from(d13Value)
-        val d50Type = WeatherIconType.from(d50Value)
+        val d01Type = WeatherIconType.from("01d")
+        val d02Type = WeatherIconType.from("02d")
+        val d03Type = WeatherIconType.from("03d")
+        val d04Type = WeatherIconType.from("04d")
+        val d09Type = WeatherIconType.from("09d")
+        val d10Type = WeatherIconType.from("10d")
+        val d11Type = WeatherIconType.from("11d")
+        val d13Type = WeatherIconType.from("13d")
+        val d50Type = WeatherIconType.from("50d")
 
-        val n01Type = WeatherIconType.from(n01Value)
-        val n02Type = WeatherIconType.from(n02Value)
-        val n03Type = WeatherIconType.from(n03Value)
-        val n04Type = WeatherIconType.from(n04Value)
-        val n09Type = WeatherIconType.from(n09Value)
-        val n10Type = WeatherIconType.from(n10Value)
-        val n11Type = WeatherIconType.from(n11Value)
-        val n13Type = WeatherIconType.from(n13Value)
-        val n50Type = WeatherIconType.from(n50Value)
+        val n01Type = WeatherIconType.from("01n")
+        val n02Type = WeatherIconType.from("02n")
+        val n03Type = WeatherIconType.from("03n")
+        val n04Type = WeatherIconType.from("04n")
+        val n09Type = WeatherIconType.from("09n")
+        val n10Type = WeatherIconType.from("10n")
+        val n11Type = WeatherIconType.from("11n")
+        val n13Type = WeatherIconType.from("13n")
+        val n50Type = WeatherIconType.from("50n")
 
         // Assert
         assertNull(nullType)
         assertNull(emptyType)
         assertNull(wrongType)
 
-        assertEquals(d01Type, WeatherIconType.D_CLEAR_SKY)
-        assertEquals(d02Type, WeatherIconType.D_FEW_CLOUDS)
-        assertEquals(d03Type, WeatherIconType.D_SCATTERED_CLOUDS)
-        assertEquals(d04Type, WeatherIconType.D_BROKEN_CLOUDS)
-        assertEquals(d09Type, WeatherIconType.D_SHOWER_RAIN)
-        assertEquals(d10Type, WeatherIconType.D_RAIN)
-        assertEquals(d11Type, WeatherIconType.D_THUNDERSTORM)
-        assertEquals(d13Type, WeatherIconType.D_SNOW)
-        assertEquals(d50Type, WeatherIconType.D_MIST)
+        assertEquals(WeatherIconType.D_CLEAR_SKY, d01Type)
+        assertEquals(WeatherIconType.D_FEW_CLOUDS, d02Type)
+        assertEquals(WeatherIconType.D_SCATTERED_CLOUDS, d03Type)
+        assertEquals(WeatherIconType.D_BROKEN_CLOUDS, d04Type)
+        assertEquals(WeatherIconType.D_SHOWER_RAIN, d09Type)
+        assertEquals(WeatherIconType.D_RAIN, d10Type)
+        assertEquals(WeatherIconType.D_THUNDERSTORM, d11Type)
+        assertEquals(WeatherIconType.D_SNOW, d13Type)
+        assertEquals(WeatherIconType.D_MIST, d50Type)
 
-        assertEquals(n01Type, WeatherIconType.N_CLEAR_SKY)
-        assertEquals(n02Type, WeatherIconType.N_FEW_CLOUDS)
-        assertEquals(n03Type, WeatherIconType.N_SCATTERED_CLOUDS)
-        assertEquals(n04Type, WeatherIconType.N_BROKEN_CLOUDS)
-        assertEquals(n09Type, WeatherIconType.N_SHOWER_RAIN)
-        assertEquals(n10Type, WeatherIconType.N_RAIN)
-        assertEquals(n11Type, WeatherIconType.N_THUNDERSTORM)
-        assertEquals(n13Type, WeatherIconType.N_SNOW)
-        assertEquals(n50Type, WeatherIconType.N_MIST)
+        assertEquals(WeatherIconType.N_CLEAR_SKY, n01Type)
+        assertEquals(WeatherIconType.N_FEW_CLOUDS, n02Type)
+        assertEquals(WeatherIconType.N_SCATTERED_CLOUDS, n03Type)
+        assertEquals(WeatherIconType.N_BROKEN_CLOUDS, n04Type)
+        assertEquals(WeatherIconType.N_SHOWER_RAIN, n09Type)
+        assertEquals(WeatherIconType.N_RAIN, n10Type)
+        assertEquals(WeatherIconType.N_THUNDERSTORM, n11Type)
+        assertEquals(WeatherIconType.N_SNOW, n13Type)
+        assertEquals(WeatherIconType.N_MIST, n50Type)
     }
 
     @Test
@@ -379,96 +534,30 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
         return 0.plus(step.times(22.5)).toLong()
     }
 
-    private fun testDateTimeValue(
-        locale: Locale,
-        changeForLocale: Boolean,
-        expectedDateDayOfMonth: String,
-        expectedDateWeekdayAbbreviation: String,
-        expectedDateWeekdayWithDate: String,
-        expectedDateTime12: String,
-        expectedDateTime24: String,
-        expectedTime12: String,
-        expectedTime24: String,
+    private fun testUnitsValue(
+        value: NBUnitsValue,
+        temperatureUnit: NBTemperatureUnitType = NBTemperatureUnitType.CELSIUS,
+        precipitationUnit: NBPrecipitationUnitType = NBPrecipitationUnitType.MILLIMETER,
+        distanceUnit: NBDistanceUnitType = NBDistanceUnitType.KILOMETER,
+        pressureUnit: NBPressureUnitType = NBPressureUnitType.HECTOPASCAL,
+        windSpeedUnit: NBWindSpeedUnitType = NBWindSpeedUnitType.KILOMETER_PER_HOUR,
+        expectedDisplayValueWithSymbol: String
     ) {
         // Arrange
-        val dateTime = 1672798293L // Wednesday, 4 January 2023 02:11:33 (GMT)
-        val timezoneOffset = 3600L // GMT+1
-        val dateTimeValue = DateTimeValue.from(dateTime) ?: return
-        val timezoneOffsetValue = TimezoneOffsetValue.from(timezoneOffset)
-        setLocale(locale)
+        setLocale(Locale.US)
+        val units = NBUnitsModel(
+            temperatureUnit = temperatureUnit,
+            precipitationUnit = precipitationUnit,
+            distanceUnit = distanceUnit,
+            pressureUnit = pressureUnit,
+            windSpeedUnit = windSpeedUnit
+        )
 
         // Act
-        val dateDayOfMonth =
-            dateTimeValue.getDateDayOfMonthString(timezoneOffsetValue, changeForLocale)
-                .asString(context)
-        val dateWeekdayAbbreviation =
-            dateTimeValue.getDateWeekdayAbbreviationString(timezoneOffsetValue).asString(context)
-        val dateWeekdayWithDate =
-            dateTimeValue.getDateWeekdayWithDateString(timezoneOffsetValue, changeForLocale)
-                .asString(context)
-        val dateTime12 = dateTimeValue.getDateTimeString(
-            timezoneOffsetValue,
-            NBTimeFormatType.HOUR_12,
-            changeForLocale
-        ).asString(context)
-        val dateTime24 = dateTimeValue.getDateTimeString(
-            timezoneOffsetValue,
-            NBTimeFormatType.HOUR_24,
-            changeForLocale
-        ).asString(context)
-        val time12 = dateTimeValue.getTimeString(
-            timezoneOffsetValue,
-            NBTimeFormatType.HOUR_12,
-            changeForLocale
-        ).asString(context)
-        val time24 = dateTimeValue.getTimeString(
-            timezoneOffsetValue,
-            NBTimeFormatType.HOUR_24,
-            changeForLocale
-        ).asString(context)
+        val displayValueWithSymbol = value.getDisplayValueWithSymbol(units).asString(context)
 
         // Assert
-        assertEquals(expectedDateDayOfMonth, dateDayOfMonth)
-        assertEquals(expectedDateWeekdayAbbreviation, dateWeekdayAbbreviation)
-        assertEquals(expectedDateWeekdayWithDate, dateWeekdayWithDate)
-        assertEquals(expectedDateTime12, dateTime12)
-        assertEquals(expectedDateTime24, dateTime24)
-        assertEquals(expectedTime12, time12)
-        assertEquals(expectedTime24, time24)
-    }
-
-    private fun actAndAssertUnitsDependent(
-        value: UnitsValue.Dependent?,
-        expectedDisplayValue: String,
-        expectedUnitStandard: String,
-        expectedUnitMetric: String,
-        expectedUnitImperial: String
-    ) {
-        // Act
-        val displayValue = value?.displayValue.asString(context)
-        val unitStandard = value?.getUnit(NBUnitsType.STANDARD).asString(context)
-        val unitMetric = value?.getUnit(NBUnitsType.METRIC).asString(context)
-        val unitImperial = value?.getUnit(NBUnitsType.IMPERIAL).asString(context)
-
-        // Assert
-        assertValue(expectedDisplayValue, displayValue)
-        assertValue(expectedUnitStandard, unitStandard)
-        assertValue(expectedUnitMetric, unitMetric)
-        assertValue(expectedUnitImperial, unitImperial)
-    }
-
-    private fun actAndAssertUnitsIndependent(
-        value: UnitsValue.Independent?,
-        expectedDisplayValue: String,
-        expectedUnit: String
-    ) {
-        // Act
-        val displayValue = value?.displayValue.asString(context)
-        val unit = value?.unit.asString(context)
-
-        // Assert
-        assertValue(expectedDisplayValue, displayValue)
-        assertValue(expectedUnit, unit)
+        assertValue(expectedDisplayValueWithSymbol, displayValueWithSymbol)
     }
 
 

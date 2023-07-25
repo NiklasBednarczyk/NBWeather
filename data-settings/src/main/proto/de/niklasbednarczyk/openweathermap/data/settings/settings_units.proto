@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_package = "de.niklasbednarczyk.nbweather.data.settings.proto.units";
+option java_multiple_files = true;
+
+message SettingsUnitsProto {
+
+  enum TemperatureUnitProto {
+    CELSIUS = 0;
+    FAHRENHEIT = 1;
+    KELVIN = 2;
+  }
+
+  enum PrecipitationUnitProto {
+    INCH = 0;
+    MILLIMETER = 1;
+  }
+
+  enum DistanceUnitProto {
+    KILOMETER = 0;
+    MILE = 1;
+  }
+
+  enum PressureUnitProto {
+    HECTOPASCAL = 0;
+    INCH_HG = 1;
+    MILLIMETER_OF_MERCURY = 2;
+  }
+
+  enum WindSpeedUnitProto {
+    KILOMETER_PER_HOUR = 0;
+    METER_PER_SECOND = 1;
+    MILE_PER_HOUR = 2;
+  }
+
+  TemperatureUnitProto temperatureUnit = 1;
+  PrecipitationUnitProto precipitationUnit = 2;
+  DistanceUnitProto distanceUnit = 3;
+  PressureUnitProto pressureUnit = 4;
+  WindSpeedUnitProto windSpeedUnit = 5;
+
+}

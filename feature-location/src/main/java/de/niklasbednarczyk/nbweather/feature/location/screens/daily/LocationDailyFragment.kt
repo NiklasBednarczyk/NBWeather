@@ -15,9 +15,10 @@ class LocationDailyFragment :
 
     override val viewModel: LocationDailyViewModel by viewModels()
 
+    @Composable
     override fun createTopAppBarItem(viewData: NBPagerInfoModel<LocationDailyDayModel>?): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
-            title = viewData?.item?.title
+            title = viewData?.item?.forecastTime?.dateDayOfWeekShortWithDayOfMonth
         )
     }
 

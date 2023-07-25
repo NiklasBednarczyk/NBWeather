@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.models
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
@@ -8,65 +7,55 @@ import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLo
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
 
 data class LocationModelData(
-    val localizedName: NBString?,
-    val stateAndCountry: NBString?,
-    val localizedNameAndCountry: NBString?,
+    private val localNames: LocalNamesModelData,
+    private val name: String?,
+    private val state: String?,
+    private val country: String?,
     val latitude: Double,
     val longitude: Double
 ) {
 
-    companion object {
+    val localizedName: NBString?
+        get() = NBString.Value.from(localNames.localizedName ?: name)
 
-        private fun toData(
-            name: String?,
-            localName: LocalNameModelData,
-            country: String?,
-            state: String?,
-            latitude: Double,
-            longitude: Double
-        ): LocationModelData {
-            val localizedNameValue = localName.value ?: name
-            val stateAndCountry = when {
-                state != null && country != null -> NBString.Resource(
-                    R.string.format_comma,
-                    state,
+    val localizedNameAndCountry: NBString?
+        get() {
+            return when {
+                localizedName != null && country != null -> NBString.Resource(
+                    R.string.format_comma_2_items,
+                    localizedName,
                     country
                 )
-                state == null && country != null -> NBString.Value.from(country)
+
+                localizedName != null && country == null -> localizedName
+
                 else -> NBString.Value.from(null)
             }
-            val localizedNameAndCountry = when {
-                localizedNameValue != null && country != null -> NBString.Resource(
-                    R.string.format_comma,
-                    localizedNameValue,
-                    country
-                )
-                localizedNameValue != null && country == null -> NBString.Value.from(
-                    localizedNameValue
-                )
-                else -> NBString.Value.from(null)
-            }
-
-            return LocationModelData(
-                localizedName = NBString.Value.from(localizedNameValue),
-                stateAndCountry = stateAndCountry,
-                localizedNameAndCountry = localizedNameAndCountry,
-                latitude = latitude,
-                longitude = longitude
-            )
-
         }
 
+    val stateAndCountry: NBString?
+        get() = when {
+            state != null && country != null -> NBString.Resource(
+                R.string.format_comma_2_items,
+                state,
+                country
+            )
+
+            state == null && country != null -> NBString.Value.from(country)
+            else -> NBString.Value.from(null)
+        }
+
+    companion object {
+
         internal fun remoteToData(
-            remote: LocationModelRemote?,
-            language: NBLanguageType
+            remote: LocationModelRemote?
         ): LocationModelData? {
             return nbNullSafe(remote) { model ->
-                toData(
+                LocationModelData(
+                    localNames = LocalNamesModelData.remoteToData(model.localNames),
                     name = model.name,
-                    localName = LocalNameModelData.remoteToData(model.localNames, language),
-                    country = model.country,
                     state = model.state,
+                    country = model.country,
                     latitude = model.lat,
                     longitude = model.lon
                 )
@@ -74,11 +63,10 @@ data class LocationModelData(
         }
 
         internal fun remoteListToData(
-            remoteList: List<LocationModelRemote>,
-            language: NBLanguageType
+            remoteList: List<LocationModelRemote>
         ): List<LocationModelData> {
             return remoteList.mapNotNull { remote ->
-                remoteToData(remote, language)
+                remoteToData(remote)
             }
         }
 
@@ -91,7 +79,7 @@ data class LocationModelData(
             return nbNullSafe(remote) { model ->
                 LocationModelLocal(
                     name = model.name,
-                    localNames = LocalNameModelData.remoteToLocal(model.localNames),
+                    localNames = LocalNamesModelData.remoteToLocal(model.localNames),
                     country = model.country,
                     state = model.state,
                     latitude = latitude,
@@ -109,14 +97,13 @@ data class LocationModelData(
 
         internal fun localToData(
             local: LocationModelLocal?,
-            language: NBLanguageType
         ): LocationModelData? {
             return nbNullSafe(local) { model ->
-                toData(
+                LocationModelData(
+                    localNames = LocalNamesModelData.localToData(model.localNames),
                     name = model.name,
-                    localName = LocalNameModelData.localToData(model.localNames, language),
-                    country = model.country,
                     state = model.state,
+                    country = model.country,
                     latitude = model.latitude,
                     longitude = model.longitude
                 )
@@ -124,11 +111,10 @@ data class LocationModelData(
         }
 
         internal fun localListToData(
-            localList: List<LocationModelLocal>?,
-            language: NBLanguageType
+            localList: List<LocationModelLocal>?
         ): List<LocationModelData>? {
             return localList?.mapNotNull { local ->
-                localToData(local, language)
+                localToData(local)
             }
 
         }

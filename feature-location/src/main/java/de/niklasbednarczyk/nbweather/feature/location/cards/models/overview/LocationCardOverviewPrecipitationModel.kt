@@ -1,15 +1,14 @@
 package de.niklasbednarczyk.nbweather.feature.location.cards.models.overview
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBTimeFormatType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.data.onecall.models.MinutelyForecastModelData
-import de.niklasbednarczyk.nbweather.data.onecall.values.datetime.TimezoneOffsetValue
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 import kotlin.math.max
 
 data class LocationCardOverviewPrecipitationModel(
     private val forecasts: List<Double>,
-    val currentTime: NBString?
+    val currentDateTime: NBDateTimeModel?
 ) {
 
     val factors: List<Float>
@@ -20,15 +19,19 @@ data class LocationCardOverviewPrecipitationModel(
                 in FORECAST_STEP_0_VALUE..FORECAST_STEP_1_VALUE -> forecast.div(
                     FORECAST_STEP_1_VALUE
                 ).times(multiplier).plus(multiplier.times(0))
+
                 in FORECAST_STEP_1_VALUE..FORECAST_STEP_2_VALUE -> forecast.div(
                     FORECAST_STEP_2_VALUE
                 ).times(multiplier).plus(multiplier.times(1))
+
                 in FORECAST_STEP_2_VALUE..FORECAST_STEP_3_VALUE -> forecast.div(
                     FORECAST_STEP_3_VALUE
                 ).times(multiplier).plus(multiplier.times(2))
+
                 in FORECAST_STEP_3_VALUE..FORECAST_STEP_4_VALUE -> forecast.div(
                     FORECAST_STEP_4_VALUE
                 ).times(multiplier).plus(multiplier.times(3))
+
                 else -> 1.0
             }
 
@@ -46,9 +49,11 @@ data class LocationCardOverviewPrecipitationModel(
                 forecasts.all { forecast -> forecast == 0.0 } -> {
                     NBString.Resource(R.string.screen_location_card_overview_value_precipitation_none)
                 }
+
                 forecasts.all { forecast -> forecast > 0.0 } -> {
                     NBString.Resource(R.string.screen_location_card_overview_value_precipitation_full)
                 }
+
                 firstElement == 0.0 -> {
                     val changeIndex = forecasts.indexOfFirst { forecast -> forecast > 0.0 }
                     NBString.Resource(
@@ -56,6 +61,7 @@ data class LocationCardOverviewPrecipitationModel(
                         changeIndex
                     )
                 }
+
                 firstElement > 0.0 -> {
                     val changeIndex = forecasts.indexOfFirst { forecast -> forecast == 0.0 }
 
@@ -77,6 +83,7 @@ data class LocationCardOverviewPrecipitationModel(
                         )
                     }
                 }
+
                 else -> null
             }
         }
@@ -94,22 +101,18 @@ data class LocationCardOverviewPrecipitationModel(
 
 
         fun from(
-            minutelyForecasts: List<MinutelyForecastModelData>,
-            timeFormat: NBTimeFormatType,
-            timezoneOffset: TimezoneOffsetValue?
+            minutelyForecasts: List<MinutelyForecastModelData>
         ): LocationCardOverviewPrecipitationModel {
 
             val forecasts = minutelyForecasts.mapNotNull { minutelyForecast ->
                 minutelyForecast.precipitation?.value
             }.take(FORECAST_SIZE_LIMIT)
 
-            val currentForecastTime = minutelyForecasts.firstOrNull()?.forecastTime
-            val currentTime = currentForecastTime?.getTimeString(timezoneOffset, timeFormat)
-
+            val currentDateTime = minutelyForecasts.firstOrNull()?.forecastTime
 
             return LocationCardOverviewPrecipitationModel(
                 forecasts = forecasts,
-                currentTime = currentTime
+                currentDateTime = currentDateTime
             )
         }
 

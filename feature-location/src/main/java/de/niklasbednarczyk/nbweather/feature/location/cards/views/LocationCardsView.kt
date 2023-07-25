@@ -4,8 +4,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.nbweather.core.ui.card.NBCard
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.columnVerticalArrangementDefault
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingValuesVertical
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefault
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.feature.location.cards.models.*
 import de.niklasbednarczyk.nbweather.feature.location.cards.views.card.LocationCardWeatherView
 import de.niklasbednarczyk.nbweather.feature.location.cards.views.card.LocationCardOverviewView

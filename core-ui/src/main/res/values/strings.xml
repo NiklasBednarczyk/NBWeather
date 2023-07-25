@@ -2,13 +2,18 @@
     <string name="error_text_no_internet">No internet connection</string>
     <string name="error_text_unknown">Something went wrong</string>
 
+    <string name="format_bullet_2_items" translatable="false">%1$s &#8226; %2$s</string>
+    <string name="format_bullet_3_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s</string>
+    <string name="format_bullet_5_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s &#8226; %4$s &#8226; %5$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
+    <string name="format_range_2_items" translatable="false">%1$s - %2$s</string>
+    <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
 
     <string name="icon_content_description_about" translatable="false">@string/screen_about_overview_title</string>
+    <string name="icon_content_description_appearance" translatable="false">@string/screen_settings_appearance_title</string>
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
     <string name="icon_content_description_cloudiness" translatable="false">@string/screen_location_card_weather_value_cloudiness</string>
-    <string name="icon_content_description_color_scheme" translatable="false">@string/screen_settings_color_scheme_title</string>
     <string name="icon_content_description_daily" translatable="false">@string/screen_location_overview_tab_daily</string>
     <string name="icon_content_description_daylight" translatable="false">@string/screen_location_card_sun_and_moon_value_daylight</string>
     <string name="icon_content_description_delete">Delete</string>
@@ -21,7 +26,6 @@
     <string name="icon_content_description_git_hub" translatable="false">@string/screen_about_overview_button_git_hub</string>
     <string name="icon_content_description_hourly" translatable="false">@string/screen_location_overview_tab_hourly</string>
     <string name="icon_content_description_humidity" translatable="false">@string/screen_location_card_weather_value_humidity</string>
-    <string name="icon_content_description_language" translatable="false">@string/screen_settings_language_title</string>
     <string name="icon_content_description_location">Location</string>
     <string name="icon_content_description_moon_phase_first_quarter_moon" translatable="false">@string/screen_location_common_moon_phase_first_quarter_moon</string>
     <string name="icon_content_description_moon_phase_full_moon" translatable="false">@string/screen_location_common_moon_phase_full_moon</string>
@@ -61,8 +65,6 @@
     <string name="icon_content_description_snow" translatable="false">@string/screen_location_card_weather_value_snow</string>
     <string name="icon_content_description_sunrise" translatable="false">@string/screen_location_card_sun_and_moon_value_sunrise</string>
     <string name="icon_content_description_sunset" translatable="false">@string/screen_location_card_sun_and_moon_value_sunset</string>
-    <string name="icon_content_description_theme" translatable="false">@string/screen_settings_theme_title</string>
-    <string name="icon_content_description_time_format" translatable="false">@string/screen_settings_time_format_title</string>
     <string name="icon_content_description_today" translatable="false">@string/screen_location_overview_tab_today</string>
     <string name="icon_content_description_units" translatable="false">@string/screen_settings_units_title</string>
     <string name="icon_content_description_uv_index" translatable="false">@string/screen_location_card_weather_value_uv_index</string>
@@ -109,6 +111,7 @@
     <string name="screen_location_card_overview_value_precipitation_none">No precipitation within an hour</string>
     <string name="screen_location_card_overview_value_precipitation_no_data">No precipitation data found</string>
     <string name="screen_location_card_overview_value_precipitation_starting">Precipitation starting in %1$s minutes</string>
+    <string name="screen_location_card_overview_value_temperature_feels_like">Feels like</string>
 
     <string name="screen_location_card_weather_title">Weather</string>
     <string name="screen_location_card_weather_value_cloudiness">Cloudiness</string>
@@ -148,6 +151,61 @@
     <string name="screen_location_common_moon_phase_waxing_gibbous">Waxing Gibbous</string>
     <string name="screen_location_common_temperatures_max">Max</string>
     <string name="screen_location_common_temperatures_min">Min</string>
+    <string name="screen_location_common_weather_condition_broken_clouds">Broken clouds</string>
+    <string name="screen_location_common_weather_condition_clear_sky">Clear sky</string>
+    <string name="screen_location_common_weather_condition_drizzle_rain">Drizzle rain</string>
+    <string name="screen_location_common_weather_condition_drizzle">Drizzle</string>
+    <string name="screen_location_common_weather_condition_dust">Dust</string>
+    <string name="screen_location_common_weather_condition_extreme_rain">Extreme rain</string>
+    <string name="screen_location_common_weather_condition_few_clouds">Few clouds</string>
+    <string name="screen_location_common_weather_condition_fog">Fog</string>
+    <string name="screen_location_common_weather_condition_freezing_rain">Freezing rain</string>
+    <string name="screen_location_common_weather_condition_haze">Haze</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_drizzle_rain">Heavy intensity drizzle rain</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_drizzle">Heavy intensity drizzle</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_rain">Heavy intensity rain</string>
+    <string name="screen_location_common_weather_condition_heavy_intensity_shower_rain">Heavy intensity shower rain</string>
+    <string name="screen_location_common_weather_condition_heavy_shower_rain_and_drizzle">Heavy shower rain and drizzle</string>
+    <string name="screen_location_common_weather_condition_heavy_shower_snow">Heavy shower snow</string>
+    <string name="screen_location_common_weather_condition_heavy_snow">Heavy snow</string>
+    <string name="screen_location_common_weather_condition_heavy_thunderstorm">Heavy thunderstorm</string>
+    <string name="screen_location_common_weather_condition_light_intensity_drizzle_rain">Light intensity drizzle rain</string>
+    <string name="screen_location_common_weather_condition_light_intensity_drizzle">Light intensity drizzle</string>
+    <string name="screen_location_common_weather_condition_light_intensity_shower_rain">Light intensity shower rain</string>
+    <string name="screen_location_common_weather_condition_light_rain_and_snow">Light rain and snow</string>
+    <string name="screen_location_common_weather_condition_light_rain">Light rain</string>
+    <string name="screen_location_common_weather_condition_light_shower_sleet">Light shower sleet</string>
+    <string name="screen_location_common_weather_condition_light_shower_snow">Light shower snow</string>
+    <string name="screen_location_common_weather_condition_light_snow">Light snow</string>
+    <string name="screen_location_common_weather_condition_light_thunderstorm">Light thunderstorm</string>
+    <string name="screen_location_common_weather_condition_mist">Mist</string>
+    <string name="screen_location_common_weather_condition_moderate_rain">Moderate rain</string>
+    <string name="screen_location_common_weather_condition_overcast_clouds">Overcast clouds</string>
+    <string name="screen_location_common_weather_condition_ragged_shower_rain">Ragged shower rain</string>
+    <string name="screen_location_common_weather_condition_ragged_thunderstorm">Ragged thunderstorm</string>
+    <string name="screen_location_common_weather_condition_rain_and_snow">Rain and snow</string>
+    <string name="screen_location_common_weather_condition_sand_dust_whirls">Sand/dust whirls</string>
+    <string name="screen_location_common_weather_condition_sand">Sand</string>
+    <string name="screen_location_common_weather_condition_scattered_clouds">Scattered clouds</string>
+    <string name="screen_location_common_weather_condition_shower_drizzle">Shower drizzle</string>
+    <string name="screen_location_common_weather_condition_shower_rain_and_drizzle">Shower rain and drizzle</string>
+    <string name="screen_location_common_weather_condition_shower_rain">Shower rain</string>
+    <string name="screen_location_common_weather_condition_shower_sleet">Shower sleet</string>
+    <string name="screen_location_common_weather_condition_shower_snow">Shower snow</string>
+    <string name="screen_location_common_weather_condition_sleet">Sleet</string>
+    <string name="screen_location_common_weather_condition_smoke">Smoke</string>
+    <string name="screen_location_common_weather_condition_snow">Snow</string>
+    <string name="screen_location_common_weather_condition_squalls">Squalls</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_drizzle">Thunderstorm with drizzle</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_heavy_drizzle">Thunderstorm with heavy drizzle</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_heavy_rain">Thunderstorm with heavy rain</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_light_drizzle">Thunderstorm with light drizzle</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_light_rain">Thunderstorm with light rain</string>
+    <string name="screen_location_common_weather_condition_thunderstorm_with_rain">Thunderstorm with rain</string>
+    <string name="screen_location_common_weather_condition_thunderstorm">Thunderstorm</string>
+    <string name="screen_location_common_weather_condition_tornado">Tornado</string>
+    <string name="screen_location_common_weather_condition_very_heavy_rain">Very heavy rain</string>
+    <string name="screen_location_common_weather_condition_volcanic_ash">Volcanic ash</string>
     <string name="screen_location_common_wind_degrees_e">E</string>
     <string name="screen_location_common_wind_degrees_ene">ENE</string>
     <string name="screen_location_common_wind_degrees_ese">ESE</string>
@@ -171,79 +229,28 @@
 
     <string name="screen_search_overview_search_no_results">No locations found</string>
 
-    <string name="screen_settings_color_scheme_title">Color scheme</string>
-    <string name="screen_settings_color_scheme_value_blue">Blue</string>
-    <string name="screen_settings_color_scheme_value_cyan">Cyan</string>
-    <string name="screen_settings_color_scheme_value_green">Green</string>
-    <string name="screen_settings_color_scheme_value_magenta">Magenta</string>
-    <string name="screen_settings_color_scheme_value_red">Red</string>
-    <string name="screen_settings_color_scheme_value_yellow">Yellow</string>
+    <string name="screen_settings_appearance_header_color_scheme">Color scheme</string>
+    <string name="screen_settings_appearance_header_theme">Theme</string>
+    <string name="screen_settings_appearance_title">Appearance</string>
+    <string name="screen_settings_appearance_value_color_scheme_blue">Blue</string>
+    <string name="screen_settings_appearance_value_color_scheme_green">Green</string>
+    <string name="screen_settings_appearance_value_color_scheme_red">Red</string>
+    <string name="screen_settings_appearance_value_color_scheme_yellow">Yellow</string>
+    <string name="screen_settings_appearance_value_theme_dark">Dark</string>
+    <string name="screen_settings_appearance_value_theme_light">Light</string>
+    <string name="screen_settings_appearance_value_use_device_theme_title">Device theme</string>
+    <string name="screen_settings_appearance_value_use_device_theme_value">Use theme based on your device\'s system default.</string>
+    <string name="screen_settings_appearance_value_use_dynamic_color_scheme_title">Dynamic color scheme</string>
+    <string name="screen_settings_appearance_value_use_dynamic_color_scheme_value">Use color scheme based on your device\'s wallpaper.</string>
 
-    <string name="screen_settings_language_title">Language</string>
-    <string name="screen_settings_language_value_afrikaans">Afrikaans</string>
-    <string name="screen_settings_language_value_albanian">Albanian</string>
-    <string name="screen_settings_language_value_arabic">Arabic</string>
-    <string name="screen_settings_language_value_azerbaijani">Azerbaijani</string>
-    <string name="screen_settings_language_value_basque">Basque</string>
-    <string name="screen_settings_language_value_bulgarian">Bulgarian</string>
-    <string name="screen_settings_language_value_catalan">Catalan</string>
-    <string name="screen_settings_language_value_chinese_simplified">Chinese Simplified</string>
-    <string name="screen_settings_language_value_chinese_traditional">Chinese Traditional</string>
-    <string name="screen_settings_language_value_croatian">Croatian</string>
-    <string name="screen_settings_language_value_czech">Czech</string>
-    <string name="screen_settings_language_value_danish">Danish</string>
-    <string name="screen_settings_language_value_dutch">Dutch</string>
-    <string name="screen_settings_language_value_english">English</string>
-    <string name="screen_settings_language_value_finnish">Finnish</string>
-    <string name="screen_settings_language_value_french">French</string>
-    <string name="screen_settings_language_value_galician">Galician</string>
-    <string name="screen_settings_language_value_german">German</string>
-    <string name="screen_settings_language_value_greek">Greek</string>
-    <string name="screen_settings_language_value_hebrew">Hebrew</string>
-    <string name="screen_settings_language_value_hindi">Hindi</string>
-    <string name="screen_settings_language_value_hungarian">Hungarian</string>
-    <string name="screen_settings_language_value_indonesian">Indonesian</string>
-    <string name="screen_settings_language_value_italian">Italian</string>
-    <string name="screen_settings_language_value_japanese">Japanese</string>
-    <string name="screen_settings_language_value_korean">Korean</string>
-    <string name="screen_settings_language_value_latvian">Latvian</string>
-    <string name="screen_settings_language_value_lithuanian">Lithuanian</string>
-    <string name="screen_settings_language_value_macedonian">Macedonian</string>
-    <string name="screen_settings_language_value_norwegian">Norwegian</string>
-    <string name="screen_settings_language_value_persian_farsi">Persian (Farsi)</string>
-    <string name="screen_settings_language_value_polish">Polish</string>
-    <string name="screen_settings_language_value_portuguese">Portuguese</string>
-    <string name="screen_settings_language_value_portugues_brasil">Português Brasil</string>
-    <string name="screen_settings_language_value_romanian">Romanian</string>
-    <string name="screen_settings_language_value_russian">Russian</string>
-    <string name="screen_settings_language_value_serbian">Serbian</string>
-    <string name="screen_settings_language_value_slovak">Slovak</string>
-    <string name="screen_settings_language_value_slovenian">Slovenian</string>
-    <string name="screen_settings_language_value_spanish">Spanish</string>
-    <string name="screen_settings_language_value_swedish">Swedish</string>
-    <string name="screen_settings_language_value_thai">Thai</string>
-    <string name="screen_settings_language_value_turkish">Turkish</string>
-    <string name="screen_settings_language_value_ukrainian">Ukrainian</string>
-    <string name="screen_settings_language_value_vietnamese">Vietnamese</string>
-    <string name="screen_settings_language_value_zulu">Zulu</string>
-
-    <string name="screen_settings_overview_header_appearance">Appearance</string>
-    <string name="screen_settings_overview_header_data">Data</string>
     <string name="screen_settings_overview_title">Settings</string>
 
-    <string name="screen_settings_theme_title">Theme</string>
-    <string name="screen_settings_theme_value_dark">Dark</string>
-    <string name="screen_settings_theme_value_light">Light</string>
-    <string name="screen_settings_theme_value_system_default">System default</string>
-
-    <string name="screen_settings_time_format_title">Time format</string>
-    <string name="screen_settings_time_format_value_hour_12">12-hour format</string>
-    <string name="screen_settings_time_format_value_hour_24">24-hour format</string>
-
+    <string name="screen_settings_units_header_distance">Distance</string>
+    <string name="screen_settings_units_header_precipitation">Precipitation</string>
+    <string name="screen_settings_units_header_pressure">Pressure</string>
+    <string name="screen_settings_units_header_temperature">Temperature</string>
+    <string name="screen_settings_units_header_wind_speed">Wind speed</string>
     <string name="screen_settings_units_title">Units</string>
-    <string name="screen_settings_units_value_imperial">Imperial (°F, mph)</string>
-    <string name="screen_settings_units_value_metric">Metric (°C, m/s)</string>
-    <string name="screen_settings_units_value_standard">Standard (°K, m/s)</string>
 
     <string name="snackbar_about_intent_failed_message">No fitting app on your phone found</string>
     <string name="snackbar_back_pressed_when_no_current_location_message">You need to select a location</string>
@@ -255,6 +262,5 @@
 
     <string name="top_app_bar_search_placeholder">Search</string>
 
-    <string name="value_temperature_feels_like_prefix">Feels like</string>
 
 </resources>

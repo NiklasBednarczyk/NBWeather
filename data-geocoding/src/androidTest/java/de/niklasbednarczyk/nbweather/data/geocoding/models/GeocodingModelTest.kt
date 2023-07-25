@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.models
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocalNamesModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
@@ -8,126 +7,111 @@ import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocalNamesMode
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.nbweather.test.data.localremote.NBLocalRemoteModelTest
 import org.junit.Test
+import java.util.Locale
 import kotlin.test.assertEquals
 
 class GeocodingModelTest : NBLocalRemoteModelTest {
 
     @Test
     fun localToData_shouldLocalizeBasedOnLanguageType() {
-        toDataTest(
-            testLocation = ::testLocationLocal,
+        testData(
+            createTestLocation = ::createTestLocationLocal,
             toAct = LocationModelData::localToData
         )
     }
 
     @Test
     fun remoteToData_shouldLocalizeBasedOnLanguageType() {
-        toDataTest(
-            testLocation = ::testLocationRemote,
+        testData(
+            createTestLocation = ::createTestLocationRemote,
             toAct = LocationModelData::remoteToData
         )
     }
 
-    private fun <T> toDataTest(
-        testLocation: (name: String?, country: String?, state: String?, de: String?, en: String?) -> T,
-        toAct: (arrangeLocation: T?, language: NBLanguageType) -> LocationModelData?
+    private fun <T> testData(
+        createTestLocation: (name: String?, country: String?, state: String?, de: String?, en: String?) -> T,
+        toAct: (arrangeLocation: T?) -> LocationModelData?,
     ) {
-        // Arrange
-        val toActPair: (T) -> Pair<LocationModelData, LocationModelData> = { arrangeLocation ->
-            val defaultLocation = LocationModelData(
-                localizedName = null,
-                stateAndCountry = null,
-                localizedNameAndCountry = null,
-                latitude = -1.0,
-                longitude = -1.0
-            )
-            val locationDe = toAct(arrangeLocation, NBLanguageType.GERMAN) ?: defaultLocation
-            val locationEn = toAct(arrangeLocation, NBLanguageType.ENGLISH) ?: defaultLocation
-            Pair(locationDe, locationEn)
-        }
-        val arrangeNull = testLocation(null, null, null, null, null)
-
-        val arrangeLocalizedName1 = testLocation("name", null, null, null, null)
-        val arrangeLocalizedName2 = testLocation("name", null, null, "de", "en")
-
-        val arrangeStateAndCountry1 = testLocation(null, "country", "state", null, null)
-        val arrangeStateAndCountry2 = testLocation(null, "country", null, null, null)
-        val arrangeStateAndCountry3 = testLocation(null, null, "state", null, null)
-
-        val arrangeLocalizedNameAndCountry1 = testLocation(null, "country", null, "de", "en")
-        val arrangeLocalizedNameAndCountry2 = testLocation(null, null, null, "de", "en")
-        val arrangeLocalizedNameAndCountry3 = testLocation(null, "country", null, null, null)
-
-        // Act
-        val actNull = toActPair(arrangeNull)
-
-        val actLocalizedName1 = toActPair(arrangeLocalizedName1)
-        val actLocalizedName2 = toActPair(arrangeLocalizedName2)
-
-        val actStateAndCountry1 = toActPair(arrangeStateAndCountry1)
-        val actStateAndCountry2 = toActPair(arrangeStateAndCountry2)
-        val actStateAndCountry3 = toActPair(arrangeStateAndCountry3)
-
-        val actLocalizedNameAndCountry1 = toActPair(arrangeLocalizedNameAndCountry1)
-        val actLocalizedNameAndCountry2 = toActPair(arrangeLocalizedNameAndCountry2)
-        val actLocalizedNameAndCountry3 = toActPair(arrangeLocalizedNameAndCountry3)
-
-
-        // Assert
-        //      Localized name
-        assertNullOrEmpty(actNull.first.localizedName.asString(context))
-        assertNullOrEmpty(actNull.second.localizedName.asString(context))
-
-        assertEquals("name", actLocalizedName1.first.localizedName.asString(context))
-        assertEquals("name", actLocalizedName1.second.localizedName.asString(context))
-
-        assertEquals("de", actLocalizedName2.first.localizedName.asString(context))
-        assertEquals("en", actLocalizedName2.second.localizedName.asString(context))
-
-        //      State and country
-        assertNullOrEmpty(actNull.first.stateAndCountry.asString(context))
-        assertNullOrEmpty(actNull.second.stateAndCountry.asString(context))
-
-        assertEquals("state, country", actStateAndCountry1.first.stateAndCountry.asString(context))
-        assertEquals("state, country", actStateAndCountry1.second.stateAndCountry.asString(context))
-
-        assertEquals("country", actStateAndCountry2.first.stateAndCountry.asString(context))
-        assertEquals("country", actStateAndCountry2.second.stateAndCountry.asString(context))
-
-        assertNullOrEmpty(actStateAndCountry3.first.stateAndCountry.asString(context))
-        assertNullOrEmpty(actStateAndCountry3.second.stateAndCountry.asString(context))
-
-        //      Localized name and country
-        assertNullOrEmpty(actNull.first.localizedNameAndCountry.asString(context))
-        assertNullOrEmpty(actNull.second.localizedNameAndCountry.asString(context))
-
-        assertEquals(
-            "de, country",
-            actLocalizedNameAndCountry1.first.localizedNameAndCountry.asString(context)
+        testDataWithLocale(
+            locale = Locale.ENGLISH,
+            createTestLocation = createTestLocation,
+            toAct = toAct
         )
-        assertEquals(
-            "en, country",
-            actLocalizedNameAndCountry1.second.localizedNameAndCountry.asString(context)
-        )
-
-        assertEquals(
-            "de",
-            actLocalizedNameAndCountry2.first.localizedNameAndCountry.asString(context)
-        )
-        assertEquals(
-            "en",
-            actLocalizedNameAndCountry2.second.localizedNameAndCountry.asString(context)
-        )
-
-        assertNullOrEmpty(actLocalizedNameAndCountry3.first.localizedNameAndCountry.asString(context))
-        assertNullOrEmpty(
-            actLocalizedNameAndCountry3.second.localizedNameAndCountry.asString(
-                context
-            )
+        testDataWithLocale(
+            locale = Locale.GERMAN,
+            createTestLocation = createTestLocation,
+            toAct = toAct
         )
     }
 
-    private fun testLocationLocal(
+    private fun <T> testDataWithLocale(
+        locale: Locale,
+        createTestLocation: (name: String?, country: String?, state: String?, de: String?, en: String?) -> T,
+        toAct: (arrangeLocation: T?) -> LocationModelData?,
+    ) {
+        // Arrange
+        setLocale(locale)
+        val localNameDe = "de"
+        val localNameEn = "en"
+        val expectedLocalName = when (locale.language) {
+            Locale("de").language -> localNameDe
+            Locale("en").language -> localNameEn
+            else -> throw RuntimeException("Tested unused locale")
+        }
+
+        val arrangeNull = createTestLocation(null, null, null, null, null)
+
+        val arrangeLocalizedName1 = createTestLocation("name", null, null, null, null)
+        val arrangeLocalizedName2 = createTestLocation("name", null, null, localNameDe, localNameEn)
+
+        val arrangeStateAndCountry1 = createTestLocation(null, "country", "state", null, null)
+        val arrangeStateAndCountry2 = createTestLocation(null, "country", null, null, null)
+        val arrangeStateAndCountry3 = createTestLocation(null, null, "state", null, null)
+
+        val arrangeLocalizedNameAndCountry1 =
+            createTestLocation(null, "country", null, localNameDe, localNameEn)
+        val arrangeLocalizedNameAndCountry2 =
+            createTestLocation(null, null, null, localNameDe, localNameEn)
+        val arrangeLocalizedNameAndCountry3 = createTestLocation(null, "country", null, null, null)
+
+        // Act
+        val actNull = toAct(arrangeNull)
+
+        val actLocalizedName1 = toAct(arrangeLocalizedName1)
+        val actLocalizedName2 = toAct(arrangeLocalizedName2)
+
+        val actStateAndCountry1 = toAct(arrangeStateAndCountry1)
+        val actStateAndCountry2 = toAct(arrangeStateAndCountry2)
+        val actStateAndCountry3 = toAct(arrangeStateAndCountry3)
+
+        val actLocalizedNameAndCountry1 = toAct(arrangeLocalizedNameAndCountry1)
+        val actLocalizedNameAndCountry2 = toAct(arrangeLocalizedNameAndCountry2)
+        val actLocalizedNameAndCountry3 = toAct(arrangeLocalizedNameAndCountry3)
+
+
+        // Assert
+        assertNullOrEmpty(actNull?.localizedName.asString(context))
+        assertEquals("name", actLocalizedName1?.localizedName.asString(context))
+        assertEquals(expectedLocalName, actLocalizedName2?.localizedName.asString(context))
+
+        assertNullOrEmpty(actNull?.stateAndCountry.asString(context))
+        assertEquals("state, country", actStateAndCountry1?.stateAndCountry.asString(context))
+        assertEquals("country", actStateAndCountry2?.stateAndCountry.asString(context))
+        assertNullOrEmpty(actStateAndCountry3?.stateAndCountry.asString(context))
+
+        assertNullOrEmpty(actNull?.localizedNameAndCountry.asString(context))
+        assertEquals(
+            "$expectedLocalName, country",
+            actLocalizedNameAndCountry1?.localizedNameAndCountry.asString(context)
+        )
+        assertEquals(
+            expectedLocalName,
+            actLocalizedNameAndCountry2?.localizedNameAndCountry.asString(context)
+        )
+        assertNullOrEmpty(actLocalizedNameAndCountry3?.localizedNameAndCountry.asString(context))
+    }
+
+    private fun createTestLocationLocal(
         name: String?,
         country: String?,
         state: String?,
@@ -189,7 +173,7 @@ class GeocodingModelTest : NBLocalRemoteModelTest {
     )
 
 
-    private fun testLocationRemote(
+    private fun createTestLocationRemote(
         name: String?,
         country: String?,
         state: String?,

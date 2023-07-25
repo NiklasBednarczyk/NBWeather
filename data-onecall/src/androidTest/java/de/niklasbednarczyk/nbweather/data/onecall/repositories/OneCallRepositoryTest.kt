@@ -1,18 +1,27 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
-import de.niklasbednarczyk.nbweather.core.common.data.NBLanguageType
-import de.niklasbednarczyk.nbweather.core.common.data.NBUnitsType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbZip
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
-import de.niklasbednarczyk.nbweather.data.onecall.local.daos.*
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeCurrentWeatherDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeDailyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeHourlyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeMinutelyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeNationalWeatherAlertDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeOneCallDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBCurrentWeatherDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBDailyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBHourlyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBMinutelyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBNationalWeatherAlertDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBOneCallDao
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.common.WeatherModelRemote
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.FakeOneCallService
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
 import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 import de.niklasbednarczyk.nbweather.test.data.localremote.repositories.NBLocalRemoteRepositoryTest
@@ -20,7 +29,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 
@@ -29,8 +37,10 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
     companion object {
         private const val LATITUDE = 0.0
         private const val LONGITUDE = 0.0
-        private val LANGUAGE = NBLanguageType.ENGLISH
-        private val UNITS = NBUnitsType.METRIC
+
+        private const val EXCLUDE = ""
+        private const val LANGUAGE = "en"
+        private const val UNITS = "metric"
     }
 
     private lateinit var subject: OneCallRepository
@@ -81,31 +91,34 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
         val remote = oneCallService.getOneCall(
             latitude = LATITUDE,
             longitude = LONGITUDE,
-            language = LANGUAGE.name,
-            units = UNITS.name
+            exclude = EXCLUDE,
+            language = LANGUAGE,
+            units = UNITS
         )
 
         // Act + Assert
         subject.getOneCall(
             latitude = LATITUDE,
             longitude = LONGITUDE,
-            language = LANGUAGE,
-            units = UNITS,
             forceUpdate = true
         ).collectUntilResource { data ->
-            assertValue(remote.timezoneOffset, data.metadata.timezoneOffset?.value)
-
             assertValue(remote.current?.dt, data.currentWeather.currentTime?.value)
             assertValue(remote.current?.sunrise, data.currentWeather.sunrise?.value)
             assertValue(remote.current?.sunset, data.currentWeather.sunset?.value)
-            assertValue(remote.current?.temp, data.currentWeather.currentTemperature?.value)
-            assertValue(remote.current?.feelsLike, data.currentWeather.feelsLikeTemperature?.value)
+            assertValue(remote.current?.temp, data.currentWeather.currentTemperature?.valueInternal)
+            assertValue(
+                remote.current?.feelsLike,
+                data.currentWeather.feelsLikeTemperature?.valueInternal
+            )
             assertValue(remote.current?.pressure, data.currentWeather.pressure?.value)
             assertValue(remote.current?.humidity, data.currentWeather.humidity?.value)
-            assertValue(remote.current?.dewPoint, data.currentWeather.dewPointTemperature?.value)
+            assertValue(
+                remote.current?.dewPoint,
+                data.currentWeather.dewPointTemperature?.valueInternal
+            )
             assertValue(remote.current?.clouds, data.currentWeather.cloudiness?.value)
             assertValue(remote.current?.uvi, data.currentWeather.uvIndex?.value)
-            assertFieldVisibility(remote.current?.visibility, data.currentWeather.visibility)
+            assertValue(remote.current?.visibility, data.currentWeather.visibility?.value)
             assertValue(remote.current?.windSpeed, data.currentWeather.windSpeed?.value)
             assertValue(remote.current?.windGust, data.currentWeather.windGust?.value, true)
             assertFieldWindDegrees(remote.current?.windDeg, data.currentWeather.windDegrees)
@@ -120,14 +133,14 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
 
             nbZip(remote.hourly, data.hourlyForecasts) { hourlyRemote, hourlyData ->
                 assertValue(hourlyRemote.dt, hourlyData.forecastTime?.value)
-                assertValue(hourlyRemote.temp, hourlyData.temperature?.value)
-                assertValue(hourlyRemote.feelsLike, hourlyData.feelsLikeTemperature?.value)
+                assertValue(hourlyRemote.temp, hourlyData.temperature?.valueInternal)
+                assertValue(hourlyRemote.feelsLike, hourlyData.feelsLikeTemperature?.valueInternal)
                 assertValue(hourlyRemote.pressure, hourlyData.pressure?.value)
                 assertValue(hourlyRemote.humidity, hourlyData.humidity?.value)
-                assertValue(hourlyRemote.dewPoint, hourlyData.dewPointTemperature?.value)
+                assertValue(hourlyRemote.dewPoint, hourlyData.dewPointTemperature?.valueInternal)
                 assertValue(hourlyRemote.uvi, hourlyData.uvIndex?.value)
                 assertValue(hourlyRemote.clouds, hourlyData.cloudiness?.value)
-                assertFieldVisibility(hourlyRemote.visibility, hourlyData.visibility)
+                assertValue(hourlyRemote.visibility, hourlyData.visibility?.value)
                 assertValue(hourlyRemote.windSpeed, hourlyData.windSpeed?.value)
                 assertValue(hourlyRemote.windGust, hourlyData.windGust?.value, true)
                 assertFieldWindDegrees(hourlyRemote.windDeg, hourlyData.windDegrees)
@@ -146,38 +159,47 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
                 assertValue(MoonPhaseType.from(dailyRemote.moonPhase), dailyData.moonPhase?.type)
                 assertValue(
                     dailyRemote.temp?.morn,
-                    dailyData.temperature?.morningTemperature?.value
+                    dailyData.temperature?.morningTemperature?.valueInternal
                 )
-                assertValue(dailyRemote.temp?.day, dailyData.temperature?.dayTemperature?.value)
-                assertValue(dailyRemote.temp?.eve, dailyData.temperature?.eveningTemperature?.value)
-                assertValue(dailyRemote.temp?.night, dailyData.temperature?.nightTemperature?.value)
+                assertValue(
+                    dailyRemote.temp?.day,
+                    dailyData.temperature?.dayTemperature?.valueInternal
+                )
+                assertValue(
+                    dailyRemote.temp?.eve,
+                    dailyData.temperature?.eveningTemperature?.valueInternal
+                )
+                assertValue(
+                    dailyRemote.temp?.night,
+                    dailyData.temperature?.nightTemperature?.valueInternal
+                )
                 assertValue(
                     dailyRemote.temp?.min,
-                    dailyData.temperature?.minDailyTemperature?.value
+                    dailyData.temperature?.minDailyTemperature?.valueInternal
                 )
                 assertValue(
                     dailyRemote.temp?.max,
-                    dailyData.temperature?.maxDailyTemperature?.value
+                    dailyData.temperature?.maxDailyTemperature?.valueInternal
                 )
                 assertValue(
                     dailyRemote.feelsLike?.morn,
-                    dailyData.feelsLikeTemperature?.morningTemperature?.value
+                    dailyData.feelsLikeTemperature?.morningTemperature?.valueInternal
                 )
                 assertValue(
                     dailyRemote.feelsLike?.day,
-                    dailyData.feelsLikeTemperature?.dayTemperature?.value
+                    dailyData.feelsLikeTemperature?.dayTemperature?.valueInternal
                 )
                 assertValue(
                     dailyRemote.feelsLike?.eve,
-                    dailyData.feelsLikeTemperature?.eveningTemperature?.value
+                    dailyData.feelsLikeTemperature?.eveningTemperature?.valueInternal
                 )
                 assertValue(
                     dailyRemote.feelsLike?.night,
-                    dailyData.feelsLikeTemperature?.nightTemperature?.value
+                    dailyData.feelsLikeTemperature?.nightTemperature?.valueInternal
                 )
                 assertValue(dailyRemote.pressure, dailyData.pressure?.value)
                 assertValue(dailyRemote.humidity, dailyData.humidity?.value)
-                assertValue(dailyRemote.dewPoint, dailyData.dewPointTemperature?.value)
+                assertValue(dailyRemote.dewPoint, dailyData.dewPointTemperature?.valueInternal)
                 assertValue(dailyRemote.windSpeed, dailyData.windSpeed?.value)
                 assertValue(dailyRemote.windGust, dailyData.windGust?.value, true)
                 assertFieldWindDegrees(dailyRemote.windDeg, dailyData.windDegrees)
@@ -203,135 +225,44 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun getOneCall_shouldRefreshOnDifferentLanguage() = testScope.runTest {
-        // Arrange
-        subject.getOneCall(
-            latitude = LATITUDE,
-            longitude = LONGITUDE,
-            language = NBLanguageType.ENGLISH,
-            units = UNITS,
-            forceUpdate = false
-        ).collectUntilResource {
-            val timezoneOffsetLocal = modifyTimezoneOffset()
-
-            // Act + Assert
-            subject.getOneCall(
-                latitude = LATITUDE,
-                longitude = LONGITUDE,
-                language = NBLanguageType.GERMAN,
-                units = UNITS,
-                forceUpdate = false
-            ).collectUntilResource { data ->
-                assertTimezoneOffset(timezoneOffsetLocal, data, false)
-            }
-        }
-    }
-
-    @Test
-    fun getOneCall_shouldRefreshOnDifferentUnits() = testScope.runTest {
-        // Arrange
-        subject.getOneCall(
-            latitude = LATITUDE,
-            longitude = LONGITUDE,
-            language = LANGUAGE,
-            units = NBUnitsType.METRIC,
-            forceUpdate = false
-        ).collectUntilResource {
-            val timezoneOffsetLocal = modifyTimezoneOffset()
-
-            // Act + Assert
-            subject.getOneCall(
-                latitude = LATITUDE,
-                longitude = LONGITUDE,
-                language = LANGUAGE,
-                units = NBUnitsType.IMPERIAL,
-                forceUpdate = false
-            ).collectUntilResource { data ->
-                assertTimezoneOffset(timezoneOffsetLocal, data, false)
-            }
-        }
-    }
-
-    @Test
-    fun getOneCall_shouldNotRefreshOnSameLanguageAndUnits() = testScope.runTest {
-        // Arrange
-        subject.getOneCall(
-            latitude = LATITUDE,
-            longitude = LONGITUDE,
-            language = LANGUAGE,
-            units = UNITS,
-            forceUpdate = false
-        ).collectUntilResource {
-            val timezoneOffsetLocal = modifyTimezoneOffset()
-
-            // Act + Assert
-            subject.getOneCall(
-                latitude = LATITUDE,
-                longitude = LONGITUDE,
-                language = LANGUAGE,
-                units = UNITS,
-                forceUpdate = false
-            ).collectUntilResource { data ->
-                assertTimezoneOffset(timezoneOffsetLocal, data, true)
-            }
-        }
-    }
-
-    @Test
     fun getOneCall_shouldRefreshOnForceUpdate() = testScope.runTest {
         // Arrange
         subject.getOneCall(
             latitude = LATITUDE,
             longitude = LONGITUDE,
-            language = LANGUAGE,
-            units = UNITS,
             forceUpdate = false
         ).collectUntilResource {
-            val timezoneOffsetLocal = modifyTimezoneOffset()
+            val currentWeatherDtLocal = modifyCurrentWeatherDt()
 
             // Act + Assert
             subject.getOneCall(
                 latitude = LATITUDE,
                 longitude = LONGITUDE,
-                language = LANGUAGE,
-                units = UNITS,
                 forceUpdate = true
             ).collectUntilResource { data ->
-                assertTimezoneOffset(timezoneOffsetLocal, data, false)
+                assertCurrentWeatherDt(currentWeatherDtLocal, data)
             }
         }
     }
 
-    private suspend fun modifyTimezoneOffset(): Long? {
-        val metadata = oneCallDao.getOneCall(latitude = LATITUDE, longitude = LONGITUDE)
-            .firstOrNull()?.metadata?.copy(
-                timezoneOffset = Long.MAX_VALUE
+    private suspend fun modifyCurrentWeatherDt(): Long? {
+        val currentWeather = oneCallDao.getOneCall(latitude = LATITUDE, longitude = LONGITUDE)
+            .firstOrNull()?.currentWeather?.copy(
+                dt = Long.MAX_VALUE
             )
-        if (metadata != null) {
-            oneCallDao.insertOneCall(metadata)
+        if (currentWeather != null) {
+            currentWeatherDao.insertCurrentWeather(currentWeather)
         }
-        return metadata?.timezoneOffset
+        return currentWeather?.dt
     }
 
-    private fun assertTimezoneOffset(
-        timezoneOffsetLocal: Long?,
+    private fun assertCurrentWeatherDt(
+        currentWeatherDtLocal: Long?,
         data: OneCallModelData,
-        shouldBeEqual: Boolean
     ) {
-        val timezoneOffsetData = data.metadata.timezoneOffset?.value
-        assertNotNull(timezoneOffsetData)
-        if (shouldBeEqual) {
-            assertEquals(timezoneOffsetLocal, timezoneOffsetData)
-        } else {
-            assertNotEquals(timezoneOffsetLocal, timezoneOffsetData)
-        }
-    }
-
-    private fun assertFieldVisibility(
-        remoteOrLocal: Long?,
-        data: DistanceValue?
-    ) {
-        assertValue(remoteOrLocal?.div(1000), data?.value)
+        val currentWeatherDtData = data.currentWeather.currentTime?.value
+        assertNotNull(currentWeatherDtData)
+        assertNotEquals(currentWeatherDtLocal, currentWeatherDtData)
     }
 
     private fun assertFieldWindDegrees(
@@ -346,11 +277,8 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
         data: WeatherModelData?
     ) {
         val weatherRemote = remote?.firstOrNull()
-        assertValue(
-            weatherRemote?.description,
-            data?.description?.value?.asString(context)?.lowercase()
-        )
-        assertValue(WeatherIconType.from(weatherRemote?.icon), data?.icon?.type)
+        assertValue(WeatherConditionType.from(weatherRemote?.id), data?.condition)
+        assertValue(WeatherIconType.from(weatherRemote?.icon), data?.icon)
     }
 
 }

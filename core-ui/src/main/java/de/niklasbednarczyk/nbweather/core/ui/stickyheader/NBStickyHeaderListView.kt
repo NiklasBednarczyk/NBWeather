@@ -11,27 +11,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
+import de.niklasbednarczyk.nbweather.core.ui.dimens.stickyHeaderPadding
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.listContentPaddingValuesVertical
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.stickyHeaderPadding
 
 @Composable
-fun <T> NBStickyHeaderListView(
-    stickyHeaderMap: Map<NBString?, List<T>>,
+fun <K, T> NBStickyHeaderListView(
+    stickyHeaderMap: Map<K?, List<T>>,
+    keyToString: (K) -> NBString?,
     item: @Composable (item: T) -> Unit
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValuesVertical
     ) {
-        stickyHeaderMap.forEach { (title, items) ->
-            if (title != null) {
+        stickyHeaderMap.forEach { (key, items) ->
+            if (key != null) {
                 stickyHeader {
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(MaterialTheme.colorScheme.surfaceVariant)
                             .padding(stickyHeaderPadding),
-                        text = title.asString(),
+                        text = keyToString(key).asString(),
                         style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurfaceVariant

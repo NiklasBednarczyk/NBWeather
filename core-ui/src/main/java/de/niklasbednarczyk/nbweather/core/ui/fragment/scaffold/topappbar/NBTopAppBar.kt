@@ -24,7 +24,7 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.NBTextSingleLine
-import de.niklasbednarczyk.nbweather.core.ui.theme.dimens.topAppBarElevation
+import de.niklasbednarczyk.nbweather.core.ui.dimens.topAppBarElevation
 
 @Composable
 internal fun NBTopAppBar(
