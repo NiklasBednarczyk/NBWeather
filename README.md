@@ -59,7 +59,7 @@ Then, in your `local.properties`, you need to enter a new variable with the name
 | Command | Usage | Report location |
 | :-----: | :---: | :-------------: |
 | `./gradlew connectedAndroidTest mergeAndroidReports --continue` | [Run all tests](https://developer.android.com/studio/test/command-line) | **build/androidTest-results/index.html** |
-| `/.gradlew dependencyUpdates` | [Dependency version check](https://github.com/ben-manes/gradle-versions-plugin) | **build/dependencyUpdates/report.html** |
+| `./gradlew dependencyUpdates` | [Dependency version check](https://github.com/ben-manes/gradle-versions-plugin) | **build/dependencyUpdates/report.html** |
 
 ## Credits
 
