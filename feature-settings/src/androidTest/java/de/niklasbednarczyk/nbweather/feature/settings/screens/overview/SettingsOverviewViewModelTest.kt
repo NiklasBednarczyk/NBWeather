@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.overview
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
-import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
@@ -20,9 +19,7 @@ class SettingsOverviewViewModelTest : NBViewModelTest {
 
     @Before
     override fun setUp() {
-        subject = SettingsOverviewViewModel(
-            settingsUnitsRepository = SettingsUnitsRepository.createFake(temporaryFolder)
-        )
+        subject = SettingsOverviewViewModel()
     }
 
     @Test

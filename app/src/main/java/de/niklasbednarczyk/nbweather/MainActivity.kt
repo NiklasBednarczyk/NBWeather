@@ -22,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
+import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.ui.fragment.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
@@ -30,6 +31,7 @@ import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawe
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBAppearance
+import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBFont
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBUnits
 import de.niklasbednarczyk.nbweather.core.ui.settings.NBSettings
 import de.niklasbednarczyk.nbweather.databinding.ContentAppBinding
@@ -67,6 +69,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
             val uiState = viewModel.uiState.collectAsStateWithLifecycle()
             SetupSettings(
                 appearance = uiState.value.appearance,
+                font = uiState.value.font,
                 units = uiState.value.units
             ) {
                 NBTheme {
@@ -90,12 +93,14 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
     @Composable
     private fun SetupSettings(
         appearance: NBAppearanceModel?,
+        font: NBFontModel?,
         units: NBUnitsModel?,
         content: @Composable () -> Unit
     ) {
-        if (appearance != null && units != null) {
+        if (appearance != null && font != null && units != null) {
             CompositionLocalProvider(
                 LocalNBAppearance provides appearance,
+                LocalNBFont provides font,
                 LocalNBUnits provides units,
                 content = content
             )

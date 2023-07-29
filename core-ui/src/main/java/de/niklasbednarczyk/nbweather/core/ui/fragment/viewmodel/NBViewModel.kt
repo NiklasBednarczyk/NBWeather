@@ -21,7 +21,7 @@ abstract class NBViewModel<UiState>(initialUiState: UiState) : ViewModel() {
 
     protected fun <T> updateStateFlow(
         stateFlow: MutableStateFlow<T>,
-        makeNewStateFlow: (oldStateFlow: T) -> T
+        makeNewStateFlow: suspend (oldStateFlow: T) -> T
     ) {
         launchSuspend {
             stateFlow.update { oldStateFlow ->

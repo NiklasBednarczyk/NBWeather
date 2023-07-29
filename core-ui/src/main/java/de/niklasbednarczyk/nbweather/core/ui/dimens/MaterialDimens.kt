@@ -64,4 +64,16 @@ val segmentedButtonTextStyle
     @Composable
     get() = MaterialTheme.typography.labelLarge
 
+val sliderHandleSize = 20.dp
+val sliderLabelContainerWidth = 28.dp
+val sliderLabelContainerColor
+    @Composable
+    get() = MaterialTheme.colorScheme.primary
+val sliderLabelTextColor
+    @Composable
+    get() = MaterialTheme.colorScheme.onPrimary
+val sliderLabelTextStyle
+    @Composable
+    get() = MaterialTheme.typography.labelMedium
+
 val topAppBarElevation = 3.dp // Level 2

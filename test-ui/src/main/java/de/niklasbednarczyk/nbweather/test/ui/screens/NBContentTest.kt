@@ -10,6 +10,8 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBColorSchemeType
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBThemeType
+import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontAxes
+import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBDistanceUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPrecipitationUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPressureUnitType
@@ -17,6 +19,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBTemperatureUni
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitType
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBAppearance
+import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBFont
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBUnits
 import org.junit.Rule
 
@@ -29,12 +32,14 @@ abstract class NBContentTest : NBComposeTest {
 
     protected fun setContent(
         appearance: NBAppearanceModel = testAppearance,
+        font: NBFontModel = testFont,
         units: NBUnitsModel = testUnits,
         content: @Composable () -> Unit
     ) {
         composeTestRule.setContent {
             CompositionLocalProvider(
                 LocalNBAppearance provides appearance,
+                LocalNBFont provides font,
                 LocalNBUnits provides units
             ) {
                 MaterialTheme {
@@ -49,6 +54,20 @@ abstract class NBContentTest : NBComposeTest {
         theme = NBThemeType.DARK,
         useDynamicColorScheme = false,
         colorScheme = NBColorSchemeType.YELLOW
+    )
+
+    private val testFont = NBFontModel(
+        slant = NBFontAxes.Slant.defaultValue,
+        width = NBFontAxes.Width.defaultValue,
+        weight = NBFontAxes.Weight.defaultValue,
+        grade = NBFontAxes.Grade.defaultValue,
+        counterWidth = NBFontAxes.CounterWidth.defaultValue,
+        thinStroke = NBFontAxes.ThinStroke.defaultValue,
+        ascenderHeight = NBFontAxes.AscenderHeight.defaultValue,
+        descenderDepth = NBFontAxes.DescenderDepth.defaultValue,
+        figureHeight = NBFontAxes.FigureHeight.defaultValue,
+        lowercaseHeight = NBFontAxes.LowercaseHeight.defaultValue,
+        uppercaseHeight = NBFontAxes.UppercaseHeight.defaultValue
     )
 
     private val testUnits = NBUnitsModel(

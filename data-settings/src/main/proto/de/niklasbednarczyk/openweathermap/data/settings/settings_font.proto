@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "de.niklasbednarczyk.nbweather.data.settings.proto.font";
+option java_multiple_files = true;
+
+message SettingsFontProto {
+
+  float slant = 1;
+  float width = 2;
+  float weight = 3;
+  float grade = 4;
+  float counterWidth = 5;
+  float thinStroke = 6;
+  float ascenderHeight = 7;
+  float descenderDepth = 8;
+  float figureHeight = 9;
+  float lowercaseHeight = 10;
+  float uppercaseHeight = 11;
+
+}

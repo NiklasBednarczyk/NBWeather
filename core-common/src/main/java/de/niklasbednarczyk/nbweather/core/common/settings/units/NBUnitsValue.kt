@@ -1,14 +1,10 @@
 package de.niklasbednarczyk.nbweather.core.common.settings.units
 
 import de.niklasbednarczyk.nbweather.core.common.R
+import de.niklasbednarczyk.nbweather.core.common.number.format
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import java.text.DecimalFormat
 
 interface NBUnitsValue {
-
-    companion object {
-        private val REGEX_NEGATIVE_ZERO = Regex("^-(?=0(\\.0*)?$)")
-    }
 
     val value: Number
 
@@ -27,13 +23,7 @@ interface NBUnitsValue {
     private fun getFormattedValue(units: NBUnitsModel): String {
         val convertedValue = getConvertedValue(units)
         val fractionDigits = getFractionDigits(units)
-
-        val decimalFormat = DecimalFormat()
-        decimalFormat.minimumFractionDigits = fractionDigits
-        decimalFormat.maximumFractionDigits = fractionDigits
-
-        val formattedValue = decimalFormat.format(convertedValue)
-        return formattedValue.replace(REGEX_NEGATIVE_ZERO, "")
+        return convertedValue.format(fractionDigits)
     }
 
 

@@ -9,22 +9,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
+import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.border.nbBorder
-import de.niklasbednarczyk.nbweather.core.ui.expandable.NBExpandableView
-import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithLoadingView
-import de.niklasbednarczyk.nbweather.core.ui.strings.asString
+import de.niklasbednarczyk.nbweather.core.ui.common.time
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefault
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefaultDp
 import de.niklasbednarczyk.nbweather.core.ui.dimens.flowRowCrossAxisSpacing
 import de.niklasbednarczyk.nbweather.core.ui.dimens.flowRowMainAxisSpacing
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listItemPaddingValuesHorizontal
-import de.niklasbednarczyk.nbweather.core.ui.dimens.tagPadding
-import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.common.time
+import de.niklasbednarczyk.nbweather.core.ui.expandable.NBExpandableView
+import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithLoadingView
+import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.location.screens.alerts.models.LocationAlertExpandableItem
+
+private val tagPadding = 8.dp
 
 @Composable
 fun LocationAlertsContent(

@@ -4,6 +4,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlModel
+import de.niklasbednarczyk.nbweather.core.ui.slider.NBSliderModel
 
 sealed interface SettingsListItemModel {
 
@@ -22,6 +23,10 @@ sealed interface SettingsListItemModel {
         val title: NBString?,
         val value: NBString?,
         val destination: NBDestination.WithoutArguments
+    ) : SettingsListItemModel
+
+    data class ItemSlider(
+        val slider: NBSliderModel
     ) : SettingsListItemModel
 
     data class ItemSwitch(

@@ -1,8 +1,26 @@
 package de.niklasbednarczyk.nbweather.test.ui.screens
 
 import androidx.annotation.StringRes
-import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.SemanticsNodeInteractionCollection
+import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeLeft
+import androidx.compose.ui.test.swipeRight
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.font.FontFamily
 import androidx.test.espresso.Espresso
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
@@ -50,8 +68,11 @@ interface NBComposeTest : NBTest {
 
     fun SemanticsNodeInteractionsProvider.onNodeWithIcon(
         icon: NBIconModel,
-        useUnmergedTree: Boolean =false
-    ) = onNodeWithContentDescription(icon.contentDescription.asString(context), useUnmergedTree = useUnmergedTree)
+        useUnmergedTree: Boolean = false
+    ) = onNodeWithContentDescription(
+        icon.contentDescription.asString(context),
+        useUnmergedTree = useUnmergedTree
+    )
 
     fun SemanticsNodeInteractionsProvider.onAllNodesWithText(
         @StringRes resId: Int,
@@ -73,15 +94,32 @@ interface NBComposeTest : NBTest {
             get(index).performClick()
         }
 
-    fun SemanticsNodeInteractionsProvider.swipeLeft() =
-        onRoot().performTouchInput { swipeLeft() }
+    fun SemanticsNodeInteractionsProvider.swipeLeft() = onRoot().swipeLeft()
 
-    fun SemanticsNodeInteractionsProvider.swipeRight() =
-        onRoot().performTouchInput { swipeRight() }
+    fun SemanticsNodeInteractionsProvider.swipeRight() = onRoot().swipeRight()
+
+    fun SemanticsNodeInteraction.swipeLeft() = performTouchInput { swipeLeft() }
+
+    fun SemanticsNodeInteraction.swipeRight() = performTouchInput { swipeRight() }
 
     fun SemanticsNodeInteractionsProvider.assertStringIsNotDisplayed(string: NBString?) =
         onAllNodesWithText(string)
             .assertCountEquals(0)
+
+    fun isOfFontFamily(fontFamily: FontFamily): SemanticsMatcher = SemanticsMatcher(
+        "${SemanticsProperties.Text.name} is of font family '$fontFamily'"
+    ) { node ->
+        val textLayoutResults = mutableListOf<TextLayoutResult>()
+        node.config.getOrNull(SemanticsActions.GetTextLayoutResult)
+            ?.action
+            ?.invoke(textLayoutResults)
+        return@SemanticsMatcher if (textLayoutResults.isEmpty()) {
+            false
+        } else {
+            textLayoutResults.first().layoutInput.style.fontFamily == fontFamily
+        }
+    }
+
 
     fun pressBack() = Espresso.pressBackUnconditionally()
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBThemeType
+import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 
 object NBSettings {
@@ -11,6 +12,10 @@ object NBSettings {
     val appearance: NBAppearanceModel
         @Composable
         get() = LocalNBAppearance.current
+
+    val font: NBFontModel
+        @Composable
+        get() = LocalNBFont.current
 
     val units: NBUnitsModel
         @Composable

@@ -2,12 +2,12 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.appearance
 
 import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBColorSchemeType
+import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBThemeType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedButtonModel
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlModel
-import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBColorSchemeType
-import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBThemeType
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.nbweather.feature.settings.extensions.displayText
 import de.niklasbednarczyk.nbweather.feature.settings.screens.list.SettingsListViewModel
@@ -21,7 +21,7 @@ class SettingsAppearanceViewModel @Inject constructor(
     private val settingsAppearanceRepository: SettingsAppearanceRepository,
 ) : SettingsListViewModel() {
 
-    override val itemFlow: Flow<List<SettingsListItemModel>> =
+    override val itemsFlow: Flow<List<SettingsListItemModel>> =
         settingsAppearanceRepository.getData().map { appearance ->
             val items = mutableListOf<SettingsListItemModel>()
 
@@ -92,7 +92,7 @@ class SettingsAppearanceViewModel @Inject constructor(
     init {
 
         collectFlow(
-            { itemFlow },
+            { itemsFlow },
             { oldUiState, output -> oldUiState.copy(items = output) }
         )
 

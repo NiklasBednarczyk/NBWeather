@@ -4,6 +4,7 @@ import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsFontRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
@@ -39,6 +40,7 @@ class MainViewModelTest : NBViewModelTest {
                 temporaryFolder,
                 context
             ),
+            settingsFontRepository = SettingsFontRepository.createFake(temporaryFolder),
             settingsUnitsRepository = SettingsUnitsRepository.createFake(temporaryFolder)
         )
     }
@@ -74,7 +76,7 @@ class MainViewModelTest : NBViewModelTest {
     }
 
     @Test
-    fun uiState_settingsAppearance_shouldBeSetCorrectly() = testScope.runTest {
+    fun uiState_appearance_shouldBeSetCorrectly() = testScope.runTest {
         // Arrange + Act
         subject.uiState.collectUntil(
             stopCollecting = { uiState ->
@@ -83,6 +85,34 @@ class MainViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 // Assert
                 assertNotNull(uiState.appearance)
+            }
+        )
+    }
+
+    @Test
+    fun uiState_font_shouldBeSetCorrectly() = testScope.runTest {
+        // Arrange + Act
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.font != null
+            },
+            collectData = { uiState ->
+                // Assert
+                assertNotNull(uiState.font)
+            }
+        )
+    }
+
+    @Test
+    fun uiState_units_shouldBeSetCorrectly() = testScope.runTest {
+        // Arrange + Act
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.units != null
+            },
+            collectData = { uiState ->
+                // Assert
+                assertNotNull(uiState.units)
             }
         )
     }

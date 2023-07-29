@@ -3,8 +3,8 @@
     <string name="error_text_unknown">Something went wrong</string>
 
     <string name="format_bullet_2_items" translatable="false">%1$s &#8226; %2$s</string>
-    <string name="format_bullet_3_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s</string>
     <string name="format_bullet_5_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s &#8226; %4$s &#8226; %5$s</string>
+    <string name="format_bullet_11_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s &#8226; %4$s &#8226; %5$s &#8226; %6$s &#8226; %7$s &#8226; %8$s &#8226; %9$s &#8226; %10$s &#8226; %11$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
     <string name="format_range_2_items" translatable="false">%1$s - %2$s</string>
     <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
@@ -23,6 +23,7 @@
     <string name="icon_content_description_error_unknown" translatable="false">@string/error_text_unknown</string>
     <string name="icon_content_description_expand">Expand</string>
     <string name="icon_content_description_find_location">Find location</string>
+    <string name="icon_content_description_font" translatable="false">@string/screen_settings_font_title</string>
     <string name="icon_content_description_git_hub" translatable="false">@string/screen_about_overview_button_git_hub</string>
     <string name="icon_content_description_hourly" translatable="false">@string/screen_location_overview_tab_hourly</string>
     <string name="icon_content_description_humidity" translatable="false">@string/screen_location_card_weather_value_humidity</string>
@@ -60,6 +61,7 @@
     <string name="icon_content_description_pressure" translatable="false">@string/screen_location_card_weather_value_pressure</string>
     <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_location_card_weather_value_probability_of_precipitation</string>
     <string name="icon_content_description_rain" translatable="false">@string/screen_location_card_weather_value_rain</string>
+    <string name="icon_content_description_reset">Reset</string>
     <string name="icon_content_description_search" translatable="false">@string/top_app_bar_search_placeholder</string>
     <string name="icon_content_description_settings" translatable="false">@string/screen_settings_overview_title</string>
     <string name="icon_content_description_snow" translatable="false">@string/screen_location_card_weather_value_snow</string>
@@ -242,6 +244,20 @@
     <string name="screen_settings_appearance_value_use_device_theme_value">Use theme based on your device\'s system default.</string>
     <string name="screen_settings_appearance_value_use_dynamic_color_scheme_title">Dynamic color scheme</string>
     <string name="screen_settings_appearance_value_use_dynamic_color_scheme_value">Use color scheme based on your device\'s wallpaper.</string>
+
+    <string name="screen_settings_font_axis_ascender_height">Ascender height</string>
+    <string name="screen_settings_font_axis_counter_width">Counter width</string>
+    <string name="screen_settings_font_axis_descender_depth">Descender depth</string>
+    <string name="screen_settings_font_axis_figure_height">Figure height</string>
+    <string name="screen_settings_font_axis_grade">Grade</string>
+    <string name="screen_settings_font_axis_lowercase_height">Lowercase height</string>
+    <string name="screen_settings_font_axis_slant">Slant</string>
+    <string name="screen_settings_font_axis_thin_stroke">Thin stroke</string>
+    <string name="screen_settings_font_axis_uppercase_height">Uppercase height</string>
+    <string name="screen_settings_font_axis_weight">Weight</string>
+    <string name="screen_settings_font_axis_width">Width</string>
+    <string name="screen_settings_font_sticky_header_text">The quick brown fox jumps over the lazy dog</string>
+    <string name="screen_settings_font_title">Font</string>
 
     <string name="screen_settings_overview_title">Settings</string>
 

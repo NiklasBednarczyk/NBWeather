@@ -20,10 +20,14 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlView
+import de.niklasbednarczyk.nbweather.core.ui.slider.NBSlider
+import de.niklasbednarczyk.nbweather.core.ui.stickyheader.NBStickyHeaderView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
+import de.niklasbednarczyk.nbweather.core.ui.text.NBTextSingleLine
 import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
 
-private val verticalPadding = 16.dp
+private val horizontalPadding = screenHorizontalPadding
+private val verticalPadding = 8.dp
 
 @Composable
 fun SettingsListContent(
@@ -43,6 +47,13 @@ fun SettingsListContent(
     LazyColumn(
         contentPadding = contentPadding
     ) {
+        uiState.stickyHeader?.let { stickyHeader ->
+            stickyHeader {
+                NBStickyHeaderView(
+                    model = stickyHeader
+                )
+            }
+        }
         items(items) { item ->
             when (item) {
                 is SettingsListItemModel.Divider -> {
@@ -56,8 +67,8 @@ fun SettingsListContent(
                 is SettingsListItemModel.Header -> {
                     Text(
                         modifier = Modifier.padding(
-                            horizontal = screenHorizontalPadding,
-                            vertical = verticalPadding
+                            horizontal = horizontalPadding,
+                            vertical = verticalPadding * 2
                         ),
                         text = item.text.asString(),
                         style = MaterialTheme.typography.titleSmall
@@ -67,8 +78,8 @@ fun SettingsListContent(
                 is SettingsListItemModel.ItemButtons -> {
                     NBSegmentedControlView(
                         modifier = Modifier.padding(
-                            horizontal = screenHorizontalPadding,
-                            vertical = verticalPadding / 2
+                            horizontal = horizontalPadding,
+                            vertical = verticalPadding
                         ),
                         segmentedControl = item.segmentedControl
                     )
@@ -83,11 +94,21 @@ fun SettingsListContent(
                             Text(item.title.asString())
                         },
                         supportingContent = {
-                            Text(item.value.asString())
+                            NBTextSingleLine(text = item.value.asString())
                         },
                         leadingContent = {
                             NBIcon(icon = item.icon)
                         }
+                    )
+                }
+
+                is SettingsListItemModel.ItemSlider -> {
+                    NBSlider(
+                        modifier = Modifier.padding(
+                            horizontal = horizontalPadding,
+                            vertical = verticalPadding
+                        ),
+                        model = item.slider
                     )
                 }
 

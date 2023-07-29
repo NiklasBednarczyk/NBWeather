@@ -10,6 +10,7 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsFontRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
     private val settingsAppearanceRepository: SettingsAppearanceRepository,
+    private val settingsFontRepository: SettingsFontRepository,
     private val settingsUnitsRepository: SettingsUnitsRepository,
 ) : NBViewModel<MainUiState>(MainUiState()) {
 
@@ -87,6 +89,11 @@ class MainViewModel @Inject constructor(
         collectFlow(
             { settingsAppearanceRepository.getData() },
             { oldUiState, output -> oldUiState.copy(appearance = output) }
+        )
+
+        collectFlow(
+            { settingsFontRepository.getData() },
+            { oldUiState, output -> oldUiState.copy(font = output) }
         )
 
         collectFlow(

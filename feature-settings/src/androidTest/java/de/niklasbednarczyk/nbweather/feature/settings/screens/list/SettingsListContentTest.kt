@@ -1,12 +1,18 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.list
 
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.text.font.FontFamily
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBTemperatureUnitType
+import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedButtonModel
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlModel
+import de.niklasbednarczyk.nbweather.core.ui.slider.NBSliderModel
+import de.niklasbednarczyk.nbweather.core.ui.stickyheader.NBStickyHeaderModel
 import de.niklasbednarczyk.nbweather.feature.settings.navigation.DestinationsSettings
 import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBContentTest
@@ -19,10 +25,41 @@ import kotlin.test.assertTrue
 class SettingsListContentTest : NBContentTest() {
 
     @Test
+    fun stickyHeader_shouldRenderCorrectly() {
+        // Arrange
+        val text = createNBString("StickyHeader")
+        val fontFamily = FontFamily.Cursive
+
+        val uiState = SettingsListUiState(
+            stickyHeader = NBStickyHeaderModel(
+                text = text,
+                fontFamily = fontFamily
+            )
+        )
+
+        // Act
+        setContent {
+            SettingsListContent(
+                uiState = uiState,
+                navigate = { }
+            )
+        }
+
+        // Assert
+        assertCompose {
+            onNodeWithText(text)
+                .assertIsDisplayed()
+                .assert(isOfFontFamily(fontFamily))
+        }
+
+    }
+
+    @Test
     fun items_shouldRenderCorrectly() {
         // Arrange
         var selectedButton: NBTemperatureUnitType? = null
         var selectedDestination: NBDestination.WithoutArguments? = null
+        var selectedSliderValue = 0f
         var isSwitchChecked = false
 
         val header = SettingsListItemModel.Header(
@@ -54,6 +91,17 @@ class SettingsListContentTest : NBContentTest() {
             value = createNBString("ItemDestination 2 Value"),
             destination = DestinationsSettings.Units
         )
+        val itemSlider = SettingsListItemModel.ItemSlider(
+            slider = NBSliderModel(
+                title = createNBString("ItemSlider Title"),
+                value = selectedSliderValue,
+                minValue = 0f,
+                maxValue = 1f,
+                fractionDigits = 0,
+                onValueChange = { value -> selectedSliderValue = value },
+                onValueChangeFinished = {},
+            )
+        )
         val itemSwitch = SettingsListItemModel.ItemSwitch(
             title = createNBString("ItemSwitch Title"),
             value = createNBString("ItemSwitch Value"),
@@ -69,6 +117,7 @@ class SettingsListContentTest : NBContentTest() {
                 itemButtons,
                 itemDestination1,
                 itemDestination2,
+                itemSlider,
                 itemSwitch
             )
         )
@@ -107,6 +156,11 @@ class SettingsListContentTest : NBContentTest() {
             onNodeWithText(itemDestination2.title)
                 .assertIsDisplayed()
 
+            // ItemSlider
+            onNodeWithContentDescription(itemSlider.slider.title.asString(context))
+                .assertIsDisplayed()
+                .swipeRight()
+
             // ItemSwitch
             onNodeWithText(itemSwitch.title)
                 .assertIsDisplayed()
@@ -123,6 +177,10 @@ class SettingsListContentTest : NBContentTest() {
         assertNotNull(selectedDestination)
         assertEquals(itemDestination1.destination, selectedDestination)
         assertNotEquals(itemDestination2.destination, selectedDestination)
+
+        //      ItemSlider
+        assertEquals(itemSlider.slider.maxValue, selectedSliderValue)
+        assertNotEquals(itemSlider.slider.minValue, selectedSliderValue)
 
         //      ItemSwitch
         assertTrue(isSwitchChecked)

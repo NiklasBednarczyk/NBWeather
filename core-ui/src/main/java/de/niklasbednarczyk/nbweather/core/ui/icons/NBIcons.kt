@@ -98,6 +98,13 @@ object NBIcons {
             get() = NBString.Resource(R.string.icon_content_description_find_location)
     }
 
+    object Font : NBIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.baseline_font_download_24
+        override val contentDescription: NBString
+            get() = NBString.Resource(R.string.icon_content_description_font)
+    }
+
     object GitHub : NBIconModel.Default {
         override val resId: Int
             get() = R.drawable.github_mark
@@ -357,6 +364,13 @@ object NBIcons {
             get() = R.drawable.wi_raindrop
         override val contentDescription: NBString
             get() = NBString.Resource(R.string.icon_content_description_rain)
+    }
+
+    object Reset : NBIconModel.Default {
+        override val resId: Int
+            get() = R.drawable.baseline_restart_alt_24
+        override val contentDescription: NBString
+            get() = NBString.Resource(R.string.icon_content_description_reset)
     }
 
     object Search : NBIconModel.Default {

@@ -33,6 +33,7 @@
     <string name="icon_content_description_moon_phase_waxing_gibbous_4">Zunehmender Dreiviertelmond 4</string>
     <string name="icon_content_description_moon_phase_waxing_gibbous_5">Zunehmender Dreiviertelmond 5</string>
     <string name="icon_content_description_moon_phase_waxing_gibbous_6">Zunehmender Dreiviertelmond 6</string>
+    <string name="icon_content_description_reset">Zurücksetzen</string>
     <string name="icon_content_description_warning">Warnung</string>
     <string name="icon_content_description_weather_day_broken_clouds">Stark bewölkt (Tag)</string>
     <string name="icon_content_description_weather_day_clear_sky">Klarer Himmel (Tag)</string>
@@ -203,6 +204,20 @@
     <string name="screen_settings_appearance_value_use_device_theme_value">Benutzt Design entsprechend dem Systemstandard des Gerätes.</string>
     <string name="screen_settings_appearance_value_use_dynamic_color_scheme_title">Dynamisches Farbschema</string>
     <string name="screen_settings_appearance_value_use_dynamic_color_scheme_value">Benutzt Farbschema entsprechend dem Hintergrundbild des Gerätes.</string>
+
+    <string name="screen_settings_font_axis_ascender_height">Oberlänge</string>
+    <string name="screen_settings_font_axis_counter_width">Binnenform</string>
+    <string name="screen_settings_font_axis_descender_depth">Unterlänge</string>
+    <string name="screen_settings_font_axis_figure_height">Ziffernhöhe</string>
+    <string name="screen_settings_font_axis_grade">Grauwert-Abstufung</string>
+    <string name="screen_settings_font_axis_lowercase_height">Höhe der Kleinbuchstaben</string>
+    <string name="screen_settings_font_axis_slant">Neigung</string>
+    <string name="screen_settings_font_axis_thin_stroke">Dünne Strichstärke</string>
+    <string name="screen_settings_font_axis_uppercase_height">Höhe der Großbuchstaben</string>
+    <string name="screen_settings_font_axis_weight">Strichstärke</string>
+    <string name="screen_settings_font_axis_width">Breite</string>
+    <string name="screen_settings_font_sticky_header_text">Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich</string>
+    <string name="screen_settings_font_title">Schriftart</string>
 
     <string name="screen_settings_overview_title">Einstellungen</string>
 

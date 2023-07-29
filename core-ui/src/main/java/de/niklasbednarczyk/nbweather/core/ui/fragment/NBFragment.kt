@@ -5,16 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.text.font.FontFamily
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
+import de.niklasbednarczyk.nbweather.core.ui.font.changeFontFamily
+import de.niklasbednarczyk.nbweather.core.ui.font.fontFamily
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.NBScaffold
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBar
 import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
@@ -41,6 +45,10 @@ abstract class NBFragment<UiState, ViewData> : Fragment(), NBNavControllerContai
     override val navController: NavController
         get() = findNavController()
 
+
+    protected open val keepInitialFontFamily: Boolean = false
+    private var initialFontFamily: FontFamily? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,7 +60,19 @@ abstract class NBFragment<UiState, ViewData> : Fragment(), NBNavControllerContai
             context = requireContext(),
             viewCompositionStrategy = ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
         ) {
-            SetupScaffold()
+            if (keepInitialFontFamily) {
+                val typography = MaterialTheme.typography
+                if (initialFontFamily == null) {
+                    initialFontFamily = typography.fontFamily
+                }
+                MaterialTheme(
+                    typography = typography.changeFontFamily(initialFontFamily)
+                ) {
+                    SetupScaffold()
+                }
+            } else {
+                SetupScaffold()
+            }
         }
     }
 
@@ -110,6 +130,7 @@ abstract class NBFragment<UiState, ViewData> : Fragment(), NBNavControllerContai
                     SnackbarResult.ActionPerformed -> {
                         snackbar.action?.onActionPerformed?.invoke()
                     }
+
                     SnackbarResult.Dismissed -> {
                         snackbar.onDismissed()
                     }

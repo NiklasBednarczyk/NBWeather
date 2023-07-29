@@ -18,6 +18,16 @@ object DestinationsSettings {
 
     }
 
+    object Font : NBDestination.WithoutArguments() {
+
+        override val topLevelDestination: NBTopLevelDestination
+            get() = topLevel
+
+        override val path: String
+            get() = "font"
+
+    }
+
     object Overview : NBDestination.WithoutArguments() {
 
         override val topLevelDestination: NBTopLevelDestination

@@ -22,7 +22,7 @@ class SettingsUnitsViewModel @Inject constructor(
     private val settingsUnitsRepository: SettingsUnitsRepository,
 ) : SettingsListViewModel() {
 
-    override val itemFlow: Flow<List<SettingsListItemModel>> =
+    override val itemsFlow: Flow<List<SettingsListItemModel>> =
         settingsUnitsRepository.getData().map { units ->
             val items = mutableListOf<SettingsListItemModel>()
 
@@ -118,7 +118,7 @@ class SettingsUnitsViewModel @Inject constructor(
     init {
 
         collectFlow(
-            { itemFlow },
+            { itemsFlow },
             { oldUiState, output -> oldUiState.copy(items = output) }
         )
 

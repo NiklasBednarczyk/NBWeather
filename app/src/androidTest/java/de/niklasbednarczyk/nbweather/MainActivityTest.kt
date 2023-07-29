@@ -115,6 +115,14 @@ class MainActivityTest : NBComposeTest {
 
             pressBack()
 
+            // SettingsOverview -> SettingsFont
+            onNodeWithText(R.string.screen_settings_font_title)
+                .performClick()
+            onNodeWithText(R.string.screen_settings_font_axis_slant)
+                .assertIsDisplayed()
+
+            pressBack()
+
             // SettingsOverview -> SettingsUnits
             onNodeWithText(R.string.screen_settings_units_title)
                 .performClick()
