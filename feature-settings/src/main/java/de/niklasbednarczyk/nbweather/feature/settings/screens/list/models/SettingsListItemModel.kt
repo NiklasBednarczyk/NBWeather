@@ -8,7 +8,7 @@ import de.niklasbednarczyk.nbweather.core.ui.slider.NBSliderModel
 
 sealed interface SettingsListItemModel {
 
-    object Divider : SettingsListItemModel
+    data object Divider : SettingsListItemModel
 
     data class Header(
         val text: NBString?

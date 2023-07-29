@@ -19,7 +19,10 @@ fun <T> NBResourceWithLoadingView(
     resource: NBResource<T>?,
     content: @Composable (data: T) -> Unit
 ) {
-    AnimatedContent(resource) { r ->
+    AnimatedContent(
+        targetState = resource,
+        label = "resource"
+    ) { r ->
         when (r) {
             is NBResource.Error -> {
                 ErrorView(r.errorType)

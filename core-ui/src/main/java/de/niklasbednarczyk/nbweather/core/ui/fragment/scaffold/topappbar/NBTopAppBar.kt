@@ -234,6 +234,7 @@ private fun getContainerColor(
     )
 
     val appBarContainerColor by animateColorAsState(
+        label = "appBarContainerColor",
         targetValue = containerColor,
         animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
     )

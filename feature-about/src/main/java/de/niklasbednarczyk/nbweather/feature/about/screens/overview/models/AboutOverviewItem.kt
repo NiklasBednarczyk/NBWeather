@@ -5,7 +5,7 @@ import de.niklasbednarczyk.nbweather.core.ui.image.NBImageModel
 
 sealed interface AboutOverviewItem {
 
-    object Divider : AboutOverviewItem
+    data object Divider : AboutOverviewItem
 
     data class WithBanner(
         val banner: NBImageModel,

@@ -8,7 +8,7 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 sealed interface NBNavigationDrawerItem {
 
-    object Divider : NBNavigationDrawerItem
+    data object Divider : NBNavigationDrawerItem
 
     data class Headline(
         val label: NBString?

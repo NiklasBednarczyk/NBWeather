@@ -6,12 +6,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlin.Error
 
 sealed interface NBResource<out T> {
     data class Success<T>(val data: T) : NBResource<T>
     data class Error(val errorType: NBErrorType = NBErrorType.UNKNOWN) : NBResource<Nothing>
-    object Loading : NBResource<Nothing>
+    data object Loading : NBResource<Nothing>
 
     val dataOrNull: T?
         get() = if (this is Success) data else null
