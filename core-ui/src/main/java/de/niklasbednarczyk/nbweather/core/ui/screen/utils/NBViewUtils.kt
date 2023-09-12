@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.core.ui.fragment.utils
+package de.niklasbednarczyk.nbweather.core.ui.screen.utils
 
 import android.content.Context
 import android.view.View

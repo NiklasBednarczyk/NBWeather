@@ -1,22 +1,22 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.list
 
 import androidx.compose.runtime.Composable
-import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentUiState
-import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
+import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
 
-abstract class SettingsListFragment : NBFragmentUiState<SettingsListUiState>() {
+abstract class SettingsListFragment : NBFragment<SettingsListUiState>() {
 
     protected abstract val topAppBarItem: NBTopAppBarItem.Material.Small
 
     @Composable
-    override fun createTopAppBarItem(viewData: SettingsListUiState): NBTopAppBarItem {
+    override fun createTopAppBarItem(uiState: SettingsListUiState): NBTopAppBarItem {
         return topAppBarItem
     }
 
     @Composable
-    override fun ScaffoldContent(viewData: SettingsListUiState) {
+    override fun ScaffoldContent(uiState: SettingsListUiState) {
         SettingsListContent(
-            uiState = viewData,
+            uiState = uiState,
             navigate = ::navigate
         )
     }

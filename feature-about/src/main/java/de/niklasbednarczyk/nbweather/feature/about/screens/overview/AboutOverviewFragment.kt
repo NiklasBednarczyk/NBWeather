@@ -6,26 +6,26 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentUiState
-import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarModel
 
 @AndroidEntryPoint
-class AboutOverviewFragment : NBFragmentUiState<AboutOverviewUiState>() {
+class AboutOverviewFragment : NBFragment<AboutOverviewUiState>() {
 
     override val viewModel: AboutOverviewViewModel by viewModels()
 
     @Composable
-    override fun createTopAppBarItem(viewData: AboutOverviewUiState): NBTopAppBarItem {
+    override fun createTopAppBarItem(uiState: AboutOverviewUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
             title = NBString.Resource(R.string.screen_about_overview_title)
         )
     }
 
     @Composable
-    override fun ScaffoldContent(viewData: AboutOverviewUiState) {
+    override fun ScaffoldContent(uiState: AboutOverviewUiState) {
         AboutOverviewContent(
-            uiState = viewData,
+            uiState = uiState,
             onIntent = ::onIntent
         )
     }

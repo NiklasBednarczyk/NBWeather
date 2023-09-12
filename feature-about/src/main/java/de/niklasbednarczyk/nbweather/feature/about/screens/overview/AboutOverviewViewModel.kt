@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.about.screens.overview
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import javax.inject.Inject
 
 @HiltViewModel

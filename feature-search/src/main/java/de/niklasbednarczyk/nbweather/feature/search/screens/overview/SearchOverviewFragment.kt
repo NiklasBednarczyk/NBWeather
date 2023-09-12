@@ -16,18 +16,18 @@ import com.google.android.gms.location.Priority
 import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragmentUiState
-import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
+import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButton
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
-import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarActionModel
-import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarActionModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarModel
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchOverviewFragment : NBFragmentUiState<SearchOverviewUiState>() {
+class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
 
     companion object {
         private const val LOCATION_PERMISSION_COARSE =
@@ -84,9 +84,9 @@ class SearchOverviewFragment : NBFragmentUiState<SearchOverviewUiState>() {
     }
 
     @Composable
-    override fun createTopAppBarItem(viewData: SearchOverviewUiState): NBTopAppBarItem {
+    override fun createTopAppBarItem(uiState: SearchOverviewUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Search(
-            searchTerm = viewData.searchTerm,
+            searchTerm = uiState.searchTerm,
             trailingIconWhenEmpty = {
                 if (shouldShowFindLocation()) {
                     NBIconButton(
@@ -98,15 +98,15 @@ class SearchOverviewFragment : NBFragmentUiState<SearchOverviewUiState>() {
                 }
             },
             onSearchTermChanged = viewModel::onSearchTermChanged,
-            enabled = !viewData.findingLocationInProgress,
-            showNavigationIcon = viewData.showNavigationIcon
+            enabled = !uiState.findingLocationInProgress,
+            showNavigationIcon = uiState.showNavigationIcon
         )
     }
 
     @Composable
-    override fun ScaffoldContent(viewData: SearchOverviewUiState) {
+    override fun ScaffoldContent(uiState: SearchOverviewUiState) {
         SearchOverviewContent(
-            uiState = viewData,
+            uiState = uiState,
             onBackPressedWhenNoCurrentLocation = ::onBackPressedWhenNoCurrentLocation,
             navigateToForecast = ::navigateToForecast,
             removeVisitedLocation = viewModel::removeVisitedLocation

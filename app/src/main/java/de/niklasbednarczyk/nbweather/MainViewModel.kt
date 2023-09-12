@@ -5,7 +5,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.transformToList
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository

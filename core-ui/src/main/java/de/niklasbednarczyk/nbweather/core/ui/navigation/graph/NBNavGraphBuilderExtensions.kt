@@ -4,11 +4,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.fragment.fragment
 import androidx.navigation.navigation
-import de.niklasbednarczyk.nbweather.core.ui.fragment.NBFragment
+import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestination
 
-inline fun <reified Fragment : NBFragment<*, *>> NavGraphBuilder.nbFragment(
+inline fun <reified Fragment : NBFragment<*>> NavGraphBuilder.nbFragment(
     destination: NBDestination
 ) {
     fragment<Fragment>(destination.routeForGraph) {

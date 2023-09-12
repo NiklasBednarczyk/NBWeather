@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.core.ui.snackbar
+package de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar
 
 import androidx.compose.material3.SnackbarDuration
 import de.niklasbednarczyk.nbweather.core.common.string.NBString

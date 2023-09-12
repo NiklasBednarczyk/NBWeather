@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold
+package de.niklasbednarczyk.nbweather.core.ui.screen.scaffold
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -9,7 +9,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 @Composable
 internal fun NBScaffold(
     topBar: @Composable (scrollBehavior: TopAppBarScrollBehavior) -> Unit,
-    bottomBar: @Composable () -> Unit,
     snackbarHostState: SnackbarHostState,
     scaffoldContent: @Composable () -> Unit
 ) {
@@ -31,7 +30,6 @@ internal fun NBScaffold(
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        bottomBar = bottomBar,
         content = { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 scaffoldContent()

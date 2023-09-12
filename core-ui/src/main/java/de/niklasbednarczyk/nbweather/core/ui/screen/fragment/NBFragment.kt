@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.core.ui.fragment
+package de.niklasbednarczyk.nbweather.core.ui.screen.fragment
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -14,26 +14,27 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.ui.font.changeFontFamily
 import de.niklasbednarczyk.nbweather.core.ui.font.fontFamily
-import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.NBScaffold
-import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBar
-import de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.fragment.utils.nbSetContent
-import de.niklasbednarczyk.nbweather.core.ui.fragment.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.NBScaffold
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBar
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
+import de.niklasbednarczyk.nbweather.core.ui.screen.utils.nbSetContent
+import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
-import de.niklasbednarczyk.nbweather.core.ui.snackbar.NBSnackbarModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class NBFragment<UiState, ViewData> : Fragment(), NBNavControllerContainer {
+abstract class NBFragment<UiState> : Fragment(), NBNavControllerContainer {
 
     protected abstract val viewModel: NBViewModel<UiState>
     private val navigationDrawerViewModel: NBNavigationDrawerViewModel by activityViewModels()
@@ -78,10 +79,10 @@ abstract class NBFragment<UiState, ViewData> : Fragment(), NBNavControllerContai
 
     @Composable
     private fun SetupScaffold() {
-        val viewData = createViewData()
+        val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
         NBScaffold(
             topBar = { scrollBehavior ->
-                val topAppBarItem = createTopAppBarItem(viewData)
+                val topAppBarItem = createTopAppBarItem(uiState)
                 NBTopAppBar(
                     scrollBehavior = scrollBehavior,
                     item = topAppBarItem,
@@ -89,27 +90,17 @@ abstract class NBFragment<UiState, ViewData> : Fragment(), NBNavControllerContai
                     popBackStack = this::popBackStack
                 )
             },
-            snackbarHostState = snackbarHostState,
-            bottomBar = {
-                BottomBar(viewData)
-            }
+            snackbarHostState = snackbarHostState
         ) {
-            ScaffoldContent(viewData)
+            ScaffoldContent(uiState)
         }
     }
 
     @Composable
-    protected abstract fun createViewData(): ViewData
+    protected abstract fun createTopAppBarItem(uiState: UiState): NBTopAppBarItem
 
     @Composable
-    protected abstract fun createTopAppBarItem(viewData: ViewData): NBTopAppBarItem
-
-    @Composable
-    protected open fun BottomBar(viewData: ViewData) {
-    }
-
-    @Composable
-    protected abstract fun ScaffoldContent(viewData: ViewData)
+    protected abstract fun ScaffoldContent(uiState: UiState)
 
     protected fun isPermissionGranted(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(

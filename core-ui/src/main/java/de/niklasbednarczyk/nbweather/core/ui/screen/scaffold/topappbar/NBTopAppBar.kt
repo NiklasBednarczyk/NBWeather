@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.core.ui.fragment.scaffold.topappbar
+package de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutLinearInEasing

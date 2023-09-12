@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
 import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
-import de.niklasbednarczyk.nbweather.core.ui.fragment.utils.nbSetContent
+import de.niklasbednarczyk.nbweather.core.ui.screen.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
 import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerEventType
