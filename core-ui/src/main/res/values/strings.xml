@@ -14,7 +14,6 @@
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
     <string name="icon_content_description_cloudiness" translatable="false">@string/screen_location_card_weather_value_cloudiness</string>
-    <string name="icon_content_description_daily" translatable="false">@string/screen_location_overview_tab_daily</string>
     <string name="icon_content_description_daylight" translatable="false">@string/screen_location_card_sun_and_moon_value_daylight</string>
     <string name="icon_content_description_delete">Delete</string>
     <string name="icon_content_description_dew_point" translatable="false">@string/screen_location_card_weather_value_dew_point</string>
@@ -25,7 +24,6 @@
     <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_font" translatable="false">@string/screen_settings_font_title</string>
     <string name="icon_content_description_git_hub" translatable="false">@string/screen_about_overview_button_git_hub</string>
-    <string name="icon_content_description_hourly" translatable="false">@string/screen_location_overview_tab_hourly</string>
     <string name="icon_content_description_humidity" translatable="false">@string/screen_location_card_weather_value_humidity</string>
     <string name="icon_content_description_location">Location</string>
     <string name="icon_content_description_moon_phase_first_quarter_moon" translatable="false">@string/screen_location_common_moon_phase_first_quarter_moon</string>
@@ -67,7 +65,6 @@
     <string name="icon_content_description_snow" translatable="false">@string/screen_location_card_weather_value_snow</string>
     <string name="icon_content_description_sunrise" translatable="false">@string/screen_location_card_sun_and_moon_value_sunrise</string>
     <string name="icon_content_description_sunset" translatable="false">@string/screen_location_card_sun_and_moon_value_sunset</string>
-    <string name="icon_content_description_today" translatable="false">@string/screen_location_overview_tab_today</string>
     <string name="icon_content_description_units" translatable="false">@string/screen_settings_units_title</string>
     <string name="icon_content_description_uv_index" translatable="false">@string/screen_location_card_weather_value_uv_index</string>
     <string name="icon_content_description_visibility" translatable="false">@string/screen_location_card_weather_value_visibility</string>
@@ -224,10 +221,6 @@
     <string name="screen_location_common_wind_degrees_w">W</string>
     <string name="screen_location_common_wind_degrees_wnw">WNW</string>
     <string name="screen_location_common_wind_degrees_wsw">WSW</string>
-
-    <string name="screen_location_overview_tab_daily">Daily</string>
-    <string name="screen_location_overview_tab_hourly">Hourly</string>
-    <string name="screen_location_overview_tab_today">Today</string>
 
     <string name="screen_search_overview_search_no_results">No locations found</string>
 

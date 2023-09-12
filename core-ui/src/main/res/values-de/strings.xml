@@ -185,10 +185,6 @@
     <string name="screen_location_common_wind_degrees_wnw">WNW</string>
     <string name="screen_location_common_wind_degrees_wsw">WSW</string>
 
-    <string name="screen_location_overview_tab_daily">Tage</string>
-    <string name="screen_location_overview_tab_hourly">Stunden</string>
-    <string name="screen_location_overview_tab_today">Heute</string>
-
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
 
     <string name="screen_settings_appearance_header_color_scheme">Farbschema</string>
