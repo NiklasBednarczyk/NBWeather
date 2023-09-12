@@ -16,7 +16,7 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 @Composable
 fun SearchOverviewManageView(
     visitedLocations: List<LocationModelData>,
-    navigateToLocation: (Double, Double) -> Unit,
+    navigateToForecast: (Double, Double) -> Unit,
     removeVisitedLocation: (Double, Double) -> Unit
 ) {
     LazyColumn(
@@ -29,7 +29,7 @@ fun SearchOverviewManageView(
             VisitedLocation(
                 modifier = Modifier.animateItemPlacement(),
                 visitedLocation = visitedLocation,
-                navigateToLocation = navigateToLocation,
+                navigateToForecast = navigateToForecast,
                 removeVisitedLocation = removeVisitedLocation
             )
         }
@@ -40,14 +40,14 @@ fun SearchOverviewManageView(
 private fun VisitedLocation(
     modifier: Modifier = Modifier,
     visitedLocation: LocationModelData,
-    navigateToLocation: (Double, Double) -> Unit,
+    navigateToForecast: (Double, Double) -> Unit,
     removeVisitedLocation: (Double, Double) -> Unit
 ) {
     val latitude = visitedLocation.latitude
     val longitude = visitedLocation.longitude
     ListItem(
         modifier = modifier.clickable {
-            navigateToLocation(latitude, longitude)
+            navigateToForecast(latitude, longitude)
         },
         headlineContent = {
             Text(text = visitedLocation.localizedNameAndCountry.asString())

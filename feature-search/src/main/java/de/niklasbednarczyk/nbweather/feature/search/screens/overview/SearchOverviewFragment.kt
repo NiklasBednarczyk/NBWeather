@@ -108,17 +108,17 @@ class SearchOverviewFragment : NBFragmentUiState<SearchOverviewUiState>() {
         SearchOverviewContent(
             uiState = viewData,
             onBackPressedWhenNoCurrentLocation = ::onBackPressedWhenNoCurrentLocation,
-            navigateToLocation = ::navigateToLocation,
+            navigateToForecast = ::navigateToForecast,
             removeVisitedLocation = viewModel::removeVisitedLocation
         )
     }
 
-    private fun navigateToLocation(
+    private fun navigateToForecast(
         latitude: Double,
         longitude: Double,
     ) {
         viewModel.setCurrentLocation(latitude, longitude)
-        navigate(NBTopLevelDestinations.Location)
+        navigate(NBTopLevelDestinations.Forecast)
     }
 
     private fun onBackPressedWhenNoCurrentLocation() {
@@ -152,7 +152,7 @@ class SearchOverviewFragment : NBFragmentUiState<SearchOverviewUiState>() {
                     try {
                         val latitude = location.latitude
                         val longitude = location.longitude
-                        navigateToLocation(latitude, longitude)
+                        navigateToForecast(latitude, longitude)
                     } catch (t: Throwable) {
                         onLocationPermissionGrantedFailure(t)
                     }

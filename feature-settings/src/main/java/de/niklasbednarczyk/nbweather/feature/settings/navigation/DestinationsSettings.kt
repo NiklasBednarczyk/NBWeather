@@ -13,18 +13,12 @@ object DestinationsSettings {
         override val topLevelDestination: NBTopLevelDestination
             get() = topLevel
 
-        override val path: String
-            get() = "appearance"
-
     }
 
     object Font : NBDestination.WithoutArguments() {
 
         override val topLevelDestination: NBTopLevelDestination
             get() = topLevel
-
-        override val path: String
-            get() = "font"
 
     }
 
@@ -33,18 +27,12 @@ object DestinationsSettings {
         override val topLevelDestination: NBTopLevelDestination
             get() = topLevel
 
-        override val path: String
-            get() = "overview"
-
     }
 
     object Units : NBDestination.WithoutArguments() {
 
         override val topLevelDestination: NBTopLevelDestination
             get() = topLevel
-
-        override val path: String
-            get() = "units"
 
     }
 

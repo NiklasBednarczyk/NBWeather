@@ -28,7 +28,7 @@ sealed interface NBNavigationDrawerItem {
         ) : Item {
 
             override val topLevelDestination: NBTopLevelDestination
-                get() = NBTopLevelDestinations.Location
+                get() = NBTopLevelDestinations.Forecast
 
         }
 

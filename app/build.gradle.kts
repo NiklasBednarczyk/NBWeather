@@ -58,7 +58,7 @@ dependencies {
     implementation(project(":data-settings"))
 
     implementation(project(":feature-about"))
-    implementation(project(":feature-location"))
+    implementation(project(":feature-forecast"))
     implementation(project(":feature-search"))
     implementation(project(":feature-settings"))
 

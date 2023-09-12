@@ -6,7 +6,7 @@ sealed class NBDestination {
 
     abstract val topLevelDestination: NBTopLevelDestination
 
-    protected abstract val path: String
+    private val path: String = this::class.java.simpleName.lowercase()
 
     protected val baseRoute: Uri
         get() = topLevelDestination.route.buildUpon()

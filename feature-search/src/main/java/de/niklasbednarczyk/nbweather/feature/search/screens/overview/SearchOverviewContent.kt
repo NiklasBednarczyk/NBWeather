@@ -11,7 +11,7 @@ import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.Searc
 fun SearchOverviewContent(
     uiState: SearchOverviewUiState,
     onBackPressedWhenNoCurrentLocation: () -> Unit,
-    navigateToLocation: (latitude: Double, longitude: Double) -> Unit,
+    navigateToForecast: (latitude: Double, longitude: Double) -> Unit,
     removeVisitedLocation: (latitude: Double, longitude: Double) -> Unit
 ) {
     NBResourceWithoutLoadingView(uiState.visitedLocationsInfoResource) { visitedLocationsInfo ->
@@ -27,13 +27,13 @@ fun SearchOverviewContent(
             if (uiState.searchTerm.isEmpty()) {
                 SearchOverviewManageView(
                     visitedLocations = visitedLocationsInfo.visitedLocations,
-                    navigateToLocation = navigateToLocation,
+                    navigateToForecast = navigateToForecast,
                     removeVisitedLocation = removeVisitedLocation
                 )
             } else {
                 SearchOverviewSearchView(
                     searchedLocationsResource = uiState.searchedLocationsResource,
-                    navigateToLocation = navigateToLocation
+                    navigateToForecast = navigateToForecast
                 )
             }
         }

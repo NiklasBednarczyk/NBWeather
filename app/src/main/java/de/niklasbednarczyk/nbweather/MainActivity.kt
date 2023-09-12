@@ -36,7 +36,7 @@ import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBUnits
 import de.niklasbednarczyk.nbweather.core.ui.settings.NBSettings
 import de.niklasbednarczyk.nbweather.databinding.ContentAppBinding
 import de.niklasbednarczyk.nbweather.feature.about.navigation.graphAbout
-import de.niklasbednarczyk.nbweather.feature.location.navigation.graphLocation
+import de.niklasbednarczyk.nbweather.feature.forecast.navigation.graphForecast
 import de.niklasbednarczyk.nbweather.feature.search.navigation.graphSearch
 import de.niklasbednarczyk.nbweather.feature.settings.navigation.graphSettings
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawer
@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
         navHostFragment: FragmentContainerView
     ) {
         val startDestination = if (isInitialCurrentLocationSet) {
-            NBTopLevelDestinations.Location
+            NBTopLevelDestinations.Forecast
         } else {
             NBTopLevelDestinations.Search
         }
@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
             startDestination = startDestination.routeForGraph
         ) {
             graphAbout()
-            graphLocation()
+            graphForecast()
             graphSearch()
             graphSettings()
         }

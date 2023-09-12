@@ -134,14 +134,14 @@ class SearchOverviewContentTest : NBContentTest() {
         val uiState = createSearchUiState(
             searchTerm = ""
         )
-        var selectedNavigateToLocation: Pair<Double, Double>? = null
+        var selectedNavigateToForecast: Pair<Double, Double>? = null
         var selectedRemoveVisitedLocation: Pair<Double, Double>? = null
 
         // Act
         setSearchContent(
             uiState = uiState,
-            navigateToLocation = { latitude, longitude ->
-                selectedNavigateToLocation = Pair(latitude, longitude)
+            navigateToForecast = { latitude, longitude ->
+                selectedNavigateToForecast = Pair(latitude, longitude)
             },
             removeVisitedLocation = { latitude, longitude ->
                 selectedRemoveVisitedLocation = Pair(latitude, longitude)
@@ -166,9 +166,9 @@ class SearchOverviewContentTest : NBContentTest() {
 
         }
 
-        assertNotNull(selectedNavigateToLocation)
-        assertEquals(visitedLocation1.toPair(), selectedNavigateToLocation)
-        assertNotEquals(visitedLocation2.toPair(), selectedNavigateToLocation)
+        assertNotNull(selectedNavigateToForecast)
+        assertEquals(visitedLocation1.toPair(), selectedNavigateToForecast)
+        assertNotEquals(visitedLocation2.toPair(), selectedNavigateToForecast)
 
         assertNotNull(selectedRemoveVisitedLocation)
         assertEquals(visitedLocation2.toPair(), selectedRemoveVisitedLocation)
@@ -181,14 +181,14 @@ class SearchOverviewContentTest : NBContentTest() {
         val uiState = createSearchUiState(
             searchTerm = "Search"
         )
-        var selectedNavigateToLocation: Pair<Double, Double>? = null
+        var selectedNavigateToForecast: Pair<Double, Double>? = null
 
 
         // Act
         setSearchContent(
             uiState = uiState,
-            navigateToLocation = { latitude, longitude ->
-                selectedNavigateToLocation = Pair(latitude, longitude)
+            navigateToForecast = { latitude, longitude ->
+                selectedNavigateToForecast = Pair(latitude, longitude)
             }
         )
 
@@ -206,9 +206,9 @@ class SearchOverviewContentTest : NBContentTest() {
 
         }
 
-        assertNotNull(selectedNavigateToLocation)
-        assertEquals(searchedLocation1.toPair(), selectedNavigateToLocation)
-        assertNotEquals(searchedLocation2.toPair(), selectedNavigateToLocation)
+        assertNotNull(selectedNavigateToForecast)
+        assertEquals(searchedLocation1.toPair(), selectedNavigateToForecast)
+        assertNotEquals(searchedLocation2.toPair(), selectedNavigateToForecast)
     }
 
     private fun createSearchUiState(
@@ -243,14 +243,14 @@ class SearchOverviewContentTest : NBContentTest() {
     private fun setSearchContent(
         uiState: SearchOverviewUiState,
         onBackPressedWhenNoCurrentLocation: () -> Unit = {},
-        navigateToLocation: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
+        navigateToForecast: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
         removeVisitedLocation: (latitude: Double, longitude: Double) -> Unit = { _, _ -> }
     ) {
         setContent {
             SearchOverviewContent(
                 uiState = uiState,
                 onBackPressedWhenNoCurrentLocation = onBackPressedWhenNoCurrentLocation,
-                navigateToLocation = navigateToLocation,
+                navigateToForecast = navigateToForecast,
                 removeVisitedLocation = removeVisitedLocation
             )
         }

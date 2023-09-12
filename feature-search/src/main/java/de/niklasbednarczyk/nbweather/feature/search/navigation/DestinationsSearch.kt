@@ -13,9 +13,6 @@ object DestinationsSearch {
         override val topLevelDestination: NBTopLevelDestination
             get() = topLevel
 
-        override val path: String
-            get() = "overview"
-
     }
 
 }
