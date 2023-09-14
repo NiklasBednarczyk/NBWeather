@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.transformToList
@@ -52,7 +53,7 @@ class MainViewModel @Inject constructor(
 
             items.add(headline)
 
-            val locationItems = visitedLocations?.map { visitedLocation ->
+            val locationItems = visitedLocations.nbMap { visitedLocation ->
                 val sameLatitude = visitedLocation.latitude == currentLocation?.latitude
                 val sameLongitude =
                     visitedLocation.longitude == currentLocation?.longitude
@@ -64,7 +65,7 @@ class MainViewModel @Inject constructor(
                     selected = selected,
                     location = visitedLocation
                 )
-            } ?: emptyList()
+            }
             items.addAll(locationItems)
 
             items.add(NBNavigationDrawerItem.Divider)

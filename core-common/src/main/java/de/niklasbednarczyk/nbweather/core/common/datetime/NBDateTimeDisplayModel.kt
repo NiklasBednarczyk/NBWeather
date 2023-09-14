@@ -10,15 +10,15 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
-class NBDateTimeModel private constructor(
-    val value: Long,
-    private val timezoneOffset: Long
+class NBDateTimeDisplayModel private constructor(
+    val dateTime: NBDateTimeValue,
+    private val timezoneOffset: NBTimezoneOffsetValue
 ) {
 
     private val localDateTime: LocalDateTime
         get() {
-            val instant = Instant.ofEpochSecond(value)
-            val zoneOffset = ZoneOffset.ofTotalSeconds(timezoneOffset.toInt())
+            val instant = Instant.ofEpochSecond(dateTime.value)
+            val zoneOffset = ZoneOffset.ofTotalSeconds(timezoneOffset.value.toInt())
             return LocalDateTime.ofInstant(instant, zoneOffset)
         }
 
@@ -41,7 +41,8 @@ class NBDateTimeModel private constructor(
             dateDayOfMonth
         )
 
-    fun getDateTimeDayOfWeekShortWithTime(context: Context): NBString = getDateTimeDayOfWeekShortWithTime(context.is24HourFormat)
+    fun getDateTimeDayOfWeekShortWithTime(context: Context): NBString =
+        getDateTimeDayOfWeekShortWithTime(context.is24HourFormat)
 
     fun getDateTimeDayOfWeekShortWithTime(is24HourFormat: Boolean): NBString {
         return NBString.Resource(
@@ -69,12 +70,12 @@ class NBDateTimeModel private constructor(
         private const val PATTERN_TIME_24_HOUR = "HH:mm"
 
         fun from(
-            value: Long?,
-            timezoneOffset: Long?
-        ): NBDateTimeModel? {
-            return nbNullSafe(value, timezoneOffset) { v, tO ->
-                NBDateTimeModel(
-                    value = v,
+            dateTime: NBDateTimeValue?,
+            timezoneOffset: NBTimezoneOffsetValue?
+        ): NBDateTimeDisplayModel? {
+            return nbNullSafe(dateTime, timezoneOffset) { dT, tO ->
+                NBDateTimeDisplayModel(
+                    dateTime = dT,
                     timezoneOffset = tO
                 )
             }

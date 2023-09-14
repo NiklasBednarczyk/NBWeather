@@ -1,8 +1,10 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
 
 data class OneCallModelData(
+    val timezoneOffset: NBTimezoneOffsetValue?,
     val currentWeather: CurrentWeatherModelData,
     val minutelyForecasts: List<MinutelyForecastModelData>,
     val hourlyForecasts: List<HourlyForecastModelData>,
@@ -12,17 +14,18 @@ data class OneCallModelData(
 
     val today = dailyForecasts.firstOrNull()
 
-    companion object {
+    internal companion object {
 
-        fun localToData(local: OneCallModelLocal): OneCallModelData {
-            val timezoneOffset = local.metadata.timezoneOffset
-
+        fun localToData(
+            local: OneCallModelLocal
+        ): OneCallModelData {
             return OneCallModelData(
-                currentWeather = CurrentWeatherModelData.localToData(local.currentWeather, timezoneOffset),
-                minutelyForecasts = MinutelyForecastModelData.localToData(local.minutelyForecasts, timezoneOffset),
-                hourlyForecasts = HourlyForecastModelData.localToData(local.hourlyForecasts, timezoneOffset),
-                dailyForecasts = DailyForecastModelData.localToData(local.dailyForecasts, timezoneOffset),
-                nationalWeatherAlerts = NationalWeatherAlertModelData.localToData(local.nationalWeatherAlerts, timezoneOffset)
+                timezoneOffset = NBTimezoneOffsetValue.from(local.metadata.timezoneOffset),
+                currentWeather = CurrentWeatherModelData.localToData(local.currentWeather),
+                minutelyForecasts = MinutelyForecastModelData.localToData(local.minutelyForecasts),
+                hourlyForecasts = HourlyForecastModelData.localToData(local.hourlyForecasts),
+                dailyForecasts = DailyForecastModelData.localToData(local.dailyForecasts),
+                nationalWeatherAlerts = NationalWeatherAlertModelData.localToData(local.nationalWeatherAlerts)
             )
         }
 

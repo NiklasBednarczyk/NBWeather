@@ -14,9 +14,9 @@ import javax.inject.Singleton
 @Singleton
 internal class SettingsFontSerializer @Inject constructor() : Serializer<SettingsFontProto> {
 
-    companion object {
+    internal companion object {
 
-        internal fun createDefaultValue(): SettingsFontProto = SettingsFontProto.newBuilder()
+        fun createDefaultValue(): SettingsFontProto = SettingsFontProto.newBuilder()
             .setSlant(NBFontAxes.Slant.defaultValue)
             .setWidth(NBFontAxes.Width.defaultValue)
             .setWeight(NBFontAxes.Weight.defaultValue)

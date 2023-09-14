@@ -12,30 +12,30 @@ data class DailyFeelsLikeTemperatureModelData(
     val nightTemperature: TemperatureValue?
 ) {
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToLocal(
+        fun remoteToLocal(
             remote: DailyFeelsLikeTemperatureModelRemote?,
         ): DailyFeelsLikeTemperatureModelLocal? {
-            return nbNullSafe(remote) { model ->
+            return nbNullSafe(remote) { r ->
                 DailyFeelsLikeTemperatureModelLocal(
-                    morn = model.morn,
-                    day = model.day,
-                    eve = model.eve,
-                    night = model.night
+                    morn = r.morn,
+                    day = r.day,
+                    eve = r.eve,
+                    night = r.night
                 )
             }
         }
 
-        internal fun localToData(
+        fun localToData(
             local: DailyFeelsLikeTemperatureModelLocal?
         ): DailyFeelsLikeTemperatureModelData? {
-            return nbNullSafe(local) { model ->
+            return nbNullSafe(local) { l ->
                 DailyFeelsLikeTemperatureModelData(
-                    morningTemperature = TemperatureValue.from(model.morn),
-                    dayTemperature = TemperatureValue.from(model.day),
-                    eveningTemperature = TemperatureValue.from(model.eve),
-                    nightTemperature = TemperatureValue.from(model.night)
+                    morningTemperature = TemperatureValue.from(l.morn),
+                    dayTemperature = TemperatureValue.from(l.day),
+                    eveningTemperature = TemperatureValue.from(l.eve),
+                    nightTemperature = TemperatureValue.from(l.night)
                 )
             }
         }

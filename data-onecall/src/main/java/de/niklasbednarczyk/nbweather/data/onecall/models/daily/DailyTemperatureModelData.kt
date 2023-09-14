@@ -14,34 +14,34 @@ data class DailyTemperatureModelData(
     val maxDailyTemperature: TemperatureValue?
 ) {
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToLocal(
+        fun remoteToLocal(
             remote: DailyTemperatureModelRemote?,
         ): DailyTemperatureModelLocal? {
-            return nbNullSafe(remote) { model ->
+            return nbNullSafe(remote) { r ->
                 DailyTemperatureModelLocal(
-                    morn = model.morn,
-                    day = model.day,
-                    eve = model.eve,
-                    night = model.night,
-                    min = model.min,
-                    max = model.max
+                    morn = r.morn,
+                    day = r.day,
+                    eve = r.eve,
+                    night = r.night,
+                    min = r.min,
+                    max = r.max
                 )
             }
         }
 
-        internal fun localToData(
+        fun localToData(
             local: DailyTemperatureModelLocal?
         ): DailyTemperatureModelData? {
-            return nbNullSafe(local) { model ->
+            return nbNullSafe(local) { l ->
                 DailyTemperatureModelData(
-                    morningTemperature = TemperatureValue.from(model.morn),
-                    dayTemperature = TemperatureValue.from(model.day),
-                    eveningTemperature = TemperatureValue.from(model.eve),
-                    nightTemperature = TemperatureValue.from(model.night),
-                    minDailyTemperature = TemperatureValue.from(model.min),
-                    maxDailyTemperature = TemperatureValue.from(model.max)
+                    morningTemperature = TemperatureValue.from(l.morn),
+                    dayTemperature = TemperatureValue.from(l.day),
+                    eveningTemperature = TemperatureValue.from(l.eve),
+                    nightTemperature = TemperatureValue.from(l.night),
+                    minDailyTemperature = TemperatureValue.from(l.min),
+                    maxDailyTemperature = TemperatureValue.from(l.max)
                 )
             }
         }

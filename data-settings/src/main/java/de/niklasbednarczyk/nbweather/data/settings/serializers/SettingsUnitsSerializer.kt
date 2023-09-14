@@ -14,11 +14,11 @@ import javax.inject.Singleton
 @Singleton
 internal class SettingsUnitsSerializer @Inject constructor() : Serializer<SettingsUnitsProto> {
 
-    companion object {
+    internal companion object {
 
-        internal fun usesImperialSystem() = Locale.getDefault() == Locale.US
+        fun usesImperialSystem() = Locale.getDefault() == Locale.US
 
-        internal fun createDefault(usesImperialSystem: Boolean): SettingsUnitsProto {
+        fun createDefault(usesImperialSystem: Boolean): SettingsUnitsProto {
 
             val defaultPressureUnit = SettingsUnitsProto.PressureUnitProto.HECTOPASCAL
 

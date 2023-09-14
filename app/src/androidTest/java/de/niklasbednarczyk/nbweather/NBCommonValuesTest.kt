@@ -1,6 +1,8 @@
 package de.niklasbednarczyk.nbweather
 
-import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.datetime.displayNameFull
 import de.niklasbednarczyk.nbweather.core.common.datetime.displayNameShort
 import de.niklasbednarczyk.nbweather.core.common.language.NBLanguageType
@@ -81,7 +83,10 @@ class NBCommonValuesTest : NBTest {
         setLocale(locale)
         val epochSeconds = 1672871624L // Wednesday, 4 January 2023 22:33:44 (GMT)
         val timezoneOffset = 3600L // GMT+1
-        val dateTime = NBDateTimeModel.from(epochSeconds, timezoneOffset)!!
+        val dateTime = NBDateTimeDisplayModel.from(
+            dateTime = NBDateTimeValue.from(epochSeconds),
+            timezoneOffset = NBTimezoneOffsetValue.from(timezoneOffset)
+        )!!
 
         // Act
         val dateDayOfMonth = dateTime.dateDayOfMonth.asString(context)

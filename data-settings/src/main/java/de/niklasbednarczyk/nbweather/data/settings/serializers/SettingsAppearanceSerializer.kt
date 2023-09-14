@@ -16,9 +16,9 @@ internal class SettingsAppearanceSerializer @Inject constructor(
     @ApplicationContext private val context: Context
 ) : Serializer<SettingsAppearanceProto> {
 
-    companion object {
+    internal companion object {
 
-        internal fun isSystemInDarkTheme(context: Context): Boolean {
+        fun isSystemInDarkTheme(context: Context): Boolean {
             val uiMode = context.resources.configuration.uiMode
             return (uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
         }

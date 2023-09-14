@@ -102,9 +102,9 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             longitude = LONGITUDE,
             forceUpdate = true
         ).collectUntilResource { data ->
-            assertValue(remote.current?.dt, data.currentWeather.currentTime?.value)
-            assertValue(remote.current?.sunrise, data.currentWeather.sunrise?.value)
-            assertValue(remote.current?.sunset, data.currentWeather.sunset?.value)
+            assertValue(remote.current?.dt, data.currentWeather.currentTime?.dateTime)
+            assertValue(remote.current?.sunrise, data.currentWeather.sunrise?.dateTime)
+            assertValue(remote.current?.sunset, data.currentWeather.sunset?.dateTime)
             assertValue(remote.current?.temp, data.currentWeather.currentTemperature?.valueInternal)
             assertValue(
                 remote.current?.feelsLike,
@@ -127,12 +127,12 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             assertClassRemoteWeather(remote.current?.weather, data.currentWeather.weather)
 
             nbZip(remote.minutely, data.minutelyForecasts) { minutelyRemote, minutelyData ->
-                assertValue(minutelyRemote.dt, minutelyData.forecastTime?.value)
+                assertValue(minutelyRemote.dt, minutelyData.forecastTime?.dateTime)
                 assertValue(minutelyRemote.precipitation, minutelyData.precipitation?.value)
             }
 
             nbZip(remote.hourly, data.hourlyForecasts) { hourlyRemote, hourlyData ->
-                assertValue(hourlyRemote.dt, hourlyData.forecastTime?.value)
+                assertValue(hourlyRemote.dt, hourlyData.forecastTime?.dateTime)
                 assertValue(hourlyRemote.temp, hourlyData.temperature?.valueInternal)
                 assertValue(hourlyRemote.feelsLike, hourlyData.feelsLikeTemperature?.valueInternal)
                 assertValue(hourlyRemote.pressure, hourlyData.pressure?.value)
@@ -151,11 +151,11 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             }
 
             nbZip(remote.daily, data.dailyForecasts) { dailyRemote, dailyData ->
-                assertValue(dailyRemote.dt, dailyData.forecastTime?.value)
-                assertValue(dailyRemote.sunrise, dailyData.sunrise?.value)
-                assertValue(dailyRemote.sunset, dailyData.sunset?.value)
-                assertValue(dailyRemote.moonrise, dailyData.moonrise?.value)
-                assertValue(dailyRemote.moonset, dailyData.moonset?.value)
+                assertValue(dailyRemote.dt, dailyData.forecastTime?.dateTime)
+                assertValue(dailyRemote.sunrise, dailyData.sunrise?.dateTime)
+                assertValue(dailyRemote.sunset, dailyData.sunset?.dateTime)
+                assertValue(dailyRemote.moonrise, dailyData.moonrise?.dateTime)
+                assertValue(dailyRemote.moonset, dailyData.moonset?.dateTime)
                 assertValue(MoonPhaseType.from(dailyRemote.moonPhase), dailyData.moonPhase?.type)
                 assertValue(
                     dailyRemote.temp?.morn,
@@ -214,8 +214,8 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             nbZip(remote.alerts, data.nationalWeatherAlerts) { alertRemote, alertData ->
                 assertValue(alertRemote.senderName, alertData.senderName?.asString(context))
                 assertValue(alertRemote.event, alertData.eventName?.asString(context))
-                assertValue(alertRemote.start, alertData.startDate?.value)
-                assertValue(alertRemote.end, alertData.endDate?.value)
+                assertValue(alertRemote.start, alertData.startDate?.dateTime)
+                assertValue(alertRemote.end, alertData.endDate?.dateTime)
                 assertValue(alertRemote.description, alertData.description?.asString(context))
                 alertRemote.tags?.zip(alertData.tags ?: emptyList()) { tagRemote, tagData ->
                     assertValue(tagRemote, tagData.asString(context))
@@ -260,7 +260,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
         currentWeatherDtLocal: Long?,
         data: OneCallModelData,
     ) {
-        val currentWeatherDtData = data.currentWeather.currentTime?.value
+        val currentWeatherDtData = data.currentWeather.currentTime?.dateTime
         assertNotNull(currentWeatherDtData)
         assertNotEquals(currentWeatherDtLocal, currentWeatherDtData)
     }

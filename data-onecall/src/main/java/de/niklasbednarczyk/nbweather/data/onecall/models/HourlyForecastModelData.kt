@@ -1,9 +1,10 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.HourlyForecastEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.HourlyForecastModelRemote
-import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
@@ -15,7 +16,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 
 data class HourlyForecastModelData(
-    val forecastTime: NBDateTimeModel?,
+    val forecastTime: NBDateTimeValue?,
     val temperature: TemperatureValue?,
     val feelsLikeTemperature: TemperatureValue?,
     val pressure: PressureValue?,
@@ -33,13 +34,13 @@ data class HourlyForecastModelData(
     val weather: WeatherModelData?
 ) {
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToLocal(
+        fun remoteToLocal(
             remoteList: List<HourlyForecastModelRemote>?,
             metadataId: Long,
         ): List<HourlyForecastEntityLocal> {
-            return remoteList?.map { remote ->
+            return remoteList.nbMap { remote ->
                 HourlyForecastEntityLocal(
                     metadataId = metadataId,
                     dt = remote.dt,
@@ -59,16 +60,15 @@ data class HourlyForecastModelData(
                     snow1h = remote.snow?.oneH,
                     weather = WeatherModelData.remoteToLocal(remote.weather?.firstOrNull())
                 )
-            } ?: emptyList()
+            }
         }
 
-        internal fun localToData(
-            localList: List<HourlyForecastEntityLocal>?,
-            timezoneOffset: Long?
+        fun localToData(
+            localList: List<HourlyForecastEntityLocal>?
         ): List<HourlyForecastModelData> {
-            return localList?.map { local ->
+            return localList.nbMap { local ->
                 HourlyForecastModelData(
-                    forecastTime = NBDateTimeModel.from(local.dt, timezoneOffset),
+                    forecastTime = NBDateTimeValue.from(local.dt),
                     temperature = TemperatureValue.from(local.temp),
                     feelsLikeTemperature = TemperatureValue.from(local.feelsLike),
                     pressure = PressureValue.from(local.pressure),
@@ -85,7 +85,7 @@ data class HourlyForecastModelData(
                     snow1hVolume = PrecipitationValue.from(local.snow1h),
                     weather = WeatherModelData.localToData(local.weather)
                 )
-            } ?: emptyList()
+            }
         }
 
     }

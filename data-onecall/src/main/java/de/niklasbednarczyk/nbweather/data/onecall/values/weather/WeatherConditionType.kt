@@ -117,9 +117,9 @@ enum class WeatherConditionType {
             OVERCAST_CLOUDS -> 804
         }
 
-    companion object {
+    internal companion object {
 
-        internal fun from(id: Long?): WeatherConditionType? {
+        fun from(id: Long?): WeatherConditionType? {
             return values().find { value -> value.remoteId == id }
         }
 

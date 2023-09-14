@@ -11,28 +11,28 @@ data class WeatherModelData(
     val condition: WeatherConditionType?
 ) {
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToLocal(
+        fun remoteToLocal(
             remote: WeatherModelRemote?,
         ): WeatherModelLocal? {
-            return nbNullSafe(remote) { model ->
+            return nbNullSafe(remote) { r ->
                 WeatherModelLocal(
-                    id = model.id,
-                    main = model.main,
-                    description = model.description,
-                    icon = model.icon
+                    id = r.id,
+                    main = r.main,
+                    description = r.description,
+                    icon = r.icon
                 )
             }
         }
 
-        internal fun localToData(
+        fun localToData(
             local: WeatherModelLocal?
         ): WeatherModelData? {
-            return nbNullSafe(local) { model ->
+            return nbNullSafe(local) { l ->
                 WeatherModelData(
-                    icon = WeatherIconType.from(model.icon),
-                    condition = WeatherConditionType.from(model.id)
+                    icon = WeatherIconType.from(l.icon),
+                    condition = WeatherConditionType.from(l.id)
                 )
             }
         }

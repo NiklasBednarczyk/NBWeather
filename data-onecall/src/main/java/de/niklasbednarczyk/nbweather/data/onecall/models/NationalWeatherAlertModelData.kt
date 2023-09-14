@@ -1,26 +1,27 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.NationalWeatherAlertEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.NationalWeatherAlertModelRemote
-import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 
 data class NationalWeatherAlertModelData(
     val senderName: NBString?,
     val eventName: NBString?,
-    val startDate: NBDateTimeModel?,
-    val endDate: NBDateTimeModel?,
+    val startDate: NBDateTimeValue?,
+    val endDate: NBDateTimeValue?,
     val description: NBString?,
     val tags: List<NBString>?
 ) {
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToLocal(
+        fun remoteToLocal(
             remoteList: List<NationalWeatherAlertModelRemote>?,
             metadataId: Long,
         ): List<NationalWeatherAlertEntityLocal> {
-            return remoteList?.map { remote ->
+            return remoteList.nbMap { remote ->
                 NationalWeatherAlertEntityLocal(
                     metadataId = metadataId,
                     senderName = remote.senderName,
@@ -30,23 +31,22 @@ data class NationalWeatherAlertModelData(
                     description = remote.description,
                     tags = remote.tags
                 )
-            } ?: emptyList()
+            }
         }
 
-        internal fun localToData(
-            localList: List<NationalWeatherAlertEntityLocal>?,
-            timezoneOffset: Long?
+        fun localToData(
+            localList: List<NationalWeatherAlertEntityLocal>?
         ): List<NationalWeatherAlertModelData> {
-            return localList?.map { local ->
+            return localList.nbMap { local ->
                 NationalWeatherAlertModelData(
                     senderName = NBString.Value.from(local.senderName),
                     eventName = NBString.Value.from(local.event),
-                    startDate = NBDateTimeModel.from(local.start, timezoneOffset),
-                    endDate = NBDateTimeModel.from(local.end, timezoneOffset),
+                    startDate = NBDateTimeValue.from(local.start),
+                    endDate = NBDateTimeValue.from(local.end),
                     description = NBString.Value.from(local.description),
                     tags = local.tags?.mapNotNull { tag -> NBString.Value.from(tag) }
                 )
-            } ?: emptyList()
+            }
         }
 
     }

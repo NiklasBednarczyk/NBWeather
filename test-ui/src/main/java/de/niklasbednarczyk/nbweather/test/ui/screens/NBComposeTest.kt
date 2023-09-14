@@ -22,7 +22,9 @@ import androidx.compose.ui.test.swipeRight
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
 import androidx.test.espresso.Espresso
-import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
@@ -49,9 +51,12 @@ interface NBComposeTest : NBTest {
     fun createNBDateTimeModel(
         epochSeconds: Long = 1672531200,
         timezoneOffsetHours: Long = 0
-    ): NBDateTimeModel? {
+    ): NBDateTimeDisplayModel? {
         val timezoneOffset = timezoneOffsetHours.times(3600)
-        return NBDateTimeModel.from(epochSeconds, timezoneOffset)
+        return NBDateTimeDisplayModel.from(
+            dateTime = NBDateTimeValue.from(epochSeconds),
+            timezoneOffset = NBTimezoneOffsetValue.from(timezoneOffset)
+        )
     }
 
     fun SemanticsNodeInteractionsProvider.onNodeWithText(

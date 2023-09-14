@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.models
 
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMapNotNull
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
@@ -45,24 +46,24 @@ data class LocationModelData(
             else -> NBString.Value.from(null)
         }
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToData(
+        fun remoteToData(
             remote: LocationModelRemote?
         ): LocationModelData? {
-            return nbNullSafe(remote) { model ->
+            return nbNullSafe(remote) { r ->
                 LocationModelData(
-                    localNames = LocalNamesModelData.remoteToData(model.localNames),
-                    name = model.name,
-                    state = model.state,
-                    country = model.country,
-                    latitude = model.lat,
-                    longitude = model.lon
+                    localNames = LocalNamesModelData.remoteToData(r.localNames),
+                    name = r.name,
+                    state = r.state,
+                    country = r.country,
+                    latitude = r.lat,
+                    longitude = r.lon
                 )
             }
         }
 
-        internal fun remoteListToData(
+        fun remoteListToData(
             remoteList: List<LocationModelRemote>
         ): List<LocationModelData> {
             return remoteList.mapNotNull { remote ->
@@ -70,18 +71,18 @@ data class LocationModelData(
             }
         }
 
-        internal fun remoteToLocal(
+        fun remoteToLocal(
             remote: LocationModelRemote?,
             latitude: Double,
             longitude: Double,
             lastVisitedTimestampEpochSeconds: Long? = null
         ): LocationModelLocal? {
-            return nbNullSafe(remote) { model ->
+            return nbNullSafe(remote) { r ->
                 LocationModelLocal(
-                    name = model.name,
-                    localNames = LocalNamesModelData.remoteToLocal(model.localNames),
-                    country = model.country,
-                    state = model.state,
+                    name = r.name,
+                    localNames = LocalNamesModelData.remoteToLocal(r.localNames),
+                    country = r.country,
+                    state = r.state,
                     latitude = latitude,
                     longitude = longitude,
                     lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds
@@ -89,28 +90,28 @@ data class LocationModelData(
             }
         }
 
-        internal fun remoteListToLocal(remoteList: List<LocationModelRemote>?): List<LocationModelLocal> {
-            return remoteList?.mapNotNull { remote ->
+        fun remoteListToLocal(remoteList: List<LocationModelRemote>?): List<LocationModelLocal> {
+            return remoteList.nbMapNotNull { remote ->
                 remoteToLocal(remote, remote.lat, remote.lon)
-            } ?: emptyList()
+            }
         }
 
-        internal fun localToData(
+        fun localToData(
             local: LocationModelLocal?,
         ): LocationModelData? {
-            return nbNullSafe(local) { model ->
+            return nbNullSafe(local) { l ->
                 LocationModelData(
-                    localNames = LocalNamesModelData.localToData(model.localNames),
-                    name = model.name,
-                    state = model.state,
-                    country = model.country,
-                    latitude = model.latitude,
-                    longitude = model.longitude
+                    localNames = LocalNamesModelData.localToData(l.localNames),
+                    name = l.name,
+                    state = l.state,
+                    country = l.country,
+                    latitude = l.latitude,
+                    longitude = l.longitude
                 )
             }
         }
 
-        internal fun localListToData(
+        fun localListToData(
             localList: List<LocationModelLocal>?
         ): List<LocationModelData>? {
             return localList?.mapNotNull { local ->

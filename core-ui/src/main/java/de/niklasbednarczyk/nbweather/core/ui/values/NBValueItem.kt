@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.nbweather.core.ui.values
 
-import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
@@ -20,7 +20,7 @@ sealed interface NBValueItem {
     ) : NBValueItem
 
     data class Time(
-        val dateTime: NBDateTimeModel
+        val dateTime: NBDateTimeDisplayModel
     ) : NBValueItem
 
     data class Units(

@@ -17,9 +17,9 @@ data class LocalNamesModelData(
         }
 
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToData(
+        fun remoteToData(
             remote: LocalNamesModelRemote?
         ): LocalNamesModelData {
             return LocalNamesModelData(
@@ -28,7 +28,7 @@ data class LocalNamesModelData(
             )
         }
 
-        internal fun remoteToLocal(remote: LocalNamesModelRemote?): LocalNamesModelLocal {
+        fun remoteToLocal(remote: LocalNamesModelRemote?): LocalNamesModelLocal {
             return LocalNamesModelLocal(
                 af = remote?.af,
                 sq = remote?.sq,
@@ -77,7 +77,7 @@ data class LocalNamesModelData(
             )
         }
 
-        internal fun localToData(
+        fun localToData(
             local: LocalNamesModelLocal?
         ): LocalNamesModelData {
             return LocalNamesModelData(

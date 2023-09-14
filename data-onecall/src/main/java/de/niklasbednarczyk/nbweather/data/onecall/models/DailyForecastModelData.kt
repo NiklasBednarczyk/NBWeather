@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.DailyForecastEntityLocal
@@ -7,19 +9,24 @@ import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyFeelsLikeTemperatureModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyTemperatureModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.DailyForecastModelRemote
-import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeModel
 import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.*
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 import kotlin.math.abs
 import kotlin.time.Duration.Companion.seconds
 
 data class DailyForecastModelData(
-    val forecastTime: NBDateTimeModel?,
-    val sunrise: NBDateTimeModel?,
-    val sunset: NBDateTimeModel?,
-    val moonrise: NBDateTimeModel?,
-    val moonset: NBDateTimeModel?,
+    val forecastTime: NBDateTimeValue?,
+    val sunrise: NBDateTimeValue?,
+    val sunset: NBDateTimeValue?,
+    val moonrise: NBDateTimeValue?,
+    val moonset: NBDateTimeValue?,
     val moonPhase: MoonPhaseValue?,
     val temperature: DailyTemperatureModelData?,
     val feelsLikeTemperature: DailyFeelsLikeTemperatureModelData?,
@@ -54,13 +61,13 @@ data class DailyForecastModelData(
 
         }
 
-    companion object {
+    internal companion object {
 
-        internal fun remoteToLocal(
+        fun remoteToLocal(
             remoteList: List<DailyForecastModelRemote>?,
             metadataId: Long,
         ): List<DailyForecastEntityLocal> {
-            return remoteList?.map { remote ->
+            return remoteList.nbMap { remote ->
                 DailyForecastEntityLocal(
                     metadataId = metadataId,
                     dt = remote.dt,
@@ -84,20 +91,19 @@ data class DailyForecastModelData(
                     snow = remote.snow,
                     weather = WeatherModelData.remoteToLocal(remote.weather?.firstOrNull())
                 )
-            } ?: emptyList()
+            }
         }
 
-        internal fun localToData(
-            localList: List<DailyForecastEntityLocal>?,
-            timezoneOffset: Long?
+        fun localToData(
+            localList: List<DailyForecastEntityLocal>?
         ): List<DailyForecastModelData> {
-            return localList?.map { local ->
+            return localList.nbMap { local ->
                 DailyForecastModelData(
-                    forecastTime = NBDateTimeModel.from(local.dt, timezoneOffset),
-                    sunrise = NBDateTimeModel.from(local.sunrise, timezoneOffset),
-                    sunset = NBDateTimeModel.from(local.sunset, timezoneOffset),
-                    moonrise = NBDateTimeModel.from(local.moonrise, timezoneOffset),
-                    moonset = NBDateTimeModel.from(local.moonset, timezoneOffset),
+                    forecastTime = NBDateTimeValue.from(local.dt),
+                    sunrise = NBDateTimeValue.from(local.sunrise),
+                    sunset = NBDateTimeValue.from(local.sunset),
+                    moonrise = NBDateTimeValue.from(local.moonrise),
+                    moonset = NBDateTimeValue.from(local.moonset),
                     moonPhase = MoonPhaseValue.from(local.moonPhase),
                     temperature = DailyTemperatureModelData.localToData(local.temp),
                     feelsLikeTemperature = DailyFeelsLikeTemperatureModelData.localToData(local.feelsLike),
@@ -114,7 +120,7 @@ data class DailyForecastModelData(
                     snowVolume = PrecipitationValue.from(local.snow),
                     weather = WeatherModelData.localToData(local.weather)
                 )
-            } ?: emptyList()
+            }
         }
 
     }
