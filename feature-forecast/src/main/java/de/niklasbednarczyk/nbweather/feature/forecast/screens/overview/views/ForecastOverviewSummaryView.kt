@@ -71,18 +71,6 @@ fun ForecastOverviewSummaryView(
 }
 
 @Composable
-private fun WeatherIcon(
-    weatherIcon: WeatherIconType
-) {
-    NBIcon(
-        modifier = Modifier
-            .fillMaxHeight()
-            .aspectRatio(1f),
-        icon = weatherIcon.icon
-    )
-}
-
-@Composable
 private fun CurrentTemperature(
     currentTemperature: NBUnitsValue
 ) {
@@ -93,12 +81,14 @@ private fun CurrentTemperature(
 }
 
 @Composable
-private fun WeatherCondition(
-    weatherCondition: WeatherConditionType
+private fun RowScope.CurrentTime(
+    currentTime: NBDateTimeDisplayModel
 ) {
     Text(
-        text = weatherCondition.displayText.asString(),
-        style = MaterialTheme.typography.headlineLarge
+        modifier = Modifier.weight(1f),
+        text = currentTime.time.asString(),
+        style = MaterialTheme.typography.titleLarge,
+        textAlign = TextAlign.End
     )
 }
 
@@ -122,13 +112,23 @@ private fun LimitTemperature(
 }
 
 @Composable
-private fun RowScope.CurrentTime(
-    currentTime: NBDateTimeDisplayModel
+private fun WeatherCondition(
+    weatherCondition: WeatherConditionType
 ) {
     Text(
-        modifier = Modifier.weight(1f),
-        text = currentTime.time.asString(),
-        style = MaterialTheme.typography.titleLarge,
-        textAlign = TextAlign.End
+        text = weatherCondition.displayText.asString(),
+        style = MaterialTheme.typography.headlineLarge
+    )
+}
+
+@Composable
+private fun WeatherIcon(
+    weatherIcon: WeatherIconType
+) {
+    NBIcon(
+        modifier = Modifier
+            .fillMaxHeight()
+            .aspectRatio(1f),
+        icon = weatherIcon.icon
     )
 }
