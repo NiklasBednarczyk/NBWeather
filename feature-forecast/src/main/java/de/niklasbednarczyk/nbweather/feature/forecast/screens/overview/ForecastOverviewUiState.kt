@@ -1,7 +1,10 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
+import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
 
 data class ForecastOverviewUiState(
-    val itemsResource: NBResource<List<String>>? = null //TODO REDESIGN: Replace with forecast items
+    val locationResource: NBResource<LocationModelData?>? = null,
+    val itemsResource: NBResource<List<ForecastOverviewItem>>? = null
 )

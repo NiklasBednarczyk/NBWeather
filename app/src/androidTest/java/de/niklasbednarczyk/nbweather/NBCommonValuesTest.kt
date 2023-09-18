@@ -35,9 +35,9 @@ class NBCommonValuesTest : NBTest {
             locale = Locale.GERMANY,
             expectedDateDayOfWeekShort = "Mi.",
             expectedDateDayOfWeekFull = "Mittwoch",
-            expectedDateDayOfWeekShortWithDayOfMonth = "Mi. 4",
-            expectedDateTimeDayOfWeekShortWithTime12 = "Mi., 11:33 PM",
-            expectedDateTimeDayOfWeekShortWithTime24 = "Mi., 23:33"
+            expectedDateDayOfWeekShortAndDayOfMonth = "Mi. 4",
+            expectedDateTimeDayOfWeekShortAndTime12 = "Mi., 11:33 PM",
+            expectedDateTimeDayOfWeekShortAndTime24 = "Mi., 23:33"
         )
     }
 
@@ -47,9 +47,9 @@ class NBCommonValuesTest : NBTest {
             locale = Locale.US,
             expectedDateDayOfWeekShort = "Wed",
             expectedDateDayOfWeekFull = "Wednesday",
-            expectedDateDayOfWeekShortWithDayOfMonth = "Wed 4",
-            expectedDateTimeDayOfWeekShortWithTime12 = "Wed, 11:33 PM",
-            expectedDateTimeDayOfWeekShortWithTime24 = "Wed, 23:33"
+            expectedDateDayOfWeekShortAndDayOfMonth = "Wed 4",
+            expectedDateTimeDayOfWeekShortAndTime12 = "Wed, 11:33 PM",
+            expectedDateTimeDayOfWeekShortAndTime24 = "Wed, 23:33"
         )
     }
 
@@ -73,9 +73,9 @@ class NBCommonValuesTest : NBTest {
         expectedDateDayOfMonth: String = "4",
         expectedDateDayOfWeekShort: String,
         expectedDateDayOfWeekFull: String,
-        expectedDateDayOfWeekShortWithDayOfMonth: String,
-        expectedDateTimeDayOfWeekShortWithTime12: String,
-        expectedDateTimeDayOfWeekShortWithTime24: String,
+        expectedDateDayOfWeekShortAndDayOfMonth: String,
+        expectedDateTimeDayOfWeekShortAndTime12: String,
+        expectedDateTimeDayOfWeekShortAndTime24: String,
         expectedTime12: String = "11:33 PM",
         expectedTime24: String = "23:33",
     ) {
@@ -93,11 +93,11 @@ class NBCommonValuesTest : NBTest {
         val dateDayOfWeekShort = dateTime.dateDayOfWeekType.displayNameShort.asString(context)
         val dateDayOfWeekFull = dateTime.dateDayOfWeekType.displayNameFull.asString(context)
         val dateDayOfWeekShortWithDayOfMonth =
-            dateTime.dateDayOfWeekShortWithDayOfMonth.asString(context)
-        val dateTimeDayOfWeekShortWithTime12 =
-            dateTime.getDateTimeDayOfWeekShortWithTime(false).asString(context)
-        val dateTimeDayOfWeekShortWithTime24 =
-            dateTime.getDateTimeDayOfWeekShortWithTime(true).asString(context)
+            dateTime.dateDayOfWeekShortAndDayOfMonth.asString(context)
+        val dateTimeDayOfWeekShortAndTime12 =
+            dateTime.getDateTimeDayOfWeekShortAndTime(false).asString(context)
+        val dateTimeDayOfWeekShortAndTime24 =
+            dateTime.getDateTimeDayOfWeekShortAndTime(true).asString(context)
         val time12 = dateTime.getTime(false).asString(context)
         val time24 = dateTime.getTime(true).asString(context)
 
@@ -105,9 +105,9 @@ class NBCommonValuesTest : NBTest {
         assertValue(expectedDateDayOfMonth, dateDayOfMonth)
         assertValue(expectedDateDayOfWeekShort, dateDayOfWeekShort)
         assertValue(expectedDateDayOfWeekFull, dateDayOfWeekFull)
-        assertValue(expectedDateDayOfWeekShortWithDayOfMonth, dateDayOfWeekShortWithDayOfMonth)
-        assertValue(expectedDateTimeDayOfWeekShortWithTime12, dateTimeDayOfWeekShortWithTime12)
-        assertValue(expectedDateTimeDayOfWeekShortWithTime24, dateTimeDayOfWeekShortWithTime24)
+        assertValue(expectedDateDayOfWeekShortAndDayOfMonth, dateDayOfWeekShortWithDayOfMonth)
+        assertValue(expectedDateTimeDayOfWeekShortAndTime12, dateTimeDayOfWeekShortAndTime12)
+        assertValue(expectedDateTimeDayOfWeekShortAndTime24, dateTimeDayOfWeekShortAndTime24)
         assertValue(expectedTime12, time12)
         assertValue(expectedTime24, time24)
 

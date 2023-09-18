@@ -13,7 +13,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
 import de.niklasbednarczyk.nbweather.core.ui.common.time
-import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangement
+import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.icons.nbIconFit
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbHyphenated
@@ -50,7 +50,7 @@ fun NBValueView(
             is NBValueItem.IconWithUnits -> {
                 Row(
                     modifier = Modifier.height(IntrinsicSize.Min),
-                    horizontalArrangement = rowHorizontalArrangement
+                    horizontalArrangement = rowHorizontalArrangementSmall
                 ) {
                     NBValueIconView(
                         modifier = Modifier.nbIconFit(),

@@ -93,7 +93,7 @@ class MainActivityTest : NBComposeTest {
             switchTab(NBIcons.Today)
             onNodeWithIcon(NBIcons.Warning)
                 .performClick()
-            onNodeWithText(R.string.screen_location_alerts_title)
+            onNodeWithText(R.string.screen_forecast_alerts_title)
                 .assertIsDisplayed()
 
             pressBack()
@@ -193,7 +193,7 @@ class MainActivityTest : NBComposeTest {
     }
 
     private fun ComposeContentTestRule.assertIsLocationCard() {
-        onNodeWithText(R.string.screen_location_card_overview_title)
+        onNodeWithText(R.string.screen_forecast_card_overview_title)
             .assertIsDisplayed()
     }
 

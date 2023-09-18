@@ -1,10 +1,8 @@
 package de.niklasbednarczyk.nbweather.core.common.datetime
 
 import android.content.Context
-import de.niklasbednarczyk.nbweather.core.common.R
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -28,43 +26,27 @@ class NBDateTimeDisplayModel private constructor(
         return NBString.Value.from(formattedValue)
     }
 
-    val dateDayOfMonth: NBString?
-        get() = format(PATTERN_DATE_DAY_OF_MONTH)
+    val date: NBString?
+        get() = format(PATTERN_DATE)
 
-    val dateDayOfWeekType: DayOfWeek
-        get() = localDateTime.dayOfWeek
+    fun getTime(context: Context): NBString? =
+        getTime(context.is24HourFormat)
 
-    val dateDayOfWeekShortWithDayOfMonth: NBString
-        get() = NBString.Resource(
-            R.string.format_space_2_items,
-            dateDayOfWeekType.displayNameShort,
-            dateDayOfMonth
-        )
+    fun getTime(is24HourFormat: Boolean): NBString? =
+        format(getTimePattern(is24HourFormat))
 
-    fun getDateTimeDayOfWeekShortWithTime(context: Context): NBString =
-        getDateTimeDayOfWeekShortWithTime(context.is24HourFormat)
 
-    fun getDateTimeDayOfWeekShortWithTime(is24HourFormat: Boolean): NBString {
-        return NBString.Resource(
-            R.string.format_comma_2_items,
-            dateDayOfWeekType.displayNameShort,
-            getTime(is24HourFormat)
-        )
-    }
-
-    fun getTime(context: Context) = getTime(context.is24HourFormat)
-
-    fun getTime(is24HourFormat: Boolean): NBString? {
+    private fun getTimePattern(is24HourFormat: Boolean): String {
         return if (is24HourFormat) {
-            format(PATTERN_TIME_24_HOUR)
+            PATTERN_TIME_24_HOUR
         } else {
-            format(PATTERN_TIME_12_HOUR)
+            PATTERN_TIME_12_HOUR
         }
     }
 
     companion object {
 
-        private const val PATTERN_DATE_DAY_OF_MONTH = "d"
+        private const val PATTERN_DATE = "EEE, MMM dd"
 
         private const val PATTERN_TIME_12_HOUR = "hh:mm a"
         private const val PATTERN_TIME_24_HOUR = "HH:mm"

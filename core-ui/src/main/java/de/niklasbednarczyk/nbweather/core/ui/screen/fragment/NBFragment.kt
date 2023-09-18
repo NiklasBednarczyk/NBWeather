@@ -96,7 +96,6 @@ abstract class NBFragment<UiState> : Fragment(), NBNavControllerContainer {
         }
     }
 
-    @Composable
     protected abstract fun createTopAppBarItem(uiState: UiState): NBTopAppBarItem
 
     @Composable

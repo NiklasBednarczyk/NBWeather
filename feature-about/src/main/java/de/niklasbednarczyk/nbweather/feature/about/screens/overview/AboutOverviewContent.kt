@@ -19,11 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementDefault
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.dividerPaddingVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.filledTonalButtonIconSize
 import de.niklasbednarczyk.nbweather.core.ui.dimens.filledTonalButtonPaddingBetweenElements
-import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangement
+import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImage
@@ -42,7 +42,7 @@ fun AboutOverviewContent(
     onIntent: (intent: Intent) -> Unit
 ) {
     LazyColumn(
-        verticalArrangement = columnVerticalArrangementDefault
+        verticalArrangement = columnVerticalArrangementBig
     ) {
         items(uiState.items) { item ->
             when (item) {
@@ -89,7 +89,7 @@ private fun ItemColumn(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = columnVerticalArrangementDefault,
+        verticalArrangement = columnVerticalArrangementBig,
         content = content
     )
 }
@@ -126,7 +126,7 @@ private fun ItemButtons(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontalPaddingValues),
-        horizontalArrangement = rowHorizontalArrangement
+        horizontalArrangement = rowHorizontalArrangementSmall
     ) {
         buttons.forEach { button ->
             FilledTonalButton(

@@ -103,6 +103,8 @@ internal interface NBConventionPlugin : Plugin<Project> {
                     "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
                     // Enables animateItemPlacement
                     "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+                    // Enables FlowRow
+                    "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
                     // Enables material 3
                     "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                     // Enables material 3 window size class

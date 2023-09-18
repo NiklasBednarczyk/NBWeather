@@ -6,17 +6,16 @@
     <string name="format_bullet_5_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s &#8226; %4$s &#8226; %5$s</string>
     <string name="format_bullet_11_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s &#8226; %4$s &#8226; %5$s &#8226; %6$s &#8226; %7$s &#8226; %8$s &#8226; %9$s &#8226; %10$s &#8226; %11$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
-    <string name="format_range_2_items" translatable="false">%1$s - %2$s</string>
     <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
 
     <string name="icon_content_description_about" translatable="false">@string/screen_about_overview_title</string>
     <string name="icon_content_description_appearance" translatable="false">@string/screen_settings_appearance_title</string>
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
-    <string name="icon_content_description_cloudiness" translatable="false">@string/screen_location_card_weather_value_cloudiness</string>
-    <string name="icon_content_description_daylight" translatable="false">@string/screen_location_card_sun_and_moon_value_daylight</string>
+    <string name="icon_content_description_cloudiness" translatable="false">@string/screen_forecast_card_weather_value_cloudiness</string>
+    <string name="icon_content_description_daylight" translatable="false">@string/screen_forecast_card_sun_and_moon_value_daylight</string>
     <string name="icon_content_description_delete">Delete</string>
-    <string name="icon_content_description_dew_point" translatable="false">@string/screen_location_card_weather_value_dew_point</string>
+    <string name="icon_content_description_dew_point" translatable="false">@string/screen_forecast_card_weather_value_dew_point</string>
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_error_no_internet" translatable="false">@string/error_text_no_internet</string>
     <string name="icon_content_description_error_unknown" translatable="false">@string/error_text_unknown</string>
@@ -24,12 +23,14 @@
     <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_font" translatable="false">@string/screen_settings_font_title</string>
     <string name="icon_content_description_git_hub" translatable="false">@string/screen_about_overview_button_git_hub</string>
-    <string name="icon_content_description_humidity" translatable="false">@string/screen_location_card_weather_value_humidity</string>
+    <string name="icon_content_description_humidity" translatable="false">@string/screen_forecast_card_weather_value_humidity</string>
     <string name="icon_content_description_location">Location</string>
-    <string name="icon_content_description_moon_phase_first_quarter_moon" translatable="false">@string/screen_location_common_moon_phase_first_quarter_moon</string>
-    <string name="icon_content_description_moon_phase_full_moon" translatable="false">@string/screen_location_common_moon_phase_full_moon</string>
-    <string name="icon_content_description_moon_phase_last_quarter_moon" translatable="false">@string/screen_location_common_moon_phase_last_quarter_moon</string>
-    <string name="icon_content_description_moon_phase_new_moon" translatable="false">@string/screen_location_common_moon_phase_new_moon</string>
+    <string name="icon_content_description_max_temperature">Max temperature</string>
+    <string name="icon_content_description_min_temperature">Min temperature</string>
+    <string name="icon_content_description_moon_phase_first_quarter_moon" translatable="false">@string/screen_forecast_common_moon_phase_first_quarter_moon</string>
+    <string name="icon_content_description_moon_phase_full_moon" translatable="false">@string/screen_forecast_common_moon_phase_full_moon</string>
+    <string name="icon_content_description_moon_phase_last_quarter_moon" translatable="false">@string/screen_forecast_common_moon_phase_last_quarter_moon</string>
+    <string name="icon_content_description_moon_phase_new_moon" translatable="false">@string/screen_forecast_common_moon_phase_new_moon</string>
     <string name="icon_content_description_moon_phase_waning_crescent_1">Waning Crescent 1</string>
     <string name="icon_content_description_moon_phase_waning_crescent_2">Waning Crescent 2</string>
     <string name="icon_content_description_moon_phase_waning_crescent_3">Waning Crescent 3</string>
@@ -54,20 +55,20 @@
     <string name="icon_content_description_moon_phase_waxing_gibbous_4">Waxing Gibbous 4</string>
     <string name="icon_content_description_moon_phase_waxing_gibbous_5">Waxing Gibbous 5</string>
     <string name="icon_content_description_moon_phase_waxing_gibbous_6">Waxing Gibbous 6</string>
-    <string name="icon_content_description_moonrise" translatable="false">@string/screen_location_card_sun_and_moon_value_moonrise</string>
-    <string name="icon_content_description_moonset" translatable="false">@string/screen_location_card_sun_and_moon_value_moonset</string>
-    <string name="icon_content_description_pressure" translatable="false">@string/screen_location_card_weather_value_pressure</string>
-    <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_location_card_weather_value_probability_of_precipitation</string>
-    <string name="icon_content_description_rain" translatable="false">@string/screen_location_card_weather_value_rain</string>
+    <string name="icon_content_description_moonrise" translatable="false">@string/screen_forecast_card_sun_and_moon_value_moonrise</string>
+    <string name="icon_content_description_moonset" translatable="false">@string/screen_forecast_card_sun_and_moon_value_moonset</string>
+    <string name="icon_content_description_pressure" translatable="false">@string/screen_forecast_card_weather_value_pressure</string>
+    <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_forecast_card_weather_value_probability_of_precipitation</string>
+    <string name="icon_content_description_rain" translatable="false">@string/screen_forecast_card_weather_value_rain</string>
     <string name="icon_content_description_reset">Reset</string>
     <string name="icon_content_description_search" translatable="false">@string/top_app_bar_search_placeholder</string>
     <string name="icon_content_description_settings" translatable="false">@string/screen_settings_overview_title</string>
-    <string name="icon_content_description_snow" translatable="false">@string/screen_location_card_weather_value_snow</string>
-    <string name="icon_content_description_sunrise" translatable="false">@string/screen_location_card_sun_and_moon_value_sunrise</string>
-    <string name="icon_content_description_sunset" translatable="false">@string/screen_location_card_sun_and_moon_value_sunset</string>
+    <string name="icon_content_description_snow" translatable="false">@string/screen_forecast_card_weather_value_snow</string>
+    <string name="icon_content_description_sunrise" translatable="false">@string/screen_forecast_card_sun_and_moon_value_sunrise</string>
+    <string name="icon_content_description_sunset" translatable="false">@string/screen_forecast_card_sun_and_moon_value_sunset</string>
     <string name="icon_content_description_units" translatable="false">@string/screen_settings_units_title</string>
-    <string name="icon_content_description_uv_index" translatable="false">@string/screen_location_card_weather_value_uv_index</string>
-    <string name="icon_content_description_visibility" translatable="false">@string/screen_location_card_weather_value_visibility</string>
+    <string name="icon_content_description_uv_index" translatable="false">@string/screen_forecast_card_weather_value_uv_index</string>
+    <string name="icon_content_description_visibility" translatable="false">@string/screen_forecast_card_weather_value_visibility</string>
     <string name="icon_content_description_warning">Warning</string>
     <string name="icon_content_description_weather_day_broken_clouds">Broken clouds (Day)</string>
     <string name="icon_content_description_weather_day_clear_sky">Clear sky (Day)</string>
@@ -89,8 +90,8 @@
     <string name="icon_content_description_weather_night_thunderstorm">Thunderstorm (Night)</string>
     <string name="icon_content_description_website" translatable="false">@string/screen_about_overview_button_website</string>
     <string name="icon_content_description_wind_degrees">Wind degrees</string>
-    <string name="icon_content_description_wind_gust" translatable="false">@string/screen_location_card_weather_value_wind_gust</string>
-    <string name="icon_content_description_wind_speed" translatable="false">@string/screen_location_card_weather_value_wind_speed</string>
+    <string name="icon_content_description_wind_gust" translatable="false">@string/screen_forecast_card_weather_value_wind_gust</string>
+    <string name="icon_content_description_wind_speed" translatable="false">@string/screen_forecast_card_weather_value_wind_speed</string>
 
     <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
 
@@ -101,126 +102,129 @@
     <string name="screen_about_overview_text_niklas_bednarczyk">This app was created by Niklas Bednarczyk</string>
     <string name="screen_about_overview_text_open_weather">Weather data provided by OpenWeather</string>
 
-    <string name="screen_location_alerts_title">Alerts</string>
+    <string name="screen_forecast_alerts_title">Alerts</string>
 
-    <string name="screen_location_card_overview_title">Overview</string>
-    <string name="screen_location_card_overview_value_precipitation_breaking">A break in precipitation in %1$s minutes</string>
-    <string name="screen_location_card_overview_value_precipitation_ending">Precipitation ending in %1$s minutes</string>
-    <string name="screen_location_card_overview_value_precipitation_full">Precipitation won’t end within an hour</string>
-    <string name="screen_location_card_overview_value_precipitation_none">No precipitation within an hour</string>
-    <string name="screen_location_card_overview_value_precipitation_no_data">No precipitation data found</string>
-    <string name="screen_location_card_overview_value_precipitation_starting">Precipitation starting in %1$s minutes</string>
-    <string name="screen_location_card_overview_value_temperature_feels_like">Feels like</string>
+    <!--TODO REDESIGN: Rename card strings-->
+    <string name="screen_forecast_card_overview_title">Overview</string>
+    <string name="screen_forecast_card_overview_value_precipitation_breaking">A break in precipitation in %1$s minutes</string>
+    <string name="screen_forecast_card_overview_value_precipitation_ending">Precipitation ending in %1$s minutes</string>
+    <string name="screen_forecast_card_overview_value_precipitation_full">Precipitation won’t end within an hour</string>
+    <string name="screen_forecast_card_overview_value_precipitation_none">No precipitation within an hour</string>
+    <string name="screen_forecast_card_overview_value_precipitation_no_data">No precipitation data found</string>
+    <string name="screen_forecast_card_overview_value_precipitation_starting">Precipitation starting in %1$s minutes</string>
+    <string name="screen_forecast_card_overview_value_temperature_feels_like">Feels like</string>
 
-    <string name="screen_location_card_weather_title">Weather</string>
-    <string name="screen_location_card_weather_value_cloudiness">Cloudiness</string>
-    <string name="screen_location_card_weather_value_dew_point">Dew point</string>
-    <string name="screen_location_card_weather_value_humidity">Humidity</string>
-    <string name="screen_location_card_weather_value_pressure">Pressure</string>
-    <string name="screen_location_card_weather_value_probability_of_precipitation">Precipitation</string>
-    <string name="screen_location_card_weather_value_rain">Rain</string>
-    <string name="screen_location_card_weather_value_snow">Snow</string>
-    <string name="screen_location_card_weather_value_uv_index">UV index</string>
-    <string name="screen_location_card_weather_value_visibility">Visibility</string>
-    <string name="screen_location_card_weather_value_wind_direction">Wind direction</string>
-    <string name="screen_location_card_weather_value_wind_gust">Wind gust</string>
-    <string name="screen_location_card_weather_value_wind_speed">Wind speed</string>
+    <string name="screen_forecast_card_weather_title">Weather</string>
+    <string name="screen_forecast_card_weather_value_cloudiness">Cloudiness</string>
+    <string name="screen_forecast_card_weather_value_dew_point">Dew point</string>
+    <string name="screen_forecast_card_weather_value_humidity">Humidity</string>
+    <string name="screen_forecast_card_weather_value_pressure">Pressure</string>
+    <string name="screen_forecast_card_weather_value_probability_of_precipitation">Precipitation</string>
+    <string name="screen_forecast_card_weather_value_rain">Rain</string>
+    <string name="screen_forecast_card_weather_value_snow">Snow</string>
+    <string name="screen_forecast_card_weather_value_uv_index">UV index</string>
+    <string name="screen_forecast_card_weather_value_visibility">Visibility</string>
+    <string name="screen_forecast_card_weather_value_wind_direction">Wind direction</string>
+    <string name="screen_forecast_card_weather_value_wind_gust">Wind gust</string>
+    <string name="screen_forecast_card_weather_value_wind_speed">Wind speed</string>
 
-    <string name="screen_location_card_sun_and_moon_title">Sun and moon</string>
-    <string name="screen_location_card_sun_and_moon_value_daylight">Daylight</string>
-    <string name="screen_location_card_sun_and_moon_value_moon_phase">Moon phase</string>
-    <string name="screen_location_card_sun_and_moon_value_moonrise">Moonrise</string>
-    <string name="screen_location_card_sun_and_moon_value_moonset">Moonset</string>
-    <string name="screen_location_card_sun_and_moon_value_sunrise">Sunrise</string>
-    <string name="screen_location_card_sun_and_moon_value_sunset">Sunset</string>
+    <string name="screen_forecast_card_sun_and_moon_title">Sun and moon</string>
+    <string name="screen_forecast_card_sun_and_moon_value_daylight">Daylight</string>
+    <string name="screen_forecast_card_sun_and_moon_value_moon_phase">Moon phase</string>
+    <string name="screen_forecast_card_sun_and_moon_value_moonrise">Moonrise</string>
+    <string name="screen_forecast_card_sun_and_moon_value_moonset">Moonset</string>
+    <string name="screen_forecast_card_sun_and_moon_value_sunrise">Sunrise</string>
+    <string name="screen_forecast_card_sun_and_moon_value_sunset">Sunset</string>
 
-    <string name="screen_location_card_temperatures_title">Temperatures</string>
-    <string name="screen_location_card_temperatures_value_evening">Evening</string>
-    <string name="screen_location_card_temperatures_value_morning">Morning</string>
-    <string name="screen_location_card_temperatures_value_day">Noon</string>
-    <string name="screen_location_card_temperatures_value_night">Night</string>
+    <string name="screen_forecast_card_temperatures_title">Temperatures</string>
+    <string name="screen_forecast_card_temperatures_value_evening">Evening</string>
+    <string name="screen_forecast_card_temperatures_value_morning">Morning</string>
+    <string name="screen_forecast_card_temperatures_value_day">Noon</string>
+    <string name="screen_forecast_card_temperatures_value_night">Night</string>
 
-    <string name="screen_location_common_moon_phase_first_quarter_moon">First quarter moon</string>
-    <string name="screen_location_common_moon_phase_full_moon">Full moon</string>
-    <string name="screen_location_common_moon_phase_last_quarter_moon">Last quarter moon</string>
-    <string name="screen_location_common_moon_phase_new_moon">New moon</string>
-    <string name="screen_location_common_moon_phase_waning_crescent">Waning Crescent</string>
-    <string name="screen_location_common_moon_phase_waning_gibbous">Waning Gibbous</string>
-    <string name="screen_location_common_moon_phase_waxing_crescent">Waxing Crescent</string>
-    <string name="screen_location_common_moon_phase_waxing_gibbous">Waxing Gibbous</string>
-    <string name="screen_location_common_temperatures_max">Max</string>
-    <string name="screen_location_common_temperatures_min">Min</string>
-    <string name="screen_location_common_weather_condition_broken_clouds">Broken clouds</string>
-    <string name="screen_location_common_weather_condition_clear_sky">Clear sky</string>
-    <string name="screen_location_common_weather_condition_drizzle_rain">Drizzle rain</string>
-    <string name="screen_location_common_weather_condition_drizzle">Drizzle</string>
-    <string name="screen_location_common_weather_condition_dust">Dust</string>
-    <string name="screen_location_common_weather_condition_extreme_rain">Extreme rain</string>
-    <string name="screen_location_common_weather_condition_few_clouds">Few clouds</string>
-    <string name="screen_location_common_weather_condition_fog">Fog</string>
-    <string name="screen_location_common_weather_condition_freezing_rain">Freezing rain</string>
-    <string name="screen_location_common_weather_condition_haze">Haze</string>
-    <string name="screen_location_common_weather_condition_heavy_intensity_drizzle_rain">Heavy intensity drizzle rain</string>
-    <string name="screen_location_common_weather_condition_heavy_intensity_drizzle">Heavy intensity drizzle</string>
-    <string name="screen_location_common_weather_condition_heavy_intensity_rain">Heavy intensity rain</string>
-    <string name="screen_location_common_weather_condition_heavy_intensity_shower_rain">Heavy intensity shower rain</string>
-    <string name="screen_location_common_weather_condition_heavy_shower_rain_and_drizzle">Heavy shower rain and drizzle</string>
-    <string name="screen_location_common_weather_condition_heavy_shower_snow">Heavy shower snow</string>
-    <string name="screen_location_common_weather_condition_heavy_snow">Heavy snow</string>
-    <string name="screen_location_common_weather_condition_heavy_thunderstorm">Heavy thunderstorm</string>
-    <string name="screen_location_common_weather_condition_light_intensity_drizzle_rain">Light intensity drizzle rain</string>
-    <string name="screen_location_common_weather_condition_light_intensity_drizzle">Light intensity drizzle</string>
-    <string name="screen_location_common_weather_condition_light_intensity_shower_rain">Light intensity shower rain</string>
-    <string name="screen_location_common_weather_condition_light_rain_and_snow">Light rain and snow</string>
-    <string name="screen_location_common_weather_condition_light_rain">Light rain</string>
-    <string name="screen_location_common_weather_condition_light_shower_sleet">Light shower sleet</string>
-    <string name="screen_location_common_weather_condition_light_shower_snow">Light shower snow</string>
-    <string name="screen_location_common_weather_condition_light_snow">Light snow</string>
-    <string name="screen_location_common_weather_condition_light_thunderstorm">Light thunderstorm</string>
-    <string name="screen_location_common_weather_condition_mist">Mist</string>
-    <string name="screen_location_common_weather_condition_moderate_rain">Moderate rain</string>
-    <string name="screen_location_common_weather_condition_overcast_clouds">Overcast clouds</string>
-    <string name="screen_location_common_weather_condition_ragged_shower_rain">Ragged shower rain</string>
-    <string name="screen_location_common_weather_condition_ragged_thunderstorm">Ragged thunderstorm</string>
-    <string name="screen_location_common_weather_condition_rain_and_snow">Rain and snow</string>
-    <string name="screen_location_common_weather_condition_sand_dust_whirls">Sand/dust whirls</string>
-    <string name="screen_location_common_weather_condition_sand">Sand</string>
-    <string name="screen_location_common_weather_condition_scattered_clouds">Scattered clouds</string>
-    <string name="screen_location_common_weather_condition_shower_drizzle">Shower drizzle</string>
-    <string name="screen_location_common_weather_condition_shower_rain_and_drizzle">Shower rain and drizzle</string>
-    <string name="screen_location_common_weather_condition_shower_rain">Shower rain</string>
-    <string name="screen_location_common_weather_condition_shower_sleet">Shower sleet</string>
-    <string name="screen_location_common_weather_condition_shower_snow">Shower snow</string>
-    <string name="screen_location_common_weather_condition_sleet">Sleet</string>
-    <string name="screen_location_common_weather_condition_smoke">Smoke</string>
-    <string name="screen_location_common_weather_condition_snow">Snow</string>
-    <string name="screen_location_common_weather_condition_squalls">Squalls</string>
-    <string name="screen_location_common_weather_condition_thunderstorm_with_drizzle">Thunderstorm with drizzle</string>
-    <string name="screen_location_common_weather_condition_thunderstorm_with_heavy_drizzle">Thunderstorm with heavy drizzle</string>
-    <string name="screen_location_common_weather_condition_thunderstorm_with_heavy_rain">Thunderstorm with heavy rain</string>
-    <string name="screen_location_common_weather_condition_thunderstorm_with_light_drizzle">Thunderstorm with light drizzle</string>
-    <string name="screen_location_common_weather_condition_thunderstorm_with_light_rain">Thunderstorm with light rain</string>
-    <string name="screen_location_common_weather_condition_thunderstorm_with_rain">Thunderstorm with rain</string>
-    <string name="screen_location_common_weather_condition_thunderstorm">Thunderstorm</string>
-    <string name="screen_location_common_weather_condition_tornado">Tornado</string>
-    <string name="screen_location_common_weather_condition_very_heavy_rain">Very heavy rain</string>
-    <string name="screen_location_common_weather_condition_volcanic_ash">Volcanic ash</string>
-    <string name="screen_location_common_wind_degrees_e">E</string>
-    <string name="screen_location_common_wind_degrees_ene">ENE</string>
-    <string name="screen_location_common_wind_degrees_ese">ESE</string>
-    <string name="screen_location_common_wind_degrees_n">N</string>
-    <string name="screen_location_common_wind_degrees_ne">NE</string>
-    <string name="screen_location_common_wind_degrees_nne">NNE</string>
-    <string name="screen_location_common_wind_degrees_nnw">NNW</string>
-    <string name="screen_location_common_wind_degrees_nw">NW</string>
-    <string name="screen_location_common_wind_degrees_s">S</string>
-    <string name="screen_location_common_wind_degrees_se">SE</string>
-    <string name="screen_location_common_wind_degrees_sse">SSE</string>
-    <string name="screen_location_common_wind_degrees_ssw">SSW</string>
-    <string name="screen_location_common_wind_degrees_sw">SW</string>
-    <string name="screen_location_common_wind_degrees_w">W</string>
-    <string name="screen_location_common_wind_degrees_wnw">WNW</string>
-    <string name="screen_location_common_wind_degrees_wsw">WSW</string>
+    <string name="screen_forecast_common_moon_phase_first_quarter_moon">First quarter moon</string>
+    <string name="screen_forecast_common_moon_phase_full_moon">Full moon</string>
+    <string name="screen_forecast_common_moon_phase_last_quarter_moon">Last quarter moon</string>
+    <string name="screen_forecast_common_moon_phase_new_moon">New moon</string>
+    <string name="screen_forecast_common_moon_phase_waning_crescent">Waning Crescent</string>
+    <string name="screen_forecast_common_moon_phase_waning_gibbous">Waning Gibbous</string>
+    <string name="screen_forecast_common_moon_phase_waxing_crescent">Waxing Crescent</string>
+    <string name="screen_forecast_common_moon_phase_waxing_gibbous">Waxing Gibbous</string>
+    <string name="screen_forecast_common_temperatures_max">Max</string>
+    <string name="screen_forecast_common_temperatures_min">Min</string>
+    <string name="screen_forecast_common_weather_condition_broken_clouds">Broken clouds</string>
+    <string name="screen_forecast_common_weather_condition_clear_sky">Clear sky</string>
+    <string name="screen_forecast_common_weather_condition_drizzle_rain">Drizzle rain</string>
+    <string name="screen_forecast_common_weather_condition_drizzle">Drizzle</string>
+    <string name="screen_forecast_common_weather_condition_dust">Dust</string>
+    <string name="screen_forecast_common_weather_condition_extreme_rain">Extreme rain</string>
+    <string name="screen_forecast_common_weather_condition_few_clouds">Few clouds</string>
+    <string name="screen_forecast_common_weather_condition_fog">Fog</string>
+    <string name="screen_forecast_common_weather_condition_freezing_rain">Freezing rain</string>
+    <string name="screen_forecast_common_weather_condition_haze">Haze</string>
+    <string name="screen_forecast_common_weather_condition_heavy_intensity_drizzle_rain">Heavy intensity drizzle rain</string>
+    <string name="screen_forecast_common_weather_condition_heavy_intensity_drizzle">Heavy intensity drizzle</string>
+    <string name="screen_forecast_common_weather_condition_heavy_intensity_rain">Heavy intensity rain</string>
+    <string name="screen_forecast_common_weather_condition_heavy_intensity_shower_rain">Heavy intensity shower rain</string>
+    <string name="screen_forecast_common_weather_condition_heavy_shower_rain_and_drizzle">Heavy shower rain and drizzle</string>
+    <string name="screen_forecast_common_weather_condition_heavy_shower_snow">Heavy shower snow</string>
+    <string name="screen_forecast_common_weather_condition_heavy_snow">Heavy snow</string>
+    <string name="screen_forecast_common_weather_condition_heavy_thunderstorm">Heavy thunderstorm</string>
+    <string name="screen_forecast_common_weather_condition_light_intensity_drizzle_rain">Light intensity drizzle rain</string>
+    <string name="screen_forecast_common_weather_condition_light_intensity_drizzle">Light intensity drizzle</string>
+    <string name="screen_forecast_common_weather_condition_light_intensity_shower_rain">Light intensity shower rain</string>
+    <string name="screen_forecast_common_weather_condition_light_rain_and_snow">Light rain and snow</string>
+    <string name="screen_forecast_common_weather_condition_light_rain">Light rain</string>
+    <string name="screen_forecast_common_weather_condition_light_shower_sleet">Light shower sleet</string>
+    <string name="screen_forecast_common_weather_condition_light_shower_snow">Light shower snow</string>
+    <string name="screen_forecast_common_weather_condition_light_snow">Light snow</string>
+    <string name="screen_forecast_common_weather_condition_light_thunderstorm">Light thunderstorm</string>
+    <string name="screen_forecast_common_weather_condition_mist">Mist</string>
+    <string name="screen_forecast_common_weather_condition_moderate_rain">Moderate rain</string>
+    <string name="screen_forecast_common_weather_condition_overcast_clouds">Overcast clouds</string>
+    <string name="screen_forecast_common_weather_condition_ragged_shower_rain">Ragged shower rain</string>
+    <string name="screen_forecast_common_weather_condition_ragged_thunderstorm">Ragged thunderstorm</string>
+    <string name="screen_forecast_common_weather_condition_rain_and_snow">Rain and snow</string>
+    <string name="screen_forecast_common_weather_condition_sand_dust_whirls">Sand/dust whirls</string>
+    <string name="screen_forecast_common_weather_condition_sand">Sand</string>
+    <string name="screen_forecast_common_weather_condition_scattered_clouds">Scattered clouds</string>
+    <string name="screen_forecast_common_weather_condition_shower_drizzle">Shower drizzle</string>
+    <string name="screen_forecast_common_weather_condition_shower_rain_and_drizzle">Shower rain and drizzle</string>
+    <string name="screen_forecast_common_weather_condition_shower_rain">Shower rain</string>
+    <string name="screen_forecast_common_weather_condition_shower_sleet">Shower sleet</string>
+    <string name="screen_forecast_common_weather_condition_shower_snow">Shower snow</string>
+    <string name="screen_forecast_common_weather_condition_sleet">Sleet</string>
+    <string name="screen_forecast_common_weather_condition_smoke">Smoke</string>
+    <string name="screen_forecast_common_weather_condition_snow">Snow</string>
+    <string name="screen_forecast_common_weather_condition_squalls">Squalls</string>
+    <string name="screen_forecast_common_weather_condition_thunderstorm_with_drizzle">Thunderstorm with drizzle</string>
+    <string name="screen_forecast_common_weather_condition_thunderstorm_with_heavy_drizzle">Thunderstorm with heavy drizzle</string>
+    <string name="screen_forecast_common_weather_condition_thunderstorm_with_heavy_rain">Thunderstorm with heavy rain</string>
+    <string name="screen_forecast_common_weather_condition_thunderstorm_with_light_drizzle">Thunderstorm with light drizzle</string>
+    <string name="screen_forecast_common_weather_condition_thunderstorm_with_light_rain">Thunderstorm with light rain</string>
+    <string name="screen_forecast_common_weather_condition_thunderstorm_with_rain">Thunderstorm with rain</string>
+    <string name="screen_forecast_common_weather_condition_thunderstorm">Thunderstorm</string>
+    <string name="screen_forecast_common_weather_condition_tornado">Tornado</string>
+    <string name="screen_forecast_common_weather_condition_very_heavy_rain">Very heavy rain</string>
+    <string name="screen_forecast_common_weather_condition_volcanic_ash">Volcanic ash</string>
+    <string name="screen_forecast_common_wind_degrees_e">E</string>
+    <string name="screen_forecast_common_wind_degrees_ene">ENE</string>
+    <string name="screen_forecast_common_wind_degrees_ese">ESE</string>
+    <string name="screen_forecast_common_wind_degrees_n">N</string>
+    <string name="screen_forecast_common_wind_degrees_ne">NE</string>
+    <string name="screen_forecast_common_wind_degrees_nne">NNE</string>
+    <string name="screen_forecast_common_wind_degrees_nnw">NNW</string>
+    <string name="screen_forecast_common_wind_degrees_nw">NW</string>
+    <string name="screen_forecast_common_wind_degrees_s">S</string>
+    <string name="screen_forecast_common_wind_degrees_se">SE</string>
+    <string name="screen_forecast_common_wind_degrees_sse">SSE</string>
+    <string name="screen_forecast_common_wind_degrees_ssw">SSW</string>
+    <string name="screen_forecast_common_wind_degrees_sw">SW</string>
+    <string name="screen_forecast_common_wind_degrees_w">W</string>
+    <string name="screen_forecast_common_wind_degrees_wnw">WNW</string>
+    <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
+
+    <string name="screen_forecast_overview_alerts_text_fallback">Alert</string>
 
     <string name="screen_search_overview_search_no_results">No locations found</string>
 

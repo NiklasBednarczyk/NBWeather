@@ -5,10 +5,6 @@ import androidx.compose.ui.platform.LocalContext
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
-val NBDateTimeDisplayModel?.dateTimeDayOfWeekShortWithTime: NBString?
-    @Composable
-    get() = this?.getDateTimeDayOfWeekShortWithTime(LocalContext.current)
-
 val NBDateTimeDisplayModel?.time: NBString?
     @Composable
     get() = this?.getTime(LocalContext.current)

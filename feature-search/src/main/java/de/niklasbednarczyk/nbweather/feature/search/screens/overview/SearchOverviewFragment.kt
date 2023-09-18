@@ -83,7 +83,6 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
         }
     }
 
-    @Composable
     override fun createTopAppBarItem(uiState: SearchOverviewUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Search(
             searchTerm = uiState.searchTerm,

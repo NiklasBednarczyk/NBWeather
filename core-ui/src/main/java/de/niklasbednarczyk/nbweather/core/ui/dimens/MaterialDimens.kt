@@ -6,6 +6,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 
+const val alphaContentDisabled = 0.38f
+
+val elevationLevel2 = 3.dp
+
 val filledTonalButtonIconSize = 18.dp
 val filledTonalButtonPaddingBetweenElements = 8.dp
 
@@ -55,7 +59,7 @@ val segmentedButtonColorContentUnselected
     @Composable
     get() = MaterialTheme.colorScheme.onSurface
 const val segmentedButtonColorDisabledOpacityBorder = 0.12f
-const val segmentedButtonColorDisabledOpacityContent = 0.38f
+const val segmentedButtonColorDisabledOpacityContent = alphaContentDisabled
 const val segmentedButtonCornerPercent = 50
 val segmentedButtonHeight = 40.dp
 val segmentedButtonPaddingHorizontal = 12.dp
@@ -76,4 +80,4 @@ val sliderLabelTextStyle
     @Composable
     get() = MaterialTheme.typography.labelMedium
 
-val topAppBarElevation = 3.dp // Level 2
+val topAppBarElevation = elevationLevel2

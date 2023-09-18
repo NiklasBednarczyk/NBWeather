@@ -10,8 +10,7 @@ object DestinationsSearch {
 
     object Overview : NBDestination.WithoutArguments() {
 
-        override val topLevelDestination: NBTopLevelDestination
-            get() = topLevel
+        override val topLevelDestination: NBTopLevelDestination = topLevel
 
     }
 

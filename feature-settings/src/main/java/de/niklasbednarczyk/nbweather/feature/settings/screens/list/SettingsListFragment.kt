@@ -8,7 +8,6 @@ abstract class SettingsListFragment : NBFragment<SettingsListUiState>() {
 
     protected abstract val topAppBarItem: NBTopAppBarItem.Material.Small
 
-    @Composable
     override fun createTopAppBarItem(uiState: SettingsListUiState): NBTopAppBarItem {
         return topAppBarItem
     }

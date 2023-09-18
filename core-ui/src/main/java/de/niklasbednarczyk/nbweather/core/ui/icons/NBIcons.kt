@@ -101,6 +101,18 @@ object NBIcons {
             NBString.Resource(R.string.icon_content_description_location)
     }
 
+    object MaxTemperature : NBIconModel {
+        override val resId: Int = R.drawable.baseline_vertical_align_top_24
+        override val contentDescription: NBString =
+            NBString.Resource(R.string.icon_content_description_max_temperature)
+    }
+
+    object MinTemperature : NBIconModel {
+        override val resId: Int = R.drawable.baseline_vertical_align_bottom_24
+        override val contentDescription: NBString =
+            NBString.Resource(R.string.icon_content_description_min_temperature)
+    }
+
     object MoonPhaseFirstQuarter : NBIconModel {
         override val resId: Int = R.drawable.wi_moon_alt_first_quarter
         override val contentDescription: NBString =

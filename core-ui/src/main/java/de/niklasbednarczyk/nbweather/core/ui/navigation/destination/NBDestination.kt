@@ -38,11 +38,11 @@ sealed class NBDestination {
                 return builder.build().toString()
             }
 
-        protected fun createRouteForNavigation(map: Map<String, Any>): String {
+        protected fun createRouteForNavigation(map: Map<String, Any?>): String {
             val builder = baseRoute.buildUpon()
             arguments.forEach { argument ->
-                val value = map[argument] ?: return@forEach
-                builder.appendQueryParameter(argument, value.toString())
+                val valueString = map[argument]?.toString().orEmpty()
+                builder.appendQueryParameter(argument, valueString)
             }
             return builder.build().toString()
         }

@@ -49,6 +49,7 @@ androidx-compose-material3-material3WindowSizeClass = { group = "androidx.compos
 androidx-compose-ui-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
 androidx-compose-ui-uiTestJunit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
 androidx-compose-ui-uiTestManifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "androidxCompose" }
+androidx-compose-ui-uiUtil = { group = "androidx.compose.ui", name = "ui-util", version.ref = "androidxCompose" }
 androidx-compose-ui-uiViewbinding = { group = "androidx.compose.ui", name = "ui-viewbinding", version.ref = "androidxCompose" }
 androidx-core-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-datastore-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDatastore" }
@@ -65,7 +66,6 @@ androidx-test-espresso-espressoCore = { group = "androidx.test.espresso", name =
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "comAndroidToolsDesugarJdkLibs" }
-com-google-accompanist-accompanistFlowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistSwiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "comGoogleAccompanist" }
 com-google-accompanist-accompanistSystemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "comGoogleAccompanist" }
 com-google-android-gms-playServicesLocation = { group = "com.google.android.gms", name = "play-services-location", version.ref = "comGoogleAndroidGmsPlayServicesLocation" }

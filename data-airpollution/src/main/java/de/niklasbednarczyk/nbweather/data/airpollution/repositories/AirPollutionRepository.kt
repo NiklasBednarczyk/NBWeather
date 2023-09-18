@@ -29,7 +29,8 @@ class AirPollutionRepository @Inject constructor(
 
     suspend fun getAirPollution(
         latitude: Double,
-        longitude: Double
+        longitude: Double,
+        forceUpdate: Boolean
     ): Flow<NBResource<AirPollutionModelData>> {
         return object : LocalRemoteOfflineMediator<AirPollutionModelData, AirPollutionModelLocal, AirPollutionModelRemote>() {
 
@@ -49,7 +50,7 @@ class AirPollutionRepository @Inject constructor(
             }
 
             override fun shouldGetRemote(local: AirPollutionModelLocal): Boolean {
-                return local.metadata.isExpired
+                return forceUpdate || local.metadata.isExpired
             }
 
             override fun clearLocal(local: AirPollutionModelLocal) {
