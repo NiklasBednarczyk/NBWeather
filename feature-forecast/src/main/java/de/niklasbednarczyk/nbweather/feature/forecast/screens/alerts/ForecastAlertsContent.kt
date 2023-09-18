@@ -20,6 +20,7 @@ import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.ui.border.nbBorder
 import de.niklasbednarczyk.nbweather.core.ui.common.time
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
+import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPager
@@ -105,7 +106,8 @@ private fun Date(
     horizontalAlignment: Alignment.Horizontal
 ) {
     Column(
-        horizontalAlignment = horizontalAlignment
+        horizontalAlignment = horizontalAlignment,
+        verticalArrangement = columnVerticalArrangementSmall
     ) {
         Text(
             text = date.time.asString(),
