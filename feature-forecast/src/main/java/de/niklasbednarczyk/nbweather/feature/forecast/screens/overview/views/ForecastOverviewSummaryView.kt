@@ -39,7 +39,7 @@ fun ForecastOverviewSummaryView(
     ) {
         Row(
             modifier = Modifier.height(IntrinsicSize.Min),
-            horizontalArrangement = rowHorizontalArrangementSmall,
+            horizontalArrangement = rowHorizontalArrangementBig,
             verticalAlignment = Alignment.CenterVertically
         ) {
             WeatherIcon(
