@@ -41,7 +41,7 @@ val MoonPhaseType.displayText: NBString
             MoonPhaseType.WANING_CRESCENT_5,
             MoonPhaseType.WANING_CRESCENT_6 -> R.string.screen_forecast_common_moon_phase_waning_crescent
         }
-        return NBString.Resource(resId)
+        return NBString.ResString(resId)
     }
 
 val MoonPhaseType.icon: NBIconModel

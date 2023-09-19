@@ -15,6 +15,6 @@ enum class NBWindSpeedUnitType : NBUnitType {
                 METER_PER_SECOND -> R.string.unit_symbol_wind_speed_meter_per_second
                 MILE_PER_HOUR -> R.string.unit_symbol_wind_speed_mile_per_hour
             }
-            return NBString.Resource(resId)
+            return NBString.ResString(resId)
         }
 }

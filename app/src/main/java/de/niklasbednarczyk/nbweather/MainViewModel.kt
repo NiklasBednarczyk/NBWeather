@@ -27,17 +27,17 @@ class MainViewModel @Inject constructor(
 
     companion object {
         private val headline = NBNavigationDrawerItem.Headline(
-            label = NBString.Resource(de.niklasbednarczyk.nbweather.R.string.app_name)
+            label = NBString.ResString(de.niklasbednarczyk.nbweather.R.string.app_name)
         )
 
         private val settingsItem = NBNavigationDrawerItem.Item.Other(
-            label = NBString.Resource(R.string.screen_settings_overview_title),
+            label = NBString.ResString(R.string.screen_settings_overview_title),
             icon = NBIcons.Settings,
             topLevelDestination = NBTopLevelDestinations.Settings
         )
 
         private val aboutItem = NBNavigationDrawerItem.Item.Other(
-            label = NBString.Resource(R.string.screen_about_overview_title),
+            label = NBString.ResString(R.string.screen_about_overview_title),
             icon = NBIcons.About,
             topLevelDestination = NBTopLevelDestinations.About
         )

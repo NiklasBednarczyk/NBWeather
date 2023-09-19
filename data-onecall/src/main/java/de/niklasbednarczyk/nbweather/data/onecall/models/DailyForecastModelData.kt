@@ -52,7 +52,7 @@ data class DailyForecastModelData(
             val duration = abs(sunriseValue - sunsetValue).seconds
 
             return duration.toComponents { hours, minutes, _, _ ->
-                NBString.Resource(
+                NBString.ResString(
                     R.string.format_hours_minutes,
                     hours,
                     minutes

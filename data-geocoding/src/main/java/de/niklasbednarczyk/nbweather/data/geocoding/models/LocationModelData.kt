@@ -22,7 +22,7 @@ data class LocationModelData(
     val localizedNameAndCountry: NBString?
         get() {
             return when {
-                localizedName != null && country != null -> NBString.Resource(
+                localizedName != null && country != null -> NBString.ResString(
                     R.string.format_comma_2_items,
                     localizedName,
                     country
@@ -36,7 +36,7 @@ data class LocationModelData(
 
     val stateAndCountry: NBString?
         get() = when {
-            state != null && country != null -> NBString.Resource(
+            state != null && country != null -> NBString.ResString(
                 R.string.format_comma_2_items,
                 state,
                 country

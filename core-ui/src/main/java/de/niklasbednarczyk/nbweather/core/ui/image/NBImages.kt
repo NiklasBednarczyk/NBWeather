@@ -14,7 +14,7 @@ object NBImages {
             get() = R.drawable.openweather_master_logo_rgb
 
         override val contentDescription: NBString
-            get() = NBString.Resource(R.string.image_content_description_open_weather_logo)
+            get() = NBString.ResString(R.string.image_content_description_open_weather_logo)
 
     }
 

@@ -63,5 +63,5 @@ val WeatherConditionType.displayText: NBString
             WeatherConditionType.BROKEN_CLOUDS -> R.string.screen_forecast_common_weather_condition_broken_clouds
             WeatherConditionType.OVERCAST_CLOUDS -> R.string.screen_forecast_common_weather_condition_overcast_clouds
         }
-        return NBString.Resource(resId)
+        return NBString.ResString(resId)
     }

@@ -67,7 +67,7 @@ private fun ErrorView(type: NBErrorType) {
 
     NBInfoView(
         icon = icon,
-        text = NBString.Resource(stringResId)
+        text = NBString.ResString(stringResId)
     )
 }
 

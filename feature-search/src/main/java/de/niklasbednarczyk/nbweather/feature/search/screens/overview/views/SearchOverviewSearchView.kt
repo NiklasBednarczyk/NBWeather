@@ -38,7 +38,7 @@ fun SearchOverviewSearchView(
 private fun NoResults() {
     NBInfoView(
         icon = NBIcons.Search,
-        text = NBString.Resource(R.string.screen_search_overview_search_no_results)
+        text = NBString.ResString(R.string.screen_search_overview_search_no_results)
     )
 }
 

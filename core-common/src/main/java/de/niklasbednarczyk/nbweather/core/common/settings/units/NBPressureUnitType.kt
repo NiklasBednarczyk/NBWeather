@@ -15,7 +15,7 @@ enum class NBPressureUnitType : NBUnitType {
                 INCH_HG -> R.string.unit_symbol_pressure_inch_hg
                 MILLIMETER_OF_MERCURY -> R.string.unit_symbol_pressure_millimeter_of_mercury
             }
-            return NBString.Resource(resId)
+            return NBString.ResString(resId)
         }
 
 }

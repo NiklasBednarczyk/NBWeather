@@ -19,8 +19,10 @@ import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshFlow
 import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshView
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewAlertsModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewPrecipitationModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSummaryModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.views.ForecastOverviewAlertsView
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.views.ForecastOverviewPrecipitationView
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.views.ForecastOverviewSummaryView
 
 @Composable
@@ -69,7 +71,7 @@ private fun Modifier.clickableModifier(
 ): Modifier {
     val onClick = when (item) {
         is ForecastOverviewAlertsModel -> navigateToAlerts
-        is ForecastOverviewSummaryModel -> null
+        is ForecastOverviewPrecipitationModel, is ForecastOverviewSummaryModel -> null
     }
 
     val clickableModifier = if (onClick != null) {
@@ -86,7 +88,7 @@ private fun Modifier.paddingModifier(
 ): Modifier {
     val paddingModifier = when (item) {
         is ForecastOverviewAlertsModel -> Modifier
-        is ForecastOverviewSummaryModel -> Modifier.padding(
+        is ForecastOverviewPrecipitationModel, is ForecastOverviewSummaryModel -> Modifier.padding(
             horizontal = screenHorizontalPadding
         )
     }
@@ -98,7 +100,7 @@ private fun Title(item: ForecastOverviewItem) {
     item.title?.let { title ->
         Text(
             text = title.asString(),
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineMedium
         )
     }
 }
@@ -109,6 +111,12 @@ private fun Content(item: ForecastOverviewItem) {
         is ForecastOverviewAlertsModel -> {
             ForecastOverviewAlertsView(
                 alerts = item
+            )
+        }
+
+        is ForecastOverviewPrecipitationModel -> {
+            ForecastOverviewPrecipitationView(
+                precipitation = item
             )
         }
 

@@ -13,7 +13,7 @@ enum class NBDistanceUnitType : NBUnitType {
                 KILOMETER -> R.string.unit_symbol_distance_kilometer
                 MILE -> R.string.unit_symbol_distance_mile
             }
-            return NBString.Resource(resId)
+            return NBString.ResString(resId)
         }
 
 }

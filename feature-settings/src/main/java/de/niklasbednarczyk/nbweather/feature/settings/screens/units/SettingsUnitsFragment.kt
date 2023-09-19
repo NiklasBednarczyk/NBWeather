@@ -13,7 +13,7 @@ class SettingsUnitsFragment : SettingsListFragment() {
     override val viewModel: SettingsUnitsViewModel by viewModels()
 
     override val topAppBarItem = NBTopAppBarItem.Material.Small(
-        title = NBString.Resource(R.string.screen_settings_units_title)
+        title = NBString.ResString(R.string.screen_settings_units_title)
     )
 
 }

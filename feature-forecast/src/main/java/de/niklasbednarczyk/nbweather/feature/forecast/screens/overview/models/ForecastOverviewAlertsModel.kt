@@ -19,11 +19,11 @@ data class ForecastOverviewAlertsModel(
         ): ForecastOverviewAlertsModel? {
             return nbNullSafeList(oneCall.nationalWeatherAlerts) { alerts ->
                 val text = alerts.firstOrNull()?.eventName
-                    ?: NBString.Resource(R.string.screen_forecast_overview_alerts_text_fallback)
+                    ?: NBString.ResString(R.string.screen_forecast_overview_alerts_text_fallback)
                 val otherAlertsText = when (val size = alerts.size) {
                     0 -> return null
                     1 -> null
-                    else -> NBString.Resource(
+                    else -> NBString.ResString(
                         R.string.format_plus_prefix,
                         size - 1
                     )

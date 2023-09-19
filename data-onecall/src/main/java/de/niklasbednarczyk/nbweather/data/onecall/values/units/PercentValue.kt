@@ -14,7 +14,7 @@ value class PercentValue private constructor(override val value: Long) : NBUnits
     }
 
     override fun getSymbol(units: NBUnitsModel): NBString {
-        return NBString.Resource(R.string.unit_symbol_percent)
+        return NBString.ResString(R.string.unit_symbol_percent)
     }
 
     override fun shouldAddSpaceBetweenValueAndSymbol(units: NBUnitsModel): Boolean {

@@ -25,12 +25,12 @@ class SettingsAppearanceViewModel @Inject constructor(
         settingsAppearanceRepository.getData().map { appearance ->
             val items = mutableListOf<SettingsListItemModel>()
 
-            items.add(SettingsListItemModel.Header(NBString.Resource(R.string.screen_settings_appearance_header_theme)))
+            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_appearance_header_theme)))
 
             items.add(
                 SettingsListItemModel.ItemSwitch(
-                    title = NBString.Resource(R.string.screen_settings_appearance_value_use_device_theme_title),
-                    value = NBString.Resource(R.string.screen_settings_appearance_value_use_device_theme_value),
+                    title = NBString.ResString(R.string.screen_settings_appearance_value_use_device_theme_title),
+                    value = NBString.ResString(R.string.screen_settings_appearance_value_use_device_theme_value),
                     checked = appearance.useDeviceTheme,
                     onCheckedChange = ::updateUseDeviceTheme
                 )
@@ -55,15 +55,15 @@ class SettingsAppearanceViewModel @Inject constructor(
 
             items.add(SettingsListItemModel.Divider)
 
-            items.add(SettingsListItemModel.Header(NBString.Resource(R.string.screen_settings_appearance_header_color_scheme)))
+            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_appearance_header_color_scheme)))
 
             val isDynamicColorAvailable = DynamicColors.isDynamicColorAvailable()
 
             if (isDynamicColorAvailable) {
                 items.add(
                     SettingsListItemModel.ItemSwitch(
-                        title = NBString.Resource(R.string.screen_settings_appearance_value_use_dynamic_color_scheme_title),
-                        value = NBString.Resource(R.string.screen_settings_appearance_value_use_dynamic_color_scheme_value),
+                        title = NBString.ResString(R.string.screen_settings_appearance_value_use_dynamic_color_scheme_title),
+                        value = NBString.ResString(R.string.screen_settings_appearance_value_use_dynamic_color_scheme_value),
                         checked = appearance.useDynamicColorScheme,
                         onCheckedChange = ::updateUseDynamicColorScheme
                     )

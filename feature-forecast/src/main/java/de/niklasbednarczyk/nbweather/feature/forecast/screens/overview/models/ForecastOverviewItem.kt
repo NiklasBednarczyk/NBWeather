@@ -20,6 +20,8 @@ sealed interface ForecastOverviewItem {
 
             items.add(ForecastOverviewSummaryModel.from(oneCall))
 
+            items.add(ForecastOverviewPrecipitationModel.from(oneCall))
+
             return items.filterNotNull()
         }
 

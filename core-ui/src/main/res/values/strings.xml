@@ -105,14 +105,6 @@
     <string name="screen_forecast_alerts_title">Alerts</string>
 
     <!--TODO REDESIGN: Rename card strings-->
-    <string name="screen_forecast_card_overview_title">Overview</string>
-    <string name="screen_forecast_card_overview_value_precipitation_breaking">A break in precipitation in %1$s minutes</string>
-    <string name="screen_forecast_card_overview_value_precipitation_ending">Precipitation ending in %1$s minutes</string>
-    <string name="screen_forecast_card_overview_value_precipitation_full">Precipitation won’t end within an hour</string>
-    <string name="screen_forecast_card_overview_value_precipitation_none">No precipitation within an hour</string>
-    <string name="screen_forecast_card_overview_value_precipitation_no_data">No precipitation data found</string>
-    <string name="screen_forecast_card_overview_value_precipitation_starting">Precipitation starting in %1$s minutes</string>
-    <string name="screen_forecast_card_overview_value_temperature_feels_like">Feels like</string>
 
     <string name="screen_forecast_card_weather_title">Weather</string>
     <string name="screen_forecast_card_weather_value_cloudiness">Cloudiness</string>
@@ -225,6 +217,21 @@
     <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
 
     <string name="screen_forecast_overview_alerts_text_fallback">Alert</string>
+    <plurals name="screen_forecast_overview_precipitation_headline_breaking">
+        <item quantity="one">A break in precipitation in %1$s minute</item>
+        <item quantity="other">A break in precipitation in %1$s minutes</item>
+    </plurals>
+    <plurals name="screen_forecast_overview_precipitation_headline_ending">
+        <item quantity="one">Precipitation ending in %1$s minute</item>
+        <item quantity="other">Precipitation ending in %1$s minutes</item>
+    </plurals>
+    <string name="screen_forecast_overview_precipitation_headline_full">Precipitation won’t end within an hour</string>
+    <string name="screen_forecast_overview_precipitation_headline_none">No precipitation within an hour</string>
+    <plurals name="screen_forecast_overview_precipitation_headline_starting">
+        <item quantity="one">Precipitation starting in %1$s minute</item>
+        <item quantity="other">Precipitation starting in %1$s minutes</item>
+    </plurals>
+    <string name="screen_forecast_overview_precipitation_title">Precipitation</string>
 
     <string name="screen_search_overview_search_no_results">No locations found</string>
 

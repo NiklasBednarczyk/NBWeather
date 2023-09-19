@@ -40,7 +40,7 @@ interface NBUnitsValue {
             R.string.format_units_value_with_symbol_without_space
         }
 
-        return NBString.Resource(
+        return NBString.ResString(
             resId,
             getDisplayValue(units),
             getSymbol(units)

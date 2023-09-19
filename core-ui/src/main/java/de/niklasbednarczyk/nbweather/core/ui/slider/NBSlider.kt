@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -139,58 +140,60 @@ private fun SliderLabel(
     modifier: Modifier = Modifier,
     model: NBSliderModel,
 ) {
-    var widthPx by remember { mutableStateOf(0) }
-    val widthDp = with(LocalDensity.current) { widthPx.toDp() }
-    val difference =
-        if (widthDp > sliderHandleSize) widthDp - sliderHandleSize else sliderHandleSize - widthDp
-    val offset = -difference / 2
+    with(LocalDensity.current) {
+        var widthPx by remember { mutableIntStateOf(0) }
+        val widthDp = widthPx.toDp()
+        val difference =
+            if (widthDp > sliderHandleSize) widthDp - sliderHandleSize else sliderHandleSize - widthDp
+        val offset = -difference / 2
 
-    val labelContainerColor = sliderLabelContainerColor
+        val labelContainerColor = sliderLabelContainerColor
 
-    Column(
-        modifier = modifier
-            .onSizeChanged { size -> widthPx = size.width }
-            .offset(x = offset)
-    ) {
-        Box(
-            modifier = Modifier.defaultMinSize(
-                minWidth = labelContainerMinSize,
-                minHeight = labelContainerMinSize
-            ),
-            contentAlignment = Alignment.Center
+        Column(
+            modifier = modifier
+                .onSizeChanged { size -> widthPx = size.width }
+                .offset(x = offset)
         ) {
-            Canvas(
-                modifier = Modifier.matchParentSize()
+            Box(
+                modifier = Modifier.defaultMinSize(
+                    minWidth = labelContainerMinSize,
+                    minHeight = labelContainerMinSize
+                ),
+                contentAlignment = Alignment.Center
             ) {
-                val cornerRadius = size.height * LABEL_CONTAINER_CORNER_PERCENT / 100
+                Canvas(
+                    modifier = Modifier.matchParentSize()
+                ) {
+                    val cornerRadius = size.height * LABEL_CONTAINER_CORNER_PERCENT / 100
 
-                drawRoundRect(
-                    color = labelContainerColor,
-                    cornerRadius = CornerRadius(cornerRadius),
+                    drawRoundRect(
+                        color = labelContainerColor,
+                        cornerRadius = CornerRadius(cornerRadius),
+                    )
+                }
+                Text(
+                    text = model.value.format(model.fractionDigits),
+                    style = sliderLabelTextStyle,
+                    color = sliderLabelTextColor,
+                    modifier = Modifier.padding(labelInnerPadding)
                 )
             }
-            Text(
-                text = model.value.format(model.fractionDigits),
-                style = sliderLabelTextStyle,
-                color = sliderLabelTextColor,
-                modifier = Modifier.padding(labelInnerPadding)
-            )
-        }
-        Canvas(
-            modifier = Modifier
-                .size(triangleSize)
-                .align(CenterHorizontally)
-        ) {
-            val sizePx = size.height
-            val trianglePath = Path().apply {
-                moveTo(sizePx / 2f, sizePx)
-                lineTo(sizePx, 0f)
-                lineTo(0f, 0f)
+            Canvas(
+                modifier = Modifier
+                    .size(triangleSize)
+                    .align(CenterHorizontally)
+            ) {
+                val sizePx = size.height
+                val trianglePath = Path().apply {
+                    moveTo(sizePx / 2f, sizePx)
+                    lineTo(sizePx, 0f)
+                    lineTo(0f, 0f)
+                }
+                drawPath(
+                    path = trianglePath,
+                    color = labelContainerColor
+                )
             }
-            drawPath(
-                path = trianglePath,
-                color = labelContainerColor
-            )
         }
     }
 }
@@ -218,6 +221,5 @@ private fun getSliderOffset(
 }
 
 
-// Calculate the 0..1 fraction that `pos` value represents between `a` and `b`
 private fun calcFraction(a: Float, b: Float, pos: Float) =
     (if (b - a == 0f) 0f else (pos - a) / (b - a)).coerceIn(0f, 1f)

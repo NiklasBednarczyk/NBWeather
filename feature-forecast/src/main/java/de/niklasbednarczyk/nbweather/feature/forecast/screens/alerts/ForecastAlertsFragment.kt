@@ -15,7 +15,7 @@ class ForecastAlertsFragment : NBFragment<ForecastAlertsUiState>() {
 
     override fun createTopAppBarItem(uiState: ForecastAlertsUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
-            title = NBString.Resource(R.string.screen_forecast_alerts_title)
+            title = NBString.ResString(R.string.screen_forecast_alerts_title)
         )
     }
 

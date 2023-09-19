@@ -13,7 +13,7 @@ enum class NBPrecipitationUnitType : NBUnitType {
                 INCH -> R.string.unit_symbol_precipitation_inch
                 MILLIMETER -> R.string.unit_symbol_precipitation_millimeter
             }
-            return NBString.Resource(resId)
+            return NBString.ResString(resId)
         }
 
 }

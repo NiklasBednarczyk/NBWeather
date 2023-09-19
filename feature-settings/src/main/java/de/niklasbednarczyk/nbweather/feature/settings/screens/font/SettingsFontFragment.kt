@@ -15,7 +15,7 @@ class SettingsFontFragment : SettingsListFragment() {
     override val viewModel: SettingsFontViewModel by viewModels()
 
     override val topAppBarItem = NBTopAppBarItem.Material.Small(
-        title = NBString.Resource(R.string.screen_settings_font_title),
+        title = NBString.ResString(R.string.screen_settings_font_title),
         actions = listOf(
             NBTopAppBarActionModel(
                 icon = NBIcons.Reset,

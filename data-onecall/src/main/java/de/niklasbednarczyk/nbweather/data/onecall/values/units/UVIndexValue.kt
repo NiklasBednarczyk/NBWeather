@@ -14,7 +14,7 @@ value class UVIndexValue private constructor(override val value: Double) : NBUni
     }
 
     override fun getSymbol(units: NBUnitsModel): NBString {
-        return NBString.Resource(R.string.unit_symbol_uv_index)
+        return NBString.ResString(R.string.unit_symbol_uv_index)
     }
 
     override fun shouldAddSpaceBetweenValueAndSymbol(units: NBUnitsModel): Boolean {

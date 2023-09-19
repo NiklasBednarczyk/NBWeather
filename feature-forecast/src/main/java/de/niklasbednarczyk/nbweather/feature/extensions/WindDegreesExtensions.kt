@@ -24,5 +24,5 @@ val WindDegreesType.displayText: NBString
             WindDegreesType.NW -> R.string.screen_forecast_common_wind_degrees_nw
             WindDegreesType.NNW -> R.string.screen_forecast_common_wind_degrees_nnw
         }
-        return NBString.Resource(resId)
+        return NBString.ResString(resId)
     }

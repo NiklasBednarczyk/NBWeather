@@ -14,7 +14,7 @@ value class ProbabilityValue private constructor(override val value: Double) : N
     }
 
     override fun getSymbol(units: NBUnitsModel): NBString {
-        return NBString.Resource(R.string.unit_symbol_probability)
+        return NBString.ResString(R.string.unit_symbol_probability)
     }
 
     override fun shouldAddSpaceBetweenValueAndSymbol(units: NBUnitsModel): Boolean {

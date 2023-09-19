@@ -15,7 +15,7 @@ enum class NBTemperatureUnitType : NBUnitType {
                 FAHRENHEIT -> R.string.unit_symbol_temperature_fahrenheit
                 KELVIN -> R.string.unit_symbol_temperature_kelvin
             }
-            return NBString.Resource(resId)
+            return NBString.ResString(resId)
         }
 
 }

@@ -19,7 +19,7 @@ class AboutOverviewUiState {
             items.add(
                 AboutOverviewItem.WithBanner(
                     banner = NBImages.OpenWeatherLogo,
-                    text = NBString.Resource(R.string.screen_about_overview_text_open_weather),
+                    text = NBString.ResString(R.string.screen_about_overview_text_open_weather),
                     buttons = listOf(
                         getWebsiteButton(AboutConstants.OpenWeather.WEBSITE)
                     )
@@ -32,7 +32,7 @@ class AboutOverviewUiState {
 
             items.add(
                 AboutOverviewItem.WithoutBanner(
-                    text = NBString.Resource(R.string.screen_about_overview_text_erik_flowers),
+                    text = NBString.ResString(R.string.screen_about_overview_text_erik_flowers),
                     buttons = listOf(
                         getWebsiteButton(AboutConstants.ErikFlowers.WEBSITE),
                         getGitHubButton(AboutConstants.ErikFlowers.GIT_HUB)
@@ -46,7 +46,7 @@ class AboutOverviewUiState {
 
             items.add(
                 AboutOverviewItem.WithoutBanner(
-                    text = NBString.Resource(R.string.screen_about_overview_text_niklas_bednarczyk),
+                    text = NBString.ResString(R.string.screen_about_overview_text_niklas_bednarczyk),
                     buttons = listOf(
                         getGitHubButton(AboutConstants.NiklasBednarczyk.GIT_HUB),
                     )
@@ -68,7 +68,7 @@ class AboutOverviewUiState {
     ): AboutOverviewButtonModel {
         return AboutOverviewButtonModel(
             icon = NBIcons.GitHub,
-            label = NBString.Resource(R.string.screen_about_overview_button_git_hub),
+            label = NBString.ResString(R.string.screen_about_overview_button_git_hub),
             intent = getUrlIntent(url)
         )
     }
@@ -78,7 +78,7 @@ class AboutOverviewUiState {
     ): AboutOverviewButtonModel {
         return AboutOverviewButtonModel(
             icon = NBIcons.Website,
-            label = NBString.Resource(R.string.screen_about_overview_button_website),
+            label = NBString.ResString(R.string.screen_about_overview_button_website),
             intent = getUrlIntent(url)
         )
     }

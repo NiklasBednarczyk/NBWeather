@@ -65,9 +65,9 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
                 findLocation()
             } else if (isLocationPermissionDeniedForSecondTime) {
                 val snackbar = NBSnackbarModel(
-                    message = NBString.Resource(R.string.snackbar_location_permission_denied_message),
+                    message = NBString.ResString(R.string.snackbar_location_permission_denied_message),
                     action = NBSnackbarActionModel(
-                        label = NBString.Resource(R.string.snackbar_location_permission_denied_action_label),
+                        label = NBString.ResString(R.string.snackbar_location_permission_denied_action_label),
                         onActionPerformed = {
                             val intent =
                                 Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
@@ -122,7 +122,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
 
     private fun onBackPressedWhenNoCurrentLocation() {
         val snackbar = NBSnackbarModel(
-            message = NBString.Resource(R.string.snackbar_back_pressed_when_no_current_location_message)
+            message = NBString.ResString(R.string.snackbar_back_pressed_when_no_current_location_message)
         )
         sendSnackbar(snackbar)
     }
@@ -159,9 +159,9 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
                 .addOnCanceledListener {
                     viewModel.stopFindingLocation()
                     val snackbar = NBSnackbarModel(
-                        message = NBString.Resource(R.string.snackbar_location_found_canceled_message),
+                        message = NBString.ResString(R.string.snackbar_location_found_canceled_message),
                         action = NBSnackbarActionModel(
-                            label = NBString.Resource(R.string.snackbar_location_found_action_label),
+                            label = NBString.ResString(R.string.snackbar_location_found_action_label),
                             onActionPerformed = ::findLocation
                         )
                     )
@@ -181,9 +181,9 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
         viewModel.stopFindingLocation()
         Timber.e(t)
         val snackbar = NBSnackbarModel(
-            message = NBString.Resource(R.string.snackbar_location_found_failure_message),
+            message = NBString.ResString(R.string.snackbar_location_found_failure_message),
             action = NBSnackbarActionModel(
-                label = NBString.Resource(R.string.snackbar_location_found_action_label),
+                label = NBString.ResString(R.string.snackbar_location_found_action_label),
                 onActionPerformed = ::findLocation
             )
         )

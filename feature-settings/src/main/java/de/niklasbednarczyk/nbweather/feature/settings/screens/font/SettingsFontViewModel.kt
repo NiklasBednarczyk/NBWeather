@@ -27,7 +27,7 @@ class SettingsFontViewModel @Inject constructor(
 
     override val stickyHeaderFlow: Flow<NBStickyHeaderModel?> = fontStateFlow.map { font ->
         NBStickyHeaderModel(
-            text = NBString.Resource(R.string.screen_settings_font_sticky_header_text),
+            text = NBString.ResString(R.string.screen_settings_font_sticky_header_text),
             fontFamily = font?.fontFamily
         )
     }
@@ -40,7 +40,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.Slant.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_slant),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_slant),
                     value = font.slant,
                     updateLocally = ::updateSlantLocally,
                     updateGlobally = ::updateSlantGlobally
@@ -49,7 +49,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.Width.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_width),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_width),
                     value = font.width,
                     updateLocally = ::updateWidthLocally,
                     updateGlobally = ::updateWidthGlobally
@@ -58,7 +58,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.Weight.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_weight),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_weight),
                     value = font.weight,
                     updateLocally = ::updateWeightLocally,
                     updateGlobally = ::updateWeightGlobally
@@ -67,7 +67,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.Grade.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_grade),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_grade),
                     value = font.grade,
                     updateLocally = ::updateGradeLocally,
                     updateGlobally = ::updateGradeGlobally
@@ -76,7 +76,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.CounterWidth.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_counter_width),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_counter_width),
                     value = font.counterWidth,
                     updateLocally = ::updateCounterWidthLocally,
                     updateGlobally = ::updateCounterWidthGlobally
@@ -85,7 +85,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.ThinStroke.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_thin_stroke),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_thin_stroke),
                     value = font.thinStroke,
                     updateLocally = ::updateThinStrokeLocally,
                     updateGlobally = ::updateThinStrokeGlobally
@@ -94,7 +94,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.AscenderHeight.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_ascender_height),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_ascender_height),
                     value = font.ascenderHeight,
                     updateLocally = ::updateAscenderHeightLocally,
                     updateGlobally = ::updateAscenderHeightGlobally
@@ -103,7 +103,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.DescenderDepth.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_descender_depth),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_descender_depth),
                     value = font.descenderDepth,
                     updateLocally = ::updateDescenderDepthLocally,
                     updateGlobally = ::updateDescenderDepthGlobally
@@ -112,7 +112,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.FigureHeight.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_figure_height),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_figure_height),
                     value = font.figureHeight,
                     updateLocally = ::updateFigureHeightLocally,
                     updateGlobally = ::updateFigureHeightGlobally
@@ -121,7 +121,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.LowercaseHeight.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_lowercase_height),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_lowercase_height),
                     value = font.lowercaseHeight,
                     updateLocally = ::updateLowercaseHeightLocally,
                     updateGlobally = ::updateLowercaseHeightGlobally
@@ -130,7 +130,7 @@ class SettingsFontViewModel @Inject constructor(
 
             items.add(
                 NBFontAxes.UppercaseHeight.toSlider(
-                    title = NBString.Resource(R.string.screen_settings_font_axis_uppercase_height),
+                    title = NBString.ResString(R.string.screen_settings_font_axis_uppercase_height),
                     value = font.uppercaseHeight,
                     updateLocally = ::updateUppercaseHeightLocally,
                     updateGlobally = ::updateUppercaseHeightGlobally

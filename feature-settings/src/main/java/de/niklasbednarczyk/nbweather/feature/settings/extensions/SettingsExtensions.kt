@@ -11,7 +11,7 @@ val NBThemeType.displayText: NBString
             NBThemeType.LIGHT -> R.string.screen_settings_appearance_value_theme_light
             NBThemeType.DARK -> R.string.screen_settings_appearance_value_theme_dark
         }
-        return NBString.Resource(resId)
+        return NBString.ResString(resId)
     }
 
 val NBColorSchemeType.displayText: NBString
@@ -22,5 +22,5 @@ val NBColorSchemeType.displayText: NBString
             NBColorSchemeType.RED -> R.string.screen_settings_appearance_value_color_scheme_red
             NBColorSchemeType.YELLOW -> R.string.screen_settings_appearance_value_color_scheme_yellow
         }
-        return NBString.Resource(resId)
+        return NBString.ResString(resId)
     }

@@ -38,15 +38,12 @@ fun Modifier.nBSegmentedBorder(
     color: Color,
     cornerPercent: Int,
     segmentedBorderOrder: SegmentedBorderOrder,
-    strokeWidth: Dp = 1.dp,
+    strokeWidth: Dp = 2.dp,
     drawDivider: Boolean = false
 ) = composed {
 
     with(LocalDensity.current) {
-        val strokeWidthPx = remember {
-            // Need to multiply, otherwise stroke too thin
-            strokeWidth.toPx().times(2)
-        }
+        val strokeWidthPx = remember { strokeWidth.toPx() }
 
         Modifier.drawBehind {
             val height = size.height
@@ -63,7 +60,6 @@ fun Modifier.nBSegmentedBorder(
                         strokeWidth = strokeWidthPx
                     )
 
-                    // Top left arc
                     drawArc(
                         color = color,
                         startAngle = 180f,
@@ -79,7 +75,6 @@ fun Modifier.nBSegmentedBorder(
                         end = Offset(x = 0f, y = height - cornerRadius),
                         strokeWidth = strokeWidthPx
                     )
-                    // Bottom left arc
                     drawArc(
                         color = color,
                         startAngle = 90f,
@@ -139,7 +134,6 @@ fun Modifier.nBSegmentedBorder(
                         strokeWidth = strokeWidthPx
                     )
 
-                    // Top right arc
                     drawArc(
                         color = color,
                         startAngle = 270f,
@@ -155,7 +149,6 @@ fun Modifier.nBSegmentedBorder(
                         end = Offset(x = width, y = height - cornerRadius),
                         strokeWidth = strokeWidthPx
                     )
-                    // Bottom right arc
                     drawArc(
                         color = color,
                         startAngle = 0f,

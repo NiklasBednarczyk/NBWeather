@@ -51,7 +51,7 @@ value class TemperatureValue private constructor(internal val valueInternal: Dou
 
         override fun getSymbol(units: NBUnitsModel): NBString? {
             return when (units.temperatureUnit) {
-                NBTemperatureUnitType.CELSIUS, NBTemperatureUnitType.FAHRENHEIT -> NBString.Resource(
+                NBTemperatureUnitType.CELSIUS, NBTemperatureUnitType.FAHRENHEIT -> NBString.ResString(
                     R.string.unit_symbol_temperature_short_degree
                 )
 

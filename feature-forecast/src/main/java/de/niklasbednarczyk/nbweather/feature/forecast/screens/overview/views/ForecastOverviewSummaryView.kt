@@ -34,6 +34,9 @@ import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.Fo
 fun ForecastOverviewSummaryView(
     summary: ForecastOverviewSummaryModel
 ) {
+    CurrentTemperature(
+        currentTemperature = summary.currentTemperature
+    )
     Column(
         verticalArrangement = columnVerticalArrangementSmall
     ) {
@@ -45,13 +48,10 @@ fun ForecastOverviewSummaryView(
             WeatherIcon(
                 weatherIcon = summary.weatherIcon
             )
-            CurrentTemperature(
-                currentTemperature = summary.currentTemperature
+            WeatherCondition(
+                weatherCondition = summary.weatherCondition
             )
         }
-        WeatherCondition(
-            weatherCondition = summary.weatherCondition
-        )
     }
     Row(
         horizontalArrangement = rowHorizontalArrangementBig
@@ -87,7 +87,7 @@ private fun RowScope.CurrentTime(
     Text(
         modifier = Modifier.weight(1f),
         text = currentTime.time.asString(),
-        style = MaterialTheme.typography.titleLarge,
+        style = MaterialTheme.typography.titleMedium,
         textAlign = TextAlign.End
     )
 }
@@ -106,7 +106,7 @@ private fun LimitTemperature(
         )
         Text(
             text = temperature.displayValueWithSymbol.asString(),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleMedium
         )
     }
 }
@@ -117,7 +117,7 @@ private fun WeatherCondition(
 ) {
     Text(
         text = weatherCondition.displayText.asString(),
-        style = MaterialTheme.typography.headlineLarge
+        style = MaterialTheme.typography.titleLarge
     )
 }
 

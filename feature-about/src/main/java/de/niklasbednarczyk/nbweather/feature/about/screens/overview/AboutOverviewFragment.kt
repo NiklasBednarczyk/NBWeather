@@ -17,7 +17,7 @@ class AboutOverviewFragment : NBFragment<AboutOverviewUiState>() {
 
     override fun createTopAppBarItem(uiState: AboutOverviewUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
-            title = NBString.Resource(R.string.screen_about_overview_title)
+            title = NBString.ResString(R.string.screen_about_overview_title)
         )
     }
 
@@ -34,7 +34,7 @@ class AboutOverviewFragment : NBFragment<AboutOverviewUiState>() {
             startActivity(intent)
         } else {
             val snackbar = NBSnackbarModel(
-                message = NBString.Resource(R.string.snackbar_about_intent_failed_message)
+                message = NBString.ResString(R.string.snackbar_about_intent_failed_message)
             )
             sendSnackbar(snackbar)
         }

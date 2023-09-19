@@ -26,7 +26,7 @@ class SettingsUnitsViewModel @Inject constructor(
         settingsUnitsRepository.getData().map { units ->
             val items = mutableListOf<SettingsListItemModel>()
 
-            items.add(SettingsListItemModel.Header(NBString.Resource(R.string.screen_settings_units_header_temperature)))
+            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_temperature)))
 
             items.add(
                 SettingsListItemModel.ItemButtons(
@@ -44,7 +44,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 )
             )
 
-            items.add(SettingsListItemModel.Header(NBString.Resource(R.string.screen_settings_units_header_precipitation)))
+            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_precipitation)))
 
             items.add(
                 SettingsListItemModel.ItemButtons(
@@ -61,7 +61,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 )
             )
 
-            items.add(SettingsListItemModel.Header(NBString.Resource(R.string.screen_settings_units_header_distance)))
+            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_distance)))
 
             items.add(
                 SettingsListItemModel.ItemButtons(
@@ -78,7 +78,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 )
             )
 
-            items.add(SettingsListItemModel.Header(NBString.Resource(R.string.screen_settings_units_header_pressure)))
+            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_pressure)))
 
             items.add(
                 SettingsListItemModel.ItemButtons(
@@ -95,7 +95,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 )
             )
 
-            items.add(SettingsListItemModel.Header(NBString.Resource(R.string.screen_settings_units_header_wind_speed)))
+            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_wind_speed)))
 
             items.add(
                 SettingsListItemModel.ItemButtons(

@@ -163,7 +163,7 @@ private fun NBTopAppBarSearch(
     val placeholder =
         @Composable {
             Text(
-                text = NBString.Resource(R.string.top_app_bar_search_placeholder).asString()
+                text = NBString.ResString(R.string.top_app_bar_search_placeholder).asString()
             )
         }
 

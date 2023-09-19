@@ -68,14 +68,6 @@
 
     <string name="screen_forecast_alerts_title">Meldungen</string>
 
-    <string name="screen_forecast_card_overview_title">Übersicht</string>
-    <string name="screen_forecast_card_overview_value_precipitation_breaking">Unterbrechung des Niederschlags in %1$s Minuten</string>
-    <string name="screen_forecast_card_overview_value_precipitation_ending">Niederschlag endet in %1$s Minuten</string>
-    <string name="screen_forecast_card_overview_value_precipitation_full">Niederschlag hört nicht in einer Stunde auf</string>
-    <string name="screen_forecast_card_overview_value_precipitation_none">Kein Niederschlag innerhalb einer Stunde</string>
-    <string name="screen_forecast_card_overview_value_precipitation_no_data">Keine Niederschlagsdaten gefunden</string>
-    <string name="screen_forecast_card_overview_value_precipitation_starting">Niederschlag beginnt in %1$s Minuten</string>
-    <string name="screen_forecast_card_overview_value_temperature_feels_like">Gefühlt</string>
 
     <string name="screen_forecast_card_weather_title">Wetter</string>
     <string name="screen_forecast_card_weather_value_cloudiness">Bewölkung</string>
@@ -188,6 +180,21 @@
     <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
 
     <string name="screen_forecast_overview_alerts_text_fallback">Meldung</string>
+    <plurals name="screen_forecast_overview_precipitation_headline_breaking">
+        <item quantity="one">Unterbrechung des Niederschlags in %1$s Minute</item>
+        <item quantity="other">Unterbrechung des Niederschlags in %1$s Minuten</item>
+    </plurals>
+    <plurals name="screen_forecast_overview_precipitation_headline_ending">
+        <item quantity="one">Niederschlag endet in %1$s Minute</item>
+        <item quantity="other">Niederschlag endet in %1$s Minuten</item>
+    </plurals>
+    <string name="screen_forecast_overview_precipitation_headline_full">Niederschlag hört nicht in einer Stunde auf</string>
+    <string name="screen_forecast_overview_precipitation_headline_none">Kein Niederschlag innerhalb einer Stunde</string>
+    <plurals name="screen_forecast_overview_precipitation_headline_starting">
+        <item quantity="one">Niederschlag beginnt in %1$s Minute</item>
+        <item quantity="other">Niederschlag beginnt in %1$s Minuten</item>
+    </plurals>
+    <string name="screen_forecast_overview_precipitation_title">Niederschlag</string>
 
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
 
