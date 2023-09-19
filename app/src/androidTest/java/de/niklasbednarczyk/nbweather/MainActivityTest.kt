@@ -143,7 +143,7 @@ class MainActivityTest : NBComposeTest {
     private fun ComposeContentTestRule.searchOverviewToLocationOverviewViaSearch(
         locationName: String
     ) {
-        onNodeWithText(R.string.top_app_bar_search_placeholder)
+        onNodeWithText(R.string.fragment_top_app_bar_search_placeholder)
             .performTextInput(SEARCH_OVERVIEW_SEARCH_TERM)
 
         waitUntilAtLeastOneExists(hasText(locationName))
@@ -180,7 +180,7 @@ class MainActivityTest : NBComposeTest {
     }
 
     private fun ComposeContentTestRule.assertIsOnSearchOverview() {
-        onNodeWithText(R.string.top_app_bar_search_placeholder)
+        onNodeWithText(R.string.fragment_top_app_bar_search_placeholder)
             .assertIsDisplayed()
     }
 

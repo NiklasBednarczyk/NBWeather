@@ -28,6 +28,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.remote.models.OneCallModelRemo
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.FakeOneCallService
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -73,10 +74,12 @@ class OneCallRepository @Inject constructor(
 
 
     suspend fun getOneCall(
-        latitude: Double,
-        longitude: Double,
+        latitude: Double?,
+        longitude: Double?,
         forceUpdate: Boolean
     ): Flow<NBResource<OneCallModelData>> {
+        if (latitude == null || longitude == null) return flowOf(NBResource.Error())
+
         return object :
             LocalRemoteOfflineMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
             override fun getLocal(): Flow<OneCallModelLocal?> {

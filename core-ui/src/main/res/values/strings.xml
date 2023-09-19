@@ -8,6 +8,9 @@
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
     <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
 
+    <string name="fragment_snackbar_intent_failed_message">No fitting app on your phone found</string>
+    <string name="fragment_top_app_bar_search_placeholder">Search</string>
+
     <string name="icon_content_description_about" translatable="false">@string/screen_about_overview_title</string>
     <string name="icon_content_description_appearance" translatable="false">@string/screen_settings_appearance_title</string>
     <string name="icon_content_description_back">Back</string>
@@ -61,7 +64,7 @@
     <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_forecast_card_weather_value_probability_of_precipitation</string>
     <string name="icon_content_description_rain" translatable="false">@string/screen_forecast_card_weather_value_rain</string>
     <string name="icon_content_description_reset">Reset</string>
-    <string name="icon_content_description_search" translatable="false">@string/top_app_bar_search_placeholder</string>
+    <string name="icon_content_description_search" translatable="false">@string/fragment_top_app_bar_search_placeholder</string>
     <string name="icon_content_description_settings" translatable="false">@string/screen_settings_overview_title</string>
     <string name="icon_content_description_snow" translatable="false">@string/screen_forecast_card_weather_value_snow</string>
     <string name="icon_content_description_sunrise" translatable="false">@string/screen_forecast_card_sun_and_moon_value_sunrise</string>
@@ -142,8 +145,6 @@
     <string name="screen_forecast_common_moon_phase_waning_gibbous">Waning Gibbous</string>
     <string name="screen_forecast_common_moon_phase_waxing_crescent">Waxing Crescent</string>
     <string name="screen_forecast_common_moon_phase_waxing_gibbous">Waxing Gibbous</string>
-    <string name="screen_forecast_common_temperatures_max">Max</string>
-    <string name="screen_forecast_common_temperatures_min">Min</string>
     <string name="screen_forecast_common_weather_condition_broken_clouds">Broken clouds</string>
     <string name="screen_forecast_common_weather_condition_clear_sky">Clear sky</string>
     <string name="screen_forecast_common_weather_condition_drizzle_rain">Drizzle rain</string>
@@ -234,6 +235,12 @@
     <string name="screen_forecast_overview_precipitation_title">Precipitation</string>
 
     <string name="screen_search_overview_search_no_results">No locations found</string>
+    <string name="screen_search_overview_snackbar_back_pressed_when_no_current_location_message">You need to select a location</string>
+    <string name="screen_search_overview_snackbar_location_found_action_label">Try again</string>
+    <string name="screen_search_overview_snackbar_location_found_canceled_message">Location request was canceled</string>
+    <string name="screen_search_overview_snackbar_location_found_failure_message">Location request failed</string>
+    <string name="screen_search_overview_snackbar_location_permission_denied_action_label">Settings</string>
+    <string name="screen_search_overview_snackbar_location_permission_denied_message">Location permission denied</string>
 
     <string name="screen_settings_appearance_header_color_scheme">Color scheme</string>
     <string name="screen_settings_appearance_header_theme">Theme</string>
@@ -271,16 +278,5 @@
     <string name="screen_settings_units_header_temperature">Temperature</string>
     <string name="screen_settings_units_header_wind_speed">Wind speed</string>
     <string name="screen_settings_units_title">Units</string>
-
-    <string name="snackbar_about_intent_failed_message">No fitting app on your phone found</string>
-    <string name="snackbar_back_pressed_when_no_current_location_message">You need to select a location</string>
-    <string name="snackbar_location_found_action_label">Try again</string>
-    <string name="snackbar_location_found_canceled_message">Location request was canceled</string>
-    <string name="snackbar_location_found_failure_message">Location request failed</string>
-    <string name="snackbar_location_permission_denied_action_label">Settings</string>
-    <string name="snackbar_location_permission_denied_message">Location permission denied</string>
-
-    <string name="top_app_bar_search_placeholder">Search</string>
-
 
 </resources>

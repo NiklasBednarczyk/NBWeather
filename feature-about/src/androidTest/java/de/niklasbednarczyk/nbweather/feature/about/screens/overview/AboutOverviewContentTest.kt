@@ -28,7 +28,7 @@ class AboutOverviewContentTest : NBContentTest() {
         setContent {
             AboutOverviewContent(
                 uiState = uiState,
-                onIntent = { intent ->
+                startIntent = { intent ->
                     val data = intent.data
                     if (data != null) {
                         if (data.toString().startsWith("https://github.com")) {

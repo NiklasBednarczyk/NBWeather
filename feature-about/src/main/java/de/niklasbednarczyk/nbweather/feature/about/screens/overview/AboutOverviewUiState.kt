@@ -1,11 +1,10 @@
 package de.niklasbednarczyk.nbweather.feature.about.screens.overview
 
-import android.content.Intent
-import android.net.Uri
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImages
+import de.niklasbednarczyk.nbweather.core.ui.intent.createUrlIntent
 import de.niklasbednarczyk.nbweather.feature.about.constants.AboutConstants
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewButtonModel
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewItem
@@ -56,20 +55,13 @@ class AboutOverviewUiState {
             return items
         }
 
-    private fun getUrlIntent(
-        url: String
-    ): Intent = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(url)
-        addCategory(Intent.CATEGORY_DEFAULT)
-    }
-
     private fun getGitHubButton(
         url: String
     ): AboutOverviewButtonModel {
         return AboutOverviewButtonModel(
             icon = NBIcons.GitHub,
             label = NBString.ResString(R.string.screen_about_overview_button_git_hub),
-            intent = getUrlIntent(url)
+            intent = createUrlIntent(url)
         )
     }
 
@@ -79,7 +71,7 @@ class AboutOverviewUiState {
         return AboutOverviewButtonModel(
             icon = NBIcons.Website,
             label = NBString.ResString(R.string.screen_about_overview_button_website),
-            intent = getUrlIntent(url)
+            intent = createUrlIntent(url)
         )
     }
 

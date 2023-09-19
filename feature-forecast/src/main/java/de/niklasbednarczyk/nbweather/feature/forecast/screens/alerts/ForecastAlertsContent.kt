@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -26,12 +27,13 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPager
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.text.NBUrlText
+import de.niklasbednarczyk.nbweather.core.ui.text.NBClickableText
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models.ForecastAlertsAlertItem
 
 @Composable
 fun ForecastAlertsContent(
-    uiState: ForecastAlertsUiState
+    uiState: ForecastAlertsUiState,
+    startIntent: (Intent?) -> Unit
 ) {
     NBResourceWithoutLoadingView(uiState.pagerViewDataResource) { pagerViewData ->
         NBPager(pagerViewData) { pagerItem ->
@@ -52,7 +54,8 @@ fun ForecastAlertsContent(
 
                         is ForecastAlertsAlertItem.Description -> {
                             Description(
-                                description = item
+                                description = item,
+                                startIntent = startIntent
                             )
                         }
 
@@ -123,11 +126,13 @@ private fun Date(
 
 @Composable
 private fun Description(
-    description: ForecastAlertsAlertItem.Description
+    description: ForecastAlertsAlertItem.Description,
+    startIntent: (Intent?) -> Unit
 ) {
-    NBUrlText(
+    NBClickableText(
         text = description.text.asString(),
         style = MaterialTheme.typography.bodyLarge,
+        startIntent = startIntent
     )
 }
 

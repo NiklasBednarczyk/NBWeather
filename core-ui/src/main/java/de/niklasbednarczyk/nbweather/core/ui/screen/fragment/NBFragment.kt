@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.core.ui.screen.fragment
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,17 +18,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
+import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.font.changeFontFamily
 import de.niklasbednarczyk.nbweather.core.ui.font.fontFamily
+import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
+import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.NBScaffold
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarModel
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBar
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
 import de.niklasbednarczyk.nbweather.core.ui.screen.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
-import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
-import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
-import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -131,6 +134,19 @@ abstract class NBFragment<UiState> : Fragment(), NBNavControllerContainer {
 
     protected fun sendSnackbar(snackbar: NBSnackbarModel) {
         snackbarChannel.trySend(snackbar)
+    }
+
+    protected fun startIntent(intent: Intent?) {
+        if (intent == null) return
+
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            startActivity(intent)
+        } else {
+            val snackbar = NBSnackbarModel(
+                message = NBString.ResString(R.string.fragment_snackbar_intent_failed_message)
+            )
+            sendSnackbar(snackbar)
+        }
     }
 
 }

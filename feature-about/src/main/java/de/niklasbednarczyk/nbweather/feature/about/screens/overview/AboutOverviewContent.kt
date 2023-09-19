@@ -39,7 +39,7 @@ private val horizontalPaddingValues = PaddingValues(
 @Composable
 fun AboutOverviewContent(
     uiState: AboutOverviewUiState,
-    onIntent: (intent: Intent) -> Unit
+    startIntent: (intent: Intent) -> Unit
 ) {
     LazyColumn(
         verticalArrangement = columnVerticalArrangementBig
@@ -62,7 +62,7 @@ fun AboutOverviewContent(
                         )
                         ItemButtons(
                             buttons = item.buttons,
-                            onIntent = onIntent
+                            startIntent = startIntent
                         )
                     }
                 }
@@ -74,7 +74,7 @@ fun AboutOverviewContent(
                         )
                         ItemButtons(
                             buttons = item.buttons,
-                            onIntent = onIntent
+                            startIntent = startIntent
                         )
                     }
                 }
@@ -120,7 +120,7 @@ private fun ItemText(
 @Composable
 private fun ItemButtons(
     buttons: List<AboutOverviewButtonModel>,
-    onIntent: (intent: Intent) -> Unit
+    startIntent: (intent: Intent) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -131,7 +131,7 @@ private fun ItemButtons(
         buttons.forEach { button ->
             FilledTonalButton(
                 modifier = Modifier.weight(1f),
-                onClick = { onIntent(button.intent) },
+                onClick = { startIntent(button.intent) },
             ) {
                 NBIcon(
                     modifier = Modifier.size(filledTonalButtonIconSize),

@@ -2,6 +2,9 @@
     <string name="error_text_no_internet">Keine Internetverbindung</string>
     <string name="error_text_unknown">Etwas ist schief gelaufen</string>
 
+    <string name="fragment_snackbar_intent_failed_message">Keine passende App auf Ihrem Handy gefunden</string>
+    <string name="fragment_top_app_bar_search_placeholder">Suche</string>
+
     <string name="icon_content_description_back">Zurück</string>
     <string name="icon_content_description_cancel">Abbrechen</string>
     <string name="icon_content_description_delete">Löschen</string>
@@ -105,8 +108,6 @@
     <string name="screen_forecast_common_moon_phase_waning_gibbous">Abnehmender Dreiviertelmond</string>
     <string name="screen_forecast_common_moon_phase_waxing_crescent">Zunehmender Sichelmond</string>
     <string name="screen_forecast_common_moon_phase_waxing_gibbous">Zunehmender Dreiviertelmond</string>
-    <string name="screen_forecast_common_temperatures_max">Max</string>
-    <string name="screen_forecast_common_temperatures_min">Min</string>
     <string name="screen_forecast_common_weather_condition_broken_clouds">Stark bewölkt</string>
     <string name="screen_forecast_common_weather_condition_clear_sky">Klarer Himmel</string>
     <string name="screen_forecast_common_weather_condition_drizzle_rain">Nieselregen</string>
@@ -197,6 +198,12 @@
     <string name="screen_forecast_overview_precipitation_title">Niederschlag</string>
 
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
+    <string name="screen_search_overview_snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
+    <string name="screen_search_overview_snackbar_location_found_action_label">Erneut versuchen</string>
+    <string name="screen_search_overview_snackbar_location_found_canceled_message">Standortanfrage wurde abgebrochen</string>
+    <string name="screen_search_overview_snackbar_location_found_failure_message">Standortanfrage fehlgeschlagen</string>
+    <string name="screen_search_overview_snackbar_location_permission_denied_action_label">Einstellungen</string>
+    <string name="screen_search_overview_snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
 
     <string name="screen_settings_appearance_header_color_scheme">Farbschema</string>
     <string name="screen_settings_appearance_header_theme">Design</string>
@@ -234,15 +241,5 @@
     <string name="screen_settings_units_header_temperature">Temperatur</string>
     <string name="screen_settings_units_header_wind_speed">Windgeschwindigkeit</string>
     <string name="screen_settings_units_title">Einheiten</string>
-
-    <string name="snackbar_about_intent_failed_message">Keine passende App auf Ihrem Handy gefunden</string>
-    <string name="snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
-    <string name="snackbar_location_found_action_label">Erneut versuchen</string>
-    <string name="snackbar_location_found_canceled_message">Standortanfrage wurde abgebrochen</string>
-    <string name="snackbar_location_found_failure_message">Standortanfrage fehlgeschlagen</string>
-    <string name="snackbar_location_permission_denied_action_label">Einstellungen</string>
-    <string name="snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
-
-    <string name="top_app_bar_search_placeholder">Suche</string>
 
 </resources>

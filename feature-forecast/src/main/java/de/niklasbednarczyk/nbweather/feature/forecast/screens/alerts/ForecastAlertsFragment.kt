@@ -22,7 +22,8 @@ class ForecastAlertsFragment : NBFragment<ForecastAlertsUiState>() {
     @Composable
     override fun ScaffoldContent(uiState: ForecastAlertsUiState) {
         ForecastAlertsContent(
-            uiState = uiState
+            uiState = uiState,
+            startIntent = ::startIntent
         )
     }
 

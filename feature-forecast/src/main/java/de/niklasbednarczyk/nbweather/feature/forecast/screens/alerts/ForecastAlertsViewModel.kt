@@ -9,7 +9,6 @@ import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models.ForecastAlertsViewData
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,16 +36,12 @@ class ForecastAlertsViewModel @Inject constructor(
         latitude: Double?,
         longitude: Double?,
     ): Flow<NBResource<ForecastAlertsViewData>> {
-        return if (latitude != null && longitude != null) {
-            oneCallRepository.getOneCall(
-                latitude = latitude,
-                longitude = longitude,
-                forceUpdate = false
-            ).mapResource { oneCall ->
-                ForecastAlertsViewData.from(oneCall)
-            }
-        } else {
-            flowOf(NBResource.Error())
+        return oneCallRepository.getOneCall(
+            latitude = latitude,
+            longitude = longitude,
+            forceUpdate = false
+        ).mapResource { oneCall ->
+            ForecastAlertsViewData.from(oneCall)
         }
     }
 
