@@ -105,7 +105,7 @@ private fun Markers(
     precipitationFactors: List<Float>,
     timeMarkersSize: Int = 4,
     innerRadius: Dp = 40.dp,
-    precipitationBackgroundLength: Dp = 40.dp,
+    precipitationBackgroundLength: Dp = 50.dp,
     timeLength: Dp = 6.dp,
     precipitationStrokeWidth: Dp = 4.dp,
     timeStrokeWidth: Dp = 2.dp,
