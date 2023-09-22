@@ -16,8 +16,6 @@ data class ForecastOverviewSummaryModel(
     val currentTime: NBDateTimeDisplayModel
 ) : ForecastOverviewItem {
 
-    override val title = null
-
     companion object {
 
         fun from(

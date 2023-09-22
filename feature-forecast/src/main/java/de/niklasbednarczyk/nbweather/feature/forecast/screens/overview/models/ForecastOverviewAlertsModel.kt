@@ -10,8 +10,6 @@ data class ForecastOverviewAlertsModel(
     val otherAlertsText: NBString?
 ) : ForecastOverviewItem {
 
-    override val title = null
-
     companion object {
 
         fun from(

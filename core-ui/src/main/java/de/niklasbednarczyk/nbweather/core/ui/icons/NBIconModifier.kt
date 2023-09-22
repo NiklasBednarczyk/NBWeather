@@ -1,5 +1,7 @@
 package de.niklasbednarczyk.nbweather.core.ui.icons
 
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Constraints
@@ -14,3 +16,11 @@ fun Modifier.nbIconFit() = this.layout { measurable, constraints ->
         }
     }
 }
+
+fun Modifier.nbIconFillHeight() = this
+    .fillMaxHeight()
+    .aspectRatio(1f)
+
+fun Modifier.nbIconFillWidth() = this
+    .fillMaxHeight()
+    .aspectRatio(1f)

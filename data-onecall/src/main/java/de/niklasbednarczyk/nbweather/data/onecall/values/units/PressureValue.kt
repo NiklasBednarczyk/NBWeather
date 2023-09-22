@@ -12,8 +12,8 @@ value class PressureValue private constructor(override val value: Long) : NBUnit
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.pressureUnit) {
             NBPressureUnitType.HECTOPASCAL -> value.toDouble() // hectopascal to hectopascal
-            NBPressureUnitType.INCH_HG -> value.div(33.864) // hectopascal to inch hg
-            NBPressureUnitType.MILLIMETER_OF_MERCURY -> value.div(1.3332239) // hectopascal to millimeter of mercury
+            NBPressureUnitType.INCH_HG -> value / 33.864 // hectopascal to inch hg
+            NBPressureUnitType.MILLIMETER_OF_MERCURY -> value / 1.3332239 // hectopascal to millimeter of mercury
         }
     }
 
@@ -26,6 +26,8 @@ value class PressureValue private constructor(override val value: Long) : NBUnit
         fun from(value: Long?): PressureValue? {
             return nbNullSafe(value) { PressureValue(it) }
         }
+
+        fun PressureValue?.orZero() = this ?: PressureValue(0)
 
     }
 

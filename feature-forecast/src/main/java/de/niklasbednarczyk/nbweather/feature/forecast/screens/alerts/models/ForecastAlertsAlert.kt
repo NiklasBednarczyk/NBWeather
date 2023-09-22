@@ -15,7 +15,7 @@ data class ForecastAlertsAlert(
         fun from(
             timezoneOffset: NBTimezoneOffsetValue?,
             nationalWeatherAlert: NationalWeatherAlertModelData
-        ): ForecastAlertsAlert {
+        ): ForecastAlertsAlert? {
             val items = mutableListOf<ForecastAlertsAlertItem>()
 
             nbNullSafe(nationalWeatherAlert.eventName) { eventName ->
@@ -62,9 +62,11 @@ data class ForecastAlertsAlert(
                 )
             }
 
-            return ForecastAlertsAlert(
-                items = items
-            )
+            return nbNullSafeList(items) { i ->
+                ForecastAlertsAlert(
+                    items = i
+                )
+            }
         }
 
     }

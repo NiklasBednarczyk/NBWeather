@@ -13,7 +13,9 @@ val elevationLevel2 = 3.dp
 val filledTonalButtonIconSize = 18.dp
 val filledTonalButtonPaddingBetweenElements = 8.dp
 
-val listContentPaddingHorizontal = 8.dp
+val filterChipsPaddingBetweenElements = 8.dp
+
+val listContentPaddingHorizontal = 16.dp
 val listContentPaddingValuesHorizontal = PaddingValues(
     horizontal = listContentPaddingHorizontal
 )

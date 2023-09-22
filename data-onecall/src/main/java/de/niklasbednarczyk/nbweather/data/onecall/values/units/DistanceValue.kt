@@ -11,8 +11,8 @@ value class DistanceValue private constructor(override val value: Long) : NBUnit
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.distanceUnit) {
-            NBDistanceUnitType.KILOMETER -> value.div(1000.0) // meter to kilometer
-            NBDistanceUnitType.MILE -> value.div(1609.344) // meter to mile
+            NBDistanceUnitType.KILOMETER -> value / 1000.0 // meter to kilometer
+            NBDistanceUnitType.MILE -> value / 1609.344 // meter to mile
         }
     }
 
@@ -29,6 +29,8 @@ value class DistanceValue private constructor(override val value: Long) : NBUnit
         fun from(value: Long?): DistanceValue? {
             return nbNullSafe(value) { DistanceValue(it) }
         }
+
+        fun DistanceValue?.orZero() = this ?: DistanceValue(0)
 
     }
 

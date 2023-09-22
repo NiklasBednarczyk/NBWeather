@@ -24,7 +24,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -205,9 +204,9 @@ private fun getSteps(
     maxValue: Float,
     fractionDigits: Int
 ): Int {
-    val differenceMaxMinValue = maxValue.minus(minValue)
+    val differenceMaxMinValue = maxValue - minValue
     val factor = 10f.pow(fractionDigits)
-    return differenceMaxMinValue.times(factor).minus(1).toInt()
+    return (differenceMaxMinValue * factor - 1).toInt()
 }
 
 private fun getSliderOffset(

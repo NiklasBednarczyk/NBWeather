@@ -26,6 +26,9 @@ class NBDateTimeDisplayModel private constructor(
         return NBString.Value.from(formattedValue)
     }
 
+    val dayOfMonth: Int
+        get() = localDateTime.dayOfMonth
+
     val date: NBString?
         get() = format(PATTERN_DATE)
 

@@ -26,13 +26,13 @@ class ForecastAlertsViewModel @Inject constructor(
         val longitude = longitudeString?.toDoubleOrNull()
 
         collectFlow(
-            { getAlertFlow(latitude, longitude) },
-            { oldUiState, output -> oldUiState.copy(pagerViewDataResource = output) }
+            { getViewDataFlow(latitude, longitude) },
+            { oldUiState, output -> oldUiState.copy(viewDataResource = output) }
         )
 
     }
 
-    private suspend fun getAlertFlow(
+    private suspend fun getViewDataFlow(
         latitude: Double?,
         longitude: Double?,
     ): Flow<NBResource<ForecastAlertsViewData>> {

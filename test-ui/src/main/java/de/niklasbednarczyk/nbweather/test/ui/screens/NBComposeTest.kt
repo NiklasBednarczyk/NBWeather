@@ -52,7 +52,7 @@ interface NBComposeTest : NBTest {
         epochSeconds: Long = 1672531200,
         timezoneOffsetHours: Long = 0
     ): NBDateTimeDisplayModel? {
-        val timezoneOffset = timezoneOffsetHours.times(3600)
+        val timezoneOffset = timezoneOffsetHours * 3600
         return NBDateTimeDisplayModel.from(
             dateTime = NBDateTimeValue.from(epochSeconds),
             timezoneOffset = NBTimezoneOffsetValue.from(timezoneOffset)

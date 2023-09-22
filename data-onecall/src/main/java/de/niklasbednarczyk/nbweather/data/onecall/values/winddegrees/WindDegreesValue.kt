@@ -9,7 +9,7 @@ value class WindDegreesValue private constructor(private val value: Long) {
         get() = WindDegreesType.from(value)
 
     val rotationDegrees: Float
-        get() = value.minus(180f)
+        get() = value - 180f
 
     internal companion object {
 

@@ -27,6 +27,8 @@ value class UVIndexValue private constructor(override val value: Double) : NBUni
             return nbNullSafe(value) { UVIndexValue(it) }
         }
 
+        fun UVIndexValue?.orZero() = this ?: UVIndexValue(0.0)
+
     }
 
 }

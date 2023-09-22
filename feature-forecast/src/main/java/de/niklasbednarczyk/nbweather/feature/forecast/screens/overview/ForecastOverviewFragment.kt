@@ -31,7 +31,8 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
         ForecastOverviewContent(
             uiState = uiState,
             itemsFlow = viewModel.itemsFlow,
-            navigateToAlerts = ::navigateToAlerts
+            navigateToAlerts = ::navigateToAlerts,
+            navigateToHourly = ::navigateToHourly
         )
     }
 
@@ -43,7 +44,21 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
         latitude: Double?,
         longitude: Double?
     ) {
-        val route = DestinationsForecast.Alerts.createRouteForNavigation(latitude, longitude)
+        val route = DestinationsForecast.Alerts.createRouteForNavigation(
+            latitude = latitude,
+            longitude = longitude
+        )
+        navigate(route)
+    }
+
+    private fun navigateToHourly(
+        latitude: Double?,
+        longitude: Double?
+    ) {
+        val route = DestinationsForecast.Hourly.createRouteForNavigation(
+            latitude = latitude,
+            longitude = longitude
+        )
         navigate(route)
     }
 

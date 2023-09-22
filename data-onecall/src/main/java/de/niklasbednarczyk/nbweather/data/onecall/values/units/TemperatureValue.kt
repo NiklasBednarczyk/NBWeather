@@ -8,25 +8,13 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class TemperatureValue private constructor(internal val valueInternal: Double) {
+value class TemperatureValue private constructor(internal val value: Double) {
 
-    private fun getConvertedValuePrivate(units: NBUnitsModel): Double {
-        return when (units.temperatureUnit) {
-            NBTemperatureUnitType.CELSIUS -> valueInternal.minus(273.15) // kelvin to celsius
-            NBTemperatureUnitType.FAHRENHEIT -> (valueInternal.minus(273.15))
-                .times(9)
-                .div(5)
-                .plus(32) // kelvin to fahrenheit
-            NBTemperatureUnitType.KELVIN -> valueInternal // kelvin to kelvin
-        }
-    }
-
-    fun getLong() = object : NBUnitsValue {
-        override val value: Number
-            get() = valueInternal
+    @JvmInline
+    value class Long(override val value: Double): NBUnitsValue {
 
         override fun getConvertedValue(units: NBUnitsModel): Double {
-            return getConvertedValuePrivate(units)
+            return getConvertedValuePrivate(value, units)
         }
 
         override fun getSymbol(units: NBUnitsModel): NBString? {
@@ -39,14 +27,22 @@ value class TemperatureValue private constructor(internal val valueInternal: Dou
                 NBTemperatureUnitType.KELVIN -> false
             }
         }
+
+        fun toShort() = Short(value)
+
+        companion object {
+
+            fun Long?.orZero() = this ?: Long(0.0)
+
+        }
+
     }
 
-    fun getShort() = object : NBUnitsValue {
-        override val value: Number
-            get() = valueInternal
+    @JvmInline
+    value class Short(override val value: Double): NBUnitsValue {
 
         override fun getConvertedValue(units: NBUnitsModel): Double {
-            return getConvertedValuePrivate(units)
+            return getConvertedValuePrivate(value, units)
         }
 
         override fun getSymbol(units: NBUnitsModel): NBString? {
@@ -62,10 +58,27 @@ value class TemperatureValue private constructor(internal val valueInternal: Dou
         override fun shouldAddSpaceBetweenValueAndSymbol(units: NBUnitsModel): Boolean {
             return false
         }
+
+        companion object {
+
+            fun Short?.orZero() = this ?: Short(0.0)
+
+        }
     }
 
+    fun getLong() = Long(value)
+
+    fun getShort() = Short(value)
 
     companion object {
+
+        private fun getConvertedValuePrivate(value: Double, units: NBUnitsModel): Double {
+            return when (units.temperatureUnit) {
+                NBTemperatureUnitType.CELSIUS -> value - 273.15 // kelvin to celsius
+                NBTemperatureUnitType.FAHRENHEIT -> (value - 273.15) * 9 / 5 + 32 // kelvin to fahrenheit
+                NBTemperatureUnitType.KELVIN -> value // kelvin to kelvin
+            }
+        }
 
         fun from(value: Double?): TemperatureValue? {
             return nbNullSafe(value) { TemperatureValue(it) }

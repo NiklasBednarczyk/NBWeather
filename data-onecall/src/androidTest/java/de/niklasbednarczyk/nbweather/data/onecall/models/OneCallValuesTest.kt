@@ -531,7 +531,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
     }
 
     private fun windDegreeStep(step: Int): Long {
-        return 0.plus(step.times(22.5)).toLong()
+        return 0 + (step * 22.5).toLong()
     }
 
     private fun testUnitsValue(

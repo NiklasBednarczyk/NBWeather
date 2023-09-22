@@ -10,7 +10,7 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.R
 value class ProbabilityValue private constructor(override val value: Double) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
-        return value.times(100) // decimal to percentage
+        return value * 100 // decimal to percentage
     }
 
     override fun getSymbol(units: NBUnitsModel): NBString {
@@ -26,6 +26,8 @@ value class ProbabilityValue private constructor(override val value: Double) : N
         fun from(value: Double?): ProbabilityValue? {
             return nbNullSafe(value) { ProbabilityValue(it) }
         }
+
+        fun ProbabilityValue?.orZero() = this ?: ProbabilityValue(0.0)
 
     }
 

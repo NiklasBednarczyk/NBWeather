@@ -4,7 +4,7 @@ import android.net.Uri
 
 abstract class NBTopLevelDestination {
 
-    private val authority: String = this::class.java.simpleName.lowercase()
+    private val authority: String = this::class.destinationString
 
     val route: Uri
         get() = Uri.Builder()

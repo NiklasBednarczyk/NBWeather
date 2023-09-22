@@ -35,8 +35,8 @@ fun ForecastAlertsContent(
     uiState: ForecastAlertsUiState,
     startIntent: (Intent?) -> Unit
 ) {
-    NBResourceWithoutLoadingView(uiState.pagerViewDataResource) { pagerViewData ->
-        NBPager(pagerViewData) { pagerItem ->
+    NBResourceWithoutLoadingView(uiState.viewDataResource) { viewData ->
+        NBPager(viewData) { pagerItem ->
             LazyColumn(
                 modifier = Modifier.padding(
                     horizontal = screenHorizontalPadding

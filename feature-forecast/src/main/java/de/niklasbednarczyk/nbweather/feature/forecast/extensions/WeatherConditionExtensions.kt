@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.feature.extensions
+package de.niklasbednarczyk.nbweather.feature.forecast.extensions
 
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R

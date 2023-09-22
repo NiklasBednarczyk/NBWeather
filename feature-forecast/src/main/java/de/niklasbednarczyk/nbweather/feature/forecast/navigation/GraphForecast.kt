@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import de.niklasbednarczyk.nbweather.core.ui.navigation.graph.nbFragment
 import de.niklasbednarczyk.nbweather.core.ui.navigation.graph.nbNavigation
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.ForecastAlertsFragment
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.ForecastHourlyFragment
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.ForecastOverviewFragment
 
 fun NavGraphBuilder.graphForecast() {
@@ -12,6 +13,7 @@ fun NavGraphBuilder.graphForecast() {
         startDestination = DestinationsForecast.Overview
     ) {
         nbFragment<ForecastAlertsFragment>(DestinationsForecast.Alerts)
+        nbFragment<ForecastHourlyFragment>(DestinationsForecast.Hourly)
         nbFragment<ForecastOverviewFragment>(DestinationsForecast.Overview)
     }
 }

@@ -36,9 +36,9 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.alphaContentDisabled
 import de.niklasbednarczyk.nbweather.core.ui.dimens.elevationLevel2
 
 @Composable
-fun <Item, Key> NBPager(
-    viewData: NBPagerViewData<Item, Key>,
-    content: @Composable (Item) -> Unit
+fun <K, T> NBPager(
+    viewData: NBPagerViewData<K, T>,
+    content: @Composable (T) -> Unit
 ) {
     val pagerState = rememberPagerState(
         initialPage = viewData.getInitialPage(),

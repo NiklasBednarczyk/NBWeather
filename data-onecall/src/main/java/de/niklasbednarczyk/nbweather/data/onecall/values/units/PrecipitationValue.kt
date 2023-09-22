@@ -11,7 +11,7 @@ value class PrecipitationValue private constructor(override val value: Double) :
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.precipitationUnit) {
-            NBPrecipitationUnitType.INCH -> value.div(25.4) // millimeter to inch
+            NBPrecipitationUnitType.INCH -> value / 25.4 // millimeter to inch
             NBPrecipitationUnitType.MILLIMETER -> value // millimeter to millimeter
         }
     }
@@ -32,6 +32,8 @@ value class PrecipitationValue private constructor(override val value: Double) :
         fun from(value: Double?): PrecipitationValue? {
             return nbNullSafe(value) { PrecipitationValue(it) }
         }
+
+        fun PrecipitationValue?.orZero() = this ?: PrecipitationValue(0.0)
 
     }
 

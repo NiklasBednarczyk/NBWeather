@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,11 +21,12 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmal
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
+import de.niklasbednarczyk.nbweather.core.ui.icons.nbIconFillHeight
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
-import de.niklasbednarczyk.nbweather.feature.extensions.displayText
-import de.niklasbednarczyk.nbweather.feature.extensions.icon
+import de.niklasbednarczyk.nbweather.feature.forecast.extensions.displayText
+import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSummaryModel
 
 @Composable
@@ -126,9 +125,7 @@ private fun WeatherIcon(
     weatherIcon: WeatherIconType
 ) {
     NBIcon(
-        modifier = Modifier
-            .fillMaxHeight()
-            .aspectRatio(1f),
+        modifier = Modifier.nbIconFillHeight(),
         icon = weatherIcon.icon
     )
 }

@@ -1,13 +1,13 @@
 package de.niklasbednarczyk.nbweather.core.ui.pager
 
-interface NBPagerViewData<Item, Key> {
+interface NBPagerViewData<K, T> {
 
-    val items: List<Item>
+    val items: List<T>
 
-    val initialKey: Key?
+    val initialKey: K?
         get() = null
 
-    fun getItemKey(item: Item) {
+    fun getItemKey(item: T) {
         return
     }
 

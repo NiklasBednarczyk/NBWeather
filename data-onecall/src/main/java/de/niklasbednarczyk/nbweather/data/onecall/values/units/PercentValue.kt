@@ -27,6 +27,8 @@ value class PercentValue private constructor(override val value: Long) : NBUnits
             return nbNullSafe(value) { PercentValue(it) }
         }
 
+        fun PercentValue?.orZero() = this ?: PercentValue(0)
+
     }
 
 }

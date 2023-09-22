@@ -3,7 +3,7 @@ package de.niklasbednarczyk.nbweather.core.ui.pager
 import androidx.compose.foundation.pager.PagerState
 import kotlin.math.absoluteValue
 
-internal fun <Item, Key> NBPagerViewData<Item, Key>.getInitialPage(): Int {
+internal fun <K, T> NBPagerViewData<K, T>.getInitialPage(): Int {
     val index = items.indexOfFirst { item ->
         getItemKey(item) == initialKey
     }

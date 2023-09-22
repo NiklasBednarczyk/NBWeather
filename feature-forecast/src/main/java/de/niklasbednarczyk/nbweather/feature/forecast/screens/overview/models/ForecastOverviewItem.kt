@@ -6,8 +6,6 @@ import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 
 sealed interface ForecastOverviewItem {
 
-    val title: NBString?
-
     companion object {
 
         fun from(
@@ -21,6 +19,8 @@ sealed interface ForecastOverviewItem {
             items.add(ForecastOverviewSummaryModel.from(oneCall))
 
             items.add(ForecastOverviewPrecipitationModel.from(oneCall))
+
+            items.add(ForecastOverviewHourlyModel.from(oneCall))
 
             return items.filterNotNull()
         }

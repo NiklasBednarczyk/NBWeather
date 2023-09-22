@@ -10,8 +10,10 @@ val columnVerticalArrangementSmall = Arrangement.spacedBy(columnVerticalArrangem
 
 val dividerPaddingVertical = 8.dp
 
-val rowHorizontalArrangementBig = Arrangement.spacedBy(8.dp)
-val rowHorizontalArrangementSmall = Arrangement.spacedBy(4.dp)
+val rowHorizontalArrangementBigDp = 8.dp
+val rowHorizontalArrangementBig = Arrangement.spacedBy(rowHorizontalArrangementBigDp)
+val rowHorizontalArrangementSmallDp = 4.dp
+val rowHorizontalArrangementSmall = Arrangement.spacedBy(rowHorizontalArrangementSmallDp)
 
 val screenHorizontalPadding = 16.dp
 val screenVerticalPadding = 8.dp
