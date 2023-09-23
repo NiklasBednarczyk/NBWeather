@@ -24,12 +24,21 @@ private fun getWindowSizeClass(): WindowSizeClass? {
 }
 
 @Composable
-fun getHeightSizeClass(): WindowHeightSizeClass? {
-    return getWindowSizeClass()?.heightSizeClass
+fun getHeightWindowSizeType(): NBWindowSizeType {
+    return when (getWindowSizeClass()?.heightSizeClass) {
+        WindowHeightSizeClass.Compact -> NBWindowSizeType.COMPACT
+        WindowHeightSizeClass.Medium -> NBWindowSizeType.MEDIUM
+        WindowHeightSizeClass.Expanded -> NBWindowSizeType.EXPANDED
+        else -> NBWindowSizeType.COMPACT
+    }
 }
 
-
 @Composable
-fun getWidthSizeClass(): WindowWidthSizeClass? {
-    return getWindowSizeClass()?.widthSizeClass
+fun getWidthWindowSizeType(): NBWindowSizeType {
+    return when (getWindowSizeClass()?.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> NBWindowSizeType.COMPACT
+        WindowWidthSizeClass.Medium -> NBWindowSizeType.MEDIUM
+        WindowWidthSizeClass.Expanded -> NBWindowSizeType.EXPANDED
+        else -> NBWindowSizeType.COMPACT
+    }
 }

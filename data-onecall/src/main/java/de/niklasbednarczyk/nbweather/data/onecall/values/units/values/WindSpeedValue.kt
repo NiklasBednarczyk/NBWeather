@@ -1,13 +1,12 @@
-package de.niklasbednarczyk.nbweather.data.onecall.values.units
+package de.niklasbednarczyk.nbweather.data.onecall.values.units.values
 
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
 @JvmInline
-value class WindSpeedValue private constructor(override val value: Double) : NBUnitsValue {
+value class WindSpeedValue internal constructor(override val value: Double) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.windSpeedUnit) {
@@ -19,16 +18,6 @@ value class WindSpeedValue private constructor(override val value: Double) : NBU
 
     override fun getSymbol(units: NBUnitsModel): NBString? {
         return units.windSpeedUnit.symbol
-    }
-
-    companion object {
-
-        fun from(value: Double?): WindSpeedValue? {
-            return nbNullSafe(value) { WindSpeedValue(it) }
-        }
-
-        fun WindSpeedValue?.orZero() = this ?: WindSpeedValue(0.0)
-
     }
 
 }

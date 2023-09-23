@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.data.airpollution.models.AirPollutionModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 
@@ -11,18 +11,15 @@ sealed interface ForecastOverviewItem {
         fun from(
             airPollution: AirPollutionModelData,
             oneCall: OneCallModelData
-        ): List<ForecastOverviewItem> {
-            val items = mutableListOf<ForecastOverviewItem?>()
-
-            items.add(ForecastOverviewAlertsModel.from(oneCall))
-
-            items.add(ForecastOverviewSummaryModel.from(oneCall))
-
-            items.add(ForecastOverviewPrecipitationModel.from(oneCall))
-
-            items.add(ForecastOverviewHourlyModel.from(oneCall))
-
-            return items.filterNotNull()
+        ): List<ForecastOverviewItem>? {
+            val items = listOfNotNull(
+                ForecastOverviewAlertsModel.from(oneCall),
+                ForecastOverviewSummaryModel.from(oneCall),
+                ForecastOverviewPrecipitationModel.from(oneCall),
+                ForecastOverviewHourlyModel.from(oneCall),
+                ForecastOverviewCurrentWeatherModel.from(oneCall)
+            )
+            return nbNullSafeList(items) { i -> i }
         }
 
     }

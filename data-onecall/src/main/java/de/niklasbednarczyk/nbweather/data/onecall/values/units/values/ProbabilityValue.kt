@@ -1,34 +1,23 @@
-package de.niklasbednarczyk.nbweather.data.onecall.values.units
+package de.niklasbednarczyk.nbweather.data.onecall.values.units.values
 
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class PercentValue private constructor(override val value: Long) : NBUnitsValue {
+value class ProbabilityValue internal constructor(override val value: Double) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
-        return value.toDouble()
+        return value * 100 // decimal to percentage
     }
 
     override fun getSymbol(units: NBUnitsModel): NBString {
-        return NBString.ResString(R.string.unit_symbol_percent)
+        return NBString.ResString(R.string.unit_symbol_probability)
     }
 
     override fun shouldAddSpaceBetweenValueAndSymbol(units: NBUnitsModel): Boolean {
         return false
-    }
-
-    companion object {
-
-        fun from(value: Long?): PercentValue? {
-            return nbNullSafe(value) { PercentValue(it) }
-        }
-
-        fun PercentValue?.orZero() = this ?: PercentValue(0)
-
     }
 
 }

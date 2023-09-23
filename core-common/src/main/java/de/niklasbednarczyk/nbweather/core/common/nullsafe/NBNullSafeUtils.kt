@@ -64,6 +64,7 @@ inline fun <T1, T2, T3, T4, T5, R> nbNullSafe(
         null
     }
 }
+
 inline fun <T1, T2, T3, T4, T5, T6, R> nbNullSafe(
     value1: T1?,
     value2: T2?,
@@ -75,6 +76,41 @@ inline fun <T1, T2, T3, T4, T5, T6, R> nbNullSafe(
 ): R? {
     return if (value1 != null && value2 != null && value3 != null && value4 != null && value5 != null && value6 != null) {
         transform(value1, value2, value3, value4, value5, value6)
+    } else {
+        null
+    }
+}
+
+inline fun <T1, T2, T3, T4, T5, T6, T7, R> nbNullSafe(
+    value1: T1?,
+    value2: T2?,
+    value3: T3?,
+    value4: T4?,
+    value5: T5?,
+    value6: T6?,
+    value7: T7?,
+    transform: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5, value6: T6, value7: T7) -> R?
+): R? {
+    return if (value1 != null && value2 != null && value3 != null && value4 != null && value5 != null && value6 != null && value7 != null) {
+        transform(value1, value2, value3, value4, value5, value6, value7)
+    } else {
+        null
+    }
+}
+
+inline fun <T1, T2, T3, T4, T5, T6, T7, T8, R> nbNullSafe(
+    value1: T1?,
+    value2: T2?,
+    value3: T3?,
+    value4: T4?,
+    value5: T5?,
+    value6: T6?,
+    value7: T7?,
+    value8: T8?,
+    transform: (value1: T1, value2: T2, value3: T3, value4: T4, value5: T5, value6: T6, value7: T7, value8: T8) -> R?
+): R? {
+    return if (value1 != null && value2 != null && value3 != null && value4 != null && value5 != null && value6 != null && value7 != null && value8 != null) {
+        transform(value1, value2, value3, value4, value5, value6, value7, value8)
     } else {
         null
     }

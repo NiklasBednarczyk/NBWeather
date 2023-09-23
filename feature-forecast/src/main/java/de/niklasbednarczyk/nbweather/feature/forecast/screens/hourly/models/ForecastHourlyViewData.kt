@@ -1,31 +1,44 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models
 
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
-import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphModel
 import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphsAxisModel
 import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphsViewData
+import de.niklasbednarczyk.nbweather.core.ui.limit.NBLimitsItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue.Long.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.feature.forecast.constants.ConstantsFeatureForecast
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.CloudinessUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.DewPointUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.FeelsLikeUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.ForecastUnitsItem
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.HumidityUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.PressureUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.ProbabilityOfPrecipitationUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.RainUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.SnowUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.TemperatureUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.UVIndexUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.VisibilityUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindGustUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindSpeedUnitsValue.Companion.orZero
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
+import de.niklasbednarczyk.nbweather.feature.forecast.extensions.limits
+import de.niklasbednarczyk.nbweather.feature.forecast.extensions.name
+import de.niklasbednarczyk.nbweather.feature.forecast.extensions.sortOrder
 
 data class ForecastHourlyViewData(
-    override val axes: List<NBGraphsAxisModel>,
-    override val graphs: List<NBGraphModel<NBUnitsValue>>
-) : NBGraphsViewData<NBUnitsValue> {
+    override val axes: List<NBGraphsAxisModel>, override val graphs: List<List<ForecastUnitsItem>>
+) : NBGraphsViewData<ForecastUnitsItem> {
 
-    override fun getAbsoluteValue(value: NBUnitsValue): Double {
-        return value.value.toDouble()
+    override fun getAbsoluteValue(value: ForecastUnitsItem): Double {
+        return value.unitsValue.value.toDouble()
+    }
+
+    override fun getName(value: ForecastUnitsItem): NBString {
+        return value.name
+    }
+
+    override fun getLimits(value: ForecastUnitsItem): NBLimitsItem {
+        return value.limits
     }
 
     companion object {
@@ -49,83 +62,44 @@ data class ForecastHourlyViewData(
                 )
             }
 
-            val temperatureGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_temperature),
-                limits = ConstantsFeatureForecast.Limits.Temperature,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.temperature?.getLong().orZero() }
-            )
+            val temperatureGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.temperature.orZero() }
 
-            val feelsLikeGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_feels_like),
-                limits = ConstantsFeatureForecast.Limits.Temperature,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.feelsLikeTemperature?.getLong().orZero() }
-            )
+            val feelsLikeGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.feelsLikeTemperature.orZero() }
 
-            val pressureGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_pressure),
-                limits = ConstantsFeatureForecast.Limits.Pressure,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.pressure.orZero() }
-            )
+            val pressureGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.pressure.orZero() }
 
-            val humidityGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_humidity),
-                limits = ConstantsFeatureForecast.Limits.Percent,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.humidity.orZero() }
-            )
+            val humidityGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.humidity.orZero() }
 
-            val dewPointGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_dew_point),
-                limits = ConstantsFeatureForecast.Limits.Temperature,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.dewPointTemperature?.getLong().orZero() }
-            )
+            val dewPointGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.dewPointTemperature.orZero() }
 
-            val uvIndexGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_uv_index),
-                limits = ConstantsFeatureForecast.Limits.UVIndex,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.uvIndex.orZero() }
-            )
+            val uvIndexGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.uvIndex.orZero() }
 
-            val cloudinessGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_cloudiness),
-                limits = ConstantsFeatureForecast.Limits.Percent,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.cloudiness.orZero() }
-            )
+            val cloudinessGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.cloudiness.orZero() }
 
-            val visibilityGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_visibility),
-                limits = ConstantsFeatureForecast.Limits.Distance,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.visibility.orZero() }
-            )
+            val visibilityGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.visibility.orZero() }
 
-            val windSpeedGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_wind_speed),
-                limits = ConstantsFeatureForecast.Limits.WindSpeed,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.windSpeed.orZero() }
-            )
+            val windSpeedGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.windSpeed.orZero() }
 
-            val windGustGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_wind_gust),
-                limits = ConstantsFeatureForecast.Limits.WindSpeed,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.windGust.orZero() }
-            )
+            val windGustGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.windGust.orZero() }
 
-            val probabilityOfPrecipitationGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_probability_of_precipitation),
-                limits = ConstantsFeatureForecast.Limits.Probability,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.probabilityOfPrecipitation.orZero() }
-            )
+            val probabilityOfPrecipitationGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.probabilityOfPrecipitation.orZero() }
 
-            val rainGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_rain),
-                limits = ConstantsFeatureForecast.Limits.Precipitation,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.rain1hVolume.orZero() }
-            )
+            val rainGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.rain1hVolume.orZero() }
 
-            val snowGraph = NBGraphModel<NBUnitsValue>(
-                name = NBString.ResString(R.string.screen_forecast_common_name_snow),
-                limits = ConstantsFeatureForecast.Limits.Precipitation,
-                values = hourlyForecasts.map { hourlyForecast -> hourlyForecast.snow1hVolume.orZero() }
-            )
+            val snowGraph =
+                hourlyForecasts.map { hourlyForecast -> hourlyForecast.snow1hVolume.orZero() }
 
             val graphs = listOf(
                 temperatureGraph,
@@ -141,7 +115,7 @@ data class ForecastHourlyViewData(
                 probabilityOfPrecipitationGraph,
                 rainGraph,
                 snowGraph
-            )
+            ).sortedBy { unitsItem -> unitsItem.firstOrNull()?.sortOrder }
 
             return ForecastHourlyViewData(
                 axes = axes,

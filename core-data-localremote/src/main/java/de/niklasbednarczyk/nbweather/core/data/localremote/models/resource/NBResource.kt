@@ -71,15 +71,18 @@ sealed interface NBResource<out T> {
         fun <T1, T2, R> combineResourceFlows(
             flow1: Flow<NBResource<T1>>,
             flow2: Flow<NBResource<T2>>,
-            transformData: (data1: T1, data2: T2) -> R
+            transformData: (data1: T1, data2: T2) -> R?
         ): Flow<NBResource<R>> {
             return combine(flow1, flow2) { resource1, resource2 ->
                 when {
                     resource1 is Success && resource2 is Success -> {
                         val newData = transformData(resource1.data, resource2.data)
-                        Success(newData)
+                        if (newData != null) {
+                            Success(newData)
+                        } else {
+                            Error()
+                        }
                     }
-
                     resource1 is Error -> Error(resource1.errorType)
                     resource2 is Error -> Error(resource2.errorType)
                     else -> Loading

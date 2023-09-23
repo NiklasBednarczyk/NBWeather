@@ -42,7 +42,7 @@ object NBIcons {
     }
 
     object DewPoint : NBIconModel {
-        override val resId: Int = R.drawable.wi_thermometer
+        override val resId: Int = R.drawable.wi_raindrops
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_dew_point)
     }
@@ -69,6 +69,12 @@ object NBIcons {
         override val resId: Int = R.drawable.baseline_expand_more_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_expand)
+    }
+
+    object FeelsLike : NBIconModel {
+        override val resId: Int = R.drawable.wi_thermometer
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_feels_like)
     }
 
     object FindLocation : NBIconModel {
@@ -353,8 +359,14 @@ object NBIcons {
             NBString.ResString(R.string.icon_content_description_sunset)
     }
 
-    object Units : NBIconModel {
+    object Temperature : NBIconModel {
         override val resId: Int = R.drawable.baseline_thermostat_24
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_temperature)
+    }
+
+    object Units : NBIconModel {
+        override val resId: Int = R.drawable.wi_celsius
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_units)
     }

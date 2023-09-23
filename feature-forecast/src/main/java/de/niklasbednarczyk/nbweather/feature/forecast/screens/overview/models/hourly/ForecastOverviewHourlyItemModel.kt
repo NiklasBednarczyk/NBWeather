@@ -23,8 +23,8 @@ data class ForecastOverviewHourlyItemModel(
             return nbNullSafe(
                 NBDateTimeDisplayModel.from(hourlyForecast.forecastTime, timezoneOffset),
                 hourlyForecast.weather?.icon,
-                hourlyForecast.temperature?.getShort(),
-                hourlyForecast.probabilityOfPrecipitation
+                hourlyForecast.temperature?.unitsValue?.toShort(),
+                hourlyForecast.probabilityOfPrecipitation?.unitsValue
             ) { forecastTime, weatherIcon, temperature, probabilityOfPrecipitation ->
                 ForecastOverviewHourlyItemModel(
                     forecastTime = forecastTime,

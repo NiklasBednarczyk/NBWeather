@@ -4,14 +4,14 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.ui.colors.NBColors
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.DistanceValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PercentValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PrecipitationValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PressureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.ProbabilityValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.TemperatureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.UVIndexValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.WindSpeedValue
 
 val NBUnitsValue.color
     @Composable

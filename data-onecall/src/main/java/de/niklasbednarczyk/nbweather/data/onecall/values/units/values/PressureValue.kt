@@ -1,13 +1,12 @@
-package de.niklasbednarczyk.nbweather.data.onecall.values.units
+package de.niklasbednarczyk.nbweather.data.onecall.values.units.values
 
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPressureUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
 @JvmInline
-value class PressureValue private constructor(override val value: Long) : NBUnitsValue {
+value class PressureValue internal constructor(override val value: Long) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.pressureUnit) {
@@ -19,16 +18,6 @@ value class PressureValue private constructor(override val value: Long) : NBUnit
 
     override fun getSymbol(units: NBUnitsModel): NBString? {
         return units.pressureUnit.symbol
-    }
-
-    companion object {
-
-        fun from(value: Long?): PressureValue? {
-            return nbNullSafe(value) { PressureValue(it) }
-        }
-
-        fun PressureValue?.orZero() = this ?: PressureValue(0)
-
     }
 
 }

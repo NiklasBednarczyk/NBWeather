@@ -10,13 +10,16 @@ import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyFeelsLikeTem
 import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyTemperatureModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.DailyForecastModelRemote
 import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.CloudinessUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.DewPointUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.HumidityUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.PressureUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.ProbabilityOfPrecipitationUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.RainUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.SnowUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.UVIndexUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindGustUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindSpeedUnitsValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 import kotlin.math.abs
 import kotlin.time.Duration.Companion.seconds
@@ -30,17 +33,17 @@ data class DailyForecastModelData(
     val moonPhase: MoonPhaseValue?,
     val temperature: DailyTemperatureModelData?,
     val feelsLikeTemperature: DailyFeelsLikeTemperatureModelData?,
-    val pressure: PressureValue?,
-    val humidity: PercentValue?,
-    val dewPointTemperature: TemperatureValue?,
-    val windSpeed: WindSpeedValue?,
-    val windGust: WindSpeedValue?,
+    val pressure: PressureUnitsValue?,
+    val humidity: HumidityUnitsValue?,
+    val dewPointTemperature: DewPointUnitsValue?,
+    val windSpeed: WindSpeedUnitsValue?,
+    val windGust: WindGustUnitsValue?,
     val windDegrees: WindDegreesValue?,
-    val cloudiness: PercentValue?,
-    val uvIndex: UVIndexValue?,
-    val probabilityOfPrecipitation: ProbabilityValue?,
-    val rainVolume: PrecipitationValue?,
-    val snowVolume: PrecipitationValue?,
+    val cloudiness: CloudinessUnitsValue?,
+    val uvIndex: UVIndexUnitsValue?,
+    val probabilityOfPrecipitation: ProbabilityOfPrecipitationUnitsValue?,
+    val rainVolume: RainUnitsValue?,
+    val snowVolume: SnowUnitsValue?,
     val weather: WeatherModelData?
 ) {
 
@@ -107,17 +110,17 @@ data class DailyForecastModelData(
                     moonPhase = MoonPhaseValue.from(local.moonPhase),
                     temperature = DailyTemperatureModelData.localToData(local.temp),
                     feelsLikeTemperature = DailyFeelsLikeTemperatureModelData.localToData(local.feelsLike),
-                    pressure = PressureValue.from(local.pressure),
-                    humidity = PercentValue.from(local.humidity),
-                    dewPointTemperature = TemperatureValue.from(local.dewPoint),
-                    windSpeed = WindSpeedValue.from(local.windSpeed),
-                    windGust = WindSpeedValue.from(local.windGust),
+                    pressure = PressureUnitsValue.from(local.pressure),
+                    humidity = HumidityUnitsValue.from(local.humidity),
+                    dewPointTemperature = DewPointUnitsValue.from(local.dewPoint),
+                    windSpeed = WindSpeedUnitsValue.from(local.windSpeed),
+                    windGust = WindGustUnitsValue.from(local.windGust),
                     windDegrees = WindDegreesValue.from(local.windDeg),
-                    cloudiness = PercentValue.from(local.clouds),
-                    uvIndex = UVIndexValue.from(local.uvi),
-                    probabilityOfPrecipitation = ProbabilityValue.from(local.pop),
-                    rainVolume = PrecipitationValue.from(local.rain),
-                    snowVolume = PrecipitationValue.from(local.snow),
+                    cloudiness = CloudinessUnitsValue.from(local.clouds),
+                    uvIndex = UVIndexUnitsValue.from(local.uvi),
+                    probabilityOfPrecipitation = ProbabilityOfPrecipitationUnitsValue.from(local.pop),
+                    rainVolume = RainUnitsValue.from(local.rain),
+                    snowVolume = SnowUnitsValue.from(local.snow),
                     weather = WeatherModelData.localToData(local.weather)
                 )
             }

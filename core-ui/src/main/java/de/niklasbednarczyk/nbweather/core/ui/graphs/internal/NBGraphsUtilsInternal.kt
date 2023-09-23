@@ -37,24 +37,25 @@ internal fun <T> NBGraphsViewData<T>.toInternal(
     }
 
     val graphsInternal = graphs.mapNotNull { graph ->
-        if (graph.values.size != axesInternal.size) return@mapNotNull null
-        if (graph.values.all { value -> getAbsoluteValue(value) == 0.0 }) return@mapNotNull null
+        if (graph.size != axesInternal.size) return@mapNotNull null
+        if (graph.all { value -> getAbsoluteValue(value) == 0.0 }) return@mapNotNull null
 
-        val firstElement = graph.values.firstOrNull() ?: return@mapNotNull null
+        val firstElement = graph.firstOrNull() ?: return@mapNotNull null
 
-        val name = graph.name
+        val name = getName(firstElement)
         val symbol = getSymbol(firstElement) ?: return@mapNotNull null
         val lineColor = getLineColor(firstElement)
+        val limits = getLimits(firstElement)
 
-        val actualMinValue = graph.values.minOfOrNull(::getAbsoluteValue)
-        val minValue = listOfNotNull(graph.limits.min?.value, actualMinValue).minOrNull()
+        val actualMinValue = graph.minOfOrNull(::getAbsoluteValue)
+        val minValue = listOfNotNull(limits.min?.value, actualMinValue).minOrNull()
             ?: return@mapNotNull null
-        val actualMaxValue = graph.values.maxOfOrNull(::getAbsoluteValue)
-        val maxValue = listOfNotNull(graph.limits.max?.value, actualMaxValue).maxOrNull()
+        val actualMaxValue = graph.maxOfOrNull(::getAbsoluteValue)
+        val maxValue = listOfNotNull(limits.max?.value, actualMaxValue).maxOrNull()
             ?: return@mapNotNull null
         val spanMinMax = maxValue - minValue
 
-        val values = graph.values.map { value ->
+        val values = graph.map { value ->
             val factor = if (spanMinMax == 0.0) {
                 0.5f
             } else {

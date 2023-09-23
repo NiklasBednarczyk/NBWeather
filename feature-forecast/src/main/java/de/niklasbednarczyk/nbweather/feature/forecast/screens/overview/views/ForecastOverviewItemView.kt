@@ -16,6 +16,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewAlertsModel
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewCurrentWeatherModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewHourlyModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewPrecipitationModel
@@ -62,6 +63,12 @@ private fun Content(
                 )
             }
 
+            is ForecastOverviewCurrentWeatherModel -> {
+                ForecastOverviewCurrentWeatherView(
+                    currentWeather = item
+                )
+            }
+
             is ForecastOverviewHourlyModel -> {
                 ForecastOverviewHourlyView(
                     hourly = item
@@ -91,6 +98,7 @@ private fun Title(
         is ForecastOverviewAlertsModel,
         is ForecastOverviewSummaryModel -> null
 
+        is ForecastOverviewCurrentWeatherModel -> NBString.ResString(R.string.screen_forecast_overview_current_weather_title)
         is ForecastOverviewHourlyModel -> NBString.ResString(R.string.screen_forecast_hourly_title)
         is ForecastOverviewPrecipitationModel -> NBString.ResString(R.string.screen_forecast_overview_precipitation_title)
     }
@@ -113,13 +121,14 @@ private fun Modifier.contentPaddingModifier(
     val paddingModifier = when (item) {
         is ForecastOverviewAlertsModel -> Modifier
 
-        is ForecastOverviewHourlyModel -> Modifier.padding(
-            vertical = screenVerticalPadding
-        )
-
+        is ForecastOverviewCurrentWeatherModel,
         is ForecastOverviewPrecipitationModel,
         is ForecastOverviewSummaryModel -> Modifier.padding(
             horizontal = screenHorizontalPadding,
+            vertical = screenVerticalPadding
+        )
+
+        is ForecastOverviewHourlyModel -> Modifier.padding(
             vertical = screenVerticalPadding
         )
     }
@@ -134,10 +143,11 @@ private fun Modifier.itemClickableModifier(
     val onClick = when (item) {
         is ForecastOverviewAlertsModel -> navigateToAlerts
 
-        is ForecastOverviewHourlyModel -> navigateToHourly
-
+        is ForecastOverviewCurrentWeatherModel,
         is ForecastOverviewPrecipitationModel,
         is ForecastOverviewSummaryModel -> null
+
+        is ForecastOverviewHourlyModel -> navigateToHourly
     }
 
     val clickableModifier = if (onClick != null) {

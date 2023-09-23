@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
 import de.niklasbednarczyk.nbweather.core.ui.common.symbol
 import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphsView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.TemperatureValue
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.color
 
 @Composable
@@ -16,15 +16,16 @@ fun ForecastHourlyContent(
     NBResourceWithoutLoadingView(uiState.viewDataResource) { viewData ->
         NBGraphsView(
             viewData = viewData,
-            getSymbol = { value -> value.symbol },
+            getSymbol = { value -> value.unitsValue.symbol },
             getDisplayValue = { value ->
-                if (value is TemperatureValue.Long) {
-                    value.toShort().displayValueWithSymbol
+                val unitsValue = value.unitsValue
+                if (unitsValue is TemperatureValue.Long) {
+                    unitsValue.toShort().displayValueWithSymbol
                 } else {
-                    value.displayValue
+                    unitsValue.displayValue
                 }
             },
-            getLineColor = { value -> value.color }
+            getLineColor = { value -> value.unitsValue.color }
         )
     }
 }

@@ -16,18 +16,19 @@
     <string name="icon_content_description_appearance" translatable="false">@string/screen_settings_appearance_title</string>
     <string name="icon_content_description_back">Back</string>
     <string name="icon_content_description_cancel">Cancel</string>
-    <string name="icon_content_description_cloudiness" translatable="false">@string/screen_forecast_common_name_cloudiness</string>
+    <string name="icon_content_description_cloudiness" translatable="false">@string/screen_forecast_common_forecast_units_name_cloudiness</string>
     <string name="icon_content_description_daylight" translatable="false">@string/screen_forecast_card_sun_and_moon_value_daylight</string>
     <string name="icon_content_description_delete">Delete</string>
-    <string name="icon_content_description_dew_point" translatable="false">@string/screen_forecast_common_name_dew_point</string>
+    <string name="icon_content_description_dew_point" translatable="false">@string/screen_forecast_common_forecast_units_name_dew_point</string>
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_error_no_internet" translatable="false">@string/error_text_no_internet</string>
     <string name="icon_content_description_error_unknown" translatable="false">@string/error_text_unknown</string>
     <string name="icon_content_description_expand">Expand</string>
+    <string name="icon_content_description_feels_like" translatable="false">@string/screen_forecast_common_forecast_units_name_feels_like</string>
     <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_font" translatable="false">@string/screen_settings_font_title</string>
     <string name="icon_content_description_git_hub" translatable="false">@string/screen_about_overview_button_git_hub</string>
-    <string name="icon_content_description_humidity" translatable="false">@string/screen_forecast_common_name_humidity</string>
+    <string name="icon_content_description_humidity" translatable="false">@string/screen_forecast_common_forecast_units_name_humidity</string>
     <string name="icon_content_description_location">Location</string>
     <string name="icon_content_description_max_temperature">Max temperature</string>
     <string name="icon_content_description_min_temperature">Min temperature</string>
@@ -61,18 +62,19 @@
     <string name="icon_content_description_moon_phase_waxing_gibbous_6">Waxing Gibbous 6</string>
     <string name="icon_content_description_moonrise" translatable="false">@string/screen_forecast_card_sun_and_moon_value_moonrise</string>
     <string name="icon_content_description_moonset" translatable="false">@string/screen_forecast_card_sun_and_moon_value_moonset</string>
-    <string name="icon_content_description_pressure" translatable="false">@string/screen_forecast_common_name_pressure</string>
-    <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_forecast_common_name_probability_of_precipitation</string>
-    <string name="icon_content_description_rain" translatable="false">@string/screen_forecast_common_name_rain</string>
+    <string name="icon_content_description_pressure" translatable="false">@string/screen_forecast_common_forecast_units_name_pressure</string>
+    <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_forecast_common_forecast_units_name_probability_of_precipitation</string>
+    <string name="icon_content_description_rain" translatable="false">@string/screen_forecast_common_forecast_units_name_rain</string>
     <string name="icon_content_description_reset">Reset</string>
     <string name="icon_content_description_search" translatable="false">@string/fragment_top_app_bar_search_placeholder</string>
     <string name="icon_content_description_settings" translatable="false">@string/screen_settings_overview_title</string>
-    <string name="icon_content_description_snow" translatable="false">@string/screen_forecast_common_name_snow</string>
+    <string name="icon_content_description_snow" translatable="false">@string/screen_forecast_common_forecast_units_name_snow</string>
     <string name="icon_content_description_sunrise" translatable="false">@string/screen_forecast_card_sun_and_moon_value_sunrise</string>
     <string name="icon_content_description_sunset" translatable="false">@string/screen_forecast_card_sun_and_moon_value_sunset</string>
+    <string name="icon_content_description_temperature" translatable="false">@string/screen_forecast_common_forecast_units_name_temperature</string>
     <string name="icon_content_description_units" translatable="false">@string/screen_settings_units_title</string>
-    <string name="icon_content_description_uv_index" translatable="false">@string/screen_forecast_common_name_uv_index</string>
-    <string name="icon_content_description_visibility" translatable="false">@string/screen_forecast_common_name_visibility</string>
+    <string name="icon_content_description_uv_index" translatable="false">@string/screen_forecast_common_forecast_units_name_uv_index</string>
+    <string name="icon_content_description_visibility" translatable="false">@string/screen_forecast_common_forecast_units_name_visibility</string>
     <string name="icon_content_description_warning">Warning</string>
     <string name="icon_content_description_weather_day_broken_clouds">Broken clouds (Day)</string>
     <string name="icon_content_description_weather_day_clear_sky">Clear sky (Day)</string>
@@ -94,8 +96,8 @@
     <string name="icon_content_description_weather_night_thunderstorm">Thunderstorm (Night)</string>
     <string name="icon_content_description_website" translatable="false">@string/screen_about_overview_button_website</string>
     <string name="icon_content_description_wind_degrees">Wind degrees</string>
-    <string name="icon_content_description_wind_gust" translatable="false">@string/screen_forecast_common_name_wind_gust</string>
-    <string name="icon_content_description_wind_speed" translatable="false">@string/screen_forecast_common_name_wind_speed</string>
+    <string name="icon_content_description_wind_gust" translatable="false">@string/screen_forecast_common_forecast_units_name_wind_gust</string>
+    <string name="icon_content_description_wind_speed" translatable="false">@string/screen_forecast_common_forecast_units_name_wind_speed</string>
 
     <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
 
@@ -122,6 +124,19 @@
     <string name="screen_forecast_card_temperatures_value_day">Noon</string>
     <string name="screen_forecast_card_temperatures_value_night">Night</string>
 
+    <string name="screen_forecast_common_forecast_units_name_cloudiness">Cloudiness</string>
+    <string name="screen_forecast_common_forecast_units_name_dew_point">Dew point</string>
+    <string name="screen_forecast_common_forecast_units_name_feels_like">Feels like</string>
+    <string name="screen_forecast_common_forecast_units_name_humidity">Humidity</string>
+    <string name="screen_forecast_common_forecast_units_name_pressure">Pressure</string>
+    <string name="screen_forecast_common_forecast_units_name_probability_of_precipitation">Precipitation</string>
+    <string name="screen_forecast_common_forecast_units_name_rain">Rain</string>
+    <string name="screen_forecast_common_forecast_units_name_snow">Snow</string>
+    <string name="screen_forecast_common_forecast_units_name_temperature">Temperature</string>
+    <string name="screen_forecast_common_forecast_units_name_uv_index">UV index</string>
+    <string name="screen_forecast_common_forecast_units_name_visibility">Visibility</string>
+    <string name="screen_forecast_common_forecast_units_name_wind_gust">Wind gust</string>
+    <string name="screen_forecast_common_forecast_units_name_wind_speed">Wind speed</string>
     <string name="screen_forecast_common_moon_phase_first_quarter_moon">First quarter moon</string>
     <string name="screen_forecast_common_moon_phase_full_moon">Full moon</string>
     <string name="screen_forecast_common_moon_phase_last_quarter_moon">Last quarter moon</string>
@@ -130,20 +145,6 @@
     <string name="screen_forecast_common_moon_phase_waning_gibbous">Waning Gibbous</string>
     <string name="screen_forecast_common_moon_phase_waxing_crescent">Waxing Crescent</string>
     <string name="screen_forecast_common_moon_phase_waxing_gibbous">Waxing Gibbous</string>
-    <string name="screen_forecast_common_name_cloudiness">Cloudiness</string>
-    <string name="screen_forecast_common_name_dew_point">Dew point</string>
-    <string name="screen_forecast_common_name_feels_like">Feels like</string>
-    <string name="screen_forecast_common_name_humidity">Humidity</string>
-    <string name="screen_forecast_common_name_pressure">Pressure</string>
-    <string name="screen_forecast_common_name_probability_of_precipitation">Precipitation</string>
-    <string name="screen_forecast_common_name_rain">Rain</string>
-    <string name="screen_forecast_common_name_snow">Snow</string>
-    <string name="screen_forecast_common_name_temperature">Temperature</string>
-    <string name="screen_forecast_common_name_uv_index">UV index</string>
-    <string name="screen_forecast_common_name_visibility">Visibility</string>
-    <string name="screen_forecast_common_name_wind_direction">Wind direction</string>
-    <string name="screen_forecast_common_name_wind_gust">Wind gust</string>
-    <string name="screen_forecast_common_name_wind_speed">Wind speed</string>
     <string name="screen_forecast_common_weather_condition_broken_clouds">Broken clouds</string>
     <string name="screen_forecast_common_weather_condition_clear_sky">Clear sky</string>
     <string name="screen_forecast_common_weather_condition_drizzle_rain">Drizzle rain</string>
@@ -219,6 +220,7 @@
     <string name="screen_forecast_hourly_title">Hourly forecast</string>
 
     <string name="screen_forecast_overview_alerts_text_fallback">Alert</string>
+    <string name="screen_forecast_overview_current_weather_title">Current weather</string>
     <plurals name="screen_forecast_overview_precipitation_headline_breaking">
         <item quantity="one">A break in precipitation in %1$s minute</item>
         <item quantity="other">A break in precipitation in %1$s minutes</item>

@@ -1,13 +1,12 @@
-package de.niklasbednarczyk.nbweather.data.onecall.values.units
+package de.niklasbednarczyk.nbweather.data.onecall.values.units.values
 
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBDistanceUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
 @JvmInline
-value class DistanceValue private constructor(override val value: Long) : NBUnitsValue {
+value class DistanceValue internal constructor(override val value: Long) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.distanceUnit) {
@@ -22,16 +21,6 @@ value class DistanceValue private constructor(override val value: Long) : NBUnit
 
     override fun getFractionDigits(units: NBUnitsModel): Int {
         return 1
-    }
-
-    companion object {
-
-        fun from(value: Long?): DistanceValue? {
-            return nbNullSafe(value) { DistanceValue(it) }
-        }
-
-        fun DistanceValue?.orZero() = this ?: DistanceValue(0)
-
     }
 
 }

@@ -1,6 +1,5 @@
-package de.niklasbednarczyk.nbweather.data.onecall.values.units
+package de.niklasbednarczyk.nbweather.data.onecall.values.units.values
 
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBTemperatureUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
@@ -8,10 +7,10 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class TemperatureValue private constructor(internal val value: Double) {
+value class TemperatureValue internal constructor(internal val value: Double) {
 
     @JvmInline
-    value class Long(override val value: Double): NBUnitsValue {
+    value class Long(override val value: Double) : NBUnitsValue {
 
         override fun getConvertedValue(units: NBUnitsModel): Double {
             return getConvertedValuePrivate(value, units)
@@ -39,7 +38,7 @@ value class TemperatureValue private constructor(internal val value: Double) {
     }
 
     @JvmInline
-    value class Short(override val value: Double): NBUnitsValue {
+    value class Short(override val value: Double) : NBUnitsValue {
 
         override fun getConvertedValue(units: NBUnitsModel): Double {
             return getConvertedValuePrivate(value, units)
@@ -78,10 +77,6 @@ value class TemperatureValue private constructor(internal val value: Double) {
                 NBTemperatureUnitType.FAHRENHEIT -> (value - 273.15) * 9 / 5 + 32 // kelvin to fahrenheit
                 NBTemperatureUnitType.KELVIN -> value // kelvin to kelvin
             }
-        }
-
-        fun from(value: Double?): TemperatureValue? {
-            return nbNullSafe(value) { TemperatureValue(it) }
         }
 
     }

@@ -6,6 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
+import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
 
 data class ForecastOverviewSummaryModel(
     val currentTemperature: NBUnitsValue,
@@ -13,6 +14,8 @@ data class ForecastOverviewSummaryModel(
     val maxTemperature: NBUnitsValue,
     val weatherIcon: WeatherIconType,
     val weatherCondition: WeatherConditionType,
+    val windDegrees: WindDegreesValue,
+    val windSpeed: NBUnitsValue,
     val currentTime: NBDateTimeDisplayModel
 ) : ForecastOverviewItem {
 
@@ -26,19 +29,23 @@ data class ForecastOverviewSummaryModel(
             val today = oneCall.today
 
             return nbNullSafe(
-                currentWeather.currentTemperature?.getLong(),
-                today?.temperature?.minDailyTemperature?.getShort(),
-                today?.temperature?.maxDailyTemperature?.getShort(),
+                currentWeather.currentTemperature?.unitsValue,
+                today?.temperature?.minDailyTemperature?.unitsValue?.toShort(),
+                today?.temperature?.maxDailyTemperature?.unitsValue?.toShort(),
                 currentWeather.weather?.icon,
                 currentWeather.weather?.condition,
+                currentWeather.windDegrees,
+                currentWeather.windSpeed?.unitsValue,
                 NBDateTimeDisplayModel.from(currentWeather.currentTime, timezoneOffset)
-            ) { currentTemperature, minTemperature, maxTemperature, weatherIcon, weatherCondition, currentTime ->
+            ) { currentTemperature, minTemperature, maxTemperature, weatherIcon, weatherCondition, windDegrees, windSpeed, currentTime ->
                 ForecastOverviewSummaryModel(
                     currentTemperature = currentTemperature,
                     minTemperature = minTemperature,
                     maxTemperature = maxTemperature,
                     weatherIcon = weatherIcon,
                     weatherCondition = weatherCondition,
+                    windDegrees = windDegrees,
+                    windSpeed = windSpeed,
                     currentTime = currentTime
                 )
             }
