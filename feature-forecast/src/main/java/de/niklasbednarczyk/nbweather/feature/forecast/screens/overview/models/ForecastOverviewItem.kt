@@ -17,7 +17,8 @@ sealed interface ForecastOverviewItem {
                 ForecastOverviewSummaryModel.from(oneCall),
                 ForecastOverviewPrecipitationModel.from(oneCall),
                 ForecastOverviewHourlyModel.from(oneCall),
-                ForecastOverviewCurrentWeatherModel.from(oneCall)
+                ForecastOverviewCurrentWeatherModel.from(oneCall),
+                ForecastOverviewSunAndMoonModel.from(oneCall)
             )
             return nbNullSafeList(items) { i -> i }
         }

@@ -21,6 +21,7 @@ import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.Fo
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewPrecipitationModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSummaryModel
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSunAndMoonModel
 
 @Composable
 fun ForecastOverviewItemView(
@@ -86,6 +87,12 @@ private fun Content(
                     summary = item
                 )
             }
+
+            is ForecastOverviewSunAndMoonModel -> {
+                ForecastOverviewSunAndMoonView(
+                    sunAndMoon = item
+                )
+            }
         }
     }
 }
@@ -101,6 +108,7 @@ private fun Title(
         is ForecastOverviewCurrentWeatherModel -> NBString.ResString(R.string.screen_forecast_overview_current_weather_title)
         is ForecastOverviewHourlyModel -> NBString.ResString(R.string.screen_forecast_hourly_title)
         is ForecastOverviewPrecipitationModel -> NBString.ResString(R.string.screen_forecast_overview_precipitation_title)
+        is ForecastOverviewSunAndMoonModel -> NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_title)
     }
     nbNullSafe(title) { t ->
         Text(
@@ -123,7 +131,8 @@ private fun Modifier.contentPaddingModifier(
 
         is ForecastOverviewCurrentWeatherModel,
         is ForecastOverviewPrecipitationModel,
-        is ForecastOverviewSummaryModel -> Modifier.padding(
+        is ForecastOverviewSummaryModel,
+        is ForecastOverviewSunAndMoonModel -> Modifier.padding(
             horizontal = screenHorizontalPadding,
             vertical = screenVerticalPadding
         )
@@ -145,7 +154,8 @@ private fun Modifier.itemClickableModifier(
 
         is ForecastOverviewCurrentWeatherModel,
         is ForecastOverviewPrecipitationModel,
-        is ForecastOverviewSummaryModel -> null
+        is ForecastOverviewSummaryModel,
+        is ForecastOverviewSunAndMoonModel -> null
 
         is ForecastOverviewHourlyModel -> navigateToHourly
     }

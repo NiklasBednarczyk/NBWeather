@@ -39,6 +39,7 @@
     <string name="icon_content_description_moon_phase_waxing_gibbous_5">Zunehmender Dreiviertelmond 5</string>
     <string name="icon_content_description_moon_phase_waxing_gibbous_6">Zunehmender Dreiviertelmond 6</string>
     <string name="icon_content_description_reset">Zurücksetzen</string>
+    <string name="icon_content_description_sun">Sonne</string>
     <string name="icon_content_description_warning">Warnung</string>
     <string name="icon_content_description_weather_day_broken_clouds">Stark bewölkt (Tag)</string>
     <string name="icon_content_description_weather_day_clear_sky">Klarer Himmel (Tag)</string>
@@ -72,9 +73,7 @@
     <string name="screen_forecast_alerts_title">Meldungen</string>
 
 
-    <string name="screen_forecast_card_sun_and_moon_title">Sonne und Mond</string>
     <string name="screen_forecast_card_sun_and_moon_value_daylight">Tageslicht</string>
-    <string name="screen_forecast_card_sun_and_moon_value_moon_phase">Mondphase</string>
     <string name="screen_forecast_card_sun_and_moon_value_moonrise">Mondaufgang</string>
     <string name="screen_forecast_card_sun_and_moon_value_moonset">Monduntergang</string>
     <string name="screen_forecast_card_sun_and_moon_value_sunrise">Sonnenaufgang</string>
@@ -198,6 +197,8 @@
         <item quantity="other">Niederschlag beginnt in %1$s Minuten</item>
     </plurals>
     <string name="screen_forecast_overview_precipitation_title">Niederschlag</string>
+    <string name="screen_forecast_overview_sun_and_moon_moon_phase_title">Mondphase</string>
+    <string name="screen_forecast_overview_sun_and_moon_title">Sonne und Mond</string>
 
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
     <string name="screen_search_overview_snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>

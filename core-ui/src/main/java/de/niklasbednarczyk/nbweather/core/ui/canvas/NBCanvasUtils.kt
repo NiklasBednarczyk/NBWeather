@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.core.ui.canvas
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -34,4 +35,17 @@ fun DrawScope.drawIcon(
             )
         }
     }
+}
+
+fun DrawScope.drawIcon(
+    icon: VectorPainter,
+    center: Offset,
+    color: Color
+) {
+    drawIcon(
+        icon = icon,
+        left = center.x - icon.intrinsicSize.width / 2,
+        top = center.y - icon.intrinsicSize.height / 2,
+        color = color
+    )
 }

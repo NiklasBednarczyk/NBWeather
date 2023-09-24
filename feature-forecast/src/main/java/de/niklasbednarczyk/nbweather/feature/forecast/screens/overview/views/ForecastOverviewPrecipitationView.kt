@@ -26,6 +26,7 @@ import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.colors.NBColors
 import de.niklasbednarczyk.nbweather.core.ui.common.time
+import de.niklasbednarczyk.nbweather.core.ui.dimens.canvasMaxWidth
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewPrecipitationModel
@@ -61,9 +62,10 @@ private fun Clock(
     time45: NBDateTimeDisplayModel,
     precipitationFactors: List<Float>,
     timeMarkersSize: Int = 4,
+    width: Dp = canvasMaxWidth,
+    precipitationBackgroundLengthMin: Dp = 10.dp,
     innerPadding: Dp = 40.dp,
     outerPadding: Dp = 4.dp,
-    precipitationBackgroundLength: Dp = 50.dp,
     timeMarkerLength: Dp = 6.dp,
     precipitationStrokeWidth: Dp = 4.dp,
     timeMarkerStrokeWidth: Dp = 2.dp,
@@ -74,9 +76,11 @@ private fun Clock(
 ) {
 
     with(LocalDensity.current) {
+        val widthPx = remember { width.toPx() }
+        val precipitationBackgroundLengthMinPx =
+            remember { precipitationBackgroundLengthMin.toPx() }
         val timeMarkerLengthPx = remember { timeMarkerLength.toPx() }
         val timeMarkerStrokeWidthPx = remember { timeMarkerStrokeWidth.toPx() }
-        val precipitationBackgroundLengthPx = remember { precipitationBackgroundLength.toPx() }
         val precipitationStrokeWidthPx = remember { precipitationStrokeWidth.toPx() }
         val innerPaddingPx = remember { innerPadding.toPx() }
         val outerPaddingPx = remember { outerPadding.toPx() }
@@ -87,20 +91,24 @@ private fun Clock(
         val time30MeasuredText = textMeasurer.measure(time30.time.asString(), textStyle)
         val time45MeasuredText = textMeasurer.measure(time45.time.asString(), textStyle)
 
-        val timeTextVerticalHeightPx =
+        val timeTextMaxHeightPx =
             max(time0MeasuredText.size.height, time30MeasuredText.size.height)
-        val timeTextHorizontalWidthPx =
+        val timeTextMaxWidthPx =
             max(time15MeasuredText.size.width, time45MeasuredText.size.width)
 
-        val radiusPx =
-            outerPaddingPx + timeMarkerLengthPx + precipitationBackgroundLengthPx + innerPaddingPx
-        val heightPx = (radiusPx + timeTextVerticalHeightPx) * 2
-        val widthPx = (radiusPx + timeTextHorizontalWidthPx) * 2
+        val precipitationBackgroundLengthPx =
+            widthPx / 2 - outerPaddingPx - timeMarkerLengthPx - innerPaddingPx - timeTextMaxWidthPx
+        if (precipitationBackgroundLengthPx < precipitationBackgroundLengthMinPx) return@with
+
+        val radiusPx = widthPx / 2 - timeTextMaxWidthPx
+        val heightPx = (radiusPx + timeTextMaxHeightPx) * 2
+
+        val height = remember { heightPx.toDp() }
 
         Canvas(
             modifier = Modifier
-                .height(heightPx.toDp())
-                .width(widthPx.toDp())
+                .height(height)
+                .width(width)
         ) {
             precipitationFactors.forEachIndexed { index, factor ->
                 val start = center - Offset(0f, innerPaddingPx)

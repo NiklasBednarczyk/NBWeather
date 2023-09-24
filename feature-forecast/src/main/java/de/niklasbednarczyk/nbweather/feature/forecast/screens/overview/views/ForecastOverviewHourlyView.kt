@@ -78,7 +78,7 @@ private fun Headline(
     Text(
         modifier = Modifier.fillMaxWidth(),
         text = firstVisibleItemPair?.first?.forecastTime?.date.asString(),
-        style = MaterialTheme.typography.titleLarge,
+        style = MaterialTheme.typography.titleMedium,
         textAlign = TextAlign.Center
     )
 }

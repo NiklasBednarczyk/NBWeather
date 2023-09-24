@@ -1,7 +1,10 @@
 package de.niklasbednarczyk.nbweather.core.ui.dimens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+
+val canvasMaxWidth: Dp = 320.dp
 
 val columnVerticalArrangementBigDp = 16.dp
 val columnVerticalArrangementBig = Arrangement.spacedBy(columnVerticalArrangementBigDp)
