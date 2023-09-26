@@ -3,15 +3,15 @@ package de.niklasbednarczyk.nbweather.data.onecall.models.daily
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.daily.DailyTemperatureModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.daily.DailyTemperatureModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.TemperatureUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.TemperatureForecastValue
 
 data class DailyTemperatureModelData(
-    val morningTemperature: TemperatureUnitsValue?,
-    val dayTemperature: TemperatureUnitsValue?,
-    val eveningTemperature: TemperatureUnitsValue?,
-    val nightTemperature: TemperatureUnitsValue?,
-    val minDailyTemperature: TemperatureUnitsValue?,
-    val maxDailyTemperature: TemperatureUnitsValue?
+    val morningTemperature: TemperatureForecastValue?,
+    val dayTemperature: TemperatureForecastValue?,
+    val eveningTemperature: TemperatureForecastValue?,
+    val nightTemperature: TemperatureForecastValue?,
+    val minDailyTemperature: TemperatureForecastValue?,
+    val maxDailyTemperature: TemperatureForecastValue?
 ) {
 
     internal companion object {
@@ -36,12 +36,12 @@ data class DailyTemperatureModelData(
         ): DailyTemperatureModelData? {
             return nbNullSafe(local) { l ->
                 DailyTemperatureModelData(
-                    morningTemperature = TemperatureUnitsValue.from(l.morn),
-                    dayTemperature = TemperatureUnitsValue.from(l.day),
-                    eveningTemperature = TemperatureUnitsValue.from(l.eve),
-                    nightTemperature = TemperatureUnitsValue.from(l.night),
-                    minDailyTemperature = TemperatureUnitsValue.from(l.min),
-                    maxDailyTemperature = TemperatureUnitsValue.from(l.max)
+                    morningTemperature = TemperatureForecastValue.from(l.morn),
+                    dayTemperature = TemperatureForecastValue.from(l.day),
+                    eveningTemperature = TemperatureForecastValue.from(l.eve),
+                    nightTemperature = TemperatureForecastValue.from(l.night),
+                    minDailyTemperature = TemperatureForecastValue.from(l.min),
+                    maxDailyTemperature = TemperatureForecastValue.from(l.max)
                 )
             }
         }

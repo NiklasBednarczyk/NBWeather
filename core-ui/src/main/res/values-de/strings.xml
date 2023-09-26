@@ -59,7 +59,7 @@
     <string name="icon_content_description_weather_night_shower_rain">Regenschauer (Nacht)</string>
     <string name="icon_content_description_weather_night_snow">Schnee (Nacht)</string>
     <string name="icon_content_description_weather_night_thunderstorm">Gewitter (Nacht)</string>
-    <string name="icon_content_description_wind_degrees">Windgrad</string>
+    <string name="icon_content_description_wind_direction">Windgrad</string>
 
     <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
 
@@ -72,32 +72,20 @@
 
     <string name="screen_forecast_alerts_title">Meldungen</string>
 
-
-    <string name="screen_forecast_card_sun_and_moon_value_daylight">Tageslicht</string>
-    <string name="screen_forecast_card_sun_and_moon_value_moonrise">Mondaufgang</string>
-    <string name="screen_forecast_card_sun_and_moon_value_moonset">Monduntergang</string>
-    <string name="screen_forecast_card_sun_and_moon_value_sunrise">Sonnenaufgang</string>
-    <string name="screen_forecast_card_sun_and_moon_value_sunset">Sonnenuntergang</string>
-
-    <string name="screen_forecast_card_temperatures_title">Temperaturen</string>
-    <string name="screen_forecast_card_temperatures_value_evening">Abend</string>
-    <string name="screen_forecast_card_temperatures_value_morning">Morgen</string>
-    <string name="screen_forecast_card_temperatures_value_day">Mittag</string>
-    <string name="screen_forecast_card_temperatures_value_night">Nacht</string>
-
-    <string name="screen_forecast_common_forecast_units_name_cloudiness">Bewölkung</string>
-    <string name="screen_forecast_common_forecast_units_name_dew_point">Taupunkt</string>
-    <string name="screen_forecast_common_forecast_units_name_feels_like">Gefühlt</string>
-    <string name="screen_forecast_common_forecast_units_name_humidity">Luftfeuchtigkeit</string>
-    <string name="screen_forecast_common_forecast_units_name_pressure">Druck</string>
-    <string name="screen_forecast_common_forecast_units_name_probability_of_precipitation">Niederschlag</string>
-    <string name="screen_forecast_common_forecast_units_name_rain">Regen</string>
-    <string name="screen_forecast_common_forecast_units_name_snow">Schnee</string>
-    <string name="screen_forecast_common_forecast_units_name_temperature">Temperatur</string>
-    <string name="screen_forecast_common_forecast_units_name_uv_index">UV-Index</string>
-    <string name="screen_forecast_common_forecast_units_name_visibility">Sichtweite</string>
-    <string name="screen_forecast_common_forecast_units_name_wind_gust">Windböe</string>
-    <string name="screen_forecast_common_forecast_units_name_wind_speed">Windstärke</string>
+    <string name="screen_forecast_common_forecast_name_cloudiness">Bewölkung</string>
+    <string name="screen_forecast_common_forecast_name_dew_point">Taupunkt</string>
+    <string name="screen_forecast_common_forecast_name_feels_like">Gefühlt</string>
+    <string name="screen_forecast_common_forecast_name_humidity">Luftfeuchtigkeit</string>
+    <string name="screen_forecast_common_forecast_name_pressure">Druck</string>
+    <string name="screen_forecast_common_forecast_name_probability_of_precipitation">Niederschlag</string>
+    <string name="screen_forecast_common_forecast_name_rain">Regen</string>
+    <string name="screen_forecast_common_forecast_name_snow">Schnee</string>
+    <string name="screen_forecast_common_forecast_name_temperature">Temperatur</string>
+    <string name="screen_forecast_common_forecast_name_uv_index">UV-Index</string>
+    <string name="screen_forecast_common_forecast_name_visibility">Sichtweite</string>
+    <string name="screen_forecast_common_forecast_name_wind_direction">Windgrad</string>
+    <string name="screen_forecast_common_forecast_name_wind_gust">Windböe</string>
+    <string name="screen_forecast_common_forecast_name_wind_speed">Windstärke</string>
     <string name="screen_forecast_common_moon_phase_first_quarter_moon">Zunehmender Halbmond</string>
     <string name="screen_forecast_common_moon_phase_full_moon">Vollmond</string>
     <string name="screen_forecast_common_moon_phase_last_quarter_moon">Abnehmender Halbmond</string>
@@ -178,6 +166,8 @@
     <string name="screen_forecast_common_wind_degrees_wnw">WNW</string>
     <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
 
+    <string name="screen_forecast_daily_title">Tägliche Vorhersage</string>
+
     <string name="screen_forecast_hourly_title">Stündliche Vorhersage</string>
 
     <string name="screen_forecast_overview_alerts_text_fallback">Meldung</string>
@@ -198,6 +188,10 @@
     </plurals>
     <string name="screen_forecast_overview_precipitation_title">Niederschlag</string>
     <string name="screen_forecast_overview_sun_and_moon_moon_phase_title">Mondphase</string>
+    <string name="screen_forecast_overview_sun_and_moon_moonrise_title">Mondaufgang</string>
+    <string name="screen_forecast_overview_sun_and_moon_moonset_title">Monduntergang</string>
+    <string name="screen_forecast_overview_sun_and_moon_sunrise_title">Sonnenaufgang</string>
+    <string name="screen_forecast_overview_sun_and_moon_sunset_title">Sonnenuntergang</string>
     <string name="screen_forecast_overview_sun_and_moon_title">Sonne und Mond</string>
 
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>

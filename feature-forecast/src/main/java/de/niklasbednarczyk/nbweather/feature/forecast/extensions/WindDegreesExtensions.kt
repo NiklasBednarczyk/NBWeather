@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.extensions
 
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesType
+import de.niklasbednarczyk.nbweather.data.onecall.types.wind.WindDegreesType
 
 val WindDegreesType.displayText: NBString
     get() {

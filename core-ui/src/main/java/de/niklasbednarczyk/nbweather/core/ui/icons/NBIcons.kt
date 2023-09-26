@@ -35,12 +35,6 @@ object NBIcons {
             NBString.ResString(R.string.icon_content_description_cloudiness)
     }
 
-    object Daylight : NBIconModel {
-        override val resId: Int = R.drawable.wi_horizon_alt
-        override val contentDescription: NBString =
-            NBString.ResString(R.string.icon_content_description_daylight)
-    }
-
     object Delete : NBIconModel {
         override val resId: Int = R.drawable.baseline_delete_24
         override val contentDescription: NBString =
@@ -509,10 +503,10 @@ object NBIcons {
             NBString.ResString(R.string.icon_content_description_website)
     }
 
-    object WindDegrees : NBIconModel {
+    object WindDirection : NBIconModel {
         override val resId: Int = R.drawable.wi_wind_deg
         override val contentDescription: NBString =
-            NBString.ResString(R.string.icon_content_description_wind_degrees)
+            NBString.ResString(R.string.icon_content_description_wind_direction)
     }
 
     object WindGust : NBIconModel {

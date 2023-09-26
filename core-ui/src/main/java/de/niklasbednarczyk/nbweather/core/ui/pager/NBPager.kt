@@ -1,17 +1,15 @@
 package de.niklasbednarczyk.nbweather.core.ui.pager
 
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -20,20 +18,21 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import de.niklasbednarczyk.nbweather.core.ui.dimens.alphaContentDisabled
 import de.niklasbednarczyk.nbweather.core.ui.dimens.elevationLevel2
+import kotlin.math.absoluteValue
+import kotlin.math.sign
 
 @Composable
 fun <K, T> NBPager(
@@ -98,75 +97,75 @@ private fun PagerContent(
 private fun PagerIndicators(
     pagerState: PagerState,
     rowColor: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(elevationLevel2),
-    indicatorActiveColor: Color = LocalContentColor.current.copy(alpha = MaterialTheme.colorScheme.onSurface.alpha),
-    indicatorInactiveColor: Color = indicatorActiveColor.copy(alphaContentDisabled),
+    activeColor: Color = LocalContentColor.current.copy(alpha = MaterialTheme.colorScheme.onSurface.alpha),
+    inactiveColor: Color = activeColor.copy(alphaContentDisabled),
     paddingVertical: Dp = 16.dp,
-    indicatorFullSize: Dp = 8.dp,
-    indicatorMiniSize: Dp = indicatorFullSize / 2,
-    indicatorSpacing: Dp = indicatorFullSize,
-    maxIndicators: Int = 5
+    indicatorWidth: Dp = 8.dp,
+    indicatorHeight: Dp = indicatorWidth,
+    spacing: Dp = indicatorWidth,
+    indicatorShape: Shape = CircleShape,
 ) {
-    val indicatorScrollState = rememberLazyListState()
+    with(LocalDensity.current) {
+        val indicatorWidthPx = remember { indicatorWidth.roundToPx() }
+        val spacingPx = remember { spacing.roundToPx() }
 
-    val currentPage = pagerState.currentPage
-    val firstPage = 0
-    val lastPage = pagerState.pageCount - 1
+        val pageCount = pagerState.pageCount
+        val currentPage = pagerState.currentPage
+        val offset = pagerState.currentPageOffsetFraction
 
-    val layoutInfo = remember { derivedStateOf { indicatorScrollState.layoutInfo } }
-    val visibleItemsSize = layoutInfo.value.visibleItemsInfo.size
-    val firstVisibleItemIndex = layoutInfo.value.visibleItemsInfo.firstOrNull()?.index
-    val lastVisibleItemIndex = layoutInfo.value.visibleItemsInfo.lastOrNull()?.index
-
-    LaunchedEffect(currentPage) {
-        if (firstVisibleItemIndex == null || lastVisibleItemIndex == null) return@LaunchedEffect
-
-        if (currentPage <= firstVisibleItemIndex && currentPage != firstPage) {
-            indicatorScrollState.animateScrollToItem(currentPage - 1)
-        } else if (currentPage >= lastVisibleItemIndex && currentPage != lastPage) {
-            indicatorScrollState.animateScrollToItem(currentPage - visibleItemsSize + 2)
-        }
-    }
-
-    val widthIndicatorsFullWidth = (indicatorSpacing * 2 + indicatorFullSize) * (maxIndicators - 2)
-    val widthIndicatorsMiniWidth = (indicatorSpacing * 2 + indicatorMiniSize) * 2
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(rowColor),
-    ) {
-        LazyRow(
+        Box(
             modifier = Modifier
-                .width(widthIndicatorsFullWidth + widthIndicatorsMiniWidth)
-                .padding(vertical = paddingVertical)
-                .align(Alignment.Center),
-            state = indicatorScrollState,
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            userScrollEnabled = false
+                .fillMaxWidth()
+                .background(rowColor)
+                .padding(
+                    vertical = paddingVertical
+                ),
+            contentAlignment = Alignment.Center
         ) {
-            items(pagerState.pageCount) { page ->
-                val color =
-                    if (pagerState.currentPage == page) indicatorActiveColor else indicatorInactiveColor
-                val size by animateDpAsState(
-                    targetValue = when {
-                        page == firstPage -> indicatorFullSize
-                        page == lastPage -> indicatorFullSize
-                        firstVisibleItemIndex != null && lastVisibleItemIndex != null && page in firstVisibleItemIndex + 1..<lastVisibleItemIndex -> indicatorFullSize
-                        else -> indicatorMiniSize
-                    },
-                    label = "pagerIndicatorSize"
-                )
+            Box(
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(spacing),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    val indicatorModifier = Modifier
+                        .size(width = indicatorWidth, height = indicatorHeight)
+                        .background(color = inactiveColor, shape = indicatorShape)
+
+                    repeat(pageCount) {
+                        Box(indicatorModifier)
+                    }
+                }
 
                 Box(
-                    modifier = Modifier
-                        .padding(horizontal = indicatorSpacing)
-                        .clip(CircleShape)
-                        .background(color)
-                        .size(size)
+                    Modifier
+                        .offset {
+                            val next = currentPage + offset.sign.toInt()
+                            val scrollPosition =
+                                ((next - currentPage) * offset.absoluteValue + currentPage).coerceIn(
+                                    0f,
+                                    (pageCount - 1)
+                                        .coerceAtLeast(0)
+                                        .toFloat()
+                                )
 
+                            IntOffset(
+                                x = ((spacingPx + indicatorWidthPx) * scrollPosition).toInt(),
+                                y = 0
+                            )
+                        }
+                        .size(
+                            width = indicatorWidth,
+                            height = indicatorHeight
+                        )
+                        .background(
+                            color = activeColor,
+                            shape = indicatorShape,
+                        )
                 )
             }
         }
     }
+
 }

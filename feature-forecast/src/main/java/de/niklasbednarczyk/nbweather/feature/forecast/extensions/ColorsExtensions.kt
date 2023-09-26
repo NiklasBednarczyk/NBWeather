@@ -4,25 +4,25 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.ui.colors.NBColors
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.DistanceValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PercentValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PrecipitationValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PressureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.ProbabilityValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.TemperatureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.UVIndexValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.WindSpeedValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedUnitsValue
 
 val NBUnitsValue.color
     @Composable
     get() = when (this) {
-        is DistanceValue -> NBColors.colors.unitsDistance
-        is PercentValue -> NBColors.colors.unitsPercent
-        is PrecipitationValue -> NBColors.colors.unitsPrecipitation
-        is PressureValue -> NBColors.colors.unitsPressure
-        is ProbabilityValue -> NBColors.colors.unitsProbability
-        is TemperatureValue.Long, is TemperatureValue.Short -> NBColors.colors.unitsTemperature
-        is UVIndexValue -> NBColors.colors.unitsUVIndex
-        is WindSpeedValue -> NBColors.colors.unitsWindSpeed
+        is DistanceUnitsValue -> NBColors.colors.unitsDistance
+        is PercentUnitsValue -> NBColors.colors.unitsPercent
+        is PrecipitationUnitsValue -> NBColors.colors.unitsPrecipitation
+        is PressureUnitsValue -> NBColors.colors.unitsPressure
+        is ProbabilityUnitsValue -> NBColors.colors.unitsProbability
+        is TemperatureUnitsValue.Long, is TemperatureUnitsValue.Short -> NBColors.colors.unitsTemperature
+        is UVIndexUnitsValue -> NBColors.colors.unitsUVIndex
+        is WindSpeedUnitsValue -> NBColors.colors.unitsWindSpeed
         else -> LocalContentColor.current
     }

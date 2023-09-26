@@ -17,6 +17,7 @@ sealed interface ForecastOverviewItem {
                 ForecastOverviewSummaryModel.from(oneCall),
                 ForecastOverviewPrecipitationModel.from(oneCall),
                 ForecastOverviewHourlyModel.from(oneCall),
+                ForecastOverviewDailyModel.from(oneCall),
                 ForecastOverviewCurrentWeatherModel.from(oneCall),
                 ForecastOverviewSunAndMoonModel.from(oneCall)
             )

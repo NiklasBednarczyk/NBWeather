@@ -1,12 +1,13 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
+import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridModel
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.ForecastUnitsItem
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ForecastValue
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.sortOrder
 
 data class ForecastOverviewCurrentWeatherModel(
-    val items: List<ForecastUnitsItem>
+    val items: List<ForecastValue>
 ) : ForecastOverviewItem {
 
     companion object {
@@ -27,25 +28,17 @@ data class ForecastOverviewCurrentWeatherModel(
                 currentWeather.visibility,
                 currentWeather.windSpeed,
                 currentWeather.windGust,
+                currentWeather.windDegrees,
                 currentWeather.rain1hVolume,
                 currentWeather.snow1hVolume,
                 today?.probabilityOfPrecipitation
-            ).sortedBy { item -> item.sortOrder }
+            )
 
             return nbNullSafeList(items) { i ->
                 ForecastOverviewCurrentWeatherModel(
                     items = i
                 )
             }
-        }
-
-        fun List<ForecastUnitsItem>.toRowItemsWithPlaceholders(rowItemCount: Int): List<ForecastUnitsItem?> {
-            val rowItemsWithPlaceholders = toMutableList<ForecastUnitsItem?>()
-            val remainingNeededItems = rowItemCount - size
-            repeat(remainingNeededItems) {
-                rowItemsWithPlaceholders.add(null)
-            }
-            return rowItemsWithPlaceholders
         }
 
     }

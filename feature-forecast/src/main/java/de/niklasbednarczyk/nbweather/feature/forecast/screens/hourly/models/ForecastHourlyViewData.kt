@@ -6,38 +6,38 @@ import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphsAxisModel
 import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphsViewData
 import de.niklasbednarczyk.nbweather.core.ui.limit.NBLimitsItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.CloudinessUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.DewPointUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.FeelsLikeUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.ForecastUnitsItem
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.HumidityUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.PressureUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.ProbabilityOfPrecipitationUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.RainUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.SnowUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.TemperatureUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.UVIndexUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.VisibilityUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindGustUnitsValue.Companion.orZero
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindSpeedUnitsValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.CloudinessForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.DewPointForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.FeelsLikeForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.HumidityForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.PressureForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ProbabilityOfPrecipitationForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.RainForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.SnowForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.TemperatureForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.UVIndexForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.VisibilityForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindGustForecastValue.Companion.orZero
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindSpeedForecastValue.Companion.orZero
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.limits
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.name
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.sortOrder
 
 data class ForecastHourlyViewData(
-    override val axes: List<NBGraphsAxisModel>, override val graphs: List<List<ForecastUnitsItem>>
-) : NBGraphsViewData<ForecastUnitsItem> {
+    override val axes: List<NBGraphsAxisModel>, override val graphs: List<List<ForecastValue.Units>>
+) : NBGraphsViewData<ForecastValue.Units> {
 
-    override fun getAbsoluteValue(value: ForecastUnitsItem): Double {
+    override fun getAbsoluteValue(value: ForecastValue.Units): Double {
         return value.unitsValue.value.toDouble()
     }
 
-    override fun getName(value: ForecastUnitsItem): NBString {
+    override fun getName(value: ForecastValue.Units): NBString {
         return value.name
     }
 
-    override fun getLimits(value: ForecastUnitsItem): NBLimitsItem {
+    override fun getLimits(value: ForecastValue.Units): NBLimitsItem {
         return value.limits
     }
 

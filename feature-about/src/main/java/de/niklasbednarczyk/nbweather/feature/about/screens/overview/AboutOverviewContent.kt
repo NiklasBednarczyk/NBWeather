@@ -23,6 +23,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.dividerPaddingVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.filledTonalButtonIconSize
 import de.niklasbednarczyk.nbweather.core.ui.dimens.filledTonalButtonPaddingBetweenElements
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
@@ -42,13 +43,16 @@ fun AboutOverviewContent(
     startIntent: (intent: Intent) -> Unit
 ) {
     LazyColumn(
-        verticalArrangement = columnVerticalArrangementBig
+        verticalArrangement = columnVerticalArrangementBig,
+        contentPadding = listContentPaddingValuesVertical
     ) {
         items(uiState.items) { item ->
             when (item) {
                 AboutOverviewItem.Divider -> {
                     Divider(
-                        modifier = Modifier.padding(dividerPaddingVertical)
+                        modifier = Modifier.padding(
+                            vertical = dividerPaddingVertical
+                        )
                     )
                 }
 

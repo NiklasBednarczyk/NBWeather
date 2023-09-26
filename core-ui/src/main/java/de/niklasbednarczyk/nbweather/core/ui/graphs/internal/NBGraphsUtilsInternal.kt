@@ -23,7 +23,7 @@ internal fun <T> NBGraphsViewData<T>.toInternal(
     val textMeasurer = rememberTextMeasurer()
 
     val axesInternal = axes.map { axis ->
-        val headlineText = axis.forecastTime.date
+        val headlineText = axis.forecastTime.dateFull
         val dayOfMonth = axis.forecastTime.dayOfMonth
         val time = textMeasurer.measure(axis.forecastTime.time.asString(), timeTextStyle)
         val icon = axis.icon.toVectorPainter()

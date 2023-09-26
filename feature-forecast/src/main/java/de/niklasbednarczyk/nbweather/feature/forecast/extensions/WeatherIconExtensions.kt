@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.extensions
 
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
 
 val WeatherIconType.icon: NBIconModel
     get() = when (this) {

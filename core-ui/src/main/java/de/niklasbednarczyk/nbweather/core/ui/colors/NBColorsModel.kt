@@ -25,7 +25,7 @@ data class NBColorsModel(
         private val unitsPrecipitation = Color(0xFF7FFFD4)
         private val unitsPressure = Color(0xFF008000)
         private val unitsProbability = Color(0xFF1E90FF)
-        private val unitsTemperature = Color(0xFFCCCC00)
+        private val unitsTemperature = Color(0xFFFFCC33)
         private val unitsUVIndex = Color(0xFFEE82EE)
         private val unitsWindSpeed = Color(0xFFA52A2A)
 

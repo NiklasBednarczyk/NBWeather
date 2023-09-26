@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,23 +23,18 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.canvas.drawIcon
 import de.niklasbednarczyk.nbweather.core.ui.canvas.toVectorPainter
 import de.niklasbednarczyk.nbweather.core.ui.colors.NBColors
 import de.niklasbednarczyk.nbweather.core.ui.common.time
 import de.niklasbednarczyk.nbweather.core.ui.dimens.canvasMaxWidth
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
-import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
-import de.niklasbednarczyk.nbweather.feature.forecast.extensions.displayText
-import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSunAndMoonModel
+import de.niklasbednarczyk.nbweather.feature.forecast.views.MoonPhaseGridView
+import de.niklasbednarczyk.nbweather.feature.forecast.views.MoonTimesGridView
 import java.lang.Math.toRadians
 import kotlin.math.cos
 import kotlin.math.sin
@@ -60,38 +54,14 @@ fun ForecastOverviewSunAndMoonView(
             sunrise = sunAndMoon.sunrise,
             sunset = sunAndMoon.sunset
         )
-        MoonPhase(
+        MoonTimesGridView(
+            moonrise = sunAndMoon.moonrise,
+            moonset = sunAndMoon.moonset
+        )
+        MoonPhaseGridView(
             moonPhase = sunAndMoon.moonPhase
         )
     }
-}
-
-@Composable
-private fun MoonPhase(
-    moonPhase: MoonPhaseType
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = columnVerticalArrangementSmall
-    ) {
-        val title =
-            NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_moon_phase_title)
-
-        Text(
-            text = title.asString(),
-            style = MaterialTheme.typography.titleMedium
-        )
-        NBIcon(
-            icon = moonPhase.icon
-        )
-        Text(
-            text = moonPhase.displayText.asString(),
-            style = MaterialTheme.typography.bodyMedium
-        )
-    }
-
-
 }
 
 @Composable
@@ -152,7 +122,8 @@ private fun SunArc(
             val arcSize = Size(arcRadiusPx * 2, arcRadiusPx * 2)
 
             val arcBackgroundPathEffect = PathEffect.dashPathEffect(dashIntervals)
-            val arcBackgroundStyle = Stroke(arcBackgroundStrokeWidthPx, pathEffect = arcBackgroundPathEffect)
+            val arcBackgroundStyle =
+                Stroke(arcBackgroundStrokeWidthPx, pathEffect = arcBackgroundPathEffect)
             drawArc(
                 topLeft = arcTopLeft,
                 color = arcBackgroundColor,
@@ -182,9 +153,7 @@ private fun SunArc(
                 val iconX = arcCenter.x + arcRadiusPx * sin(toRadians(iconAngleDegrees)).toFloat()
                 val iconY = arcCenter.y + arcRadiusPx * cos(toRadians(iconAngleDegrees)).toFloat()
                 drawIcon(
-                    icon = vectorPainter,
-                    center = Offset(iconX, iconY),
-                    color = iconColor
+                    icon = vectorPainter, center = Offset(iconX, iconY), color = iconColor
                 )
             }
 

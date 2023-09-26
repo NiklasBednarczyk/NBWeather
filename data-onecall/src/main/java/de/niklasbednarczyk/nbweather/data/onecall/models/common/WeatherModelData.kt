@@ -3,8 +3,8 @@ package de.niklasbednarczyk.nbweather.data.onecall.models.common
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.common.WeatherModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
 
 data class WeatherModelData(
     val icon: WeatherIconType?,

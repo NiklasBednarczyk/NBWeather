@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
@@ -29,7 +30,8 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.divider.NBVerticalDivider
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.color
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewHourlyModel
@@ -77,7 +79,7 @@ private fun Headline(
 ) {
     Text(
         modifier = Modifier.fillMaxWidth(),
-        text = firstVisibleItemPair?.first?.forecastTime?.date.asString(),
+        text = firstVisibleItemPair?.first?.forecastTime?.dateFull.asString(),
         style = MaterialTheme.typography.titleMedium,
         textAlign = TextAlign.Center
     )
@@ -105,6 +107,9 @@ private fun Item(
         )
         ProbabilityOfPrecipitation(
             probabilityOfPrecipitation = item.probabilityOfPrecipitation
+        )
+        WindDegrees(
+            windDegrees = item.windDegrees
         )
     }
 }
@@ -142,7 +147,7 @@ private fun ProbabilityOfPrecipitation(
 ) {
     Text(
         text = probabilityOfPrecipitation.displayValueWithSymbol.asString(),
-        style = MaterialTheme.typography.labelSmall,
+        style = MaterialTheme.typography.bodySmall,
         color = probabilityOfPrecipitation.color
     )
 }
@@ -153,7 +158,7 @@ private fun Temperature(
 ) {
     Text(
         text = temperature.displayValueWithSymbol.asString(),
-        style = MaterialTheme.typography.labelLarge
+        style = MaterialTheme.typography.bodyMedium
     )
 }
 
@@ -163,5 +168,15 @@ private fun WeatherIcon(
 ) {
     NBIcon(
         icon = weatherIcon.icon
+    )
+}
+
+@Composable
+private fun WindDegrees(
+    windDegrees: WindDegreesForecastValue
+) {
+    NBIcon(
+        modifier = Modifier.rotate(windDegrees.rotationDegrees),
+        icon = windDegrees.icon
     )
 }

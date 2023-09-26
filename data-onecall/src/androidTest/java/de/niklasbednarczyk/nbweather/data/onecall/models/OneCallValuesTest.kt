@@ -8,18 +8,18 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
-import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.DistanceValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PercentValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PrecipitationValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.PressureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.ProbabilityValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.TemperatureValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.UVIndexValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.values.WindSpeedValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
-import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesType
+import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.DistanceUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PercentUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.PressureUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.UVIndexUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.units.WindSpeedUnitsValue
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
+import de.niklasbednarczyk.nbweather.data.onecall.types.wind.WindDegreesType
 import de.niklasbednarczyk.nbweather.test.data.localremote.NBLocalRemoteModelTest
 import org.junit.Test
 import java.util.Locale
@@ -124,7 +124,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun distanceValue_shouldConvertCorrectly() {
-        val value = DistanceValue.from(10000)!!
+        val value = DistanceUnitsValue.from(10000)!!
 
         testUnitsValue(
             value = value,
@@ -140,7 +140,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun percentValue_shouldConvertCorrectly() {
-        val value = PercentValue.from(84)!!
+        val value = PercentUnitsValue.from(84)!!
 
         testUnitsValue(
             value = value,
@@ -150,7 +150,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun precipitationValue_shouldConvertCorrectly() {
-        val value = PrecipitationValue.from(0.91)!!
+        val value = PrecipitationUnitsValue.from(0.91)!!
 
         testUnitsValue(
             value = value,
@@ -166,7 +166,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun pressureValue_shouldConvertCorrectly() {
-        val value = PressureValue.from(1006)!!
+        val value = PressureUnitsValue.from(1006)!!
 
         testUnitsValue(
             value = value,
@@ -187,7 +187,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun probabilityValue_shouldConvertCorrectly() {
-        val value = ProbabilityValue.from(0.78)!!
+        val value = ProbabilityUnitsValue.from(0.78)!!
 
         testUnitsValue(
             value = value,
@@ -197,7 +197,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun temperatureValue_shouldConvertCorrectly() {
-        val value = TemperatureValue.from(287.64)!!
+        val value = TemperatureUnitsValue.from(287.64)!!
 
         testUnitsValue(
             value = value.getLong(),
@@ -233,7 +233,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun uvIndexValue_shouldConvertCorrectly() {
-        val value = UVIndexValue.from(2.92)!!
+        val value = UVIndexUnitsValue.from(2.92)!!
 
         testUnitsValue(
             value = value,
@@ -243,7 +243,7 @@ class OneCallValuesTest : NBLocalRemoteModelTest {
 
     @Test
     fun windSpeedValue_shouldConvertCorrectly() {
-        val value = WindSpeedValue.from(4.26)!!
+        val value = WindSpeedUnitsValue.from(4.26)!!
 
         testUnitsValue(
             value = value,

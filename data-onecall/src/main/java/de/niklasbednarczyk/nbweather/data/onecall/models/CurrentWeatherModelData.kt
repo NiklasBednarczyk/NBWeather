@@ -4,37 +4,37 @@ import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.CurrentWeatherEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.CurrentWeatherModelRemote
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.CloudinessUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.DewPointUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.FeelsLikeUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.HumidityUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.PressureUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.RainUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.SnowUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.TemperatureUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.UVIndexUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.VisibilityUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindGustUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.units.items.WindSpeedUnitsValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.CloudinessForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.DewPointForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.FeelsLikeForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.HumidityForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.PressureForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.RainForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.SnowForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.TemperatureForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.UVIndexForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.VisibilityForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindGustForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindSpeedForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
 
 data class CurrentWeatherModelData(
     val currentTime: NBDateTimeValue?,
     val sunrise: NBDateTimeValue?,
     val sunset: NBDateTimeValue?,
-    val currentTemperature: TemperatureUnitsValue?,
-    val feelsLikeTemperature: FeelsLikeUnitsValue?,
-    val pressure: PressureUnitsValue?,
-    val humidity: HumidityUnitsValue?,
-    val dewPointTemperature: DewPointUnitsValue?,
-    val cloudiness: CloudinessUnitsValue?,
-    val uvIndex: UVIndexUnitsValue?,
-    val visibility: VisibilityUnitsValue?,
-    val windSpeed: WindSpeedUnitsValue?,
-    val windGust: WindGustUnitsValue?,
-    val windDegrees: WindDegreesValue?,
-    val rain1hVolume: RainUnitsValue?,
-    val snow1hVolume: SnowUnitsValue?,
+    val currentTemperature: TemperatureForecastValue?,
+    val feelsLikeTemperature: FeelsLikeForecastValue?,
+    val pressure: PressureForecastValue?,
+    val humidity: HumidityForecastValue?,
+    val dewPointTemperature: DewPointForecastValue?,
+    val cloudiness: CloudinessForecastValue?,
+    val uvIndex: UVIndexForecastValue?,
+    val visibility: VisibilityForecastValue?,
+    val windSpeed: WindSpeedForecastValue?,
+    val windGust: WindGustForecastValue?,
+    val windDegrees: WindDegreesForecastValue?,
+    val rain1hVolume: RainForecastValue?,
+    val snow1hVolume: SnowForecastValue?,
     val weather: WeatherModelData?
 ) {
 
@@ -73,19 +73,19 @@ data class CurrentWeatherModelData(
                 currentTime = NBDateTimeValue.from(local?.dt),
                 sunrise = NBDateTimeValue.from(local?.sunrise),
                 sunset = NBDateTimeValue.from(local?.sunset),
-                currentTemperature = TemperatureUnitsValue.from(local?.temp),
-                feelsLikeTemperature = FeelsLikeUnitsValue.from(local?.feelsLike),
-                pressure = PressureUnitsValue.from(local?.pressure),
-                humidity = HumidityUnitsValue.from(local?.humidity),
-                dewPointTemperature = DewPointUnitsValue.from(local?.dewPoint),
-                cloudiness = CloudinessUnitsValue.from(local?.clouds),
-                uvIndex = UVIndexUnitsValue.from(local?.uvi),
-                visibility = VisibilityUnitsValue.from(local?.visibility),
-                windSpeed = WindSpeedUnitsValue.from(local?.windSpeed),
-                windGust = WindGustUnitsValue.from(local?.windGust),
-                windDegrees = WindDegreesValue.from(local?.windDeg),
-                rain1hVolume = RainUnitsValue.from(local?.rain1h),
-                snow1hVolume = SnowUnitsValue.from(local?.snow1h),
+                currentTemperature = TemperatureForecastValue.from(local?.temp),
+                feelsLikeTemperature = FeelsLikeForecastValue.from(local?.feelsLike),
+                pressure = PressureForecastValue.from(local?.pressure),
+                humidity = HumidityForecastValue.from(local?.humidity),
+                dewPointTemperature = DewPointForecastValue.from(local?.dewPoint),
+                cloudiness = CloudinessForecastValue.from(local?.clouds),
+                uvIndex = UVIndexForecastValue.from(local?.uvi),
+                visibility = VisibilityForecastValue.from(local?.visibility),
+                windSpeed = WindSpeedForecastValue.from(local?.windSpeed),
+                windGust = WindGustForecastValue.from(local?.windGust),
+                windDegrees = WindDegreesForecastValue.from(local?.windDeg),
+                rain1hVolume = RainForecastValue.from(local?.rain1h),
+                snow1hVolume = SnowForecastValue.from(local?.snow1h),
                 weather = WeatherModelData.localToData(local?.weather)
             )
         }

@@ -41,7 +41,9 @@ class ForecastAlertsViewModel @Inject constructor(
             longitude = longitude,
             forceUpdate = false
         ).mapResource { oneCall ->
-            ForecastAlertsViewData.from(oneCall)
+            ForecastAlertsViewData.from(
+                oneCall = oneCall
+            )
         }
     }
 

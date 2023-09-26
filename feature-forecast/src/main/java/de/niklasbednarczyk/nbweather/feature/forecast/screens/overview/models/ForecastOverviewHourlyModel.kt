@@ -5,8 +5,10 @@ import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.hourly.ForecastOverviewHourlyItemModel
 
 data class ForecastOverviewHourlyModel(
-    val itemPairs: List<Pair<ForecastOverviewHourlyItemModel, ForecastOverviewHourlyItemModel>>
+    private val items: List<ForecastOverviewHourlyItemModel>
 ) : ForecastOverviewItem {
+
+    val itemPairs = items.zipWithNext()
 
     companion object {
 
@@ -15,15 +17,14 @@ data class ForecastOverviewHourlyModel(
         ): ForecastOverviewHourlyModel? {
             return nbNullSafeList(oneCall.hourlyForecasts) { hourlyForecasts ->
                 val timezoneOffset = oneCall.timezoneOffset
-                val itemPairs = hourlyForecasts
-                    .map { hourlyForecast ->
-                        ForecastOverviewHourlyItemModel.from(
-                            hourlyForecast = hourlyForecast,
-                            timezoneOffset = timezoneOffset
-                        ) ?: return null
-                    }.zipWithNext()
+                val items = hourlyForecasts.map { hourlyForecast ->
+                    ForecastOverviewHourlyItemModel.from(
+                        hourlyForecast = hourlyForecast,
+                        timezoneOffset = timezoneOffset
+                    ) ?: return null
+                }
                 ForecastOverviewHourlyModel(
-                    itemPairs = itemPairs
+                    items = items
                 )
             }
         }

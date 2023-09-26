@@ -21,10 +21,10 @@ import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.common.WeatherModelRemote
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.FakeOneCallService
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
-import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherConditionType
-import de.niklasbednarczyk.nbweather.data.onecall.values.weather.WeatherIconType
-import de.niklasbednarczyk.nbweather.data.onecall.values.winddegrees.WindDegreesValue
+import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
+import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
 import de.niklasbednarczyk.nbweather.test.data.localremote.repositories.NBLocalRemoteRepositoryTest
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
@@ -268,7 +268,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
 
     private fun assertFieldWindDegrees(
         remoteOrLocal: Long?,
-        data: WindDegreesValue?
+        data: WindDegreesForecastValue?
     ) {
         nbNullSafe(remoteOrLocal) { rOL ->
             assertValue(rOL - 180f, data?.rotationDegrees)

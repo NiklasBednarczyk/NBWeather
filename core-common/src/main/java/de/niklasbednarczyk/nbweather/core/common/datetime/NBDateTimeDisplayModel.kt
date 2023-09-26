@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.core.common.datetime
 
 import android.content.Context
+import de.niklasbednarczyk.nbweather.core.common.R
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import java.time.Instant
@@ -29,8 +30,18 @@ class NBDateTimeDisplayModel private constructor(
     val dayOfMonth: Int
         get() = localDateTime.dayOfMonth
 
-    val date: NBString?
-        get() = format(PATTERN_DATE)
+    val dateFull: NBString
+        get() = NBString.ResString(
+            R.string.format_comma_2_items,
+            dateWeekday,
+            dateShort
+        )
+
+    val dateShort: NBString?
+        get() = format(PATTERN_DATE_SHORT)
+
+    val dateWeekday: NBString?
+        get() = format(PATTERN_DATE_WEEKDAY)
 
     fun getTime(context: Context): NBString? =
         getTime(context.is24HourFormat)
@@ -48,8 +59,8 @@ class NBDateTimeDisplayModel private constructor(
     }
 
     companion object {
-
-        private const val PATTERN_DATE = "EEE, MMM dd"
+        private const val PATTERN_DATE_SHORT = "MMM dd"
+        private const val PATTERN_DATE_WEEKDAY = "EEE"
 
         private const val PATTERN_TIME_12_HOUR = "hh:mm a"
         private const val PATTERN_TIME_24_HOUR = "HH:mm"

@@ -4,7 +4,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
+import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 
 val MoonPhaseType.displayText: NBString
     get() {

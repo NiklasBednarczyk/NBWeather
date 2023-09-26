@@ -17,6 +17,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewAlertsModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewCurrentWeatherModel
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewDailyModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewHourlyModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewPrecipitationModel
@@ -27,6 +28,7 @@ import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.Fo
 fun ForecastOverviewItemView(
     item: ForecastOverviewItem,
     navigateToAlerts: () -> Unit,
+    navigateToDaily: (forecastTime: Long?) -> Unit,
     navigateToHourly: () -> Unit
 ) {
     Column(
@@ -35,6 +37,9 @@ fun ForecastOverviewItemView(
             .itemClickableModifier(
                 item = item,
                 navigateToAlerts = navigateToAlerts,
+                navigateToDaily = {
+                    navigateToDaily(null)
+                },
                 navigateToHourly = navigateToHourly
             )
     ) {
@@ -42,14 +47,16 @@ fun ForecastOverviewItemView(
             item = item
         )
         Content(
-            item = item
+            item = item,
+            navigateToDaily = navigateToDaily
         )
     }
 }
 
 @Composable
 private fun Content(
-    item: ForecastOverviewItem
+    item: ForecastOverviewItem,
+    navigateToDaily: (forecastTime: Long?) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -67,6 +74,13 @@ private fun Content(
             is ForecastOverviewCurrentWeatherModel -> {
                 ForecastOverviewCurrentWeatherView(
                     currentWeather = item
+                )
+            }
+
+            is ForecastOverviewDailyModel -> {
+                ForecastOverviewDailyView(
+                    daily = item,
+                    navigateToDaily = navigateToDaily
                 )
             }
 
@@ -106,8 +120,13 @@ private fun Title(
         is ForecastOverviewSummaryModel -> null
 
         is ForecastOverviewCurrentWeatherModel -> NBString.ResString(R.string.screen_forecast_overview_current_weather_title)
+
+        is ForecastOverviewDailyModel -> NBString.ResString(R.string.screen_forecast_daily_title)
+
         is ForecastOverviewHourlyModel -> NBString.ResString(R.string.screen_forecast_hourly_title)
+
         is ForecastOverviewPrecipitationModel -> NBString.ResString(R.string.screen_forecast_overview_precipitation_title)
+
         is ForecastOverviewSunAndMoonModel -> NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_title)
     }
     nbNullSafe(title) { t ->
@@ -137,6 +156,7 @@ private fun Modifier.contentPaddingModifier(
             vertical = screenVerticalPadding
         )
 
+        is ForecastOverviewDailyModel,
         is ForecastOverviewHourlyModel -> Modifier.padding(
             vertical = screenVerticalPadding
         )
@@ -147,6 +167,7 @@ private fun Modifier.contentPaddingModifier(
 private fun Modifier.itemClickableModifier(
     item: ForecastOverviewItem,
     navigateToAlerts: () -> Unit,
+    navigateToDaily: () -> Unit,
     navigateToHourly: () -> Unit
 ): Modifier {
     val onClick = when (item) {
@@ -156,6 +177,8 @@ private fun Modifier.itemClickableModifier(
         is ForecastOverviewPrecipitationModel,
         is ForecastOverviewSummaryModel,
         is ForecastOverviewSunAndMoonModel -> null
+
+        is ForecastOverviewDailyModel -> navigateToDaily
 
         is ForecastOverviewHourlyModel -> navigateToHourly
     }

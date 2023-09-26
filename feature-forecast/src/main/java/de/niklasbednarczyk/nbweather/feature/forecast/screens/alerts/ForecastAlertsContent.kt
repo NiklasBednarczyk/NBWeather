@@ -28,7 +28,7 @@ import de.niklasbednarczyk.nbweather.core.ui.pager.NBPager
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.NBClickableText
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models.ForecastAlertsAlertItem
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models.ForecastAlertsAlertInfoItem
 
 @Composable
 fun ForecastAlertsContent(
@@ -44,36 +44,37 @@ fun ForecastAlertsContent(
                 contentPadding = listContentPaddingValuesVertical,
                 verticalArrangement = columnVerticalArrangementBig
             ) {
-                items(pagerItem.items) { item ->
-                    when (item) {
-                        is ForecastAlertsAlertItem.Dates -> {
+                items(pagerItem.infoItems) { infoItem ->
+                    when (infoItem) {
+                        is ForecastAlertsAlertInfoItem.Dates -> {
                             Dates(
-                                dates = item
+                                dates = infoItem
                             )
                         }
 
-                        is ForecastAlertsAlertItem.Description -> {
+                        is ForecastAlertsAlertInfoItem.Description -> {
                             Description(
-                                description = item,
+                                description = infoItem,
                                 startIntent = startIntent
                             )
                         }
 
-                        is ForecastAlertsAlertItem.EventName -> {
+                        is ForecastAlertsAlertInfoItem.EventName -> {
                             EventName(
-                                eventName = item
+                                eventName = infoItem
                             )
                         }
 
-                        is ForecastAlertsAlertItem.SenderName -> {
+                        is ForecastAlertsAlertInfoItem.SenderName -> {
                             SenderName(
-                                senderName = item
+                                senderName = infoItem,
+                                startIntent = startIntent
                             )
                         }
 
-                        is ForecastAlertsAlertItem.Tags -> {
+                        is ForecastAlertsAlertInfoItem.Tags -> {
                             Tags(
-                                tags = item
+                                tags = infoItem
                             )
                         }
                     }
@@ -85,7 +86,7 @@ fun ForecastAlertsContent(
 
 @Composable
 private fun Dates(
-    dates: ForecastAlertsAlertItem.Dates
+    dates: ForecastAlertsAlertInfoItem.Dates
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -117,7 +118,7 @@ private fun Date(
             style = MaterialTheme.typography.titleMedium
         )
         Text(
-            text = date.date.asString(),
+            text = date.dateFull.asString(),
             style = MaterialTheme.typography.titleSmall
         )
     }
@@ -126,7 +127,7 @@ private fun Date(
 
 @Composable
 private fun Description(
-    description: ForecastAlertsAlertItem.Description,
+    description: ForecastAlertsAlertInfoItem.Description,
     startIntent: (Intent?) -> Unit
 ) {
     NBClickableText(
@@ -138,7 +139,7 @@ private fun Description(
 
 @Composable
 private fun EventName(
-    eventName: ForecastAlertsAlertItem.EventName
+    eventName: ForecastAlertsAlertInfoItem.EventName
 ) {
     Text(
         text = eventName.text.asString(),
@@ -148,17 +149,19 @@ private fun EventName(
 
 @Composable
 private fun SenderName(
-    senderName: ForecastAlertsAlertItem.SenderName
+    senderName: ForecastAlertsAlertInfoItem.SenderName,
+    startIntent: (Intent?) -> Unit
 ) {
-    Text(
+    NBClickableText(
         text = senderName.text.asString(),
-        style = MaterialTheme.typography.bodySmall
+        style = MaterialTheme.typography.bodySmall,
+        startIntent = startIntent
     )
 }
 
 @Composable
 private fun Tags(
-    tags: ForecastAlertsAlertItem.Tags,
+    tags: ForecastAlertsAlertInfoItem.Tags,
     horizontalSpacing: Dp = 8.dp,
     verticalSpacing: Dp = 4.dp,
     padding: Dp = 8.dp,

@@ -16,6 +16,7 @@ fun ForecastOverviewContent(
     uiState: ForecastOverviewUiState,
     itemsFlow: NBSwipeRefreshFlow<List<ForecastOverviewItem>>?,
     navigateToAlerts: (latitude: Double?, longitude: Double?) -> Unit,
+    navigateToDaily: (forecastTime: Long?, latitude: Double?, longitude: Double?) -> Unit,
     navigateToHourly: (latitude: Double?, longitude: Double?) -> Unit
 ) {
     val location = uiState.locationResource?.dataOrNull
@@ -33,6 +34,9 @@ fun ForecastOverviewContent(
                         item = item,
                         navigateToAlerts = {
                             navigateToAlerts(latitude, longitude)
+                        },
+                        navigateToDaily = { forecastTime ->
+                            navigateToDaily(forecastTime, latitude, longitude)
                         },
                         navigateToHourly = {
                             navigateToHourly(latitude, longitude)

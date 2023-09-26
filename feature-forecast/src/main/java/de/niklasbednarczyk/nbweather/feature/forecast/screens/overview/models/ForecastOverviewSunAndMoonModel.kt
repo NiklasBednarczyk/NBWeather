@@ -3,12 +3,14 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
-import de.niklasbednarczyk.nbweather.data.onecall.values.moon.MoonPhaseType
+import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 
 data class ForecastOverviewSunAndMoonModel(
     private val currentTime: NBDateTimeDisplayModel,
     val sunrise: NBDateTimeDisplayModel,
     val sunset: NBDateTimeDisplayModel,
+    val moonrise: NBDateTimeDisplayModel,
+    val moonset: NBDateTimeDisplayModel,
     val moonPhase: MoonPhaseType
 ) : ForecastOverviewItem {
 
@@ -36,13 +38,17 @@ data class ForecastOverviewSunAndMoonModel(
                 NBDateTimeDisplayModel.from(currentWeather.currentTime, timezoneOffset),
                 NBDateTimeDisplayModel.from(today?.sunrise, timezoneOffset),
                 NBDateTimeDisplayModel.from(today?.sunset, timezoneOffset),
+                NBDateTimeDisplayModel.from(today?.moonrise, timezoneOffset),
+                NBDateTimeDisplayModel.from(today?.moonset, timezoneOffset),
                 today?.moonPhase
-            ) { currentTime, sunrise, sunset, moonPhase ->
+            ) { currentTime, sunrise, sunset, moonrise, moonset, moonPhase ->
                 ForecastOverviewSunAndMoonModel(
                     currentTime = currentTime,
                     sunrise = sunrise,
                     sunset = sunset,
-                    moonPhase = moonPhase.type
+                    moonrise = moonrise,
+                    moonset = moonset,
+                    moonPhase = moonPhase
                 )
             }
         }
