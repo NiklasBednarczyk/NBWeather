@@ -15,7 +15,7 @@ class ForecastDailyFragment : NBFragment<ForecastDailyUiState>() {
 
     override fun createTopAppBarItem(uiState: ForecastDailyUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
-            title = NBString.ResString(R.string.screen_forecast_daily_title)
+            title = NBString.ResString(R.string.screen_forecast_overview_daily_title)
         )
     }
 

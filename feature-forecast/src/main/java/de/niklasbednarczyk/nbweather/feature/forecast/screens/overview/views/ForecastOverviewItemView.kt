@@ -121,9 +121,9 @@ private fun Title(
 
         is ForecastOverviewCurrentWeatherModel -> NBString.ResString(R.string.screen_forecast_overview_current_weather_title)
 
-        is ForecastOverviewDailyModel -> NBString.ResString(R.string.screen_forecast_daily_title)
+        is ForecastOverviewDailyModel -> NBString.ResString(R.string.screen_forecast_overview_daily_title)
 
-        is ForecastOverviewHourlyModel -> NBString.ResString(R.string.screen_forecast_hourly_title)
+        is ForecastOverviewHourlyModel -> NBString.ResString(R.string.screen_forecast_overview_hourly_title)
 
         is ForecastOverviewPrecipitationModel -> NBString.ResString(R.string.screen_forecast_overview_precipitation_title)
 

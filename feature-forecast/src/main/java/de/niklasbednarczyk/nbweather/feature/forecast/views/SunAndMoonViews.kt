@@ -18,7 +18,7 @@ fun MoonPhaseGridView(
     moonPhase: MoonPhaseType
 ) {
     val moonPhaseGridItem = NBGridModel(
-        name = NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_moon_phase_title),
+        name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_moon_phase_title),
         icon = NBGridIconModel(moonPhase.icon),
         value = moonPhase.displayText
     )
@@ -36,12 +36,12 @@ fun MoonTimesGridView(
     moonset: NBDateTimeDisplayModel
 ) {
     val moonriseGridItem = NBGridModel(
-        name = NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_moonrise_title),
+        name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_moonrise_title),
         icon = NBGridIconModel(NBIcons.Moonrise),
         value = moonrise.time
     )
     val moonsetGridItem = NBGridModel(
-        name = NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_moonset_title),
+        name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_moonset_title),
         icon = NBGridIconModel(NBIcons.Moonset),
         value = moonset.time
     )
@@ -59,12 +59,12 @@ fun SunGridView(
     sunset: NBDateTimeDisplayModel
 ) {
     val sunriseGridItem = NBGridModel(
-        name = NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_sunrise_title),
+        name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_sunrise_title),
         icon = NBGridIconModel(NBIcons.Sunrise),
         value = sunrise.time
     )
     val sunsetGridItem = NBGridModel(
-        name = NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_sunset_title),
+        name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_sunset_title),
         icon = NBGridIconModel(NBIcons.Sunset),
         value = sunset.time
     )

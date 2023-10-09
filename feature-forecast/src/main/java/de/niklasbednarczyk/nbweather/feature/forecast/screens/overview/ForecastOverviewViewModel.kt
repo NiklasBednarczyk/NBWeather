@@ -2,11 +2,10 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.combineResourceFlows
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.flatMapLatestResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshFlow
-import de.niklasbednarczyk.nbweather.data.airpollution.repositories.AirPollutionRepository
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
@@ -16,7 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForecastOverviewViewModel @Inject constructor(
-    private val airPollutionRepository: AirPollutionRepository,
     private val geocodingRepository: GeocodingRepository,
     private val oneCallRepository: OneCallRepository
 ) : NBViewModel<ForecastOverviewUiState>(ForecastOverviewUiState()) {
@@ -31,15 +29,12 @@ class ForecastOverviewViewModel @Inject constructor(
                     val latitude = currentLocation.latitude
                     val longitude = currentLocation.longitude
 
-                    combineResourceFlows(
-                        airPollutionRepository.getAirPollution(latitude, longitude, forceUpdate),
-                        oneCallRepository.getOneCall(latitude, longitude, forceUpdate)
-                    ) { airPollution, oneCall ->
-                        ForecastOverviewItem.from(
-                            airPollution = airPollution,
-                            oneCall = oneCall
-                        )
-                    }
+                    oneCallRepository.getOneCall(latitude, longitude, forceUpdate)
+                        .mapResource { oneCall ->
+                            ForecastOverviewItem.from(
+                                oneCall = oneCall
+                            )
+                        }
                 }
         }
 

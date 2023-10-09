@@ -2,7 +2,6 @@ plugins {
     id("de.niklasbednarczyk.nbweather.library.ui")
 }
 dependencies {
-    implementation(project(":data-airpollution"))
     implementation(project(":data-geocoding"))
     implementation(project(":data-onecall"))
 }

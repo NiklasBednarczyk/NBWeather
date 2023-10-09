@@ -15,7 +15,7 @@ class ForecastHourlyFragment : NBFragment<ForecastHourlyUiState>() {
 
     override fun createTopAppBarItem(uiState: ForecastHourlyUiState): NBTopAppBarItem {
         return NBTopAppBarItem.Material.Small(
-            title = NBString.ResString(R.string.screen_forecast_hourly_title)
+            title = NBString.ResString(R.string.screen_forecast_overview_hourly_title)
         )
     }
 

@@ -59,8 +59,8 @@
     <string name="icon_content_description_moon_phase_waxing_gibbous_4">Waxing Gibbous 4</string>
     <string name="icon_content_description_moon_phase_waxing_gibbous_5">Waxing Gibbous 5</string>
     <string name="icon_content_description_moon_phase_waxing_gibbous_6">Waxing Gibbous 6</string>
-    <string name="icon_content_description_moonrise" translatable="false">@string/screen_forecast_overview_sun_and_moon_moonrise_title</string>
-    <string name="icon_content_description_moonset" translatable="false">@string/screen_forecast_overview_sun_and_moon_moonset_title</string>
+    <string name="icon_content_description_moonrise" translatable="false">@string/screen_forecast_common_sun_and_moon_moonrise_title</string>
+    <string name="icon_content_description_moonset" translatable="false">@string/screen_forecast_common_sun_and_moon_moonset_title</string>
     <string name="icon_content_description_pressure" translatable="false">@string/screen_forecast_common_forecast_name_pressure</string>
     <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_forecast_common_forecast_name_probability_of_precipitation</string>
     <string name="icon_content_description_rain" translatable="false">@string/screen_forecast_common_forecast_name_rain</string>
@@ -69,8 +69,8 @@
     <string name="icon_content_description_settings" translatable="false">@string/screen_settings_overview_title</string>
     <string name="icon_content_description_snow" translatable="false">@string/screen_forecast_common_forecast_name_snow</string>
     <string name="icon_content_description_sun">Sun</string>
-    <string name="icon_content_description_sunrise" translatable="false">@string/screen_forecast_overview_sun_and_moon_sunrise_title</string>
-    <string name="icon_content_description_sunset" translatable="false">@string/screen_forecast_overview_sun_and_moon_sunset_title</string>
+    <string name="icon_content_description_sunrise" translatable="false">@string/screen_forecast_common_sun_and_moon_sunrise_title</string>
+    <string name="icon_content_description_sunset" translatable="false">@string/screen_forecast_common_sun_and_moon_sunset_title</string>
     <string name="icon_content_description_temperature" translatable="false">@string/screen_forecast_common_forecast_name_temperature</string>
     <string name="icon_content_description_units" translatable="false">@string/screen_settings_units_title</string>
     <string name="icon_content_description_uv_index" translatable="false">@string/screen_forecast_common_forecast_name_uv_index</string>
@@ -132,6 +132,11 @@
     <string name="screen_forecast_common_moon_phase_waning_gibbous">Waning Gibbous</string>
     <string name="screen_forecast_common_moon_phase_waxing_crescent">Waxing Crescent</string>
     <string name="screen_forecast_common_moon_phase_waxing_gibbous">Waxing Gibbous</string>
+    <string name="screen_forecast_common_sun_and_moon_moon_phase_title">Moon phase</string>
+    <string name="screen_forecast_common_sun_and_moon_moonrise_title">Moonrise</string>
+    <string name="screen_forecast_common_sun_and_moon_moonset_title">Moonset</string>
+    <string name="screen_forecast_common_sun_and_moon_sunrise_title">Sunrise</string>
+    <string name="screen_forecast_common_sun_and_moon_sunset_title">Sunset</string>
     <string name="screen_forecast_common_weather_condition_broken_clouds">Broken clouds</string>
     <string name="screen_forecast_common_weather_condition_clear_sky">Clear sky</string>
     <string name="screen_forecast_common_weather_condition_drizzle_rain">Drizzle rain</string>
@@ -204,12 +209,10 @@
     <string name="screen_forecast_common_wind_degrees_wnw">WNW</string>
     <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
 
-    <string name="screen_forecast_daily_title">Daily forecast</string>
-
-    <string name="screen_forecast_hourly_title">Hourly forecast</string>
-
     <string name="screen_forecast_overview_alerts_text_fallback">Alert</string>
     <string name="screen_forecast_overview_current_weather_title">Current weather</string>
+    <string name="screen_forecast_overview_daily_title">Daily forecast</string>
+    <string name="screen_forecast_overview_hourly_title">Hourly forecast</string>
     <plurals name="screen_forecast_overview_precipitation_headline_breaking">
         <item quantity="one">A break in precipitation in %1$s minute</item>
         <item quantity="other">A break in precipitation in %1$s minutes</item>
@@ -225,11 +228,6 @@
         <item quantity="other">Precipitation starting in %1$s minutes</item>
     </plurals>
     <string name="screen_forecast_overview_precipitation_title">Precipitation</string>
-    <string name="screen_forecast_overview_sun_and_moon_moon_phase_title">Moon phase</string>
-    <string name="screen_forecast_overview_sun_and_moon_moonrise_title">Moonrise</string>
-    <string name="screen_forecast_overview_sun_and_moon_moonset_title">Moonset</string>
-    <string name="screen_forecast_overview_sun_and_moon_sunrise_title">Sunrise</string>
-    <string name="screen_forecast_overview_sun_and_moon_sunset_title">Sunset</string>
     <string name="screen_forecast_overview_sun_and_moon_title">Sun and moon</string>
 
     <string name="screen_search_overview_search_no_results">No locations found</string>

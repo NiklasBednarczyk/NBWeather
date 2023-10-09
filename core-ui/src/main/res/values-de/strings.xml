@@ -94,6 +94,11 @@
     <string name="screen_forecast_common_moon_phase_waning_gibbous">Abnehmender Dreiviertelmond</string>
     <string name="screen_forecast_common_moon_phase_waxing_crescent">Zunehmender Sichelmond</string>
     <string name="screen_forecast_common_moon_phase_waxing_gibbous">Zunehmender Dreiviertelmond</string>
+    <string name="screen_forecast_common_sun_and_moon_moon_phase_title">Mondphase</string>
+    <string name="screen_forecast_common_sun_and_moon_moonrise_title">Mondaufgang</string>
+    <string name="screen_forecast_common_sun_and_moon_moonset_title">Monduntergang</string>
+    <string name="screen_forecast_common_sun_and_moon_sunrise_title">Sonnenaufgang</string>
+    <string name="screen_forecast_common_sun_and_moon_sunset_title">Sonnenuntergang</string>
     <string name="screen_forecast_common_weather_condition_broken_clouds">Stark bewölkt</string>
     <string name="screen_forecast_common_weather_condition_clear_sky">Klarer Himmel</string>
     <string name="screen_forecast_common_weather_condition_drizzle_rain">Nieselregen</string>
@@ -166,12 +171,10 @@
     <string name="screen_forecast_common_wind_degrees_wnw">WNW</string>
     <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
 
-    <string name="screen_forecast_daily_title">Tägliche Vorhersage</string>
-
-    <string name="screen_forecast_hourly_title">Stündliche Vorhersage</string>
-
     <string name="screen_forecast_overview_alerts_text_fallback">Meldung</string>
     <string name="screen_forecast_overview_current_weather_title">Aktuelles Wetter</string>
+    <string name="screen_forecast_overview_daily_title">Tägliche Vorhersage</string>
+    <string name="screen_forecast_overview_hourly_title">Stündliche Vorhersage</string>
     <plurals name="screen_forecast_overview_precipitation_headline_breaking">
         <item quantity="one">Unterbrechung des Niederschlags in %1$s Minute</item>
         <item quantity="other">Unterbrechung des Niederschlags in %1$s Minuten</item>
@@ -187,11 +190,6 @@
         <item quantity="other">Niederschlag beginnt in %1$s Minuten</item>
     </plurals>
     <string name="screen_forecast_overview_precipitation_title">Niederschlag</string>
-    <string name="screen_forecast_overview_sun_and_moon_moon_phase_title">Mondphase</string>
-    <string name="screen_forecast_overview_sun_and_moon_moonrise_title">Mondaufgang</string>
-    <string name="screen_forecast_overview_sun_and_moon_moonset_title">Monduntergang</string>
-    <string name="screen_forecast_overview_sun_and_moon_sunrise_title">Sonnenaufgang</string>
-    <string name="screen_forecast_overview_sun_and_moon_sunset_title">Sonnenuntergang</string>
     <string name="screen_forecast_overview_sun_and_moon_title">Sonne und Mond</string>
 
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>

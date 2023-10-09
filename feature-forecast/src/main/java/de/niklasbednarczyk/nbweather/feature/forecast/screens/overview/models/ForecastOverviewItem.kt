@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
-import de.niklasbednarczyk.nbweather.data.airpollution.models.AirPollutionModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 
 sealed interface ForecastOverviewItem {
@@ -9,7 +8,6 @@ sealed interface ForecastOverviewItem {
     companion object {
 
         fun from(
-            airPollution: AirPollutionModelData,
             oneCall: OneCallModelData
         ): List<ForecastOverviewItem>? {
             val items = listOfNotNull(
