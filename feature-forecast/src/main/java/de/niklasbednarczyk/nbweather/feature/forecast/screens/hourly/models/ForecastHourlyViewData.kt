@@ -1,10 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models
 
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphsAxisModel
-import de.niklasbednarczyk.nbweather.core.ui.graphs.NBGraphsViewData
-import de.niklasbednarczyk.nbweather.core.ui.limit.NBLimitsItem
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.CloudinessForecastValue.Companion.orZero
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.DewPointForecastValue.Companion.orZero
@@ -21,44 +17,32 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.VisibilityFore
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindGustForecastValue.Companion.orZero
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindSpeedForecastValue.Companion.orZero
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
-import de.niklasbednarczyk.nbweather.feature.forecast.extensions.limits
-import de.niklasbednarczyk.nbweather.feature.forecast.extensions.name
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.sortOrder
 
 data class ForecastHourlyViewData(
-    override val axes: List<NBGraphsAxisModel>, override val graphs: List<List<ForecastValue.Units>>
-) : NBGraphsViewData<ForecastValue.Units> {
-
-    override fun getAbsoluteValue(value: ForecastValue.Units): Double {
-        return value.unitsValue.value.toDouble()
-    }
-
-    override fun getName(value: ForecastValue.Units): NBString {
-        return value.name
-    }
-
-    override fun getLimits(value: ForecastValue.Units): NBLimitsItem {
-        return value.limits
-    }
+    val axes: List<ForecastHourlyAxisModel>,
+    val graphs: List<List<ForecastValue.Units>>
+) {
 
     companion object {
 
         fun from(
             oneCall: OneCallModelData
         ): ForecastHourlyViewData? {
+
             val timezoneOffset = oneCall.timezoneOffset
             val hourlyForecasts = oneCall.hourlyForecasts
 
             if (hourlyForecasts.isEmpty()) return null
 
-            val axes = hourlyForecasts.mapNotNull { hourlyForecast ->
+            val axes = hourlyForecasts.map { hourlyForecast ->
                 val forecastTime =
                     NBDateTimeDisplayModel.from(hourlyForecast.forecastTime, timezoneOffset)
                 val icon = hourlyForecast.weather?.icon?.icon
 
-                NBGraphsAxisModel(
-                    forecastTime = forecastTime ?: return@mapNotNull null,
-                    icon = icon ?: return@mapNotNull null
+                ForecastHourlyAxisModel(
+                    forecastTime = forecastTime ?: return null,
+                    icon = icon ?: return null
                 )
             }
 
@@ -122,7 +106,7 @@ data class ForecastHourlyViewData(
                 graphs = graphs
             )
         }
-
     }
+
 
 }
