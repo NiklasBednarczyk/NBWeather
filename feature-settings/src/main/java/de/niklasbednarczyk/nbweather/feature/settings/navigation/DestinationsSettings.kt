@@ -20,6 +20,12 @@ object DestinationsSettings {
 
     }
 
+    object Order : NBDestination.WithoutArguments() {
+
+        override val topLevelDestination: NBTopLevelDestination = topLevel
+
+    }
+
     object Overview : NBDestination.WithoutArguments() {
 
         override val topLevelDestination: NBTopLevelDestination = topLevel

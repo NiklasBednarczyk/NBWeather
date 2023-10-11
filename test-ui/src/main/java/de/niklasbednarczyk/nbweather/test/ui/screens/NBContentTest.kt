@@ -12,6 +12,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBColorSche
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBThemeType
 import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontAxes
 import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
+import de.niklasbednarczyk.nbweather.core.common.settings.order.NBOrderModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBDistanceUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPrecipitationUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPressureUnitType
@@ -20,6 +21,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitType
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBAppearance
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBFont
+import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBOrder
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBUnits
 import org.junit.Rule
 
@@ -33,6 +35,7 @@ abstract class NBContentTest : NBComposeTest {
     protected fun setContent(
         appearance: NBAppearanceModel = testAppearance,
         font: NBFontModel = testFont,
+        order: NBOrderModel = testOrder,
         units: NBUnitsModel = testUnits,
         content: @Composable () -> Unit
     ) {
@@ -40,6 +43,7 @@ abstract class NBContentTest : NBComposeTest {
             CompositionLocalProvider(
                 LocalNBAppearance provides appearance,
                 LocalNBFont provides font,
+                LocalNBOrder provides order,
                 LocalNBUnits provides units
             ) {
                 MaterialTheme {
@@ -68,6 +72,14 @@ abstract class NBContentTest : NBComposeTest {
         figureHeight = NBFontAxes.FigureHeight.defaultValue,
         lowercaseHeight = NBFontAxes.LowercaseHeight.defaultValue,
         uppercaseHeight = NBFontAxes.UppercaseHeight.defaultValue
+    )
+
+    private val testOrder = NBOrderModel(
+        currentWeatherOrder = 1,
+        dailyOrder = 2,
+        hourlyOrder = 3,
+        precipitationOrder = 4,
+        sunAndMoonOrder = 5
     )
 
     private val testUnits = NBUnitsModel(

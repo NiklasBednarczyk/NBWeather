@@ -82,13 +82,13 @@ class SettingsListContentTest : NBContentTest() {
         val itemDestination1 = SettingsListItemModel.ItemDestination(
             icon = NBIcons.Appearance,
             title = createNBString("ItemDestination 1 Title"),
-            value = createNBString("ItemDestination 1 Value"),
+            description = createNBString("ItemDestination 1 Value"),
             destination = DestinationsSettings.Appearance
         )
         val itemDestination2 = SettingsListItemModel.ItemDestination(
             icon = NBIcons.Units,
             title = createNBString("ItemDestination 2 Title"),
-            value = createNBString("ItemDestination 2 Value"),
+            description = createNBString("ItemDestination 2 Value"),
             destination = DestinationsSettings.Units
         )
         val itemSlider = SettingsListItemModel.ItemSlider(

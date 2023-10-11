@@ -9,8 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
@@ -115,28 +113,14 @@ private fun Content(
 private fun Title(
     item: ForecastOverviewItem
 ) {
-    val title = when (item) {
-        is ForecastOverviewAlertsModel,
-        is ForecastOverviewSummaryModel -> null
-
-        is ForecastOverviewCurrentWeatherModel -> NBString.ResString(R.string.screen_forecast_overview_current_weather_title)
-
-        is ForecastOverviewDailyModel -> NBString.ResString(R.string.screen_forecast_overview_daily_title)
-
-        is ForecastOverviewHourlyModel -> NBString.ResString(R.string.screen_forecast_overview_hourly_title)
-
-        is ForecastOverviewPrecipitationModel -> NBString.ResString(R.string.screen_forecast_overview_precipitation_title)
-
-        is ForecastOverviewSunAndMoonModel -> NBString.ResString(R.string.screen_forecast_overview_sun_and_moon_title)
-    }
-    nbNullSafe(title) { t ->
+    nbNullSafe(item.title) { title ->
         Text(
             modifier = Modifier
                 .padding(
                     horizontal = screenHorizontalPadding,
                     vertical = screenVerticalPadding
                 ),
-            text = t.asString(),
+            text = title.asString(),
             style = MaterialTheme.typography.headlineMedium
         )
     }

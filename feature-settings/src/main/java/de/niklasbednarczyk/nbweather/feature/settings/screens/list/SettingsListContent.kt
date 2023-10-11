@@ -94,7 +94,7 @@ fun SettingsListContent(
                             Text(item.title.asString())
                         },
                         supportingContent = {
-                            NBTextSingleLine(text = item.value.asString())
+                            NBTextSingleLine(text = item.description.asString())
                         },
                         leadingContent = {
                             NBIcon(icon = item.icon)

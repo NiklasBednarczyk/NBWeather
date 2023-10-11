@@ -21,7 +21,7 @@ sealed interface SettingsListItemModel {
     data class ItemDestination(
         val icon: NBIconModel,
         val title: NBString?,
-        val value: NBString?,
+        val description: NBString?,
         val destination: NBDestination.WithoutArguments
     ) : SettingsListItemModel
 

@@ -3,9 +3,6 @@
     <string name="error_text_unknown">Something went wrong</string>
 
     <string name="format_brackets" translatable="false">%1$s (%2$s)</string>
-    <string name="format_bullet_2_items" translatable="false">%1$s &#8226; %2$s</string>
-    <string name="format_bullet_5_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s &#8226; %4$s &#8226; %5$s</string>
-    <string name="format_bullet_11_items" translatable="false">%1$s &#8226; %2$s &#8226; %3$s &#8226; %4$s &#8226; %5$s &#8226; %6$s &#8226; %7$s &#8226; %8$s &#8226; %9$s &#8226; %10$s &#8226; %11$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
     <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
 
@@ -19,6 +16,7 @@
     <string name="icon_content_description_cloudiness" translatable="false">@string/screen_forecast_common_forecast_name_cloudiness</string>
     <string name="icon_content_description_delete">Delete</string>
     <string name="icon_content_description_dew_point" translatable="false">@string/screen_forecast_common_forecast_name_dew_point</string>
+    <string name="icon_content_description_drag_and_drop">Drag and drop</string>
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_error_no_internet" translatable="false">@string/error_text_no_internet</string>
     <string name="icon_content_description_error_unknown" translatable="false">@string/error_text_unknown</string>
@@ -61,6 +59,7 @@
     <string name="icon_content_description_moon_phase_waxing_gibbous_6">Waxing Gibbous 6</string>
     <string name="icon_content_description_moonrise" translatable="false">@string/screen_forecast_common_sun_and_moon_moonrise_title</string>
     <string name="icon_content_description_moonset" translatable="false">@string/screen_forecast_common_sun_and_moon_moonset_title</string>
+    <string name="icon_content_description_order" translatable="false">@string/screen_settings_order_title</string>
     <string name="icon_content_description_pressure" translatable="false">@string/screen_forecast_common_forecast_name_pressure</string>
     <string name="icon_content_description_probability_of_precipitation" translatable="false">@string/screen_forecast_common_forecast_name_probability_of_precipitation</string>
     <string name="icon_content_description_rain" translatable="false">@string/screen_forecast_common_forecast_name_rain</string>
@@ -238,6 +237,7 @@
     <string name="screen_search_overview_snackbar_location_permission_denied_action_label">Settings</string>
     <string name="screen_search_overview_snackbar_location_permission_denied_message">Location permission denied</string>
 
+    <string name="screen_settings_appearance_description">Change theme and color scheme</string>
     <string name="screen_settings_appearance_header_color_scheme">Color scheme</string>
     <string name="screen_settings_appearance_header_theme">Theme</string>
     <string name="screen_settings_appearance_title">Appearance</string>
@@ -263,11 +263,16 @@
     <string name="screen_settings_font_axis_uppercase_height">Uppercase height</string>
     <string name="screen_settings_font_axis_weight">Weight</string>
     <string name="screen_settings_font_axis_width">Width</string>
+    <string name="screen_settings_font_description">Modify font axes</string>
     <string name="screen_settings_font_sticky_header_text">The quick brown fox jumps over the lazy dog</string>
     <string name="screen_settings_font_title">Font</string>
 
+    <string name="screen_settings_order_description">Adjust order of forecasts</string>
+    <string name="screen_settings_order_title">Order</string>
+
     <string name="screen_settings_overview_title">Settings</string>
 
+    <string name="screen_settings_units_description">Manage units</string>
     <string name="screen_settings_units_header_distance">Distance</string>
     <string name="screen_settings_units_header_precipitation">Precipitation</string>
     <string name="screen_settings_units_header_pressure">Pressure</string>

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "de.niklasbednarczyk.nbweather.data.settings.proto.order";
+option java_multiple_files = true;
+
+message SettingsOrderProto {
+  
+  int32 currentWeatherOrder = 1;
+  int32 dailyOrder = 2;
+  int32 hourlyOrder = 3;
+  int32 precipitationOrder = 4;
+  int32 sunAndMoonOrder = 5;
+
+}

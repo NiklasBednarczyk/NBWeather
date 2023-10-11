@@ -8,7 +8,9 @@ import androidx.compose.ui.unit.dp
 
 const val alphaContentDisabled = 0.38f
 
+val elevationLevel0 = 0.dp
 val elevationLevel2 = 3.dp
+val elevationLevel4 = 8.dp
 
 val filledTonalButtonIconSize = 18.dp
 val filledTonalButtonPaddingBetweenElements = 8.dp
@@ -24,6 +26,8 @@ val listContentPaddingValuesVertical = PaddingValues(
     vertical = listContentPaddingVertical
 )
 
+val listItemElevationDragged = elevationLevel4
+val listItemElevationEnabled = elevationLevel0
 val listItemPaddingValuesVerticalOneLine = PaddingValues(vertical = 8.dp)
 val listItemPaddingValuesHorizontal = PaddingValues(
     start = 16.dp,

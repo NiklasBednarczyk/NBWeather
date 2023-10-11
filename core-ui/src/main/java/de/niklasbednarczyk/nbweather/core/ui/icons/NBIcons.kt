@@ -47,6 +47,12 @@ object NBIcons {
             NBString.ResString(R.string.icon_content_description_dew_point)
     }
 
+    object DragAndDrop : NBIconModel {
+        override val resId: Int = R.drawable.baseline_drag_indicator_24
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_drag_and_drop)
+    }
+
     object Drawer : NBIconModel {
         override val resId: Int = R.drawable.baseline_menu_24
         override val contentDescription: NBString =
@@ -297,6 +303,12 @@ object NBIcons {
         override val resId: Int = R.drawable.wi_moonset
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moonset)
+    }
+
+    object Order : NBIconModel {
+        override val resId: Int = R.drawable.baseline_drag_handle_24
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_order)
     }
 
     object Pressure : NBIconModel {

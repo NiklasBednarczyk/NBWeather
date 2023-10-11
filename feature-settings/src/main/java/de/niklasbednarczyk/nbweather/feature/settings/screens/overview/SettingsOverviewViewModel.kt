@@ -23,11 +23,7 @@ class SettingsOverviewViewModel @Inject constructor() : SettingsListViewModel() 
                 SettingsListItemModel.ItemDestination(
                     icon = NBIcons.Appearance,
                     title = NBString.ResString(R.string.screen_settings_appearance_title),
-                    value = NBString.ResString(
-                        R.string.format_bullet_2_items,
-                        NBString.ResString(R.string.screen_settings_appearance_header_theme),
-                        NBString.ResString(R.string.screen_settings_appearance_header_color_scheme)
-                    ),
+                    description = NBString.ResString(R.string.screen_settings_appearance_description),
                     destination = DestinationsSettings.Appearance
                 )
             )
@@ -37,20 +33,7 @@ class SettingsOverviewViewModel @Inject constructor() : SettingsListViewModel() 
                     SettingsListItemModel.ItemDestination(
                         icon = NBIcons.Font,
                         title = NBString.ResString(R.string.screen_settings_font_title),
-                        value = NBString.ResString(
-                            R.string.format_bullet_11_items,
-                            NBString.ResString(R.string.screen_settings_font_axis_slant),
-                            NBString.ResString(R.string.screen_settings_font_axis_width),
-                            NBString.ResString(R.string.screen_settings_font_axis_weight),
-                            NBString.ResString(R.string.screen_settings_font_axis_grade),
-                            NBString.ResString(R.string.screen_settings_font_axis_counter_width),
-                            NBString.ResString(R.string.screen_settings_font_axis_thin_stroke),
-                            NBString.ResString(R.string.screen_settings_font_axis_ascender_height),
-                            NBString.ResString(R.string.screen_settings_font_axis_descender_depth),
-                            NBString.ResString(R.string.screen_settings_font_axis_figure_height),
-                            NBString.ResString(R.string.screen_settings_font_axis_lowercase_height),
-                            NBString.ResString(R.string.screen_settings_font_axis_uppercase_height)
-                        ),
+                        description = NBString.ResString(R.string.screen_settings_font_description),
                         destination = DestinationsSettings.Font
                     )
                 )
@@ -60,15 +43,17 @@ class SettingsOverviewViewModel @Inject constructor() : SettingsListViewModel() 
                 SettingsListItemModel.ItemDestination(
                     icon = NBIcons.Units,
                     title = NBString.ResString(R.string.screen_settings_units_title),
-                    value = NBString.ResString(
-                        R.string.format_bullet_5_items,
-                        NBString.ResString(R.string.screen_settings_units_header_temperature),
-                        NBString.ResString(R.string.screen_settings_units_header_precipitation),
-                        NBString.ResString(R.string.screen_settings_units_header_distance),
-                        NBString.ResString(R.string.screen_settings_units_header_pressure),
-                        NBString.ResString(R.string.screen_settings_units_header_wind_speed)
-                    ),
+                    description = NBString.ResString(R.string.screen_settings_units_description),
                     destination = DestinationsSettings.Units
+                )
+            )
+
+            items.add(
+                SettingsListItemModel.ItemDestination(
+                    icon = NBIcons.Order,
+                    title = NBString.ResString(R.string.screen_settings_order_title),
+                    description = NBString.ResString(R.string.screen_settings_order_description),
+                    destination = DestinationsSettings.Order
                 )
             )
 

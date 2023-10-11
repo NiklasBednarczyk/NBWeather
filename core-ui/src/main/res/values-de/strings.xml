@@ -8,6 +8,7 @@
     <string name="icon_content_description_back">Zurück</string>
     <string name="icon_content_description_cancel">Abbrechen</string>
     <string name="icon_content_description_delete">Löschen</string>
+    <string name="icon_content_description_drag_and_drop">Ziehen und Ablegen</string>
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_expand">Ausklappen</string>
     <string name="icon_content_description_find_location">Standort finden</string>
@@ -200,6 +201,7 @@
     <string name="screen_search_overview_snackbar_location_permission_denied_action_label">Einstellungen</string>
     <string name="screen_search_overview_snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
 
+    <string name="screen_settings_appearance_description">Design und Farbschema ändern</string>
     <string name="screen_settings_appearance_header_color_scheme">Farbschema</string>
     <string name="screen_settings_appearance_header_theme">Design</string>
     <string name="screen_settings_appearance_title">Aussehen</string>
@@ -225,11 +227,16 @@
     <string name="screen_settings_font_axis_uppercase_height">Höhe der Großbuchstaben</string>
     <string name="screen_settings_font_axis_weight">Strichstärke</string>
     <string name="screen_settings_font_axis_width">Breite</string>
+    <string name="screen_settings_font_description">Achsen der Schriftart modifizieren</string>
     <string name="screen_settings_font_sticky_header_text">Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich</string>
     <string name="screen_settings_font_title">Schriftart</string>
 
+    <string name="screen_settings_order_description">Reihenfolge der Vorhersagen anpassen</string>
+    <string name="screen_settings_order_title">Reihenfolge</string>
+
     <string name="screen_settings_overview_title">Einstellungen</string>
 
+    <string name="screen_settings_units_description">Einheiten verwalten</string>
     <string name="screen_settings_units_header_distance">Entfernung</string>
     <string name="screen_settings_units_header_precipitation">Niederschlag</string>
     <string name="screen_settings_units_header_pressure">Druck</string>
