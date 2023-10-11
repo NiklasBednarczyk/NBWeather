@@ -17,30 +17,28 @@ import de.niklasbednarczyk.nbweather.core.ui.intent.createUrlIntent
 import timber.log.Timber
 import java.util.regex.Pattern
 
-private val patternEmail = android.util.Patterns.EMAIL_ADDRESS
-private val patternUrl = android.util.Patterns.WEB_URL
-
-private const val TAG_EMAIL = "EMAIL"
-private const val TAG_URL = "URL"
-
 @Composable
 fun NBClickableText(
     text: String,
     style: TextStyle = LocalTextStyle.current,
-    startIntent: (Intent?) -> Unit
+    startIntent: (Intent?) -> Unit,
+    tagEmail: String = "EMAIL",
+    tagUrl: String = "URL"
 ) {
     val annotatedString = getAnnotatedString(
         text = text,
-        textStyle = style
+        textStyle = style,
+        tagEmail = tagEmail,
+        tagUrl = tagUrl
     )
 
     ClickableText(
         text = annotatedString,
         onClick = { offset ->
             val emailAnnotation =
-                annotatedString.getStringAnnotations(TAG_EMAIL, offset, offset).firstOrNull()
+                annotatedString.getStringAnnotations(tagEmail, offset, offset).firstOrNull()
             val urlAnnotation =
-                annotatedString.getStringAnnotations(TAG_URL, offset, offset).firstOrNull()
+                annotatedString.getStringAnnotations(tagUrl, offset, offset).firstOrNull()
 
             val intent = when {
                 emailAnnotation != null -> createEmailIntent(emailAnnotation.item)
@@ -56,7 +54,11 @@ fun NBClickableText(
 @Composable
 private fun getAnnotatedString(
     text: String,
-    textStyle: TextStyle
+    textStyle: TextStyle,
+    tagEmail: String,
+    tagUrl: String,
+    patternEmail: Pattern = android.util.Patterns.EMAIL_ADDRESS,
+    patternUrl: Pattern = android.util.Patterns.WEB_URL
 ): AnnotatedString {
     return buildAnnotatedString {
 
@@ -67,13 +69,13 @@ private fun getAnnotatedString(
         AddAnnotations(
             input = text,
             pattern = patternEmail,
-            tag = TAG_EMAIL
+            tag = tagEmail
         )
 
         AddAnnotations(
             input = text,
             pattern = patternUrl,
-            tag = TAG_URL
+            tag = tagUrl
         )
     }
 }

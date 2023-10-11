@@ -85,26 +85,6 @@ fun ForecastAlertsContent(
 }
 
 @Composable
-private fun Dates(
-    dates: ForecastAlertsAlertInfoItem.Dates
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Date(
-            date = dates.startDate,
-            horizontalAlignment = Alignment.Start
-        )
-        Date(
-            date = dates.endDate,
-            horizontalAlignment = Alignment.End
-        )
-    }
-}
-
-@Composable
 private fun Date(
     date: NBDateTimeDisplayModel,
     horizontalAlignment: Alignment.Horizontal
@@ -124,6 +104,25 @@ private fun Date(
     }
 }
 
+@Composable
+private fun Dates(
+    dates: ForecastAlertsAlertInfoItem.Dates
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Date(
+            date = dates.startDate,
+            horizontalAlignment = Alignment.Start
+        )
+        Date(
+            date = dates.endDate,
+            horizontalAlignment = Alignment.End
+        )
+    }
+}
 
 @Composable
 private fun Description(

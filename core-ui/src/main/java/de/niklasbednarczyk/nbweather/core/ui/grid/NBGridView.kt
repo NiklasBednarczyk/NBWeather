@@ -46,27 +46,6 @@ fun NBGridView(
 }
 
 @Composable
-private fun RowItems(
-    rowItems: List<NBGridModel?>,
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = columnVerticalArrangementSmall
-    ) {
-        NameRow(
-            rowItems = rowItems
-        )
-        IconRow(
-            rowItems = rowItems
-        )
-        ValueRow(
-            rowItems = rowItems
-        )
-    }
-}
-
-
-@Composable
 private fun <T> GridRow(
     items: List<T?>,
     item: @Composable (item: T, modifier: Modifier) -> Unit
@@ -112,6 +91,26 @@ private fun NameRow(
             text = item.name.asString(),
             style = MaterialTheme.typography.titleSmall.nbHyphenated(),
             textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+private fun RowItems(
+    rowItems: List<NBGridModel?>,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = columnVerticalArrangementSmall
+    ) {
+        NameRow(
+            rowItems = rowItems
+        )
+        IconRow(
+            rowItems = rowItems
+        )
+        ValueRow(
+            rowItems = rowItems
         )
     }
 }

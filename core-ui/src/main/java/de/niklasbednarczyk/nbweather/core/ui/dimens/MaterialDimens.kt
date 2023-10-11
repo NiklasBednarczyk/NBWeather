@@ -28,11 +28,6 @@ val listContentPaddingValuesVertical = PaddingValues(
 
 val listItemElevationDragged = elevationLevel4
 val listItemElevationEnabled = elevationLevel0
-val listItemPaddingValuesVerticalOneLine = PaddingValues(vertical = 8.dp)
-val listItemPaddingValuesHorizontal = PaddingValues(
-    start = 16.dp,
-    end = 24.dp
-)
 
 val navigationDrawerDividerPadding = PaddingValues(
     horizontal = 28.dp,

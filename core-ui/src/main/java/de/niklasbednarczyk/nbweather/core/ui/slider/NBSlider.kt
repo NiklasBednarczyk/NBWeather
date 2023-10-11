@@ -47,17 +47,12 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.sliderLabelTextStyle
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import kotlin.math.pow
 
-private const val TWEEN_DURATION_MILLIS = 100
-private val labelOffsetY = sliderHandleSize + 8.dp
-private val labelContainerMinSize = sliderLabelContainerWidth
-private const val LABEL_CONTAINER_CORNER_PERCENT = 25
-private val labelInnerPadding = 4.dp
-private val triangleSize = 8.dp
-
 @Composable
 fun NBSlider(
     modifier: Modifier,
-    model: NBSliderModel
+    model: NBSliderModel,
+    tweenDurationMillis: Int = 100,
+    labelOffsetY: Dp = sliderHandleSize + 8.dp
 ) {
     val titleString = model.title.asString()
 
@@ -98,11 +93,11 @@ fun NBSlider(
                 ),
                 visible = interactions.isNotEmpty(),
                 enter = slideInVertically(
-                    animationSpec = tween(TWEEN_DURATION_MILLIS),
+                    animationSpec = tween(tweenDurationMillis),
                     initialOffsetY = ::getOffsetYAnimation
                 ),
                 exit = slideOutVertically(
-                    animationSpec = tween(TWEEN_DURATION_MILLIS),
+                    animationSpec = tween(tweenDurationMillis),
                     targetOffsetY = ::getOffsetYAnimation
                 )
             ) {
@@ -138,6 +133,10 @@ fun NBSlider(
 private fun SliderLabel(
     modifier: Modifier = Modifier,
     model: NBSliderModel,
+    labelContainerCornerPercent: Int = 25,
+    labelContainerMinSize: Dp = sliderLabelContainerWidth,
+    labelInnerPadding: Dp = 4.dp,
+    triangleSize: Dp = 8.dp
 ) {
     with(LocalDensity.current) {
         var widthPx by remember { mutableIntStateOf(0) }
@@ -163,7 +162,7 @@ private fun SliderLabel(
                 Canvas(
                     modifier = Modifier.matchParentSize()
                 ) {
-                    val cornerRadius = size.height * LABEL_CONTAINER_CORNER_PERCENT / 100
+                    val cornerRadius = size.height * labelContainerCornerPercent / 100
 
                     drawRoundRect(
                         color = labelContainerColor,

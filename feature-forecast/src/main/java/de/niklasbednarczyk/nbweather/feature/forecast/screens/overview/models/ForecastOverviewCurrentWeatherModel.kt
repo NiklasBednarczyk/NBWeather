@@ -1,10 +1,8 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
-import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridModel
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ForecastValue
-import de.niklasbednarczyk.nbweather.feature.forecast.extensions.sortOrder
 
 data class ForecastOverviewCurrentWeatherModel(
     val items: List<ForecastValue>

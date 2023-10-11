@@ -3,7 +3,6 @@ package de.niklasbednarczyk.nbweather.feature.about.screens.overview
 import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,10 +32,6 @@ import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewButtonModel
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewItem
 
-private val horizontalPaddingValues = PaddingValues(
-    horizontal = screenHorizontalPadding
-)
-
 @Composable
 fun AboutOverviewContent(
     uiState: AboutOverviewUiState,
@@ -49,38 +44,21 @@ fun AboutOverviewContent(
         items(uiState.items) { item ->
             when (item) {
                 AboutOverviewItem.Divider -> {
-                    Divider(
-                        modifier = Modifier.padding(
-                            vertical = dividerPaddingVertical
-                        )
-                    )
+                    ItemDivider()
                 }
 
                 is AboutOverviewItem.WithBanner -> {
-                    ItemColumn {
-                        ItemBanner(
-                            banner = item.banner
-                        )
-                        ItemText(
-                            text = item.text
-                        )
-                        ItemButtons(
-                            buttons = item.buttons,
-                            startIntent = startIntent
-                        )
-                    }
+                    WithBanner(
+                        item = item,
+                        startIntent = startIntent
+                    )
                 }
 
                 is AboutOverviewItem.WithoutBanner -> {
-                    ItemColumn {
-                        ItemText(
-                            text = item.text
-                        )
-                        ItemButtons(
-                            buttons = item.buttons,
-                            startIntent = startIntent
-                        )
-                    }
+                    WithoutBanner(
+                        item = item,
+                        startIntent = startIntent
+                    )
                 }
             }
         }
@@ -88,18 +66,7 @@ fun AboutOverviewContent(
 }
 
 @Composable
-private fun ItemColumn(
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = columnVerticalArrangementBig,
-        content = content
-    )
-}
-
-@Composable
-private fun ItemBanner(
+private fun Banner(
     banner: NBImageModel
 ) {
     NBImage(
@@ -109,27 +76,14 @@ private fun ItemBanner(
 }
 
 @Composable
-private fun ItemText(
-    text: NBString?
-) {
-    Text(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontalPaddingValues),
-        text = text.asString(),
-        style = MaterialTheme.typography.bodyLarge
-    )
-}
-
-@Composable
-private fun ItemButtons(
+private fun Buttons(
     buttons: List<AboutOverviewButtonModel>,
     startIntent: (intent: Intent) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontalPaddingValues),
+            .padding(horizontal = screenHorizontalPadding),
         horizontalArrangement = rowHorizontalArrangementSmall
     ) {
         buttons.forEach { button ->
@@ -149,5 +103,73 @@ private fun ItemButtons(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun Description(
+    text: NBString?
+) {
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = screenHorizontalPadding),
+        text = text.asString(),
+        style = MaterialTheme.typography.bodyLarge
+    )
+}
+
+@Composable
+private fun ItemColumn(
+    content: @Composable ColumnScope.() -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = columnVerticalArrangementBig,
+        content = content
+    )
+}
+
+@Composable
+private fun ItemDivider() {
+    Divider(
+        modifier = Modifier.padding(
+            vertical = dividerPaddingVertical
+        )
+    )
+}
+
+@Composable
+private fun WithBanner(
+    item: AboutOverviewItem.WithBanner,
+    startIntent: (intent: Intent) -> Unit
+) {
+    ItemColumn {
+        Banner(
+            banner = item.banner
+        )
+        Description(
+            text = item.text
+        )
+        Buttons(
+            buttons = item.buttons,
+            startIntent = startIntent
+        )
+    }
+}
+
+@Composable
+private fun WithoutBanner(
+    item: AboutOverviewItem.WithoutBanner,
+    startIntent: (intent: Intent) -> Unit
+) {
+    ItemColumn {
+        Description(
+            text = item.text
+        )
+        Buttons(
+            buttons = item.buttons,
+            startIntent = startIntent
+        )
     }
 }

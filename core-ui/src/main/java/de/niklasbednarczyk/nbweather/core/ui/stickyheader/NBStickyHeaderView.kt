@@ -8,20 +8,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 
-private val stickyHeaderPadding = 16.dp
-
 @Composable
 fun NBStickyHeaderView(
-    model: NBStickyHeaderModel
+    model: NBStickyHeaderModel,
+    padding: Dp = 16.dp
 ) {
     Text(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(stickyHeaderPadding),
+            .padding(padding),
         text = model.text.asString(),
         style = MaterialTheme.typography.titleMedium,
         textAlign = TextAlign.Center,

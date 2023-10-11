@@ -74,11 +74,11 @@ fun ForecastHourlyContent(
             FilterChips(
                 viewData = canvasViewData,
                 getSelectedGraph = {
-                    canvasViewData.graphs.getOrNull(selectedGraphIndexState.value)
+                    canvasViewData.graphs.getOrNull(selectedGraphIndexState.intValue)
                 },
                 setSelectedGraph = { graph ->
                     val index = canvasViewData.graphs.indexOf(graph)
-                    selectedGraphIndexState.value = if (index < 0) 0 else index
+                    selectedGraphIndexState.intValue = if (index < 0) 0 else index
                 }
             )
             Row(
@@ -89,7 +89,7 @@ fun ForecastHourlyContent(
                 Graph(
                     viewData = canvasViewData,
                     getSelectedGraph = {
-                        canvasViewData.graphs.getOrNull(selectedGraphIndexState.value)
+                        canvasViewData.graphs.getOrNull(selectedGraphIndexState.intValue)
                     }
                 )
             }

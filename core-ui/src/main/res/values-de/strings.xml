@@ -60,7 +60,6 @@
     <string name="icon_content_description_weather_night_shower_rain">Regenschauer (Nacht)</string>
     <string name="icon_content_description_weather_night_snow">Schnee (Nacht)</string>
     <string name="icon_content_description_weather_night_thunderstorm">Gewitter (Nacht)</string>
-    <string name="icon_content_description_wind_direction">Windgrad</string>
 
     <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
 

@@ -2,7 +2,6 @@
 <resources>
 
     <string name="format_comma_2_items" translatable="false">%1$s, %2$s</string>
-    <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
     <string name="format_units_value_with_symbol_with_space" translatable="false">%1$s %2$s</string>
     <string name="format_units_value_with_symbol_without_space" translatable="false">%1$s%2$s</string>
 

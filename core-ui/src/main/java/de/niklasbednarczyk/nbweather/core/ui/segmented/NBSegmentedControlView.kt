@@ -30,12 +30,11 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.segmentedButtonPaddingHorizo
 import de.niklasbednarczyk.nbweather.core.ui.dimens.segmentedButtonShape
 import de.niklasbednarczyk.nbweather.core.ui.dimens.segmentedButtonTextStyle
 
-private val flatCornerSize = CornerSize(0.dp)
-
 @Composable
 fun <T> NBSegmentedControlView(
     modifier: Modifier = Modifier,
     segmentedControl: NBSegmentedControlModel<T>,
+    cornerSize: CornerSize = CornerSize(0.dp)
 ) {
     Row(
         modifier = modifier
@@ -57,17 +56,17 @@ fun <T> NBSegmentedControlView(
 
             val shape = when (segmentedBorderOrder) {
                 SegmentedBorderOrder.START -> segmentedButtonShape.copy(
-                    topEnd = flatCornerSize,
-                    bottomEnd = flatCornerSize
+                    topEnd = cornerSize,
+                    bottomEnd = cornerSize
                 )
 
                 SegmentedBorderOrder.END -> segmentedButtonShape.copy(
-                    topStart = flatCornerSize,
-                    bottomStart = flatCornerSize
+                    topStart = cornerSize,
+                    bottomStart = cornerSize
                 )
 
                 SegmentedBorderOrder.CENTER -> segmentedButtonShape.copy(
-                    all = flatCornerSize
+                    all = cornerSize
                 )
             }
 

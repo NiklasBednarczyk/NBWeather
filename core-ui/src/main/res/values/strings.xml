@@ -4,7 +4,6 @@
 
     <string name="format_brackets" translatable="false">%1$s (%2$s)</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
-    <string name="format_space_2_items" translatable="false">%1$s %2$s</string>
 
     <string name="fragment_snackbar_intent_failed_message">No fitting app on your phone found</string>
     <string name="fragment_top_app_bar_search_placeholder">Search</string>

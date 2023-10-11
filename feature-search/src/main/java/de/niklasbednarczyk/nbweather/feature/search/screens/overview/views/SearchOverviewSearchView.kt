@@ -35,10 +35,24 @@ fun SearchOverviewSearchView(
 }
 
 @Composable
-private fun NoResults() {
-    NBInfoView(
-        icon = NBIcons.Search,
-        text = NBString.ResString(R.string.screen_search_overview_search_no_results)
+private fun Item(
+    location: LocationModelData,
+    navigateToForecast: (Double, Double) -> Unit
+) {
+    ListItem(
+        modifier = Modifier.clickable {
+            navigateToForecast(location.latitude, location.longitude)
+        },
+        headlineContent = {
+            Text(
+                text = location.localizedName.asString()
+            )
+        },
+        supportingContent = {
+            Text(
+                text = location.stateAndCountry.asString()
+            )
+        },
     )
 }
 
@@ -60,23 +74,9 @@ private fun List(
 }
 
 @Composable
-private fun Item(
-    location: LocationModelData,
-    navigateToForecast: (Double, Double) -> Unit
-) {
-    ListItem(
-        modifier = Modifier.clickable {
-            navigateToForecast(location.latitude, location.longitude)
-        },
-        headlineContent = {
-            Text(
-                text = location.localizedName.asString()
-            )
-        },
-        supportingContent = {
-            Text(
-                text = location.stateAndCountry.asString()
-            )
-        },
+private fun NoResults() {
+    NBInfoView(
+        icon = NBIcons.Search,
+        text = NBString.ResString(R.string.screen_search_overview_search_no_results)
     )
 }

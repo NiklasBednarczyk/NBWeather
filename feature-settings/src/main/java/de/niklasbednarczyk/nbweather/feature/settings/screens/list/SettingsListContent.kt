@@ -12,11 +12,11 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import de.niklasbednarczyk.nbweather.core.ui.dimens.dividerPaddingVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
+import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlView
@@ -27,7 +27,7 @@ import de.niklasbednarczyk.nbweather.core.ui.text.NBTextSingleLine
 import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
 
 private val horizontalPadding = screenHorizontalPadding
-private val verticalPadding = 8.dp
+private val verticalPadding = screenVerticalPadding
 
 @Composable
 fun SettingsListContent(
@@ -57,83 +57,133 @@ fun SettingsListContent(
         items(items) { item ->
             when (item) {
                 is SettingsListItemModel.Divider -> {
-                    Divider(
-                        modifier = Modifier.padding(
-                            vertical = dividerPaddingVertical
-                        )
-                    )
+                    ItemDivider()
                 }
 
                 is SettingsListItemModel.Header -> {
-                    Text(
-                        modifier = Modifier.padding(
-                            horizontal = horizontalPadding,
-                            vertical = verticalPadding * 2
-                        ),
-                        text = item.text.asString(),
-                        style = MaterialTheme.typography.titleSmall
+                    Header(
+                        item = item
                     )
                 }
 
                 is SettingsListItemModel.ItemButtons -> {
-                    NBSegmentedControlView(
-                        modifier = Modifier.padding(
-                            horizontal = horizontalPadding,
-                            vertical = verticalPadding
-                        ),
-                        segmentedControl = item.segmentedControl
+                    ItemButtons(
+                        item = item
                     )
                 }
 
                 is SettingsListItemModel.ItemDestination -> {
-                    ListItem(
-                        modifier = Modifier.clickable {
-                            navigate(item.destination)
-                        },
-                        headlineContent = {
-                            Text(item.title.asString())
-                        },
-                        supportingContent = {
-                            NBTextSingleLine(text = item.description.asString())
-                        },
-                        leadingContent = {
-                            NBIcon(icon = item.icon)
-                        }
+                    ItemDestination(
+                        item = item,
+                        navigate = navigate
                     )
                 }
 
                 is SettingsListItemModel.ItemSlider -> {
-                    NBSlider(
-                        modifier = Modifier.padding(
-                            horizontal = horizontalPadding,
-                            vertical = verticalPadding
-                        ),
-                        model = item.slider
+                    ItemSlider(
+                        item = item
                     )
                 }
 
                 is SettingsListItemModel.ItemSwitch -> {
-                    ListItem(
-                        modifier = Modifier.clickable {
-                            item.onCheckedChange(!item.checked)
-                        },
-                        headlineContent = {
-                            Text(item.title.asString())
-                        },
-                        supportingContent = {
-                            Text(item.value.asString())
-                        },
-                        trailingContent = {
-                            Switch(
-                                checked = item.checked,
-                                onCheckedChange = item.onCheckedChange
-                            )
-                        }
+                    ItemSwitch(
+                        item = item
                     )
                 }
             }
         }
     }
+}
 
+@Composable
+private fun Header(
+    item: SettingsListItemModel.Header
+) {
+    Text(
+        modifier = Modifier.padding(
+            horizontal = horizontalPadding,
+            vertical = verticalPadding * 2
+        ),
+        text = item.text.asString(),
+        style = MaterialTheme.typography.titleSmall
+    )
+}
 
+@Composable
+private fun ItemButtons(
+    item: SettingsListItemModel.ItemButtons
+) {
+    NBSegmentedControlView(
+        modifier = Modifier.padding(
+            horizontal = horizontalPadding,
+            vertical = verticalPadding
+        ),
+        segmentedControl = item.segmentedControl
+    )
+}
+
+@Composable
+private fun ItemDestination(
+    item: SettingsListItemModel.ItemDestination,
+    navigate: (destination: NBDestination.WithoutArguments) -> Unit
+) {
+    ListItem(
+        modifier = Modifier.clickable {
+            navigate(item.destination)
+        },
+        headlineContent = {
+            Text(item.title.asString())
+        },
+        supportingContent = {
+            NBTextSingleLine(text = item.description.asString())
+        },
+        leadingContent = {
+            NBIcon(icon = item.icon)
+        }
+    )
+}
+
+@Composable
+private fun ItemDivider() {
+    Divider(
+        modifier = Modifier.padding(
+            vertical = dividerPaddingVertical
+        )
+    )
+}
+
+@Composable
+private fun ItemSlider(
+    item: SettingsListItemModel.ItemSlider
+) {
+    NBSlider(
+        modifier = Modifier.padding(
+            horizontal = horizontalPadding,
+            vertical = verticalPadding
+        ),
+        model = item.slider
+    )
+}
+
+@Composable
+private fun ItemSwitch(
+    item: SettingsListItemModel.ItemSwitch
+) {
+    ListItem(
+        modifier = Modifier.clickable {
+            item.onCheckedChange(!item.checked)
+        },
+        headlineContent = {
+            Text(item.title.asString())
+        },
+        supportingContent = {
+            Text(item.value.asString())
+        },
+        trailingContent = {
+            Switch(
+                checked = item.checked,
+                onCheckedChange = item.onCheckedChange
+            )
+        }
+    )
 }
