@@ -25,7 +25,7 @@ sealed interface ForecastOverviewItem {
         }
 
 
-    private fun getSortOrder(order: NBOrderModel): Int {
+    fun getSortOrder(order: NBOrderModel): Int {
         return when (this) {
             is ForecastOverviewAlertsModel -> -2
             is ForecastOverviewCurrentWeatherModel -> order.currentWeatherOrder
@@ -40,8 +40,7 @@ sealed interface ForecastOverviewItem {
     companion object {
 
         fun from(
-            oneCall: OneCallModelData,
-            order: NBOrderModel
+            oneCall: OneCallModelData
         ): List<ForecastOverviewItem>? {
             val items = listOfNotNull(
                 ForecastOverviewAlertsModel.from(oneCall),
@@ -51,9 +50,7 @@ sealed interface ForecastOverviewItem {
                 ForecastOverviewPrecipitationModel.from(oneCall),
                 ForecastOverviewSummaryModel.from(oneCall),
                 ForecastOverviewSunAndMoonModel.from(oneCall)
-            ).sortedBy { item ->
-                item.getSortOrder(order)
-            }
+            )
             return nbNullSafeList(items) { i -> i }
         }
     }

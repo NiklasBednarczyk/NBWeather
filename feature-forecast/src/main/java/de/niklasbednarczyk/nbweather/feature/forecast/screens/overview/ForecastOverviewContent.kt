@@ -26,11 +26,15 @@ fun ForecastOverviewContent(
 
     NBResourceWithLoadingView(uiState.itemsResource) { items ->
         NBSwipeRefreshView(refreshFlow = itemsFlow) {
+            val order = NBSettings.order
+            val sortedItems = items.sortedBy { item ->
+                item.getSortOrder(order)
+            }
             LazyColumn(
                 contentPadding = listContentPaddingValuesVertical,
                 verticalArrangement = columnVerticalArrangementBig
             ) {
-                items(items) { item ->
+                items(sortedItems) { item ->
                     ForecastOverviewItemView(
                         item = item,
                         navigateToAlerts = {

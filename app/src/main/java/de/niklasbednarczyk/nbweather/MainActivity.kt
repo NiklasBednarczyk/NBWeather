@@ -21,8 +21,10 @@ import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
 import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
+import de.niklasbednarczyk.nbweather.core.common.settings.order.NBOrderModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
@@ -32,6 +34,7 @@ import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingVi
 import de.niklasbednarczyk.nbweather.core.ui.screen.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBAppearance
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBFont
+import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBOrder
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBUnits
 import de.niklasbednarczyk.nbweather.core.ui.settings.NBSettings
 import de.niklasbednarczyk.nbweather.databinding.ContentAppBinding
@@ -70,6 +73,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
             SetupSettings(
                 appearance = uiState.value.appearance,
                 font = uiState.value.font,
+                order = uiState.value.order,
                 units = uiState.value.units
             ) {
                 NBTheme {
@@ -94,14 +98,21 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
     private fun SetupSettings(
         appearance: NBAppearanceModel?,
         font: NBFontModel?,
+        order: NBOrderModel?,
         units: NBUnitsModel?,
         content: @Composable () -> Unit
     ) {
-        if (appearance != null && font != null && units != null) {
+        nbNullSafe(
+            appearance,
+            font,
+            order,
+            units
+        ) { a, f, o, u ->
             CompositionLocalProvider(
-                LocalNBAppearance provides appearance,
-                LocalNBFont provides font,
-                LocalNBUnits provides units,
+                LocalNBAppearance provides a,
+                LocalNBFont provides f,
+                LocalNBOrder provides o,
+                LocalNBUnits provides u,
                 content = content
             )
         }

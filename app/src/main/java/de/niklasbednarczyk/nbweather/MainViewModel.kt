@@ -6,12 +6,13 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.transformToList
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
+import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsFontRepository
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsOrderRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import kotlinx.coroutines.flow.Flow
@@ -22,6 +23,7 @@ class MainViewModel @Inject constructor(
     private val geocodingRepository: GeocodingRepository,
     private val settingsAppearanceRepository: SettingsAppearanceRepository,
     private val settingsFontRepository: SettingsFontRepository,
+    private val settingsOrderRepository: SettingsOrderRepository,
     private val settingsUnitsRepository: SettingsUnitsRepository,
 ) : NBViewModel<MainUiState>(MainUiState()) {
 
@@ -95,6 +97,11 @@ class MainViewModel @Inject constructor(
         collectFlow(
             { settingsFontRepository.getData() },
             { oldUiState, output -> oldUiState.copy(font = output) }
+        )
+
+        collectFlow(
+            { settingsOrderRepository.getData() },
+            { oldUiState, output -> oldUiState.copy(order = output) }
         )
 
         collectFlow(
