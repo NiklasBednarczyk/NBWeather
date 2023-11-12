@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmall
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
@@ -43,7 +43,7 @@ private fun LimitTemperature(
         horizontalArrangement = rowHorizontalArrangementSmall,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        NBIcon(
+        NBIconView(
             icon = icon
         )
         Text(

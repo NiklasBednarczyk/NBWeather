@@ -33,7 +33,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSma
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesHorizontal
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBigDp
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.color
@@ -54,10 +54,9 @@ fun ForecastOverviewDailyView(
         items(daily.items) { item ->
             Item(
                 item = item,
-                maxTemperatureTotalValue = daily.maxTemperatureTotalValue,
-                minTemperatureTotalValue = daily.minTemperatureTotalValue,
+                calcFactor = daily::calcFactor,
                 onClick = {
-                    navigateToDaily(item.forecastTime.dateTime.value)
+                    navigateToDaily(item.forecastTime.dt.value)
                 }
             )
         }
@@ -66,8 +65,7 @@ fun ForecastOverviewDailyView(
 
 @Composable
 private fun LimitTemperatures(
-    maxTemperatureTotalValue: Double,
-    minTemperatureTotalValue: Double,
+    calcFactor: (Double) -> Float,
     maxTemperatureCurrent: NBUnitsValue,
     minTemperatureCurrent: NBUnitsValue,
     height: Dp = 200.dp,
@@ -113,19 +111,14 @@ private fun LimitTemperatures(
                 .height(height)
                 .width(width)
         ) {
-            val spanTotal = maxTemperatureTotalValue - minTemperatureTotalValue
-
-            val spanCurrentMax = maxTemperatureTotalValue - maxTemperatureCurrentValue
-            val spanCurrentMin = maxTemperatureTotalValue - minTemperatureCurrentValue
-
-            val factorMax = spanCurrentMax / spanTotal
-            val factorMin = spanCurrentMin / spanTotal
+            val factorMin = calcFactor(minTemperatureCurrentValue)
+            val factorMax = calcFactor(maxTemperatureCurrentValue)
 
             val barX = center.x
 
             val barYOffset = maxTextHeightPx + verticalPaddingBarPx + verticalPaddingTextPx
-            val barMaxY = barHeightPx * factorMax.toFloat() + barYOffset
-            val barMinY = barHeightPx * factorMin.toFloat() + barYOffset
+            val barMaxY = barHeightPx * factorMax + barYOffset
+            val barMinY = barHeightPx * factorMin + barYOffset
 
             drawLine(
                 color = barColor,
@@ -180,8 +173,7 @@ private fun DateWeekday(
 @Composable
 private fun Item(
     item: ForecastOverviewDailyItemModel,
-    maxTemperatureTotalValue: Double,
-    minTemperatureTotalValue: Double,
+    calcFactor: (Double) -> Float,
     onClick: () -> Unit
 ) {
     Column(
@@ -205,8 +197,7 @@ private fun Item(
             weatherIcon = item.weatherIcon
         )
         LimitTemperatures(
-            maxTemperatureTotalValue = maxTemperatureTotalValue,
-            minTemperatureTotalValue = minTemperatureTotalValue,
+            calcFactor = calcFactor,
             maxTemperatureCurrent = item.maxTemperature,
             minTemperatureCurrent = item.minTemperature
         )
@@ -231,7 +222,7 @@ private fun ProbabilityOfPrecipitation(
 private fun WeatherIcon(
     weatherIcon: WeatherIconType
 ) {
-    NBIcon(
+    NBIconView(
         icon = weatherIcon.icon
     )
 }

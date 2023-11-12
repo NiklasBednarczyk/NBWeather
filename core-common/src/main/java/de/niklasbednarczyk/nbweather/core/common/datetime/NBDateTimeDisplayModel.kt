@@ -10,13 +10,13 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 class NBDateTimeDisplayModel private constructor(
-    val dateTime: NBDateTimeValue,
+    val dt: NBDateTimeValue,
     private val timezoneOffset: NBTimezoneOffsetValue
 ) {
 
     private val localDateTime: LocalDateTime
         get() {
-            val instant = Instant.ofEpochSecond(dateTime.value)
+            val instant = Instant.ofEpochSecond(dt.value)
             val zoneOffset = ZoneOffset.ofTotalSeconds(timezoneOffset.value.toInt())
             return LocalDateTime.ofInstant(instant, zoneOffset)
         }
@@ -71,7 +71,7 @@ class NBDateTimeDisplayModel private constructor(
         ): NBDateTimeDisplayModel? {
             return nbNullSafe(dateTime, timezoneOffset) { dT, tO ->
                 NBDateTimeDisplayModel(
-                    dateTime = dT,
+                    dt = dT,
                     timezoneOffset = tO
                 )
             }

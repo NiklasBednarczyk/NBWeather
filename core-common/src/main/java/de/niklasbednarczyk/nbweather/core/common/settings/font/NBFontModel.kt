@@ -15,4 +15,26 @@ data class NBFontModel(
     val figureHeight: Float,
     val lowercaseHeight: Float,
     val uppercaseHeight: Float
-)
+) {
+
+    companion object {
+
+        fun createFake(): NBFontModel {
+            return NBFontModel(
+                slant = NBFontAxes.Slant.defaultValue,
+                width = NBFontAxes.Width.defaultValue,
+                weight = NBFontAxes.Weight.defaultValue,
+                grade = NBFontAxes.Grade.defaultValue,
+                counterWidth = NBFontAxes.CounterWidth.defaultValue,
+                thinStroke = NBFontAxes.ThinStroke.defaultValue,
+                ascenderHeight = NBFontAxes.AscenderHeight.defaultValue,
+                descenderDepth = NBFontAxes.DescenderDepth.defaultValue,
+                figureHeight = NBFontAxes.FigureHeight.defaultValue,
+                lowercaseHeight = NBFontAxes.LowercaseHeight.defaultValue,
+                uppercaseHeight = NBFontAxes.UppercaseHeight.defaultValue
+            )
+        }
+
+    }
+
+}

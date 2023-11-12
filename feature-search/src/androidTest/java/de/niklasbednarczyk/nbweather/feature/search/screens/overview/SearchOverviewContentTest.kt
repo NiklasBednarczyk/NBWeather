@@ -7,7 +7,7 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocalNamesModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.models.VisitedLocationsInfoModelData
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBContentTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposableTest
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -15,13 +15,13 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class SearchOverviewContentTest : NBContentTest() {
+class SearchOverviewContentTest : NBComposableTest() {
 
-    private val visitedLocation1 = testLocation(1)
-    private val visitedLocation2 = testLocation(2)
+    private val visitedLocation1 = createTestLocation(1)
+    private val visitedLocation2 = createTestLocation(2)
 
-    private val searchedLocation1 = testLocation(3)
-    private val searchedLocation2 = testLocation(4)
+    private val searchedLocation1 = createTestLocation(3)
+    private val searchedLocation2 = createTestLocation(4)
 
     @Test
     fun backHandler_shouldNotBeOverwritten_whenCurrentLocationAndIsInitialSet() {
@@ -217,7 +217,7 @@ class SearchOverviewContentTest : NBContentTest() {
         setCurrentLocation: Boolean = true,
         findingLocationInProgress: Boolean = false
     ): SearchOverviewUiState {
-        val currentLocation = if (setCurrentLocation) testLocation(-1) else null
+        val currentLocation = if (setCurrentLocation) createTestLocation(-1) else null
         return SearchOverviewUiState(
             searchTerm = searchTerm,
             findingLocationInProgress = findingLocationInProgress,
@@ -256,7 +256,7 @@ class SearchOverviewContentTest : NBContentTest() {
         }
     }
 
-    private fun testLocation(
+    private fun createTestLocation(
         number: Int
     ): LocationModelData {
         val id = number.toString()

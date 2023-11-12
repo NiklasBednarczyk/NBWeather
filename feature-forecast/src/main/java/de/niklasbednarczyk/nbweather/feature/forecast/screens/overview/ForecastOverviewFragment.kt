@@ -16,7 +16,7 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
     override val viewModel: ForecastOverviewViewModel by viewModels()
 
     override fun createTopAppBarItem(uiState: ForecastOverviewUiState): NBTopAppBarItem {
-        val location = uiState.locationResource?.dataOrNull
+        val location = uiState.locationResource.dataOrNull
         return NBTopAppBarItem.Material.CenterAligned(
             title = location?.localizedNameAndCountry,
             action = NBTopAppBarActionModel(

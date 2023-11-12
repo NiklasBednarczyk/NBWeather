@@ -1,8 +1,9 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
-import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.daily.ForecastOverviewDailyItemModel
 
 data class ForecastOverviewDailyModel(
@@ -11,18 +12,26 @@ data class ForecastOverviewDailyModel(
     val minTemperatureTotalValue: Double
 ) : ForecastOverviewItem {
 
+    fun calcFactor(
+        temperatureCurrentValue: Double
+    ): Float {
+        val spanTotal = maxTemperatureTotalValue - minTemperatureTotalValue
+        val spanCurrent = maxTemperatureTotalValue - temperatureCurrentValue
+        val factor = spanCurrent / spanTotal
+        return factor.toFloat()
+    }
+
     companion object {
 
         fun from(
-            oneCall: OneCallModelData
+            timezoneOffset: NBTimezoneOffsetValue?,
+            dailyForecasts: List<DailyForecastModelData>
         ): ForecastOverviewDailyModel? {
-            return nbNullSafeList(oneCall.dailyForecasts) { dailyForecasts ->
-                val timezoneOffset = oneCall.timezoneOffset
-
-                val items = dailyForecasts.map { dailyForecast ->
+            return nbNullSafeList(dailyForecasts) { forecasts ->
+                val items = forecasts.map { dailyForecast ->
                     ForecastOverviewDailyItemModel.from(
+                        timezoneOffset = timezoneOffset,
                         dailyForecast = dailyForecast,
-                        timezoneOffset = timezoneOffset
                     ) ?: return null
                 }
 
@@ -39,6 +48,7 @@ data class ForecastOverviewDailyModel(
                     minTemperatureTotalValue
                 ) { max, min ->
                     if (max <= min) return null
+
                     ForecastOverviewDailyModel(
                         items = items,
                         maxTemperatureTotalValue = max,

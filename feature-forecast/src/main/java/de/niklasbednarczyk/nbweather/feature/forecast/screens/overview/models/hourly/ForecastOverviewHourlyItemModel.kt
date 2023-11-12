@@ -19,8 +19,8 @@ data class ForecastOverviewHourlyItemModel(
     companion object {
 
         fun from(
-            hourlyForecast: HourlyForecastModelData,
-            timezoneOffset: NBTimezoneOffsetValue?
+            timezoneOffset: NBTimezoneOffsetValue?,
+            hourlyForecast: HourlyForecastModelData
         ): ForecastOverviewHourlyItemModel? {
             return nbNullSafe(
                 NBDateTimeDisplayModel.from(hourlyForecast.forecastTime, timezoneOffset),

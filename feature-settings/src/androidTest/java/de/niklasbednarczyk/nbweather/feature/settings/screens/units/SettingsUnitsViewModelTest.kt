@@ -34,8 +34,8 @@ class SettingsUnitsViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 testDividerList(
                     items = uiState.items,
-                    dividerClassJava = SettingsListItemModel.Divider::class.java,
-                    headerClassJava = SettingsListItemModel.Header::class.java
+                    dividerKlass = SettingsListItemModel.Divider::class.java,
+                    headerKlass = SettingsListItemModel.Header::class.java
                 )
             }
         )

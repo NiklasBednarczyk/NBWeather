@@ -19,7 +19,7 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 @Composable
 fun SearchOverviewSearchView(
-    searchedLocationsResource: NBResource<List<LocationModelData>>?,
+    searchedLocationsResource: NBResource<List<LocationModelData>>,
     navigateToForecast: (Double, Double) -> Unit
 ) {
     NBResourceWithLoadingView(searchedLocationsResource) { searchedLocations ->

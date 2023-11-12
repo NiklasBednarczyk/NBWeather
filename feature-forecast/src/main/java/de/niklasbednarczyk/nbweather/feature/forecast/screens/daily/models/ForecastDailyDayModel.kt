@@ -15,8 +15,8 @@ data class ForecastDailyDayModel(
     companion object {
 
         fun from(
-            dailyForecast: DailyForecastModelData,
-            timezoneOffset: NBTimezoneOffsetValue?
+            timezoneOffset: NBTimezoneOffsetValue?,
+            dailyForecast: DailyForecastModelData
         ): ForecastDailyDayModel? {
             val dateTime = dailyForecast.forecastTime ?: return null
 

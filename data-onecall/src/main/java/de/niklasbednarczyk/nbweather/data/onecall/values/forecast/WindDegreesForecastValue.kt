@@ -12,7 +12,7 @@ value class WindDegreesForecastValue private constructor(private val value: Long
     val rotationDegrees: Float
         get() = value - 180f
 
-    internal companion object {
+    companion object {
 
         fun from(value: Long?): WindDegreesForecastValue? {
             return nbNullSafe(value) { WindDegreesForecastValue(it) }

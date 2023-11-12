@@ -20,7 +20,7 @@ fun ForecastOverviewContent(
     navigateToDaily: (forecastTime: Long?, latitude: Double?, longitude: Double?) -> Unit,
     navigateToHourly: (latitude: Double?, longitude: Double?) -> Unit
 ) {
-    val location = uiState.locationResource?.dataOrNull
+    val location = uiState.locationResource.dataOrNull
     val latitude = location?.latitude
     val longitude = location?.longitude
 

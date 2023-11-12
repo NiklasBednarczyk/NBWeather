@@ -9,7 +9,7 @@ value class UVIndexForecastValue private constructor(override val unitsValue: UV
 
     companion object {
 
-        internal fun from(value: Double?): UVIndexForecastValue? {
+        fun from(value: Double?): UVIndexForecastValue? {
             return nbNullSafe(value) { v -> UVIndexForecastValue(UVIndexUnitsValue(v)) }
         }
 

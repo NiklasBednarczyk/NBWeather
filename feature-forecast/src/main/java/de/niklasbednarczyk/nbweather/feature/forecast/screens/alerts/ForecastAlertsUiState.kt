@@ -4,5 +4,5 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models.ForecastAlertsViewData
 
 data class ForecastAlertsUiState(
-    val viewDataResource: NBResource<ForecastAlertsViewData>? = null
+    val viewDataResource: NBResource<ForecastAlertsViewData> = NBResource.Loading
 )

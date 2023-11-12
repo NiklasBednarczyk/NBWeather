@@ -1,12 +1,15 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.list
 
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBTemperatureUnitType
-import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedButtonModel
@@ -15,14 +18,14 @@ import de.niklasbednarczyk.nbweather.core.ui.slider.NBSliderModel
 import de.niklasbednarczyk.nbweather.core.ui.stickyheader.NBStickyHeaderModel
 import de.niklasbednarczyk.nbweather.feature.settings.navigation.DestinationsSettings
 import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBContentTest
+import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposableTest
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class SettingsListContentTest : NBContentTest() {
+class SettingsListContentTest : NBComposableTest() {
 
     @Test
     fun stickyHeader_shouldRenderCorrectly() {
@@ -157,7 +160,7 @@ class SettingsListContentTest : NBContentTest() {
                 .assertIsDisplayed()
 
             // ItemSlider
-            onNodeWithContentDescription(itemSlider.slider.title.asString(context))
+            onNodeWithContentDescription(itemSlider.slider.title)
                 .assertIsDisplayed()
                 .swipeRight()
 
@@ -185,4 +188,19 @@ class SettingsListContentTest : NBContentTest() {
         //      ItemSwitch
         assertTrue(isSwitchChecked)
     }
+
+    private fun isOfFontFamily(fontFamily: FontFamily): SemanticsMatcher = SemanticsMatcher(
+        "${SemanticsProperties.Text.name} is of font family '$fontFamily'"
+    ) { node ->
+        val textLayoutResults = mutableListOf<TextLayoutResult>()
+        node.config.getOrNull(SemanticsActions.GetTextLayoutResult)
+            ?.action
+            ?.invoke(textLayoutResults)
+        return@SemanticsMatcher if (textLayoutResults.isEmpty()) {
+            false
+        } else {
+            textLayoutResults.first().layoutInput.style.fontFamily == fontFamily
+        }
+    }
+
 }

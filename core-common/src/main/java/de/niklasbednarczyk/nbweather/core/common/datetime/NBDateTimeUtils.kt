@@ -18,9 +18,3 @@ val Context.is24HourFormat: Boolean
 private fun DayOfWeek?.getDisplayName(textStyle: TextStyle): NBString? {
     return NBString.Value.from(this?.getDisplayName(textStyle, Locale.getDefault()))
 }
-
-val DayOfWeek?.displayNameFull: NBString?
-    get() = getDisplayName(TextStyle.FULL)
-
-val DayOfWeek?.displayNameShort: NBString?
-    get() = getDisplayName(TextStyle.SHORT)

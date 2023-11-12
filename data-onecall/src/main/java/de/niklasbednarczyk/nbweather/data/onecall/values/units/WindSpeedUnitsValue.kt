@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitT
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
 @JvmInline
-value class WindSpeedUnitsValue internal constructor(override val value: Double) : NBUnitsValue {
+value class WindSpeedUnitsValue(override val value: Double) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.windSpeedUnit) {

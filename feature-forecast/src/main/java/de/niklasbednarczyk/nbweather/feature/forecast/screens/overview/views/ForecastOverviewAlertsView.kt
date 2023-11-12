@@ -5,7 +5,7 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewAlertsModel
@@ -16,13 +16,13 @@ fun ForecastOverviewAlertsView(
 ) {
     ListItem(
         leadingContent = {
-            NBIcon(icon = NBIcons.Warning)
+            NBIconView(icon = NBIcons.Warning)
         },
         headlineContent = {
-            Text(text = alerts.text.asString())
+            Text(text = alerts.eventName.asString())
         },
         trailingContent = {
-            Text(text = alerts.otherAlertsText.asString())
+            Text(text = alerts.otherAlerts.asString())
         },
         colors = ListItemDefaults.colors(
             leadingIconColor = MaterialTheme.colorScheme.onErrorContainer,

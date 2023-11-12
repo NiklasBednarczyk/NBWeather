@@ -46,8 +46,8 @@ class ForecastDailyViewModel @Inject constructor(
             forceUpdate = false
         ).mapResource { oneCall ->
             ForecastDailyViewData.from(
+                forecastTime = forecastTime,
                 oneCall = oneCall,
-                forecastTime = forecastTime
             )
         }
     }

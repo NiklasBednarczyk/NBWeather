@@ -9,7 +9,7 @@ value class WindGustForecastValue private constructor(override val unitsValue: W
 
     companion object {
 
-        internal fun from(value: Double?): WindGustForecastValue? {
+        fun from(value: Double?): WindGustForecastValue? {
             return nbNullSafe(value) { v -> WindGustForecastValue(WindSpeedUnitsValue(v)) }
         }
 

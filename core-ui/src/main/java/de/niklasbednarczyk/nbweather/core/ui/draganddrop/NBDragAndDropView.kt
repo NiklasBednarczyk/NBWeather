@@ -34,7 +34,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listItemElevationDragged
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listItemElevationEnabled
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
@@ -87,7 +87,7 @@ fun <T> NBDragAndDropView(
                 )
                 ListItem(
                     leadingContent = {
-                        NBIcon(
+                        NBIconView(
                             icon = NBIcons.DragAndDrop
                         )
                     },

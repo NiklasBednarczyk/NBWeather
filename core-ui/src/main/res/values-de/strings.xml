@@ -10,7 +10,6 @@
     <string name="icon_content_description_delete">Löschen</string>
     <string name="icon_content_description_drag_and_drop">Ziehen und Ablegen</string>
     <string name="icon_content_description_drawer">Drawer</string>
-    <string name="icon_content_description_expand">Ausklappen</string>
     <string name="icon_content_description_find_location">Standort finden</string>
     <string name="icon_content_description_location">Ort</string>
     <string name="icon_content_description_max_temperature">Minimale Temperatur</string>
@@ -171,7 +170,7 @@
     <string name="screen_forecast_common_wind_degrees_wnw">WNW</string>
     <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
 
-    <string name="screen_forecast_overview_alerts_text_fallback">Meldung</string>
+    <string name="screen_forecast_overview_alerts_event_name_fallback">Meldung</string>
     <string name="screen_forecast_overview_current_weather_title">Aktuelles Wetter</string>
     <string name="screen_forecast_overview_daily_title">Tägliche Vorhersage</string>
     <string name="screen_forecast_overview_hourly_title">Stündliche Vorhersage</string>

@@ -19,7 +19,6 @@
     <string name="icon_content_description_drawer">Drawer</string>
     <string name="icon_content_description_error_no_internet" translatable="false">@string/error_text_no_internet</string>
     <string name="icon_content_description_error_unknown" translatable="false">@string/error_text_unknown</string>
-    <string name="icon_content_description_expand">Expand</string>
     <string name="icon_content_description_feels_like" translatable="false">@string/screen_forecast_common_forecast_name_feels_like</string>
     <string name="icon_content_description_find_location">Find location</string>
     <string name="icon_content_description_font" translatable="false">@string/screen_settings_font_title</string>
@@ -207,7 +206,7 @@
     <string name="screen_forecast_common_wind_degrees_wnw">WNW</string>
     <string name="screen_forecast_common_wind_degrees_wsw">WSW</string>
 
-    <string name="screen_forecast_overview_alerts_text_fallback">Alert</string>
+    <string name="screen_forecast_overview_alerts_event_name_fallback">Alert</string>
     <string name="screen_forecast_overview_current_weather_title">Current weather</string>
     <string name="screen_forecast_overview_daily_title">Daily forecast</string>
     <string name="screen_forecast_overview_hourly_title">Hourly forecast</string>
@@ -219,7 +218,7 @@
         <item quantity="one">Precipitation ending in %1$s minute</item>
         <item quantity="other">Precipitation ending in %1$s minutes</item>
     </plurals>
-    <string name="screen_forecast_overview_precipitation_headline_full">Precipitation won’t end within an hour</string>
+    <string name="screen_forecast_overview_precipitation_headline_full">Precipitation won\'t end within an hour</string>
     <string name="screen_forecast_overview_precipitation_headline_none">No precipitation within an hour</string>
     <plurals name="screen_forecast_overview_precipitation_headline_starting">
         <item quantity="one">Precipitation starting in %1$s minute</item>

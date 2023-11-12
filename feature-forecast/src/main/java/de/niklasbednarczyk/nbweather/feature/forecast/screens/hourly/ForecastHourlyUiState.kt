@@ -4,5 +4,5 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.ForecastHourlyViewData
 
 data class ForecastHourlyUiState(
-    val viewDataResource: NBResource<ForecastHourlyViewData>? = null
+    val viewDataResource: NBResource<ForecastHourlyViewData> = NBResource.Loading
 )

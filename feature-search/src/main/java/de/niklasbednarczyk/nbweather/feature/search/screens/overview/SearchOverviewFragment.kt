@@ -18,7 +18,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButton
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
@@ -88,7 +88,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
             searchTerm = uiState.searchTerm,
             trailingIconWhenEmpty = {
                 if (shouldShowFindLocation()) {
-                    NBIconButton(
+                    NBIconButtonView(
                         icon = NBIcons.FindLocation,
                         onClick = ::onFindLocationClicked
                     )

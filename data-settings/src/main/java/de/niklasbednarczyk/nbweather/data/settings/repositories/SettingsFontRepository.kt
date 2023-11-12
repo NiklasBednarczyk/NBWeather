@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SettingsFontRepository @Inject constructor(
+class SettingsFontRepository @Inject internal constructor(
     override val dataStore: DataStore<SettingsFontProto>
 ) : RepositoryDisk<SettingsFontProto, NBFontModel>() {
 

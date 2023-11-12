@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.nbHyphenated
 import de.niklasbednarczyk.nbweather.core.ui.windowsize.NBWindowSizeType
@@ -24,7 +24,7 @@ import de.niklasbednarczyk.nbweather.core.ui.windowsize.getWidthWindowSizeType
 @Composable
 fun NBGridView(
     modifier: Modifier = Modifier,
-    gridItems: List<NBGridModel>,
+    items: List<NBGridModel>,
     rowItemCountLimit: Int? = null
 ) {
     val rowItemCount = rowItemCountLimit ?: when (getWidthWindowSizeType()) {
@@ -37,7 +37,7 @@ fun NBGridView(
         modifier = modifier,
         verticalArrangement = columnVerticalArrangementBig
     ) {
-        gridItems.chunked(rowItemCount).forEach { rowItems ->
+        items.chunked(rowItemCount).forEach { rowItems ->
             RowItems(
                 rowItems = rowItems.toRowItemsWithPlaceholders(rowItemCount),
             )
@@ -74,7 +74,7 @@ private fun IconRow(
     rowItems: List<NBGridModel?>
 ) {
     GridRow(items = rowItems) { item, modifier ->
-        NBIcon(
+        NBIconView(
             modifier = modifier.rotate(item.icon.rotationDegrees),
             icon = item.icon.icon
         )

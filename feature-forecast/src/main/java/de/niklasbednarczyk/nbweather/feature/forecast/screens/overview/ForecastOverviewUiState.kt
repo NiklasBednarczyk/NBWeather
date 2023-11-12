@@ -5,6 +5,6 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
 
 data class ForecastOverviewUiState(
-    val locationResource: NBResource<LocationModelData?>? = null,
-    val itemsResource: NBResource<List<ForecastOverviewItem>>? = null
+    val locationResource: NBResource<LocationModelData?> = NBResource.Loading,
+    val itemsResource: NBResource<List<ForecastOverviewItem>> = NBResource.Loading
 )

@@ -25,8 +25,8 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.filledTonalButtonPaddingBetw
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
-import de.niklasbednarczyk.nbweather.core.ui.image.NBImage
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
+import de.niklasbednarczyk.nbweather.core.ui.image.NBImageView
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImageModel
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewButtonModel
@@ -69,7 +69,7 @@ fun AboutOverviewContent(
 private fun Banner(
     banner: NBImageModel
 ) {
-    NBImage(
+    NBImageView(
         modifier = Modifier.fillMaxWidth(),
         image = banner
     )
@@ -91,7 +91,7 @@ private fun Buttons(
                 modifier = Modifier.weight(1f),
                 onClick = { startIntent(button.intent) },
             ) {
-                NBIcon(
+                NBIconView(
                     modifier = Modifier.size(filledTonalButtonIconSize),
                     icon = button.icon
                 )

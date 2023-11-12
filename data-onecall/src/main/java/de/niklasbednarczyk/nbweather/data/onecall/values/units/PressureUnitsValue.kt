@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
 @JvmInline
-value class PressureUnitsValue internal constructor(override val value: Long) : NBUnitsValue {
+value class PressureUnitsValue(override val value: Long) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.pressureUnit) {

@@ -102,7 +102,7 @@ class GeocodingRepository @Inject constructor(
         }
     }
 
-    fun getVisitedLocationsInfo(): Flow<NBResource<VisitedLocationsInfoModelData>?> {
+    fun getVisitedLocationsInfo(): Flow<NBResource<VisitedLocationsInfoModelData>> {
         return NBResource.combineResourceFlows(
             getVisitedLocations(),
             getCurrentLocation(),

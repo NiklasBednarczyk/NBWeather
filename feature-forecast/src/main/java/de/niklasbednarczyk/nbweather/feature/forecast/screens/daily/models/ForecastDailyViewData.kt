@@ -1,7 +1,9 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models
 
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerViewData
+import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 
 data class ForecastDailyViewData(
@@ -16,18 +18,28 @@ data class ForecastDailyViewData(
     companion object {
 
         fun from(
-            oneCall: OneCallModelData,
-            forecastTime: Long?
+            forecastTime: Long?,
+            oneCall: OneCallModelData
         ): ForecastDailyViewData? {
-            val timezoneOffset = oneCall.timezoneOffset
+            return from(
+                forecastTime = forecastTime,
+                timezoneOffset = oneCall.timezoneOffset,
+                dailyForecasts = oneCall.dailyForecasts
+            )
+        }
 
-            val items = oneCall.dailyForecasts.mapNotNull { dailyForecast ->
+        fun from(
+            forecastTime: Long?,
+            timezoneOffset: NBTimezoneOffsetValue?,
+            dailyForecasts: List<DailyForecastModelData>
+        ): ForecastDailyViewData? {
+            val items = dailyForecasts.mapNotNull { dailyForecast ->
                 ForecastDailyDayModel.from(
                     dailyForecast = dailyForecast,
                     timezoneOffset = timezoneOffset
                 )
             }
-            return nbNullSafe(items) { i ->
+            return nbNullSafeList(items) { i ->
                 ForecastDailyViewData(
                     items = i,
                     initialKey = forecastTime

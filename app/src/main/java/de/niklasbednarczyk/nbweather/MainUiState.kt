@@ -13,5 +13,5 @@ data class MainUiState(
     val order: NBOrderModel? = null,
     val units: NBUnitsModel? = null,
     val drawerItems: List<NBNavigationDrawerItem> = emptyList(),
-    val isInitialCurrentLocationSetResource: NBResource<Boolean>? = null
+    val isInitialCurrentLocationSetResource: NBResource<Boolean> = NBResource.Loading
 )

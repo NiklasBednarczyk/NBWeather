@@ -4,7 +4,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImages
-import de.niklasbednarczyk.nbweather.core.ui.intent.createUrlIntent
+import de.niklasbednarczyk.nbweather.core.common.intent.createUrlIntent
 import de.niklasbednarczyk.nbweather.feature.about.constants.AboutConstants
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewButtonModel
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewItem

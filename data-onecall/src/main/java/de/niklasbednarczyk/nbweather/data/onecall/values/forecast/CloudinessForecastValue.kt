@@ -9,7 +9,7 @@ value class CloudinessForecastValue private constructor(override val unitsValue:
 
     companion object {
 
-        internal fun from(value: Long?): CloudinessForecastValue? {
+        fun from(value: Long?): CloudinessForecastValue? {
             return nbNullSafe(value) { v -> CloudinessForecastValue(PercentUnitsValue(v)) }
         }
 

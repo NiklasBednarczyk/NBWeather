@@ -5,6 +5,7 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsFontRepository
+import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsOrderRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
 import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
@@ -41,6 +42,7 @@ class MainViewModelTest : NBViewModelTest {
                 context
             ),
             settingsFontRepository = SettingsFontRepository.createFake(temporaryFolder),
+            settingsOrderRepository = SettingsOrderRepository.createFake(temporaryFolder),
             settingsUnitsRepository = SettingsUnitsRepository.createFake(temporaryFolder)
         )
     }
@@ -54,7 +56,7 @@ class MainViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 testDividerList(
                     items = uiState.drawerItems,
-                    dividerClassJava = NBNavigationDrawerItem.Divider::class.java
+                    dividerKlass = NBNavigationDrawerItem.Divider::class.java
                 )
             }
         )
@@ -70,7 +72,7 @@ class MainViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 // Assert
                 assertResourceIsSuccess(uiState.isInitialCurrentLocationSetResource)
-                assertNotNull(uiState.isInitialCurrentLocationSetResource?.dataOrNull)
+                assertNotNull(uiState.isInitialCurrentLocationSetResource.dataOrNull)
             }
         )
     }
@@ -99,6 +101,20 @@ class MainViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 // Assert
                 assertNotNull(uiState.font)
+            }
+        )
+    }
+
+    @Test
+    fun uiState_order_shouldBeSetCorrectly() = testScope.runTest {
+        // Arrange + Act
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.order != null
+            },
+            collectData = { uiState ->
+                // Assert
+                assertNotNull(uiState.order)
             }
         )
     }

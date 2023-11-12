@@ -37,8 +37,8 @@ enum class MoonPhaseType {
     internal companion object {
 
         fun from(value: Double?): MoonPhaseType? {
-            return nbNullSafe(value?.round(2)) {
-                when (it) {
+            return nbNullSafe(value?.round(2)) { v ->
+                when (v) {
                     0.00 -> NEW_MOON
                     in 0.01 ..< 0.05 -> WAXING_CRESCENT_1
                     in 0.05 ..< 0.09 -> WAXING_CRESCENT_2

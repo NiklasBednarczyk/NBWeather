@@ -1,9 +1,15 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.settings.order.NBOrderModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
+import de.niklasbednarczyk.nbweather.data.onecall.models.CurrentWeatherModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.HourlyForecastModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.MinutelyForecastModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.NationalWeatherAlertModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 
 sealed interface ForecastOverviewItem {
@@ -42,14 +48,56 @@ sealed interface ForecastOverviewItem {
         fun from(
             oneCall: OneCallModelData
         ): List<ForecastOverviewItem>? {
+            return from(
+                timezoneOffset = oneCall.timezoneOffset,
+                currentWeather = oneCall.currentWeather,
+                minutelyForecasts = oneCall.minutelyForecasts,
+                hourlyForecasts = oneCall.hourlyForecasts,
+                dailyForecasts = oneCall.dailyForecasts,
+                nationalWeatherAlerts = oneCall.nationalWeatherAlerts,
+                today = oneCall.today
+            )
+        }
+
+        fun from(
+            timezoneOffset: NBTimezoneOffsetValue?,
+            currentWeather: CurrentWeatherModelData?,
+            minutelyForecasts: List<MinutelyForecastModelData>,
+            hourlyForecasts: List<HourlyForecastModelData>,
+            dailyForecasts: List<DailyForecastModelData>,
+            nationalWeatherAlerts: List<NationalWeatherAlertModelData>,
+            today: DailyForecastModelData?
+        ): List<ForecastOverviewItem>? {
             val items = listOfNotNull(
-                ForecastOverviewAlertsModel.from(oneCall),
-                ForecastOverviewCurrentWeatherModel.from(oneCall),
-                ForecastOverviewDailyModel.from(oneCall),
-                ForecastOverviewHourlyModel.from(oneCall),
-                ForecastOverviewPrecipitationModel.from(oneCall),
-                ForecastOverviewSummaryModel.from(oneCall),
-                ForecastOverviewSunAndMoonModel.from(oneCall)
+                ForecastOverviewAlertsModel.from(
+                    nationalWeatherAlerts = nationalWeatherAlerts
+                ),
+                ForecastOverviewCurrentWeatherModel.from(
+                    currentWeather = currentWeather,
+                    today = today
+                ),
+                ForecastOverviewDailyModel.from(
+                    timezoneOffset = timezoneOffset,
+                    dailyForecasts = dailyForecasts
+                ),
+                ForecastOverviewHourlyModel.from(
+                    timezoneOffset = timezoneOffset,
+                    hourlyForecasts = hourlyForecasts
+                ),
+                ForecastOverviewPrecipitationModel.from(
+                    timezoneOffset = timezoneOffset,
+                    minutelyForecasts = minutelyForecasts
+                ),
+                ForecastOverviewSummaryModel.from(
+                    timezoneOffset = timezoneOffset,
+                    currentWeather = currentWeather,
+                    today = today
+                ),
+                ForecastOverviewSunAndMoonModel.from(
+                    timezoneOffset = timezoneOffset,
+                    currentWeather = currentWeather,
+                    today = today
+                )
             )
             return nbNullSafeList(items) { i -> i }
         }

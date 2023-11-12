@@ -21,7 +21,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineColo
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineHeight
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlinePadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineTextStyle
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestination
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
@@ -127,7 +127,7 @@ private fun DrawerItem(
     NavigationDrawerItem(
         modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
         label = { Text(text = label.asString()) },
-        icon = { NBIcon(icon = icon) },
+        icon = { NBIconView(icon = icon) },
         selected = selected,
         onClick = {
             closeDrawer()

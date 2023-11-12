@@ -35,9 +35,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
-import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.colors.NBColors
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmallDp
@@ -53,7 +51,9 @@ import de.niklasbednarczyk.nbweather.feature.forecast.extensions.name
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.ForecastHourlyViewData
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasAxisModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphModel
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphModel.Companion.getLimitValues
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphValueModel
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphValueModel.Companion.calcFactor
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasViewData
 
 @Composable
@@ -232,11 +232,8 @@ private fun FilterChips(
                 selected = graph == getSelectedGraph(),
                 onClick = { setSelectedGraph(graph) },
                 label = {
-                    val text = NBString.ResString(
-                        R.string.format_brackets, graph.name.asString(), graph.symbol.asString()
-                    )
                     Text(
-                        text = text.asString()
+                        text = graph.label.asString()
                     )
                 }
             )
@@ -365,11 +362,9 @@ private fun rememberCanvasViewData(
 
     return remember(context, textMeasurer, colors, units) {
         val axes = viewData.axes.map { axis ->
-            val headlineText = axis.forecastTime.dateFull
-            val dayOfMonth = axis.forecastTime.dayOfMonth
-            val time = textMeasurer.measure(
-                axis.forecastTime.getTime(context).asString(context), timeTextStyle
-            )
+            val headlineText = axis.dateFull
+            val dayOfMonth = axis.dayOfMonth
+            val time = textMeasurer.measure(axis.getTime(context).asString(context), timeTextStyle)
 
             ForecastHourlyCanvasAxisModel(
                 headlineText = headlineText,
@@ -379,9 +374,6 @@ private fun rememberCanvasViewData(
         }
 
         val graphs = viewData.graphs.mapNotNull { graph ->
-            if (graph.size != axes.size) return@mapNotNull null
-            if (graph.all { value -> value.unitsValue.value.toDouble() == 0.0 }) return@mapNotNull null
-
             val firstElement = graph.firstOrNull() ?: return@mapNotNull null
 
             val name = firstElement.name
@@ -389,21 +381,12 @@ private fun rememberCanvasViewData(
             val lineColor = firstElement.unitsValue.getColor(colors) ?: return@mapNotNull null
             val limits = firstElement.limits
 
-            val actualMinValue = graph.minOfOrNull { value -> value.unitsValue.value.toDouble() }
-            val minValue = listOfNotNull(limits.min?.value, actualMinValue).minOrNull()
-                ?: return@mapNotNull null
-            val actualMaxValue = graph.maxOfOrNull { value -> value.unitsValue.value.toDouble() }
-            val maxValue = listOfNotNull(limits.max?.value, actualMaxValue).maxOrNull()
-                ?: return@mapNotNull null
-            val spanMinMax = maxValue - minValue
+            val limitValues = graph.getLimitValues(limits) ?: return@mapNotNull null
+            val minValue = limitValues.first
+            val maxValue = limitValues.second
 
             val values = graph.map { value ->
-                val factor = if (spanMinMax == 0.0) {
-                    0.5f
-                } else {
-                    val spanValue = maxValue - value.unitsValue.value.toDouble()
-                    (spanValue / spanMinMax).toFloat()
-                }
+                val factor = value.calcFactor(minValue, maxValue) ?: return@mapNotNull null
 
                 val unitsValue = value.unitsValue
                 val displayValueText = if (unitsValue is TemperatureUnitsValue.Long) {

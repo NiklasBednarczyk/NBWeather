@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBig
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.icons.nbIconFillHeight
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
@@ -56,7 +56,7 @@ private fun WeatherCondition(
 private fun WeatherIcon(
     weatherIcon: WeatherIconType
 ) {
-    NBIcon(
+    NBIconView(
         modifier = Modifier.nbIconFillHeight(),
         icon = weatherIcon.icon
     )

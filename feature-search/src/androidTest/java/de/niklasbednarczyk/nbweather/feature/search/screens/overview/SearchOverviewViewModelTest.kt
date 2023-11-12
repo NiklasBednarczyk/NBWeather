@@ -61,7 +61,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 // Assert
                 assertResourceIsSuccess(uiState.searchedLocationsResource)
-                assertListIsNotEmpty(uiState.searchedLocationsResource?.dataOrNull)
+                assertListIsNotEmpty(uiState.searchedLocationsResource.dataOrNull)
                 assertNotNullOrEmpty(uiState.searchTerm)
             }
         )

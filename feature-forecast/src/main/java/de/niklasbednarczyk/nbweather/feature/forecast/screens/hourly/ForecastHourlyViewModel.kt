@@ -41,7 +41,9 @@ class ForecastHourlyViewModel @Inject constructor(
             longitude = longitude,
             forceUpdate = false
         ).mapResource { oneCall ->
-            ForecastHourlyViewData.from(oneCall)
+            ForecastHourlyViewData.from(
+                oneCall = oneCall
+            )
         }
     }
 

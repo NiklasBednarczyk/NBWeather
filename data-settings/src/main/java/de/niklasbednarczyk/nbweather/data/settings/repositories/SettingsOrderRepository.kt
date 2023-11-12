@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SettingsOrderRepository @Inject constructor(
+class SettingsOrderRepository @Inject internal constructor(
     override val dataStore: DataStore<SettingsOrderProto>
 ) : RepositoryDisk<SettingsOrderProto, NBOrderModel>() {
 

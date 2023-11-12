@@ -7,7 +7,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButton
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
@@ -53,7 +53,7 @@ private fun VisitedLocation(
             Text(text = visitedLocation.localizedNameAndCountry.asString())
         },
         trailingContent = {
-            NBIconButton(
+            NBIconButtonView(
                 icon = NBIcons.Delete,
                 onClick = {
                     removeVisitedLocation(latitude, longitude)

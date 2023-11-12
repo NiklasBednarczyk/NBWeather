@@ -9,4 +9,20 @@ data class NBOrderModel(
     val hourlyOrder: Int,
     val precipitationOrder: Int,
     val sunAndMoonOrder: Int
-)
+) {
+
+    companion object {
+
+        fun createFake(): NBOrderModel {
+            return NBOrderModel(
+                currentWeatherOrder = 1,
+                dailyOrder = 2,
+                hourlyOrder = 3,
+                precipitationOrder = 4,
+                sunAndMoonOrder = 5
+            )
+        }
+
+    }
+
+}

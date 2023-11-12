@@ -71,12 +71,6 @@ object NBIcons {
             NBString.ResString(R.string.icon_content_description_error_unknown)
     }
 
-    object Expand : NBIconModel {
-        override val resId: Int = R.drawable.baseline_expand_more_24
-        override val contentDescription: NBString =
-            NBString.ResString(R.string.icon_content_description_expand)
-    }
-
     object FeelsLike : NBIconModel {
         override val resId: Int = R.drawable.wi_thermometer
         override val contentDescription: NBString =

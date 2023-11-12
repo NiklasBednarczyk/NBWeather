@@ -1,7 +1,8 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
-import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.HourlyForecastModelData
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.hourly.ForecastOverviewHourlyItemModel
 
 data class ForecastOverviewHourlyModel(
@@ -13,14 +14,14 @@ data class ForecastOverviewHourlyModel(
     companion object {
 
         fun from(
-            oneCall: OneCallModelData
+            timezoneOffset: NBTimezoneOffsetValue?,
+            hourlyForecasts: List<HourlyForecastModelData>
         ): ForecastOverviewHourlyModel? {
-            return nbNullSafeList(oneCall.hourlyForecasts) { hourlyForecasts ->
-                val timezoneOffset = oneCall.timezoneOffset
-                val items = hourlyForecasts.map { hourlyForecast ->
+            return nbNullSafeList(hourlyForecasts) { forecasts ->
+                val items = forecasts.map { hourlyForecast ->
                     ForecastOverviewHourlyItemModel.from(
-                        hourlyForecast = hourlyForecast,
-                        timezoneOffset = timezoneOffset
+                        timezoneOffset = timezoneOffset,
+                        hourlyForecast = hourlyForecast
                     ) ?: return null
                 }
                 ForecastOverviewHourlyModel(

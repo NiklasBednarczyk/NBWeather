@@ -4,9 +4,6 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.CoreMatchers.not
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import java.util.Locale
@@ -79,9 +76,11 @@ interface NBTest {
     }
 
     fun <T> assertListsContainSameItems(
-        list1: List<T>,
-        list2: List<T>
+        list1: List<T>?,
+        list2: List<T>?
     ) {
+        assertNotNull(list1)
+        assertNotNull(list2)
         assertTrue(list1.containsAll(list2))
     }
 
@@ -106,6 +105,22 @@ interface NBTest {
         actual.windowed(2).forEach { items ->
             assertFalse(items.all(predicate))
         }
+    }
+
+    fun <T, C : Any> assertListDoesContainClassOnce(
+        actual: List<T>?,
+        klass: Class<C>
+    ) {
+        val actualFiltered = actual?.filterIsInstance(klass)
+        assertListHasSize(actualFiltered, 1)
+    }
+
+
+    fun <T, C : Any> assertListDoesNotContainClass(
+        actual: List<T>?,
+        klass: Class<C>
+    ) {
+        assertTrue(actual?.none { item -> klass.isInstance(item) } == true)
     }
 
     fun <K, T> assertMapIsEmpty(
@@ -144,16 +159,45 @@ interface NBTest {
 
     fun assertIsClass(
         actual: Any?,
-        classJava: Class<*>
+        klass: Class<*>
     ) {
-        assertThat(actual, instanceOf(classJava))
+        assertTrue(klass.isInstance(actual))
     }
 
     fun assertIsNotClass(
         actual: Any?,
-        classJava: Class<*>
+        klass: Class<*>
     ) {
-        assertThat(actual, not(instanceOf(classJava)))
+        assertFalse(klass.isInstance(actual))
+    }
+
+    fun <Item : Any> testDividerList(
+        items: List<Item>,
+        dividerKlass: Class<*>,
+        headerKlass: Class<*>? = null
+    ) {
+        // Arrange + Act
+        val firstItem = items.first()
+        val lastItem = items.last()
+
+        // Assert
+        //      Divider
+        assertIsNotClass(firstItem, dividerKlass)
+        assertIsNotClass(lastItem, dividerKlass)
+
+        assertListConsecutiveItems(items) { item ->
+            item.javaClass == dividerKlass
+        }
+
+        //      Header
+        if (headerKlass != null) {
+            assertIsClass(firstItem, headerKlass)
+            assertIsNotClass(lastItem, headerKlass)
+
+            assertListConsecutiveItems(items) { item ->
+                item.javaClass == headerKlass
+            }
+        }
     }
 
 }

@@ -28,7 +28,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSma
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesHorizontal
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.divider.NBVerticalDivider
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
@@ -58,7 +58,6 @@ fun ForecastOverviewHourlyView(
                 itemPair = itemPair,
                 lastIndex = hourly.itemPairs.lastIndex
             )
-
         }
     }
 }
@@ -166,7 +165,7 @@ private fun Temperature(
 private fun WeatherIcon(
     weatherIcon: WeatherIconType
 ) {
-    NBIcon(
+    NBIconView(
         icon = weatherIcon.icon
     )
 }
@@ -175,7 +174,7 @@ private fun WeatherIcon(
 private fun WindDegrees(
     windDegrees: WindDegreesForecastValue
 ) {
-    NBIcon(
+    NBIconView(
         modifier = Modifier.rotate(windDegrees.rotationDegrees),
         icon = windDegrees.icon
     )

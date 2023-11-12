@@ -12,6 +12,6 @@ fun ForecastOverviewCurrentWeatherView(
     val gridItems = currentWeather.items.toGridItems()
 
     NBGridView(
-        gridItems = gridItems
+        items = gridItems
     )
 }

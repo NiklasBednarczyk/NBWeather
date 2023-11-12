@@ -17,10 +17,10 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVert
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcon
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlView
-import de.niklasbednarczyk.nbweather.core.ui.slider.NBSlider
+import de.niklasbednarczyk.nbweather.core.ui.slider.NBSliderView
 import de.niklasbednarczyk.nbweather.core.ui.stickyheader.NBStickyHeaderView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.NBTextSingleLine
@@ -138,7 +138,7 @@ private fun ItemDestination(
             NBTextSingleLine(text = item.description.asString())
         },
         leadingContent = {
-            NBIcon(icon = item.icon)
+            NBIconView(icon = item.icon)
         }
     )
 }
@@ -156,7 +156,7 @@ private fun ItemDivider() {
 private fun ItemSlider(
     item: SettingsListItemModel.ItemSlider
 ) {
-    NBSlider(
+    NBSliderView(
         modifier = Modifier.padding(
             horizontal = horizontalPadding,
             vertical = verticalPadding

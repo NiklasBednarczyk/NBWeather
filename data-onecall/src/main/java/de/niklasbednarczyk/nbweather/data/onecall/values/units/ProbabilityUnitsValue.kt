@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class ProbabilityUnitsValue internal constructor(override val value: Double) : NBUnitsValue {
+value class ProbabilityUnitsValue(override val value: Double) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return value * 100 // decimal to percentage

@@ -1,15 +1,14 @@
 package de.niklasbednarczyk.nbweather.test.ui.screens
 
 import androidx.annotation.StringRes
-import androidx.compose.ui.semantics.SemanticsActions
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
-import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
-import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertTextContains
+import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -19,8 +18,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeLeft
 import androidx.compose.ui.test.swipeRight
-import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.text.font.FontFamily
 import androidx.test.espresso.Espresso
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
@@ -44,34 +41,38 @@ interface NBComposeTest : NBTest {
         composeTestRule.apply(block)
     }
 
-    fun createNBString(value: String) = NBString.Value.from(value)
+    fun createNBString(value: String) = NBString.Value.from(value)!!
 
     fun <T> createNBResource(data: T) = NBResource.Success(data)
 
     fun createNBDateTimeModel(
         epochSeconds: Long = 1672531200,
         timezoneOffsetHours: Long = 0
-    ): NBDateTimeDisplayModel? {
+    ): NBDateTimeDisplayModel {
         val timezoneOffset = timezoneOffsetHours * 3600
         return NBDateTimeDisplayModel.from(
             dateTime = NBDateTimeValue.from(epochSeconds),
             timezoneOffset = NBTimezoneOffsetValue.from(timezoneOffset)
-        )
+        )!!
     }
 
-    fun SemanticsNodeInteractionsProvider.onNodeWithText(
+    fun ComposeContentTestRule.onNodeWithText(
         @StringRes resId: Int,
         substring: Boolean = false
     ) =
         onNodeWithText(getString(resId), substring = substring)
 
-    fun SemanticsNodeInteractionsProvider.onNodeWithText(
+    fun ComposeContentTestRule.onNodeWithText(
         string: NBString?,
         substring: Boolean = false
     ) =
         onNodeWithText(string.asString(context), substring = substring)
 
-    fun SemanticsNodeInteractionsProvider.onNodeWithIcon(
+    fun ComposeContentTestRule.onNodeWithContentDescription(
+        string: NBString?
+    ) = onNodeWithContentDescription(string.asString(context))
+
+    fun ComposeContentTestRule.onNodeWithIcon(
         icon: NBIconModel,
         useUnmergedTree: Boolean = false
     ) = onNodeWithContentDescription(
@@ -79,19 +80,19 @@ interface NBComposeTest : NBTest {
         useUnmergedTree = useUnmergedTree
     )
 
-    fun SemanticsNodeInteractionsProvider.onAllNodesWithText(
+    fun ComposeContentTestRule.onAllNodesWithText(
         @StringRes resId: Int,
         substring: Boolean = false
     ) =
         onAllNodesWithText(getString(resId), substring = substring)
 
-    fun SemanticsNodeInteractionsProvider.onAllNodesWithText(
+    fun ComposeContentTestRule.onAllNodesWithText(
         string: NBString?,
         substring: Boolean = false
     ) =
         onAllNodesWithText(string.asString(context), substring = substring)
 
-    fun SemanticsNodeInteractionsProvider.onAllNodesWithIcon(icon: NBIconModel) =
+    fun ComposeContentTestRule.onAllNodesWithIcon(icon: NBIconModel) =
         onAllNodesWithContentDescription(icon.contentDescription.asString(context))
 
     fun SemanticsNodeInteractionCollection.performClickOnAllNodes() =
@@ -99,32 +100,48 @@ interface NBComposeTest : NBTest {
             get(index).performClick()
         }
 
-    fun SemanticsNodeInteractionsProvider.swipeLeft() = onRoot().swipeLeft()
+    fun SemanticsNodeInteractionCollection.getNodeWithMostChildren(): SemanticsNodeInteraction {
+        val semanticNodes = fetchSemanticsNodes()
+        val index = semanticNodes.indices.maxBy { index ->
+            semanticNodes[index].children.size
+        }
+        return get(index)
+    }
 
-    fun SemanticsNodeInteractionsProvider.swipeRight() = onRoot().swipeRight()
+    fun ComposeContentTestRule.swipeLeft() = onRoot().swipeLeft()
+
+    fun ComposeContentTestRule.swipeRight() = onRoot().swipeRight()
 
     fun SemanticsNodeInteraction.swipeLeft() = performTouchInput { swipeLeft() }
 
     fun SemanticsNodeInteraction.swipeRight() = performTouchInput { swipeRight() }
 
-    fun SemanticsNodeInteractionsProvider.assertStringIsNotDisplayed(string: NBString?) =
+    fun ComposeContentTestRule.assertStringIsNotDisplayed(string: NBString?) =
         onAllNodesWithText(string)
             .assertCountEquals(0)
 
-    fun isOfFontFamily(fontFamily: FontFamily): SemanticsMatcher = SemanticsMatcher(
-        "${SemanticsProperties.Text.name} is of font family '$fontFamily'"
-    ) { node ->
-        val textLayoutResults = mutableListOf<TextLayoutResult>()
-        node.config.getOrNull(SemanticsActions.GetTextLayoutResult)
-            ?.action
-            ?.invoke(textLayoutResults)
-        return@SemanticsMatcher if (textLayoutResults.isEmpty()) {
-            false
-        } else {
-            textLayoutResults.first().layoutInput.style.fontFamily == fontFamily
-        }
-    }
+    fun ComposeContentTestRule.assertStringIsNotDisplayed(
+        text: String,
+        substring: Boolean = false
+    ) = onAllNodesWithText(text, substring = substring)
+        .assertCountEquals(0)
 
+    fun ComposeContentTestRule.assertNoClickAction() =
+        onAllNodes(hasClickAction())
+            .assertCountEquals(0)
+
+    fun SemanticsNodeInteraction.assertTextContains(value: NBString?) =
+        assertTextContains(value.asString(context))
+
+    fun ComposeContentTestRule.waitUntilAtLeastOneExistsWithText(
+        text: String,
+        substring: Boolean = false
+    ) = waitUntilAtLeastOneExists(hasText(text, substring = substring))
+
+    fun ComposeContentTestRule.waitUntilAtLeastOneExistsWithText(
+        @StringRes resId: Int,
+        substring: Boolean = false
+    ) = waitUntilAtLeastOneExists(hasText(getString(resId), substring = substring))
 
     fun pressBack() = Espresso.pressBackUnconditionally()
 

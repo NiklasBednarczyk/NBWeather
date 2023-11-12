@@ -1,26 +1,29 @@
 package de.niklasbednarczyk.nbweather
 
+import androidx.annotation.StringRes
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextInput
 import androidx.test.rule.GrantPermissionRule
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.test.common.utils.createHiltAndroidRule
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposeTest
 import org.junit.Rule
+
 import org.junit.Test
 
 @HiltAndroidTest
@@ -32,8 +35,7 @@ class MainActivityTest : NBComposeTest {
         private const val LOCATION_1_NAME = "Washington 1"
         private const val LOCATION_2_NAME = "Washington 2"
 
-        private const val LOCATION_DAILY_ITEM_NAME = "9"
-        private const val LOCATION_HOURLY_ITEM_NAME = "9:00"
+        private const val FORECAST_DAILY_DATE = "Sun, Apr 09"
     }
 
     @get:Rule(order = 0)
@@ -56,41 +58,22 @@ class MainActivityTest : NBComposeTest {
             // Start on empty SearchOverview
             assertIsOnSearchOverview()
 
-            // SearchOverview -> LocationOverview via search 1
-            searchOverviewToLocationOverviewViaSearch(LOCATION_1_NAME)
+            // SearchOverview -> ForecastOverview via search 1
+            searchOverviewToForecastOverviewViaSearch(LOCATION_1_NAME)
 
-            locationOverviewToSearchOverview()
+            forecastOverviewToSearchOverview()
 
-            // SearchOverview -> LocationOverview via search 2
-            searchOverviewToLocationOverviewViaSearch(LOCATION_2_NAME)
+            // SearchOverview -> ForecastOverview via search 2
+            searchOverviewToForecastOverviewViaSearch(LOCATION_2_NAME)
 
-            locationOverviewToSearchOverview()
+            forecastOverviewToSearchOverview()
 
-            // SearchOverview -> LocationOverview via visited location
+            // SearchOverview -> ForecastOverview via visited location
             onNodeWithLocationName(LOCATION_1_NAME)
                 .performClick()
-            assertIsOnLocationOverview(LOCATION_1_NAME)
+            assertIsOnForecastOverview(LOCATION_1_NAME)
 
-            // LocationOverview Tab Hourly -> LocationHourly
-            switchTab(NBIcons.Hourly)
-            onAllNodesWithText(LOCATION_HOURLY_ITEM_NAME, substring = true)
-                .onFirst()
-                .performClick()
-            assertIsLocationCard()
-
-            pressBack()
-
-            // LocationOverview Tab Daily -> LocationDaily
-            switchTab(NBIcons.Daily)
-            onAllNodesWithText(LOCATION_DAILY_ITEM_NAME, substring = true)
-                .onFirst()
-                .performClick()
-            assertIsLocationCard()
-
-            pressBack()
-
-            // LocationOverview Tab Today -> LocationAlerts
-            switchTab(NBIcons.Today)
+            // ForecastOverview -> ForecastAlerts
             onNodeWithIcon(NBIcons.Warning)
                 .performClick()
             onNodeWithText(R.string.screen_forecast_alerts_title)
@@ -98,76 +81,83 @@ class MainActivityTest : NBComposeTest {
 
             pressBack()
 
+            // ForecastOverview -> ForecastHourly
+            assertForecastItemWithDetailView(
+                itemTitleResId = R.string.screen_forecast_overview_hourly_title,
+                detailViewString = getString(R.string.screen_forecast_common_forecast_name_temperature)
+            )
+
+            // ForecastOverview -> ForecastDaily
+            assertForecastItemWithDetailView(
+                itemTitleResId = R.string.screen_forecast_overview_daily_title,
+                detailViewString = FORECAST_DAILY_DATE
+            )
+
             // Location 1 -> Location 2 via drawer
             clickDrawerItem(LOCATION_2_NAME)
-            assertIsOnLocationOverview(LOCATION_2_NAME)
+            assertIsOnForecastOverview(LOCATION_2_NAME)
 
-            // LocationOverview -> SettingsOverview
+            // ForecastOverview -> SettingsOverview
             clickDrawerItem(getString(R.string.screen_settings_overview_title))
             onNodeWithText(R.string.screen_settings_appearance_title)
                 .assertIsDisplayed()
 
             // SettingsOverview -> SettingsAppearance
-            onNodeWithText(R.string.screen_settings_appearance_title)
-                .performClick()
-            onNodeWithText(R.string.screen_settings_appearance_header_theme)
-                .assertIsDisplayed()
-
-            pressBack()
+            assertSettingsItemWithDetailView(
+                itemTitleResId = R.string.screen_settings_appearance_title,
+                detailViewResId = R.string.screen_settings_appearance_header_theme
+            )
 
             // SettingsOverview -> SettingsFont
-            onNodeWithText(R.string.screen_settings_font_title)
-                .performClick()
-            onNodeWithText(R.string.screen_settings_font_axis_slant)
-                .assertIsDisplayed()
+            assertSettingsItemWithDetailView(
+                itemTitleResId = R.string.screen_settings_font_title,
+                detailViewResId = R.string.screen_settings_font_axis_slant
+            )
 
-            pressBack()
+            // SettingsOverview -> SettingsOrder
+            assertSettingsItemWithDetailView(
+                itemTitleResId = R.string.screen_settings_order_title,
+                detailViewResId = R.string.screen_forecast_overview_current_weather_title
+            )
 
             // SettingsOverview -> SettingsUnits
-            onNodeWithText(R.string.screen_settings_units_title)
-                .performClick()
-            onNodeWithText(R.string.screen_settings_units_header_temperature)
-                .assertIsDisplayed()
+            assertSettingsItemWithDetailView(
+                itemTitleResId = R.string.screen_settings_units_title,
+                detailViewResId = R.string.screen_settings_units_header_temperature
+            )
 
             pressBack()
 
-            pressBack()
-
-            // LocationOverview -> AboutOverview
+            // ForecastOverview -> AboutOverview
             clickDrawerItem(getString(R.string.screen_about_overview_title))
             onNodeWithText(R.string.screen_about_overview_text_open_weather)
                 .assertIsDisplayed()
         }
     }
 
-    private fun ComposeContentTestRule.searchOverviewToLocationOverviewViaSearch(
+    private fun ComposeContentTestRule.searchOverviewToForecastOverviewViaSearch(
         locationName: String
     ) {
         onNodeWithText(R.string.fragment_top_app_bar_search_placeholder)
             .performTextInput(SEARCH_OVERVIEW_SEARCH_TERM)
 
-        waitUntilAtLeastOneExists(hasText(locationName))
+        waitUntilAtLeastOneExistsWithText(locationName)
 
         onNodeWithText(locationName)
             .performClick()
 
-        assertIsOnLocationOverview(locationName)
+        assertIsOnForecastOverview(locationName)
     }
 
-    private fun ComposeContentTestRule.locationOverviewToSearchOverview() {
+    private fun ComposeContentTestRule.forecastOverviewToSearchOverview() {
         onNodeWithIcon(NBIcons.Search)
-            .performClick()
-    }
-
-    private fun ComposeContentTestRule.switchTab(icon: NBIconModel) {
-        onNodeWithIcon(icon, useUnmergedTree = true)
             .performClick()
     }
 
     private fun ComposeContentTestRule.clickDrawerItem(text: String) {
         onNodeWithIcon(NBIcons.Drawer)
             .performClick()
-        waitUntilAtLeastOneExists(hasText(getString(de.niklasbednarczyk.nbweather.R.string.app_name)))
+        waitUntilAtLeastOneExistsWithText(de.niklasbednarczyk.nbweather.R.string.app_name)
         onNodeWithText(text, substring = true)
             .performClick()
     }
@@ -184,17 +174,45 @@ class MainActivityTest : NBComposeTest {
             .assertIsDisplayed()
     }
 
-    private fun ComposeContentTestRule.assertIsOnLocationOverview(
+    private fun ComposeContentTestRule.assertIsOnForecastOverview(
         locationName: String
     ) {
-        onNodeWithLocationName(locationName)
+        waitUntilAtLeastOneExistsWithText(locationName, substring = true)
+        onNodeWithIcon(NBIcons.MaxTemperature)
             .assertIsDisplayed()
-        assertIsLocationCard()
+        onNodeWithIcon(NBIcons.MinTemperature)
+            .assertIsDisplayed()
+        onNodeWithText(R.string.screen_forecast_overview_current_weather_title)
+            .performScrollTo()
+            .assertExists()
     }
 
-    private fun ComposeContentTestRule.assertIsLocationCard() {
-        onNodeWithText(R.string.screen_forecast_card_overview_title)
+    private fun ComposeContentTestRule.assertForecastItemWithDetailView(
+        @StringRes itemTitleResId: Int,
+        detailViewString: String
+    ) {
+        onAllNodes((hasScrollAction()))
+            .getNodeWithMostChildren()
+            .performScrollToNode(hasText(getString(itemTitleResId)))
+
+        onNodeWithText(itemTitleResId)
+            .performClick()
+
+        waitUntilAtLeastOneExistsWithText(detailViewString, substring = true)
+
+        pressBack()
+    }
+
+    private fun ComposeContentTestRule.assertSettingsItemWithDetailView(
+        @StringRes itemTitleResId: Int,
+        @StringRes detailViewResId: Int
+    ) {
+        onNodeWithText(itemTitleResId)
+            .performClick()
+        onNodeWithText(detailViewResId)
             .assertIsDisplayed()
+
+        pressBack()
     }
 
 }

@@ -7,9 +7,7 @@ import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.data.onecall.models.MinutelyForecastModelData
-import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
-import de.niklasbednarczyk.nbweather.feature.forecast.constants.ConstantsFeatureForecast
-import kotlin.math.min
+import de.niklasbednarczyk.nbweather.feature.forecast.constants.ForecastUnitsLimits
 
 data class ForecastOverviewPrecipitationModel(
     val headline: NBString,
@@ -51,7 +49,7 @@ data class ForecastOverviewPrecipitationModel(
                     val changeIndex = forecasts.indexOfFirst { forecast -> forecast == 0.0 }
 
                     val isBreaking = forecasts
-                        .slice(0..changeIndex)
+                        .slice(changeIndex..forecasts.lastIndex)
                         .any { forecast -> forecast > 0.0 }
 
                     if (isBreaking) {
@@ -84,21 +82,20 @@ data class ForecastOverviewPrecipitationModel(
         }
 
         private fun List<MinutelyForecastModelData>.getPrecipitationFactors(): List<Float>? {
-            val maxValue = ConstantsFeatureForecast.Limits.Precipitation.max.value
+            val maxValue = ForecastUnitsLimits.Precipitation.max.value
             return map { minutelyForecast ->
                 val value = minutelyForecast.precipitation?.value ?: return null
                 val precipitationFactor = (value / maxValue).toFloat()
-                min(precipitationFactor, 1f)
+                precipitationFactor.coerceIn(0f, 1f)
             }
         }
 
         fun from(
-            oneCall: OneCallModelData
+            timezoneOffset: NBTimezoneOffsetValue?,
+            minutelyForecasts: List<MinutelyForecastModelData>
         ): ForecastOverviewPrecipitationModel? {
-            return nbNullSafeList(oneCall.minutelyForecasts) { minutelyForecasts ->
-                val timezoneOffset = oneCall.timezoneOffset
-
-                val minutely = minutelyForecasts.take(MINUTELY_SIZE)
+            return nbNullSafeList(minutelyForecasts) { forecasts ->
+                val minutely = forecasts.take(MINUTELY_SIZE)
                 if (minutely.size != MINUTELY_SIZE) return null
 
                 nbNullSafe(

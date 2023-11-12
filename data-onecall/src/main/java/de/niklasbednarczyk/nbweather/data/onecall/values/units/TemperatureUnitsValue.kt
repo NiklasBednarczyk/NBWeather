@@ -7,7 +7,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class TemperatureUnitsValue internal constructor(internal val value: Double) {
+value class TemperatureUnitsValue(internal val value: Double) {
 
     @JvmInline
     value class Long(override val value: Double) : NBUnitsValue {

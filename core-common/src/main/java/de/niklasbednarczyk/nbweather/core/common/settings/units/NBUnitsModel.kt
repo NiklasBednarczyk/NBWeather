@@ -9,4 +9,20 @@ data class NBUnitsModel(
     val distanceUnit: NBDistanceUnitType,
     val pressureUnit: NBPressureUnitType,
     val windSpeedUnit: NBWindSpeedUnitType
-)
+) {
+
+    companion object {
+
+        fun createFake(): NBUnitsModel {
+            return NBUnitsModel(
+                temperatureUnit = NBTemperatureUnitType.CELSIUS,
+                precipitationUnit = NBPrecipitationUnitType.MILLIMETER,
+                distanceUnit = NBDistanceUnitType.KILOMETER,
+                pressureUnit = NBPressureUnitType.HECTOPASCAL,
+                windSpeedUnit = NBWindSpeedUnitType.METER_PER_SECOND
+            )
+        }
+
+    }
+
+}

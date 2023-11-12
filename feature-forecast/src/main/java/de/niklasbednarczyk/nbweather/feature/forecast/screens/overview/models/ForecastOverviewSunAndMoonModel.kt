@@ -1,8 +1,10 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
-import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.CurrentWeatherModelData
+import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
 import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 
 data class ForecastOverviewSunAndMoonModel(
@@ -16,9 +18,9 @@ data class ForecastOverviewSunAndMoonModel(
 
     val sunArcPercentage: Float
         get() {
-            val current = currentTime.dateTime.value
-            val min = sunrise.dateTime.value
-            val max = sunset.dateTime.value
+            val current = currentTime.dt.value
+            val min = sunrise.dt.value
+            val max = sunset.dt.value
 
             val spanMinMax = max - min
             val spanCurrent = current - min
@@ -28,20 +30,20 @@ data class ForecastOverviewSunAndMoonModel(
     companion object {
 
         fun from(
-            oneCall: OneCallModelData
+            timezoneOffset: NBTimezoneOffsetValue?,
+            currentWeather: CurrentWeatherModelData?,
+            today: DailyForecastModelData?
         ): ForecastOverviewSunAndMoonModel? {
-            val timezoneOffset = oneCall.timezoneOffset
-            val today = oneCall.today
-            val currentWeather = oneCall.currentWeather
-
             return nbNullSafe(
-                NBDateTimeDisplayModel.from(currentWeather.currentTime, timezoneOffset),
+                NBDateTimeDisplayModel.from(currentWeather?.currentTime, timezoneOffset),
                 NBDateTimeDisplayModel.from(today?.sunrise, timezoneOffset),
                 NBDateTimeDisplayModel.from(today?.sunset, timezoneOffset),
                 NBDateTimeDisplayModel.from(today?.moonrise, timezoneOffset),
                 NBDateTimeDisplayModel.from(today?.moonset, timezoneOffset),
                 today?.moonPhase
             ) { currentTime, sunrise, sunset, moonrise, moonset, moonPhase ->
+                if (sunrise.dt.value >= sunset.dt.value) return null
+
                 ForecastOverviewSunAndMoonModel(
                     currentTime = currentTime,
                     sunrise = sunrise,

@@ -9,7 +9,7 @@ value class PressureForecastValue private constructor(override val unitsValue: P
 
     companion object {
 
-        internal fun from(value: Long?): PressureForecastValue? {
+        fun from(value: Long?): PressureForecastValue? {
             return nbNullSafe(value) { v -> PressureForecastValue(PressureUnitsValue(v)) }
         }
 

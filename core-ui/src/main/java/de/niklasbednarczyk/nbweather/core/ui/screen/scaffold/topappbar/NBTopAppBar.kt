@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButton
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
@@ -36,14 +36,14 @@ internal fun NBTopAppBar(
     val navigationIcon = @Composable {
         when (item) {
             is NBTopAppBarItem.Material.CenterAligned -> {
-                NBIconButton(
+                NBIconButtonView(
                     icon = NBIcons.Drawer,
                     onClick = openDrawer
                 )
             }
 
             is NBTopAppBarItem.Material.Small, is NBTopAppBarItem.Search -> {
-                NBIconButton(
+                NBIconButtonView(
                     icon = NBIcons.Back,
                     onClick = popBackStack
                 )
@@ -138,7 +138,7 @@ private fun NBTopAppBarSearch(
         item.trailingIconWhenEmpty
     } else {
         {
-            NBIconButton(
+            NBIconButtonView(
                 icon = NBIcons.Cancel,
                 onClick = {
                     item.onSearchTermChanged("")
@@ -199,7 +199,7 @@ private fun NBTopAppBarActions(
     actions: List<NBTopAppBarActionModel>
 ) {
     actions.forEach { action ->
-        NBIconButton(
+        NBIconButtonView(
             icon = action.icon,
             onClick = action.onClick
         )

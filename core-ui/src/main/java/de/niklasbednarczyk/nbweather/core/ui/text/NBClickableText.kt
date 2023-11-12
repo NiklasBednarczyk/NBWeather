@@ -12,8 +12,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import de.niklasbednarczyk.nbweather.core.ui.intent.createEmailIntent
-import de.niklasbednarczyk.nbweather.core.ui.intent.createUrlIntent
+import de.niklasbednarczyk.nbweather.core.common.intent.createEmailIntent
+import de.niklasbednarczyk.nbweather.core.common.intent.createUrlIntent
 import timber.log.Timber
 import java.util.regex.Pattern
 

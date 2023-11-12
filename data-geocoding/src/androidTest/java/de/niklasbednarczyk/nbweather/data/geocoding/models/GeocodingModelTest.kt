@@ -5,12 +5,12 @@ import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocalNamesModel
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocalNamesModelRemote
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
-import de.niklasbednarczyk.nbweather.test.data.localremote.NBLocalRemoteModelTest
+import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import org.junit.Test
 import java.util.Locale
 import kotlin.test.assertEquals
 
-class GeocodingModelTest : NBLocalRemoteModelTest {
+class GeocodingModelTest : NBTest {
 
     @Test
     fun localToData_shouldLocalizeBasedOnLanguageType() {

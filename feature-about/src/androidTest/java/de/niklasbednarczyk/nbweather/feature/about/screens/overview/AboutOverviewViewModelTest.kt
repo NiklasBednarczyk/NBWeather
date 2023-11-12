@@ -25,7 +25,7 @@ class AboutOverviewViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 testDividerList(
                     items = uiState.items,
-                    dividerClassJava = AboutOverviewItem.Divider::class.java
+                    dividerKlass = AboutOverviewItem.Divider::class.java
                 )
             }
         )

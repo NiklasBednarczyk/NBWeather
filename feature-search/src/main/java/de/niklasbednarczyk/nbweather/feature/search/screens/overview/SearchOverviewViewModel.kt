@@ -41,7 +41,7 @@ class SearchOverviewViewModel @Inject constructor(
                                 searchTerm,
                             )
                         } else {
-                            flowOf(null)
+                            flowOf(NBResource.Loading)
                         }
                     }
             },

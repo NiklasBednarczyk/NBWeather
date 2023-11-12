@@ -25,7 +25,7 @@ fun MoonPhaseGridView(
     val gridItems = listOf(moonPhaseGridItem)
 
     NBGridView(
-        gridItems = gridItems,
+        items = gridItems,
         rowItemCountLimit = gridItems.size
     )
 }
@@ -48,7 +48,7 @@ fun MoonTimesGridView(
     val gridItems = listOf(moonriseGridItem, moonsetGridItem)
 
     NBGridView(
-        gridItems = gridItems,
+        items = gridItems,
         rowItemCountLimit = gridItems.size
     )
 }
@@ -71,7 +71,7 @@ fun SunGridView(
     val gridItems = listOf(sunriseGridItem, sunsetGridItem)
 
     NBGridView(
-        gridItems = gridItems,
+        items = gridItems,
         rowItemCountLimit = gridItems.size
     )
 }

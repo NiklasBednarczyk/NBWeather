@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 
 @JvmInline
-value class DistanceUnitsValue internal constructor(override val value: Long) : NBUnitsValue {
+value class DistanceUnitsValue(override val value: Long) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return when (units.distanceUnit) {

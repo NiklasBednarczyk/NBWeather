@@ -24,7 +24,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
-import de.niklasbednarczyk.nbweather.core.ui.pager.NBPager
+import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.NBClickableText
@@ -36,7 +36,7 @@ fun ForecastAlertsContent(
     startIntent: (Intent?) -> Unit
 ) {
     NBResourceWithoutLoadingView(uiState.viewDataResource) { viewData ->
-        NBPager(viewData) { pagerItem ->
+        NBPagerView(viewData) { pagerItem ->
             LazyColumn(
                 modifier = Modifier.padding(
                     horizontal = screenHorizontalPadding

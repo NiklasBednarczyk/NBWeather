@@ -9,7 +9,7 @@ value class HumidityForecastValue private constructor(override val unitsValue: P
 
     companion object {
 
-        internal fun from(value: Long?): HumidityForecastValue? {
+        fun from(value: Long?): HumidityForecastValue? {
             return nbNullSafe(value) { v -> HumidityForecastValue(PercentUnitsValue(v)) }
         }
 

@@ -103,120 +103,158 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             longitude = LONGITUDE,
             forceUpdate = true
         ).collectUntilResource { data ->
-            assertValue(remote.current?.dt, data.currentWeather.currentTime?.dateTime)
-            assertValue(remote.current?.sunrise, data.currentWeather.sunrise?.dateTime)
-            assertValue(remote.current?.sunset, data.currentWeather.sunset?.dateTime)
-            assertValue(remote.current?.temp, data.currentWeather.currentTemperature?.value)
+            assertValue(remote.current?.dt, data.currentWeather.currentTime?.value)
+            assertValue(remote.current?.sunrise, data.currentWeather.sunrise?.value)
+            assertValue(remote.current?.sunset, data.currentWeather.sunset?.value)
+            assertValue(
+                remote.current?.temp,
+                data.currentWeather.currentTemperature?.unitsValue?.value
+            )
             assertValue(
                 remote.current?.feelsLike,
-                data.currentWeather.feelsLikeTemperature?.value
+                data.currentWeather.feelsLikeTemperature?.unitsValue?.value
             )
-            assertValue(remote.current?.pressure, data.currentWeather.pressure?.value)
-            assertValue(remote.current?.humidity, data.currentWeather.humidity?.value)
+            assertValue(remote.current?.pressure, data.currentWeather.pressure?.unitsValue?.value)
+            assertValue(remote.current?.humidity, data.currentWeather.humidity?.unitsValue?.value)
             assertValue(
                 remote.current?.dewPoint,
-                data.currentWeather.dewPointTemperature?.value
+                data.currentWeather.dewPointTemperature?.unitsValue?.value
             )
-            assertValue(remote.current?.clouds, data.currentWeather.cloudiness?.value)
-            assertValue(remote.current?.uvi, data.currentWeather.uvIndex?.value)
-            assertValue(remote.current?.visibility, data.currentWeather.visibility?.value)
-            assertValue(remote.current?.windSpeed, data.currentWeather.windSpeed?.value)
-            assertValue(remote.current?.windGust, data.currentWeather.windGust?.value, true)
+            assertValue(remote.current?.clouds, data.currentWeather.cloudiness?.unitsValue?.value)
+            assertValue(remote.current?.uvi, data.currentWeather.uvIndex?.unitsValue?.value)
+            assertValue(
+                remote.current?.visibility,
+                data.currentWeather.visibility?.unitsValue?.value
+            )
+            assertValue(remote.current?.windSpeed, data.currentWeather.windSpeed?.unitsValue?.value)
+            assertValue(
+                remote.current?.windGust,
+                data.currentWeather.windGust?.unitsValue?.value,
+                true
+            )
             assertFieldWindDegrees(remote.current?.windDeg, data.currentWeather.windDegrees)
-            assertValue(remote.current?.rain?.oneH, data.currentWeather.rain1hVolume?.value, true)
-            assertValue(remote.current?.snow?.oneH, data.currentWeather.snow1hVolume?.value, true)
+            assertValue(
+                remote.current?.rain?.oneH,
+                data.currentWeather.rain1hVolume?.unitsValue?.value,
+                true
+            )
+            assertValue(
+                remote.current?.snow?.oneH,
+                data.currentWeather.snow1hVolume?.unitsValue?.value,
+                true
+            )
             assertClassRemoteWeather(remote.current?.weather, data.currentWeather.weather)
 
             nbZip(remote.minutely, data.minutelyForecasts) { minutelyRemote, minutelyData ->
-                assertValue(minutelyRemote.dt, minutelyData.forecastTime?.dateTime)
+                assertValue(minutelyRemote.dt, minutelyData.forecastTime?.value)
                 assertValue(minutelyRemote.precipitation, minutelyData.precipitation?.value)
             }
 
             nbZip(remote.hourly, data.hourlyForecasts) { hourlyRemote, hourlyData ->
-                assertValue(hourlyRemote.dt, hourlyData.forecastTime?.dateTime)
-                assertValue(hourlyRemote.temp, hourlyData.temperature?.value)
-                assertValue(hourlyRemote.feelsLike, hourlyData.feelsLikeTemperature?.value)
-                assertValue(hourlyRemote.pressure, hourlyData.pressure?.value)
-                assertValue(hourlyRemote.humidity, hourlyData.humidity?.value)
-                assertValue(hourlyRemote.dewPoint, hourlyData.dewPointTemperature?.value)
-                assertValue(hourlyRemote.uvi, hourlyData.uvIndex?.value)
-                assertValue(hourlyRemote.clouds, hourlyData.cloudiness?.value)
-                assertValue(hourlyRemote.visibility, hourlyData.visibility?.value)
-                assertValue(hourlyRemote.windSpeed, hourlyData.windSpeed?.value)
-                assertValue(hourlyRemote.windGust, hourlyData.windGust?.value, true)
+                assertValue(hourlyRemote.dt, hourlyData.forecastTime?.value)
+                assertValue(hourlyRemote.temp, hourlyData.temperature?.unitsValue?.value)
+                assertValue(
+                    hourlyRemote.feelsLike,
+                    hourlyData.feelsLikeTemperature?.unitsValue?.value
+                )
+                assertValue(hourlyRemote.pressure, hourlyData.pressure?.unitsValue?.value)
+                assertValue(hourlyRemote.humidity, hourlyData.humidity?.unitsValue?.value)
+                assertValue(
+                    hourlyRemote.dewPoint,
+                    hourlyData.dewPointTemperature?.unitsValue?.value
+                )
+                assertValue(hourlyRemote.uvi, hourlyData.uvIndex?.unitsValue?.value)
+                assertValue(hourlyRemote.clouds, hourlyData.cloudiness?.unitsValue?.value)
+                assertValue(hourlyRemote.visibility, hourlyData.visibility?.unitsValue?.value)
+                assertValue(hourlyRemote.windSpeed, hourlyData.windSpeed?.unitsValue?.value)
+                assertValue(hourlyRemote.windGust, hourlyData.windGust?.unitsValue?.value, true)
                 assertFieldWindDegrees(hourlyRemote.windDeg, hourlyData.windDegrees)
-                assertValue(hourlyRemote.pop, hourlyData.probabilityOfPrecipitation?.value)
-                assertValue(hourlyRemote.rain?.oneH, hourlyData.rain1hVolume?.value, true)
-                assertValue(hourlyRemote.snow?.oneH, hourlyData.snow1hVolume?.value, true)
+                assertValue(
+                    hourlyRemote.pop,
+                    hourlyData.probabilityOfPrecipitation?.unitsValue?.value
+                )
+                assertValue(
+                    hourlyRemote.rain?.oneH,
+                    hourlyData.rain1hVolume?.unitsValue?.value,
+                    true
+                )
+                assertValue(
+                    hourlyRemote.snow?.oneH,
+                    hourlyData.snow1hVolume?.unitsValue?.value,
+                    true
+                )
                 assertClassRemoteWeather(hourlyRemote.weather, hourlyData.weather)
             }
 
             nbZip(remote.daily, data.dailyForecasts) { dailyRemote, dailyData ->
-                assertValue(dailyRemote.dt, dailyData.forecastTime?.dateTime)
-                assertValue(dailyRemote.sunrise, dailyData.sunrise?.dateTime)
-                assertValue(dailyRemote.sunset, dailyData.sunset?.dateTime)
-                assertValue(dailyRemote.moonrise, dailyData.moonrise?.dateTime)
-                assertValue(dailyRemote.moonset, dailyData.moonset?.dateTime)
-                assertValue(MoonPhaseType.from(dailyRemote.moonPhase), dailyData.moonPhase?.type)
+                assertValue(dailyRemote.dt, dailyData.forecastTime?.value)
+                assertValue(dailyRemote.sunrise, dailyData.sunrise?.value)
+                assertValue(dailyRemote.sunset, dailyData.sunset?.value)
+                assertValue(dailyRemote.moonrise, dailyData.moonrise?.value)
+                assertValue(dailyRemote.moonset, dailyData.moonset?.value)
+                assertValue(MoonPhaseType.from(dailyRemote.moonPhase), dailyData.moonPhase)
                 assertValue(
                     dailyRemote.temp?.morn,
-                    dailyData.temperature?.morningTemperature?.value
+                    dailyData.temperature?.morningTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.temp?.day,
-                    dailyData.temperature?.dayTemperature?.value
+                    dailyData.temperature?.dayTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.temp?.eve,
-                    dailyData.temperature?.eveningTemperature?.value
+                    dailyData.temperature?.eveningTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.temp?.night,
-                    dailyData.temperature?.nightTemperature?.value
+                    dailyData.temperature?.nightTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.temp?.min,
-                    dailyData.temperature?.minDailyTemperature?.value
+                    dailyData.temperature?.minDailyTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.temp?.max,
-                    dailyData.temperature?.maxDailyTemperature?.value
+                    dailyData.temperature?.maxDailyTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.feelsLike?.morn,
-                    dailyData.feelsLikeTemperature?.morningTemperature?.value
+                    dailyData.feelsLikeTemperature?.morningTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.feelsLike?.day,
-                    dailyData.feelsLikeTemperature?.dayTemperature?.value
+                    dailyData.feelsLikeTemperature?.dayTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.feelsLike?.eve,
-                    dailyData.feelsLikeTemperature?.eveningTemperature?.value
+                    dailyData.feelsLikeTemperature?.eveningTemperature?.unitsValue?.value
                 )
                 assertValue(
                     dailyRemote.feelsLike?.night,
-                    dailyData.feelsLikeTemperature?.nightTemperature?.value
+                    dailyData.feelsLikeTemperature?.nightTemperature?.unitsValue?.value
                 )
-                assertValue(dailyRemote.pressure, dailyData.pressure?.value)
-                assertValue(dailyRemote.humidity, dailyData.humidity?.value)
-                assertValue(dailyRemote.dewPoint, dailyData.dewPointTemperature?.value)
-                assertValue(dailyRemote.windSpeed, dailyData.windSpeed?.value)
-                assertValue(dailyRemote.windGust, dailyData.windGust?.value, true)
+                assertValue(dailyRemote.pressure, dailyData.pressure?.unitsValue?.value)
+                assertValue(dailyRemote.humidity, dailyData.humidity?.unitsValue?.value)
+                assertValue(dailyRemote.dewPoint, dailyData.dewPointTemperature?.unitsValue?.value)
+                assertValue(dailyRemote.windSpeed, dailyData.windSpeed?.unitsValue?.value)
+                assertValue(dailyRemote.windGust, dailyData.windGust?.unitsValue?.value, true)
                 assertFieldWindDegrees(dailyRemote.windDeg, dailyData.windDegrees)
-                assertValue(dailyRemote.clouds, dailyData.cloudiness?.value)
-                assertValue(dailyRemote.uvi, dailyData.uvIndex?.value)
-                assertValue(dailyRemote.pop, dailyData.probabilityOfPrecipitation?.value)
-                assertValue(dailyRemote.rain, dailyData.rainVolume?.value, true)
-                assertValue(dailyRemote.snow, dailyData.snowVolume?.value, true)
+                assertValue(dailyRemote.clouds, dailyData.cloudiness?.unitsValue?.value)
+                assertValue(dailyRemote.uvi, dailyData.uvIndex?.unitsValue?.value)
+                assertValue(
+                    dailyRemote.pop,
+                    dailyData.probabilityOfPrecipitation?.unitsValue?.value
+                )
+                assertValue(dailyRemote.rain, dailyData.rainVolume?.unitsValue?.value, true)
+                assertValue(dailyRemote.snow, dailyData.snowVolume?.unitsValue?.value, true)
                 assertClassRemoteWeather(dailyRemote.weather, dailyData.weather)
             }
 
             nbZip(remote.alerts, data.nationalWeatherAlerts) { alertRemote, alertData ->
                 assertValue(alertRemote.senderName, alertData.senderName?.asString(context))
                 assertValue(alertRemote.event, alertData.eventName?.asString(context))
-                assertValue(alertRemote.start, alertData.startDate?.dateTime)
-                assertValue(alertRemote.end, alertData.endDate?.dateTime)
+                assertValue(alertRemote.start, alertData.startDate?.value)
+                assertValue(alertRemote.end, alertData.endDate?.value)
                 assertValue(alertRemote.description, alertData.description?.asString(context))
                 alertRemote.tags?.zip(alertData.tags ?: emptyList()) { tagRemote, tagData ->
                     assertValue(tagRemote, tagData.asString(context))
@@ -261,7 +299,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
         currentWeatherDtLocal: Long?,
         data: OneCallModelData,
     ) {
-        val currentWeatherDtData = data.currentWeather.currentTime?.dateTime
+        val currentWeatherDtData = data.currentWeather.currentTime?.value
         assertNotNull(currentWeatherDtData)
         assertNotEquals(currentWeatherDtLocal, currentWeatherDtData)
     }

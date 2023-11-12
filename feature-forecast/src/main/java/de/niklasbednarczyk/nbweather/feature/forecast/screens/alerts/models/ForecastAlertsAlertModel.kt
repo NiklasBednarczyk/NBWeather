@@ -13,8 +13,8 @@ data class ForecastAlertsAlertModel(
     companion object {
 
         fun from(
-            nationalWeatherAlert: NationalWeatherAlertModelData,
-            timezoneOffset: NBTimezoneOffsetValue?
+            timezoneOffset: NBTimezoneOffsetValue?,
+            nationalWeatherAlert: NationalWeatherAlertModelData
         ): ForecastAlertsAlertModel? {
             val infoItems = mutableListOf<ForecastAlertsAlertInfoItem>()
 

@@ -9,7 +9,7 @@ value class ProbabilityOfPrecipitationForecastValue private constructor(override
 
     companion object {
 
-        internal fun from(value: Double?): ProbabilityOfPrecipitationForecastValue? {
+        fun from(value: Double?): ProbabilityOfPrecipitationForecastValue? {
             return nbNullSafe(value) { v -> ProbabilityOfPrecipitationForecastValue(ProbabilityUnitsValue(v)) }
         }
 

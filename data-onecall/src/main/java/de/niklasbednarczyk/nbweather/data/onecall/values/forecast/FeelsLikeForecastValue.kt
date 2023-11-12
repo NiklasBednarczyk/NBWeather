@@ -12,7 +12,7 @@ value class FeelsLikeForecastValue private constructor(val value: TemperatureUni
 
     companion object {
 
-        internal fun from(value: Double?): FeelsLikeForecastValue? {
+        fun from(value: Double?): FeelsLikeForecastValue? {
             return nbNullSafe(value) { v -> FeelsLikeForecastValue(TemperatureUnitsValue(v)) }
         }
 

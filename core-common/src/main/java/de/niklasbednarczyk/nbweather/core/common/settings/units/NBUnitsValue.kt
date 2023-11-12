@@ -26,10 +26,6 @@ interface NBUnitsValue {
         return convertedValue.format(fractionDigits)
     }
 
-
-    fun getRoundedValue(units: NBUnitsModel): Double? =
-        getFormattedValue(units).toDoubleOrNull()
-
     fun getDisplayValue(units: NBUnitsModel): NBString? =
         NBString.Value.from(getFormattedValue(units))
 

@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 
 @JvmInline
-value class PercentUnitsValue internal constructor(override val value: Long) : NBUnitsValue {
+value class PercentUnitsValue(override val value: Long) : NBUnitsValue {
 
     override fun getConvertedValue(units: NBUnitsModel): Double {
         return value.toDouble()

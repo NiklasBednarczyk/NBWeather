@@ -4,7 +4,9 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import com.google.android.material.color.MaterialColors
+import com.google.errorprone.annotations.Immutable
 
+@Immutable
 data class NBColorsModel(
     val sunArc: Color,
     val unitsDistance: Color,
@@ -44,6 +46,20 @@ data class NBColorsModel(
                 unitsTemperature = harmonize(unitsTemperature, primary),
                 unitsUVIndex = harmonize(unitsUVIndex, primary),
                 unitsWindSpeed = harmonize(unitsWindSpeed, primary)
+            )
+        }
+
+        fun createFake(): NBColorsModel {
+            return NBColorsModel(
+                sunArc = sunArc,
+                unitsDistance = unitsDistance,
+                unitsPercent = unitsPercent,
+                unitsPrecipitation = unitsPrecipitation,
+                unitsPressure = unitsPressure,
+                unitsProbability = unitsProbability,
+                unitsTemperature = unitsTemperature,
+                unitsUVIndex = unitsUVIndex,
+                unitsWindSpeed = unitsWindSpeed
             )
         }
 

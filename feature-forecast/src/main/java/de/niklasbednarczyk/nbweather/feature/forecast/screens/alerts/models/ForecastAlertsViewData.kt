@@ -1,7 +1,9 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerViewData
+import de.niklasbednarczyk.nbweather.data.onecall.models.NationalWeatherAlertModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.OneCallModelData
 
 data class ForecastAlertsViewData(
@@ -19,9 +21,17 @@ data class ForecastAlertsViewData(
         fun from(
             oneCall: OneCallModelData
         ): ForecastAlertsViewData? {
-            val timezoneOffset = oneCall.timezoneOffset
+            return from(
+                timezoneOffset = oneCall.timezoneOffset,
+                nationalWeatherAlerts = oneCall.nationalWeatherAlerts
+            )
+        }
 
-            val items = oneCall.nationalWeatherAlerts.mapNotNull { nationalWeatherAlert ->
+        fun from(
+            timezoneOffset: NBTimezoneOffsetValue?,
+            nationalWeatherAlerts: List<NationalWeatherAlertModelData>
+        ): ForecastAlertsViewData? {
+            val items = nationalWeatherAlerts.mapNotNull { nationalWeatherAlert ->
                 ForecastAlertsAlertModel.from(
                     nationalWeatherAlert = nationalWeatherAlert,
                     timezoneOffset = timezoneOffset

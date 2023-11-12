@@ -16,8 +16,10 @@ import de.niklasbednarczyk.nbweather.core.ui.info.NBInfoView
 
 @Composable
 fun <T> NBResourceWithLoadingView(
-    resource: NBResource<T>?,
-    content: @Composable (data: T) -> Unit
+    resource: NBResource<T>,
+    errorView: @Composable (type: NBErrorType) -> Unit = { type -> ErrorView(type) },
+    loadingView: @Composable () -> Unit = { NBLoadingView() },
+    successView: @Composable (data: T) -> Unit
 ) {
     AnimatedContent(
         targetState = resource,
@@ -25,13 +27,15 @@ fun <T> NBResourceWithLoadingView(
     ) { r ->
         when (r) {
             is NBResource.Error -> {
-                ErrorView(r.errorType)
+                errorView(r.errorType)
             }
+
+            is NBResource.Loading -> {
+                loadingView()
+            }
+
             is NBResource.Success -> {
-                content(r.data)
-            }
-            else -> {
-                NBLoadingView()
+                successView(r.data)
             }
         }
     }
@@ -39,17 +43,23 @@ fun <T> NBResourceWithLoadingView(
 
 @Composable
 fun <T> NBResourceWithoutLoadingView(
-    resource: NBResource<T>?,
-    content: @Composable (data: T) -> Unit
+    resource: NBResource<T>,
+    errorView: @Composable (type: NBErrorType) -> Unit = { type -> ErrorView(type) },
+    loadingView: @Composable () -> Unit = {},
+    successView: @Composable (data: T) -> Unit
 ) {
     when (resource) {
         is NBResource.Error -> {
-            ErrorView(resource.errorType)
+            errorView(resource.errorType)
         }
+
+        is NBResource.Loading -> {
+            loadingView()
+        }
+
         is NBResource.Success -> {
-            content(resource.data)
+            successView(resource.data)
         }
-        else -> {}
     }
 }
 

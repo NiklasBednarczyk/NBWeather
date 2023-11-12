@@ -12,7 +12,7 @@ value class DewPointForecastValue private constructor(val value: TemperatureUnit
 
     companion object {
 
-        internal fun from(value: Double?): DewPointForecastValue? {
+        fun from(value: Double?): DewPointForecastValue? {
             return nbNullSafe(value) { v -> DewPointForecastValue(TemperatureUnitsValue(v)) }
         }
 

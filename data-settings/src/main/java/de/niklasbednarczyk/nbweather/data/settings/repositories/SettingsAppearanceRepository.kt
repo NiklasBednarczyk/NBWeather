@@ -19,7 +19,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SettingsAppearanceRepository @Inject constructor(
+class SettingsAppearanceRepository @Inject internal constructor(
     override val dataStore: DataStore<SettingsAppearanceProto>
 ) : RepositoryDisk<SettingsAppearanceProto, NBAppearanceModel>() {
 

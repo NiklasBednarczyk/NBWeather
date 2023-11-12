@@ -24,8 +24,8 @@ enum class WindDegreesType {
     internal companion object {
 
         fun from(value: Long?): WindDegreesType? {
-            return nbNullSafe(value?.toDouble()) {
-                when (it) {
+            return nbNullSafe(value?.toDouble()) { v ->
+                when (v) {
                     in 000.00..<011.25 -> N
                     in 011.25..<033.75 -> NNE
                     in 033.75..<056.25 -> NE

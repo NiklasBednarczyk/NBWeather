@@ -8,7 +8,6 @@ import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridIconModel
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.core.ui.limit.NBLimitsItem
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.CloudinessForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.DewPointForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.FeelsLikeForecastValue
@@ -24,7 +23,8 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.VisibilityFore
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindGustForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindSpeedForecastValue
-import de.niklasbednarczyk.nbweather.feature.forecast.constants.ConstantsFeatureForecast
+import de.niklasbednarczyk.nbweather.feature.forecast.constants.ForecastUnitsLimits
+import de.niklasbednarczyk.nbweather.feature.forecast.models.ForecastUnitsLimitsItem
 
 val ForecastValue.displayValue: NBString?
     @Composable
@@ -91,28 +91,28 @@ val ForecastValue.sortOrder: Int
     }
 
 
-val ForecastValue.Units.limits: NBLimitsItem
+val ForecastValue.Units.limits: ForecastUnitsLimitsItem
     get() = when (this) {
         is CloudinessForecastValue,
-        is HumidityForecastValue -> ConstantsFeatureForecast.Limits.Percent
+        is HumidityForecastValue -> ForecastUnitsLimits.Percent
 
         is DewPointForecastValue,
         is FeelsLikeForecastValue,
-        is TemperatureForecastValue -> ConstantsFeatureForecast.Limits.Temperature
+        is TemperatureForecastValue -> ForecastUnitsLimits.Temperature
 
-        is PressureForecastValue -> ConstantsFeatureForecast.Limits.Pressure
+        is PressureForecastValue -> ForecastUnitsLimits.Pressure
 
-        is ProbabilityOfPrecipitationForecastValue -> ConstantsFeatureForecast.Limits.Probability
+        is ProbabilityOfPrecipitationForecastValue -> ForecastUnitsLimits.Probability
 
         is RainForecastValue,
-        is SnowForecastValue -> ConstantsFeatureForecast.Limits.Precipitation
+        is SnowForecastValue -> ForecastUnitsLimits.Precipitation
 
-        is UVIndexForecastValue -> ConstantsFeatureForecast.Limits.UVIndex
+        is UVIndexForecastValue -> ForecastUnitsLimits.UVIndex
 
-        is VisibilityForecastValue -> ConstantsFeatureForecast.Limits.Distance
+        is VisibilityForecastValue -> ForecastUnitsLimits.Distance
 
         is WindGustForecastValue,
-        is WindSpeedForecastValue -> ConstantsFeatureForecast.Limits.WindSpeed
+        is WindSpeedForecastValue -> ForecastUnitsLimits.WindSpeed
     }
 
 @Composable

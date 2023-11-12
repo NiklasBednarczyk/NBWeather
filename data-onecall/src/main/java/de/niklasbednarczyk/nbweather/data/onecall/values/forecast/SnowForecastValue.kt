@@ -9,7 +9,7 @@ value class SnowForecastValue private constructor(override val unitsValue: Preci
 
     companion object {
 
-        internal fun from(value: Double?): SnowForecastValue? {
+        fun from(value: Double?): SnowForecastValue? {
             return nbNullSafe(value) { v -> SnowForecastValue(PrecipitationUnitsValue(v)) }
         }
 

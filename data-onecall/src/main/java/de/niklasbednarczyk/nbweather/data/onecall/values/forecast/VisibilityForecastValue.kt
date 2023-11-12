@@ -9,7 +9,7 @@ value class VisibilityForecastValue private constructor(override val unitsValue:
 
     companion object {
 
-        internal fun from(value: Long?): VisibilityForecastValue? {
+        fun from(value: Long?): VisibilityForecastValue? {
             return nbNullSafe(value) { v -> VisibilityForecastValue(DistanceUnitsValue(v)) }
         }
 

@@ -18,8 +18,8 @@ data class ForecastOverviewDailyItemModel(
     companion object {
 
         fun from(
-            dailyForecast: DailyForecastModelData,
-            timezoneOffset: NBTimezoneOffsetValue?
+            timezoneOffset: NBTimezoneOffsetValue?,
+            dailyForecast: DailyForecastModelData
         ): ForecastOverviewDailyItemModel? {
             val temperature = dailyForecast.temperature
 
