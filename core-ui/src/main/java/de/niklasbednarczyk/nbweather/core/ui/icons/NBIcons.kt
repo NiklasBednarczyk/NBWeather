@@ -372,7 +372,7 @@ object NBIcons {
     }
 
     object Units : NBIconModel {
-        override val resId: Int = R.drawable.wi_celsius
+        override val resId: Int = R.drawable.baseline_square_foot_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_units)
     }
