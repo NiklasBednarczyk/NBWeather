@@ -17,7 +17,7 @@ enum class NBLanguageType {
 
         fun from(): NBLanguageType {
             val localeDefaultLanguage = Locale.getDefault().language
-            val languageType = NBLanguageType.values().find { languageType ->
+            val languageType = entries.find { languageType ->
                 languageType.language == localeDefaultLanguage
             }
             return languageType ?: ENGLISH

@@ -126,6 +126,11 @@ interface NBComposeTest : NBTest {
     ) = onAllNodesWithText(text, substring = substring)
         .assertCountEquals(0)
 
+    fun ComposeContentTestRule.assertIconIsNotDisplayed(
+        icon: NBIconModel
+    ) = onAllNodesWithIcon(icon)
+        .assertCountEquals(0)
+
     fun ComposeContentTestRule.assertNoClickAction() =
         onAllNodes(hasClickAction())
             .assertCountEquals(0)

@@ -213,8 +213,8 @@ interface ForecastModelsTest : NBTest {
                 rain1hVolume = RainForecastValue.from(index + 13.0),
                 snow1hVolume = SnowForecastValue.from(index + 14.0),
                 weather = WeatherModelData(
-                    icon = WeatherIconType.values()[index],
-                    condition = WeatherConditionType.values()[index]
+                    icon = WeatherIconType.entries[index],
+                    condition = WeatherConditionType.entries[index]
                 )
             )
         }
@@ -302,7 +302,7 @@ interface ForecastModelsTest : NBTest {
                 sunset = NBDateTimeValue.from(testEndDateValue.addHours(index)),
                 moonrise = NBDateTimeValue.from(testStartDateValue.addHours(index + 1)),
                 moonset = NBDateTimeValue.from(testEndDateValue.addHours(index + 1)),
-                moonPhase = MoonPhaseType.values()[index],
+                moonPhase = MoonPhaseType.entries[index],
                 temperature = DailyTemperatureModelData(
                     morningTemperature = TemperatureForecastValue.from(index + 1.0),
                     dayTemperature = TemperatureForecastValue.from(index + 2.0),
@@ -329,8 +329,8 @@ interface ForecastModelsTest : NBTest {
                 rainVolume = RainForecastValue.from(index + 10.0),
                 snowVolume = SnowForecastValue.from(index + 11.0),
                 weather = WeatherModelData(
-                    icon = WeatherIconType.values()[index],
-                    condition = WeatherConditionType.values()[index]
+                    icon = WeatherIconType.entries[index],
+                    condition = WeatherConditionType.entries[index]
                 )
             )
         }

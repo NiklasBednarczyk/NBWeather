@@ -32,7 +32,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 SettingsListItemModel.ItemButtons(
                     segmentedControl = NBSegmentedControlModel(
                         selectedKey = units.temperatureUnit,
-                        buttons = NBTemperatureUnitType.values().map { temperature ->
+                        buttons = NBTemperatureUnitType.entries.map { temperature ->
                             NBSegmentedButtonModel(
                                 key = temperature,
                                 text = temperature.symbol
@@ -50,7 +50,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 SettingsListItemModel.ItemButtons(
                     segmentedControl = NBSegmentedControlModel(
                         selectedKey = units.precipitationUnit,
-                        buttons = NBPrecipitationUnitType.values().map { precipitation ->
+                        buttons = NBPrecipitationUnitType.entries.map { precipitation ->
                             NBSegmentedButtonModel(
                                 key = precipitation,
                                 text = precipitation.symbol
@@ -67,7 +67,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 SettingsListItemModel.ItemButtons(
                     segmentedControl = NBSegmentedControlModel(
                         selectedKey = units.distanceUnit,
-                        buttons = NBDistanceUnitType.values().map { distance ->
+                        buttons = NBDistanceUnitType.entries.map { distance ->
                             NBSegmentedButtonModel(
                                 key = distance,
                                 text = distance.symbol
@@ -84,7 +84,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 SettingsListItemModel.ItemButtons(
                     segmentedControl = NBSegmentedControlModel(
                         selectedKey = units.pressureUnit,
-                        buttons = NBPressureUnitType.values().map { pressure ->
+                        buttons = NBPressureUnitType.entries.map { pressure ->
                             NBSegmentedButtonModel(
                                 key = pressure,
                                 text = pressure.symbol
@@ -101,7 +101,7 @@ class SettingsUnitsViewModel @Inject constructor(
                 SettingsListItemModel.ItemButtons(
                     segmentedControl = NBSegmentedControlModel(
                         selectedKey = units.windSpeedUnit,
-                        buttons = NBWindSpeedUnitType.values().map { windSpeed ->
+                        buttons = NBWindSpeedUnitType.entries.map { windSpeed ->
                             NBSegmentedButtonModel(
                                 key = windSpeed,
                                 text = windSpeed.symbol

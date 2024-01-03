@@ -46,7 +46,7 @@ enum class WeatherIconType {
     internal companion object {
 
         fun from(icon: String?): WeatherIconType? {
-            return values().find { value -> value.remoteId == icon }
+            return entries.find { value -> value.remoteId == icon }
         }
 
     }

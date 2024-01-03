@@ -120,7 +120,7 @@ enum class WeatherConditionType {
     internal companion object {
 
         fun from(id: Long?): WeatherConditionType? {
-            return values().find { value -> value.remoteId == id }
+            return entries.find { value -> value.remoteId == id }
         }
 
     }

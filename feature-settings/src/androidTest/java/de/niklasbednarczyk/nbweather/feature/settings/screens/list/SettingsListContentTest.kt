@@ -71,7 +71,7 @@ class SettingsListContentTest : NBComposableTest() {
         val itemButtons = SettingsListItemModel.ItemButtons(
             segmentedControl = NBSegmentedControlModel(
                 selectedKey = selectedButton,
-                buttons = NBTemperatureUnitType.values().map { temperatureUnit ->
+                buttons = NBTemperatureUnitType.entries.map { temperatureUnit ->
                     NBSegmentedButtonModel(
                         key = temperatureUnit,
                         text = temperatureUnit.symbol

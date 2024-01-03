@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppB
 
 abstract class SettingsListFragment : NBFragment<SettingsListUiState>() {
 
-    protected abstract val topAppBarItem: NBTopAppBarItem.Material.Small
+    protected abstract val topAppBarItem: NBTopAppBarItem.Small
 
     override fun createTopAppBarItem(uiState: SettingsListUiState): NBTopAppBarItem {
         return topAppBarItem

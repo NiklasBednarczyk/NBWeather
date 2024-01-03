@@ -86,12 +86,14 @@ abstract class NBFragment<UiState> : Fragment(), NBNavControllerContainer {
         NBScaffold(
             topBar = { scrollBehavior ->
                 val topAppBarItem = createTopAppBarItem(uiState)
-                NBTopAppBar(
-                    scrollBehavior = scrollBehavior,
-                    item = topAppBarItem,
-                    openDrawer = navigationDrawerViewModel::openDrawer,
-                    popBackStack = this::popBackStack
-                )
+                if (topAppBarItem != null) {
+                    NBTopAppBar(
+                        scrollBehavior = scrollBehavior,
+                        item = topAppBarItem,
+                        openDrawer = navigationDrawerViewModel::openDrawer,
+                        popBackStack = this::popBackStack
+                    )
+                }
             },
             snackbarHostState = snackbarHostState
         ) {
@@ -99,7 +101,7 @@ abstract class NBFragment<UiState> : Fragment(), NBNavControllerContainer {
         }
     }
 
-    protected abstract fun createTopAppBarItem(uiState: UiState): NBTopAppBarItem
+    protected abstract fun createTopAppBarItem(uiState: UiState): NBTopAppBarItem?
 
     @Composable
     protected abstract fun ScaffoldContent(uiState: UiState)

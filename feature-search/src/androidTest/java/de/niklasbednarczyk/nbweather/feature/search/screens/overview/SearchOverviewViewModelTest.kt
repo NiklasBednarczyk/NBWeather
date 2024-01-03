@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
@@ -10,6 +11,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class SearchOverviewViewModelTest : NBViewModelTest {
@@ -18,7 +20,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         private val LAT_LONG_1 = Pair(38.8950368, -77.0365427)
         private val LAT_LONG_2 = Pair(40.17396, -80.2461714)
 
-        private const val SEARCH_TERM = "Washington"
+        private const val SEARCH_QUERY = "Washington"
     }
 
     private lateinit var subject: SearchOverviewViewModel
@@ -48,11 +50,10 @@ class SearchOverviewViewModelTest : NBViewModelTest {
             )
         }
 
-
     @Test
-    fun onSearchTermChanged_shouldChangeSearchTerm() = testScope.runTest {
+    fun onSearchQueryChanged_shouldSetUiStateCorrectly() = testScope.runTest {
         // Arrange + Act
-        subject.onSearchTermChanged(SEARCH_TERM)
+        subject.onSearchQueryChanged(SEARCH_QUERY)
 
         subject.uiState.collectUntil(
             stopCollecting = { uiState ->
@@ -61,8 +62,99 @@ class SearchOverviewViewModelTest : NBViewModelTest {
             collectData = { uiState ->
                 // Assert
                 assertResourceIsSuccess(uiState.searchedLocationsResource)
-                assertListIsNotEmpty(uiState.searchedLocationsResource.dataOrNull)
-                assertNotNullOrEmpty(uiState.searchTerm)
+                assertListIsNotEmpty(uiState.searchedLocationsResource?.dataOrNull)
+                assertEquals(SEARCH_QUERY, uiState.searchQuery)
+            }
+        )
+    }
+
+    @Test
+    fun onSearchQueryChanged_empty_shouldSetResourceCorrectlyBeforeDebounce() = testScope.runTest {
+        // Arrange + Act
+        subject.onSearchQueryChanged("startingSearchQuery")
+        subject.onSearchQueryChanged("")
+
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.searchedLocationsResource == null && uiState.searchQuery.isEmpty()
+            },
+            collectData = { uiState ->
+                // Assert
+                assertNull(uiState.searchedLocationsResource)
+                assertTrue(uiState.searchQuery.isEmpty())
+            }
+        )
+    }
+
+    @Test
+    fun onSearchQueryChanged_notEmpty_shouldSetResourceCorrectlyBeforeDebounce() = testScope.runTest {
+        // Arrange + Act
+        subject.onSearchQueryChanged("startingSearchQuery")
+        subject.onSearchQueryChanged(SEARCH_QUERY)
+
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.searchedLocationsResource is NBResource.Loading && uiState.searchQuery == SEARCH_QUERY
+            },
+            collectData = { uiState ->
+                // Assert
+                assertResourceIsLoading(uiState.searchedLocationsResource)
+                assertEquals(SEARCH_QUERY, uiState.searchQuery)
+            }
+        )
+    }
+
+    @Test
+    fun onSearchActiveChange_false_shouldSetUiStateCorrectly() = testScope.runTest {
+        // Arrange + Act
+        subject.onSearchQueryChanged(SEARCH_QUERY)
+        subject.onSearchActiveChange(false)
+
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.searchedLocationsResource == null
+            },
+            collectData = { uiState ->
+                // Assert
+                assertNull(uiState.searchedLocationsResource)
+                assertTrue(uiState.searchQuery.isEmpty())
+                assertFalse(uiState.searchActive)
+            }
+        )
+    }
+
+    @Test
+    fun onSearchActiveChange_true_shouldSetUiStateCorrectly() = testScope.runTest {
+        // Arrange + Act
+        subject.onSearchQueryChanged(SEARCH_QUERY)
+        subject.onSearchActiveChange(true)
+
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.searchedLocationsResource.isSuccessOrError
+            },
+            collectData = { uiState ->
+                // Assert
+                assertResourceIsSuccess(uiState.searchedLocationsResource)
+                assertListIsNotEmpty(uiState.searchedLocationsResource?.dataOrNull)
+                assertEquals(SEARCH_QUERY, uiState.searchQuery)
+                assertTrue(uiState.searchActive)
+            }
+        )
+    }
+
+    @Test
+    fun setFindLocationInProgress_shouldSetUiStateCorrectly() = testScope.runTest {
+        // Arrange + Act
+        subject.setFindLocationInProgress(true)
+
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.findLocationInProgress
+            },
+            collectData = { uiState ->
+                // Assert
+                assertTrue(uiState.findLocationInProgress)
             }
         )
     }
@@ -109,40 +201,6 @@ class SearchOverviewViewModelTest : NBViewModelTest {
             }
         )
     }
-
-    @Test
-    fun startFindingLocation_shouldSetUiStateCorrectly() = testScope.runTest {
-        // Arrange + Act
-        subject.startFindingLocation()
-
-        subject.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                uiState.findingLocationInProgress
-            },
-            collectData = { uiState ->
-                // Assert
-                assertTrue(uiState.findingLocationInProgress)
-                assertFalse(uiState.showNavigationIcon)
-            }
-        )
-    }
-
-    @Test
-    fun stopFindingLocation_shouldSetUiStateCorrectly() = testScope.runTest {
-        // Arrange + Act
-        subject.stopFindingLocation()
-
-        subject.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                !uiState.findingLocationInProgress
-            },
-            collectData = { uiState ->
-                // Assert
-                assertFalse(uiState.findingLocationInProgress)
-            }
-        )
-    }
-
 
     private suspend fun Pair<Double, Double>.insertLocation() {
         geocodingRepository.insertOrUpdateCurrentLocation(first, second)

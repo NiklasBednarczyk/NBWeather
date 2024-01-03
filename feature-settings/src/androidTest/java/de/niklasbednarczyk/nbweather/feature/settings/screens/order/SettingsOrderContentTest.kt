@@ -13,7 +13,7 @@ class SettingsOrderContentTest : NBComposableTest() {
     @Test
     fun items_shouldRenderCorrectly() {
         // Arrange
-        val startingItems = SettingsOrderItemType.values().toList()
+        val startingItems = SettingsOrderItemType.entries
         var updatedItems: List<SettingsOrderItemType>? = null
 
         val uiState = SettingsOrderUiState(

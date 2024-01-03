@@ -16,14 +16,11 @@ import com.google.android.gms.location.Priority
 import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
-import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
+import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarActionModel
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarModel
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -83,30 +80,24 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
         }
     }
 
-    override fun createTopAppBarItem(uiState: SearchOverviewUiState): NBTopAppBarItem {
-        return NBTopAppBarItem.Search(
-            searchTerm = uiState.searchTerm,
-            trailingIconWhenEmpty = {
-                if (shouldShowFindLocation()) {
-                    NBIconButtonView(
-                        icon = NBIcons.FindLocation,
-                        onClick = ::onFindLocationClicked
-                    )
-                } else {
-                    emptyIcon()
-                }
-            },
-            onSearchTermChanged = viewModel::onSearchTermChanged,
-            enabled = !uiState.findingLocationInProgress,
-            showNavigationIcon = uiState.showNavigationIcon
-        )
+    override fun createTopAppBarItem(uiState: SearchOverviewUiState): NBTopAppBarItem? {
+        return null
     }
 
     @Composable
     override fun ScaffoldContent(uiState: SearchOverviewUiState) {
+        val isFindLocationAvailable =
+            googleApiAvailability.isGooglePlayServicesAvailable(requireContext()) == ConnectionResult.SUCCESS
+
         SearchOverviewContent(
             uiState = uiState,
-            onBackPressedWhenNoCurrentLocation = ::onBackPressedWhenNoCurrentLocation,
+            isFindLocationAvailable = isFindLocationAvailable,
+            popBackStack = ::popBackStack,
+            onBackPressedWhenNoCurrentLocationAndNotStartDestination = ::onBackPressedWhenNoCurrentLocationAndNotStartDestination,
+            onBackPressedWhenFindLocationInProgress = {},
+            onSearchQueryChange = viewModel::onSearchQueryChanged,
+            onSearchActiveChange = viewModel::onSearchActiveChange,
+            onFindLocationClicked = ::onFindLocationClicked,
             navigateToForecast = ::navigateToForecast,
             removeVisitedLocation = viewModel::removeVisitedLocation
         )
@@ -120,7 +111,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
         navigate(NBTopLevelDestinations.Forecast)
     }
 
-    private fun onBackPressedWhenNoCurrentLocation() {
+    private fun onBackPressedWhenNoCurrentLocationAndNotStartDestination() {
         val snackbar = NBSnackbarModel(
             message = NBString.ResString(R.string.screen_search_overview_snackbar_back_pressed_when_no_current_location_message)
         )
@@ -139,12 +130,8 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
         }
     }
 
-    private fun shouldShowFindLocation(): Boolean {
-        return googleApiAvailability.isGooglePlayServicesAvailable(requireContext()) == ConnectionResult.SUCCESS
-    }
-
     private fun findLocation() {
-        viewModel.startFindingLocation()
+        viewModel.setFindLocationInProgress(true)
         try {
             fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener { location ->
@@ -157,7 +144,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
                     }
                 }
                 .addOnCanceledListener {
-                    viewModel.stopFindingLocation()
+                    viewModel.setFindLocationInProgress(false)
                     val snackbar = NBSnackbarModel(
                         message = NBString.ResString(R.string.screen_search_overview_snackbar_location_found_canceled_message),
                         action = NBSnackbarActionModel(
@@ -178,7 +165,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
     }
 
     private fun onLocationPermissionGrantedFailure(t: Throwable) {
-        viewModel.stopFindingLocation()
+        viewModel.setFindLocationInProgress(false)
         Timber.e(t)
         val snackbar = NBSnackbarModel(
             message = NBString.ResString(R.string.screen_search_overview_snackbar_location_found_failure_message),

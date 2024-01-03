@@ -6,25 +6,22 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.R
+import de.niklasbednarczyk.nbweather.core.ui.dimens.topAppBarElevation
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.core.ui.icons.emptyIcon
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.NBTextSingleLine
-import de.niklasbednarczyk.nbweather.core.ui.dimens.topAppBarElevation
 
 @Composable
 internal fun NBTopAppBar(
@@ -35,14 +32,14 @@ internal fun NBTopAppBar(
 ) {
     val navigationIcon = @Composable {
         when (item) {
-            is NBTopAppBarItem.Material.CenterAligned -> {
+            is NBTopAppBarItem.CenterAligned -> {
                 NBIconButtonView(
                     icon = NBIcons.Drawer,
                     onClick = openDrawer
                 )
             }
 
-            is NBTopAppBarItem.Material.Small, is NBTopAppBarItem.Search -> {
+            is NBTopAppBarItem.Small -> {
                 NBIconButtonView(
                     icon = NBIcons.Back,
                     onClick = popBackStack
@@ -52,7 +49,7 @@ internal fun NBTopAppBar(
     }
 
     when (item) {
-        is NBTopAppBarItem.Material.CenterAligned -> {
+        is NBTopAppBarItem.CenterAligned -> {
             NBTopAppBarCenterAligned(
                 scrollBehavior = scrollBehavior,
                 item = item,
@@ -60,16 +57,9 @@ internal fun NBTopAppBar(
             )
         }
 
-        is NBTopAppBarItem.Material.Small -> {
+        is NBTopAppBarItem.Small -> {
             NBTopAppBarSmall(
                 scrollBehavior = scrollBehavior,
-                item = item,
-                navigationIcon = navigationIcon
-            )
-        }
-
-        is NBTopAppBarItem.Search -> {
-            NBTopAppBarSearch(
                 item = item,
                 navigationIcon = navigationIcon
             )
@@ -80,7 +70,7 @@ internal fun NBTopAppBar(
 @Composable
 private fun NBTopAppBarSmall(
     scrollBehavior: TopAppBarScrollBehavior,
-    item: NBTopAppBarItem.Material.Small,
+    item: NBTopAppBarItem.Small,
     navigationIcon: @Composable () -> Unit
 ) {
     NBTopAppBarWithStatusBar(scrollBehavior = scrollBehavior) { modifier ->
@@ -106,7 +96,7 @@ private fun NBTopAppBarSmall(
 @Composable
 private fun NBTopAppBarCenterAligned(
     scrollBehavior: TopAppBarScrollBehavior,
-    item: NBTopAppBarItem.Material.CenterAligned,
+    item: NBTopAppBarItem.CenterAligned,
     navigationIcon: @Composable () -> Unit
 ) {
     NBTopAppBarWithStatusBar(scrollBehavior = scrollBehavior) { modifier ->
@@ -126,71 +116,6 @@ private fun NBTopAppBarCenterAligned(
                 )
             }
         )
-    }
-}
-
-@Composable
-private fun NBTopAppBarSearch(
-    item: NBTopAppBarItem.Search,
-    navigationIcon: @Composable () -> Unit
-) {
-    val trailingIcon = if (item.searchTerm.isEmpty()) {
-        item.trailingIconWhenEmpty
-    } else {
-        {
-            NBIconButtonView(
-                icon = NBIcons.Cancel,
-                onClick = {
-                    item.onSearchTermChanged("")
-                }
-            )
-        }
-    }
-
-    val leadingIcon = if (item.showNavigationIcon) {
-        navigationIcon
-    } else {
-        emptyIcon
-    }
-
-    val colors = OutlinedTextFieldDefaults.colors(
-        focusedBorderColor = Color.Transparent,
-        unfocusedBorderColor = Color.Transparent,
-        disabledBorderColor = Color.Transparent,
-        errorBorderColor = Color.Transparent
-    )
-
-    val placeholder =
-        @Composable {
-            Text(
-                text = NBString.ResString(R.string.fragment_top_app_bar_search_placeholder).asString()
-            )
-        }
-
-    val keyboardOptions = KeyboardOptions(
-        keyboardType = KeyboardType.Text,
-        imeAction = ImeAction.Done
-    )
-
-    Column(
-        modifier = Modifier
-            .background(containerColorWithScrolling)
-            .statusBarsPadding()
-    ) {
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = item.searchTerm,
-            enabled = item.enabled,
-            onValueChange = item.onSearchTermChanged,
-            placeholder = placeholder,
-            singleLine = true,
-            maxLines = 1,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-            colors = colors,
-            keyboardOptions = keyboardOptions
-        )
-        Divider()
     }
 }
 

@@ -14,7 +14,7 @@ class AboutOverviewFragment : NBFragment<AboutOverviewUiState>() {
     override val viewModel: AboutOverviewViewModel by viewModels()
 
     override fun createTopAppBarItem(uiState: AboutOverviewUiState): NBTopAppBarItem {
-        return NBTopAppBarItem.Material.Small(
+        return NBTopAppBarItem.Small(
             title = NBString.ResString(R.string.screen_about_overview_title)
         )
     }

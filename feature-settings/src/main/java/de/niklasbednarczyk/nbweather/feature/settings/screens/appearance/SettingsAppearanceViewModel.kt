@@ -40,7 +40,7 @@ class SettingsAppearanceViewModel @Inject constructor(
                 SettingsListItemModel.ItemButtons(
                     segmentedControl = NBSegmentedControlModel(
                         selectedKey = appearance.theme,
-                        buttons = NBThemeType.values().map { theme ->
+                        buttons = NBThemeType.entries.map { theme ->
                             NBSegmentedButtonModel(
                                 key = theme,
                                 text = theme.displayText
@@ -74,7 +74,7 @@ class SettingsAppearanceViewModel @Inject constructor(
                 SettingsListItemModel.ItemButtons(
                     segmentedControl = NBSegmentedControlModel(
                         selectedKey = appearance.colorScheme,
-                        buttons = NBColorSchemeType.values().map { colorScheme ->
+                        buttons = NBColorSchemeType.entries.map { colorScheme ->
                             NBSegmentedButtonModel(
                                 key = colorScheme,
                                 text = colorScheme.displayText

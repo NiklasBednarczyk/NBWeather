@@ -37,7 +37,7 @@ enum class SettingsOrderItemType {
     companion object {
 
         fun from(order: NBOrderModel): List<SettingsOrderItemType> {
-            return values().sortedBy { type ->
+            return entries.sortedBy { type ->
                 type.getSortOrder(order)
             }
         }

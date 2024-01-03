@@ -4,6 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
+import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -17,31 +18,39 @@ class SearchOverviewViewModel @Inject constructor(
 ) : NBViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
 
     companion object {
-        private const val DEBOUNCE_VALUE = 300L
+        private const val DEBOUNCE_TIMEOUT_MILLIS = 300L
     }
 
-    private val searchTermFlow = MutableStateFlow(uiState.value.searchTerm)
+    private val searchQueryFlow = MutableStateFlow(uiState.value.searchQuery)
+
+    private val visitedLocationsInfoFlow = NBResource.combineResourceFlows(
+        geocodingRepository.getVisitedLocations(),
+        geocodingRepository.getCurrentLocation(),
+        geocodingRepository.getIsInitialCurrentLocationSet()
+    ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
+        SearchOverviewVisitedLocationsInfoModel(
+            visitedLocations = visitedLocations ?: emptyList(),
+            currentLocation = currentLocation,
+            isInitialCurrentLocationSet = isInitialCurrentLocationSet
+        )
+    }
 
     init {
         collectFlow(
-            {
-                geocodingRepository.getVisitedLocationsInfo()
-            },
+            { visitedLocationsInfoFlow },
             { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
         )
 
         collectFlow(
             {
-                searchTermFlow
-                    .debounce(DEBOUNCE_VALUE)
+                searchQueryFlow
+                    .debounce(DEBOUNCE_TIMEOUT_MILLIS)
                     .distinctUntilChanged()
-                    .flatMapLatest { searchTerm ->
-                        if (searchTerm.isNotBlank()) {
-                            geocodingRepository.getLocationsByLocationName(
-                                searchTerm,
-                            )
+                    .flatMapLatest { searchQuery ->
+                        if (searchQuery.isNotEmpty()) {
+                            geocodingRepository.getLocationsByLocationName(searchQuery)
                         } else {
-                            flowOf(NBResource.Loading)
+                            flowOf(null)
                         }
                     }
             },
@@ -49,15 +58,36 @@ class SearchOverviewViewModel @Inject constructor(
         )
     }
 
-    fun onSearchTermChanged(searchTerm: String) {
+    fun onSearchQueryChanged(searchQuery: String) {
+        val searchedLocationsResource = if (searchQuery.isNotEmpty()) {
+            NBResource.Loading
+        } else {
+            null
+        }
+
         updateUiState { oldUiState ->
             oldUiState.copy(
-                searchTerm = searchTerm,
-                searchedLocationsResource = NBResource.Loading
+                searchQuery = searchQuery,
+                searchedLocationsResource = searchedLocationsResource
             )
         }
-        updateStateFlow(searchTermFlow) {
-            searchTerm
+        updateStateFlow(searchQueryFlow) {
+            searchQuery
+        }
+    }
+
+    fun onSearchActiveChange(searchActive: Boolean) {
+        updateUiState { oldUiState ->
+            oldUiState.copy(searchActive = searchActive)
+        }
+        if (!searchActive) {
+            onSearchQueryChanged("")
+        }
+    }
+
+    fun setFindLocationInProgress(findLocationInProgress: Boolean) {
+        updateUiState { oldUiState ->
+            oldUiState.copy(findLocationInProgress = findLocationInProgress)
         }
     }
 
@@ -70,18 +100,6 @@ class SearchOverviewViewModel @Inject constructor(
     fun setCurrentLocation(latitude: Double, longitude: Double) {
         launchSuspend {
             geocodingRepository.insertOrUpdateCurrentLocation(latitude, longitude)
-        }
-    }
-
-    fun startFindingLocation() {
-        updateUiState { oldUiState ->
-            oldUiState.copy(findingLocationInProgress = true)
-        }
-    }
-
-    fun stopFindingLocation() {
-        updateUiState { oldUiState ->
-            oldUiState.copy(findingLocationInProgress = false)
         }
     }
 

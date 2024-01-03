@@ -16,7 +16,7 @@ class SettingsOrderFragment : NBFragment<SettingsOrderUiState>() {
     override val viewModel: SettingsOrderViewModel by viewModels()
 
     override fun createTopAppBarItem(uiState: SettingsOrderUiState): NBTopAppBarItem {
-        return NBTopAppBarItem.Material.Small(
+        return NBTopAppBarItem.Small(
             title = NBString.ResString(R.string.screen_settings_order_title),
             actions = listOf(
                 NBTopAppBarActionModel(

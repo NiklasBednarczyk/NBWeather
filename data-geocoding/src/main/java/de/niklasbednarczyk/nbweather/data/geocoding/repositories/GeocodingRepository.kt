@@ -10,7 +10,6 @@ import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
-import de.niklasbednarczyk.nbweather.data.geocoding.models.VisitedLocationsInfoModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.FakeGeocodingService
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.NBGeocodingService
@@ -100,21 +99,6 @@ class GeocodingRepository @Inject constructor(
 
             resource !is NBResource.Success
         }
-    }
-
-    fun getVisitedLocationsInfo(): Flow<NBResource<VisitedLocationsInfoModelData>> {
-        return NBResource.combineResourceFlows(
-            getVisitedLocations(),
-            getCurrentLocation(),
-            getIsInitialCurrentLocationSet()
-        ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
-            VisitedLocationsInfoModelData(
-                visitedLocations = visitedLocations ?: emptyList(),
-                currentLocation = currentLocation,
-                isInitialCurrentLocationSet = isInitialCurrentLocationSet
-            )
-        }
-
     }
 
     suspend fun insertOrUpdateCurrentLocation(

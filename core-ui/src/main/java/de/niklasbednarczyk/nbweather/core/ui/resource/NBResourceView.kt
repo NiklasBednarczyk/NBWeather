@@ -16,9 +16,10 @@ import de.niklasbednarczyk.nbweather.core.ui.info.NBInfoView
 
 @Composable
 fun <T> NBResourceWithLoadingView(
-    resource: NBResource<T>,
+    resource: NBResource<T>?,
     errorView: @Composable (type: NBErrorType) -> Unit = { type -> ErrorView(type) },
     loadingView: @Composable () -> Unit = { NBLoadingView() },
+    nullView: @Composable () -> Unit = {},
     successView: @Composable (data: T) -> Unit
 ) {
     AnimatedContent(
@@ -36,6 +37,10 @@ fun <T> NBResourceWithLoadingView(
 
             is NBResource.Success -> {
                 successView(r.data)
+            }
+
+            null -> {
+                nullView()
             }
         }
     }

@@ -14,7 +14,7 @@ class ForecastHourlyFragment : NBFragment<ForecastHourlyUiState>() {
     override val viewModel: ForecastHourlyViewModel by viewModels()
 
     override fun createTopAppBarItem(uiState: ForecastHourlyUiState): NBTopAppBarItem {
-        return NBTopAppBarItem.Material.Small(
+        return NBTopAppBarItem.Small(
             title = NBString.ResString(R.string.screen_forecast_overview_hourly_title)
         )
     }

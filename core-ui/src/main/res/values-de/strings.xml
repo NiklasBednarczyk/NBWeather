@@ -3,7 +3,6 @@
     <string name="error_text_unknown">Etwas ist schief gelaufen</string>
 
     <string name="fragment_snackbar_intent_failed_message">Keine passende App auf Ihrem Handy gefunden</string>
-    <string name="fragment_top_app_bar_search_placeholder">Suche</string>
 
     <string name="icon_content_description_back">Zurück</string>
     <string name="icon_content_description_cancel">Abbrechen</string>
@@ -191,6 +190,7 @@
     <string name="screen_forecast_overview_precipitation_title">Niederschlag</string>
     <string name="screen_forecast_overview_sun_and_moon_title">Sonne und Mond</string>
 
+    <string name="screen_search_overview_bar_placeholder">Suche</string>
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
     <string name="screen_search_overview_snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
     <string name="screen_search_overview_snackbar_location_found_action_label">Erneut versuchen</string>

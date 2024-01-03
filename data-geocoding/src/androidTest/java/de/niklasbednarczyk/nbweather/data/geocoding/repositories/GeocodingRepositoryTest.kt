@@ -109,32 +109,6 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun getVisitedLocationsInfo_shouldGetValueWhenTimestampSet() = testScope.runTest {
-        // Arrange
-        arrangeLocationsWithTimestamps()
-
-        // Act + Assert
-        subject.getVisitedLocationsInfo().collectUntilResource { dataAct ->
-            assertListIsNotEmpty(dataAct.visitedLocations)
-            assertNotNull(dataAct.currentLocation)
-            assertTrue(dataAct.isInitialCurrentLocationSet)
-        }
-    }
-
-    @Test
-    fun getVisitedLocationsInfo_shouldNotGetValuesWhenNoTimestampSet() = testScope.runTest {
-        // Arrange
-        arrangeLocationsWithoutTimestamps()
-
-        // Act + Assert
-        subject.getVisitedLocationsInfo().collectUntilResource { dataAct ->
-            assertListIsEmpty(dataAct.visitedLocations)
-            assertNull(dataAct.currentLocation)
-            assertFalse(dataAct.isInitialCurrentLocationSet)
-        }
-    }
-
-    @Test
     fun insertOrUpdateCurrentLocation_shouldInsertOrUpdateLocation() = testScope.runTest {
         // Arrange
         val location1Arrange = insertLocation(1, null) ?: return@runTest

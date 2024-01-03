@@ -10,16 +10,16 @@ import androidx.compose.ui.Modifier
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.R
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.info.NBInfoView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 @Composable
 fun SearchOverviewSearchView(
-    searchedLocationsResource: NBResource<List<LocationModelData>>,
+    searchedLocationsResource: NBResource<List<LocationModelData>>?,
     navigateToForecast: (Double, Double) -> Unit
 ) {
     NBResourceWithLoadingView(searchedLocationsResource) { searchedLocations ->

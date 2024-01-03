@@ -14,6 +14,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextReplacement
 import androidx.test.rule.GrantPermissionRule
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -30,7 +31,7 @@ import org.junit.Test
 class MainActivityTest : NBComposeTest {
 
     companion object {
-        private const val SEARCH_OVERVIEW_SEARCH_TERM = "Washington"
+        private const val SEARCH_OVERVIEW_SEARCH_QUERY = "Washington"
 
         private const val LOCATION_1_NAME = "Washington 1"
         private const val LOCATION_2_NAME = "Washington 2"
@@ -138,8 +139,8 @@ class MainActivityTest : NBComposeTest {
     private fun ComposeContentTestRule.searchOverviewToForecastOverviewViaSearch(
         locationName: String
     ) {
-        onNodeWithText(R.string.fragment_top_app_bar_search_placeholder)
-            .performTextInput(SEARCH_OVERVIEW_SEARCH_TERM)
+        onNodeWithText(R.string.screen_search_overview_bar_placeholder)
+            .performTextReplacement(SEARCH_OVERVIEW_SEARCH_QUERY)
 
         waitUntilAtLeastOneExistsWithText(locationName)
 
@@ -170,7 +171,7 @@ class MainActivityTest : NBComposeTest {
     }
 
     private fun ComposeContentTestRule.assertIsOnSearchOverview() {
-        onNodeWithText(R.string.fragment_top_app_bar_search_placeholder)
+        onNodeWithText(R.string.screen_search_overview_bar_placeholder)
             .assertIsDisplayed()
     }
 

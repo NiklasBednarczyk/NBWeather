@@ -14,7 +14,7 @@ class ForecastDailyFragment : NBFragment<ForecastDailyUiState>() {
     override val viewModel: ForecastDailyViewModel by viewModels()
 
     override fun createTopAppBarItem(uiState: ForecastDailyUiState): NBTopAppBarItem {
-        return NBTopAppBarItem.Material.Small(
+        return NBTopAppBarItem.Small(
             title = NBString.ResString(R.string.screen_forecast_overview_daily_title)
         )
     }

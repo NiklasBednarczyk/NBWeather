@@ -151,12 +151,6 @@ interface NBTest {
         assertTrue(actual.isNullOrEmpty())
     }
 
-    fun assertNotNullOrEmpty(
-        actual: String?
-    ) {
-        assertTrue(actual?.isNotEmpty() == true)
-    }
-
     fun assertIsClass(
         actual: Any?,
         klass: Class<*>

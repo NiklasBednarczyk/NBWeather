@@ -14,7 +14,7 @@ class ForecastAlertsFragment : NBFragment<ForecastAlertsUiState>() {
     override val viewModel: ForecastAlertsViewModel by viewModels()
 
     override fun createTopAppBarItem(uiState: ForecastAlertsUiState): NBTopAppBarItem {
-        return NBTopAppBarItem.Material.Small(
+        return NBTopAppBarItem.Small(
             title = NBString.ResString(R.string.screen_forecast_alerts_title)
         )
     }

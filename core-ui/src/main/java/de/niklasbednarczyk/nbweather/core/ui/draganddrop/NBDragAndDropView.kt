@@ -125,7 +125,7 @@ private fun rememberDragDropState(
     return state
 }
 
-private class DragDropState constructor(
+private class DragDropState(
     private val state: LazyListState,
     private val scope: CoroutineScope,
     private val onMove: (Int, Int) -> Unit,

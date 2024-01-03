@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
     ) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
-        BackHandler(enabled = drawerState.isOpen) {
+        BackHandler(drawerState.isOpen) {
             navigationDrawerViewModel.closeDrawer()
         }
 

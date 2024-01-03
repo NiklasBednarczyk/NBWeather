@@ -1,21 +1,32 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onLast
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextReplacement
+import de.niklasbednarczyk.nbweather.core.common.string.NBString
+import de.niklasbednarczyk.nbweather.core.ui.R
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocalNamesModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
-import de.niklasbednarczyk.nbweather.data.geocoding.models.VisitedLocationsInfoModelData
+import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposableTest
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 class SearchOverviewContentTest : NBComposableTest() {
+
+    companion object {
+
+        private const val SEARCH_QUERY = "searchQuery"
+
+    }
 
     private val visitedLocation1 = createTestLocation(1)
     private val visitedLocation2 = createTestLocation(2)
@@ -23,122 +34,524 @@ class SearchOverviewContentTest : NBComposableTest() {
     private val searchedLocation1 = createTestLocation(3)
     private val searchedLocation2 = createTestLocation(4)
 
+    private val placeholderString =
+        NBString.ResString(R.string.screen_search_overview_bar_placeholder)
+
     @Test
-    fun backHandler_shouldNotBeOverwritten_whenCurrentLocationAndIsInitialSet() {
-        // Arrange
-        val uiState = createSearchUiState(
-            isInitialCurrentLocationSet = true,
-            setCurrentLocation = true
+    fun backHandler_isInitialCurrentLocationSetFalse_isCurrentLocationSetFalse_findLocationInProgressFalse_shouldBeDisabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = false,
+            uiStateIsCurrentLocationSet = false,
+            uiStateFindLocationInProgress = false,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = false
         )
-
-        var backHandlerOverwritten = false
-
-        // Act
-        setSearchContent(
-            uiState = uiState,
-            onBackPressedWhenNoCurrentLocation = { backHandlerOverwritten = true }
-        )
-        pressBack()
-
-        // Assert
-        assertFalse(backHandlerOverwritten)
     }
 
     @Test
-    fun backHandler_shouldBeOverwritten_whenCurrentLocationIsNotSet() {
-        // Arrange
-        val uiState = createSearchUiState(
-            isInitialCurrentLocationSet = true,
-            setCurrentLocation = false
+    fun backHandler_isInitialCurrentLocationSetFalse_isCurrentLocationSetFalse_findLocationInProgressTrue_shouldBeEnabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = false,
+            uiStateIsCurrentLocationSet = false,
+            uiStateFindLocationInProgress = true,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = true
         )
-
-        var backHandlerOverwritten = false
-
-        // Act
-        setSearchContent(
-            uiState = uiState,
-            onBackPressedWhenNoCurrentLocation = { backHandlerOverwritten = true }
-        )
-        pressBack()
-
-        // Assert
-        assertTrue(backHandlerOverwritten)
     }
 
     @Test
-    fun backHandler_shouldBeOverwritten_whenIsInitialCurrentLocationNotSet() {
-        // Arrange
-        val uiState = createSearchUiState(
-            isInitialCurrentLocationSet = false,
-            setCurrentLocation = true
+    fun backHandler_isInitialCurrentLocationSetFalse_isCurrentLocationSetTrue_findLocationInProgressFalse_shouldBeDisabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = false,
+            uiStateIsCurrentLocationSet = true,
+            uiStateFindLocationInProgress = false,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = false
         )
-
-        var backHandlerOverwritten = false
-
-        // Act
-        setSearchContent(
-            uiState = uiState,
-            onBackPressedWhenNoCurrentLocation = { backHandlerOverwritten = true }
-        )
-        pressBack()
-
-        // Assert
-        assertTrue(backHandlerOverwritten)
     }
 
     @Test
-    fun findingLocationInProgress_shouldBeLoading_WhenTrue() {
+    fun backHandler_isInitialCurrentLocationSetFalse_isCurrentLocationSetTrue_findLocationInProgressTrue_shouldBeEnabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = false,
+            uiStateIsCurrentLocationSet = true,
+            uiStateFindLocationInProgress = true,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = true
+        )
+    }
+
+    @Test
+    fun backHandler_isInitialCurrentLocationSetTrue_isCurrentLocationSetFalse_findLocationInProgressFalse_shouldBeEnabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = true,
+            uiStateIsCurrentLocationSet = false,
+            uiStateFindLocationInProgress = false,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = true,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = false
+        )
+    }
+
+    @Test
+    fun backHandler_isInitialCurrentLocationSetTrue_isCurrentLocationSetFalse_findLocationInProgressTrue_shouldBeEnabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = true,
+            uiStateIsCurrentLocationSet = false,
+            uiStateFindLocationInProgress = true,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = true
+        )
+    }
+
+    @Test
+    fun backHandler_isInitialCurrentLocationSetTrue_isCurrentLocationSetTrue_findLocationInProgressFalse_shouldBeDisabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = true,
+            uiStateIsCurrentLocationSet = true,
+            uiStateFindLocationInProgress = false,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = false
+        )
+    }
+
+    @Test
+    fun backHandler_isInitialCurrentLocationSetTrue_isCurrentLocationSetTrue_findLocationInProgressTrue_shouldBeEnabled() {
+        testBackHandler(
+            uiStateIsInitialCurrentLocationSet = true,
+            uiStateIsCurrentLocationSet = true,
+            uiStateFindLocationInProgress = true,
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenFindLocationInProgressCalled = true
+        )
+    }
+
+    @Test
+    fun searchBar_searchQueryEmpty_shouldDisplayPlaceholder() {
         // Arrange
-        val uiState = createSearchUiState(
-            findingLocationInProgress = true,
-            searchTerm = ""
+        val uiState = createTestUiState(
+            searchQuery = ""
         )
 
         // Act
-        setSearchContent(
+        setSearchOverviewContent(
             uiState = uiState
         )
 
         // Assert
         assertCompose {
-            assertStringIsNotDisplayed(visitedLocation1.localizedNameAndCountry)
-            assertStringIsNotDisplayed(visitedLocation2.localizedNameAndCountry)
+            onNodeWithText(placeholderString)
+                .assertIsDisplayed()
         }
     }
 
     @Test
-    fun findingLocationInProgress_shouldNotBeLoading_WhenFalse() {
+    fun searchBar_searchQueryNotEmpty_shouldDisplaySearchQuery() {
         // Arrange
-        val uiState = createSearchUiState(
-            findingLocationInProgress = false,
-            searchTerm = ""
+        val uiState = createTestUiState(
+            searchQuery = SEARCH_QUERY
         )
 
         // Act
-        setSearchContent(
+        setSearchOverviewContent(
             uiState = uiState
         )
 
         // Assert
         assertCompose {
-            onNodeWithText(visitedLocation1.localizedNameAndCountry)
-                .assertIsDisplayed()
-            onNodeWithText(visitedLocation2.localizedNameAndCountry)
+            assertStringIsNotDisplayed(placeholderString)
+
+            onNodeWithText(SEARCH_QUERY)
                 .assertIsDisplayed()
         }
     }
 
     @Test
-    fun manageView_shouldRenderCorrectly() {
+    fun searchBar_onSearchQueryChange_shouldBeCalledCorrectly() {
         // Arrange
-        val uiState = createSearchUiState(
-            searchTerm = ""
+        val uiState = createTestUiState(
+            searchQuery = SEARCH_QUERY
         )
+        val newSearchQuery = "newSearchQuery"
+        var onSearchQueryChangeCalled: String? = null
+
+        // Act
+        setSearchOverviewContent(
+            uiState = uiState,
+            onSearchQueryChange = { searchQuery ->
+                onSearchQueryChangeCalled = searchQuery
+            }
+        )
+
+        // Assert
+        assertCompose {
+            onNodeWithText(SEARCH_QUERY)
+                .performTextReplacement(newSearchQuery)
+        }
+
+        assertNotNull(onSearchQueryChangeCalled)
+        assertNotEquals(SEARCH_QUERY, onSearchQueryChangeCalled)
+        assertEquals(newSearchQuery, onSearchQueryChangeCalled)
+    }
+
+    @Test
+    fun searchBar_onSearchActiveChange_shouldBeCalledCorrectly() {
+        // Arrange
+        val uiState = createTestUiState(
+            searchActive = false
+        )
+        var onSearchActiveChangeCalled: Boolean? = null
+
+        // Act
+        setSearchOverviewContent(
+            uiState = uiState,
+            onSearchActiveChange = { searchActive ->
+                onSearchActiveChangeCalled = searchActive
+            }
+        )
+
+        // Assert
+        assertCompose {
+            onNodeWithText(placeholderString)
+                .performClick()
+        }
+
+        assertNotNull(onSearchActiveChangeCalled)
+        assertEquals(true, onSearchActiveChangeCalled)
+    }
+
+    @Test
+    fun searchBar_findLocationInProgressFalse_shouldBeEnabled() {
+        // Arrange
+        val uiState = createTestUiState(
+            findLocationInProgress = false
+        )
+
+        // Act
+        setSearchOverviewContent(
+            uiState = uiState
+        )
+
+        // Assert
+        assertCompose {
+            onNodeWithText(placeholderString)
+                .assertIsEnabled()
+        }
+    }
+
+    @Test
+    fun searchBar_findLocationInProgressTrue_shouldBeDisabled() {
+        // Arrange
+        val uiState = createTestUiState(
+            findLocationInProgress = true
+        )
+
+        // Act
+        setSearchOverviewContent(
+            uiState = uiState
+        )
+
+        // Assert
+        assertCompose {
+            onNodeWithText(placeholderString)
+                .assertIsNotEnabled()
+        }
+    }
+
+    @Test
+    fun searchBar_leadingIcon_searchActiveFalse_isCurrentLocationSetFalse_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            icon = NBIcons.Search,
+            uiStateSearchActive = false,
+            uiStateIsCurrentLocationSet = false,
+            shouldClickIcon = false,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = false
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_searchActiveFalse_isCurrentLocationSetTrue_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            icon = NBIcons.Back,
+            uiStateSearchActive = false,
+            uiStateIsCurrentLocationSet = true,
+            shouldClickIcon = true,
+            expectedPopBackStackCalled = true,
+            expectedOnSearchActiveChangeCalled = false
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_searchActiveTrue_isCurrentLocationSetFalse_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            icon = NBIcons.Back,
+            uiStateSearchActive = true,
+            uiStateIsCurrentLocationSet = false,
+            shouldClickIcon = true,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = true
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_searchActiveTrue_isCurrentLocationSetTrue_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            icon = NBIcons.Back,
+            uiStateSearchActive = true,
+            uiStateIsCurrentLocationSet = true,
+            shouldClickIcon = true,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = true
+        )
+    }
+
+    @Test
+    fun searchBar_trailingIcon_searchQueryIsNotEmpty_isFindLocationAvailableFalse_shouldRenderCorrectly() {
+        testSearchBarTrailingIcon(
+            uiStateSearchQueryIsEmpty = false,
+            isFindLocationAvailable = false,
+            expectedIconCancelDisplayed = true,
+            expectedIconFindLocationDisplayed = false
+        )
+    }
+
+    @Test
+    fun searchBar_trailingIcon_searchQueryIsNotEmpty_isFindLocationAvailableTrue_shouldRenderCorrectly() {
+        testSearchBarTrailingIcon(
+            uiStateSearchQueryIsEmpty = false,
+            isFindLocationAvailable = true,
+            expectedIconCancelDisplayed = true,
+            expectedIconFindLocationDisplayed = false
+        )
+    }
+
+    @Test
+    fun searchBar_trailingIcon_searchQueryIsEmpty_isFindLocationAvailableFalse_shouldNotBeDisplayed() {
+        testSearchBarTrailingIcon(
+            uiStateSearchQueryIsEmpty = true,
+            isFindLocationAvailable = false,
+            expectedIconCancelDisplayed = false,
+            expectedIconFindLocationDisplayed = false
+        )
+    }
+
+    @Test
+    fun searchBar_trailingIcon_searchQueryIsEmpty_isFindLocationAvailableTrue_shouldRenderCorrectly() {
+        testSearchBarTrailingIcon(
+            uiStateSearchQueryIsEmpty = true,
+            isFindLocationAvailable = true,
+            expectedIconCancelDisplayed = false,
+            expectedIconFindLocationDisplayed = true
+        )
+    }
+
+    @Test
+    fun view_searchActiveFalse_findLocationInProgressFalse_shouldRenderCorrectly() {
+        testView(
+            uiStateSearchActive = false,
+            uiStateFindLocationInProgress = false,
+            expectedViewManageDisplayed = true,
+            expectedViewSearchDisplayed = false
+        )
+    }
+
+    @Test
+    fun view_searchActiveFalse_findLocationInProgressTrue_shouldRenderCorrectly() {
+        testView(
+            uiStateSearchActive = false,
+            uiStateFindLocationInProgress = true,
+            expectedViewManageDisplayed = false,
+            expectedViewSearchDisplayed = false
+        )
+    }
+
+    @Test
+    fun view_searchActiveTrue_findLocationInProgressFalse_shouldRenderCorrectly() {
+        testView(
+            uiStateSearchActive = true,
+            uiStateFindLocationInProgress = false,
+            expectedViewManageDisplayed = false,
+            expectedViewSearchDisplayed = true
+        )
+    }
+
+    @Test
+    fun view_searchActiveTrue_findLocationInProgressTrue_shouldRenderCorrectly() {
+        testView(
+            uiStateSearchActive = true,
+            uiStateFindLocationInProgress = true,
+            expectedViewManageDisplayed = false,
+            expectedViewSearchDisplayed = false
+        )
+    }
+
+    private fun testBackHandler(
+        uiStateIsInitialCurrentLocationSet: Boolean,
+        uiStateIsCurrentLocationSet: Boolean,
+        uiStateFindLocationInProgress: Boolean,
+        expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled: Boolean,
+        expectedOnBackPressedWhenFindLocationInProgressCalled: Boolean
+    ) {
+        // Arrange
+        val uiState = createTestUiState(
+            isInitialCurrentLocationSet = uiStateIsInitialCurrentLocationSet,
+            isCurrentLocationSet = uiStateIsCurrentLocationSet,
+            findLocationInProgress = uiStateFindLocationInProgress
+        )
+
+        var onBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false
+        var onBackPressedWhenFindLocationInProgressCalled = false
+
+        // Act
+        setSearchOverviewContent(
+            uiState = uiState,
+            onBackPressedWhenNoCurrentLocationAndNotStartDestination = {
+                onBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = true
+            },
+            onBackPressedWhenFindLocationInProgress = {
+                onBackPressedWhenFindLocationInProgressCalled = true
+            }
+        )
+        pressBack()
+
+        // Assert
+        assertEquals(
+            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled,
+            onBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled
+        )
+        assertEquals(
+            expectedOnBackPressedWhenFindLocationInProgressCalled,
+            onBackPressedWhenFindLocationInProgressCalled
+        )
+    }
+
+    private fun testSearchBarLeadingIcon(
+        icon: NBIconModel,
+        uiStateSearchActive: Boolean,
+        uiStateIsCurrentLocationSet: Boolean,
+        shouldClickIcon: Boolean,
+        expectedPopBackStackCalled: Boolean,
+        expectedOnSearchActiveChangeCalled: Boolean
+    ) {
+        // Arrange
+        val uiState = createTestUiState(
+            searchActive = uiStateSearchActive,
+            isCurrentLocationSet = uiStateIsCurrentLocationSet
+        )
+
+        var popBackStackCalled = false
+        var onSearchActiveChangeCalled = false
+
+        // Act
+        setSearchOverviewContent(
+            uiState = uiState,
+            popBackStack = {
+                popBackStackCalled = true
+            },
+            onSearchActiveChange = {
+                onSearchActiveChangeCalled = true
+            }
+        )
+
+        // Assert
+        assertCompose {
+            if (shouldClickIcon) {
+                onNodeWithIcon(icon)
+                    .assertIsDisplayed()
+                    .performClick()
+            } else {
+                onNodeWithIcon(icon)
+                    .assertIsDisplayed()
+            }
+        }
+
+        assertEquals(
+            expectedPopBackStackCalled,
+            popBackStackCalled
+        )
+        assertEquals(
+            expectedOnSearchActiveChangeCalled,
+            onSearchActiveChangeCalled
+        )
+    }
+
+    private fun testSearchBarTrailingIcon(
+        uiStateSearchQueryIsEmpty: Boolean,
+        isFindLocationAvailable: Boolean,
+        expectedIconCancelDisplayed: Boolean,
+        expectedIconFindLocationDisplayed: Boolean,
+    ) {
+        // Arrange
+        val iconCancel = NBIcons.Cancel
+        val iconFindLocation = NBIcons.FindLocation
+
+        val uiState = createTestUiState(
+            searchQuery = if (uiStateSearchQueryIsEmpty) "" else SEARCH_QUERY,
+        )
+
+        var onSearchQueryChangeCalled = false
+        var onFindLocationClickedCalled = false
+
+        // Act
+        setSearchOverviewContent(
+            uiState = uiState,
+            isFindLocationAvailable = isFindLocationAvailable,
+            onSearchQueryChange = {
+                onSearchQueryChangeCalled = true
+            },
+            onFindLocationClicked = {
+                onFindLocationClickedCalled = true
+            }
+        )
+
+        // Assert
+        assertCompose {
+            if (expectedIconCancelDisplayed) {
+                onNodeWithIcon(iconCancel)
+                    .assertIsDisplayed()
+                    .performClick()
+
+                assertIconIsNotDisplayed(iconFindLocation)
+            } else if (expectedIconFindLocationDisplayed) {
+                assertIconIsNotDisplayed(iconCancel)
+
+                onNodeWithIcon(iconFindLocation)
+                    .assertIsDisplayed()
+                    .performClick()
+            } else {
+                assertIconIsNotDisplayed(iconCancel)
+
+                assertIconIsNotDisplayed(iconFindLocation)
+            }
+        }
+
+        assertEquals(
+            expectedIconCancelDisplayed,
+            onSearchQueryChangeCalled
+        )
+        assertEquals(
+            expectedIconFindLocationDisplayed,
+            onFindLocationClickedCalled
+        )
+    }
+
+    private fun testView(
+        uiStateSearchActive: Boolean,
+        uiStateFindLocationInProgress: Boolean,
+        expectedViewManageDisplayed: Boolean,
+        expectedViewSearchDisplayed: Boolean
+    ) {
+        // Arrange
+        val uiState = createTestUiState(
+            searchActive = uiStateSearchActive,
+            findLocationInProgress = uiStateFindLocationInProgress
+        )
+
         var selectedNavigateToForecast: Pair<Double, Double>? = null
         var selectedRemoveVisitedLocation: Pair<Double, Double>? = null
 
         // Act
-        setSearchContent(
+        setSearchOverviewContent(
             uiState = uiState,
             navigateToForecast = { latitude, longitude ->
                 selectedNavigateToForecast = Pair(latitude, longitude)
@@ -150,79 +563,62 @@ class SearchOverviewContentTest : NBComposableTest() {
 
         // Assert
         assertCompose {
-            onNodeWithText(visitedLocation1.localizedNameAndCountry)
-                .assertIsDisplayed()
-                .performClick()
+            if (expectedViewManageDisplayed) {
+                onNodeWithText(visitedLocation1.localizedNameAndCountry)
+                    .assertIsDisplayed()
+                    .performClick()
 
-            onNodeWithText(visitedLocation2.localizedNameAndCountry)
-                .assertIsDisplayed()
+                onNodeWithText(visitedLocation2.localizedNameAndCountry)
+                    .assertIsDisplayed()
 
-            onAllNodesWithIcon(NBIcons.Delete)
-                .onLast()
-                .performClick()
+                onAllNodesWithIcon(NBIcons.Delete)
+                    .onLast()
+                    .performClick()
 
-            assertStringIsNotDisplayed(searchedLocation1.localizedName)
-            assertStringIsNotDisplayed(searchedLocation2.localizedName)
+                assertNotNull(selectedNavigateToForecast)
+                assertEquals(visitedLocation1.toPair(), selectedNavigateToForecast)
+                assertNotEquals(visitedLocation2.toPair(), selectedNavigateToForecast)
 
-        }
-
-        assertNotNull(selectedNavigateToForecast)
-        assertEquals(visitedLocation1.toPair(), selectedNavigateToForecast)
-        assertNotEquals(visitedLocation2.toPair(), selectedNavigateToForecast)
-
-        assertNotNull(selectedRemoveVisitedLocation)
-        assertEquals(visitedLocation2.toPair(), selectedRemoveVisitedLocation)
-        assertNotEquals(visitedLocation1.toPair(), selectedRemoveVisitedLocation)
-    }
-
-    @Test
-    fun searchView_shouldRenderCorrectly() {
-        // Arrange
-        val uiState = createSearchUiState(
-            searchTerm = "Search"
-        )
-        var selectedNavigateToForecast: Pair<Double, Double>? = null
-
-
-        // Act
-        setSearchContent(
-            uiState = uiState,
-            navigateToForecast = { latitude, longitude ->
-                selectedNavigateToForecast = Pair(latitude, longitude)
+                assertNotNull(selectedRemoveVisitedLocation)
+                assertEquals(visitedLocation2.toPair(), selectedRemoveVisitedLocation)
+                assertNotEquals(visitedLocation1.toPair(), selectedRemoveVisitedLocation)
+            } else {
+                assertStringIsNotDisplayed(visitedLocation1.localizedNameAndCountry)
+                assertStringIsNotDisplayed(visitedLocation2.localizedNameAndCountry)
             }
-        )
 
-        // Assert
-        assertCompose {
-            assertStringIsNotDisplayed(visitedLocation1.localizedNameAndCountry)
-            assertStringIsNotDisplayed(visitedLocation2.localizedNameAndCountry)
+            if (expectedViewSearchDisplayed) {
+                onNodeWithText(searchedLocation1.localizedName)
+                    .assertIsDisplayed()
+                    .performClick()
 
-            onNodeWithText(searchedLocation1.localizedName)
-                .assertIsDisplayed()
-                .performClick()
+                onNodeWithText(searchedLocation2.localizedName)
+                    .assertIsDisplayed()
 
-            onNodeWithText(searchedLocation2.localizedName)
-                .assertIsDisplayed()
-
+                assertNotNull(selectedNavigateToForecast)
+                assertEquals(searchedLocation1.toPair(), selectedNavigateToForecast)
+                assertNotEquals(searchedLocation2.toPair(), selectedNavigateToForecast)
+            } else {
+                assertStringIsNotDisplayed(searchedLocation1.localizedName)
+                assertStringIsNotDisplayed(searchedLocation2.localizedName)
+            }
         }
-
-        assertNotNull(selectedNavigateToForecast)
-        assertEquals(searchedLocation1.toPair(), selectedNavigateToForecast)
-        assertNotEquals(searchedLocation2.toPair(), selectedNavigateToForecast)
     }
 
-    private fun createSearchUiState(
-        searchTerm: String = "",
+    private fun createTestUiState(
+        searchQuery: String = "",
+        searchActive: Boolean = false,
+        findLocationInProgress: Boolean = false,
         isInitialCurrentLocationSet: Boolean = true,
-        setCurrentLocation: Boolean = true,
-        findingLocationInProgress: Boolean = false
+        isCurrentLocationSet: Boolean = true
     ): SearchOverviewUiState {
-        val currentLocation = if (setCurrentLocation) createTestLocation(-1) else null
+        val currentLocation = if (isCurrentLocationSet) createTestLocation(-1) else null
         return SearchOverviewUiState(
-            searchTerm = searchTerm,
-            findingLocationInProgress = findingLocationInProgress,
+            searchQuery = searchQuery,
+            searchActive = searchActive,
+            findLocationInProgress = findLocationInProgress,
             visitedLocationsInfoResource = createNBResource(
-                VisitedLocationsInfoModelData(
+                SearchOverviewVisitedLocationsInfoModel(
                     currentLocation = currentLocation,
                     isInitialCurrentLocationSet = isInitialCurrentLocationSet,
                     visitedLocations = listOf(
@@ -240,16 +636,28 @@ class SearchOverviewContentTest : NBComposableTest() {
         )
     }
 
-    private fun setSearchContent(
+    private fun setSearchOverviewContent(
         uiState: SearchOverviewUiState,
-        onBackPressedWhenNoCurrentLocation: () -> Unit = {},
+        isFindLocationAvailable: Boolean = true,
+        popBackStack: () -> Unit = {},
+        onBackPressedWhenNoCurrentLocationAndNotStartDestination: () -> Unit = {},
+        onBackPressedWhenFindLocationInProgress: () -> Unit = {},
+        onSearchQueryChange: (String) -> Unit = {},
+        onSearchActiveChange: (Boolean) -> Unit = {},
+        onFindLocationClicked: () -> Unit = {},
         navigateToForecast: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
         removeVisitedLocation: (latitude: Double, longitude: Double) -> Unit = { _, _ -> }
     ) {
         setContent {
             SearchOverviewContent(
                 uiState = uiState,
-                onBackPressedWhenNoCurrentLocation = onBackPressedWhenNoCurrentLocation,
+                isFindLocationAvailable = isFindLocationAvailable,
+                popBackStack = popBackStack,
+                onBackPressedWhenNoCurrentLocationAndNotStartDestination = onBackPressedWhenNoCurrentLocationAndNotStartDestination,
+                onBackPressedWhenFindLocationInProgress = onBackPressedWhenFindLocationInProgress,
+                onSearchQueryChange = onSearchQueryChange,
+                onSearchActiveChange = onSearchActiveChange,
+                onFindLocationClicked = onFindLocationClicked,
                 navigateToForecast = navigateToForecast,
                 removeVisitedLocation = removeVisitedLocation
             )

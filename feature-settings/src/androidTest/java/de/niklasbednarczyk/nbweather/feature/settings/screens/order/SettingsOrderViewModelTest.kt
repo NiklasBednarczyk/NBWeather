@@ -36,7 +36,7 @@ class SettingsOrderViewModelTest : NBViewModelTest {
                 uiState.items.isNotEmpty()
             },
             collectData = { uiState ->
-                assertEquals(uiState.items.size, SettingsOrderItemType.values().size)
+                assertEquals(uiState.items.size, SettingsOrderItemType.entries.size)
             }
         )
     }
