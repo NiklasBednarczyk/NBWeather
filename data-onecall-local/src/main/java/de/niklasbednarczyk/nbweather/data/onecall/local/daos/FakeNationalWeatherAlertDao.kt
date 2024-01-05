@@ -23,7 +23,7 @@ class FakeNationalWeatherAlertDao : NBNationalWeatherAlertDao,
     }
 
     override fun deleteNationalWeatherAlerts(metadataId: Long?) {
-        deleteItem(metadataId)
+        deleteItemWithKey(metadataId)
     }
 
 

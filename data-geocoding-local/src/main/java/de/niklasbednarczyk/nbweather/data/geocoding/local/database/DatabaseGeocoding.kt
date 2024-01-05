@@ -9,7 +9,7 @@ import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLo
     entities = [
         LocationModelLocal::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class DatabaseGeocoding : RoomDatabase() {

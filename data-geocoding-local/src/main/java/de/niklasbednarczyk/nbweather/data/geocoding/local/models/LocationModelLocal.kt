@@ -11,5 +11,6 @@ data class LocationModelLocal(
     val state: String?,
     val latitude: Double,
     val longitude: Double,
-    val lastVisitedTimestampEpochSeconds: Long? = null
+    val lastVisitedTimestampEpochSeconds: Long? = null,
+    val order: Long? = null
 )

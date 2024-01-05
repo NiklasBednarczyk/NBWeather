@@ -45,7 +45,7 @@ fun <T> NBDragAndDropView(
     items: List<T>,
     updateItems: (items: List<T>) -> Unit,
     getKey: (item: T) -> Any,
-    headlineContent: @Composable (item: T) -> Unit
+    getListItem: (item: T) -> NBDragAndDropListItemModel,
 ) {
     var itemsCached by remember { mutableStateOf(items) }
     var dragAndDropItems by remember { mutableStateOf(items) }
@@ -85,15 +85,17 @@ fun <T> NBDragAndDropView(
                     },
                     label = "dragAndDropTonalElevation"
                 )
+
+                val listItem = getListItem(item)
                 ListItem(
+                    headlineContent = listItem.headlineContent,
+                    modifier = listItem.modifier,
                     leadingContent = {
                         NBIconView(
                             icon = NBIcons.DragAndDrop
                         )
                     },
-                    headlineContent = {
-                        headlineContent(item)
-                    },
+                    trailingContent = listItem.trailingContent,
                     tonalElevation = tonalElevation
                 )
             }

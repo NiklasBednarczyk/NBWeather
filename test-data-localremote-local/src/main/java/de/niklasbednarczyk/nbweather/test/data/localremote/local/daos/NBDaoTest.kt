@@ -44,7 +44,7 @@ abstract class NBDaoTest<Database : RoomDatabase, Dao : Any> : NBTest {
         insert: (Subject) -> Unit,
         createAct: (Key) -> Flow<Subject?>,
         assertAreEqual: (arrange: Subject, act: Subject) -> Unit
-    ) = runTest {
+    ) = testScope.runTest {
         // Arrange
         val arrange1 = createArrange(keys.first)
         val arrange2 = createArrange(keys.second)
@@ -74,7 +74,7 @@ abstract class NBDaoTest<Database : RoomDatabase, Dao : Any> : NBTest {
         delete: (Key) -> Unit,
         createAct: (Key) -> Flow<Subject?>,
         assertAreEqual: (arrange: Subject, act: Subject) -> Unit
-    ) = runTest {
+    ) = testScope.runTest {
         // Arrange
         val arrange1 = createArrange(keys.first)
         val arrange2 = createArrange(keys.second)

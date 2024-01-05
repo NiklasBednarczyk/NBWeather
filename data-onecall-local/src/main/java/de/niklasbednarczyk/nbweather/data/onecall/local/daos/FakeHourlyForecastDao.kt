@@ -22,7 +22,7 @@ class FakeHourlyForecastDao : NBHourlyForecastDao, NBFakeDao<HourlyForecastEntit
     }
 
     override fun deleteHourlyForecasts(metadataId: Long?) {
-        deleteItem(metadataId)
+        deleteItemWithKey(metadataId)
     }
 
 }

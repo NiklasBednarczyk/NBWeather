@@ -52,7 +52,7 @@ class FakeOneCallDao(
     }
 
     override fun deleteOneCall(latitude: Double?, longitude: Double?) {
-        deleteItem(Pair(latitude, longitude))
+        deleteItemWithKey(Pair(latitude, longitude))
     }
 
 

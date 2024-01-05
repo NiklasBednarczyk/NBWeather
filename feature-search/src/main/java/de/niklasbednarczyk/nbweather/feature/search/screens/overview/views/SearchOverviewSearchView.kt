@@ -20,7 +20,7 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 @Composable
 fun SearchOverviewSearchView(
     searchedLocationsResource: NBResource<List<LocationModelData>>?,
-    navigateToForecast: (Double, Double) -> Unit
+    navigateToForecast: (latitude: Double, longitude: Double) -> Unit
 ) {
     NBResourceWithLoadingView(searchedLocationsResource) { searchedLocations ->
         if (searchedLocations.isEmpty()) {
@@ -37,7 +37,7 @@ fun SearchOverviewSearchView(
 @Composable
 private fun Item(
     location: LocationModelData,
-    navigateToForecast: (Double, Double) -> Unit
+    navigateToForecast: (latitude: Double, longitude: Double) -> Unit
 ) {
     ListItem(
         modifier = Modifier.clickable {
@@ -59,7 +59,7 @@ private fun Item(
 @Composable
 private fun List(
     searchedLocations: List<LocationModelData>,
-    navigateToForecast: (Double, Double) -> Unit
+    navigateToForecast: (latitude: Double, longitude: Double) -> Unit
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValuesVertical

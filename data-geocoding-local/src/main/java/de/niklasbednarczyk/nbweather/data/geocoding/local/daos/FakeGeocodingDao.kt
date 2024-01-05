@@ -1,9 +1,12 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.local.daos
 
-import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.data.localremote.local.daos.NBFakeDao
+import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 
 class FakeGeocodingDao : NBGeocodingDao, NBFakeDao<LocationModelLocal, Pair<Double, Double>> {
 
@@ -21,7 +24,12 @@ class FakeGeocodingDao : NBGeocodingDao, NBFakeDao<LocationModelLocal, Pair<Doub
         return mapItems { items ->
             items
                 .filter { location -> location.lastVisitedTimestampEpochSeconds != null }
-                .sortedBy { location -> location.lastVisitedTimestampEpochSeconds }
+                .sortedWith(
+                    compareBy(
+                        LocationModelLocal::order,
+                        LocationModelLocal::lastVisitedTimestampEpochSeconds
+                    )
+                )
         }
     }
 
@@ -37,12 +45,28 @@ class FakeGeocodingDao : NBGeocodingDao, NBFakeDao<LocationModelLocal, Pair<Doub
         insertOrUpdate(location)
     }
 
+    override fun updateOrder(latitude: Double, longitude: Double, order: Long) {
+        runBlocking {
+            val location = getItem(Pair(latitude, longitude)).firstOrNull()
+            nbNullSafe(location) { l ->
+                val newLocation = l.copy(
+                    order = order
+                )
+                insertOrUpdate(newLocation)
+            }
+        }
+    }
+
     override fun insertLocation(location: LocationModelLocal) {
         insertOrIgnore(location)
     }
 
     override fun insertLocations(locations: List<LocationModelLocal>) {
         insertOrIgnore(locations)
+    }
+
+    override fun deleteLocation(location: LocationModelLocal) {
+        deleteItem(location)
     }
 
 }

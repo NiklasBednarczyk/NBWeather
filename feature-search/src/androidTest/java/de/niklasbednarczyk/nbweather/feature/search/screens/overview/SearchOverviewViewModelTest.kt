@@ -160,12 +160,12 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     }
 
     @Test
-    fun removeVisitedLocation_shouldRemoveVisitedLocation() = testScope.runTest {
+    fun deleteLocation_shouldDeleteLocation() = testScope.runTest {
         // Arrange
         LAT_LONG_1.insertLocation()
 
         // Act
-        subject.removeVisitedLocation(LAT_LONG_1.first, LAT_LONG_1.second)
+        subject.deleteLocation(LAT_LONG_1.first, LAT_LONG_1.second)
 
         // Assert
         geocodingRepository.getCurrentLocation().collectUntil(

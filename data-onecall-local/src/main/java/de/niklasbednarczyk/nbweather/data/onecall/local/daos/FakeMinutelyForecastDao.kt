@@ -23,7 +23,7 @@ class FakeMinutelyForecastDao : NBMinutelyForecastDao,
     }
 
     override fun deleteMinutelyForecasts(metadataId: Long?) {
-        deleteItem(metadataId)
+        deleteItemWithKey(metadataId)
     }
 
 

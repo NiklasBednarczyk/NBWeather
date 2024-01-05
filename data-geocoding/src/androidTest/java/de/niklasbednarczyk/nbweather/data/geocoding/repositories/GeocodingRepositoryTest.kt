@@ -111,8 +111,8 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     @Test
     fun insertOrUpdateCurrentLocation_shouldInsertOrUpdateLocation() = testScope.runTest {
         // Arrange
-        val location1Arrange = insertLocation(1, null) ?: return@runTest
-        val location2Arrange = insertLocation(2, 1L) ?: return@runTest
+        val location1Arrange = insertLocation(1, null)!!
+        val location2Arrange = insertLocation(2, 1L)!!
         val latLong3 = Pair(33.7367948, -82.7393089)
 
         // Act
@@ -140,21 +140,57 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun removeVisitedLocation_shouldRemoveTimestamp() = testScope.runTest {
+    fun updateOrders_shouldUpdateOrders() = testScope.runTest {
         // Arrange
-        insertLocation(1, 1L)
-        insertLocation(2, 2L)
+        val location1LocalArrange = insertLocation(
+            index = 1,
+            lastVisitedTimestampEpochSeconds = null,
+            order = -1
+        )!!
+        val location2LocalArrange = insertLocation(
+            index = 2,
+            lastVisitedTimestampEpochSeconds = null,
+            order = null
+        )!!
+
+        val location1DataArrange = LocationModelData.localToData(location1LocalArrange)!!
+        val location2DataArrange = LocationModelData.localToData(location2LocalArrange)!!
 
         // Act
-        subject.removeVisitedLocation(1.0, 1.0)
+        subject.updateOrders(listOf(location2DataArrange, location1DataArrange))
+
+        val location1LocalAct = geocodingDao.getLocation(
+            latitude = location1LocalArrange.latitude,
+            longitude = location1LocalArrange.longitude
+        ).firstOrNull()
+        val location2LocalAct = geocodingDao.getLocation(
+            latitude = location2LocalArrange.latitude,
+            longitude = location2LocalArrange.longitude
+        ).firstOrNull()
+
+        // Assert
+        assertNotNull(location1LocalAct)
+        assertEquals(1L, location1LocalAct.order)
+
+        assertNotNull(location2LocalAct)
+        assertEquals(0L, location2LocalAct.order)
+    }
+
+    @Test
+    fun deleteLocation_shouldDeleteLocation() = testScope.runTest {
+        // Arrange
+        insertLocation(1)
+        insertLocation(2)
+
+        // Act
+        subject.deleteLocation(1.0, 1.0)
         val location1Act = geocodingDao.getLocation(1.0, 1.0).firstOrNull()
         val location2Act = geocodingDao.getLocation(2.0, 2.0).firstOrNull()
 
         // Assert
-        assertNull(location1Act?.lastVisitedTimestampEpochSeconds)
+        assertNull(location1Act)
 
-        assertNotNull(location2Act?.lastVisitedTimestampEpochSeconds)
-        assertEquals(2L, location2Act?.lastVisitedTimestampEpochSeconds)
+        assertNotNull(location2Act)
     }
 
     private fun Number.toLatLong(): Pair<Double, Double> {
@@ -182,16 +218,18 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
     private suspend fun insertLocation(
         index: Int,
-        lastVisitedTimestampEpochSeconds: Long?
+        lastVisitedTimestampEpochSeconds: Long? = null,
+        order: Long? = null
     ): LocationModelLocal? {
         val latLong = index.toDouble()
         val locationsRemote = geocodingService.getLocationsByLocationName("", 5)
         val locationRemote = locationsRemote.getOrNull(index)
         val locationLocal = LocationModelData.remoteToLocal(
-            locationRemote,
-            latLong,
-            latLong,
-            lastVisitedTimestampEpochSeconds
+            remote = locationRemote,
+            latitude = latLong,
+            longitude = latLong,
+            lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds,
+            order = order
         )
         locationLocal?.let { locLocal ->
             geocodingDao.insertLocation(locLocal)

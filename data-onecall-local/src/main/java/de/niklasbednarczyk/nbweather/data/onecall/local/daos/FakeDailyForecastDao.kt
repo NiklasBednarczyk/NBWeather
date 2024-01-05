@@ -22,7 +22,7 @@ class FakeDailyForecastDao : NBDailyForecastDao, NBFakeDao<DailyForecastEntityLo
     }
 
     override fun deleteDailyForecasts(metadataId: Long?) {
-        deleteItem(metadataId)
+        deleteItemWithKey(metadataId)
     }
 
 }

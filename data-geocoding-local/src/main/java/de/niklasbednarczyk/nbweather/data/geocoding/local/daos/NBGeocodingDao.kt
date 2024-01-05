@@ -13,8 +13,12 @@ interface NBGeocodingDao {
 
     fun updateLocation(location: LocationModelLocal)
 
+    fun updateOrder(latitude: Double, longitude: Double, order: Long)
+
     fun insertLocation(location: LocationModelLocal)
 
     fun insertLocations(locations: List<LocationModelLocal>)
+
+    fun deleteLocation(location: LocationModelLocal)
 
 }

@@ -13,7 +13,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
-import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.rule.GrantPermissionRule
 import dagger.hilt.android.testing.BindValue
@@ -24,7 +23,6 @@ import de.niklasbednarczyk.nbweather.test.common.utils.createHiltAndroidRule
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposeTest
 import org.junit.Rule
-
 import org.junit.Test
 
 @HiltAndroidTest

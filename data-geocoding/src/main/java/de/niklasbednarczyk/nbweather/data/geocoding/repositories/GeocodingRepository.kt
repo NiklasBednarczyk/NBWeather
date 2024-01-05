@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
 import android.content.Context
 import de.niklasbednarczyk.nbweather.core.common.datetime.getCurrentTimestampEpochSeconds
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOnlineMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
@@ -106,10 +107,15 @@ class GeocodingRepository @Inject constructor(
         longitude: Double
     ) = withContext(Dispatchers.IO) {
         val local = geocodingDao.getLocation(latitude, longitude).firstOrNull()
-        val lastVisitedTimestampEpochSeconds = getCurrentTimestampEpochSeconds()
+        val currentTimestampEpochSeconds = getCurrentTimestampEpochSeconds()
         if (local != null) {
+            val newOrder = local.order ?: currentTimestampEpochSeconds
+
             val newLocal =
-                local.copy(lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds)
+                local.copy(
+                    lastVisitedTimestampEpochSeconds = currentTimestampEpochSeconds,
+                    order = newOrder
+                )
             geocodingDao.updateLocation(newLocal)
         } else {
             val remote = geocodingService.getLocationsByCoordinates(
@@ -121,20 +127,32 @@ class GeocodingRepository @Inject constructor(
                 remote = remote,
                 latitude = latitude,
                 longitude = longitude,
-                lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds
+                lastVisitedTimestampEpochSeconds = currentTimestampEpochSeconds,
+                order = currentTimestampEpochSeconds
             ) ?: return@withContext
             geocodingDao.insertLocation(newLocal)
         }
     }
 
-    suspend fun removeVisitedLocation(
+    suspend fun updateOrders(
+        locations: List<LocationModelData>
+    ) = withContext(Dispatchers.IO) {
+        locations.forEachIndexed { index, locationData ->
+            geocodingDao.updateOrder(
+                latitude = locationData.latitude,
+                longitude = locationData.longitude,
+                order = index.toLong()
+            )
+        }
+    }
+
+    suspend fun deleteLocation(
         latitude: Double,
         longitude: Double
     ) = withContext(Dispatchers.IO) {
-        val local = geocodingDao.getLocation(latitude, longitude).firstOrNull()
-        if (local != null) {
-            val newLocal = local.copy(lastVisitedTimestampEpochSeconds = null)
-            geocodingDao.updateLocation(newLocal)
+        val locationLocal = geocodingDao.getLocation(latitude, longitude).firstOrNull()
+        nbNullSafe(locationLocal) { location ->
+            geocodingDao.deleteLocation(location)
         }
     }
 

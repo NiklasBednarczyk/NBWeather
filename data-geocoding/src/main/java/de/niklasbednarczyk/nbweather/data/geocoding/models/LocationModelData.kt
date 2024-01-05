@@ -75,7 +75,8 @@ data class LocationModelData(
             remote: LocationModelRemote?,
             latitude: Double,
             longitude: Double,
-            lastVisitedTimestampEpochSeconds: Long? = null
+            lastVisitedTimestampEpochSeconds: Long? = null,
+            order: Long? = null,
         ): LocationModelLocal? {
             return nbNullSafe(remote) { r ->
                 LocationModelLocal(
@@ -85,7 +86,8 @@ data class LocationModelData(
                     state = r.state,
                     latitude = latitude,
                     longitude = longitude,
-                    lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds
+                    lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds,
+                    order = order
                 )
             }
         }

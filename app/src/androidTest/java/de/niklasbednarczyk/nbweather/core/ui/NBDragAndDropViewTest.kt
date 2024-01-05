@@ -2,9 +2,8 @@ package de.niklasbednarczyk.nbweather.core.ui
 
 import androidx.compose.material3.Text
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.longClick
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performTouchInput
+import de.niklasbednarczyk.nbweather.core.ui.draganddrop.NBDragAndDropListItemModel
 import de.niklasbednarczyk.nbweather.core.ui.draganddrop.NBDragAndDropView
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposableTest
 import org.junit.Test
@@ -28,9 +27,18 @@ class NBDragAndDropViewTest : NBComposableTest() {
                 getKey = { item ->
                     item
                 },
-                headlineContent = { item ->
-                    Text(
-                        text = item
+                getListItem = { item ->
+                    NBDragAndDropListItemModel(
+                        headlineContent = {
+                            Text(
+                                text = "headlineContent $item"
+                            )
+                        },
+                        trailingContent = {
+                            Text(
+                                text = "trailingContent $item"
+                            )
+                        }
                     )
                 }
             )
@@ -39,17 +47,16 @@ class NBDragAndDropViewTest : NBComposableTest() {
         // Assert
         assertCompose {
             startingItems.forEach { item ->
-                onNodeWithText(item)
+                onNodeWithText("headlineContent $item")
+                    .assertIsDisplayed()
+                onNodeWithText("trailingContent $item")
                     .assertIsDisplayed()
             }
 
-            onNodeWithText(startingItems.last())
-                .performTouchInput {
-                    longClick()
-                }
+            onNodeWithText("headlineContent ${startingItems.last()}")
+                .performLongClick()
         }
         assertNotNull(updatedItems)
     }
-
 
 }

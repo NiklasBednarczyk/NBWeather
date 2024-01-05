@@ -9,6 +9,7 @@ import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.longClick
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -115,6 +116,8 @@ interface NBComposeTest : NBTest {
     fun SemanticsNodeInteraction.swipeLeft() = performTouchInput { swipeLeft() }
 
     fun SemanticsNodeInteraction.swipeRight() = performTouchInput { swipeRight() }
+
+    fun SemanticsNodeInteraction.performLongClick() = performTouchInput { longClick() }
 
     fun ComposeContentTestRule.assertStringIsNotDisplayed(string: NBString?) =
         onAllNodesWithText(string)

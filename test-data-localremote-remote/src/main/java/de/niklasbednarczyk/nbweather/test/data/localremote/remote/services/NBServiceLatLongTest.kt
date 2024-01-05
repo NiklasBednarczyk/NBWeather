@@ -38,7 +38,7 @@ interface NBServiceLatLongTest : NBServiceTest {
     )
 
     @Test(expected = HttpException::class)
-    fun createActLatLongBounds_outerLowerLat_shouldThrowException() = runTest {
+    fun createActLatLongBounds_outerLowerLat_shouldThrowException() = testScope.runTest {
         testCreateActLatLongBounds(
             latitudeType = LatLongBoundType.LOWER,
             longitudeType = LatLongBoundType.CENTRAL,
@@ -46,7 +46,7 @@ interface NBServiceLatLongTest : NBServiceTest {
     }
 
     @Test(expected = HttpException::class)
-    fun createActLatLongBounds_outerUpperLat_shouldThrowException() = runTest {
+    fun createActLatLongBounds_outerUpperLat_shouldThrowException() = testScope.runTest {
         testCreateActLatLongBounds(
             latitudeType = LatLongBoundType.UPPER,
             longitudeType = LatLongBoundType.CENTRAL,
@@ -54,7 +54,7 @@ interface NBServiceLatLongTest : NBServiceTest {
     }
 
     @Test(expected = HttpException::class)
-    fun createActLatLongBounds_outerLowerLong_shouldThrowException() = runTest {
+    fun createActLatLongBounds_outerLowerLong_shouldThrowException() = testScope.runTest {
         testCreateActLatLongBounds(
             latitudeType = LatLongBoundType.CENTRAL,
             longitudeType = LatLongBoundType.LOWER,
@@ -62,7 +62,7 @@ interface NBServiceLatLongTest : NBServiceTest {
     }
 
     @Test(expected = HttpException::class)
-    fun createActLatLongBounds_outerUpperLong_shouldThrowException() = runTest {
+    fun createActLatLongBounds_outerUpperLong_shouldThrowException() = testScope.runTest {
         testCreateActLatLongBounds(
             latitudeType = LatLongBoundType.CENTRAL,
             longitudeType = LatLongBoundType.UPPER,

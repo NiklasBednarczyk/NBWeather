@@ -22,7 +22,7 @@ class FakeCurrentWeatherDao : NBCurrentWeatherDao, NBFakeDao<CurrentWeatherEntit
     }
 
     override fun deleteCurrentWeather(metadataId: Long?) {
-        deleteItem(metadataId)
+        deleteItemWithKey(metadataId)
     }
 
 

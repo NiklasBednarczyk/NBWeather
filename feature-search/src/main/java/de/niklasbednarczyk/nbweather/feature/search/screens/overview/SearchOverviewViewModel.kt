@@ -3,6 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -91,9 +92,15 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
-    fun removeVisitedLocation(latitude: Double, longitude: Double) {
+    fun deleteLocation(latitude: Double, longitude: Double) {
         launchSuspend {
-            geocodingRepository.removeVisitedLocation(latitude, longitude)
+            geocodingRepository.deleteLocation(latitude, longitude)
+        }
+    }
+
+    fun updateOrders(locations: List<LocationModelData>) {
+        launchSuspend {
+            geocodingRepository.updateOrders(locations)
         }
     }
 

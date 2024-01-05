@@ -1,62 +1,49 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview.views
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import de.niklasbednarczyk.nbweather.core.ui.draganddrop.NBDragAndDropListItemModel
+import de.niklasbednarczyk.nbweather.core.ui.draganddrop.NBDragAndDropView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 @Composable
 fun SearchOverviewManageView(
     visitedLocations: List<LocationModelData>,
-    navigateToForecast: (Double, Double) -> Unit,
-    removeVisitedLocation: (Double, Double) -> Unit
+    navigateToForecast: (latitude: Double, longitude: Double) -> Unit,
+    deleteLocation: (latitude: Double, longitude: Double) -> Unit,
+    updateOrders: (locations: List<LocationModelData>) -> Unit
 ) {
-    LazyColumn(
-        contentPadding = listContentPaddingValuesVertical
-    ) {
-        items(
-            items = visitedLocations,
-            key = { item -> item.hashCode() }
-        ) { visitedLocation ->
-            VisitedLocation(
-                modifier = Modifier.animateItemPlacement(),
-                visitedLocation = visitedLocation,
-                navigateToForecast = navigateToForecast,
-                removeVisitedLocation = removeVisitedLocation
-            )
-        }
-    }
-}
+    NBDragAndDropView(
+        items = visitedLocations,
+        updateItems = updateOrders,
+        getKey = { item ->
+            Pair(item.latitude, item.longitude)
+        },
+        getListItem = { item ->
+            val latitude = item.latitude
+            val longitude = item.longitude
 
-@Composable
-private fun VisitedLocation(
-    modifier: Modifier = Modifier,
-    visitedLocation: LocationModelData,
-    navigateToForecast: (Double, Double) -> Unit,
-    removeVisitedLocation: (Double, Double) -> Unit
-) {
-    val latitude = visitedLocation.latitude
-    val longitude = visitedLocation.longitude
-    ListItem(
-        modifier = modifier.clickable {
-            navigateToForecast(latitude, longitude)
-        },
-        headlineContent = {
-            Text(text = visitedLocation.localizedNameAndCountry.asString())
-        },
-        trailingContent = {
-            NBIconButtonView(
-                icon = NBIcons.Delete,
-                onClick = {
-                    removeVisitedLocation(latitude, longitude)
+            NBDragAndDropListItemModel(
+                headlineContent = {
+                    Text(
+                        text = item.localizedNameAndCountry.asString()
+                    )
+                },
+                modifier = Modifier.clickable {
+                    navigateToForecast(latitude, longitude)
+                },
+                trailingContent = {
+                    NBIconButtonView(
+                        icon = NBIcons.Delete,
+                        onClick = {
+                            deleteLocation(latitude, longitude)
+                        }
+                    )
                 }
             )
         }

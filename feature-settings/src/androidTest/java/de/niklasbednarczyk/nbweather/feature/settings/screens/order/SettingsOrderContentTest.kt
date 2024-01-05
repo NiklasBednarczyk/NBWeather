@@ -1,8 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.order
 
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.longClick
-import androidx.compose.ui.test.performTouchInput
 import de.niklasbednarczyk.nbweather.feature.settings.screens.order.models.SettingsOrderItemType
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposableTest
 import org.junit.Test
@@ -38,9 +36,7 @@ class SettingsOrderContentTest : NBComposableTest() {
             }
 
             onNodeWithText(startingItems.last().title)
-                .performTouchInput {
-                    longClick()
-                }
+                .performLongClick()
         }
         assertNotNull(updatedItems)
     }

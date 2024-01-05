@@ -38,7 +38,7 @@ abstract class NBSerializerTest<Proto>: NBTest {
     }
 
     @Test
-    fun writeToAndReadFrom_outputsCorrectValue() = runTest {
+    fun writeToAndReadFrom_outputsCorrectValue() = testScope.runTest {
         // Arrange
         val expectedValue = expectedNewValue
 
@@ -52,7 +52,7 @@ abstract class NBSerializerTest<Proto>: NBTest {
     }
 
     @Test(expected = CorruptionException::class)
-    fun readFrom_throwsExceptionOnIncorectValue () = runTest {
+    fun readFrom_throwsExceptionOnIncorectValue () = testScope.runTest {
         // Arrange + Act + Assert
         subject.readFrom(ByteArrayInputStream(byteArrayOf(0)))
     }

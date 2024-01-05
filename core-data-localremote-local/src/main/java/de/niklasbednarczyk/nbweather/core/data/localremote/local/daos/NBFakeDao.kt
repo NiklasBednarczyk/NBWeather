@@ -59,12 +59,16 @@ interface NBFakeDao<Model, Key> {
         insertOrUpdate(listOf(newItem))
     }
 
-    fun deleteItem(key: Key) {
+    fun deleteItemWithKey(key: Key) {
         stateFlow.update { items ->
             items.filter { model ->
-                getKey(model) == key
+                getKey(model) != key
             }
         }
+    }
+
+    fun deleteItem(item: Model) {
+        deleteItemWithKey(getKey(item))
     }
 
     fun getKey(item: Model): Key

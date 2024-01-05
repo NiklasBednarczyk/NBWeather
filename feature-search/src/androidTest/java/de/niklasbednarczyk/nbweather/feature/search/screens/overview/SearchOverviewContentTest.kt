@@ -548,7 +548,8 @@ class SearchOverviewContentTest : NBComposableTest() {
         )
 
         var selectedNavigateToForecast: Pair<Double, Double>? = null
-        var selectedRemoveVisitedLocation: Pair<Double, Double>? = null
+        var selectedDeleteLocation: Pair<Double, Double>? = null
+        var updateOrderLocations: List<LocationModelData>? = null
 
         // Act
         setSearchOverviewContent(
@@ -556,8 +557,11 @@ class SearchOverviewContentTest : NBComposableTest() {
             navigateToForecast = { latitude, longitude ->
                 selectedNavigateToForecast = Pair(latitude, longitude)
             },
-            removeVisitedLocation = { latitude, longitude ->
-                selectedRemoveVisitedLocation = Pair(latitude, longitude)
+            deleteLocation = { latitude, longitude ->
+                selectedDeleteLocation = Pair(latitude, longitude)
+            },
+            updateOrders = { locations ->
+                updateOrderLocations = locations
             }
         )
 
@@ -566,7 +570,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             if (expectedViewManageDisplayed) {
                 onNodeWithText(visitedLocation1.localizedNameAndCountry)
                     .assertIsDisplayed()
-                    .performClick()
+                    .performLongClick()
 
                 onNodeWithText(visitedLocation2.localizedNameAndCountry)
                     .assertIsDisplayed()
@@ -579,9 +583,11 @@ class SearchOverviewContentTest : NBComposableTest() {
                 assertEquals(visitedLocation1.toPair(), selectedNavigateToForecast)
                 assertNotEquals(visitedLocation2.toPair(), selectedNavigateToForecast)
 
-                assertNotNull(selectedRemoveVisitedLocation)
-                assertEquals(visitedLocation2.toPair(), selectedRemoveVisitedLocation)
-                assertNotEquals(visitedLocation1.toPair(), selectedRemoveVisitedLocation)
+                assertNotNull(selectedDeleteLocation)
+                assertEquals(visitedLocation2.toPair(), selectedDeleteLocation)
+                assertNotEquals(visitedLocation1.toPair(), selectedDeleteLocation)
+
+                assertNotNull(updateOrderLocations)
             } else {
                 assertStringIsNotDisplayed(visitedLocation1.localizedNameAndCountry)
                 assertStringIsNotDisplayed(visitedLocation2.localizedNameAndCountry)
@@ -646,7 +652,8 @@ class SearchOverviewContentTest : NBComposableTest() {
         onSearchActiveChange: (Boolean) -> Unit = {},
         onFindLocationClicked: () -> Unit = {},
         navigateToForecast: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
-        removeVisitedLocation: (latitude: Double, longitude: Double) -> Unit = { _, _ -> }
+        deleteLocation: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
+        updateOrders: (locations: List<LocationModelData>) -> Unit = {}
     ) {
         setContent {
             SearchOverviewContent(
@@ -659,7 +666,8 @@ class SearchOverviewContentTest : NBComposableTest() {
                 onSearchActiveChange = onSearchActiveChange,
                 onFindLocationClicked = onFindLocationClicked,
                 navigateToForecast = navigateToForecast,
-                removeVisitedLocation = removeVisitedLocation
+                deleteLocation = deleteLocation,
+                updateOrders = updateOrders
             )
         }
     }

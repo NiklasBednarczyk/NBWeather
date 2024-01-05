@@ -20,6 +20,7 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
+import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewManageView
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewSearchView
 
@@ -34,7 +35,8 @@ fun SearchOverviewContent(
     onSearchActiveChange: (Boolean) -> Unit,
     onFindLocationClicked: () -> Unit,
     navigateToForecast: (latitude: Double, longitude: Double) -> Unit,
-    removeVisitedLocation: (latitude: Double, longitude: Double) -> Unit
+    deleteLocation: (latitude: Double, longitude: Double) -> Unit,
+    updateOrders: (locations: List<LocationModelData>) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -124,7 +126,8 @@ fun SearchOverviewContent(
                     SearchOverviewManageView(
                         visitedLocations = visitedLocationsInfo.visitedLocations,
                         navigateToForecast = navigateToForecast,
-                        removeVisitedLocation = removeVisitedLocation
+                        deleteLocation = deleteLocation,
+                        updateOrders = updateOrders
                     )
                 }
             }

@@ -99,7 +99,8 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
             onSearchActiveChange = viewModel::onSearchActiveChange,
             onFindLocationClicked = ::onFindLocationClicked,
             navigateToForecast = ::navigateToForecast,
-            removeVisitedLocation = viewModel::removeVisitedLocation
+            deleteLocation = viewModel::deleteLocation,
+            updateOrders = viewModel::updateOrders
         )
     }
 

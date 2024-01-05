@@ -29,7 +29,7 @@ class RetrofitGeocodingServiceTest : NBServiceLatLongTest {
     }
 
     @Test
-    fun getLocationsByLocationName_shouldGetLocations() = runTest {
+    fun getLocationsByLocationName_shouldGetLocations() = testScope.runTest {
         // Arrange
         val locationNameCorrect = "London"
         val locationNameEmpty = " "
@@ -58,7 +58,7 @@ class RetrofitGeocodingServiceTest : NBServiceLatLongTest {
     }
 
     @Test(expected = HttpException::class)
-    fun getLocationsByLocationName_shouldThrowExceptionOnBlankName() = runTest {
+    fun getLocationsByLocationName_shouldThrowExceptionOnBlankName() = testScope.runTest {
         // Arrange
         val locationNameBlank = ""
 
@@ -70,7 +70,7 @@ class RetrofitGeocodingServiceTest : NBServiceLatLongTest {
     }
 
     @Test
-    fun getLocationsByCoordinates_shouldGetLocations() = runTest {
+    fun getLocationsByCoordinates_shouldGetLocations() = testScope.runTest {
         // Arrange
         val latitude = NBServiceLatLongTest.LONDON_LATITUDE
         val longitude = NBServiceLatLongTest.LONDON_LONGITUDE
