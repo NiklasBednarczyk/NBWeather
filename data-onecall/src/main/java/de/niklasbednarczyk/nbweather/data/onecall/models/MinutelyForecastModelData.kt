@@ -14,29 +14,29 @@ data class MinutelyForecastModelData(
 
     internal companion object {
 
-        fun remoteToLocal(
-            remoteList: List<MinutelyForecastModelRemote>?,
-            metadataId: Long,
-        ): List<MinutelyForecastEntityLocal> {
-            return remoteList.nbMap { remote ->
-                MinutelyForecastEntityLocal(
-                    metadataId = metadataId,
-                    dt = remote.dt,
-                    precipitation = remote.precipitation
+        fun localToData(
+            local: List<MinutelyForecastEntityLocal>?
+        ): List<MinutelyForecastModelData> {
+            return local.nbMap { l ->
+                val precipitation = l.precipitation
+                val precipitationValue = nbNullSafe(precipitation) { p -> PrecipitationUnitsValue(p) }
+
+                MinutelyForecastModelData(
+                    forecastTime = NBDateTimeValue.from(l.dt),
+                    precipitation = precipitationValue
                 )
             }
         }
 
-        fun localToData(
-            localList: List<MinutelyForecastEntityLocal>?
-        ): List<MinutelyForecastModelData> {
-            return localList.nbMap { local ->
-                val precipitation = local.precipitation
-                val precipitationValue = nbNullSafe(precipitation) { p -> PrecipitationUnitsValue(p) }
-
-                MinutelyForecastModelData(
-                    forecastTime = NBDateTimeValue.from(local.dt),
-                    precipitation = precipitationValue
+        fun remoteToLocal(
+            remote: List<MinutelyForecastModelRemote>?,
+            metadataId: Long,
+        ): List<MinutelyForecastEntityLocal> {
+            return remote.nbMap { r ->
+                MinutelyForecastEntityLocal(
+                    metadataId = metadataId,
+                    dt = r.dt,
+                    precipitation = r.precipitation
                 )
             }
         }

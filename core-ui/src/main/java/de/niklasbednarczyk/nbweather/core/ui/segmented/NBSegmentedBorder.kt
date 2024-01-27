@@ -40,7 +40,7 @@ fun Modifier.nBSegmentedBorder(
     segmentedBorderOrder: SegmentedBorderOrder,
     strokeWidth: Dp = 2.dp,
     drawDivider: Boolean = false
-) = composed {
+) = this.composed {
 
     with(LocalDensity.current) {
         val strokeWidthPx = remember { strokeWidth.toPx() }

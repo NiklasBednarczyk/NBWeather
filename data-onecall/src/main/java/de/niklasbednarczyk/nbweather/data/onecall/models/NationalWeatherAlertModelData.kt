@@ -17,34 +17,34 @@ data class NationalWeatherAlertModelData(
 
     internal companion object {
 
-        fun remoteToLocal(
-            remoteList: List<NationalWeatherAlertModelRemote>?,
-            metadataId: Long,
-        ): List<NationalWeatherAlertEntityLocal> {
-            return remoteList.nbMap { remote ->
-                NationalWeatherAlertEntityLocal(
-                    metadataId = metadataId,
-                    senderName = remote.senderName,
-                    event = remote.event,
-                    start = remote.start,
-                    end = remote.end,
-                    description = remote.description,
-                    tags = remote.tags
+        fun localToData(
+            local: List<NationalWeatherAlertEntityLocal>?
+        ): List<NationalWeatherAlertModelData> {
+            return local.nbMap { l ->
+                NationalWeatherAlertModelData(
+                    senderName = NBString.Value.from(l.senderName),
+                    eventName = NBString.Value.from(l.event),
+                    startDate = NBDateTimeValue.from(l.start),
+                    endDate = NBDateTimeValue.from(l.end),
+                    description = NBString.Value.from(l.description),
+                    tags = l.tags?.mapNotNull { tag -> NBString.Value.from(tag) }
                 )
             }
         }
 
-        fun localToData(
-            localList: List<NationalWeatherAlertEntityLocal>?
-        ): List<NationalWeatherAlertModelData> {
-            return localList.nbMap { local ->
-                NationalWeatherAlertModelData(
-                    senderName = NBString.Value.from(local.senderName),
-                    eventName = NBString.Value.from(local.event),
-                    startDate = NBDateTimeValue.from(local.start),
-                    endDate = NBDateTimeValue.from(local.end),
-                    description = NBString.Value.from(local.description),
-                    tags = local.tags?.mapNotNull { tag -> NBString.Value.from(tag) }
+        fun remoteToLocal(
+            remote: List<NationalWeatherAlertModelRemote>?,
+            metadataId: Long,
+        ): List<NationalWeatherAlertEntityLocal> {
+            return remote.nbMap { r ->
+                NationalWeatherAlertEntityLocal(
+                    metadataId = metadataId,
+                    senderName = r.senderName,
+                    event = r.event,
+                    start = r.start,
+                    end = r.end,
+                    description = r.description,
+                    tags = r.tags
                 )
             }
         }

@@ -40,6 +40,30 @@ data class CurrentWeatherModelData(
 
     internal companion object {
 
+        fun localToData(
+            local: CurrentWeatherEntityLocal?
+        ): CurrentWeatherModelData {
+            return CurrentWeatherModelData(
+                currentTime = NBDateTimeValue.from(local?.dt),
+                sunrise = NBDateTimeValue.from(local?.sunrise),
+                sunset = NBDateTimeValue.from(local?.sunset),
+                currentTemperature = TemperatureForecastValue.from(local?.temp),
+                feelsLikeTemperature = FeelsLikeForecastValue.from(local?.feelsLike),
+                pressure = PressureForecastValue.from(local?.pressure),
+                humidity = HumidityForecastValue.from(local?.humidity),
+                dewPointTemperature = DewPointForecastValue.from(local?.dewPoint),
+                cloudiness = CloudinessForecastValue.from(local?.clouds),
+                uvIndex = UVIndexForecastValue.from(local?.uvi),
+                visibility = VisibilityForecastValue.from(local?.visibility),
+                windSpeed = WindSpeedForecastValue.from(local?.windSpeed),
+                windGust = WindGustForecastValue.from(local?.windGust),
+                windDegrees = WindDegreesForecastValue.from(local?.windDeg),
+                rain1hVolume = RainForecastValue.from(local?.rain1h),
+                snow1hVolume = SnowForecastValue.from(local?.snow1h),
+                weather = WeatherModelData.localToData(local?.weather)
+            )
+        }
+
         fun remoteToLocal(
             remote: CurrentWeatherModelRemote?,
             metadataId: Long,
@@ -63,30 +87,6 @@ data class CurrentWeatherModelData(
                 rain1h = remote?.rain?.oneH,
                 snow1h = remote?.snow?.oneH,
                 weather = WeatherModelData.remoteToLocal(remote?.weather?.firstOrNull())
-            )
-        }
-
-        fun localToData(
-            local: CurrentWeatherEntityLocal?
-        ): CurrentWeatherModelData {
-            return CurrentWeatherModelData(
-                currentTime = NBDateTimeValue.from(local?.dt),
-                sunrise = NBDateTimeValue.from(local?.sunrise),
-                sunset = NBDateTimeValue.from(local?.sunset),
-                currentTemperature = TemperatureForecastValue.from(local?.temp),
-                feelsLikeTemperature = FeelsLikeForecastValue.from(local?.feelsLike),
-                pressure = PressureForecastValue.from(local?.pressure),
-                humidity = HumidityForecastValue.from(local?.humidity),
-                dewPointTemperature = DewPointForecastValue.from(local?.dewPoint),
-                cloudiness = CloudinessForecastValue.from(local?.clouds),
-                uvIndex = UVIndexForecastValue.from(local?.uvi),
-                visibility = VisibilityForecastValue.from(local?.visibility),
-                windSpeed = WindSpeedForecastValue.from(local?.windSpeed),
-                windGust = WindGustForecastValue.from(local?.windGust),
-                windDegrees = WindDegreesForecastValue.from(local?.windDeg),
-                rain1hVolume = RainForecastValue.from(local?.rain1h),
-                snow1hVolume = SnowForecastValue.from(local?.snow1h),
-                weather = WeatherModelData.localToData(local?.weather)
             )
         }
 

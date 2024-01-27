@@ -43,7 +43,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         val locationName = "Test"
         val remoteArrange =
             geocodingService.getLocationsByLocationName(locationName, 5)
-        val dataArrange = LocationModelData.remoteListToData(remoteArrange)
+        val dataArrange = remoteArrange.mapNotNull(LocationModelData::remoteToData)
 
         // Act + Assert
         subject.getLocationsByLocationName(locationName)
@@ -140,6 +140,22 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
+    fun insertLocation_shouldInsertLocation() = testScope.runTest {
+        // Arrange
+        val locationArrange = createTestLocation()
+
+        // Act
+        subject.insertLocation(locationArrange)
+        val locationAct = geocodingDao.getLocation(
+            latitude = locationArrange.latitude,
+            longitude = locationArrange.longitude
+        ).firstOrNull()
+
+        // Assert
+        assertNotNull(locationAct)
+    }
+
+    @Test
     fun updateOrders_shouldUpdateOrders() = testScope.runTest {
         // Arrange
         val location1LocalArrange = insertLocation(
@@ -179,15 +195,26 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     @Test
     fun deleteLocation_shouldDeleteLocation() = testScope.runTest {
         // Arrange
-        insertLocation(1)
+        val location1Arrange = insertLocation(1)
         insertLocation(2)
 
         // Act
-        subject.deleteLocation(1.0, 1.0)
+        val deletedLocation = subject.deleteLocation(1.0, 1.0)
         val location1Act = geocodingDao.getLocation(1.0, 1.0).firstOrNull()
         val location2Act = geocodingDao.getLocation(2.0, 2.0).firstOrNull()
 
         // Assert
+        assertNotNull(location1Arrange)
+        assertNotNull(deletedLocation)
+        assertEquals(
+            location1Arrange.latitude,
+            deletedLocation.latitude
+        )
+        assertEquals(
+            location1Arrange.longitude,
+            deletedLocation.longitude
+        )
+
         assertNull(location1Act)
 
         assertNotNull(location2Act)
@@ -235,6 +262,19 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
             geocodingDao.insertLocation(locLocal)
         }
         return locationLocal
+    }
+
+    private fun createTestLocation(): LocationModelData {
+        return LocationModelData(
+            latitude = 1.0,
+            longitude = 2.0,
+            name = null,
+            localNames = null,
+            country = null,
+            state = null,
+            lastVisitedTimestampEpochSeconds = null,
+            order = null
+        )
     }
 
 }

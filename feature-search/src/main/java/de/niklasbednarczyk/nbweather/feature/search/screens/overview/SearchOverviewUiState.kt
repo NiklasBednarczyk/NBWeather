@@ -8,6 +8,7 @@ data class SearchOverviewUiState(
     val searchQuery: String = "",
     val searchActive: Boolean = false,
     val findLocationInProgress: Boolean = false,
+    val deletedLocation: LocationModelData? = null,
     val visitedLocationsInfoResource: NBResource<SearchOverviewVisitedLocationsInfoModel> = NBResource.Loading,
     val searchedLocationsResource: NBResource<List<LocationModelData>>? = null
 )

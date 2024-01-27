@@ -16,21 +16,6 @@ data class DailyTemperatureModelData(
 
     internal companion object {
 
-        fun remoteToLocal(
-            remote: DailyTemperatureModelRemote?,
-        ): DailyTemperatureModelLocal? {
-            return nbNullSafe(remote) { r ->
-                DailyTemperatureModelLocal(
-                    morn = r.morn,
-                    day = r.day,
-                    eve = r.eve,
-                    night = r.night,
-                    min = r.min,
-                    max = r.max
-                )
-            }
-        }
-
         fun localToData(
             local: DailyTemperatureModelLocal?
         ): DailyTemperatureModelData? {
@@ -42,6 +27,21 @@ data class DailyTemperatureModelData(
                     nightTemperature = TemperatureForecastValue.from(l.night),
                     minDailyTemperature = TemperatureForecastValue.from(l.min),
                     maxDailyTemperature = TemperatureForecastValue.from(l.max)
+                )
+            }
+        }
+
+        fun remoteToLocal(
+            remote: DailyTemperatureModelRemote?,
+        ): DailyTemperatureModelLocal? {
+            return nbNullSafe(remote) { r ->
+                DailyTemperatureModelLocal(
+                    morn = r.morn,
+                    day = r.day,
+                    eve = r.eve,
+                    night = r.night,
+                    min = r.min,
+                    max = r.max
                 )
             }
         }

@@ -193,6 +193,8 @@
     <string name="screen_search_overview_bar_placeholder">Suche</string>
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
     <string name="screen_search_overview_snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
+    <string name="screen_search_overview_snackbar_location_deleted_action_label">Rückgängig</string>
+    <string name="screen_search_overview_snackbar_location_deleted_message">Ort gelöscht</string>
     <string name="screen_search_overview_snackbar_location_found_action_label">Erneut versuchen</string>
     <string name="screen_search_overview_snackbar_location_found_canceled_message">Standortanfrage wurde abgebrochen</string>
     <string name="screen_search_overview_snackbar_location_found_failure_message">Standortanfrage fehlgeschlagen</string>

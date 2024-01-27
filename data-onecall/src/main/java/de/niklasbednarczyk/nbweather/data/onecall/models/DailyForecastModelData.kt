@@ -45,62 +45,62 @@ data class DailyForecastModelData(
 
     internal companion object {
 
-        fun remoteToLocal(
-            remoteList: List<DailyForecastModelRemote>?,
-            metadataId: Long,
-        ): List<DailyForecastEntityLocal> {
-            return remoteList.nbMap { remote ->
-                DailyForecastEntityLocal(
-                    metadataId = metadataId,
-                    dt = remote.dt,
-                    sunrise = remote.sunrise,
-                    sunset = remote.sunset,
-                    moonrise = remote.moonrise,
-                    moonset = remote.moonset,
-                    moonPhase = remote.moonPhase,
-                    temp = DailyTemperatureModelData.remoteToLocal(remote.temp),
-                    feelsLike = DailyFeelsLikeTemperatureModelData.remoteToLocal(remote.feelsLike),
-                    pressure = remote.pressure,
-                    humidity = remote.humidity,
-                    dewPoint = remote.dewPoint,
-                    windSpeed = remote.windSpeed,
-                    windGust = remote.windGust,
-                    windDeg = remote.windDeg,
-                    clouds = remote.clouds,
-                    uvi = remote.uvi,
-                    pop = remote.pop,
-                    rain = remote.rain,
-                    snow = remote.snow,
-                    weather = WeatherModelData.remoteToLocal(remote.weather?.firstOrNull())
+        fun localToData(
+            local: List<DailyForecastEntityLocal>?
+        ): List<DailyForecastModelData> {
+            return local.nbMap { l ->
+                DailyForecastModelData(
+                    forecastTime = NBDateTimeValue.from(l.dt),
+                    sunrise = NBDateTimeValue.from(l.sunrise),
+                    sunset = NBDateTimeValue.from(l.sunset),
+                    moonrise = NBDateTimeValue.from(l.moonrise),
+                    moonset = NBDateTimeValue.from(l.moonset),
+                    moonPhase = MoonPhaseType.from(l.moonPhase),
+                    temperature = DailyTemperatureModelData.localToData(l.temp),
+                    feelsLikeTemperature = DailyFeelsLikeTemperatureModelData.localToData(l.feelsLike),
+                    pressure = PressureForecastValue.from(l.pressure),
+                    humidity = HumidityForecastValue.from(l.humidity),
+                    dewPointTemperature = DewPointForecastValue.from(l.dewPoint),
+                    windSpeed = WindSpeedForecastValue.from(l.windSpeed),
+                    windGust = WindGustForecastValue.from(l.windGust),
+                    windDegrees = WindDegreesForecastValue.from(l.windDeg),
+                    cloudiness = CloudinessForecastValue.from(l.clouds),
+                    uvIndex = UVIndexForecastValue.from(l.uvi),
+                    probabilityOfPrecipitation = ProbabilityOfPrecipitationForecastValue.from(l.pop),
+                    rainVolume = RainForecastValue.from(l.rain),
+                    snowVolume = SnowForecastValue.from(l.snow),
+                    weather = WeatherModelData.localToData(l.weather)
                 )
             }
         }
 
-        fun localToData(
-            localList: List<DailyForecastEntityLocal>?
-        ): List<DailyForecastModelData> {
-            return localList.nbMap { local ->
-                DailyForecastModelData(
-                    forecastTime = NBDateTimeValue.from(local.dt),
-                    sunrise = NBDateTimeValue.from(local.sunrise),
-                    sunset = NBDateTimeValue.from(local.sunset),
-                    moonrise = NBDateTimeValue.from(local.moonrise),
-                    moonset = NBDateTimeValue.from(local.moonset),
-                    moonPhase = MoonPhaseType.from(local.moonPhase),
-                    temperature = DailyTemperatureModelData.localToData(local.temp),
-                    feelsLikeTemperature = DailyFeelsLikeTemperatureModelData.localToData(local.feelsLike),
-                    pressure = PressureForecastValue.from(local.pressure),
-                    humidity = HumidityForecastValue.from(local.humidity),
-                    dewPointTemperature = DewPointForecastValue.from(local.dewPoint),
-                    windSpeed = WindSpeedForecastValue.from(local.windSpeed),
-                    windGust = WindGustForecastValue.from(local.windGust),
-                    windDegrees = WindDegreesForecastValue.from(local.windDeg),
-                    cloudiness = CloudinessForecastValue.from(local.clouds),
-                    uvIndex = UVIndexForecastValue.from(local.uvi),
-                    probabilityOfPrecipitation = ProbabilityOfPrecipitationForecastValue.from(local.pop),
-                    rainVolume = RainForecastValue.from(local.rain),
-                    snowVolume = SnowForecastValue.from(local.snow),
-                    weather = WeatherModelData.localToData(local.weather)
+        fun remoteToLocal(
+            remote: List<DailyForecastModelRemote>?,
+            metadataId: Long,
+        ): List<DailyForecastEntityLocal> {
+            return remote.nbMap { r ->
+                DailyForecastEntityLocal(
+                    metadataId = metadataId,
+                    dt = r.dt,
+                    sunrise = r.sunrise,
+                    sunset = r.sunset,
+                    moonrise = r.moonrise,
+                    moonset = r.moonset,
+                    moonPhase = r.moonPhase,
+                    temp = DailyTemperatureModelData.remoteToLocal(r.temp),
+                    feelsLike = DailyFeelsLikeTemperatureModelData.remoteToLocal(r.feelsLike),
+                    pressure = r.pressure,
+                    humidity = r.humidity,
+                    dewPoint = r.dewPoint,
+                    windSpeed = r.windSpeed,
+                    windGust = r.windGust,
+                    windDeg = r.windDeg,
+                    clouds = r.clouds,
+                    uvi = r.uvi,
+                    pop = r.pop,
+                    rain = r.rain,
+                    snow = r.snow,
+                    weather = WeatherModelData.remoteToLocal(r.weather?.firstOrNull())
                 )
             }
         }

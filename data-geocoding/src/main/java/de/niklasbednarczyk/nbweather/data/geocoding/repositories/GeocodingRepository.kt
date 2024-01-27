@@ -55,11 +55,12 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun insertLocal(remote: List<LocationModelRemote>) {
-                return geocodingDao.insertLocations(LocationModelData.remoteListToLocal(remote))
+                val local = remote.mapNotNull(LocationModelData::remoteToLocal)
+                return geocodingDao.insertLocations(local)
             }
 
             override fun remoteToData(remote: List<LocationModelRemote>): List<LocationModelData> {
-                return LocationModelData.remoteListToData(remote)
+                return remote.mapNotNull(LocationModelData::remoteToData)
             }
 
         }()
@@ -72,7 +73,7 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun localToData(local: List<LocationModelLocal>?): List<LocationModelData>? {
-                return LocationModelData.localListToData(local)
+                return local?.mapNotNull(LocationModelData::localToData)
             }
 
         }()
@@ -134,6 +135,13 @@ class GeocodingRepository @Inject constructor(
         }
     }
 
+    suspend fun insertLocation(
+        location: LocationModelData
+    ) = withContext(Dispatchers.IO) {
+        val locationLocal = LocationModelData.dataToLocal(location)
+        geocodingDao.insertLocation(locationLocal)
+    }
+
     suspend fun updateOrders(
         locations: List<LocationModelData>
     ) = withContext(Dispatchers.IO) {
@@ -149,11 +157,12 @@ class GeocodingRepository @Inject constructor(
     suspend fun deleteLocation(
         latitude: Double,
         longitude: Double
-    ) = withContext(Dispatchers.IO) {
+    ): LocationModelData? = withContext(Dispatchers.IO) {
         val locationLocal = geocodingDao.getLocation(latitude, longitude).firstOrNull()
         nbNullSafe(locationLocal) { location ->
             geocodingDao.deleteLocation(location)
         }
+        LocationModelData.localToData(locationLocal)
     }
 
 }

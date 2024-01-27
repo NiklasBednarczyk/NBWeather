@@ -99,17 +99,36 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
             onSearchActiveChange = viewModel::onSearchActiveChange,
             onFindLocationClicked = ::onFindLocationClicked,
             navigateToForecast = ::navigateToForecast,
-            deleteLocation = viewModel::deleteLocation,
+            deleteLocation = ::deleteLocation,
             updateOrders = viewModel::updateOrders
         )
     }
 
     private fun navigateToForecast(
         latitude: Double,
-        longitude: Double,
+        longitude: Double
     ) {
         viewModel.setCurrentLocation(latitude, longitude)
         navigate(NBTopLevelDestinations.Forecast)
+    }
+
+    private fun deleteLocation(
+        latitude: Double,
+        longitude: Double
+    ) {
+        viewModel.deleteLocation(latitude, longitude)
+
+        val snackbar = NBSnackbarModel(
+            message = NBString.ResString(R.string.screen_search_overview_snackbar_location_deleted_message),
+            action = NBSnackbarActionModel(
+                label = NBString.ResString(R.string.screen_search_overview_snackbar_location_deleted_action_label),
+                onActionPerformed = viewModel::restoreDeletedLocation
+            ),
+            onDismissed = {
+                viewModel.setDeletedLocation(null)
+            }
+        )
+        sendSnackbar(snackbar)
     }
 
     private fun onBackPressedWhenNoCurrentLocationAndNotStartDestination() {

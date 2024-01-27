@@ -229,6 +229,8 @@
     <string name="screen_search_overview_bar_placeholder">Search</string>
     <string name="screen_search_overview_search_no_results">No locations found</string>
     <string name="screen_search_overview_snackbar_back_pressed_when_no_current_location_message">You need to select a location</string>
+    <string name="screen_search_overview_snackbar_location_deleted_action_label">Undo</string>
+    <string name="screen_search_overview_snackbar_location_deleted_message">Location deleted</string>
     <string name="screen_search_overview_snackbar_location_found_action_label">Try again</string>
     <string name="screen_search_overview_snackbar_location_found_canceled_message">Location request was canceled</string>
     <string name="screen_search_overview_snackbar_location_found_failure_message">Location request failed</string>

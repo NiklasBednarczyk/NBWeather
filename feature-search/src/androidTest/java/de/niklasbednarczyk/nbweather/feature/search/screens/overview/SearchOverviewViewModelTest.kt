@@ -3,6 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
+import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
@@ -11,6 +12,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -87,22 +89,23 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     }
 
     @Test
-    fun onSearchQueryChanged_notEmpty_shouldSetResourceCorrectlyBeforeDebounce() = testScope.runTest {
-        // Arrange + Act
-        subject.onSearchQueryChanged("startingSearchQuery")
-        subject.onSearchQueryChanged(SEARCH_QUERY)
+    fun onSearchQueryChanged_notEmpty_shouldSetResourceCorrectlyBeforeDebounce() =
+        testScope.runTest {
+            // Arrange + Act
+            subject.onSearchQueryChanged("startingSearchQuery")
+            subject.onSearchQueryChanged(SEARCH_QUERY)
 
-        subject.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                uiState.searchedLocationsResource is NBResource.Loading && uiState.searchQuery == SEARCH_QUERY
-            },
-            collectData = { uiState ->
-                // Assert
-                assertResourceIsLoading(uiState.searchedLocationsResource)
-                assertEquals(SEARCH_QUERY, uiState.searchQuery)
-            }
-        )
-    }
+            subject.uiState.collectUntil(
+                stopCollecting = { uiState ->
+                    uiState.searchedLocationsResource is NBResource.Loading && uiState.searchQuery == SEARCH_QUERY
+                },
+                collectData = { uiState ->
+                    // Assert
+                    assertResourceIsLoading(uiState.searchedLocationsResource)
+                    assertEquals(SEARCH_QUERY, uiState.searchQuery)
+                }
+            )
+        }
 
     @Test
     fun onSearchActiveChange_false_shouldSetUiStateCorrectly() = testScope.runTest {
@@ -160,9 +163,32 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     }
 
     @Test
+    fun setDeletedLocation_shouldSetUiStateCorrectly() = testScope.runTest {
+        // Arrange
+        val deletedLocationArrange = createTestLocation()
+
+        // Act
+        subject.setDeletedLocation(deletedLocationArrange)
+
+        // Assert
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.deletedLocation != null
+            },
+            collectData = { uiState ->
+                val deletedLocationUiState = uiState.deletedLocation
+                assertNotNull(deletedLocationUiState)
+                assertEquals(deletedLocationArrange.latitude, deletedLocationUiState.latitude)
+                assertEquals(deletedLocationArrange.longitude, deletedLocationUiState.longitude)
+            }
+        )
+
+    }
+
+    @Test
     fun deleteLocation_shouldDeleteLocation() = testScope.runTest {
         // Arrange
-        LAT_LONG_1.insertLocation()
+        LAT_LONG_1.insertOrUpdateCurrentLocation()
 
         // Act
         subject.deleteLocation(LAT_LONG_1.first, LAT_LONG_1.second)
@@ -178,6 +204,44 @@ class SearchOverviewViewModelTest : NBViewModelTest {
                 assertResourceIsSuccess(resource)
                 assertNotEquals(resource.dataOrNull?.latitude, LAT_LONG_1.first)
                 assertNotEquals(resource.dataOrNull?.longitude, LAT_LONG_1.second)
+            }
+        )
+
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.deletedLocation != null
+            },
+            collectData = { uiState ->
+                val deletedLocation = uiState.deletedLocation
+                assertNotNull(deletedLocation)
+                assertEquals(LAT_LONG_1.first, deletedLocation.latitude)
+                assertEquals(LAT_LONG_1.second, deletedLocation.longitude)
+            }
+        )
+    }
+
+    @Test
+    fun restoreDeletedLocation_shouldRestoreDeletedLocation() = testScope.runTest {
+        // Arrange
+        val deletedLocationArrange = createTestLocation()
+        subject.setDeletedLocation(deletedLocationArrange)
+
+        // Act
+        subject.restoreDeletedLocation()
+
+        // Assert
+        geocodingRepository.getVisitedLocations().collectUntil(
+            stopCollecting = { resource ->
+                resource.isSuccessOrError && resource.dataOrNull?.isNotEmpty() == true
+            },
+            collectData = { resource ->
+                assertListIsNotEmpty(resource.dataOrNull)
+
+                val deletedLocation = resource.dataOrNull?.find { visitedLocation ->
+                    visitedLocation.latitude == deletedLocationArrange.latitude
+                            && visitedLocation.longitude == deletedLocationArrange.longitude
+                }
+                assertNotNull(deletedLocation)
             }
         )
     }
@@ -202,9 +266,21 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         )
     }
 
-    private suspend fun Pair<Double, Double>.insertLocation() {
+    private suspend fun Pair<Double, Double>.insertOrUpdateCurrentLocation() {
         geocodingRepository.insertOrUpdateCurrentLocation(first, second)
     }
 
+    private fun createTestLocation(): LocationModelData {
+        return LocationModelData(
+            latitude = 1.0,
+            longitude = 2.0,
+            name = null,
+            localNames = null,
+            country = null,
+            state = null,
+            lastVisitedTimestampEpochSeconds = 3L,
+            order = null
+        )
+    }
 
 }

@@ -41,54 +41,54 @@ data class HourlyForecastModelData(
 
     internal companion object {
 
-        fun remoteToLocal(
-            remoteList: List<HourlyForecastModelRemote>?,
-            metadataId: Long,
-        ): List<HourlyForecastEntityLocal> {
-            return remoteList.nbMap { remote ->
-                HourlyForecastEntityLocal(
-                    metadataId = metadataId,
-                    dt = remote.dt,
-                    temp = remote.temp,
-                    feelsLike = remote.feelsLike,
-                    pressure = remote.pressure,
-                    humidity = remote.humidity,
-                    dewPoint = remote.dewPoint,
-                    uvi = remote.uvi,
-                    clouds = remote.clouds,
-                    visibility = remote.visibility,
-                    windSpeed = remote.windSpeed,
-                    windGust = remote.windGust,
-                    windDeg = remote.windDeg,
-                    pop = remote.pop,
-                    rain1h = remote.rain?.oneH,
-                    snow1h = remote.snow?.oneH,
-                    weather = WeatherModelData.remoteToLocal(remote.weather?.firstOrNull())
+        fun localToData(
+            local: List<HourlyForecastEntityLocal>?
+        ): List<HourlyForecastModelData> {
+            return local.nbMap { l ->
+                HourlyForecastModelData(
+                    forecastTime = NBDateTimeValue.from(l.dt),
+                    temperature = TemperatureForecastValue.from(l.temp),
+                    feelsLikeTemperature = FeelsLikeForecastValue.from(l.feelsLike),
+                    pressure = PressureForecastValue.from(l.pressure),
+                    humidity = HumidityForecastValue.from(l.humidity),
+                    dewPointTemperature = DewPointForecastValue.from(l.dewPoint),
+                    uvIndex = UVIndexForecastValue.from(l.uvi),
+                    cloudiness = CloudinessForecastValue.from(l.clouds),
+                    visibility = VisibilityForecastValue.from(l.visibility),
+                    windSpeed = WindSpeedForecastValue.from(l.windSpeed),
+                    windGust = WindGustForecastValue.from(l.windGust),
+                    windDegrees = WindDegreesForecastValue.from(l.windDeg),
+                    probabilityOfPrecipitation = ProbabilityOfPrecipitationForecastValue.from(l.pop),
+                    rain1hVolume = RainForecastValue.from(l.rain1h),
+                    snow1hVolume = SnowForecastValue.from(l.snow1h),
+                    weather = WeatherModelData.localToData(l.weather)
                 )
             }
         }
 
-        fun localToData(
-            localList: List<HourlyForecastEntityLocal>?
-        ): List<HourlyForecastModelData> {
-            return localList.nbMap { local ->
-                HourlyForecastModelData(
-                    forecastTime = NBDateTimeValue.from(local.dt),
-                    temperature = TemperatureForecastValue.from(local.temp),
-                    feelsLikeTemperature = FeelsLikeForecastValue.from(local.feelsLike),
-                    pressure = PressureForecastValue.from(local.pressure),
-                    humidity = HumidityForecastValue.from(local.humidity),
-                    dewPointTemperature = DewPointForecastValue.from(local.dewPoint),
-                    uvIndex = UVIndexForecastValue.from(local.uvi),
-                    cloudiness = CloudinessForecastValue.from(local.clouds),
-                    visibility = VisibilityForecastValue.from(local.visibility),
-                    windSpeed = WindSpeedForecastValue.from(local.windSpeed),
-                    windGust = WindGustForecastValue.from(local.windGust),
-                    windDegrees = WindDegreesForecastValue.from(local.windDeg),
-                    probabilityOfPrecipitation = ProbabilityOfPrecipitationForecastValue.from(local.pop),
-                    rain1hVolume = RainForecastValue.from(local.rain1h),
-                    snow1hVolume = SnowForecastValue.from(local.snow1h),
-                    weather = WeatherModelData.localToData(local.weather)
+        fun remoteToLocal(
+            remote: List<HourlyForecastModelRemote>?,
+            metadataId: Long,
+        ): List<HourlyForecastEntityLocal> {
+            return remote.nbMap { r ->
+                HourlyForecastEntityLocal(
+                    metadataId = metadataId,
+                    dt = r.dt,
+                    temp = r.temp,
+                    feelsLike = r.feelsLike,
+                    pressure = r.pressure,
+                    humidity = r.humidity,
+                    dewPoint = r.dewPoint,
+                    uvi = r.uvi,
+                    clouds = r.clouds,
+                    visibility = r.visibility,
+                    windSpeed = r.windSpeed,
+                    windGust = r.windGust,
+                    windDeg = r.windDeg,
+                    pop = r.pop,
+                    rain1h = r.rain?.oneH,
+                    snow1h = r.snow?.oneH,
+                    weather = WeatherModelData.remoteToLocal(r.weather?.firstOrNull())
                 )
             }
         }

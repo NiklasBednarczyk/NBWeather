@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
@@ -92,9 +93,24 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
+    fun setDeletedLocation(deletedLocation: LocationModelData?) {
+        updateUiState { oldUiState ->
+            oldUiState.copy(deletedLocation = deletedLocation)
+        }
+    }
+
     fun deleteLocation(latitude: Double, longitude: Double) {
         launchSuspend {
-            geocodingRepository.deleteLocation(latitude, longitude)
+            val deletedLocation = geocodingRepository.deleteLocation(latitude, longitude)
+            setDeletedLocation(deletedLocation)
+        }
+    }
+
+    fun restoreDeletedLocation() {
+        launchSuspend {
+            nbNullSafe(uiState.value.deletedLocation) { deletedLocation ->
+                geocodingRepository.insertLocation(deletedLocation)
+            }
         }
     }
 
