@@ -28,6 +28,7 @@ val listContentPaddingValuesVertical = PaddingValues(
 
 val listItemElevationDragged = elevationLevel4
 val listItemElevationEnabled = elevationLevel0
+val listItemSizeLeadingImage = 56.dp
 
 val navigationDrawerDividerPadding = PaddingValues(
     horizontal = 28.dp,

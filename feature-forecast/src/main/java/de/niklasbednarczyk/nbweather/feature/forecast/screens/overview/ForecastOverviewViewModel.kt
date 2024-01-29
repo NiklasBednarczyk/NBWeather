@@ -3,6 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.flatMapLatestResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapNullableResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshFlow
@@ -19,33 +20,33 @@ class ForecastOverviewViewModel @Inject constructor(
     private val oneCallRepository: OneCallRepository
 ) : NBViewModel<ForecastOverviewUiState>(ForecastOverviewUiState()) {
 
+    private val locationFlow: Flow<NBResource<ForecastOverviewLocationModel?>>
+        get() = geocodingRepository.getCurrentLocation()
+            .mapNullableResource(ForecastOverviewLocationModel::from)
+
     val itemsFlow = object : NBSwipeRefreshFlow<List<ForecastOverviewItem>>() {
 
         override fun getFlow(forceUpdate: Boolean): Flow<NBResource<List<ForecastOverviewItem>>> {
-            return geocodingRepository.getCurrentLocation()
-                .flatMapLatestResource { currentLocation ->
-                    if (currentLocation == null) return@flatMapLatestResource flowOf(NBResource.Loading)
+            return locationFlow.flatMapLatestResource { location ->
+                if (location == null) return@flatMapLatestResource flowOf(NBResource.Loading)
 
-                    val latitude = currentLocation.latitude
-                    val longitude = currentLocation.longitude
-
-                    oneCallRepository.getOneCall(
-                        latitude = latitude,
-                        longitude = longitude,
-                        forceUpdate = forceUpdate
-                    ).mapResource { oneCall ->
-                        ForecastOverviewItem.from(
-                            oneCall = oneCall
-                        )
-                    }
+                oneCallRepository.getOneCall(
+                    latitude = location.latitude,
+                    longitude = location.longitude,
+                    forceUpdate = forceUpdate
+                ).mapResource { oneCall ->
+                    ForecastOverviewItem.from(
+                        oneCall = oneCall
+                    )
                 }
+            }
         }
     }
 
     init {
 
         collectFlow(
-            { geocodingRepository.getCurrentLocation() },
+            { locationFlow },
             { oldUiState, output -> oldUiState.copy(locationResource = output) }
         )
 

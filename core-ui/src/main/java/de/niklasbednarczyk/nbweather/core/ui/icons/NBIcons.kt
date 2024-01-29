@@ -5,523 +5,523 @@ import de.niklasbednarczyk.nbweather.core.ui.R
 
 object NBIcons {
 
-    object About : NBIconModel {
+    data object About : NBIconItem {
         override val resId: Int = R.drawable.baseline_info_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_about)
     }
 
-    object Appearance : NBIconModel {
+    data object Appearance : NBIconItem {
         override val resId: Int = R.drawable.baseline_palette_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_appearance)
     }
 
-    object Back : NBIconModel {
+    data object Back : NBIconItem {
         override val resId: Int = R.drawable.baseline_arrow_back_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_back)
     }
 
-    object Cancel : NBIconModel {
+    data object Cancel : NBIconItem {
         override val resId: Int = R.drawable.baseline_close_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_cancel)
     }
 
-    object Cloudiness : NBIconModel {
+    data object Cloudiness : NBIconItem {
         override val resId: Int = R.drawable.baseline_cloud_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_cloudiness)
     }
 
-    object Delete : NBIconModel {
+    data object Delete : NBIconItem {
         override val resId: Int = R.drawable.baseline_delete_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_delete)
     }
 
-    object DewPoint : NBIconModel {
+    data object DewPoint : NBIconItem {
         override val resId: Int = R.drawable.wi_raindrops
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_dew_point)
     }
 
-    object DragAndDrop : NBIconModel {
+    data object DragAndDrop : NBIconItem {
         override val resId: Int = R.drawable.baseline_drag_indicator_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_drag_and_drop)
     }
 
-    object Drawer : NBIconModel {
+    data object Drawer : NBIconItem {
         override val resId: Int = R.drawable.baseline_menu_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_drawer)
     }
 
-    object ErrorNoInternet : NBIconModel {
+    data object ErrorNoInternet : NBIconItem {
         override val resId: Int = R.drawable.baseline_cloud_off_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_error_no_internet)
     }
 
-    object ErrorUnknown : NBIconModel {
+    data object ErrorUnknown : NBIconItem {
         override val resId: Int = R.drawable.baseline_error_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_error_unknown)
     }
 
-    object FeelsLike : NBIconModel {
+    data object FeelsLike : NBIconItem {
         override val resId: Int = R.drawable.wi_thermometer
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_feels_like)
     }
 
-    object FindLocation : NBIconModel {
+    data object FindLocation : NBIconItem {
         override val resId: Int = R.drawable.baseline_my_location_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_find_location)
     }
 
-    object Font : NBIconModel {
+    data object Font : NBIconItem {
         override val resId: Int = R.drawable.baseline_font_download_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_font)
     }
 
-    object GitHub : NBIconModel {
+    data object GitHub : NBIconItem {
         override val resId: Int = R.drawable.github_mark
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_git_hub)
     }
 
-    object Humidity : NBIconModel {
+    data object Humidity : NBIconItem {
         override val resId: Int = R.drawable.wi_humidity
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_humidity)
     }
 
-    object Location : NBIconModel {
+    data object Location : NBIconItem {
         override val resId: Int = R.drawable.baseline_place_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_location)
     }
 
-    object MaxTemperature : NBIconModel {
+    data object MaxTemperature : NBIconItem {
         override val resId: Int = R.drawable.baseline_vertical_align_top_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_max_temperature)
     }
 
-    object MinTemperature : NBIconModel {
+    data object MinTemperature : NBIconItem {
         override val resId: Int = R.drawable.baseline_vertical_align_bottom_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_min_temperature)
     }
 
-    object MoonPhaseFirstQuarter : NBIconModel {
+    data object MoonPhaseFirstQuarter : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_first_quarter
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_first_quarter_moon)
     }
 
-    object MoonPhaseFull : NBIconModel {
+    data object MoonPhaseFull : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_full
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_full_moon)
     }
 
-    object MoonPhaseLastQuarter : NBIconModel {
+    data object MoonPhaseLastQuarter : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_third_quarter
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_last_quarter_moon)
     }
 
-    object MoonPhaseNew : NBIconModel {
+    data object MoonPhaseNew : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_new
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_new_moon)
     }
 
-    object MoonPhaseWaningCrescent1 : NBIconModel {
+    data object MoonPhaseWaningCrescent1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_1)
     }
 
-    object MoonPhaseWaningCrescent2 : NBIconModel {
+    data object MoonPhaseWaningCrescent2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_2)
     }
 
-    object MoonPhaseWaningCrescent3 : NBIconModel {
+    data object MoonPhaseWaningCrescent3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_3)
     }
 
-    object MoonPhaseWaningCrescent4 : NBIconModel {
+    data object MoonPhaseWaningCrescent4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_4)
     }
 
-    object MoonPhaseWaningCrescent5 : NBIconModel {
+    data object MoonPhaseWaningCrescent5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_5)
     }
 
-    object MoonPhaseWaningCrescent6 : NBIconModel {
+    data object MoonPhaseWaningCrescent6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_6
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_6)
     }
 
-    object MoonPhaseWaningGibbous1 : NBIconModel {
+    data object MoonPhaseWaningGibbous1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_1)
     }
 
-    object MoonPhaseWaningGibbous2 : NBIconModel {
+    data object MoonPhaseWaningGibbous2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_2)
     }
 
-    object MoonPhaseWaningGibbous3 : NBIconModel {
+    data object MoonPhaseWaningGibbous3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_3)
     }
 
-    object MoonPhaseWaningGibbous4 : NBIconModel {
+    data object MoonPhaseWaningGibbous4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_4)
     }
 
-    object MoonPhaseWaningGibbous5 : NBIconModel {
+    data object MoonPhaseWaningGibbous5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_5)
     }
 
-    object MoonPhaseWaningGibbous6 : NBIconModel {
+    data object MoonPhaseWaningGibbous6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_6
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_6)
     }
 
-    object MoonPhaseWaxingCrescent1 : NBIconModel {
+    data object MoonPhaseWaxingCrescent1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_1)
     }
 
-    object MoonPhaseWaxingCrescent2 : NBIconModel {
+    data object MoonPhaseWaxingCrescent2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_2)
     }
 
-    object MoonPhaseWaxingCrescent3 : NBIconModel {
+    data object MoonPhaseWaxingCrescent3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_3)
     }
 
-    object MoonPhaseWaxingCrescent4 : NBIconModel {
+    data object MoonPhaseWaxingCrescent4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_4)
     }
 
-    object MoonPhaseWaxingCrescent5 : NBIconModel {
+    data object MoonPhaseWaxingCrescent5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_5)
     }
 
-    object MoonPhaseWaxingCrescent6 : NBIconModel {
+    data object MoonPhaseWaxingCrescent6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_6
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_6)
     }
 
-    object MoonPhaseWaxingGibbous1 : NBIconModel {
+    data object MoonPhaseWaxingGibbous1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_1)
     }
 
-    object MoonPhaseWaxingGibbous2 : NBIconModel {
+    data object MoonPhaseWaxingGibbous2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_2)
     }
 
-    object MoonPhaseWaxingGibbous3 : NBIconModel {
+    data object MoonPhaseWaxingGibbous3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_3)
     }
 
-    object MoonPhaseWaxingGibbous4 : NBIconModel {
+    data object MoonPhaseWaxingGibbous4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_4)
     }
 
-    object MoonPhaseWaxingGibbous5 : NBIconModel {
+    data object MoonPhaseWaxingGibbous5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_5)
     }
 
-    object MoonPhaseWaxingGibbous6 : NBIconModel {
+    data object MoonPhaseWaxingGibbous6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_6
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_6)
     }
 
-    object Moonrise : NBIconModel {
+    data object Moonrise : NBIconItem {
         override val resId: Int = R.drawable.wi_moonrise
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moonrise)
     }
 
-    object Moonset : NBIconModel {
+    data object Moonset : NBIconItem {
         override val resId: Int = R.drawable.wi_moonset
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moonset)
     }
 
-    object Order : NBIconModel {
+    data object Order : NBIconItem {
         override val resId: Int = R.drawable.baseline_drag_handle_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_order)
     }
 
-    object Pressure : NBIconModel {
+    data object Pressure : NBIconItem {
         override val resId: Int = R.drawable.wi_barometer
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_pressure)
     }
 
-    object ProbabilityOfPrecipitation : NBIconModel {
+    data object ProbabilityOfPrecipitation : NBIconItem {
         override val resId: Int = R.drawable.wi_umbrella
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_probability_of_precipitation)
     }
 
-    object Rain : NBIconModel {
+    data object Rain : NBIconItem {
         override val resId: Int = R.drawable.wi_raindrop
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_rain)
     }
 
-    object Reset : NBIconModel {
+    data object Reset : NBIconItem {
         override val resId: Int = R.drawable.baseline_restart_alt_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_reset)
     }
 
-    object Search : NBIconModel {
+    data object Search : NBIconItem {
         override val resId: Int = R.drawable.baseline_search_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_search)
     }
 
-    object Settings : NBIconModel {
+    data object Settings : NBIconItem {
         override val resId: Int = R.drawable.baseline_settings_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_settings)
     }
 
-    object Snow : NBIconModel {
+    data object Snow : NBIconItem {
         override val resId: Int = R.drawable.wi_snowflake_cold
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_snow)
     }
 
-    object Sun : NBIconModel {
+    data object Sun : NBIconItem {
         override val resId: Int = R.drawable.baseline_wb_sunny_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_sun)
     }
 
-    object Sunrise : NBIconModel {
+    data object Sunrise : NBIconItem {
         override val resId: Int = R.drawable.wi_sunrise
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_sunrise)
     }
 
-    object Sunset : NBIconModel {
+    data object Sunset : NBIconItem {
         override val resId: Int = R.drawable.wi_sunset
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_sunset)
     }
 
-    object Temperature : NBIconModel {
+    data object Temperature : NBIconItem {
         override val resId: Int = R.drawable.baseline_thermostat_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_temperature)
     }
 
-    object Units : NBIconModel {
+    data object Units : NBIconItem {
         override val resId: Int = R.drawable.baseline_square_foot_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_units)
     }
 
-    object UVIndex : NBIconModel {
+    data object UVIndex : NBIconItem {
         override val resId: Int = R.drawable.baseline_light_mode_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_uv_index)
     }
 
-    object Visibility : NBIconModel {
+    data object Visibility : NBIconItem {
         override val resId: Int = R.drawable.baseline_visibility_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_visibility)
     }
 
-    object Warning : NBIconModel {
+    data object Warning : NBIconItem {
         override val resId: Int = R.drawable.baseline_warning_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_warning)
     }
 
-    object WeatherDayBrokenClouds : NBIconModel {
+    data object WeatherDayBrokenClouds : NBIconItem {
         override val resId: Int = R.drawable.wi_cloudy
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_broken_clouds)
     }
 
-    object WeatherDayClearSky : NBIconModel {
+    data object WeatherDayClearSky : NBIconItem {
         override val resId: Int = R.drawable.wi_day_sunny
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_clear_sky)
     }
 
-    object WeatherDayFewClouds : NBIconModel {
+    data object WeatherDayFewClouds : NBIconItem {
         override val resId: Int = R.drawable.wi_day_cloudy
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_few_clouds)
     }
 
-    object WeatherDayMist : NBIconModel {
+    data object WeatherDayMist : NBIconItem {
         override val resId: Int = R.drawable.wi_day_fog
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_mist)
     }
 
-    object WeatherDayRain : NBIconModel {
+    data object WeatherDayRain : NBIconItem {
         override val resId: Int = R.drawable.wi_day_rain
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_rain)
     }
 
-    object WeatherDayScatteredClouds : NBIconModel {
+    data object WeatherDayScatteredClouds : NBIconItem {
         override val resId: Int = R.drawable.wi_cloud
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_scattered_clouds)
     }
 
-    object WeatherDayShowerRain : NBIconModel {
+    data object WeatherDayShowerRain : NBIconItem {
         override val resId: Int = R.drawable.wi_day_showers
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_shower_rain)
     }
 
-    object WeatherDaySnow : NBIconModel {
+    data object WeatherDaySnow : NBIconItem {
         override val resId: Int = R.drawable.wi_day_snow
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_snow)
     }
 
-    object WeatherDayThunderstorm : NBIconModel {
+    data object WeatherDayThunderstorm : NBIconItem {
         override val resId: Int = R.drawable.wi_day_lightning
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_day_thunderstorm)
     }
 
-    object WeatherNightBrokenClouds : NBIconModel {
+    data object WeatherNightBrokenClouds : NBIconItem {
         override val resId: Int = R.drawable.wi_cloudy
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_broken_clouds)
     }
 
-    object WeatherNightClearSky : NBIconModel {
+    data object WeatherNightClearSky : NBIconItem {
         override val resId: Int = R.drawable.wi_night_clear
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_clear_sky)
     }
 
-    object WeatherNightFewClouds : NBIconModel {
+    data object WeatherNightFewClouds : NBIconItem {
         override val resId: Int = R.drawable.wi_night_alt_cloudy
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_few_clouds)
     }
 
-    object WeatherNightMist : NBIconModel {
+    data object WeatherNightMist : NBIconItem {
         override val resId: Int = R.drawable.wi_night_fog
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_mist)
     }
 
-    object WeatherNightRain : NBIconModel {
+    data object WeatherNightRain : NBIconItem {
         override val resId: Int = R.drawable.wi_night_alt_rain
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_rain)
     }
 
-    object WeatherNightScatteredClouds : NBIconModel {
+    data object WeatherNightScatteredClouds : NBIconItem {
         override val resId: Int = R.drawable.wi_cloud
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_scattered_clouds)
     }
 
-    object WeatherNightShowerRain : NBIconModel {
+    data object WeatherNightShowerRain : NBIconItem {
         override val resId: Int = R.drawable.wi_night_alt_showers
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_shower_rain)
     }
 
-    object WeatherNightSnow : NBIconModel {
+    data object WeatherNightSnow : NBIconItem {
         override val resId: Int = R.drawable.wi_night_alt_snow
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_snow)
     }
 
-    object WeatherNightThunderstorm : NBIconModel {
+    data object WeatherNightThunderstorm : NBIconItem {
         override val resId: Int = R.drawable.wi_night_alt_lightning
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_weather_night_thunderstorm)
     }
 
-    object Website : NBIconModel {
+    data object Website : NBIconItem {
         override val resId: Int = R.drawable.baseline_link_24
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_website)
     }
 
-    object WindDirection : NBIconModel {
+    data object WindDirection : NBIconItem {
         override val resId: Int = R.drawable.wi_wind_deg
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_wind_direction)
     }
 
-    object WindGust : NBIconModel {
+    data object WindGust : NBIconItem {
         override val resId: Int = R.drawable.wi_strong_wind
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_wind_gust)
     }
 
-    object WindSpeed : NBIconModel {
+    data object WindSpeed : NBIconItem {
         override val resId: Int = R.drawable.wi_windy
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_wind_speed)

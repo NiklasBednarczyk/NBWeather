@@ -1,8 +1,8 @@
 package de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar
 
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 
 data class NBTopAppBarActionModel(
-    val icon: NBIconModel,
+    val icon: NBIconItem,
     val onClick: () -> Unit
 )

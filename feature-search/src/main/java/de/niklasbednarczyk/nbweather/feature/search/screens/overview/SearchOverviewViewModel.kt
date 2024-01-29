@@ -3,9 +3,11 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
+import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewLocationModel
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -28,14 +30,9 @@ class SearchOverviewViewModel @Inject constructor(
     private val visitedLocationsInfoFlow = NBResource.combineResourceFlows(
         geocodingRepository.getVisitedLocations(),
         geocodingRepository.getCurrentLocation(),
-        geocodingRepository.getIsInitialCurrentLocationSet()
-    ) { visitedLocations, currentLocation, isInitialCurrentLocationSet ->
-        SearchOverviewVisitedLocationsInfoModel(
-            visitedLocations = visitedLocations ?: emptyList(),
-            currentLocation = currentLocation,
-            isInitialCurrentLocationSet = isInitialCurrentLocationSet
-        )
-    }
+        geocodingRepository.getIsInitialCurrentLocationSet(),
+        SearchOverviewVisitedLocationsInfoModel::from
+    )
 
     init {
         collectFlow(
@@ -51,6 +48,7 @@ class SearchOverviewViewModel @Inject constructor(
                     .flatMapLatest { searchQuery ->
                         if (searchQuery.isNotEmpty()) {
                             geocodingRepository.getLocationsByLocationName(searchQuery)
+                                .mapResource(SearchOverviewLocationModel::from)
                         } else {
                             flowOf(null)
                         }
@@ -114,9 +112,9 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
-    fun updateOrders(locations: List<LocationModelData>) {
+    fun updateOrders(pairs: List<Pair<Double, Double>>) {
         launchSuspend {
-            geocodingRepository.updateOrders(locations)
+            geocodingRepository.updateOrders(pairs)
         }
     }
 

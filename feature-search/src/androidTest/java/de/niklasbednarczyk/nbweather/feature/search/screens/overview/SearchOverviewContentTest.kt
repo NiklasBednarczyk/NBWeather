@@ -9,10 +9,9 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocalNamesModelData
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
+import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewLocationModel
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposableTest
 import org.junit.Test
@@ -28,11 +27,23 @@ class SearchOverviewContentTest : NBComposableTest() {
 
     }
 
-    private val visitedLocation1 = createTestLocation(1)
-    private val visitedLocation2 = createTestLocation(2)
+    private val visitedLocation1 = createTestLocation(
+        number = 1,
+        country = "FR"
+    )
+    private val visitedLocation2 = createTestLocation(
+        number = 2,
+        country = "DE"
+    )
 
-    private val searchedLocation1 = createTestLocation(3)
-    private val searchedLocation2 = createTestLocation(4)
+    private val searchedLocation1 = createTestLocation(
+        number = 3,
+        country = "IT"
+    )
+    private val searchedLocation2 = createTestLocation(
+        number = 4,
+        country = "ES"
+    )
 
     private val placeholderString =
         NBString.ResString(R.string.screen_search_overview_bar_placeholder)
@@ -350,7 +361,7 @@ class SearchOverviewContentTest : NBComposableTest() {
         testView(
             uiStateSearchActive = false,
             uiStateFindLocationInProgress = false,
-            expectedViewManageDisplayed = true,
+            expectedViewVisitedDisplayed = true,
             expectedViewSearchDisplayed = false
         )
     }
@@ -360,7 +371,7 @@ class SearchOverviewContentTest : NBComposableTest() {
         testView(
             uiStateSearchActive = false,
             uiStateFindLocationInProgress = true,
-            expectedViewManageDisplayed = false,
+            expectedViewVisitedDisplayed = false,
             expectedViewSearchDisplayed = false
         )
     }
@@ -370,7 +381,7 @@ class SearchOverviewContentTest : NBComposableTest() {
         testView(
             uiStateSearchActive = true,
             uiStateFindLocationInProgress = false,
-            expectedViewManageDisplayed = false,
+            expectedViewVisitedDisplayed = false,
             expectedViewSearchDisplayed = true
         )
     }
@@ -380,7 +391,7 @@ class SearchOverviewContentTest : NBComposableTest() {
         testView(
             uiStateSearchActive = true,
             uiStateFindLocationInProgress = true,
-            expectedViewManageDisplayed = false,
+            expectedViewVisitedDisplayed = false,
             expectedViewSearchDisplayed = false
         )
     }
@@ -426,7 +437,7 @@ class SearchOverviewContentTest : NBComposableTest() {
     }
 
     private fun testSearchBarLeadingIcon(
-        icon: NBIconModel,
+        icon: NBIconItem,
         uiStateSearchActive: Boolean,
         uiStateIsCurrentLocationSet: Boolean,
         shouldClickIcon: Boolean,
@@ -538,7 +549,7 @@ class SearchOverviewContentTest : NBComposableTest() {
     private fun testView(
         uiStateSearchActive: Boolean,
         uiStateFindLocationInProgress: Boolean,
-        expectedViewManageDisplayed: Boolean,
+        expectedViewVisitedDisplayed: Boolean,
         expectedViewSearchDisplayed: Boolean
     ) {
         // Arrange
@@ -549,7 +560,7 @@ class SearchOverviewContentTest : NBComposableTest() {
 
         var selectedNavigateToForecast: Pair<Double, Double>? = null
         var selectedDeleteLocation: Pair<Double, Double>? = null
-        var updateOrderLocations: List<LocationModelData>? = null
+        var updateOrderLocations: List<Pair<Double, Double>>? = null
 
         // Act
         setSearchOverviewContent(
@@ -567,13 +578,19 @@ class SearchOverviewContentTest : NBComposableTest() {
 
         // Assert
         assertCompose {
-            if (expectedViewManageDisplayed) {
-                onNodeWithText(visitedLocation1.localizedNameAndCountry)
+            if (expectedViewVisitedDisplayed) {
+                onNodeWithText(visitedLocation1.localizedName)
                     .assertIsDisplayed()
                     .performLongClick()
-
-                onNodeWithText(visitedLocation2.localizedNameAndCountry)
+                onNodeWithText(visitedLocation1.stateAndCountry)
                     .assertIsDisplayed()
+                assertImageIsNotDisplayed(visitedLocation1.flag!!)
+
+                onNodeWithText(visitedLocation2.localizedName)
+                    .assertIsDisplayed()
+                onNodeWithText(visitedLocation2.stateAndCountry)
+                    .assertIsDisplayed()
+                assertImageIsNotDisplayed(visitedLocation2.flag!!)
 
                 onAllNodesWithIcon(NBIcons.Delete)
                     .onLast()
@@ -589,16 +606,24 @@ class SearchOverviewContentTest : NBComposableTest() {
 
                 assertNotNull(updateOrderLocations)
             } else {
-                assertStringIsNotDisplayed(visitedLocation1.localizedNameAndCountry)
-                assertStringIsNotDisplayed(visitedLocation2.localizedNameAndCountry)
+                assertStringIsNotDisplayed(visitedLocation1.localizedName)
+                assertStringIsNotDisplayed(visitedLocation2.localizedName)
             }
 
             if (expectedViewSearchDisplayed) {
                 onNodeWithText(searchedLocation1.localizedName)
                     .assertIsDisplayed()
                     .performClick()
+                onNodeWithText(searchedLocation1.stateAndCountry)
+                    .assertIsDisplayed()
+                onNodeWithImage(searchedLocation1.flag!!)
+                    .assertIsDisplayed()
 
                 onNodeWithText(searchedLocation2.localizedName)
+                    .assertIsDisplayed()
+                onNodeWithText(searchedLocation1.stateAndCountry)
+                    .assertIsDisplayed()
+                onNodeWithImage(searchedLocation1.flag!!)
                     .assertIsDisplayed()
 
                 assertNotNull(selectedNavigateToForecast)
@@ -618,19 +643,18 @@ class SearchOverviewContentTest : NBComposableTest() {
         isInitialCurrentLocationSet: Boolean = true,
         isCurrentLocationSet: Boolean = true
     ): SearchOverviewUiState {
-        val currentLocation = if (isCurrentLocationSet) createTestLocation(-1) else null
         return SearchOverviewUiState(
             searchQuery = searchQuery,
             searchActive = searchActive,
             findLocationInProgress = findLocationInProgress,
             visitedLocationsInfoResource = createNBResource(
                 SearchOverviewVisitedLocationsInfoModel(
-                    currentLocation = currentLocation,
-                    isInitialCurrentLocationSet = isInitialCurrentLocationSet,
                     visitedLocations = listOf(
                         visitedLocation1,
                         visitedLocation2
-                    )
+                    ),
+                    isCurrentLocationSet = isCurrentLocationSet,
+                    isInitialCurrentLocationSet = isInitialCurrentLocationSet,
                 )
             ),
             searchedLocationsResource = createNBResource(
@@ -653,7 +677,7 @@ class SearchOverviewContentTest : NBComposableTest() {
         onFindLocationClicked: () -> Unit = {},
         navigateToForecast: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
         deleteLocation: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
-        updateOrders: (locations: List<LocationModelData>) -> Unit = {}
+        updateOrders: (locations: List<Pair<Double, Double>>) -> Unit = {}
     ) {
         setContent {
             SearchOverviewContent(
@@ -673,67 +697,20 @@ class SearchOverviewContentTest : NBComposableTest() {
     }
 
     private fun createTestLocation(
-        number: Int
-    ): LocationModelData {
+        number: Int,
+        country: String
+    ): SearchOverviewLocationModel {
         val id = number.toString()
         val latLong = number.toDouble()
-        return LocationModelData(
-            localNames = LocalNamesModelData(
-                af = "af $id",
-                sq = "sq $id",
-                ar = "ar $id",
-                az = "az $id",
-                bg = "bg $id",
-                ca = "ca $id",
-                cs = "cs $id",
-                da = "da $id",
-                de = "de $id",
-                el = "el $id",
-                en = "en $id",
-                eu = "eu $id",
-                fa = "fa $id",
-                fi = "fi $id",
-                fr = "fr $id",
-                gl = "gl $id",
-                he = "he $id",
-                hi = "hi $id",
-                hr = "hr $id",
-                hu = "hu $id",
-                id = "id $id",
-                it = "it $id",
-                ja = "ja $id",
-                ko = "ko $id",
-                lv = "lv $id",
-                lt = "lt $id",
-                mk = "mk $id",
-                no = "no $id",
-                nl = "nl $id",
-                pl = "pl $id",
-                pt = "pt $id",
-                ro = "ro $id",
-                ru = "ru $id",
-                sv = "sv $id",
-                sk = "sk $id",
-                sl = "sl $id",
-                es = "es $id",
-                sr = "sr $id",
-                th = "th $id",
-                tr = "tr $id",
-                uk = "uk $id",
-                vi = "vi $id",
-                zh = "zh $id",
-                zu = "zu $id"
-            ),
-            name = "name $id",
-            state = "state $id",
-            country = "country $id",
+        return SearchOverviewLocationModel(
             latitude = latLong,
             longitude = latLong,
-            lastVisitedTimestampEpochSeconds = 3,
-            order = 4
+            localizedName = createNBString("localizedName $id"),
+            country = country,
+            state = "state $id"
         )
     }
 
-    private fun LocationModelData.toPair() = Pair(latitude, longitude)
+    private fun SearchOverviewLocationModel.toPair() = Pair(latitude, longitude)
 
 }

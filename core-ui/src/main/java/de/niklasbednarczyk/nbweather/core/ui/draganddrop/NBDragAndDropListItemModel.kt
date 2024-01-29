@@ -6,5 +6,6 @@ import androidx.compose.ui.Modifier
 data class NBDragAndDropListItemModel(
     val headlineContent: @Composable () -> Unit,
     val modifier: Modifier = Modifier,
+    val supportingContent: @Composable (() -> Unit)? = null,
     val trailingContent: @Composable (() -> Unit)? = null
 )

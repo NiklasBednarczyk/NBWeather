@@ -9,7 +9,7 @@ import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 @Composable
 fun NBIconView(
     modifier: Modifier = Modifier,
-    icon: NBIconModel,
+    icon: NBIconItem,
 ) {
     Icon(
         modifier = modifier,

@@ -11,7 +11,7 @@ import java.util.Locale
 class NBDateTimeDisplayModelTest : NBTest {
 
     @Test
-    fun localeGermany_shouldFormatDateTimeCorrectly() {
+    fun locale_germany_shouldFormatDateTimeCorrectly() {
         testDateTimeModel(
             locale = Locale.GERMANY,
             expectedDateFull = "Mi., Okt. 04",
@@ -21,7 +21,7 @@ class NBDateTimeDisplayModelTest : NBTest {
     }
 
     @Test
-    fun localeUS_shouldFormatDateTimeCorrectly() {
+    fun locale_us_shouldFormatDateTimeCorrectly() {
         testDateTimeModel(
             locale = Locale.US,
             expectedDateFull = "Wed, Oct 04",

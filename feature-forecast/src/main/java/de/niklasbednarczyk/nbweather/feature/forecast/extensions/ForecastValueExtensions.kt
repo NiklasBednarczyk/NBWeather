@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridIconModel
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridModel
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.CloudinessForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.DewPointForecastValue
@@ -33,7 +33,7 @@ val ForecastValue.displayValue: NBString?
         is WindDegreesForecastValue -> type?.displayText
     }
 
-val ForecastValue.icon: NBIconModel
+val ForecastValue.icon: NBIconItem
     get() = when (this) {
         is CloudinessForecastValue -> NBIcons.Cloudiness
         is DewPointForecastValue -> NBIcons.DewPoint

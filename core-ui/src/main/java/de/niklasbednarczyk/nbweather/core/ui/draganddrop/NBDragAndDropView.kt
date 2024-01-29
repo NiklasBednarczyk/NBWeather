@@ -41,10 +41,10 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
 @Composable
-fun <T> NBDragAndDropView(
+fun <T, K: Any> NBDragAndDropView(
     items: List<T>,
-    updateItems: (items: List<T>) -> Unit,
-    getKey: (item: T) -> Any,
+    updateKeys: (keys: List<K>) -> Unit,
+    getKey: (item: T) -> K,
     getListItem: (item: T) -> NBDragAndDropListItemModel,
 ) {
     var itemsCached by remember { mutableStateOf(items) }
@@ -63,7 +63,8 @@ fun <T> NBDragAndDropView(
             }
         },
         onDragStopped = {
-            updateItems(dragAndDropItems)
+            val keys = dragAndDropItems.map(getKey)
+            updateKeys(keys)
         }
     )
 
@@ -90,6 +91,7 @@ fun <T> NBDragAndDropView(
                 ListItem(
                     headlineContent = listItem.headlineContent,
                     modifier = listItem.modifier,
+                    supportingContent = listItem.supportingContent,
                     leadingContent = {
                         NBIconView(
                             icon = NBIcons.DragAndDrop

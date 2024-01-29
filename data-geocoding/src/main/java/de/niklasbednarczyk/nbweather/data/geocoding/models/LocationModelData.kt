@@ -9,10 +9,10 @@ import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelR
 data class LocationModelData(
     val latitude: Double,
     val longitude: Double,
+    val country: String?,
+    val state: String?,
     internal val name: String?,
     internal val localNames: LocalNamesModelData?,
-    internal val country: String?,
-    internal val state: String?,
     internal val lastVisitedTimestampEpochSeconds: Long?,
     internal val order: Long?
 ) {
@@ -33,19 +33,6 @@ data class LocationModelData(
 
                 else -> null
             }
-        }
-
-    val stateAndCountry: NBString?
-        get() = when {
-            state != null && country != null -> NBString.ResString(
-                R.string.format_comma_2_items,
-                state,
-                country
-            )
-
-            state == null && country != null -> NBString.Value.from(country)
-
-            else -> null
         }
 
     internal companion object {

@@ -5,8 +5,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshFlow
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocalNamesModelData
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
@@ -334,60 +332,10 @@ class ForecastOverviewContentTest : NBComposableTest() {
     private fun createTestUiState(
         item: ForecastOverviewItem
     ): ForecastOverviewUiState {
-        val location = LocationModelData(
-            localNames = LocalNamesModelData(
-                af = "af",
-                sq = "sq",
-                ar = "ar",
-                az = "az",
-                bg = "bg",
-                ca = "ca",
-                cs = "cs",
-                da = "da",
-                de = "de",
-                el = "el",
-                en = "en",
-                eu = "eu",
-                fa = "fa",
-                fi = "fi",
-                fr = "fr",
-                gl = "gl",
-                he = "he",
-                hi = "hi",
-                hr = "hr",
-                hu = "hu",
-                id = "id",
-                it = "it",
-                ja = "ja",
-                ko = "ko",
-                lv = "lv",
-                lt = "lt",
-                mk = "mk",
-                no = "no",
-                nl = "nl",
-                pl = "pl",
-                pt = "pt",
-                ro = "ro",
-                ru = "ru",
-                sv = "sv",
-                sk = "sk",
-                sl = "sl",
-                es = "es",
-                sr = "sr",
-                th = "th",
-                tr = "tr",
-                uk = "uk",
-                vi = "vi",
-                zh = "zh",
-                zu = "zu"
-            ),
-            name = "Name",
-            state = "State",
-            country = "Country",
+        val location = ForecastOverviewLocationModel(
             latitude = LOCATION_LATITUDE,
             longitude = LOCATION_LONGITUDE,
-            lastVisitedTimestampEpochSeconds = 3,
-            order = 4
+            title = createNBString("Title")
         )
 
         return ForecastOverviewUiState(

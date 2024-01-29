@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.models
 
-import de.niklasbednarczyk.nbweather.core.common.language.NBLanguageType
+import de.niklasbednarczyk.nbweather.core.common.locale.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocalNamesModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
@@ -341,7 +341,6 @@ class GeocodingModelsTest : NBTest {
         val localNamesDe = "de"
         val localNamesEn = "en"
         val country = "country"
-        val state = "state"
 
         val localName = when (languageType) {
             NBLanguageType.ENGLISH -> localNamesEn
@@ -349,142 +348,67 @@ class GeocodingModelsTest : NBTest {
         }
         val localNameAndCountry = "$localName, $country"
         val nameAndCountry = "$name, $country"
-        val stateAndCountry = "$state, $country"
 
         // Act
         val locationNull = createTestLocationData(
             name = null,
             localNamesDe = null,
             localNamesEn = null,
-            country = null,
-            state = null
-        )
-        val locationState = createTestLocationData(
-            name = null,
-            localNamesDe = null,
-            localNamesEn = null,
-            country = null,
-            state = state
+            country = null
         )
         val locationCountry = createTestLocationData(
             name = null,
             localNamesDe = null,
             localNamesEn = null,
-            country = country,
-            state = null
-        )
-        val locationCountryAndState = createTestLocationData(
-            name = null,
-            localNamesDe = null,
-            localNamesEn = null,
-            country = country,
-            state = state
+            country = country
         )
         val locationLocalNames = createTestLocationData(
             name = null,
             localNamesDe = localNamesDe,
             localNamesEn = localNamesEn,
-            country = null,
-            state = null
-        )
-        val locationLocalNamesAndState = createTestLocationData(
-            name = null,
-            localNamesDe = localNamesDe,
-            localNamesEn = localNamesEn,
-            country = null,
-            state = state
+            country = null
         )
         val locationLocalNamesAndCountry = createTestLocationData(
             name = null,
             localNamesDe = localNamesDe,
             localNamesEn = localNamesEn,
-            country = country,
-            state = null
-        )
-        val locationLocalNamesCountryAndState = createTestLocationData(
-            name = null,
-            localNamesDe = localNamesDe,
-            localNamesEn = localNamesEn,
-            country = country,
-            state = state
+            country = country
         )
         val locationName = createTestLocationData(
             name = name,
             localNamesDe = null,
             localNamesEn = null,
-            country = null,
-            state = null
-        )
-        val locationNameAndState = createTestLocationData(
-            name = name,
-            localNamesDe = null,
-            localNamesEn = null,
-            country = null,
-            state = state
+            country = null
         )
         val locationNameAndCountry = createTestLocationData(
             name = name,
             localNamesDe = null,
             localNamesEn = null,
-            country = country,
-            state = null
-        )
-        val locationNameCountryAndState = createTestLocationData(
-            name = name,
-            localNamesDe = null,
-            localNamesEn = null,
-            country = country,
-            state = state
+            country = country
         )
         val locationNameAndLocalNames = createTestLocationData(
             name = name,
             localNamesDe = localNamesDe,
             localNamesEn = localNamesEn,
-            country = null,
-            state = null
-        )
-        val locationNameLocalNamesAndState = createTestLocationData(
-            name = name,
-            localNamesDe = localNamesDe,
-            localNamesEn = localNamesEn,
-            country = null,
-            state = state
-        )
-        val locationNameLocalNamesAndCountry = createTestLocationData(
-            name = name,
-            localNamesDe = localNamesDe,
-            localNamesEn = localNamesEn,
-            country = country,
-            state = null
+            country = null
         )
         val locationAll = createTestLocationData(
             name = name,
             localNamesDe = localNamesDe,
             localNamesEn = localNamesEn,
-            country = country,
-            state = state
+            country = country
         )
 
         // Assert
         assertNullOrEmpty(locationNull.localizedName.asString(context))
-        assertNullOrEmpty(locationState.localizedName.asString(context))
         assertNullOrEmpty(locationCountry.localizedName.asString(context))
-        assertNullOrEmpty(locationCountryAndState.localizedName.asString(context))
         assertEquals(
             localName,
             locationLocalNames.localizedName.asString(context)
         )
         assertEquals(
             localName,
-            locationLocalNamesAndState.localizedName.asString(context)
-        )
-        assertEquals(
-            localName,
             locationLocalNamesAndCountry.localizedName.asString(context)
-        )
-        assertEquals(
-            localName,
-            locationLocalNamesCountryAndState.localizedName.asString(context)
         )
         assertEquals(
             name,
@@ -492,15 +416,7 @@ class GeocodingModelsTest : NBTest {
         )
         assertEquals(
             name,
-            locationNameAndState.localizedName.asString(context)
-        )
-        assertEquals(
-            name,
             locationNameAndCountry.localizedName.asString(context)
-        )
-        assertEquals(
-            name,
-            locationNameCountryAndState.localizedName.asString(context)
         )
         assertEquals(
             localName,
@@ -508,109 +424,34 @@ class GeocodingModelsTest : NBTest {
         )
         assertEquals(
             localName,
-            locationNameLocalNamesAndState.localizedName.asString(context)
-        )
-        assertEquals(
-            localName,
-            locationNameLocalNamesAndCountry.localizedName.asString(context)
-        )
-        assertEquals(
-            localName,
             locationAll.localizedName.asString(context)
         )
 
         assertNullOrEmpty(locationNull.localizedNameAndCountry.asString(context))
-        assertNullOrEmpty(locationState.localizedNameAndCountry.asString(context))
         assertNullOrEmpty(locationCountry.localizedNameAndCountry.asString(context))
-        assertNullOrEmpty(locationCountryAndState.localizedNameAndCountry.asString(context))
         assertEquals(
             localName,
             locationLocalNames.localizedNameAndCountry.asString(context)
-        )
-        assertEquals(
-            localName,
-            locationLocalNamesAndState.localizedNameAndCountry.asString(context)
         )
         assertEquals(
             localNameAndCountry,
             locationLocalNamesAndCountry.localizedNameAndCountry.asString(context)
         )
         assertEquals(
-            localNameAndCountry,
-            locationLocalNamesCountryAndState.localizedNameAndCountry.asString(context)
-        )
-        assertEquals(
             name,
             locationName.localizedNameAndCountry.asString(context)
-        )
-        assertEquals(
-            name,
-            locationNameAndState.localizedNameAndCountry.asString(context)
         )
         assertEquals(
             nameAndCountry,
             locationNameAndCountry.localizedNameAndCountry.asString(context)
         )
         assertEquals(
-            nameAndCountry,
-            locationNameCountryAndState.localizedNameAndCountry.asString(context)
-        )
-        assertEquals(
             localName,
             locationNameAndLocalNames.localizedNameAndCountry.asString(context)
         )
         assertEquals(
-            localName,
-            locationNameLocalNamesAndState.localizedNameAndCountry.asString(context)
-        )
-        assertEquals(
-            localNameAndCountry,
-            locationNameLocalNamesAndCountry.localizedNameAndCountry.asString(context)
-        )
-        assertEquals(
             localNameAndCountry,
             locationAll.localizedNameAndCountry.asString(context)
-        )
-
-        assertNullOrEmpty(locationNull.stateAndCountry.asString(context))
-        assertNullOrEmpty(locationState.stateAndCountry.asString(context))
-        assertEquals(
-            country,
-            locationCountry.stateAndCountry.asString(context)
-        )
-        assertEquals(
-            stateAndCountry,
-            locationCountryAndState.stateAndCountry.asString(context)
-        )
-        assertNullOrEmpty(locationLocalNames.stateAndCountry.asString(context))
-        assertNullOrEmpty(locationLocalNamesAndState.stateAndCountry.asString(context))
-        assertEquals(
-            country,
-            locationLocalNamesAndCountry.stateAndCountry.asString(context)
-        )
-        assertEquals(
-            stateAndCountry,
-            locationLocalNamesCountryAndState.stateAndCountry.asString(context)
-        )
-        assertNullOrEmpty(locationName.stateAndCountry.asString(context))
-        assertNullOrEmpty(locationNameAndState.stateAndCountry.asString(context))
-        assertEquals(
-            country,
-            locationNameAndCountry.stateAndCountry.asString(context)
-        )
-        assertEquals(
-            stateAndCountry,
-            locationNameCountryAndState.stateAndCountry.asString(context)
-        )
-        assertNullOrEmpty(locationNameAndLocalNames.stateAndCountry.asString(context))
-        assertNullOrEmpty(locationNameLocalNamesAndState.stateAndCountry.asString(context))
-        assertEquals(
-            country,
-            locationNameLocalNamesAndCountry.stateAndCountry.asString(context)
-        )
-        assertEquals(
-            stateAndCountry,
-            locationAll.stateAndCountry.asString(context)
         )
     }
 
@@ -618,8 +459,7 @@ class GeocodingModelsTest : NBTest {
         name: String? = "name",
         localNamesDe: String? = "de",
         localNamesEn: String? = "en",
-        country: String? = "country",
-        state: String? = "state"
+        country: String? = "country"
     ): LocationModelData {
         return LocationModelData(
             latitude = 1.0,
@@ -672,7 +512,7 @@ class GeocodingModelsTest : NBTest {
                 zu = "zu"
             ),
             country = country,
-            state = state,
+            state = "state",
             lastVisitedTimestampEpochSeconds = 3,
             order = 4
         )

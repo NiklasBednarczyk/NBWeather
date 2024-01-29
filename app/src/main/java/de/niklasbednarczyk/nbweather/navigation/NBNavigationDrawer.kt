@@ -21,8 +21,8 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineColo
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineHeight
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlinePadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineTextStyle
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestination
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 
@@ -88,8 +88,7 @@ private fun DrawerSheet(
                             closeDrawer = closeDrawer,
                             navigateToDestination = {
                                 if (!drawerItem.selected) {
-                                    val location = drawerItem.location
-                                    setCurrentLocation(location.latitude, location.longitude)
+                                    setCurrentLocation(drawerItem.latitude, drawerItem.longitude)
                                 }
                             },
                             label = drawerItem.label,
@@ -121,7 +120,7 @@ private fun DrawerItem(
     closeDrawer: () -> Unit,
     navigateToDestination: () -> Unit,
     label: NBString?,
-    icon: NBIconModel,
+    icon: NBIconItem,
     selected: Boolean
 ) {
     NavigationDrawerItem(

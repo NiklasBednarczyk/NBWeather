@@ -18,7 +18,7 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
     override fun createTopAppBarItem(uiState: ForecastOverviewUiState): NBTopAppBarItem {
         val location = uiState.locationResource.dataOrNull
         return NBTopAppBarItem.CenterAligned(
-            title = location?.localizedNameAndCountry,
+            title = location?.title,
             action = NBTopAppBarActionModel(
                 icon = NBIcons.Search,
                 onClick = ::navigateToSearch

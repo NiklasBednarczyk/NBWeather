@@ -21,7 +21,7 @@ class NBDragAndDropViewTest : NBComposableTest() {
         setContent {
             NBDragAndDropView(
                 items = startingItems,
-                updateItems = { items ->
+                updateKeys = { items ->
                     updatedItems = items
                 },
                 getKey = { item ->

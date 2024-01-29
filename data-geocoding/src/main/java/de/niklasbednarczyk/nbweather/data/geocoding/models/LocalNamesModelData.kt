@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.models
 
-import de.niklasbednarczyk.nbweather.core.common.language.NBLanguageType
+import de.niklasbednarczyk.nbweather.core.common.locale.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocalNamesModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocalNamesModelRemote
@@ -53,7 +53,7 @@ data class LocalNamesModelData(
 ) {
 
     val localizedName: String?
-        get() = when (NBLanguageType.from()) {
+        get() = when (NBLanguageType.fromLocale()) {
             NBLanguageType.ENGLISH -> en
             NBLanguageType.GERMAN -> de
         }

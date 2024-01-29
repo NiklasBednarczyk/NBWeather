@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.settings.screens.list.models
 
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlModel
 import de.niklasbednarczyk.nbweather.core.ui.slider.NBSliderModel
@@ -19,9 +19,9 @@ sealed interface SettingsListItemModel {
     ) : SettingsListItemModel
 
     data class ItemDestination(
-        val icon: NBIconModel,
-        val title: NBString?,
-        val description: NBString?,
+        val icon: NBIconItem,
+        val title: NBString,
+        val description: NBString,
         val destination: NBDestination.WithoutArguments
     ) : SettingsListItemModel
 
@@ -30,8 +30,8 @@ sealed interface SettingsListItemModel {
     ) : SettingsListItemModel
 
     data class ItemSwitch(
-        val title: NBString?,
-        val value: NBString?,
+        val title: NBString,
+        val value: NBString,
         val checked: Boolean,
         val onCheckedChange: (Boolean) -> Unit
     ) : SettingsListItemModel

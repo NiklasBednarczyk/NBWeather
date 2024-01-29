@@ -1,8 +1,260 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+    <string name="common_country_afghanistan">Afghanistan</string>
+    <string name="common_country_aland_islands">Åland Islands</string>
+    <string name="common_country_albania">Albania</string>
+    <string name="common_country_algeria">Algeria</string>
+    <string name="common_country_american_samoa">American Samoa</string>
+    <string name="common_country_andorra">Andorra</string>
+    <string name="common_country_angola">Angola</string>
+    <string name="common_country_anguilla">Anguilla</string>
+    <string name="common_country_antarctica">Antarctica</string>
+    <string name="common_country_antigua_and_barbuda">Antigua and Barbuda</string>
+    <string name="common_country_argentina">Argentina</string>
+    <string name="common_country_armenia">Armenia</string>
+    <string name="common_country_aruba">Aruba</string>
+    <string name="common_country_australia">Australia</string>
+    <string name="common_country_austria">Austria</string>
+    <string name="common_country_azerbaijan">Azerbaijan</string>
+    <string name="common_country_bahamas">Bahamas</string>
+    <string name="common_country_bahrain">Bahrain</string>
+    <string name="common_country_bangladesh">Bangladesh</string>
+    <string name="common_country_barbados">Barbados</string>
+    <string name="common_country_belarus">Belarus</string>
+    <string name="common_country_belgium">Belgium</string>
+    <string name="common_country_belize">Belize</string>
+    <string name="common_country_benin">Benin</string>
+    <string name="common_country_bermuda">Bermuda</string>
+    <string name="common_country_bhutan">Bhutan</string>
+    <string name="common_country_bolivia">Bolivia</string>
+    <string name="common_country_bosnia_and_herzegovina">Bosnia and Herzegovina</string>
+    <string name="common_country_botswana">Botswana</string>
+    <string name="common_country_bouvet_island">Bouvet Island</string>
+    <string name="common_country_brazil">Brazil</string>
+    <string name="common_country_british_indian_ocean_territory">British Indian Ocean Territory</string>
+    <string name="common_country_british_virgin_islands">British Virgin Islands</string>
+    <string name="common_country_brunei">Brunei</string>
+    <string name="common_country_bulgaria">Bulgaria</string>
+    <string name="common_country_burkina_faso">Burkina Faso</string>
+    <string name="common_country_burundi">Burundi</string>
+    <string name="common_country_cambodia">Cambodia</string>
+    <string name="common_country_cameroon">Cameroon</string>
+    <string name="common_country_canada">Canada</string>
+    <string name="common_country_cape_verde">Cape Verde</string>
+    <string name="common_country_caribbean_netherlands">Caribbean Netherlands</string>
+    <string name="common_country_cayman_islands">Cayman Islands</string>
+    <string name="common_country_central_african_republic">Central African Republic</string>
+    <string name="common_country_chad">Chad</string>
+    <string name="common_country_chile">Chile</string>
+    <string name="common_country_china">China</string>
+    <string name="common_country_christmas_island">Christmas Island</string>
+    <string name="common_country_cocos_keeling_islands">Cocos (Keeling) Islands</string>
+    <string name="common_country_colombia">Colombia</string>
+    <string name="common_country_comoros">Comoros</string>
+    <string name="common_country_cook_islands">Cook Islands</string>
+    <string name="common_country_costa_rica">Costa Rica</string>
+    <string name="common_country_croatia">Croatia</string>
+    <string name="common_country_cuba">Cuba</string>
+    <string name="common_country_curacao">Curaçao</string>
+    <string name="common_country_cyprus">Cyprus</string>
+    <string name="common_country_czechia">Czechia</string>
+    <string name="common_country_denmark">Denmark</string>
+    <string name="common_country_djibouti">Djibouti</string>
+    <string name="common_country_dominica">Dominica</string>
+    <string name="common_country_dominican_republic">Dominican Republic</string>
+    <string name="common_country_dr_congo">DR Congo</string>
+    <string name="common_country_ecuador">Ecuador</string>
+    <string name="common_country_egypt">Egypt</string>
+    <string name="common_country_el_salvador">El Salvador</string>
+    <string name="common_country_equatorial_guinea">Equatorial Guinea</string>
+    <string name="common_country_eritrea">Eritrea</string>
+    <string name="common_country_estonia">Estonia</string>
+    <string name="common_country_eswatini">Eswatini</string>
+    <string name="common_country_ethiopia">Ethiopia</string>
+    <string name="common_country_falkland_islands">Falkland Islands</string>
+    <string name="common_country_faroe_islands">Faroe Islands</string>
+    <string name="common_country_fiji">Fiji</string>
+    <string name="common_country_finland">Finland</string>
+    <string name="common_country_france">France</string>
+    <string name="common_country_french_guiana">French Guiana</string>
+    <string name="common_country_french_polynesia">French Polynesia</string>
+    <string name="common_country_french_southern_and_antarctic_lands">French Southern and Antarctic Lands</string>
+    <string name="common_country_gabon">Gabon</string>
+    <string name="common_country_gambia">Gambia</string>
+    <string name="common_country_georgia">Georgia</string>
+    <string name="common_country_germany">Germany</string>
+    <string name="common_country_ghana">Ghana</string>
+    <string name="common_country_gibraltar">Gibraltar</string>
+    <string name="common_country_greece">Greece</string>
+    <string name="common_country_greenland">Greenland</string>
+    <string name="common_country_grenada">Grenada</string>
+    <string name="common_country_guadeloupe">Guadeloupe</string>
+    <string name="common_country_guam">Guam</string>
+    <string name="common_country_guatemala">Guatemala</string>
+    <string name="common_country_guernsey">Guernsey</string>
+    <string name="common_country_guinea">Guinea</string>
+    <string name="common_country_guinea_bissau">Guinea-Bissau</string>
+    <string name="common_country_guyana">Guyana</string>
+    <string name="common_country_haiti">Haiti</string>
+    <string name="common_country_heard_island_and_mcdonald_islands">Heard Island and McDonald Islands</string>
+    <string name="common_country_honduras">Honduras</string>
+    <string name="common_country_hong_kong">Hong Kong</string>
+    <string name="common_country_hungary">Hungary</string>
+    <string name="common_country_iceland">Iceland</string>
+    <string name="common_country_india">India</string>
+    <string name="common_country_indonesia">Indonesia</string>
+    <string name="common_country_iran">Iran</string>
+    <string name="common_country_iraq">Iraq</string>
+    <string name="common_country_ireland">Ireland</string>
+    <string name="common_country_isle_of_man">Isle of Man</string>
+    <string name="common_country_israel">Israel</string>
+    <string name="common_country_italy">Italy</string>
+    <string name="common_country_ivory_coast">Ivory Coast</string>
+    <string name="common_country_jamaica">Jamaica</string>
+    <string name="common_country_japan">Japan</string>
+    <string name="common_country_jersey">Jersey</string>
+    <string name="common_country_jordan">Jordan</string>
+    <string name="common_country_kazakhstan">Kazakhstan</string>
+    <string name="common_country_kenya">Kenya</string>
+    <string name="common_country_kiribati">Kiribati</string>
+    <string name="common_country_kosovo">Kosovo</string>
+    <string name="common_country_kuwait">Kuwait</string>
+    <string name="common_country_kyrgyzstan">Kyrgyzstan</string>
+    <string name="common_country_laos">Laos</string>
+    <string name="common_country_latvia">Latvia</string>
+    <string name="common_country_lebanon">Lebanon</string>
+    <string name="common_country_lesotho">Lesotho</string>
+    <string name="common_country_liberia">Liberia</string>
+    <string name="common_country_libya">Libya</string>
+    <string name="common_country_liechtenstein">Liechtenstein</string>
+    <string name="common_country_lithuania">Lithuania</string>
+    <string name="common_country_luxembourg">Luxembourg</string>
+    <string name="common_country_macau">Macau</string>
+    <string name="common_country_madagascar">Madagascar</string>
+    <string name="common_country_malawi">Malawi</string>
+    <string name="common_country_malaysia">Malaysia</string>
+    <string name="common_country_maldives">Maldives</string>
+    <string name="common_country_mali">Mali</string>
+    <string name="common_country_malta">Malta</string>
+    <string name="common_country_marshall_islands">Marshall Islands</string>
+    <string name="common_country_martinique">Martinique</string>
+    <string name="common_country_mauritania">Mauritania</string>
+    <string name="common_country_mauritius">Mauritius</string>
+    <string name="common_country_mayotte">Mayotte</string>
+    <string name="common_country_mexico">Mexico</string>
+    <string name="common_country_micronesia">Micronesia</string>
+    <string name="common_country_moldova">Moldova</string>
+    <string name="common_country_monaco">Monaco</string>
+    <string name="common_country_mongolia">Mongolia</string>
+    <string name="common_country_montenegro">Montenegro</string>
+    <string name="common_country_montserrat">Montserrat</string>
+    <string name="common_country_morocco">Morocco</string>
+    <string name="common_country_mozambique">Mozambique</string>
+    <string name="common_country_myanmar">Myanmar</string>
+    <string name="common_country_namibia">Namibia</string>
+    <string name="common_country_nauru">Nauru</string>
+    <string name="common_country_nepal">Nepal</string>
+    <string name="common_country_netherlands">Netherlands</string>
+    <string name="common_country_new_caledonia">New Caledonia</string>
+    <string name="common_country_new_zealand">New Zealand</string>
+    <string name="common_country_nicaragua">Nicaragua</string>
+    <string name="common_country_niger">Niger</string>
+    <string name="common_country_nigeria">Nigeria</string>
+    <string name="common_country_niue">Niue</string>
+    <string name="common_country_norfolk_island">Norfolk Island</string>
+    <string name="common_country_northern_mariana_islands">Northern Mariana Islands</string>
+    <string name="common_country_north_korea">North Korea</string>
+    <string name="common_country_north_macedonia">North Macedonia</string>
+    <string name="common_country_norway">Norway</string>
+    <string name="common_country_oman">Oman</string>
+    <string name="common_country_pakistan">Pakistan</string>
+    <string name="common_country_palau">Palau</string>
+    <string name="common_country_palestine">Palestine</string>
+    <string name="common_country_panama">Panama</string>
+    <string name="common_country_papua_new_guinea">Papua New Guinea</string>
+    <string name="common_country_paraguay">Paraguay</string>
+    <string name="common_country_peru">Peru</string>
+    <string name="common_country_philippines">Philippines</string>
+    <string name="common_country_pitcairn_islands">Pitcairn Islands</string>
+    <string name="common_country_poland">Poland</string>
+    <string name="common_country_portugal">Portugal</string>
+    <string name="common_country_puerto_rico">Puerto Rico</string>
+    <string name="common_country_qatar">Qatar</string>
+    <string name="common_country_republic_of_the_congo">Republic of the Congo</string>
+    <string name="common_country_reunion">Réunion</string>
+    <string name="common_country_romania">Romania</string>
+    <string name="common_country_russia">Russia</string>
+    <string name="common_country_rwanda">Rwanda</string>
+    <string name="common_country_saint_barthelemy">Saint Barthélemy</string>
+    <string name="common_country_saint_helena_ascension_and_tristan_da_cunha">Saint Helena, Ascension and Tristan da Cunha</string>
+    <string name="common_country_saint_kitts_and_nevis">Saint Kitts and Nevis</string>
+    <string name="common_country_saint_lucia">Saint Lucia</string>
+    <string name="common_country_saint_martin">Saint Martin</string>
+    <string name="common_country_saint_pierre_and_miquelon">Saint Pierre and Miquelon</string>
+    <string name="common_country_saint_vincent_and_the_grenadines">Saint Vincent and the Grenadines</string>
+    <string name="common_country_samoa">Samoa</string>
+    <string name="common_country_san_marino">San Marino</string>
+    <string name="common_country_sao_tome_and_principe">São Tomé and Príncipe</string>
+    <string name="common_country_saudi_arabia">Saudi Arabia</string>
+    <string name="common_country_senegal">Senegal</string>
+    <string name="common_country_serbia">Serbia</string>
+    <string name="common_country_seychelles">Seychelles</string>
+    <string name="common_country_sierra_leone">Sierra Leone</string>
+    <string name="common_country_singapore">Singapore</string>
+    <string name="common_country_sint_maarten">Sint Maarten</string>
+    <string name="common_country_slovakia">Slovakia</string>
+    <string name="common_country_slovenia">Slovenia</string>
+    <string name="common_country_solomon_islands">Solomon Islands</string>
+    <string name="common_country_somalia">Somalia</string>
+    <string name="common_country_south_africa">South Africa</string>
+    <string name="common_country_south_georgia">South Georgia</string>
+    <string name="common_country_south_korea">South Korea</string>
+    <string name="common_country_south_sudan">South Sudan</string>
+    <string name="common_country_spain">Spain</string>
+    <string name="common_country_sri_lanka">Sri Lanka</string>
+    <string name="common_country_sudan">Sudan</string>
+    <string name="common_country_suriname">Suriname</string>
+    <string name="common_country_svalbard_and_jan_mayen">Svalbard and Jan Mayen</string>
+    <string name="common_country_sweden">Sweden</string>
+    <string name="common_country_switzerland">Switzerland</string>
+    <string name="common_country_syria">Syria</string>
+    <string name="common_country_taiwan">Taiwan</string>
+    <string name="common_country_tajikistan">Tajikistan</string>
+    <string name="common_country_tanzania">Tanzania</string>
+    <string name="common_country_thailand">Thailand</string>
+    <string name="common_country_timor_leste">Timor-Leste</string>
+    <string name="common_country_togo">Togo</string>
+    <string name="common_country_tokelau">Tokelau</string>
+    <string name="common_country_tonga">Tonga</string>
+    <string name="common_country_trinidad_and_tobago">Trinidad and Tobago</string>
+    <string name="common_country_tunisia">Tunisia</string>
+    <string name="common_country_turkey">Turkey</string>
+    <string name="common_country_turkmenistan">Turkmenistan</string>
+    <string name="common_country_turks_and_caicos_islands">Turks and Caicos Islands</string>
+    <string name="common_country_tuvalu">Tuvalu</string>
+    <string name="common_country_uganda">Uganda</string>
+    <string name="common_country_ukraine">Ukraine</string>
+    <string name="common_country_united_arab_emirates">United Arab Emirates</string>
+    <string name="common_country_united_kingdom">United Kingdom</string>
+    <string name="common_country_united_states">United States</string>
+    <string name="common_country_united_states_minor_outlying_islands">United States Minor Outlying Islands</string>
+    <string name="common_country_united_states_virgin_islands">United States Virgin Islands</string>
+    <string name="common_country_uruguay">Uruguay</string>
+    <string name="common_country_uzbekistan">Uzbekistan</string>
+    <string name="common_country_vanuatu">Vanuatu</string>
+    <string name="common_country_vatican_city">Vatican City</string>
+    <string name="common_country_venezuela">Venezuela</string>
+    <string name="common_country_vietnam">Vietnam</string>
+    <string name="common_country_wallis_and_futuna">Wallis and Futuna</string>
+    <string name="common_country_western_sahara">Western Sahara</string>
+    <string name="common_country_yemen">Yemen</string>
+    <string name="common_country_zambia">Zambia</string>
+    <string name="common_country_zimbabwe">Zimbabwe</string>
+
     <string name="error_text_no_internet">No internet connection</string>
     <string name="error_text_unknown">Something went wrong</string>
 
     <string name="format_brackets" translatable="false">%1$s (%2$s)</string>
+    <string name="format_comma_2_items" translatable="false">%1$s, %2$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
 
     <string name="fragment_snackbar_intent_failed_message">No fitting app on your phone found</string>
@@ -95,12 +347,263 @@
     <string name="icon_content_description_wind_gust" translatable="false">@string/screen_forecast_common_forecast_name_wind_gust</string>
     <string name="icon_content_description_wind_speed" translatable="false">@string/screen_forecast_common_forecast_name_wind_speed</string>
 
-    <string name="image_content_description_open_weather_logo">OpenWeather Logo</string>
+    <string name="image_content_description_country_flag_afghanistan" translatable="false">@string/common_country_afghanistan</string>
+    <string name="image_content_description_country_flag_aland_islands" translatable="false">@string/common_country_aland_islands</string>
+    <string name="image_content_description_country_flag_albania" translatable="false">@string/common_country_albania</string>
+    <string name="image_content_description_country_flag_algeria" translatable="false">@string/common_country_algeria</string>
+    <string name="image_content_description_country_flag_american_samoa" translatable="false">@string/common_country_american_samoa</string>
+    <string name="image_content_description_country_flag_andorra" translatable="false">@string/common_country_andorra</string>
+    <string name="image_content_description_country_flag_angola" translatable="false">@string/common_country_angola</string>
+    <string name="image_content_description_country_flag_anguilla" translatable="false">@string/common_country_anguilla</string>
+    <string name="image_content_description_country_flag_antarctica" translatable="false">@string/common_country_antarctica</string>
+    <string name="image_content_description_country_flag_antigua_and_barbuda" translatable="false">@string/common_country_antigua_and_barbuda</string>
+    <string name="image_content_description_country_flag_argentina" translatable="false">@string/common_country_argentina</string>
+    <string name="image_content_description_country_flag_armenia" translatable="false">@string/common_country_armenia</string>
+    <string name="image_content_description_country_flag_aruba" translatable="false">@string/common_country_aruba</string>
+    <string name="image_content_description_country_flag_australia" translatable="false">@string/common_country_australia</string>
+    <string name="image_content_description_country_flag_austria" translatable="false">@string/common_country_austria</string>
+    <string name="image_content_description_country_flag_azerbaijan" translatable="false">@string/common_country_azerbaijan</string>
+    <string name="image_content_description_country_flag_bahamas" translatable="false">@string/common_country_bahamas</string>
+    <string name="image_content_description_country_flag_bahrain" translatable="false">@string/common_country_bahrain</string>
+    <string name="image_content_description_country_flag_bangladesh" translatable="false">@string/common_country_bangladesh</string>
+    <string name="image_content_description_country_flag_barbados" translatable="false">@string/common_country_barbados</string>
+    <string name="image_content_description_country_flag_belarus" translatable="false">@string/common_country_belarus</string>
+    <string name="image_content_description_country_flag_belgium" translatable="false">@string/common_country_belgium</string>
+    <string name="image_content_description_country_flag_belize" translatable="false">@string/common_country_belize</string>
+    <string name="image_content_description_country_flag_benin" translatable="false">@string/common_country_benin</string>
+    <string name="image_content_description_country_flag_bermuda" translatable="false">@string/common_country_bermuda</string>
+    <string name="image_content_description_country_flag_bhutan" translatable="false">@string/common_country_bhutan</string>
+    <string name="image_content_description_country_flag_bolivia" translatable="false">@string/common_country_bolivia</string>
+    <string name="image_content_description_country_flag_bosnia_and_herzegovina" translatable="false">@string/common_country_bosnia_and_herzegovina</string>
+    <string name="image_content_description_country_flag_botswana" translatable="false">@string/common_country_botswana</string>
+    <string name="image_content_description_country_flag_bouvet_island" translatable="false">@string/common_country_bouvet_island</string>
+    <string name="image_content_description_country_flag_brazil" translatable="false">@string/common_country_brazil</string>
+    <string name="image_content_description_country_flag_british_indian_ocean_territory" translatable="false">@string/common_country_british_indian_ocean_territory</string>
+    <string name="image_content_description_country_flag_british_virgin_islands" translatable="false">@string/common_country_british_virgin_islands</string>
+    <string name="image_content_description_country_flag_brunei" translatable="false">@string/common_country_brunei</string>
+    <string name="image_content_description_country_flag_bulgaria" translatable="false">@string/common_country_bulgaria</string>
+    <string name="image_content_description_country_flag_burkina_faso" translatable="false">@string/common_country_burkina_faso</string>
+    <string name="image_content_description_country_flag_burundi" translatable="false">@string/common_country_burundi</string>
+    <string name="image_content_description_country_flag_cambodia" translatable="false">@string/common_country_cambodia</string>
+    <string name="image_content_description_country_flag_cameroon" translatable="false">@string/common_country_cameroon</string>
+    <string name="image_content_description_country_flag_canada" translatable="false">@string/common_country_canada</string>
+    <string name="image_content_description_country_flag_cape_verde" translatable="false">@string/common_country_cape_verde</string>
+    <string name="image_content_description_country_flag_caribbean_netherlands" translatable="false">@string/common_country_caribbean_netherlands</string>
+    <string name="image_content_description_country_flag_cayman_islands" translatable="false">@string/common_country_cayman_islands</string>
+    <string name="image_content_description_country_flag_central_african_republic" translatable="false">@string/common_country_central_african_republic</string>
+    <string name="image_content_description_country_flag_chad" translatable="false">@string/common_country_chad</string>
+    <string name="image_content_description_country_flag_chile" translatable="false">@string/common_country_chile</string>
+    <string name="image_content_description_country_flag_china" translatable="false">@string/common_country_china</string>
+    <string name="image_content_description_country_flag_christmas_island" translatable="false">@string/common_country_christmas_island</string>
+    <string name="image_content_description_country_flag_cocos_keeling_islands" translatable="false">@string/common_country_cocos_keeling_islands</string>
+    <string name="image_content_description_country_flag_colombia" translatable="false">@string/common_country_colombia</string>
+    <string name="image_content_description_country_flag_comoros" translatable="false">@string/common_country_comoros</string>
+    <string name="image_content_description_country_flag_cook_islands" translatable="false">@string/common_country_cook_islands</string>
+    <string name="image_content_description_country_flag_costa_rica" translatable="false">@string/common_country_costa_rica</string>
+    <string name="image_content_description_country_flag_croatia" translatable="false">@string/common_country_croatia</string>
+    <string name="image_content_description_country_flag_cuba" translatable="false">@string/common_country_cuba</string>
+    <string name="image_content_description_country_flag_curacao" translatable="false">@string/common_country_curacao</string>
+    <string name="image_content_description_country_flag_cyprus" translatable="false">@string/common_country_cyprus</string>
+    <string name="image_content_description_country_flag_czechia" translatable="false">@string/common_country_czechia</string>
+    <string name="image_content_description_country_flag_denmark" translatable="false">@string/common_country_denmark</string>
+    <string name="image_content_description_country_flag_djibouti" translatable="false">@string/common_country_djibouti</string>
+    <string name="image_content_description_country_flag_dominica" translatable="false">@string/common_country_dominica</string>
+    <string name="image_content_description_country_flag_dominican_republic" translatable="false">@string/common_country_dominican_republic</string>
+    <string name="image_content_description_country_flag_dr_congo" translatable="false">@string/common_country_dr_congo</string>
+    <string name="image_content_description_country_flag_ecuador" translatable="false">@string/common_country_ecuador</string>
+    <string name="image_content_description_country_flag_egypt" translatable="false">@string/common_country_egypt</string>
+    <string name="image_content_description_country_flag_el_salvador" translatable="false">@string/common_country_el_salvador</string>
+    <string name="image_content_description_country_flag_equatorial_guinea" translatable="false">@string/common_country_equatorial_guinea</string>
+    <string name="image_content_description_country_flag_eritrea" translatable="false">@string/common_country_eritrea</string>
+    <string name="image_content_description_country_flag_estonia" translatable="false">@string/common_country_estonia</string>
+    <string name="image_content_description_country_flag_eswatini" translatable="false">@string/common_country_eswatini</string>
+    <string name="image_content_description_country_flag_ethiopia" translatable="false">@string/common_country_ethiopia</string>
+    <string name="image_content_description_country_flag_falkland_islands" translatable="false">@string/common_country_falkland_islands</string>
+    <string name="image_content_description_country_flag_faroe_islands" translatable="false">@string/common_country_faroe_islands</string>
+    <string name="image_content_description_country_flag_fiji" translatable="false">@string/common_country_fiji</string>
+    <string name="image_content_description_country_flag_finland" translatable="false">@string/common_country_finland</string>
+    <string name="image_content_description_country_flag_france" translatable="false">@string/common_country_france</string>
+    <string name="image_content_description_country_flag_french_guiana" translatable="false">@string/common_country_french_guiana</string>
+    <string name="image_content_description_country_flag_french_polynesia" translatable="false">@string/common_country_french_polynesia</string>
+    <string name="image_content_description_country_flag_french_southern_and_antarctic_lands" translatable="false">@string/common_country_french_southern_and_antarctic_lands</string>
+    <string name="image_content_description_country_flag_gabon" translatable="false">@string/common_country_gabon</string>
+    <string name="image_content_description_country_flag_gambia" translatable="false">@string/common_country_gambia</string>
+    <string name="image_content_description_country_flag_georgia" translatable="false">@string/common_country_georgia</string>
+    <string name="image_content_description_country_flag_germany" translatable="false">@string/common_country_germany</string>
+    <string name="image_content_description_country_flag_ghana" translatable="false">@string/common_country_ghana</string>
+    <string name="image_content_description_country_flag_gibraltar" translatable="false">@string/common_country_gibraltar</string>
+    <string name="image_content_description_country_flag_greece" translatable="false">@string/common_country_greece</string>
+    <string name="image_content_description_country_flag_greenland" translatable="false">@string/common_country_greenland</string>
+    <string name="image_content_description_country_flag_grenada" translatable="false">@string/common_country_grenada</string>
+    <string name="image_content_description_country_flag_guadeloupe" translatable="false">@string/common_country_guadeloupe</string>
+    <string name="image_content_description_country_flag_guam" translatable="false">@string/common_country_guam</string>
+    <string name="image_content_description_country_flag_guatemala" translatable="false">@string/common_country_guatemala</string>
+    <string name="image_content_description_country_flag_guernsey" translatable="false">@string/common_country_guernsey</string>
+    <string name="image_content_description_country_flag_guinea" translatable="false">@string/common_country_guinea</string>
+    <string name="image_content_description_country_flag_guinea_bissau" translatable="false">@string/common_country_guinea_bissau</string>
+    <string name="image_content_description_country_flag_guyana" translatable="false">@string/common_country_guyana</string>
+    <string name="image_content_description_country_flag_haiti" translatable="false">@string/common_country_haiti</string>
+    <string name="image_content_description_country_flag_heard_island_and_mcdonald_islands" translatable="false">@string/common_country_heard_island_and_mcdonald_islands</string>
+    <string name="image_content_description_country_flag_honduras" translatable="false">@string/common_country_honduras</string>
+    <string name="image_content_description_country_flag_hong_kong" translatable="false">@string/common_country_hong_kong</string>
+    <string name="image_content_description_country_flag_hungary" translatable="false">@string/common_country_hungary</string>
+    <string name="image_content_description_country_flag_iceland" translatable="false">@string/common_country_iceland</string>
+    <string name="image_content_description_country_flag_india" translatable="false">@string/common_country_india</string>
+    <string name="image_content_description_country_flag_indonesia" translatable="false">@string/common_country_indonesia</string>
+    <string name="image_content_description_country_flag_iran" translatable="false">@string/common_country_iran</string>
+    <string name="image_content_description_country_flag_iraq" translatable="false">@string/common_country_iraq</string>
+    <string name="image_content_description_country_flag_ireland" translatable="false">@string/common_country_ireland</string>
+    <string name="image_content_description_country_flag_isle_of_man" translatable="false">@string/common_country_isle_of_man</string>
+    <string name="image_content_description_country_flag_israel" translatable="false">@string/common_country_israel</string>
+    <string name="image_content_description_country_flag_italy" translatable="false">@string/common_country_italy</string>
+    <string name="image_content_description_country_flag_ivory_coast" translatable="false">@string/common_country_ivory_coast</string>
+    <string name="image_content_description_country_flag_jamaica" translatable="false">@string/common_country_jamaica</string>
+    <string name="image_content_description_country_flag_japan" translatable="false">@string/common_country_japan</string>
+    <string name="image_content_description_country_flag_jersey" translatable="false">@string/common_country_jersey</string>
+    <string name="image_content_description_country_flag_jordan" translatable="false">@string/common_country_jordan</string>
+    <string name="image_content_description_country_flag_kazakhstan" translatable="false">@string/common_country_kazakhstan</string>
+    <string name="image_content_description_country_flag_kenya" translatable="false">@string/common_country_kenya</string>
+    <string name="image_content_description_country_flag_kiribati" translatable="false">@string/common_country_kiribati</string>
+    <string name="image_content_description_country_flag_kosovo" translatable="false">@string/common_country_kosovo</string>
+    <string name="image_content_description_country_flag_kuwait" translatable="false">@string/common_country_kuwait</string>
+    <string name="image_content_description_country_flag_kyrgyzstan" translatable="false">@string/common_country_kyrgyzstan</string>
+    <string name="image_content_description_country_flag_laos" translatable="false">@string/common_country_laos</string>
+    <string name="image_content_description_country_flag_latvia" translatable="false">@string/common_country_latvia</string>
+    <string name="image_content_description_country_flag_lebanon" translatable="false">@string/common_country_lebanon</string>
+    <string name="image_content_description_country_flag_lesotho" translatable="false">@string/common_country_lesotho</string>
+    <string name="image_content_description_country_flag_liberia" translatable="false">@string/common_country_liberia</string>
+    <string name="image_content_description_country_flag_libya" translatable="false">@string/common_country_libya</string>
+    <string name="image_content_description_country_flag_liechtenstein" translatable="false">@string/common_country_liechtenstein</string>
+    <string name="image_content_description_country_flag_lithuania" translatable="false">@string/common_country_lithuania</string>
+    <string name="image_content_description_country_flag_luxembourg" translatable="false">@string/common_country_luxembourg</string>
+    <string name="image_content_description_country_flag_macau" translatable="false">@string/common_country_macau</string>
+    <string name="image_content_description_country_flag_madagascar" translatable="false">@string/common_country_madagascar</string>
+    <string name="image_content_description_country_flag_malawi" translatable="false">@string/common_country_malawi</string>
+    <string name="image_content_description_country_flag_malaysia" translatable="false">@string/common_country_malaysia</string>
+    <string name="image_content_description_country_flag_maldives" translatable="false">@string/common_country_maldives</string>
+    <string name="image_content_description_country_flag_mali" translatable="false">@string/common_country_mali</string>
+    <string name="image_content_description_country_flag_malta" translatable="false">@string/common_country_malta</string>
+    <string name="image_content_description_country_flag_marshall_islands" translatable="false">@string/common_country_marshall_islands</string>
+    <string name="image_content_description_country_flag_martinique" translatable="false">@string/common_country_martinique</string>
+    <string name="image_content_description_country_flag_mauritania" translatable="false">@string/common_country_mauritania</string>
+    <string name="image_content_description_country_flag_mauritius" translatable="false">@string/common_country_mauritius</string>
+    <string name="image_content_description_country_flag_mayotte" translatable="false">@string/common_country_mayotte</string>
+    <string name="image_content_description_country_flag_mexico" translatable="false">@string/common_country_mexico</string>
+    <string name="image_content_description_country_flag_micronesia" translatable="false">@string/common_country_micronesia</string>
+    <string name="image_content_description_country_flag_moldova" translatable="false">@string/common_country_moldova</string>
+    <string name="image_content_description_country_flag_monaco" translatable="false">@string/common_country_monaco</string>
+    <string name="image_content_description_country_flag_mongolia" translatable="false">@string/common_country_mongolia</string>
+    <string name="image_content_description_country_flag_montenegro" translatable="false">@string/common_country_montenegro</string>
+    <string name="image_content_description_country_flag_montserrat" translatable="false">@string/common_country_montserrat</string>
+    <string name="image_content_description_country_flag_morocco" translatable="false">@string/common_country_morocco</string>
+    <string name="image_content_description_country_flag_mozambique" translatable="false">@string/common_country_mozambique</string>
+    <string name="image_content_description_country_flag_myanmar" translatable="false">@string/common_country_myanmar</string>
+    <string name="image_content_description_country_flag_namibia" translatable="false">@string/common_country_namibia</string>
+    <string name="image_content_description_country_flag_nauru" translatable="false">@string/common_country_nauru</string>
+    <string name="image_content_description_country_flag_nepal" translatable="false">@string/common_country_nepal</string>
+    <string name="image_content_description_country_flag_netherlands" translatable="false">@string/common_country_netherlands</string>
+    <string name="image_content_description_country_flag_new_caledonia" translatable="false">@string/common_country_new_caledonia</string>
+    <string name="image_content_description_country_flag_new_zealand" translatable="false">@string/common_country_new_zealand</string>
+    <string name="image_content_description_country_flag_nicaragua" translatable="false">@string/common_country_nicaragua</string>
+    <string name="image_content_description_country_flag_niger" translatable="false">@string/common_country_niger</string>
+    <string name="image_content_description_country_flag_nigeria" translatable="false">@string/common_country_nigeria</string>
+    <string name="image_content_description_country_flag_niue" translatable="false">@string/common_country_niue</string>
+    <string name="image_content_description_country_flag_norfolk_island" translatable="false">@string/common_country_norfolk_island</string>
+    <string name="image_content_description_country_flag_northern_mariana_islands" translatable="false">@string/common_country_northern_mariana_islands</string>
+    <string name="image_content_description_country_flag_north_korea" translatable="false">@string/common_country_north_korea</string>
+    <string name="image_content_description_country_flag_north_macedonia" translatable="false">@string/common_country_north_macedonia</string>
+    <string name="image_content_description_country_flag_norway" translatable="false">@string/common_country_norway</string>
+    <string name="image_content_description_country_flag_oman" translatable="false">@string/common_country_oman</string>
+    <string name="image_content_description_country_flag_pakistan" translatable="false">@string/common_country_pakistan</string>
+    <string name="image_content_description_country_flag_palau" translatable="false">@string/common_country_palau</string>
+    <string name="image_content_description_country_flag_palestine" translatable="false">@string/common_country_palestine</string>
+    <string name="image_content_description_country_flag_panama" translatable="false">@string/common_country_panama</string>
+    <string name="image_content_description_country_flag_papua_new_guinea" translatable="false">@string/common_country_papua_new_guinea</string>
+    <string name="image_content_description_country_flag_paraguay" translatable="false">@string/common_country_paraguay</string>
+    <string name="image_content_description_country_flag_peru" translatable="false">@string/common_country_peru</string>
+    <string name="image_content_description_country_flag_philippines" translatable="false">@string/common_country_philippines</string>
+    <string name="image_content_description_country_flag_pitcairn_islands" translatable="false">@string/common_country_pitcairn_islands</string>
+    <string name="image_content_description_country_flag_poland" translatable="false">@string/common_country_poland</string>
+    <string name="image_content_description_country_flag_portugal" translatable="false">@string/common_country_portugal</string>
+    <string name="image_content_description_country_flag_puerto_rico" translatable="false">@string/common_country_puerto_rico</string>
+    <string name="image_content_description_country_flag_qatar" translatable="false">@string/common_country_qatar</string>
+    <string name="image_content_description_country_flag_republic_of_the_congo" translatable="false">@string/common_country_republic_of_the_congo</string>
+    <string name="image_content_description_country_flag_reunion" translatable="false">@string/common_country_reunion</string>
+    <string name="image_content_description_country_flag_romania" translatable="false">@string/common_country_romania</string>
+    <string name="image_content_description_country_flag_russia" translatable="false">@string/common_country_russia</string>
+    <string name="image_content_description_country_flag_rwanda" translatable="false">@string/common_country_rwanda</string>
+    <string name="image_content_description_country_flag_saint_barthelemy" translatable="false">@string/common_country_saint_barthelemy</string>
+    <string name="image_content_description_country_flag_saint_helena_ascension_and_tristan_da_cunha" translatable="false">@string/common_country_saint_helena_ascension_and_tristan_da_cunha</string>
+    <string name="image_content_description_country_flag_saint_kitts_and_nevis" translatable="false">@string/common_country_saint_kitts_and_nevis</string>
+    <string name="image_content_description_country_flag_saint_lucia" translatable="false">@string/common_country_saint_lucia</string>
+    <string name="image_content_description_country_flag_saint_martin" translatable="false">@string/common_country_saint_martin</string>
+    <string name="image_content_description_country_flag_saint_pierre_and_miquelon" translatable="false">@string/common_country_saint_pierre_and_miquelon</string>
+    <string name="image_content_description_country_flag_saint_vincent_and_the_grenadines" translatable="false">@string/common_country_saint_vincent_and_the_grenadines</string>
+    <string name="image_content_description_country_flag_samoa" translatable="false">@string/common_country_samoa</string>
+    <string name="image_content_description_country_flag_san_marino" translatable="false">@string/common_country_san_marino</string>
+    <string name="image_content_description_country_flag_sao_tome_and_principe" translatable="false">@string/common_country_sao_tome_and_principe</string>
+    <string name="image_content_description_country_flag_saudi_arabia" translatable="false">@string/common_country_saudi_arabia</string>
+    <string name="image_content_description_country_flag_senegal" translatable="false">@string/common_country_senegal</string>
+    <string name="image_content_description_country_flag_serbia" translatable="false">@string/common_country_serbia</string>
+    <string name="image_content_description_country_flag_seychelles" translatable="false">@string/common_country_seychelles</string>
+    <string name="image_content_description_country_flag_sierra_leone" translatable="false">@string/common_country_sierra_leone</string>
+    <string name="image_content_description_country_flag_singapore" translatable="false">@string/common_country_singapore</string>
+    <string name="image_content_description_country_flag_sint_maarten" translatable="false">@string/common_country_sint_maarten</string>
+    <string name="image_content_description_country_flag_slovakia" translatable="false">@string/common_country_slovakia</string>
+    <string name="image_content_description_country_flag_slovenia" translatable="false">@string/common_country_slovenia</string>
+    <string name="image_content_description_country_flag_solomon_islands" translatable="false">@string/common_country_solomon_islands</string>
+    <string name="image_content_description_country_flag_somalia" translatable="false">@string/common_country_somalia</string>
+    <string name="image_content_description_country_flag_south_africa" translatable="false">@string/common_country_south_africa</string>
+    <string name="image_content_description_country_flag_south_georgia" translatable="false">@string/common_country_south_georgia</string>
+    <string name="image_content_description_country_flag_south_korea" translatable="false">@string/common_country_south_korea</string>
+    <string name="image_content_description_country_flag_south_sudan" translatable="false">@string/common_country_south_sudan</string>
+    <string name="image_content_description_country_flag_spain" translatable="false">@string/common_country_spain</string>
+    <string name="image_content_description_country_flag_sri_lanka" translatable="false">@string/common_country_sri_lanka</string>
+    <string name="image_content_description_country_flag_sudan" translatable="false">@string/common_country_sudan</string>
+    <string name="image_content_description_country_flag_suriname" translatable="false">@string/common_country_suriname</string>
+    <string name="image_content_description_country_flag_svalbard_and_jan_mayen" translatable="false">@string/common_country_svalbard_and_jan_mayen</string>
+    <string name="image_content_description_country_flag_sweden" translatable="false">@string/common_country_sweden</string>
+    <string name="image_content_description_country_flag_switzerland" translatable="false">@string/common_country_switzerland</string>
+    <string name="image_content_description_country_flag_syria" translatable="false">@string/common_country_syria</string>
+    <string name="image_content_description_country_flag_taiwan" translatable="false">@string/common_country_taiwan</string>
+    <string name="image_content_description_country_flag_tajikistan" translatable="false">@string/common_country_tajikistan</string>
+    <string name="image_content_description_country_flag_tanzania" translatable="false">@string/common_country_tanzania</string>
+    <string name="image_content_description_country_flag_thailand" translatable="false">@string/common_country_thailand</string>
+    <string name="image_content_description_country_flag_timor_leste" translatable="false">@string/common_country_timor_leste</string>
+    <string name="image_content_description_country_flag_togo" translatable="false">@string/common_country_togo</string>
+    <string name="image_content_description_country_flag_tokelau" translatable="false">@string/common_country_tokelau</string>
+    <string name="image_content_description_country_flag_tonga" translatable="false">@string/common_country_tonga</string>
+    <string name="image_content_description_country_flag_trinidad_and_tobago" translatable="false">@string/common_country_trinidad_and_tobago</string>
+    <string name="image_content_description_country_flag_tunisia" translatable="false">@string/common_country_tunisia</string>
+    <string name="image_content_description_country_flag_turkey" translatable="false">@string/common_country_turkey</string>
+    <string name="image_content_description_country_flag_turkmenistan" translatable="false">@string/common_country_turkmenistan</string>
+    <string name="image_content_description_country_flag_turks_and_caicos_islands" translatable="false">@string/common_country_turks_and_caicos_islands</string>
+    <string name="image_content_description_country_flag_tuvalu" translatable="false">@string/common_country_tuvalu</string>
+    <string name="image_content_description_country_flag_uganda" translatable="false">@string/common_country_uganda</string>
+    <string name="image_content_description_country_flag_ukraine" translatable="false">@string/common_country_ukraine</string>
+    <string name="image_content_description_country_flag_united_arab_emirates" translatable="false">@string/common_country_united_arab_emirates</string>
+    <string name="image_content_description_country_flag_united_kingdom" translatable="false">@string/common_country_united_kingdom</string>
+    <string name="image_content_description_country_flag_united_states" translatable="false">@string/common_country_united_states</string>
+    <string name="image_content_description_country_flag_united_states_minor_outlying_islands" translatable="false">@string/common_country_united_states_minor_outlying_islands</string>
+    <string name="image_content_description_country_flag_united_states_virgin_islands" translatable="false">@string/common_country_united_states_virgin_islands</string>
+    <string name="image_content_description_country_flag_uruguay" translatable="false">@string/common_country_uruguay</string>
+    <string name="image_content_description_country_flag_uzbekistan" translatable="false">@string/common_country_uzbekistan</string>
+    <string name="image_content_description_country_flag_vanuatu" translatable="false">@string/common_country_vanuatu</string>
+    <string name="image_content_description_country_flag_vatican_city" translatable="false">@string/common_country_vatican_city</string>
+    <string name="image_content_description_country_flag_venezuela" translatable="false">@string/common_country_venezuela</string>
+    <string name="image_content_description_country_flag_vietnam" translatable="false">@string/common_country_vietnam</string>
+    <string name="image_content_description_country_flag_wallis_and_futuna" translatable="false">@string/common_country_wallis_and_futuna</string>
+    <string name="image_content_description_country_flag_western_sahara" translatable="false">@string/common_country_western_sahara</string>
+    <string name="image_content_description_country_flag_yemen" translatable="false">@string/common_country_yemen</string>
+    <string name="image_content_description_country_flag_zambia" translatable="false">@string/common_country_zambia</string>
+    <string name="image_content_description_country_flag_zimbabwe" translatable="false">@string/common_country_zimbabwe</string>
+    <string name="image_content_description_open_weather">OpenWeather</string>
 
     <string name="screen_about_overview_button_git_hub">GitHub</string>
     <string name="screen_about_overview_button_website">Website</string>
     <string name="screen_about_overview_title">About this app</string>
     <string name="screen_about_overview_text_erik_flowers">App icon and weather icons provided by Erik Flowers</string>
+    <string name="screen_about_overview_text_flagpedia_net">Country flags provided by Flagpedia.net</string>
     <string name="screen_about_overview_text_niklas_bednarczyk">This app was created by Niklas Bednarczyk</string>
     <string name="screen_about_overview_text_open_weather">Weather data provided by OpenWeather</string>
 

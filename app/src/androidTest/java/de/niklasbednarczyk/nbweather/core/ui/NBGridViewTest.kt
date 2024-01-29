@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onRoot
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridIconModel
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridModel
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridView
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposableTest
 import org.junit.Test
@@ -246,7 +246,7 @@ class NBGridViewTest : NBComposableTest() {
 
     private fun createTestItem(
         number: Int,
-        icon: NBIconModel,
+        icon: NBIconItem,
         rotationDegrees: Float = 0f
     ): NBGridModel {
         return NBGridModel(

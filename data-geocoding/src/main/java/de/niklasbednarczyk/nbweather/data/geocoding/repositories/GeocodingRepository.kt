@@ -143,12 +143,12 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun updateOrders(
-        locations: List<LocationModelData>
+        pairs: List<Pair<Double, Double>>
     ) = withContext(Dispatchers.IO) {
-        locations.forEachIndexed { index, locationData ->
+        pairs.forEachIndexed { index, pair ->
             geocodingDao.updateOrder(
-                latitude = locationData.latitude,
-                longitude = locationData.longitude,
+                latitude = pair.first,
+                longitude = pair.second,
                 order = index.toLong()
             )
         }

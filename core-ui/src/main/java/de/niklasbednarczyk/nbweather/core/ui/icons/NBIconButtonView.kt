@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun NBIconButtonView(
     modifier: Modifier = Modifier,
-    icon: NBIconModel,
+    icon: NBIconItem,
     onClick: () -> Unit,
 ) {
     IconButton(

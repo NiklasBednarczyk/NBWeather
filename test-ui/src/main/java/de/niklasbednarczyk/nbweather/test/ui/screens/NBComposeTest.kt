@@ -26,7 +26,8 @@ import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
+import de.niklasbednarczyk.nbweather.core.ui.image.NBImageItem
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 
 interface NBComposeTest : NBTest {
@@ -74,12 +75,12 @@ interface NBComposeTest : NBTest {
     ) = onNodeWithContentDescription(string.asString(context))
 
     fun ComposeContentTestRule.onNodeWithIcon(
-        icon: NBIconModel,
-        useUnmergedTree: Boolean = false
-    ) = onNodeWithContentDescription(
-        icon.contentDescription.asString(context),
-        useUnmergedTree = useUnmergedTree
-    )
+        icon: NBIconItem
+    ) = onNodeWithContentDescription(icon.contentDescription.asString(context))
+
+    fun ComposeContentTestRule.onNodeWithImage(
+        image: NBImageItem
+    ) = onNodeWithContentDescription(image.contentDescription.asString(context))
 
     fun ComposeContentTestRule.onAllNodesWithText(
         @StringRes resId: Int,
@@ -93,8 +94,11 @@ interface NBComposeTest : NBTest {
     ) =
         onAllNodesWithText(string.asString(context), substring = substring)
 
-    fun ComposeContentTestRule.onAllNodesWithIcon(icon: NBIconModel) =
+    fun ComposeContentTestRule.onAllNodesWithIcon(icon: NBIconItem) =
         onAllNodesWithContentDescription(icon.contentDescription.asString(context))
+
+    fun ComposeContentTestRule.onAllNodesWithImage(image: NBImageItem) =
+        onAllNodesWithContentDescription(image.contentDescription.asString(context))
 
     fun SemanticsNodeInteractionCollection.performClickOnAllNodes() =
         fetchSemanticsNodes().forEachIndexed { index, _ ->
@@ -130,8 +134,13 @@ interface NBComposeTest : NBTest {
         .assertCountEquals(0)
 
     fun ComposeContentTestRule.assertIconIsNotDisplayed(
-        icon: NBIconModel
+        icon: NBIconItem
     ) = onAllNodesWithIcon(icon)
+        .assertCountEquals(0)
+
+    fun ComposeContentTestRule.assertImageIsNotDisplayed(
+        image: NBImageItem
+    ) = onAllNodesWithImage(image)
         .assertCountEquals(0)
 
     fun ComposeContentTestRule.assertNoClickAction() =

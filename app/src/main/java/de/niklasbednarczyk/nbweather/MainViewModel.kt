@@ -65,7 +65,8 @@ class MainViewModel @Inject constructor(
                     label = visitedLocation.localizedNameAndCountry,
                     icon = NBIcons.Location,
                     selected = selected,
-                    location = visitedLocation
+                    latitude = visitedLocation.latitude,
+                    longitude = visitedLocation.longitude
                 )
             }
             items.addAll(locationItems)

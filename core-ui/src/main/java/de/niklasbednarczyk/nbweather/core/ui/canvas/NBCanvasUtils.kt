@@ -10,10 +10,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.vectorResource
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 
 @Composable
-fun NBIconModel.toVectorPainter(): VectorPainter {
+fun NBIconItem.toVectorPainter(): VectorPainter {
     val image = ImageVector.vectorResource(resId)
     return rememberVectorPainter(image)
 }

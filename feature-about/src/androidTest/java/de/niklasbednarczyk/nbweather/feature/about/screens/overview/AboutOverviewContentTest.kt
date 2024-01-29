@@ -22,7 +22,7 @@ class AboutOverviewContentTest : NBComposableTest() {
         var clickCounterUnknown = 0
 
         val countGithubButtons = 2
-        val countWebsiteButtons = 2
+        val countWebsiteButtons = 3
 
         // Act
         setContent {

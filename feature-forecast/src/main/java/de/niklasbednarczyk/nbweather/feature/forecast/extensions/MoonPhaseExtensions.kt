@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.extensions
 
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 
@@ -44,7 +44,7 @@ val MoonPhaseType.displayText: NBString
         return NBString.ResString(resId)
     }
 
-val MoonPhaseType.icon: NBIconModel
+val MoonPhaseType.icon: NBIconItem
     get() = when (this) {
         MoonPhaseType.NEW_MOON -> NBIcons.MoonPhaseNew
         MoonPhaseType.WAXING_CRESCENT_1 -> NBIcons.MoonPhaseWaxingCrescent1

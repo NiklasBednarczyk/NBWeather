@@ -20,9 +20,8 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
-import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewManageView
-import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewSearchView
+import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewVisitedView
+import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewSearchedView
 
 @Composable
 fun SearchOverviewContent(
@@ -36,7 +35,7 @@ fun SearchOverviewContent(
     onFindLocationClicked: () -> Unit,
     navigateToForecast: (latitude: Double, longitude: Double) -> Unit,
     deleteLocation: (latitude: Double, longitude: Double) -> Unit,
-    updateOrders: (locations: List<LocationModelData>) -> Unit
+    updateOrders: (pairs: List<Pair<Double, Double>>) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -111,7 +110,7 @@ fun SearchOverviewContent(
                     if (uiState.findLocationInProgress) {
                         FindLocationInProgressView()
                     } else {
-                        SearchOverviewSearchView(
+                        SearchOverviewSearchedView(
                             searchedLocationsResource = uiState.searchedLocationsResource,
                             navigateToForecast = navigateToForecast
                         )
@@ -123,7 +122,7 @@ fun SearchOverviewContent(
                 if (uiState.findLocationInProgress) {
                     FindLocationInProgressView()
                 } else {
-                    SearchOverviewManageView(
+                    SearchOverviewVisitedView(
                         visitedLocations = visitedLocationsInfo.visitedLocations,
                         navigateToForecast = navigateToForecast,
                         deleteLocation = deleteLocation,

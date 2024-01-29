@@ -173,7 +173,12 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         val location2DataArrange = LocationModelData.localToData(location2LocalArrange)!!
 
         // Act
-        subject.updateOrders(listOf(location2DataArrange, location1DataArrange))
+        subject.updateOrders(
+            listOf(
+                location2DataArrange.toLatLong(),
+                location1DataArrange.toLatLong()
+            )
+        )
 
         val location1LocalAct = geocodingDao.getLocation(
             latitude = location1LocalArrange.latitude,

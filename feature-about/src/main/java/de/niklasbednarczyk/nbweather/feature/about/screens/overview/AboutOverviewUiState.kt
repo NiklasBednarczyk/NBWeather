@@ -17,7 +17,7 @@ class AboutOverviewUiState {
 
             items.add(
                 AboutOverviewItem.WithBanner(
-                    banner = NBImages.OpenWeatherLogo,
+                    banner = NBImages.OpenWeather,
                     text = NBString.ResString(R.string.screen_about_overview_text_open_weather),
                     buttons = listOf(
                         getWebsiteButton(AboutConstants.OpenWeather.WEBSITE)
@@ -35,6 +35,19 @@ class AboutOverviewUiState {
                     buttons = listOf(
                         getWebsiteButton(AboutConstants.ErikFlowers.WEBSITE),
                         getGitHubButton(AboutConstants.ErikFlowers.GIT_HUB)
+                    )
+                )
+            )
+
+            items.add(
+                AboutOverviewItem.Divider
+            )
+
+            items.add(
+                AboutOverviewItem.WithoutBanner(
+                    text = NBString.ResString(R.string.screen_about_overview_text_flagpedia_net),
+                    buttons = listOf(
+                        getWebsiteButton(AboutConstants.FlagpediaNet.WEBSITE),
                     )
                 )
             )

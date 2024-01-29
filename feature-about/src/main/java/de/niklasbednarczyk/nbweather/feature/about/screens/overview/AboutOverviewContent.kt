@@ -27,7 +27,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmal
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImageView
-import de.niklasbednarczyk.nbweather.core.ui.image.NBImageModel
+import de.niklasbednarczyk.nbweather.core.ui.image.NBImageItem
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewButtonModel
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewItem
@@ -67,7 +67,7 @@ fun AboutOverviewContent(
 
 @Composable
 private fun Banner(
-    banner: NBImageModel
+    banner: NBImageItem
 ) {
     NBImageView(
         modifier = Modifier.fillMaxWidth(),

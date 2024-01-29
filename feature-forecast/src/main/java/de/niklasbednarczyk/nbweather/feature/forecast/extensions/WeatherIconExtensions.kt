@@ -1,10 +1,10 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.extensions
 
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
 
-val WeatherIconType.icon: NBIconModel
+val WeatherIconType.icon: NBIconItem
     get() = when (this) {
         WeatherIconType.D_CLEAR_SKY -> NBIcons.WeatherDayClearSky
         WeatherIconType.D_FEW_CLOUDS -> NBIcons.WeatherDayFewClouds

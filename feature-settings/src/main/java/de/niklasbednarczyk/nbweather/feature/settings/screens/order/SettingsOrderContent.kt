@@ -14,7 +14,7 @@ fun SettingsOrderContent(
 ) {
     NBDragAndDropView(
         items = uiState.items,
-        updateItems = updateOrder,
+        updateKeys = updateOrder,
         getKey = { item ->
             item
         },

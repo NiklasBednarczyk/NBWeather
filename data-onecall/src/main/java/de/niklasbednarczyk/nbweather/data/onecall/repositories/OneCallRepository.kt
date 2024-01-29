@@ -72,7 +72,6 @@ class OneCallRepository @Inject constructor(
         }
     }
 
-
     suspend fun getOneCall(
         latitude: Double?,
         longitude: Double?,

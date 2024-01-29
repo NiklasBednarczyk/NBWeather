@@ -12,14 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
 
 @Composable
 fun NBInfoView(
-    icon: NBIconModel,
+    icon: NBIconItem,
     text: NBString
 ) {
     Column(

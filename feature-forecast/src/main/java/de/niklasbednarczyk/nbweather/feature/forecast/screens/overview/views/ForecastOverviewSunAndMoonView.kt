@@ -29,7 +29,7 @@ import de.niklasbednarczyk.nbweather.core.ui.colors.NBColors
 import de.niklasbednarczyk.nbweather.core.ui.common.time
 import de.niklasbednarczyk.nbweather.core.ui.dimens.canvasMaxWidth
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconModel
+import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSunAndMoonModel
@@ -69,7 +69,7 @@ private fun SunArc(
     sunArcPercentage: Float,
     sunrise: NBDateTimeDisplayModel,
     sunset: NBDateTimeDisplayModel,
-    icon: NBIconModel = NBIcons.Sun,
+    icon: NBIconItem = NBIcons.Sun,
     arcBackgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     arcForegroundColor: Color = NBColors.colors.sunArc,
     iconColor: Color = arcForegroundColor,
