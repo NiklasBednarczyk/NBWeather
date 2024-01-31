@@ -93,7 +93,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
             uiState = uiState,
             isFindLocationAvailable = isFindLocationAvailable,
             popBackStack = ::popBackStack,
-            onBackPressedWhenNoCurrentLocationAndNotStartDestination = ::onBackPressedWhenNoCurrentLocationAndNotStartDestination,
+            onBackPressedWhenCurrentLocationShouldBeSet = ::onBackPressedWhenCurrentLocationShouldBeSet,
             onBackPressedWhenFindLocationInProgress = {},
             onSearchQueryChange = viewModel::onSearchQueryChanged,
             onSearchActiveChange = viewModel::onSearchActiveChange,
@@ -108,32 +108,45 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
         latitude: Double,
         longitude: Double
     ) {
-        viewModel.setCurrentLocation(latitude, longitude)
-        navigate(NBTopLevelDestinations.Forecast)
+        launchSuspend {
+            val isSuccessful = viewModel.setCurrentLocation(latitude, longitude)
+            if (isSuccessful) {
+                navigate(NBTopLevelDestinations.Forecast)
+            } else {
+                viewModel.setFindLocationInProgress(false)
+                val snackbar = NBSnackbarModel(
+                    message = NBString.ResString(R.string.screen_search_overview_snackbar_current_location_not_found_message)
+                )
+                sendSnackbar(snackbar)
+            }
+        }
     }
 
     private fun deleteLocation(
         latitude: Double,
         longitude: Double
     ) {
-        viewModel.deleteLocation(latitude, longitude)
-
-        val snackbar = NBSnackbarModel(
-            message = NBString.ResString(R.string.screen_search_overview_snackbar_location_deleted_message),
-            action = NBSnackbarActionModel(
-                label = NBString.ResString(R.string.screen_search_overview_snackbar_location_deleted_action_label),
-                onActionPerformed = viewModel::restoreDeletedLocation
-            ),
-            onDismissed = {
-                viewModel.setDeletedLocation(null)
+        launchSuspend {
+            val deletedLocation = viewModel.deleteLocation(latitude, longitude)
+            if (deletedLocation != null) {
+                val snackbar = NBSnackbarModel(
+                    message = NBString.ResString(
+                        R.string.screen_search_overview_snackbar_location_deleted_message_format,
+                        deletedLocation.localizedName
+                    ),
+                    action = NBSnackbarActionModel(
+                        label = NBString.ResString(R.string.screen_search_overview_snackbar_location_deleted_action_label),
+                        onActionPerformed = { viewModel.insertLocation(deletedLocation) }
+                    )
+                )
+                sendSnackbar(snackbar)
             }
-        )
-        sendSnackbar(snackbar)
+        }
     }
 
-    private fun onBackPressedWhenNoCurrentLocationAndNotStartDestination() {
+    private fun onBackPressedWhenCurrentLocationShouldBeSet() {
         val snackbar = NBSnackbarModel(
-            message = NBString.ResString(R.string.screen_search_overview_snackbar_back_pressed_when_no_current_location_message)
+            message = NBString.ResString(R.string.screen_search_overview_snackbar_back_pressed_when_current_location_should_be_set_message)
         )
         sendSnackbar(snackbar)
     }
@@ -166,11 +179,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
                 .addOnCanceledListener {
                     viewModel.setFindLocationInProgress(false)
                     val snackbar = NBSnackbarModel(
-                        message = NBString.ResString(R.string.screen_search_overview_snackbar_location_found_canceled_message),
-                        action = NBSnackbarActionModel(
-                            label = NBString.ResString(R.string.screen_search_overview_snackbar_location_found_action_label),
-                            onActionPerformed = ::findLocation
-                        )
+                        message = NBString.ResString(R.string.screen_search_overview_snackbar_find_location_canceled_message)
                     )
                     sendSnackbar(snackbar)
                 }
@@ -188,11 +197,7 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
         viewModel.setFindLocationInProgress(false)
         Timber.e(t)
         val snackbar = NBSnackbarModel(
-            message = NBString.ResString(R.string.screen_search_overview_snackbar_location_found_failure_message),
-            action = NBSnackbarActionModel(
-                label = NBString.ResString(R.string.screen_search_overview_snackbar_location_found_action_label),
-                onActionPerformed = ::findLocation
-            )
+            message = NBString.ResString(R.string.screen_search_overview_snackbar_find_location_failure_message)
         )
         sendSnackbar(snackbar)
     }

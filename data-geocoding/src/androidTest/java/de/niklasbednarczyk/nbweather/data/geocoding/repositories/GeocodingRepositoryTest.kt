@@ -109,16 +109,19 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun insertOrUpdateCurrentLocation_shouldInsertOrUpdateLocation() = testScope.runTest {
+    fun setCurrentLocation_shouldSetCurrentLocation() = testScope.runTest {
         // Arrange
         val location1Arrange = insertLocation(1, null)!!
         val location2Arrange = insertLocation(2, 1L)!!
         val latLong3 = Pair(33.7367948, -82.7393089)
+        val latLong4 = Pair(Double.MAX_VALUE, Double.MAX_VALUE)
 
         // Act
-        subject.insertOrUpdateCurrentLocation(location1Arrange.latitude, location1Arrange.longitude)
-        subject.insertOrUpdateCurrentLocation(location2Arrange.latitude, location2Arrange.longitude)
-        subject.insertOrUpdateCurrentLocation(latLong3.first, latLong3.second)
+        val isSuccessful1 = subject.setCurrentLocation(location1Arrange.latitude, location1Arrange.longitude)
+        val isSuccessful2 = subject.setCurrentLocation(location2Arrange.latitude, location2Arrange.longitude)
+        val isSuccessful3 = subject.setCurrentLocation(latLong3.first, latLong3.second)
+        val isSuccessful4 = subject.setCurrentLocation(latLong4.first, latLong4.second)
+
         val location1Act =
             geocodingDao.getLocation(location1Arrange.latitude, location1Arrange.longitude)
                 .firstOrNull()
@@ -128,6 +131,11 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         val location3Act = geocodingDao.getLocation(latLong3.first, latLong3.second).firstOrNull()
 
         // Assert
+        assertTrue(isSuccessful1)
+        assertTrue(isSuccessful2)
+        assertTrue(isSuccessful3)
+        assertFalse(isSuccessful4)
+
         assertNotNull(location1Act)
         assertNotNull(location1Act.lastVisitedTimestampEpochSeconds)
 

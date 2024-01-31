@@ -114,7 +114,7 @@ abstract class NBFragment<UiState> : Fragment(), NBNavControllerContainer {
     }
 
     private fun setupSnackbar() {
-        CoroutineScope(Dispatchers.Main).launch {
+        launchSuspend {
             snackbarChannel.receiveAsFlow().collect { snackbar ->
                 val result = snackbarHostState.showSnackbar(
                     message = snackbar.message.asString(requireContext()),
@@ -148,6 +148,14 @@ abstract class NBFragment<UiState> : Fragment(), NBNavControllerContainer {
                 message = NBString.ResString(R.string.fragment_snackbar_intent_failed_message)
             )
             sendSnackbar(snackbar)
+        }
+    }
+
+    protected fun launchSuspend(
+        invokeSuspend: suspend () -> Unit
+    ) {
+        CoroutineScope(Dispatchers.Main).launch {
+            invokeSuspend()
         }
     }
 

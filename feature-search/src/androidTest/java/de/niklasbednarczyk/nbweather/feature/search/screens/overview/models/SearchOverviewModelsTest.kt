@@ -92,7 +92,7 @@ class SearchOverviewModelsTest : NBTest {
     }
 
     @Test
-    fun visitedLocationsInfo_noCurrentLocationAndNotStartDestination_shouldConvertCorrectly() {
+    fun visitedLocationsInfo_currentLocationShouldBeSet_shouldConvertCorrectly() {
         // Arrange + Act
         val visitedLocationsInfoAllFalse = createTestVisitedLocationsInfo(
             isCurrentLocationSet = false,
@@ -112,10 +112,10 @@ class SearchOverviewModelsTest : NBTest {
         )
 
         // Assert
-        assertFalse(visitedLocationsInfoAllFalse.noCurrentLocationAndNotStartDestination)
-        assertTrue(visitedLocationsInfoIsInitialCurrentLocationSet.noCurrentLocationAndNotStartDestination)
-        assertFalse(visitedLocationsInfoIsCurrentLocationSet.noCurrentLocationAndNotStartDestination)
-        assertFalse(visitedLocationsInfoAllTrue.noCurrentLocationAndNotStartDestination)
+        assertFalse(visitedLocationsInfoAllFalse.shouldCurrentLocationBeSet)
+        assertTrue(visitedLocationsInfoIsInitialCurrentLocationSet.shouldCurrentLocationBeSet)
+        assertFalse(visitedLocationsInfoIsCurrentLocationSet.shouldCurrentLocationBeSet)
+        assertFalse(visitedLocationsInfoAllTrue.shouldCurrentLocationBeSet)
     }
 
     private fun createTestLocation(

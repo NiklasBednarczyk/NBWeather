@@ -28,7 +28,7 @@ fun SearchOverviewContent(
     uiState: SearchOverviewUiState,
     isFindLocationAvailable: Boolean,
     popBackStack: () -> Unit,
-    onBackPressedWhenNoCurrentLocationAndNotStartDestination: () -> Unit,
+    onBackPressedWhenCurrentLocationShouldBeSet: () -> Unit,
     onBackPressedWhenFindLocationInProgress: () -> Unit,
     onSearchQueryChange: (String) -> Unit,
     onSearchActiveChange: (Boolean) -> Unit,
@@ -40,9 +40,9 @@ fun SearchOverviewContent(
     val focusManager = LocalFocusManager.current
 
     NBResourceWithoutLoadingView(uiState.visitedLocationsInfoResource) { visitedLocationsInfo ->
-        BackHandler(visitedLocationsInfo.noCurrentLocationAndNotStartDestination || uiState.findLocationInProgress) {
-            if (visitedLocationsInfo.noCurrentLocationAndNotStartDestination && !uiState.findLocationInProgress) {
-                onBackPressedWhenNoCurrentLocationAndNotStartDestination()
+        BackHandler(visitedLocationsInfo.shouldCurrentLocationBeSet || uiState.findLocationInProgress) {
+            if (visitedLocationsInfo.shouldCurrentLocationBeSet && !uiState.findLocationInProgress) {
+                onBackPressedWhenCurrentLocationShouldBeSet()
             } else {
                 onBackPressedWhenFindLocationInProgress()
             }
@@ -53,6 +53,8 @@ fun SearchOverviewContent(
                 .fillMaxSize()
                 .semantics { isTraversalGroup = true }
         ) {
+            val enabled = !uiState.findLocationInProgress
+
             SearchBar(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -64,7 +66,7 @@ fun SearchOverviewContent(
                 },
                 active = uiState.searchActive,
                 onActiveChange = onSearchActiveChange,
-                enabled = !uiState.findLocationInProgress,
+                enabled = enabled,
                 placeholder = {
                     Text(
                         text = NBString.ResString(R.string.screen_search_overview_bar_placeholder)
@@ -77,12 +79,14 @@ fun SearchOverviewContent(
                             icon = NBIcons.Back,
                             onClick = {
                                 onSearchActiveChange(false)
-                            }
+                            },
+                            enabled = enabled
                         )
                     } else if (visitedLocationsInfo.isCurrentLocationSet) {
                         NBIconButtonView(
                             icon = NBIcons.Back,
-                            onClick = popBackStack
+                            onClick = popBackStack,
+                            enabled = enabled
                         )
                     } else {
                         NBIconView(
@@ -96,12 +100,14 @@ fun SearchOverviewContent(
                             icon = NBIcons.Cancel,
                             onClick = {
                                 onSearchQueryChange("")
-                            }
+                            },
+                            enabled = enabled
                         )
                     } else if (isFindLocationAvailable) {
                         NBIconButtonView(
                             icon = NBIcons.FindLocation,
-                            onClick = onFindLocationClicked
+                            onClick = onFindLocationClicked,
+                            enabled = enabled
                         )
                     }
                 }

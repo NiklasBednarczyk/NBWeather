@@ -32,19 +32,6 @@ sealed interface NBResource<out T> {
         }
     }
 
-    fun <R> mapNullable(
-        mapData: (oldData: T) -> R?
-    ): NBResource<R?> {
-        return when (this) {
-            is Loading -> Loading
-            is Error -> Error(errorType)
-            is Success -> {
-                val newData = mapData(data)
-                Success(newData)
-            }
-        }
-    }
-
     companion object {
 
         val <T> NBResource<T>?.isSuccessOrError
@@ -55,14 +42,6 @@ sealed interface NBResource<out T> {
         ): Flow<NBResource<R>> {
             return this.map { resource ->
                 resource.map(mapData)
-            }
-        }
-
-        fun <T, R> Flow<NBResource<T>>.mapNullableResource(
-            mapData: (oldData: T) -> R?
-        ): Flow<NBResource<R?>> {
-            return this.map { resource ->
-                resource.mapNullable(mapData)
             }
         }
 

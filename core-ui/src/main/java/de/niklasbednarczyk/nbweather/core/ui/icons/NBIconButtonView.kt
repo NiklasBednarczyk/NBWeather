@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 fun NBIconButtonView(
     modifier: Modifier = Modifier,
     icon: NBIconItem,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     IconButton(
@@ -17,6 +18,7 @@ fun NBIconButtonView(
                 icon = icon
             )
         },
+        enabled = enabled,
         onClick = onClick
     )
 }

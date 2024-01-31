@@ -20,9 +20,9 @@ abstract class NBSwipeRefreshFlow<T> {
     val isRefreshing
         get() = refreshState.value == RefreshState.REFRESHING
 
-    protected abstract fun getFlow(forceUpdate: Boolean): Flow<NBResource<T>>
+    protected abstract suspend fun getFlow(forceUpdate: Boolean): Flow<NBResource<T>>
 
-    operator fun invoke(): Flow<NBResource<T>> {
+    suspend operator fun invoke(): Flow<NBResource<T>> {
         return refreshState
             .filterNot { refreshState -> refreshState == RefreshState.IDLE }
             .flatMapLatest { refreshState ->

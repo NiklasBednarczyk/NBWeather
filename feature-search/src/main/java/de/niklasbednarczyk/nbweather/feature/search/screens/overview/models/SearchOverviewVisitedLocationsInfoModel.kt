@@ -26,7 +26,7 @@ data class SearchOverviewVisitedLocationsInfoModel(
 
     }
 
-    val noCurrentLocationAndNotStartDestination: Boolean
+    val shouldCurrentLocationBeSet: Boolean
         get() = !isCurrentLocationSet && isInitialCurrentLocationSet
 
 }

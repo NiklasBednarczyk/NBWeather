@@ -13,7 +13,7 @@ abstract class LocalMediator<Data, Local> : LocalMediatorHelper<Data, Local> {
         return NBResource.Success(data)
     }
 
-    operator fun invoke(): Flow<NBResource<Data?>> = getLocal()
+    suspend operator fun invoke(): Flow<NBResource<Data?>> = getLocal()
         .map { local ->
             mapToResource(local)
         }

@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
@@ -10,7 +9,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 
 class ForecastOverviewViewModelTest : NBViewModelTest {
 
@@ -34,7 +32,7 @@ class ForecastOverviewViewModelTest : NBViewModelTest {
     }
 
     @Test
-    fun uiState_locationResource_shouldNotGetDataWhenCurrentLocationNotSet() = testScope.runTest {
+    fun uiState_locationResource_shouldBeErrorWhenCurrentLocationNotSet() = testScope.runTest {
         // Arrange + Act
         subject.uiState.collectUntil(
             stopCollecting = { uiState ->
@@ -42,8 +40,7 @@ class ForecastOverviewViewModelTest : NBViewModelTest {
             },
             collectData = { uiState ->
                 // Assert
-                assertResourceIsSuccess(uiState.locationResource)
-                assertNull(uiState.locationResource.dataOrNull)
+                assertResourceIsError(uiState.locationResource)
             }
         )
     }
@@ -51,7 +48,7 @@ class ForecastOverviewViewModelTest : NBViewModelTest {
     @Test
     fun uiState_locationResource_shouldGetDataWhenCurrentLocationSet() = testScope.runTest {
         // Arrange
-        insertCurrentLocation()
+        setCurrentLocation()
 
         // Act
         subject.uiState.collectUntil(
@@ -67,15 +64,14 @@ class ForecastOverviewViewModelTest : NBViewModelTest {
     }
 
     @Test
-    fun uiState_viewDataResource_shouldNotGetDataWhenCurrentLocationNotSet() = testScope.runTest {
+    fun uiState_viewDataResource_shouldBeErrorWhenCurrentLocationNotSet() = testScope.runTest {
         // Arrange + Act
         subject.uiState.collectUntil(
             stopCollecting = { uiState ->
-                uiState.itemsResource is NBResource.Loading
+                uiState.itemsResource.isSuccessOrError
             },
             collectData = { uiState ->
-                assertResourceIsLoading(uiState.itemsResource)
-                assertNull(uiState.itemsResource.dataOrNull)
+                assertResourceIsError(uiState.itemsResource)
             }
         )
     }
@@ -83,12 +79,12 @@ class ForecastOverviewViewModelTest : NBViewModelTest {
     @Test
     fun uiState_viewDataResource_shouldGetDataWhenCurrentLocationSet() = testScope.runTest {
         // Arrange
-        insertCurrentLocation()
+        setCurrentLocation()
 
         // Act
         subject.uiState.collectUntil(
             stopCollecting = { uiState ->
-                uiState.itemsResource.isSuccessOrError
+                uiState.itemsResource.isSuccessOrError && uiState.itemsResource.dataOrNull != null
             },
             collectData = { uiState ->
                 assertResourceIsSuccess(uiState.itemsResource)
@@ -97,8 +93,8 @@ class ForecastOverviewViewModelTest : NBViewModelTest {
         )
     }
 
-    private suspend fun insertCurrentLocation() {
-        geocodingRepository.insertOrUpdateCurrentLocation(LATITUDE, LONGITUDE)
+    private suspend fun setCurrentLocation() {
+        geocodingRepository.setCurrentLocation(LATITUDE, LONGITUDE)
     }
 
 }

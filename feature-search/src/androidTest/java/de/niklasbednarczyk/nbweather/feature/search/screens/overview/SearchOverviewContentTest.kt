@@ -54,7 +54,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = false,
             uiStateIsCurrentLocationSet = false,
             uiStateFindLocationInProgress = false,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = false,
             expectedOnBackPressedWhenFindLocationInProgressCalled = false
         )
     }
@@ -65,7 +65,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = false,
             uiStateIsCurrentLocationSet = false,
             uiStateFindLocationInProgress = true,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = false,
             expectedOnBackPressedWhenFindLocationInProgressCalled = true
         )
     }
@@ -76,7 +76,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = false,
             uiStateIsCurrentLocationSet = true,
             uiStateFindLocationInProgress = false,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = false,
             expectedOnBackPressedWhenFindLocationInProgressCalled = false
         )
     }
@@ -87,7 +87,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = false,
             uiStateIsCurrentLocationSet = true,
             uiStateFindLocationInProgress = true,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = false,
             expectedOnBackPressedWhenFindLocationInProgressCalled = true
         )
     }
@@ -98,7 +98,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = true,
             uiStateIsCurrentLocationSet = false,
             uiStateFindLocationInProgress = false,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = true,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = true,
             expectedOnBackPressedWhenFindLocationInProgressCalled = false
         )
     }
@@ -109,7 +109,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = true,
             uiStateIsCurrentLocationSet = false,
             uiStateFindLocationInProgress = true,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = false,
             expectedOnBackPressedWhenFindLocationInProgressCalled = true
         )
     }
@@ -120,7 +120,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = true,
             uiStateIsCurrentLocationSet = true,
             uiStateFindLocationInProgress = false,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = false,
             expectedOnBackPressedWhenFindLocationInProgressCalled = false
         )
     }
@@ -131,7 +131,7 @@ class SearchOverviewContentTest : NBComposableTest() {
             uiStateIsInitialCurrentLocationSet = true,
             uiStateIsCurrentLocationSet = true,
             uiStateFindLocationInProgress = true,
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false,
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet = false,
             expectedOnBackPressedWhenFindLocationInProgressCalled = true
         )
     }
@@ -400,7 +400,7 @@ class SearchOverviewContentTest : NBComposableTest() {
         uiStateIsInitialCurrentLocationSet: Boolean,
         uiStateIsCurrentLocationSet: Boolean,
         uiStateFindLocationInProgress: Boolean,
-        expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled: Boolean,
+        expectedOnBackPressedWhenCurrentLocationShouldBeSet: Boolean,
         expectedOnBackPressedWhenFindLocationInProgressCalled: Boolean
     ) {
         // Arrange
@@ -410,14 +410,14 @@ class SearchOverviewContentTest : NBComposableTest() {
             findLocationInProgress = uiStateFindLocationInProgress
         )
 
-        var onBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = false
+        var onBackPressedWhenCurrentLocationShouldBeSet = false
         var onBackPressedWhenFindLocationInProgressCalled = false
 
         // Act
         setSearchOverviewContent(
             uiState = uiState,
-            onBackPressedWhenNoCurrentLocationAndNotStartDestination = {
-                onBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled = true
+            onBackPressedWhenCurrentLocationShouldBeSet = {
+                onBackPressedWhenCurrentLocationShouldBeSet = true
             },
             onBackPressedWhenFindLocationInProgress = {
                 onBackPressedWhenFindLocationInProgressCalled = true
@@ -427,8 +427,8 @@ class SearchOverviewContentTest : NBComposableTest() {
 
         // Assert
         assertEquals(
-            expectedOnBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled,
-            onBackPressedWhenNoCurrentLocationAndNotStartDestinationCalled
+            expectedOnBackPressedWhenCurrentLocationShouldBeSet,
+            onBackPressedWhenCurrentLocationShouldBeSet
         )
         assertEquals(
             expectedOnBackPressedWhenFindLocationInProgressCalled,
@@ -670,7 +670,7 @@ class SearchOverviewContentTest : NBComposableTest() {
         uiState: SearchOverviewUiState,
         isFindLocationAvailable: Boolean = true,
         popBackStack: () -> Unit = {},
-        onBackPressedWhenNoCurrentLocationAndNotStartDestination: () -> Unit = {},
+        onBackPressedWhenCurrentLocationShouldBeSet: () -> Unit = {},
         onBackPressedWhenFindLocationInProgress: () -> Unit = {},
         onSearchQueryChange: (String) -> Unit = {},
         onSearchActiveChange: (Boolean) -> Unit = {},
@@ -684,7 +684,7 @@ class SearchOverviewContentTest : NBComposableTest() {
                 uiState = uiState,
                 isFindLocationAvailable = isFindLocationAvailable,
                 popBackStack = popBackStack,
-                onBackPressedWhenNoCurrentLocationAndNotStartDestination = onBackPressedWhenNoCurrentLocationAndNotStartDestination,
+                onBackPressedWhenCurrentLocationShouldBeSet = onBackPressedWhenCurrentLocationShouldBeSet,
                 onBackPressedWhenFindLocationInProgress = onBackPressedWhenFindLocationInProgress,
                 onSearchQueryChange = onSearchQueryChange,
                 onSearchActiveChange = onSearchActiveChange,

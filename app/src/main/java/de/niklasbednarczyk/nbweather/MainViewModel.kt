@@ -45,43 +45,9 @@ class MainViewModel @Inject constructor(
         )
     }
 
-
-    private val drawerItemsFlow: Flow<List<NBNavigationDrawerItem>> =
-        NBResource.combineResourceFlows(
-            geocodingRepository.getVisitedLocations(),
-            geocodingRepository.getCurrentLocation()
-        ) { visitedLocations, currentLocation ->
-            val items = mutableListOf<NBNavigationDrawerItem>()
-
-            items.add(headline)
-
-            val locationItems = visitedLocations.nbMap { visitedLocation ->
-                val sameLatitude = visitedLocation.latitude == currentLocation?.latitude
-                val sameLongitude =
-                    visitedLocation.longitude == currentLocation?.longitude
-                val selected = sameLatitude && sameLongitude
-
-                NBNavigationDrawerItem.Item.Location(
-                    label = visitedLocation.localizedNameAndCountry,
-                    icon = NBIcons.Location,
-                    selected = selected,
-                    latitude = visitedLocation.latitude,
-                    longitude = visitedLocation.longitude
-                )
-            }
-            items.addAll(locationItems)
-
-            items.add(NBNavigationDrawerItem.Divider)
-
-            items.add(settingsItem)
-            items.add(aboutItem)
-
-            items
-        }.transformToList()
-
     init {
         collectFlow(
-            { drawerItemsFlow },
+            { getDrawerItemsFlow() },
             { oldUiState, output -> oldUiState.copy(drawerItems = output) }
         )
 
@@ -112,9 +78,45 @@ class MainViewModel @Inject constructor(
 
     }
 
+    private suspend fun getDrawerItemsFlow(): Flow<List<NBNavigationDrawerItem>> {
+        return NBResource.combineResourceFlows(
+            geocodingRepository.getVisitedLocations(),
+            geocodingRepository.getCurrentLocation()
+        ) { visitedLocations, currentLocation ->
+            val items = mutableListOf<NBNavigationDrawerItem>()
+
+            items.add(headline)
+
+            val locationItems = visitedLocations.nbMap { visitedLocation ->
+                val sameLatitude = visitedLocation.latitude == currentLocation?.latitude
+                val sameLongitude =
+                    visitedLocation.longitude == currentLocation?.longitude
+                val selected = sameLatitude && sameLongitude
+
+                NBNavigationDrawerItem.Item.Location(
+                    label = visitedLocation.localizedNameAndCountry,
+                    icon = NBIcons.Location,
+                    selected = selected,
+                    latitude = visitedLocation.latitude,
+                    longitude = visitedLocation.longitude
+                )
+            }
+            items.addAll(locationItems)
+
+            if (locationItems.isNotEmpty()) {
+                items.add(NBNavigationDrawerItem.Divider)
+            }
+
+            items.add(settingsItem)
+            items.add(aboutItem)
+
+            items
+        }.transformToList()
+    }
+
     fun setCurrentLocation(latitude: Double, longitude: Double) {
         launchSuspend {
-            geocodingRepository.insertOrUpdateCurrentLocation(
+            geocodingRepository.setCurrentLocation(
                 latitude = latitude,
                 longitude = longitude
             )

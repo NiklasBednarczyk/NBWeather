@@ -444,12 +444,12 @@
 
     <string name="screen_search_overview_bar_placeholder">Suche</string>
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
-    <string name="screen_search_overview_snackbar_back_pressed_when_no_current_location_message">Sie müssen einen Ort auswählen</string>
+    <string name="screen_search_overview_snackbar_back_pressed_when_current_location_should_be_set_message">Sie müssen einen Ort auswählen</string>
+    <string name="screen_search_overview_snackbar_current_location_not_found_message">Ort wurde nicht gefunden</string>
+    <string name="screen_search_overview_snackbar_find_location_canceled_message">Standortanfrage wurde abgebrochen</string>
+    <string name="screen_search_overview_snackbar_find_location_failure_message">Standortanfrage fehlgeschlagen</string>
     <string name="screen_search_overview_snackbar_location_deleted_action_label">Rückgängig</string>
-    <string name="screen_search_overview_snackbar_location_deleted_message">Ort gelöscht</string>
-    <string name="screen_search_overview_snackbar_location_found_action_label">Erneut versuchen</string>
-    <string name="screen_search_overview_snackbar_location_found_canceled_message">Standortanfrage wurde abgebrochen</string>
-    <string name="screen_search_overview_snackbar_location_found_failure_message">Standortanfrage fehlgeschlagen</string>
+    <string name="screen_search_overview_snackbar_location_deleted_message_format">%1$s gelöscht</string>
     <string name="screen_search_overview_snackbar_location_permission_denied_action_label">Einstellungen</string>
     <string name="screen_search_overview_snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
 

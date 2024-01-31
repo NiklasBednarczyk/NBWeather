@@ -3,7 +3,6 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
-import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
@@ -163,37 +162,18 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     }
 
     @Test
-    fun setDeletedLocation_shouldSetUiStateCorrectly() = testScope.runTest {
-        // Arrange
-        val deletedLocationArrange = createTestLocation()
-
-        // Act
-        subject.setDeletedLocation(deletedLocationArrange)
-
-        // Assert
-        subject.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                uiState.deletedLocation != null
-            },
-            collectData = { uiState ->
-                val deletedLocationUiState = uiState.deletedLocation
-                assertNotNull(deletedLocationUiState)
-                assertEquals(deletedLocationArrange.latitude, deletedLocationUiState.latitude)
-                assertEquals(deletedLocationArrange.longitude, deletedLocationUiState.longitude)
-            }
-        )
-
-    }
-
-    @Test
     fun deleteLocation_shouldDeleteLocation() = testScope.runTest {
         // Arrange
-        LAT_LONG_1.insertOrUpdateCurrentLocation()
+        LAT_LONG_1.setCurrentLocation()
 
         // Act
-        subject.deleteLocation(LAT_LONG_1.first, LAT_LONG_1.second)
+        val deletedLocation = subject.deleteLocation(LAT_LONG_1.first, LAT_LONG_1.second)
 
         // Assert
+        assertNotNull(deletedLocation)
+        assertEquals(LAT_LONG_1.first, deletedLocation.latitude)
+        assertEquals(LAT_LONG_1.second, deletedLocation.longitude)
+
         geocodingRepository.getCurrentLocation().collectUntil(
             stopCollecting = { resource ->
                 val data = resource.dataOrNull
@@ -206,52 +186,25 @@ class SearchOverviewViewModelTest : NBViewModelTest {
                 assertNotEquals(resource.dataOrNull?.longitude, LAT_LONG_1.second)
             }
         )
-
-        subject.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                uiState.deletedLocation != null
-            },
-            collectData = { uiState ->
-                val deletedLocation = uiState.deletedLocation
-                assertNotNull(deletedLocation)
-                assertEquals(LAT_LONG_1.first, deletedLocation.latitude)
-                assertEquals(LAT_LONG_1.second, deletedLocation.longitude)
-            }
-        )
     }
 
     @Test
-    fun restoreDeletedLocation_shouldRestoreDeletedLocation() = testScope.runTest {
-        // Arrange
-        val deletedLocationArrange = createTestLocation()
-        subject.setDeletedLocation(deletedLocationArrange)
-
-        // Act
-        subject.restoreDeletedLocation()
-
-        // Assert
-        geocodingRepository.getVisitedLocations().collectUntil(
-            stopCollecting = { resource ->
-                resource.isSuccessOrError && resource.dataOrNull?.isNotEmpty() == true
-            },
-            collectData = { resource ->
-                assertListIsNotEmpty(resource.dataOrNull)
-
-                val deletedLocation = resource.dataOrNull?.find { visitedLocation ->
-                    visitedLocation.latitude == deletedLocationArrange.latitude
-                            && visitedLocation.longitude == deletedLocationArrange.longitude
-                }
-                assertNotNull(deletedLocation)
-            }
-        )
-    }
-
-    @Test
-    fun setCurrentLocation_shouldSetCurrentLocation() = testScope.runTest {
+    fun setCurrentLocation_incorrectLatLong_shouldNotBeSuccessful() = testScope.runTest {
         // Arrange + Act
-        subject.setCurrentLocation(LAT_LONG_2.first, LAT_LONG_2.second)
+        val isSuccessful = subject.setCurrentLocation(Double.MAX_VALUE, Double.MAX_VALUE)
 
         // Assert
+        assertFalse(isSuccessful)
+    }
+
+    @Test
+    fun setCurrentLocation_correctLatLong_shouldSetCurrentLocation() = testScope.runTest {
+        // Arrange + Act
+        val isSuccessful = subject.setCurrentLocation(LAT_LONG_2.first, LAT_LONG_2.second)
+
+        // Assert
+        assertTrue(isSuccessful)
+
         geocodingRepository.getCurrentLocation().collectUntil(
             stopCollecting = { resource ->
                 val data = resource.dataOrNull
@@ -266,21 +219,8 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         )
     }
 
-    private suspend fun Pair<Double, Double>.insertOrUpdateCurrentLocation() {
-        geocodingRepository.insertOrUpdateCurrentLocation(first, second)
-    }
-
-    private fun createTestLocation(): LocationModelData {
-        return LocationModelData(
-            latitude = 1.0,
-            longitude = 2.0,
-            name = null,
-            localNames = null,
-            country = null,
-            state = null,
-            lastVisitedTimestampEpochSeconds = 3L,
-            order = null
-        )
+    private suspend fun Pair<Double, Double>.setCurrentLocation() {
+        geocodingRepository.setCurrentLocation(first, second)
     }
 
 }

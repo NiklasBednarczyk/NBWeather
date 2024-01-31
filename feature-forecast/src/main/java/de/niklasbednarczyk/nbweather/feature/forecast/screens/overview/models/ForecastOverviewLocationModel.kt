@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
+package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString

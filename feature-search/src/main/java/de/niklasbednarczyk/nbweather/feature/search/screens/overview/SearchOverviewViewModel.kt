@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
@@ -9,6 +8,7 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewLocationModel
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -27,16 +27,9 @@ class SearchOverviewViewModel @Inject constructor(
 
     private val searchQueryFlow = MutableStateFlow(uiState.value.searchQuery)
 
-    private val visitedLocationsInfoFlow = NBResource.combineResourceFlows(
-        geocodingRepository.getVisitedLocations(),
-        geocodingRepository.getCurrentLocation(),
-        geocodingRepository.getIsInitialCurrentLocationSet(),
-        SearchOverviewVisitedLocationsInfoModel::from
-    )
-
     init {
         collectFlow(
-            { visitedLocationsInfoFlow },
+            { getVisitedLocationsInfoFlow() },
             { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
         )
 
@@ -55,6 +48,15 @@ class SearchOverviewViewModel @Inject constructor(
                     }
             },
             { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
+        )
+    }
+
+    private suspend fun getVisitedLocationsInfoFlow(): Flow<NBResource<SearchOverviewVisitedLocationsInfoModel>> {
+        return NBResource.combineResourceFlows(
+            geocodingRepository.getVisitedLocations(),
+            geocodingRepository.getCurrentLocation(),
+            geocodingRepository.getIsInitialCurrentLocationSet(),
+            SearchOverviewVisitedLocationsInfoModel::from
         )
     }
 
@@ -91,37 +93,24 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
-    fun setDeletedLocation(deletedLocation: LocationModelData?) {
-        updateUiState { oldUiState ->
-            oldUiState.copy(deletedLocation = deletedLocation)
-        }
-    }
-
-    fun deleteLocation(latitude: Double, longitude: Double) {
-        launchSuspend {
-            val deletedLocation = geocodingRepository.deleteLocation(latitude, longitude)
-            setDeletedLocation(deletedLocation)
-        }
-    }
-
-    fun restoreDeletedLocation() {
-        launchSuspend {
-            nbNullSafe(uiState.value.deletedLocation) { deletedLocation ->
-                geocodingRepository.insertLocation(deletedLocation)
-            }
-        }
-    }
-
     fun updateOrders(pairs: List<Pair<Double, Double>>) {
         launchSuspend {
             geocodingRepository.updateOrders(pairs)
         }
     }
 
-    fun setCurrentLocation(latitude: Double, longitude: Double) {
+    fun insertLocation(location: LocationModelData) {
         launchSuspend {
-            geocodingRepository.insertOrUpdateCurrentLocation(latitude, longitude)
+            geocodingRepository.insertLocation(location)
         }
+    }
+
+    suspend fun deleteLocation(latitude: Double, longitude: Double): LocationModelData? {
+        return geocodingRepository.deleteLocation(latitude, longitude)
+    }
+
+    suspend fun setCurrentLocation(latitude: Double, longitude: Double): Boolean {
+        return geocodingRepository.setCurrentLocation(latitude, longitude)
     }
 
 }
