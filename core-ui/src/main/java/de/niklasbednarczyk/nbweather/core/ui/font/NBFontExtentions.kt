@@ -45,7 +45,7 @@ val Typography.fontFamily: FontFamily?
 
 fun Typography.changeFontFamily(fontFamily: FontFamily?): Typography {
     if (fontFamily == null) return this
-    //TODO: Remove when includeFontPadding = false is default (blocked by Compose 1.6)
+    
     val platformStyle = PlatformTextStyle(
         includeFontPadding = false
     )

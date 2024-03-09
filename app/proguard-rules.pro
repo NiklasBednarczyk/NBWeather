@@ -7,7 +7,7 @@
    <fields>;
 }
 
-# Retrofit TODO: Waiting for new retrofit release to remove these rules
+# Retrofit
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
 }
