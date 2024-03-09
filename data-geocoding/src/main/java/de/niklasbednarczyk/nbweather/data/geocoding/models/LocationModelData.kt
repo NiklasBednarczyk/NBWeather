@@ -87,28 +87,20 @@ data class LocationModelData(
         }
 
         fun remoteToLocal(
-            remote: LocationModelRemote?,
-            latitude: Double? = remote?.lat,
-            longitude: Double? = remote?.lon,
+            remote: LocationModelRemote,
             lastVisitedTimestampEpochSeconds: Long? = null,
             order: Long? = null,
-        ): LocationModelLocal? {
-            return nbNullSafe(
-                remote,
-                latitude,
-                longitude
-            ) { r, lat, lon ->
-                LocationModelLocal(
-                    latitude = lat,
-                    longitude = lon,
-                    name = r.name,
-                    localNames = LocalNamesModelData.remoteToLocal(r.localNames),
-                    country = r.country,
-                    state = r.state,
-                    lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds,
-                    order = order
-                )
-            }
+        ): LocationModelLocal {
+            return LocationModelLocal(
+                latitude = remote.lat,
+                longitude = remote.lon,
+                name = remote.name,
+                localNames = LocalNamesModelData.remoteToLocal(remote.localNames),
+                country = remote.country,
+                state = remote.state,
+                lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds,
+                order = order
+            )
         }
 
     }

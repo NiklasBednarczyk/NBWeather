@@ -5,7 +5,7 @@ import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -13,13 +13,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class ForecastDailyViewModelTest : NBViewModelTest {
-
-    companion object {
-        private const val FORECAST_TIME = 50L
-        private const val LATITUDE = -1.0
-        private const val LONGITUDE = 1.0
-    }
+class ForecastDailyViewModelTest : ForecastViewModelTest {
 
     private lateinit var subjectWithoutArgs: ForecastDailyViewModel
     private lateinit var subjectWithoutForecastTime: ForecastDailyViewModel
@@ -36,8 +30,8 @@ class ForecastDailyViewModelTest : NBViewModelTest {
         subjectWithoutForecastTime = ForecastDailyViewModel(
             savedStateHandle = SavedStateHandle(
                 mapOf(
-                    DestinationsForecast.Daily.KEY_LATITUDE to LATITUDE.toString(),
-                    DestinationsForecast.Daily.KEY_LONGITUDE to LONGITUDE.toString()
+                    DestinationsForecast.Daily.KEY_LATITUDE to latitude.toString(),
+                    DestinationsForecast.Daily.KEY_LONGITUDE to longitude.toString()
                 )
             ),
             oneCallRepository = oneCallRepository
@@ -45,9 +39,9 @@ class ForecastDailyViewModelTest : NBViewModelTest {
         subjectWithForecastTime = ForecastDailyViewModel(
             savedStateHandle = SavedStateHandle(
                 mapOf(
-                    DestinationsForecast.Daily.KEY_FORECAST_TIME to FORECAST_TIME.toString(),
-                    DestinationsForecast.Daily.KEY_LATITUDE to LATITUDE.toString(),
-                    DestinationsForecast.Daily.KEY_LONGITUDE to LONGITUDE.toString()
+                    DestinationsForecast.Daily.KEY_FORECAST_TIME to forecastTime.toString(),
+                    DestinationsForecast.Daily.KEY_LATITUDE to latitude.toString(),
+                    DestinationsForecast.Daily.KEY_LONGITUDE to longitude.toString()
                 )
             ),
             oneCallRepository = oneCallRepository
@@ -104,7 +98,7 @@ class ForecastDailyViewModelTest : NBViewModelTest {
                 assertListIsNotEmpty(viewData.items)
 
                 assertNotNull(viewData.initialKey)
-                assertEquals(FORECAST_TIME, viewData.initialKey)
+                assertEquals(forecastTime, viewData.initialKey)
             }
         )
     }

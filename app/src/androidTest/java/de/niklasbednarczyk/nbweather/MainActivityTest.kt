@@ -3,11 +3,14 @@ package de.niklasbednarczyk.nbweather
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onChild
+import androidx.compose.ui.test.onChildren
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -24,17 +27,22 @@ import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposeTest
 import org.junit.Rule
 import org.junit.Test
+import java.util.Locale
 
 @HiltAndroidTest
 class MainActivityTest : NBComposeTest {
 
     companion object {
-        private const val SEARCH_OVERVIEW_SEARCH_QUERY = "Washington"
+        private const val SEARCH_OVERVIEW_SEARCH_QUERY_1 = "Auck"
+        private const val SEARCH_OVERVIEW_SEARCH_QUERY_2 = "New"
 
-        private const val LOCATION_1_NAME = "Washington 1"
-        private const val LOCATION_2_NAME = "Washington 2"
+        private const val LOCATION_1_NAME = "Auckland"
+        private const val LOCATION_2_NAME = "New York"
 
-        private const val FORECAST_DAILY_DATE = "Sun, Apr 09"
+        private const val FORECAST_DAILY_DATE_1 = "Mon, Feb 26"
+        private const val FORECAST_DAILY_DATE_2 = "Tue, Feb 27"
+
+        private const val FORECAST_OVERVIEW_DAY_TITLE = "Feb 27"
     }
 
     @get:Rule(order = 0)
@@ -53,17 +61,25 @@ class MainActivityTest : NBComposeTest {
 
     @Test
     fun app_shouldNavigateCorrectly() {
+        setLocale(Locale.US)
+
         assertCompose {
             // Start on empty SearchOverview
             assertIsOnSearchOverview()
 
             // SearchOverview -> ForecastOverview via search 1
-            searchOverviewToForecastOverviewViaSearch(LOCATION_1_NAME)
+            searchOverviewToForecastOverviewViaSearch(
+                searchQuery = SEARCH_OVERVIEW_SEARCH_QUERY_1,
+                locationName = LOCATION_1_NAME
+            )
 
             forecastOverviewToSearchOverview()
 
             // SearchOverview -> ForecastOverview via search 2
-            searchOverviewToForecastOverviewViaSearch(LOCATION_2_NAME)
+            searchOverviewToForecastOverviewViaSearch(
+                searchQuery = SEARCH_OVERVIEW_SEARCH_QUERY_2,
+                locationName = LOCATION_2_NAME
+            )
 
             forecastOverviewToSearchOverview()
 
@@ -82,14 +98,20 @@ class MainActivityTest : NBComposeTest {
 
             // ForecastOverview -> ForecastHourly
             assertForecastItemWithDetailView(
-                itemTitleResId = R.string.screen_forecast_overview_hourly_title,
-                detailViewString = getString(R.string.screen_forecast_common_forecast_name_temperature)
+                itemTitle = getString(R.string.screen_forecast_overview_hourly_title),
+                detailViewTitle = getString(R.string.screen_forecast_common_forecast_name_temperature)
             )
 
-            // ForecastOverview -> ForecastDaily
+            // ForecastOverview -> ForecastDaily via daily item
             assertForecastItemWithDetailView(
-                itemTitleResId = R.string.screen_forecast_overview_daily_title,
-                detailViewString = FORECAST_DAILY_DATE
+                itemTitle = getString(R.string.screen_forecast_overview_daily_title),
+                detailViewTitle = FORECAST_DAILY_DATE_1
+            )
+
+            // ForecastOverview -> ForecastDaily via specific day
+            assertForecastItemWithDetailView(
+                itemTitle = FORECAST_OVERVIEW_DAY_TITLE,
+                detailViewTitle = FORECAST_DAILY_DATE_2
             )
 
             // Location 1 -> Location 2 via drawer
@@ -135,10 +157,11 @@ class MainActivityTest : NBComposeTest {
     }
 
     private fun ComposeContentTestRule.searchOverviewToForecastOverviewViaSearch(
+        searchQuery: String,
         locationName: String
     ) {
         onNodeWithText(R.string.screen_search_overview_bar_placeholder)
-            .performTextReplacement(SEARCH_OVERVIEW_SEARCH_QUERY)
+            .performTextReplacement(searchQuery)
 
         waitUntilAtLeastOneExistsWithText(locationName)
 
@@ -160,6 +183,12 @@ class MainActivityTest : NBComposeTest {
         onNodeWithText(text, substring = true)
             .performClick()
     }
+
+    private fun ComposeContentTestRule.onRootInMainActivity(): SemanticsNodeInteraction {
+        return onAllNodes(isRoot())
+            .onLast()
+    }
+
 
     private fun ComposeContentTestRule.onNodeWithLocationName(
         locationName: String
@@ -187,20 +216,23 @@ class MainActivityTest : NBComposeTest {
     }
 
     private fun ComposeContentTestRule.assertForecastItemWithDetailView(
-        @StringRes itemTitleResId: Int,
-        detailViewString: String
+        itemTitle: String,
+        detailViewTitle: String
     ) {
-        onAllNodes((hasScrollAction()))
-            .getNodeWithMostChildren()
-            .performScrollToNode(hasText(getString(itemTitleResId)))
+        onRootInMainActivity()
+            .onChild()
+            .onChildren()
+            .onFirst()
+            .performScrollToNode(hasText(itemTitle))
 
-        onNodeWithText(itemTitleResId)
-            .performClick()
+        onNodeWithText(itemTitle)
+            .performClickTopCenter()
 
-        waitUntilAtLeastOneExistsWithText(detailViewString, substring = true)
+        waitUntilAtLeastOneExistsWithText(detailViewTitle, substring = true)
 
         pressBack()
     }
+
 
     private fun ComposeContentTestRule.assertSettingsItemWithDetailView(
         @StringRes itemTitleResId: Int,

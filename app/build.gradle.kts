@@ -12,10 +12,13 @@ plugins {
 android {
     signingConfigs {
         create("release") {
-            storeFile = file(gradleLocalProperties(rootDir).getProperty("signingconfig.release.storefilepath"))
-            keyAlias = gradleLocalProperties(rootDir).getProperty("signingconfig.release.keyalias")
-            storePassword = gradleLocalProperties(rootDir).getProperty("signingconfig.release.storepassword")
-            keyPassword = gradleLocalProperties(rootDir).getProperty("signingconfig.release.keypassword")
+            val localProperties = gradleLocalProperties(rootDir)
+
+            val storeFilePath = localProperties.getProperty("signingconfig.release.storefilepath")
+            storeFile = if (storeFilePath != null) file(storeFilePath) else null
+            keyAlias = localProperties.getProperty("signingconfig.release.keyalias")
+            storePassword = localProperties.getProperty("signingconfig.release.storepassword")
+            keyPassword = localProperties.getProperty("signingconfig.release.keypassword")
         }
     }
     defaultConfig {
@@ -29,7 +32,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = NBBuildType.DEBUG.applicationIdSuffix
+        }
         getByName("release") {
+            applicationIdSuffix = NBBuildType.RELEASE.applicationIdSuffix
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

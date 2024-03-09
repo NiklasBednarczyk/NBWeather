@@ -10,7 +10,6 @@ import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import org.junit.Test
 import java.util.Locale
 import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
@@ -19,298 +18,291 @@ class GeocodingModelsTest : NBTest {
     @Test
     fun dataToLocal_shouldConvertCorrectly() {
         // Arrange
-        val dataLocation = createTestLocationData()
-        val dataLocalNames = dataLocation.localNames
+        val locationData = createTestLocationData()
+        val localNamesData = locationData.localNames
 
         // Act
-        val localLocation = LocationModelData.dataToLocal(
-            data = dataLocation
+        val locationLocal = LocationModelData.dataToLocal(
+            data = locationData
         )
-        val localLocalNames = localLocation.localNames
+        val localNamesLocal = locationLocal.localNames
 
         // Assert
-        assertNotNull(dataLocalNames)
-        assertNotNull(localLocalNames)
-        assertEquals(dataLocalNames.af, localLocalNames.af)
-        assertEquals(dataLocalNames.sq, localLocalNames.sq)
-        assertEquals(dataLocalNames.ar, localLocalNames.ar)
-        assertEquals(dataLocalNames.az, localLocalNames.az)
-        assertEquals(dataLocalNames.bg, localLocalNames.bg)
-        assertEquals(dataLocalNames.ca, localLocalNames.ca)
-        assertEquals(dataLocalNames.cs, localLocalNames.cs)
-        assertEquals(dataLocalNames.da, localLocalNames.da)
-        assertEquals(dataLocalNames.de, localLocalNames.de)
-        assertEquals(dataLocalNames.el, localLocalNames.el)
-        assertEquals(dataLocalNames.en, localLocalNames.en)
-        assertEquals(dataLocalNames.eu, localLocalNames.eu)
-        assertEquals(dataLocalNames.fa, localLocalNames.fa)
-        assertEquals(dataLocalNames.fi, localLocalNames.fi)
-        assertEquals(dataLocalNames.fr, localLocalNames.fr)
-        assertEquals(dataLocalNames.gl, localLocalNames.gl)
-        assertEquals(dataLocalNames.he, localLocalNames.he)
-        assertEquals(dataLocalNames.hi, localLocalNames.hi)
-        assertEquals(dataLocalNames.hr, localLocalNames.hr)
-        assertEquals(dataLocalNames.hu, localLocalNames.hu)
-        assertEquals(dataLocalNames.id, localLocalNames.id)
-        assertEquals(dataLocalNames.it, localLocalNames.it)
-        assertEquals(dataLocalNames.ja, localLocalNames.ja)
-        assertEquals(dataLocalNames.ko, localLocalNames.ko)
-        assertEquals(dataLocalNames.lv, localLocalNames.lv)
-        assertEquals(dataLocalNames.lt, localLocalNames.lt)
-        assertEquals(dataLocalNames.mk, localLocalNames.mk)
-        assertEquals(dataLocalNames.no, localLocalNames.no)
-        assertEquals(dataLocalNames.nl, localLocalNames.nl)
-        assertEquals(dataLocalNames.pl, localLocalNames.pl)
-        assertEquals(dataLocalNames.pt, localLocalNames.pt)
-        assertEquals(dataLocalNames.ro, localLocalNames.ro)
-        assertEquals(dataLocalNames.ru, localLocalNames.ru)
-        assertEquals(dataLocalNames.sv, localLocalNames.sv)
-        assertEquals(dataLocalNames.sk, localLocalNames.sk)
-        assertEquals(dataLocalNames.sl, localLocalNames.sl)
-        assertEquals(dataLocalNames.es, localLocalNames.es)
-        assertEquals(dataLocalNames.sr, localLocalNames.sr)
-        assertEquals(dataLocalNames.th, localLocalNames.th)
-        assertEquals(dataLocalNames.tr, localLocalNames.tr)
-        assertEquals(dataLocalNames.uk, localLocalNames.uk)
-        assertEquals(dataLocalNames.vi, localLocalNames.vi)
-        assertEquals(dataLocalNames.zh, localLocalNames.zh)
-        assertEquals(dataLocalNames.zu, localLocalNames.zu)
+        assertNotNull(localNamesData)
+        assertNotNull(localNamesLocal)
+        assertEquals(localNamesData.af, localNamesLocal.af)
+        assertEquals(localNamesData.sq, localNamesLocal.sq)
+        assertEquals(localNamesData.ar, localNamesLocal.ar)
+        assertEquals(localNamesData.az, localNamesLocal.az)
+        assertEquals(localNamesData.bg, localNamesLocal.bg)
+        assertEquals(localNamesData.ca, localNamesLocal.ca)
+        assertEquals(localNamesData.cs, localNamesLocal.cs)
+        assertEquals(localNamesData.da, localNamesLocal.da)
+        assertEquals(localNamesData.de, localNamesLocal.de)
+        assertEquals(localNamesData.el, localNamesLocal.el)
+        assertEquals(localNamesData.en, localNamesLocal.en)
+        assertEquals(localNamesData.eu, localNamesLocal.eu)
+        assertEquals(localNamesData.fa, localNamesLocal.fa)
+        assertEquals(localNamesData.fi, localNamesLocal.fi)
+        assertEquals(localNamesData.fr, localNamesLocal.fr)
+        assertEquals(localNamesData.gl, localNamesLocal.gl)
+        assertEquals(localNamesData.he, localNamesLocal.he)
+        assertEquals(localNamesData.hi, localNamesLocal.hi)
+        assertEquals(localNamesData.hr, localNamesLocal.hr)
+        assertEquals(localNamesData.hu, localNamesLocal.hu)
+        assertEquals(localNamesData.id, localNamesLocal.id)
+        assertEquals(localNamesData.it, localNamesLocal.it)
+        assertEquals(localNamesData.ja, localNamesLocal.ja)
+        assertEquals(localNamesData.ko, localNamesLocal.ko)
+        assertEquals(localNamesData.lv, localNamesLocal.lv)
+        assertEquals(localNamesData.lt, localNamesLocal.lt)
+        assertEquals(localNamesData.mk, localNamesLocal.mk)
+        assertEquals(localNamesData.no, localNamesLocal.no)
+        assertEquals(localNamesData.nl, localNamesLocal.nl)
+        assertEquals(localNamesData.pl, localNamesLocal.pl)
+        assertEquals(localNamesData.pt, localNamesLocal.pt)
+        assertEquals(localNamesData.ro, localNamesLocal.ro)
+        assertEquals(localNamesData.ru, localNamesLocal.ru)
+        assertEquals(localNamesData.sv, localNamesLocal.sv)
+        assertEquals(localNamesData.sk, localNamesLocal.sk)
+        assertEquals(localNamesData.sl, localNamesLocal.sl)
+        assertEquals(localNamesData.es, localNamesLocal.es)
+        assertEquals(localNamesData.sr, localNamesLocal.sr)
+        assertEquals(localNamesData.th, localNamesLocal.th)
+        assertEquals(localNamesData.tr, localNamesLocal.tr)
+        assertEquals(localNamesData.uk, localNamesLocal.uk)
+        assertEquals(localNamesData.vi, localNamesLocal.vi)
+        assertEquals(localNamesData.zh, localNamesLocal.zh)
+        assertEquals(localNamesData.zu, localNamesLocal.zu)
 
-        assertEquals(dataLocation.latitude, localLocation.latitude)
-        assertEquals(dataLocation.longitude, localLocation.longitude)
-        assertEquals(dataLocation.name, localLocation.name)
-        assertEquals(dataLocation.country, localLocation.country)
-        assertEquals(dataLocation.state, localLocation.state)
+        assertEquals(locationData.latitude, locationLocal.latitude)
+        assertEquals(locationData.longitude, locationLocal.longitude)
+        assertEquals(locationData.name, locationLocal.name)
+        assertEquals(locationData.country, locationLocal.country)
+        assertEquals(locationData.state, locationLocal.state)
         assertEquals(
-            dataLocation.lastVisitedTimestampEpochSeconds,
-            localLocation.lastVisitedTimestampEpochSeconds
+            locationData.lastVisitedTimestampEpochSeconds,
+            locationLocal.lastVisitedTimestampEpochSeconds
         )
-        assertEquals(dataLocation.order, localLocation.order)
+        assertEquals(locationData.order, locationLocal.order)
     }
 
     @Test
     fun localToData_shouldConvertCorrectly() {
         // Arrange
-        val localLocation = createTestLocationLocal()
-        val localLocalNames = localLocation.localNames
+        val locationLocal = createTestLocationLocal()
+        val localNamesLocal = locationLocal.localNames
 
         // Act
-        val dataLocation = LocationModelData.localToData(
-            local = localLocation
+        val locationData = LocationModelData.localToData(
+            local = locationLocal
         )
-        val dataLocalNames = dataLocation?.localNames
+        val localNamesData = locationData?.localNames
 
         // Assert
-        assertNotNull(dataLocation)
+        assertNotNull(locationData)
 
-        assertNotNull(localLocalNames)
-        assertNotNull(dataLocalNames)
-        assertEquals(localLocalNames.af, dataLocalNames.af)
-        assertEquals(localLocalNames.sq, dataLocalNames.sq)
-        assertEquals(localLocalNames.ar, dataLocalNames.ar)
-        assertEquals(localLocalNames.az, dataLocalNames.az)
-        assertEquals(localLocalNames.bg, dataLocalNames.bg)
-        assertEquals(localLocalNames.ca, dataLocalNames.ca)
-        assertEquals(localLocalNames.cs, dataLocalNames.cs)
-        assertEquals(localLocalNames.da, dataLocalNames.da)
-        assertEquals(localLocalNames.de, dataLocalNames.de)
-        assertEquals(localLocalNames.el, dataLocalNames.el)
-        assertEquals(localLocalNames.en, dataLocalNames.en)
-        assertEquals(localLocalNames.eu, dataLocalNames.eu)
-        assertEquals(localLocalNames.fa, dataLocalNames.fa)
-        assertEquals(localLocalNames.fi, dataLocalNames.fi)
-        assertEquals(localLocalNames.fr, dataLocalNames.fr)
-        assertEquals(localLocalNames.gl, dataLocalNames.gl)
-        assertEquals(localLocalNames.he, dataLocalNames.he)
-        assertEquals(localLocalNames.hi, dataLocalNames.hi)
-        assertEquals(localLocalNames.hr, dataLocalNames.hr)
-        assertEquals(localLocalNames.hu, dataLocalNames.hu)
-        assertEquals(localLocalNames.id, dataLocalNames.id)
-        assertEquals(localLocalNames.it, dataLocalNames.it)
-        assertEquals(localLocalNames.ja, dataLocalNames.ja)
-        assertEquals(localLocalNames.ko, dataLocalNames.ko)
-        assertEquals(localLocalNames.lv, dataLocalNames.lv)
-        assertEquals(localLocalNames.lt, dataLocalNames.lt)
-        assertEquals(localLocalNames.mk, dataLocalNames.mk)
-        assertEquals(localLocalNames.no, dataLocalNames.no)
-        assertEquals(localLocalNames.nl, dataLocalNames.nl)
-        assertEquals(localLocalNames.pl, dataLocalNames.pl)
-        assertEquals(localLocalNames.pt, dataLocalNames.pt)
-        assertEquals(localLocalNames.ro, dataLocalNames.ro)
-        assertEquals(localLocalNames.ru, dataLocalNames.ru)
-        assertEquals(localLocalNames.sv, dataLocalNames.sv)
-        assertEquals(localLocalNames.sk, dataLocalNames.sk)
-        assertEquals(localLocalNames.sl, dataLocalNames.sl)
-        assertEquals(localLocalNames.es, dataLocalNames.es)
-        assertEquals(localLocalNames.sr, dataLocalNames.sr)
-        assertEquals(localLocalNames.th, dataLocalNames.th)
-        assertEquals(localLocalNames.tr, dataLocalNames.tr)
-        assertEquals(localLocalNames.uk, dataLocalNames.uk)
-        assertEquals(localLocalNames.vi, dataLocalNames.vi)
-        assertEquals(localLocalNames.zh, dataLocalNames.zh)
-        assertEquals(localLocalNames.zu, dataLocalNames.zu)
+        assertNotNull(localNamesLocal)
+        assertNotNull(localNamesData)
+        assertEquals(localNamesLocal.af, localNamesData.af)
+        assertEquals(localNamesLocal.sq, localNamesData.sq)
+        assertEquals(localNamesLocal.ar, localNamesData.ar)
+        assertEquals(localNamesLocal.az, localNamesData.az)
+        assertEquals(localNamesLocal.bg, localNamesData.bg)
+        assertEquals(localNamesLocal.ca, localNamesData.ca)
+        assertEquals(localNamesLocal.cs, localNamesData.cs)
+        assertEquals(localNamesLocal.da, localNamesData.da)
+        assertEquals(localNamesLocal.de, localNamesData.de)
+        assertEquals(localNamesLocal.el, localNamesData.el)
+        assertEquals(localNamesLocal.en, localNamesData.en)
+        assertEquals(localNamesLocal.eu, localNamesData.eu)
+        assertEquals(localNamesLocal.fa, localNamesData.fa)
+        assertEquals(localNamesLocal.fi, localNamesData.fi)
+        assertEquals(localNamesLocal.fr, localNamesData.fr)
+        assertEquals(localNamesLocal.gl, localNamesData.gl)
+        assertEquals(localNamesLocal.he, localNamesData.he)
+        assertEquals(localNamesLocal.hi, localNamesData.hi)
+        assertEquals(localNamesLocal.hr, localNamesData.hr)
+        assertEquals(localNamesLocal.hu, localNamesData.hu)
+        assertEquals(localNamesLocal.id, localNamesData.id)
+        assertEquals(localNamesLocal.it, localNamesData.it)
+        assertEquals(localNamesLocal.ja, localNamesData.ja)
+        assertEquals(localNamesLocal.ko, localNamesData.ko)
+        assertEquals(localNamesLocal.lv, localNamesData.lv)
+        assertEquals(localNamesLocal.lt, localNamesData.lt)
+        assertEquals(localNamesLocal.mk, localNamesData.mk)
+        assertEquals(localNamesLocal.no, localNamesData.no)
+        assertEquals(localNamesLocal.nl, localNamesData.nl)
+        assertEquals(localNamesLocal.pl, localNamesData.pl)
+        assertEquals(localNamesLocal.pt, localNamesData.pt)
+        assertEquals(localNamesLocal.ro, localNamesData.ro)
+        assertEquals(localNamesLocal.ru, localNamesData.ru)
+        assertEquals(localNamesLocal.sv, localNamesData.sv)
+        assertEquals(localNamesLocal.sk, localNamesData.sk)
+        assertEquals(localNamesLocal.sl, localNamesData.sl)
+        assertEquals(localNamesLocal.es, localNamesData.es)
+        assertEquals(localNamesLocal.sr, localNamesData.sr)
+        assertEquals(localNamesLocal.th, localNamesData.th)
+        assertEquals(localNamesLocal.tr, localNamesData.tr)
+        assertEquals(localNamesLocal.uk, localNamesData.uk)
+        assertEquals(localNamesLocal.vi, localNamesData.vi)
+        assertEquals(localNamesLocal.zh, localNamesData.zh)
+        assertEquals(localNamesLocal.zu, localNamesData.zu)
 
-        assertEquals(localLocation.latitude, dataLocation.latitude)
-        assertEquals(localLocation.longitude, dataLocation.longitude)
-        assertEquals(localLocation.name, dataLocation.name)
-        assertEquals(localLocation.country, dataLocation.country)
-        assertEquals(localLocation.state, dataLocation.state)
+        assertEquals(locationLocal.latitude, locationData.latitude)
+        assertEquals(locationLocal.longitude, locationData.longitude)
+        assertEquals(locationLocal.name, locationData.name)
+        assertEquals(locationLocal.country, locationData.country)
+        assertEquals(locationLocal.state, locationData.state)
         assertEquals(
-            localLocation.lastVisitedTimestampEpochSeconds,
-            dataLocation.lastVisitedTimestampEpochSeconds
+            locationLocal.lastVisitedTimestampEpochSeconds,
+            locationData.lastVisitedTimestampEpochSeconds
         )
-        assertEquals(localLocation.order, dataLocation.order)
+        assertEquals(locationLocal.order, locationData.order)
     }
 
     @Test
     fun remoteToData_shouldConvertCorrectly() {
         // Arrange
-        val remoteLocation = createTestLocationRemote()
-        val remoteLocalNames = remoteLocation.localNames
+        val locationRemote = createTestLocationRemote()
+        val localNamesRemote = locationRemote.localNames
 
         // Act
-        val dataLocation = LocationModelData.remoteToData(
-            remote = remoteLocation
+        val locationData = LocationModelData.remoteToData(
+            remote = locationRemote
         )
-        val dataLocalNames = dataLocation?.localNames
+        val localNamesData = locationData?.localNames
 
         // Assert
-        assertNotNull(dataLocation)
+        assertNotNull(locationData)
 
-        assertNotNull(remoteLocalNames)
-        assertNotNull(dataLocalNames)
-        assertEquals(remoteLocalNames.af, dataLocalNames.af)
-        assertEquals(remoteLocalNames.sq, dataLocalNames.sq)
-        assertEquals(remoteLocalNames.ar, dataLocalNames.ar)
-        assertEquals(remoteLocalNames.az, dataLocalNames.az)
-        assertEquals(remoteLocalNames.bg, dataLocalNames.bg)
-        assertEquals(remoteLocalNames.ca, dataLocalNames.ca)
-        assertEquals(remoteLocalNames.cs, dataLocalNames.cs)
-        assertEquals(remoteLocalNames.da, dataLocalNames.da)
-        assertEquals(remoteLocalNames.de, dataLocalNames.de)
-        assertEquals(remoteLocalNames.el, dataLocalNames.el)
-        assertEquals(remoteLocalNames.en, dataLocalNames.en)
-        assertEquals(remoteLocalNames.eu, dataLocalNames.eu)
-        assertEquals(remoteLocalNames.fa, dataLocalNames.fa)
-        assertEquals(remoteLocalNames.fi, dataLocalNames.fi)
-        assertEquals(remoteLocalNames.fr, dataLocalNames.fr)
-        assertEquals(remoteLocalNames.gl, dataLocalNames.gl)
-        assertEquals(remoteLocalNames.he, dataLocalNames.he)
-        assertEquals(remoteLocalNames.hi, dataLocalNames.hi)
-        assertEquals(remoteLocalNames.hr, dataLocalNames.hr)
-        assertEquals(remoteLocalNames.hu, dataLocalNames.hu)
-        assertEquals(remoteLocalNames.id, dataLocalNames.id)
-        assertEquals(remoteLocalNames.it, dataLocalNames.it)
-        assertEquals(remoteLocalNames.ja, dataLocalNames.ja)
-        assertEquals(remoteLocalNames.ko, dataLocalNames.ko)
-        assertEquals(remoteLocalNames.lv, dataLocalNames.lv)
-        assertEquals(remoteLocalNames.lt, dataLocalNames.lt)
-        assertEquals(remoteLocalNames.mk, dataLocalNames.mk)
-        assertEquals(remoteLocalNames.no, dataLocalNames.no)
-        assertEquals(remoteLocalNames.nl, dataLocalNames.nl)
-        assertEquals(remoteLocalNames.pl, dataLocalNames.pl)
-        assertEquals(remoteLocalNames.pt, dataLocalNames.pt)
-        assertEquals(remoteLocalNames.ro, dataLocalNames.ro)
-        assertEquals(remoteLocalNames.ru, dataLocalNames.ru)
-        assertEquals(remoteLocalNames.sv, dataLocalNames.sv)
-        assertEquals(remoteLocalNames.sk, dataLocalNames.sk)
-        assertEquals(remoteLocalNames.sl, dataLocalNames.sl)
-        assertEquals(remoteLocalNames.es, dataLocalNames.es)
-        assertEquals(remoteLocalNames.sr, dataLocalNames.sr)
-        assertEquals(remoteLocalNames.th, dataLocalNames.th)
-        assertEquals(remoteLocalNames.tr, dataLocalNames.tr)
-        assertEquals(remoteLocalNames.uk, dataLocalNames.uk)
-        assertEquals(remoteLocalNames.vi, dataLocalNames.vi)
-        assertEquals(remoteLocalNames.zh, dataLocalNames.zh)
-        assertEquals(remoteLocalNames.zu, dataLocalNames.zu)
+        assertNotNull(localNamesRemote)
+        assertNotNull(localNamesData)
+        assertEquals(localNamesRemote.af, localNamesData.af)
+        assertEquals(localNamesRemote.sq, localNamesData.sq)
+        assertEquals(localNamesRemote.ar, localNamesData.ar)
+        assertEquals(localNamesRemote.az, localNamesData.az)
+        assertEquals(localNamesRemote.bg, localNamesData.bg)
+        assertEquals(localNamesRemote.ca, localNamesData.ca)
+        assertEquals(localNamesRemote.cs, localNamesData.cs)
+        assertEquals(localNamesRemote.da, localNamesData.da)
+        assertEquals(localNamesRemote.de, localNamesData.de)
+        assertEquals(localNamesRemote.el, localNamesData.el)
+        assertEquals(localNamesRemote.en, localNamesData.en)
+        assertEquals(localNamesRemote.eu, localNamesData.eu)
+        assertEquals(localNamesRemote.fa, localNamesData.fa)
+        assertEquals(localNamesRemote.fi, localNamesData.fi)
+        assertEquals(localNamesRemote.fr, localNamesData.fr)
+        assertEquals(localNamesRemote.gl, localNamesData.gl)
+        assertEquals(localNamesRemote.he, localNamesData.he)
+        assertEquals(localNamesRemote.hi, localNamesData.hi)
+        assertEquals(localNamesRemote.hr, localNamesData.hr)
+        assertEquals(localNamesRemote.hu, localNamesData.hu)
+        assertEquals(localNamesRemote.id, localNamesData.id)
+        assertEquals(localNamesRemote.it, localNamesData.it)
+        assertEquals(localNamesRemote.ja, localNamesData.ja)
+        assertEquals(localNamesRemote.ko, localNamesData.ko)
+        assertEquals(localNamesRemote.lv, localNamesData.lv)
+        assertEquals(localNamesRemote.lt, localNamesData.lt)
+        assertEquals(localNamesRemote.mk, localNamesData.mk)
+        assertEquals(localNamesRemote.no, localNamesData.no)
+        assertEquals(localNamesRemote.nl, localNamesData.nl)
+        assertEquals(localNamesRemote.pl, localNamesData.pl)
+        assertEquals(localNamesRemote.pt, localNamesData.pt)
+        assertEquals(localNamesRemote.ro, localNamesData.ro)
+        assertEquals(localNamesRemote.ru, localNamesData.ru)
+        assertEquals(localNamesRemote.sv, localNamesData.sv)
+        assertEquals(localNamesRemote.sk, localNamesData.sk)
+        assertEquals(localNamesRemote.sl, localNamesData.sl)
+        assertEquals(localNamesRemote.es, localNamesData.es)
+        assertEquals(localNamesRemote.sr, localNamesData.sr)
+        assertEquals(localNamesRemote.th, localNamesData.th)
+        assertEquals(localNamesRemote.tr, localNamesData.tr)
+        assertEquals(localNamesRemote.uk, localNamesData.uk)
+        assertEquals(localNamesRemote.vi, localNamesData.vi)
+        assertEquals(localNamesRemote.zh, localNamesData.zh)
+        assertEquals(localNamesRemote.zu, localNamesData.zu)
 
-        assertEquals(remoteLocation.lat, dataLocation.latitude)
-        assertEquals(remoteLocation.lon, dataLocation.longitude)
-        assertEquals(remoteLocation.name, dataLocation.name)
-        assertEquals(remoteLocation.country, dataLocation.country)
-        assertEquals(remoteLocation.state, dataLocation.state)
-        assertNull(dataLocation.lastVisitedTimestampEpochSeconds)
-        assertNull(dataLocation.order)
+        assertEquals(locationRemote.lat, locationData.latitude)
+        assertEquals(locationRemote.lon, locationData.longitude)
+        assertEquals(locationRemote.name, locationData.name)
+        assertEquals(locationRemote.country, locationData.country)
+        assertEquals(locationRemote.state, locationData.state)
+        assertNull(locationData.lastVisitedTimestampEpochSeconds)
+        assertNull(locationData.order)
     }
 
     @Test
     fun remoteToLocal_shouldConvertCorrectly() {
         // Arrange
-        val remoteLocation = createTestLocationRemote(
-            lat = 1.0,
-            lon = 2.0
-        )
-        val remoteLocalNames = remoteLocation.localNames
+        val locationRemote = createTestLocationRemote()
+        val localNamesRemote = locationRemote.localNames
 
         // Act
-        val localLocation = LocationModelData.remoteToLocal(
-            remote = remoteLocation,
-            latitude = -1.0,
-            longitude = -2.0,
+        val locationLocal = LocationModelData.remoteToLocal(
+            remote = locationRemote,
             lastVisitedTimestampEpochSeconds = -3,
             order = -4
         )
-        val localLocalNames = localLocation?.localNames
+        val localNamesLocal = locationLocal.localNames
 
         // Assert
-        assertNotNull(localLocation)
+        assertNotNull(locationLocal)
 
-        assertNotNull(remoteLocalNames)
-        assertNotNull(localLocalNames)
-        assertEquals(remoteLocalNames.af, localLocalNames.af)
-        assertEquals(remoteLocalNames.sq, localLocalNames.sq)
-        assertEquals(remoteLocalNames.ar, localLocalNames.ar)
-        assertEquals(remoteLocalNames.az, localLocalNames.az)
-        assertEquals(remoteLocalNames.bg, localLocalNames.bg)
-        assertEquals(remoteLocalNames.ca, localLocalNames.ca)
-        assertEquals(remoteLocalNames.cs, localLocalNames.cs)
-        assertEquals(remoteLocalNames.da, localLocalNames.da)
-        assertEquals(remoteLocalNames.de, localLocalNames.de)
-        assertEquals(remoteLocalNames.el, localLocalNames.el)
-        assertEquals(remoteLocalNames.en, localLocalNames.en)
-        assertEquals(remoteLocalNames.eu, localLocalNames.eu)
-        assertEquals(remoteLocalNames.fa, localLocalNames.fa)
-        assertEquals(remoteLocalNames.fi, localLocalNames.fi)
-        assertEquals(remoteLocalNames.fr, localLocalNames.fr)
-        assertEquals(remoteLocalNames.gl, localLocalNames.gl)
-        assertEquals(remoteLocalNames.he, localLocalNames.he)
-        assertEquals(remoteLocalNames.hi, localLocalNames.hi)
-        assertEquals(remoteLocalNames.hr, localLocalNames.hr)
-        assertEquals(remoteLocalNames.hu, localLocalNames.hu)
-        assertEquals(remoteLocalNames.id, localLocalNames.id)
-        assertEquals(remoteLocalNames.it, localLocalNames.it)
-        assertEquals(remoteLocalNames.ja, localLocalNames.ja)
-        assertEquals(remoteLocalNames.ko, localLocalNames.ko)
-        assertEquals(remoteLocalNames.lv, localLocalNames.lv)
-        assertEquals(remoteLocalNames.lt, localLocalNames.lt)
-        assertEquals(remoteLocalNames.mk, localLocalNames.mk)
-        assertEquals(remoteLocalNames.no, localLocalNames.no)
-        assertEquals(remoteLocalNames.nl, localLocalNames.nl)
-        assertEquals(remoteLocalNames.pl, localLocalNames.pl)
-        assertEquals(remoteLocalNames.pt, localLocalNames.pt)
-        assertEquals(remoteLocalNames.ro, localLocalNames.ro)
-        assertEquals(remoteLocalNames.ru, localLocalNames.ru)
-        assertEquals(remoteLocalNames.sv, localLocalNames.sv)
-        assertEquals(remoteLocalNames.sk, localLocalNames.sk)
-        assertEquals(remoteLocalNames.sl, localLocalNames.sl)
-        assertEquals(remoteLocalNames.es, localLocalNames.es)
-        assertEquals(remoteLocalNames.sr, localLocalNames.sr)
-        assertEquals(remoteLocalNames.th, localLocalNames.th)
-        assertEquals(remoteLocalNames.tr, localLocalNames.tr)
-        assertEquals(remoteLocalNames.uk, localLocalNames.uk)
-        assertEquals(remoteLocalNames.vi, localLocalNames.vi)
-        assertEquals(remoteLocalNames.zh, localLocalNames.zh)
-        assertEquals(remoteLocalNames.zu, localLocalNames.zu)
+        assertNotNull(localNamesRemote)
+        assertNotNull(localNamesLocal)
+        assertEquals(localNamesRemote.af, localNamesLocal.af)
+        assertEquals(localNamesRemote.sq, localNamesLocal.sq)
+        assertEquals(localNamesRemote.ar, localNamesLocal.ar)
+        assertEquals(localNamesRemote.az, localNamesLocal.az)
+        assertEquals(localNamesRemote.bg, localNamesLocal.bg)
+        assertEquals(localNamesRemote.ca, localNamesLocal.ca)
+        assertEquals(localNamesRemote.cs, localNamesLocal.cs)
+        assertEquals(localNamesRemote.da, localNamesLocal.da)
+        assertEquals(localNamesRemote.de, localNamesLocal.de)
+        assertEquals(localNamesRemote.el, localNamesLocal.el)
+        assertEquals(localNamesRemote.en, localNamesLocal.en)
+        assertEquals(localNamesRemote.eu, localNamesLocal.eu)
+        assertEquals(localNamesRemote.fa, localNamesLocal.fa)
+        assertEquals(localNamesRemote.fi, localNamesLocal.fi)
+        assertEquals(localNamesRemote.fr, localNamesLocal.fr)
+        assertEquals(localNamesRemote.gl, localNamesLocal.gl)
+        assertEquals(localNamesRemote.he, localNamesLocal.he)
+        assertEquals(localNamesRemote.hi, localNamesLocal.hi)
+        assertEquals(localNamesRemote.hr, localNamesLocal.hr)
+        assertEquals(localNamesRemote.hu, localNamesLocal.hu)
+        assertEquals(localNamesRemote.id, localNamesLocal.id)
+        assertEquals(localNamesRemote.it, localNamesLocal.it)
+        assertEquals(localNamesRemote.ja, localNamesLocal.ja)
+        assertEquals(localNamesRemote.ko, localNamesLocal.ko)
+        assertEquals(localNamesRemote.lv, localNamesLocal.lv)
+        assertEquals(localNamesRemote.lt, localNamesLocal.lt)
+        assertEquals(localNamesRemote.mk, localNamesLocal.mk)
+        assertEquals(localNamesRemote.no, localNamesLocal.no)
+        assertEquals(localNamesRemote.nl, localNamesLocal.nl)
+        assertEquals(localNamesRemote.pl, localNamesLocal.pl)
+        assertEquals(localNamesRemote.pt, localNamesLocal.pt)
+        assertEquals(localNamesRemote.ro, localNamesLocal.ro)
+        assertEquals(localNamesRemote.ru, localNamesLocal.ru)
+        assertEquals(localNamesRemote.sv, localNamesLocal.sv)
+        assertEquals(localNamesRemote.sk, localNamesLocal.sk)
+        assertEquals(localNamesRemote.sl, localNamesLocal.sl)
+        assertEquals(localNamesRemote.es, localNamesLocal.es)
+        assertEquals(localNamesRemote.sr, localNamesLocal.sr)
+        assertEquals(localNamesRemote.th, localNamesLocal.th)
+        assertEquals(localNamesRemote.tr, localNamesLocal.tr)
+        assertEquals(localNamesRemote.uk, localNamesLocal.uk)
+        assertEquals(localNamesRemote.vi, localNamesLocal.vi)
+        assertEquals(localNamesRemote.zh, localNamesLocal.zh)
+        assertEquals(localNamesRemote.zu, localNamesLocal.zu)
 
-        assertEquals(-1.0, localLocation.latitude)
-        assertNotEquals(remoteLocation.lat, localLocation.latitude)
-        assertEquals(-2.0, localLocation.longitude)
-        assertNotEquals(remoteLocation.lon, localLocation.longitude)
-        assertEquals(remoteLocation.name, localLocation.name)
-        assertEquals(remoteLocation.country, localLocation.country)
-        assertEquals(remoteLocation.state, localLocation.state)
-        assertEquals(-3, localLocation.lastVisitedTimestampEpochSeconds)
-        assertEquals(-4, localLocation.order)
+        assertEquals(locationRemote.lat, locationLocal.latitude)
+        assertEquals(locationRemote.lon, locationLocal.longitude)
+        assertEquals(locationRemote.name, locationLocal.name)
+        assertEquals(locationRemote.country, locationLocal.country)
+        assertEquals(locationRemote.state, locationLocal.state)
+        assertEquals(-3, locationLocal.lastVisitedTimestampEpochSeconds)
+        assertEquals(-4, locationLocal.order)
     }
 
     @Test
@@ -576,10 +568,7 @@ class GeocodingModelsTest : NBTest {
         )
     }
 
-    private fun createTestLocationRemote(
-        lat: Double = 1.0,
-        lon: Double = 2.0
-    ): LocationModelRemote {
+    private fun createTestLocationRemote(): LocationModelRemote {
         return LocationModelRemote(
             name = "name",
             localNames = LocalNamesModelRemote(
@@ -630,8 +619,8 @@ class GeocodingModelsTest : NBTest {
                 ascii = "ascii",
                 featureName = "featureName"
             ),
-            lat = lat,
-            lon = lon,
+            lat = 1.0,
+            lon = 2.0,
             country = "country",
             state = "state"
         )

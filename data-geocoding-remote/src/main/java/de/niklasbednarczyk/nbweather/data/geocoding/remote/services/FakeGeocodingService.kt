@@ -1,31 +1,29 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.remote.services
 
 import android.content.Context
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Types
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.services.NBFakeService
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
 
 class FakeGeocodingService(
     override val context: Context
-) : NBGeocodingService, NBFakeService<List<LocationModelRemote>> {
+) : NBGeocodingService, NBFakeService<LocationModelRemote> {
 
-    override val fileName: String = "locations.json"
+    override val klass = LocationModelRemote::class.java
 
-    override val adapter: JsonAdapter<List<LocationModelRemote>>
-        get() {
-            val listType =
-                Types.newParameterizedType(List::class.java, LocationModelRemote::class.java)
-            return moshi.adapter(listType)
-        }
-
-    override val defaultModel: List<LocationModelRemote> = emptyList()
+    override val fileName = "locations.json"
 
     override suspend fun getLocationsByLocationName(
         locationName: String,
         limit: Int
     ): List<LocationModelRemote> {
-        return model.take(limit)
+        return items
+            .filter { location ->
+                location.name?.startsWith(
+                    prefix = locationName,
+                    ignoreCase = true
+                ) == true
+            }
+            .take(limit)
     }
 
     override suspend fun getLocationsByCoordinates(
@@ -33,8 +31,14 @@ class FakeGeocodingService(
         longitude: Double,
         limit: Int
     ): List<LocationModelRemote> {
-        return model
-            .filter { location -> location.lat == latitude && location.lon == longitude }
+        return items
+            .filter { location ->
+                val lat = latitude.toInt()
+                val lon = longitude.toInt()
+                val locationLat = location.lat.toInt()
+                val locationLon = location.lon.toInt()
+                lat == locationLat && lon == locationLon
+            }
             .take(limit)
     }
 

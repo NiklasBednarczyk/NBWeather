@@ -4,18 +4,13 @@ import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertNotNull
 
-class ForecastOverviewViewModelTest : NBViewModelTest {
-
-    companion object {
-        private const val LATITUDE = 40.17396
-        private const val LONGITUDE = -80.2461714
-    }
+class ForecastOverviewViewModelTest : ForecastViewModelTest {
 
     private lateinit var subject: ForecastOverviewViewModel
 
@@ -94,7 +89,7 @@ class ForecastOverviewViewModelTest : NBViewModelTest {
     }
 
     private suspend fun setCurrentLocation() {
-        geocodingRepository.setCurrentLocation(LATITUDE, LONGITUDE)
+        geocodingRepository.setCurrentLocation(latitude, longitude)
     }
 
 }

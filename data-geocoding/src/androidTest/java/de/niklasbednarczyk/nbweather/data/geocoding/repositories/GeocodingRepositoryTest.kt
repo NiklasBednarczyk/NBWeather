@@ -21,6 +21,13 @@ import kotlin.test.assertTrue
 
 class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
+    companion object {
+
+        private const val LOCATION_1_LATITUDE = 40.7127281
+        private const val LOCATION_1_LONGITUDE = -74.0060152
+
+    }
+
     private lateinit var subject: GeocodingRepository
 
     private lateinit var geocodingService: NBGeocodingService
@@ -55,30 +62,38 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     @Test
     fun getVisitedLocations_shouldOnlyGetVisitedLocations() = testScope.runTest {
         // Arrange
-        arrangeLocationsWithTimestamps()
+        val location1 = insertLocation(0, 2L)
+        val location2 = insertLocation(1, null)
+        val location3 = insertLocation(2, 1L)
 
         // Act + Assert
         subject.getVisitedLocations().collectUntilResource { dataAct ->
-            assertListDoesContain(dataAct?.mapToLatLong(), 1.toLatLong(), 3.toLatLong())
-            assertListDoesNotContain(dataAct?.mapToLatLong(), 2.toLatLong())
+            assertListDoesContain(
+                dataAct?.mapToLatLong(),
+                location1.toLatLong(),
+                location3.toLatLong()
+            )
+            assertListDoesNotContain(dataAct?.mapToLatLong(), location2.toLatLong())
         }
     }
 
     @Test
-    fun getCurrentLocation_shouldGetCurrentLocationWhenTimestampSet() = testScope.runTest {
+    fun getCurrentLocation_withTimestamp_shouldGetCurrentLocation() = testScope.runTest {
         // Arrange
-        arrangeLocationsWithTimestamps()
+        insertLocation(0, 1L)
+        val location = insertLocation(1, 3L)
+        insertLocation(2, 2L)
 
         // Act + Assert
         subject.getCurrentLocation().collectUntilResource { dataAct ->
-            assertEquals(1.toLatLong(), dataAct?.toLatLong())
+            assertEquals(location.toLatLong(), dataAct?.toLatLong())
         }
     }
 
     @Test
-    fun getCurrentLocation_shouldNotGetCurrentLocationWhenNoTimestampSet() = testScope.runTest {
+    fun getCurrentLocation_withoutTimestamp_shouldBeNull() = testScope.runTest {
         // Arrange
-        arrangeLocationsWithoutTimestamps()
+        insertLocation(0, null)
 
         // Act + Assert
         subject.getCurrentLocation().collectUntilResource { dataAct ->
@@ -87,9 +102,9 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun getIsInitialCurrentLocationSet_shouldGetValueWhenTimestampSet() = testScope.runTest {
+    fun getIsInitialCurrentLocationSet_withTimestamp_shouldBeTrue() = testScope.runTest {
         // Arrange
-        arrangeLocationsWithTimestamps()
+        insertLocation(0, 1L)
 
         // Act + Assert
         subject.getIsInitialCurrentLocationSet().collectUntilResource { dataAct ->
@@ -98,9 +113,9 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun getIsInitialCurrentLocationSet_shouldNotGetValueWhenNoTimestampSet() = testScope.runTest {
+    fun getIsInitialCurrentLocationSet_withoutTimestamp_shouldBeFalse() = testScope.runTest {
         // Arrange
-        arrangeLocationsWithoutTimestamps()
+        insertLocation(0, null)
 
         // Act + Assert
         subject.getIsInitialCurrentLocationSet().collectUntilResource { dataAct ->
@@ -109,43 +124,78 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun setCurrentLocation_shouldSetCurrentLocation() = testScope.runTest {
-        // Arrange
-        val location1Arrange = insertLocation(1, null)!!
-        val location2Arrange = insertLocation(2, 1L)!!
-        val latLong3 = Pair(33.7367948, -82.7393089)
-        val latLong4 = Pair(Double.MAX_VALUE, Double.MAX_VALUE)
+    fun setCurrentLocation_localExistsWithGivenCoordinates_withOrder_shouldSetCurrentLocation() =
+        testScope.runTest {
+            val location = insertLocation(0, 1L, 2L)
+            testSetCurrentLocation(
+                latitude = location.latitude,
+                longitude = location.longitude,
+                expectedIsSuccessful = true,
+                illegalLastVisitedTimestampEpochSeconds = location.lastVisitedTimestampEpochSeconds,
+                expectedOrder = location.order
+            )
+        }
 
-        // Act
-        val isSuccessful1 = subject.setCurrentLocation(location1Arrange.latitude, location1Arrange.longitude)
-        val isSuccessful2 = subject.setCurrentLocation(location2Arrange.latitude, location2Arrange.longitude)
-        val isSuccessful3 = subject.setCurrentLocation(latLong3.first, latLong3.second)
-        val isSuccessful4 = subject.setCurrentLocation(latLong4.first, latLong4.second)
+    @Test
+    fun setCurrentLocation_localExistsWithGivenCoordinates_withoutOrder_shouldSetCurrentLocation() =
+        testScope.runTest {
+            val location = insertLocation(0, 1L, null)
+            testSetCurrentLocation(
+                latitude = location.latitude,
+                longitude = location.longitude,
+                expectedIsSuccessful = true,
+                illegalLastVisitedTimestampEpochSeconds = location.lastVisitedTimestampEpochSeconds
+            )
+        }
 
-        val location1Act =
-            geocodingDao.getLocation(location1Arrange.latitude, location1Arrange.longitude)
-                .firstOrNull()
-        val location2Act =
-            geocodingDao.getLocation(location2Arrange.latitude, location2Arrange.longitude)
-                .firstOrNull()
-        val location3Act = geocodingDao.getLocation(latLong3.first, latLong3.second).firstOrNull()
+    @Test
+    fun setCurrentLocation_localExistsWithRemoteCoordinates_withOrder_shouldSetCurrentLocation() =
+        testScope.runTest {
+            val location = insertLocation(0, 1L, 2L)
+            testSetCurrentLocation(
+                latitude = location.latitude.toInt().toDouble(),
+                longitude = location.longitude.toInt().toDouble(),
+                locationLatitude = location.latitude,
+                locationLongitude = location.longitude,
+                expectedIsSuccessful = true,
+                illegalLastVisitedTimestampEpochSeconds = location.lastVisitedTimestampEpochSeconds,
+                expectedOrder = location.order
+            )
+        }
 
-        // Assert
-        assertTrue(isSuccessful1)
-        assertTrue(isSuccessful2)
-        assertTrue(isSuccessful3)
-        assertFalse(isSuccessful4)
+    @Test
+    fun setCurrentLocation_localExistsWithRemoteCoordinates_withoutOrder_shouldSetCurrentLocation() =
+        testScope.runTest {
+            val location = insertLocation(0, 1L, null)
+            testSetCurrentLocation(
+                latitude = location.latitude.toInt().toDouble(),
+                longitude = location.longitude.toInt().toDouble(),
+                locationLatitude = location.latitude,
+                locationLongitude = location.longitude,
+                expectedIsSuccessful = true,
+                illegalLastVisitedTimestampEpochSeconds = location.lastVisitedTimestampEpochSeconds
+            )
+        }
 
-        assertNotNull(location1Act)
-        assertNotNull(location1Act.lastVisitedTimestampEpochSeconds)
+    @Test
+    fun setCurrentLocation_localDoesNotExistsButRemoteDoes_shouldSetCurrentLocation() =
+        testScope.runTest {
+            testSetCurrentLocation(
+                latitude = LOCATION_1_LATITUDE,
+                longitude = LOCATION_1_LONGITUDE,
+                expectedIsSuccessful = true
+            )
+        }
 
-        assertNotNull(location2Act)
-        assertNotNull(location2Act.lastVisitedTimestampEpochSeconds)
-        assertNotEquals(1L, location2Act.lastVisitedTimestampEpochSeconds)
-
-        assertNotNull(location3Act)
-        assertNotNull(location3Act.lastVisitedTimestampEpochSeconds)
-    }
+    @Test
+    fun setCurrentLocation_localAndRemoteDoNotExists_shouldNotBeSuccessful() =
+        testScope.runTest {
+            testSetCurrentLocation(
+                latitude = Double.MAX_VALUE,
+                longitude = Double.MAX_VALUE,
+                expectedIsSuccessful = false
+            )
+        }
 
     @Test
     fun insertLocation_shouldInsertLocation() = testScope.runTest {
@@ -167,15 +217,15 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     fun updateOrders_shouldUpdateOrders() = testScope.runTest {
         // Arrange
         val location1LocalArrange = insertLocation(
-            index = 1,
+            index = 0,
             lastVisitedTimestampEpochSeconds = null,
             order = -1
-        )!!
+        )
         val location2LocalArrange = insertLocation(
-            index = 2,
+            index = 1,
             lastVisitedTimestampEpochSeconds = null,
             order = null
-        )!!
+        )
 
         val location1DataArrange = LocationModelData.localToData(location1LocalArrange)!!
         val location2DataArrange = LocationModelData.localToData(location2LocalArrange)!!
@@ -208,13 +258,22 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
     @Test
     fun deleteLocation_shouldDeleteLocation() = testScope.runTest {
         // Arrange
-        val location1Arrange = insertLocation(1)
-        insertLocation(2)
+        val location1Arrange = insertLocation(0)
+        val location2Arrange = insertLocation(1)
 
         // Act
-        val deletedLocation = subject.deleteLocation(1.0, 1.0)
-        val location1Act = geocodingDao.getLocation(1.0, 1.0).firstOrNull()
-        val location2Act = geocodingDao.getLocation(2.0, 2.0).firstOrNull()
+        val deletedLocation = subject.deleteLocation(
+            latitude = location1Arrange.latitude,
+            longitude = location1Arrange.longitude
+        )
+        val location1Act = geocodingDao.getLocation(
+            latitude = location1Arrange.latitude,
+            longitude = location1Arrange.longitude
+        ).firstOrNull()
+        val location2Act = geocodingDao.getLocation(
+            latitude = location2Arrange.latitude,
+            longitude = location2Arrange.longitude
+        ).firstOrNull()
 
         // Assert
         assertNotNull(location1Arrange)
@@ -233,8 +292,48 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         assertNotNull(location2Act)
     }
 
-    private fun Number.toLatLong(): Pair<Double, Double> {
-        return Pair(this.toDouble(), this.toDouble())
+    private suspend fun testSetCurrentLocation(
+        latitude: Double,
+        longitude: Double,
+        locationLatitude: Double = latitude,
+        locationLongitude: Double = longitude,
+        expectedIsSuccessful: Boolean,
+        illegalLastVisitedTimestampEpochSeconds: Long? = null,
+        expectedOrder: Long? = null
+    ) {
+        // Arrange + Act
+        val isSuccessful = subject.setCurrentLocation(latitude, longitude)
+        val location = geocodingDao.getLocation(locationLatitude, locationLongitude).firstOrNull()
+
+        // Assert
+        if (expectedIsSuccessful) {
+            assertTrue(isSuccessful)
+
+            assertNotNull(location)
+
+            assertNotNull(location.lastVisitedTimestampEpochSeconds)
+            if (illegalLastVisitedTimestampEpochSeconds != null) {
+                assertNotEquals(
+                    illegalLastVisitedTimestampEpochSeconds,
+                    location.lastVisitedTimestampEpochSeconds
+                )
+            }
+
+            assertNotNull(location.order)
+            if (expectedOrder != null) {
+                assertEquals(expectedOrder, location.order)
+            } else {
+                assertEquals(location.lastVisitedTimestampEpochSeconds, location.order)
+            }
+        } else {
+            assertFalse(isSuccessful)
+
+            assertNull(location)
+        }
+    }
+
+    private fun LocationModelLocal.toLatLong(): Pair<Double, Double> {
+        return Pair(latitude, longitude)
     }
 
     private fun LocationModelData.toLatLong(): Pair<Double, Double> {
@@ -245,35 +344,19 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         return map { location -> location.toLatLong() }
     }
 
-    private suspend fun arrangeLocationsWithTimestamps() {
-        insertLocation(1, 2L)
-        insertLocation(2, null)
-        insertLocation(3, 1L)
-    }
-
-    private suspend fun arrangeLocationsWithoutTimestamps() {
-        insertLocation(1, null)
-        insertLocation(2, null)
-    }
-
     private suspend fun insertLocation(
         index: Int,
         lastVisitedTimestampEpochSeconds: Long? = null,
         order: Long? = null
-    ): LocationModelLocal? {
-        val latLong = index.toDouble()
+    ): LocationModelLocal {
         val locationsRemote = geocodingService.getLocationsByLocationName("", 5)
-        val locationRemote = locationsRemote.getOrNull(index)
+        val locationRemote = locationsRemote[index]
         val locationLocal = LocationModelData.remoteToLocal(
             remote = locationRemote,
-            latitude = latLong,
-            longitude = latLong,
             lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds,
             order = order
         )
-        locationLocal?.let { locLocal ->
-            geocodingDao.insertLocation(locLocal)
-        }
+        geocodingDao.insertLocation(locationLocal)
         return locationLocal
     }
 

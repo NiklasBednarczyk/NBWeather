@@ -1,7 +1,5 @@
 package de.niklasbednarczyk.nbweather.core.data.localremote.remote.constants
 
-import de.niklasbednarczyk.nbweather.core.data.localremote.remote.BuildConfig
-
 
 object ConstantsCoreRemote {
 
@@ -9,7 +7,6 @@ object ConstantsCoreRemote {
 
         internal object ApiKey {
             const val NAME = "appid"
-            const val VALUE = BuildConfig.openweathermapapiKey
         }
 
         object Exclude {

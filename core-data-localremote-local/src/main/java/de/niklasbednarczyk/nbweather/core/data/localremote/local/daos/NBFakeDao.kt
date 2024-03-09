@@ -9,6 +9,8 @@ interface NBFakeDao<Model, Key> {
 
     val stateFlow: MutableStateFlow<List<Model>>
 
+    fun getKey(item: Model): Key
+
     fun <T> mapItems(
         transform: suspend (items: List<Model>) -> T
     ): Flow<T> {
@@ -18,14 +20,6 @@ interface NBFakeDao<Model, Key> {
     fun getItem(key: Key): Flow<Model?> {
         return mapItems { items ->
             items.find { item ->
-                getKey(item) == key
-            }
-        }
-    }
-
-    fun getItems(key: Key): Flow<List<Model>?> {
-        return mapItems { items ->
-            items.filter { item ->
                 getKey(item) == key
             }
         }
@@ -70,7 +64,5 @@ interface NBFakeDao<Model, Key> {
     fun deleteItem(item: Model) {
         deleteItemWithKey(getKey(item))
     }
-
-    fun getKey(item: Model): Key
 
 }

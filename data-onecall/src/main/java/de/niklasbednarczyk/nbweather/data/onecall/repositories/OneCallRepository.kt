@@ -16,7 +16,6 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBHourlyForecastDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBMinutelyForecastDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBNationalWeatherAlertDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBOneCallDao
-import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.CurrentWeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
@@ -115,11 +114,10 @@ class OneCallRepository @Inject constructor(
             }
 
             override fun insertLocal(remote: OneCallModelRemote) {
-                val oneCallMetadata = OneCallMetadataEntityLocal(
+                val oneCallMetadata = OneCallModelData.remoteToLocal(
+                    remote = remote,
                     latitude = latitude,
-                    longitude = longitude,
-                    timezone = remote.timezone,
-                    timezoneOffset = remote.timezoneOffset
+                    longitude = longitude
                 )
 
                 val metadataId = oneCallDao.insertOneCall(oneCallMetadata)

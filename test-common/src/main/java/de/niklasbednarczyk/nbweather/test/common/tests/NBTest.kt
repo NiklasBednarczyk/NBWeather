@@ -40,13 +40,23 @@ interface NBTest {
 
     fun <T> assertValue(
         expected: T?,
-        actual: T?,
-        nullable: Boolean = false
+        actual: T?
     ) {
-        if (!nullable) {
-            assertNotNull(actual)
-        }
+        assertNotNull(expected)
+        assertNotNull(actual)
         assertEquals(expected, actual)
+    }
+
+    fun <T1, T2> assertListValues(
+        list1: List<T1>?,
+        list2: List<T2>?,
+        assertValue: (value1: T1, value2: T2) -> Unit
+    ) {
+        assertNotNull(list1)
+        assertNotNull(list2)
+        assertListIsNotEmpty(list1)
+        assertListIsNotEmpty(list2)
+        list1.zip(list2, assertValue)
     }
 
     fun <T> assertListIsNotEmpty(

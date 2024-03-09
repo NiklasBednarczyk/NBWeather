@@ -5,6 +5,7 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertTextContains
+import androidx.compose.ui.test.click
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
@@ -105,14 +106,6 @@ interface NBComposeTest : NBTest {
             get(index).performClick()
         }
 
-    fun SemanticsNodeInteractionCollection.getNodeWithMostChildren(): SemanticsNodeInteraction {
-        val semanticNodes = fetchSemanticsNodes()
-        val index = semanticNodes.indices.maxBy { index ->
-            semanticNodes[index].children.size
-        }
-        return get(index)
-    }
-
     fun ComposeContentTestRule.swipeLeft() = onRoot().swipeLeft()
 
     fun ComposeContentTestRule.swipeRight() = onRoot().swipeRight()
@@ -120,6 +113,8 @@ interface NBComposeTest : NBTest {
     fun SemanticsNodeInteraction.swipeLeft() = performTouchInput { swipeLeft() }
 
     fun SemanticsNodeInteraction.swipeRight() = performTouchInput { swipeRight() }
+
+    fun SemanticsNodeInteraction.performClickTopCenter() = performTouchInput { click(topCenter) }
 
     fun SemanticsNodeInteraction.performLongClick() = performTouchInput { longClick() }
 

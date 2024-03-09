@@ -5,18 +5,13 @@ import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
-import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class ForecastHourlyViewModelTest : NBViewModelTest {
-
-    companion object {
-        private const val LATITUDE = -1.0
-        private const val LONGITUDE = 1.0
-    }
+class ForecastHourlyViewModelTest : ForecastViewModelTest {
 
     private lateinit var subjectWithoutArgs: ForecastHourlyViewModel
     private lateinit var subjectWithArgs: ForecastHourlyViewModel
@@ -32,8 +27,8 @@ class ForecastHourlyViewModelTest : NBViewModelTest {
         subjectWithArgs = ForecastHourlyViewModel(
             savedStateHandle = SavedStateHandle(
                 mapOf(
-                    DestinationsForecast.Hourly.KEY_LATITUDE to LATITUDE.toString(),
-                    DestinationsForecast.Hourly.KEY_LONGITUDE to LONGITUDE.toString()
+                    DestinationsForecast.Hourly.KEY_LATITUDE to latitude.toString(),
+                    DestinationsForecast.Hourly.KEY_LONGITUDE to longitude.toString()
                 )
             ),
             oneCallRepository = oneCallRepository

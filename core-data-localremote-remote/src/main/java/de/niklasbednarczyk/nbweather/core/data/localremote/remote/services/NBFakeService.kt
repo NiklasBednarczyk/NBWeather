@@ -3,28 +3,32 @@ package de.niklasbednarczyk.nbweather.core.data.localremote.remote.services
 import android.content.Context
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.utils.createMoshi
 
-interface NBFakeService<T> {
+interface NBFakeService<T : Any> {
 
     val context: Context
 
+    val klass: Class<T>
+
     val fileName: String
 
-    val moshi: Moshi
+    private val moshi: Moshi
         get() = createMoshi()
 
-    val adapter: JsonAdapter<T>
-
-    val modelOrNull: T?
+    private val adapter: JsonAdapter<List<T>>
         get() {
-            val string = context.assets.open(fileName).bufferedReader().use { it.readText() }
-            return adapter.fromJson(string)
+            val listType = Types.newParameterizedType(List::class.java, klass)
+            return moshi.adapter(listType)
         }
 
-    val defaultModel: T
-
-    val model: T
-        get() = modelOrNull ?: defaultModel
+    val items: List<T>
+        get() {
+            val string = context.assets.open(fileName)
+                .bufferedReader()
+                .use { bufferedReader -> bufferedReader.readText() }
+            return adapter.fromJson(string) ?: emptyList()
+        }
 
 }

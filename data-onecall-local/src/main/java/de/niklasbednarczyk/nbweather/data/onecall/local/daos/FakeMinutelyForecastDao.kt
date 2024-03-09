@@ -1,21 +1,25 @@
 package de.niklasbednarczyk.nbweather.data.onecall.local.daos
 
-import de.niklasbednarczyk.nbweather.core.data.localremote.local.daos.NBFakeDao
+import de.niklasbednarczyk.nbweather.core.data.localremote.local.daos.NBFakeMetadataDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.MinutelyForecastEntityLocal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class FakeMinutelyForecastDao : NBMinutelyForecastDao,
-    NBFakeDao<MinutelyForecastEntityLocal, Long?> {
+    NBFakeMetadataDao<MinutelyForecastEntityLocal, Long?, Long?> {
 
     override val stateFlow = MutableStateFlow<List<MinutelyForecastEntityLocal>>(emptyList())
 
-    override fun getKey(item: MinutelyForecastEntityLocal): Long? {
+    override fun getKey(item: MinutelyForecastEntityLocal): Pair<Long?, Long?> {
+        return Pair(item.dt, item.metadataId)
+    }
+
+    override fun getMetadataKey(item: MinutelyForecastEntityLocal): Long? {
         return item.metadataId
     }
 
     override fun getMinutelyForecasts(metadataId: Long?): Flow<List<MinutelyForecastEntityLocal>?> {
-        return getItems(metadataId)
+        return getItemsByMetadataKey(metadataId)
     }
 
     override fun insertMinutelyForecasts(minutelyForecasts: List<MinutelyForecastEntityLocal>) {
@@ -23,7 +27,7 @@ class FakeMinutelyForecastDao : NBMinutelyForecastDao,
     }
 
     override fun deleteMinutelyForecasts(metadataId: Long?) {
-        deleteItemWithKey(metadataId)
+        deleteItemWithMetadataKey(metadataId)
     }
 
 

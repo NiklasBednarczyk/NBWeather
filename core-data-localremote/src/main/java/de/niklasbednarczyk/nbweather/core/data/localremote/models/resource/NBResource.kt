@@ -125,7 +125,7 @@ sealed interface NBResource<out T> {
                             collectData(resource.data)
                         }
 
-                        else -> {
+                        is Loading, is Error, null -> {
                             throw RuntimeException("Resource is not of type Success")
                         }
                     }

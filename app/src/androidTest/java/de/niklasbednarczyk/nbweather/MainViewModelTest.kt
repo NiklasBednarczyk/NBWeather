@@ -21,8 +21,8 @@ import kotlin.test.assertNotNull
 class MainViewModelTest : NBViewModelTest {
 
     companion object {
-        private const val LATITUDE = 41.2990848
-        private const val LONGITUDE = -91.6923661
+        private const val LATITUDE = 40.7127281
+        private const val LONGITUDE = -74.0060152
     }
 
     @get:Rule

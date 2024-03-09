@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.ApplicationProductFlavor
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
@@ -65,8 +67,9 @@ internal interface NBConventionPlugin : Plugin<Project> {
         with(pluginManager, block)
     }
 
-    val Project.protobuf: ProtobufExtension get() =
-        (this as ExtensionAware).extensions.getByName("protobuf") as ProtobufExtension
+    val Project.protobuf: ProtobufExtension
+        get() =
+            (this as ExtensionAware).extensions.getByName("protobuf") as ProtobufExtension
 
     fun Project.protobuf(configure: Action<ProtobufExtension>): Unit =
         (this as ExtensionAware).extensions.configure("protobuf", configure)
@@ -95,6 +98,18 @@ internal interface NBConventionPlugin : Plugin<Project> {
                 sourceCompatibility = JavaVersion.VERSION_17
                 targetCompatibility = JavaVersion.VERSION_17
                 isCoreLibraryDesugaringEnabled = true
+            }
+
+            flavorDimensions += NBProductFlavorDimension.getFlavorDimensionStrings()
+            productFlavors {
+                NBProductFlavor.values().forEach { flavor ->
+                    create(flavor.toString()) {
+                        dimension = flavor.dimension.toString()
+                        if (this@apply is ApplicationExtension && this is ApplicationProductFlavor) {
+                            applicationIdSuffix = flavor.applicationIdSuffix
+                        }
+                    }
+                }
             }
 
             kotlinOptions {

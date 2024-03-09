@@ -3,8 +3,8 @@ package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 import android.content.Context
 import de.niklasbednarczyk.nbweather.core.common.datetime.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
-import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.CoroutineLauncherNullable
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.CoroutineLauncherIsSuccessful
+import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.CoroutineLauncherNullable
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.CoroutineLauncherUnit
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOnlineMediator
@@ -56,7 +56,7 @@ class GeocodingRepository @Inject constructor(
             }
 
             override fun insertLocal(remote: List<LocationModelRemote>) {
-                val local = remote.mapNotNull(LocationModelData::remoteToLocal)
+                val local = remote.map(LocationModelData::remoteToLocal)
                 return geocodingDao.insertLocations(local)
             }
 
@@ -111,34 +111,59 @@ class GeocodingRepository @Inject constructor(
         return object : CoroutineLauncherIsSuccessful() {
 
             override suspend fun launchSuspend(): Boolean {
-                val local = geocodingDao.getLocation(latitude, longitude).firstOrNull()
                 val currentTimestampEpochSeconds = getCurrentTimestampEpochSeconds()
-                if (local != null) {
-                    val newOrder = local.order ?: currentTimestampEpochSeconds
 
-                    val newLocal =
-                        local.copy(
-                            lastVisitedTimestampEpochSeconds = currentTimestampEpochSeconds,
-                            order = newOrder
-                        )
-                    geocodingDao.updateLocation(newLocal)
-                } else {
+                val isUpdateSuccessfulWithGivenCoordinates = isUpdateSuccessful(
+                    latitude = latitude,
+                    longitude = longitude,
+                    currentTimestampEpochSeconds = currentTimestampEpochSeconds
+                )
+
+                if (!isUpdateSuccessfulWithGivenCoordinates) {
                     val remote = geocodingService.getLocationsByCoordinates(
                         latitude = latitude,
                         longitude = longitude,
                         limit = ConstantsCoreRemote.Query.Limit.VALUE_BY_COORDINATES
-                    ).firstOrNull()
-                    val newLocal = LocationModelData.remoteToLocal(
-                        remote = remote,
-                        latitude = latitude,
-                        longitude = longitude,
-                        lastVisitedTimestampEpochSeconds = currentTimestampEpochSeconds,
-                        order = currentTimestampEpochSeconds
-                    ) ?: return false
-                    geocodingDao.insertLocation(newLocal)
+                    ).firstOrNull() ?: return false
+
+                    val isUpdateSuccessfulWithRemoteCoordinates = isUpdateSuccessful(
+                        latitude = remote.lat,
+                        longitude = remote.lon,
+                        currentTimestampEpochSeconds = currentTimestampEpochSeconds
+                    )
+
+                    if (!isUpdateSuccessfulWithRemoteCoordinates) {
+                        val newLocal = LocationModelData.remoteToLocal(
+                            remote = remote,
+                            lastVisitedTimestampEpochSeconds = currentTimestampEpochSeconds,
+                            order = currentTimestampEpochSeconds
+                        )
+                        geocodingDao.insertLocation(newLocal)
+                    }
                 }
+
                 return true
             }
+
+            private suspend fun isUpdateSuccessful(
+                latitude: Double,
+                longitude: Double,
+                currentTimestampEpochSeconds: Long
+            ): Boolean {
+                val local =
+                    geocodingDao.getLocation(latitude, longitude).firstOrNull() ?: return false
+
+                val newOrder = local.order ?: currentTimestampEpochSeconds
+                val newLocal = local.copy(
+                    lastVisitedTimestampEpochSeconds = currentTimestampEpochSeconds,
+                    order = newOrder
+                )
+
+                geocodingDao.updateLocation(newLocal)
+
+                return true
+            }
+
         }()
 
     }

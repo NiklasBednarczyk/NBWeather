@@ -4,7 +4,7 @@ import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.types.wind.WindDegreesType
 
 @JvmInline
-value class WindDegreesForecastValue private constructor(private val value: Long) : ForecastValue {
+value class WindDegreesForecastValue private constructor(val value: Long) : ForecastValue {
 
     val type: WindDegreesType?
         get() = WindDegreesType.from(value)
