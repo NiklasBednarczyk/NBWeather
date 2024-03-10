@@ -17,6 +17,20 @@ class LibraryDataLocalRemoteLocalConventionPlugin : NBConventionPlugin {
 
             androidTestImplementation(project(":test-data-localremote-local"))
         }
+        getCommonExtensionOrNull()?.apply {
+            defaultConfig {
+                javaCompileOptions {
+                    annotationProcessorOptions {
+                        arguments += mapOf(
+                            "room.schemaLocation" to "$projectDir/schemas"
+                        )
+                    }
+                }
+            }
+            sourceSets {
+                getByName("androidTest").assets.srcDir("$projectDir/schemas")
+            }
+        }
     }
 
 }

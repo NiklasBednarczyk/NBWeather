@@ -1,0 +1,329 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "356c653373071d80501db4974b2a5397",
+    "entities": [
+      {
+        "tableName": "LocationModelLocal",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT, `country` TEXT, `state` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `lastVisitedTimestampEpochSeconds` INTEGER, `localNames_af` TEXT, `localNames_sq` TEXT, `localNames_ar` TEXT, `localNames_az` TEXT, `localNames_bg` TEXT, `localNames_ca` TEXT, `localNames_cs` TEXT, `localNames_da` TEXT, `localNames_de` TEXT, `localNames_el` TEXT, `localNames_en` TEXT, `localNames_eu` TEXT, `localNames_fa` TEXT, `localNames_fi` TEXT, `localNames_fr` TEXT, `localNames_gl` TEXT, `localNames_he` TEXT, `localNames_hi` TEXT, `localNames_hr` TEXT, `localNames_hu` TEXT, `localNames_id` TEXT, `localNames_it` TEXT, `localNames_ja` TEXT, `localNames_ko` TEXT, `localNames_lv` TEXT, `localNames_lt` TEXT, `localNames_mk` TEXT, `localNames_no` TEXT, `localNames_nl` TEXT, `localNames_pl` TEXT, `localNames_pt` TEXT, `localNames_ro` TEXT, `localNames_ru` TEXT, `localNames_sv` TEXT, `localNames_sk` TEXT, `localNames_sl` TEXT, `localNames_es` TEXT, `localNames_sr` TEXT, `localNames_th` TEXT, `localNames_tr` TEXT, `localNames_uk` TEXT, `localNames_vi` TEXT, `localNames_zh` TEXT, `localNames_zu` TEXT, PRIMARY KEY(`latitude`, `longitude`))",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastVisitedTimestampEpochSeconds",
+            "columnName": "lastVisitedTimestampEpochSeconds",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.af",
+            "columnName": "localNames_af",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.sq",
+            "columnName": "localNames_sq",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.ar",
+            "columnName": "localNames_ar",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.az",
+            "columnName": "localNames_az",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.bg",
+            "columnName": "localNames_bg",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.ca",
+            "columnName": "localNames_ca",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.cs",
+            "columnName": "localNames_cs",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.da",
+            "columnName": "localNames_da",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.de",
+            "columnName": "localNames_de",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.el",
+            "columnName": "localNames_el",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.en",
+            "columnName": "localNames_en",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.eu",
+            "columnName": "localNames_eu",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.fa",
+            "columnName": "localNames_fa",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.fi",
+            "columnName": "localNames_fi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.fr",
+            "columnName": "localNames_fr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.gl",
+            "columnName": "localNames_gl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.he",
+            "columnName": "localNames_he",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.hi",
+            "columnName": "localNames_hi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.hr",
+            "columnName": "localNames_hr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.hu",
+            "columnName": "localNames_hu",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.id",
+            "columnName": "localNames_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.it",
+            "columnName": "localNames_it",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.ja",
+            "columnName": "localNames_ja",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.ko",
+            "columnName": "localNames_ko",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.lv",
+            "columnName": "localNames_lv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.lt",
+            "columnName": "localNames_lt",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.mk",
+            "columnName": "localNames_mk",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.no",
+            "columnName": "localNames_no",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.nl",
+            "columnName": "localNames_nl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.pl",
+            "columnName": "localNames_pl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.pt",
+            "columnName": "localNames_pt",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.ro",
+            "columnName": "localNames_ro",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.ru",
+            "columnName": "localNames_ru",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.sv",
+            "columnName": "localNames_sv",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.sk",
+            "columnName": "localNames_sk",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.sl",
+            "columnName": "localNames_sl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.es",
+            "columnName": "localNames_es",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.sr",
+            "columnName": "localNames_sr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.th",
+            "columnName": "localNames_th",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.tr",
+            "columnName": "localNames_tr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.uk",
+            "columnName": "localNames_uk",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.vi",
+            "columnName": "localNames_vi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.zh",
+            "columnName": "localNames_zh",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localNames.zu",
+            "columnName": "localNames_zu",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "latitude",
+            "longitude"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '356c653373071d80501db4974b2a5397')"
+    ]
+  }
+}

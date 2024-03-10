@@ -8,7 +8,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.niklasbednarczyk.nbweather.data.onecall.local.constants.ConstantsOneCallLocal
-import de.niklasbednarczyk.nbweather.data.onecall.local.daos.*
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBCurrentWeatherDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBDailyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBHourlyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBMinutelyForecastDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBNationalWeatherAlertDao
+import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBOneCallDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.database.DatabaseOneCall
 import javax.inject.Singleton
 
@@ -24,7 +29,9 @@ object RoomModuleOneCallLocal {
         context,
         DatabaseOneCall::class.java,
         ConstantsOneCallLocal.Database.NAME
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Provides
     @Singleton

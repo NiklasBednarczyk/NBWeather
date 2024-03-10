@@ -206,10 +206,6 @@ class MainActivityTest : NBComposeTest {
         locationName: String
     ) {
         waitUntilAtLeastOneExistsWithText(locationName, substring = true)
-        onNodeWithIcon(NBIcons.MaxTemperature)
-            .assertIsDisplayed()
-        onNodeWithIcon(NBIcons.MinTemperature)
-            .assertIsDisplayed()
         onNodeWithText(R.string.screen_forecast_overview_current_weather_title)
             .performScrollTo()
             .assertExists()

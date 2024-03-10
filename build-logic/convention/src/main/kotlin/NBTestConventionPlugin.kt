@@ -15,6 +15,7 @@ internal interface NBTestConventionPlugin : NBConventionPlugin {
             val dependencyNotationPairs = listOf(
                 libs.getLibrary("androidx.compose.ui.uiTestJunit4").toPair(),
                 libs.getLibrary("androidx.compose.ui.uiTestManifest").toPair(true),
+                libs.getLibrary("androidx.room.roomTesting").toPair(),
                 libs.getLibrary("androidx.test.core").toPair(true),
                 libs.getLibrary("androidx.test.espresso.espressoCore").toPair(),
                 libs.getLibrary("androidx.test.rules").toPair(),
