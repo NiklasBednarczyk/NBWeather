@@ -10,7 +10,7 @@
     <string name="unit_symbol_precipitation_inch" translatable="false">in</string>
     <string name="unit_symbol_precipitation_millimeter" translatable="false">mm</string>
     <string name="unit_symbol_pressure_hectopascal" translatable="false">hPa</string>
-    <string name="unit_symbol_pressure_inch_hg" translatable="false">inHg</string>
+    <string name="unit_symbol_pressure_inch_of_mercury" translatable="false">inHg</string>
     <string name="unit_symbol_pressure_millimeter_of_mercury" translatable="false">mmHg</string>
     <string name="unit_symbol_temperature_celsius" translatable="false">°C</string>
     <string name="unit_symbol_temperature_fahrenheit" translatable="false">°F</string>

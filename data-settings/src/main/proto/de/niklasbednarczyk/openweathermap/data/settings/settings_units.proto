@@ -23,7 +23,7 @@ message SettingsUnitsProto {
 
   enum PressureUnitProto {
     HECTOPASCAL = 0;
-    INCH_HG = 1;
+    INCH_OF_MERCURY = 1;
     MILLIMETER_OF_MERCURY = 2;
   }
 

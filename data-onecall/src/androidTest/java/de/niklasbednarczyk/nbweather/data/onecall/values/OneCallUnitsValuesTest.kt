@@ -75,7 +75,7 @@ class OneCallUnitsValuesTest : NBTest {
         )
         testUnitsValue(
             value = value,
-            pressureUnit = NBPressureUnitType.INCH_HG,
+            pressureUnit = NBPressureUnitType.INCH_OF_MERCURY,
             expectedDisplayValueWithSymbol = "30 inHg"
         )
         testUnitsValue(

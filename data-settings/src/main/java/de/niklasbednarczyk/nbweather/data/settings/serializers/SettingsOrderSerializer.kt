@@ -16,10 +16,10 @@ internal class SettingsOrderSerializer @Inject constructor() : Serializer<Settin
     internal companion object {
 
         fun createDefaultValue(): SettingsOrderProto = SettingsOrderProto.newBuilder()
-            .setCurrentWeatherOrder(4)
-            .setDailyOrder(3)
-            .setHourlyOrder(2)
-            .setPrecipitationOrder(1)
+            .setCurrentWeatherOrder(1)
+            .setDailyOrder(4)
+            .setHourlyOrder(3)
+            .setPrecipitationOrder(2)
             .setSunAndMoonOrder(5)
             .build()
 

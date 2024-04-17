@@ -142,20 +142,20 @@ class SettingsUnitsRepositoryTest :
     }
 
     @Test
-    fun getData_pressureUnit_inchHg_shouldBeMappedCorrectly() {
+    fun getData_pressureUnit_inchOfMercury_shouldBeMappedCorrectly() {
         testGetData(
             proto = SettingsUnitsProto
                 .newBuilder()
-                .setPressureUnit(SettingsUnitsProto.PressureUnitProto.INCH_HG)
+                .setPressureUnit(SettingsUnitsProto.PressureUnitProto.INCH_OF_MERCURY)
                 .build(),
             assertValue = { actual ->
-                assertValue(NBPressureUnitType.INCH_HG, actual.pressureUnit)
+                assertValue(NBPressureUnitType.INCH_OF_MERCURY, actual.pressureUnit)
             }
         )
     }
 
     @Test
-    fun getData_pressureUnit_millimeter_shouldBeMappedCorrectly() {
+    fun getData_pressureUnit_millimeterOfMercury_shouldBeMappedCorrectly() {
         testGetData(
             proto = SettingsUnitsProto
                 .newBuilder()
@@ -246,10 +246,10 @@ class SettingsUnitsRepositoryTest :
     fun updatePressureUnit_shouldUpdateCorrectly() {
         testUpdate(
             update = {
-                subject.updatePressureUnit(NBPressureUnitType.INCH_HG)
+                subject.updatePressureUnit(NBPressureUnitType.INCH_OF_MERCURY)
             },
             assertValue = { actual ->
-                assertValue(SettingsUnitsProto.PressureUnitProto.INCH_HG, actual.pressureUnit)
+                assertValue(SettingsUnitsProto.PressureUnitProto.INCH_OF_MERCURY, actual.pressureUnit)
             }
         )
     }
