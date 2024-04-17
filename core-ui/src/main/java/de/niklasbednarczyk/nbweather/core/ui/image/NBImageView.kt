@@ -13,15 +13,15 @@ fun NBImageView(
     modifier: Modifier = Modifier,
     image: NBImageItem?
 ) {
-    if (image  != null) {
+    if (image != null) {
         val resId = when (image) {
             is NBImageItem.One -> image.resId
 
             is NBImageItem.Two -> {
-                if (NBSettings.isLightTheme) {
-                    image.resIdLight
-                } else {
+                if (NBSettings.isDarkTheme) {
                     image.resIdDark
+                } else {
+                    image.resIdLight
                 }
             }
         }

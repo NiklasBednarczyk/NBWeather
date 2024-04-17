@@ -281,45 +281,45 @@ val colorScheme: ColorScheme
     get() {
         val context = LocalContext.current
         val appearance = NBSettings.appearance
-        val isLightTheme = NBSettings.isLightTheme
+        val isDarkTheme = NBSettings.isDarkTheme
 
         return if (appearance.useDynamicColorScheme && DynamicColors.isDynamicColorAvailable()) {
-            if (isLightTheme) {
-                dynamicLightColorScheme(context)
-            } else {
+            if (isDarkTheme) {
                 dynamicDarkColorScheme(context)
+            } else {
+                dynamicLightColorScheme(context)
             }
         } else {
             when (appearance.colorScheme) {
                 NBColorSchemeType.BLUE -> {
-                    if (isLightTheme) {
-                        colorSchemeBlueLight
-                    } else {
+                    if (isDarkTheme) {
                         colorSchemeBlueDark
+                    } else {
+                        colorSchemeBlueLight
                     }
                 }
 
                 NBColorSchemeType.GREEN -> {
-                    if (isLightTheme) {
-                        colorSchemeGreenLight
-                    } else {
+                    if (isDarkTheme) {
                         colorSchemeGreenDark
+                    } else {
+                        colorSchemeGreenLight
                     }
                 }
 
                 NBColorSchemeType.RED -> {
-                    if (isLightTheme) {
-                        colorSchemeRedLight
-                    } else {
+                    if (isDarkTheme) {
                         colorSchemeRedDark
+                    } else {
+                        colorSchemeRedLight
                     }
                 }
 
                 NBColorSchemeType.YELLOW -> {
-                    if (isLightTheme) {
-                        colorSchemeYellowLight
-                    } else {
+                    if (isDarkTheme) {
                         colorSchemeYellowDark
+                    } else {
+                        colorSchemeYellowLight
                     }
                 }
             }

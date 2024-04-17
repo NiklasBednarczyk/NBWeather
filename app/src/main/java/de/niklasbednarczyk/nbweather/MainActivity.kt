@@ -1,7 +1,9 @@
 package de.niklasbednarczyk.nbweather
 
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.DrawerValue
@@ -9,17 +11,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidViewBinding
-import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.createGraph
 import androidx.navigation.fragment.NavHostFragment
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
@@ -51,6 +50,22 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NBNavControllerContainer {
 
+    companion object {
+
+        /**
+         * The default light scrim, as defined by androidx and the platform:
+         * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
+         */
+        private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+
+        /**
+         * The default dark scrim, as defined by androidx and the platform:
+         * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
+         */
+        private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+
+    }
+
     private val viewModel: MainViewModel by viewModels()
 
     private val navigationDrawerViewModel: NBNavigationDrawerViewModel by viewModels()
@@ -65,8 +80,7 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
+        enableEdgeToEdge()
 
         setContentView(nbSetContent(this) {
             val uiState = viewModel.uiState.collectAsStateWithLifecycle()
@@ -76,8 +90,9 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
                 order = uiState.value.order,
                 units = uiState.value.units
             ) {
+                SetupEdgeToEdge()
+
                 NBTheme {
-                    SetupSystemBar()
                     Surface {
                         NBResourceWithoutLoadingView(uiState.value.isInitialCurrentLocationSetResource) { isInitialCurrentLocationSet ->
                             SetupNavigationDrawer(
@@ -118,16 +133,23 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
         }
     }
 
-
     @Composable
-    private fun SetupSystemBar() {
-        val systemUiController = rememberSystemUiController()
-        val darkIcons = NBSettings.isLightTheme
-        SideEffect {
-            systemUiController.setSystemBarsColor(
-                color = Color.Transparent,
-                darkIcons = darkIcons
+    private fun SetupEdgeToEdge() {
+        val isDarkTheme = NBSettings.isDarkTheme
+        DisposableEffect(isDarkTheme) {
+            enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.auto(
+                    lightScrim = android.graphics.Color.TRANSPARENT,
+                    darkScrim = android.graphics.Color.TRANSPARENT,
+                    detectDarkMode = { isDarkTheme }
+                ),
+                navigationBarStyle = SystemBarStyle.auto(
+                    lightScrim = lightScrim,
+                    darkScrim = darkScrim,
+                    detectDarkMode = { isDarkTheme }
+                )
             )
+            onDispose {}
         }
     }
 

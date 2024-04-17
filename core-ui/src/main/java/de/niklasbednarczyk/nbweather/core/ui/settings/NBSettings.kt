@@ -26,14 +26,14 @@ object NBSettings {
         @Composable
         get() = LocalNBUnits.current
 
-    val isLightTheme: Boolean
+    val isDarkTheme: Boolean
         @Composable
         get() = if (appearance.useDeviceTheme) {
-            !isSystemInDarkTheme()
+            isSystemInDarkTheme()
         } else {
             when (appearance.theme) {
-                NBThemeType.LIGHT -> true
-                NBThemeType.DARK -> false
+                NBThemeType.LIGHT -> false
+                NBThemeType.DARK -> true
             }
         }
 
