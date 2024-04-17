@@ -12,7 +12,7 @@ plugins {
 android {
     signingConfigs {
         create("release") {
-            val localProperties = gradleLocalProperties(rootDir)
+            val localProperties = gradleLocalProperties(rootDir, providers)
 
             val storeFilePath = localProperties.getProperty("signingconfig.release.storefilepath")
             storeFile = if (storeFilePath != null) file(storeFilePath) else null

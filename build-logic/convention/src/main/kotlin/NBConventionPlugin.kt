@@ -26,7 +26,7 @@ internal interface NBConventionPlugin : Plugin<Project> {
         }
     }
 
-    fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
+    fun CommonExtension<*, *, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
         (this as ExtensionAware).extensions.configure("kotlinOptions", block)
     }
 
@@ -78,7 +78,7 @@ internal interface NBConventionPlugin : Plugin<Project> {
     fun Project.apply(libs: VersionCatalog)
 
     fun Project.configureKotlinAndroid(
-        commonExtension: CommonExtension<*, *, *, *, *>,
+        commonExtension: CommonExtension<*, *, *, *, *, *>,
     ) {
         val libs = getLibs()
 
@@ -147,7 +147,7 @@ internal interface NBConventionPlugin : Plugin<Project> {
 
     }
 
-    fun Project.getCommonExtensionOrNull(): CommonExtension<*, *, *, *, *>? {
+    fun Project.getCommonExtensionOrNull(): CommonExtension<*, *, *, *, *, *>? {
         return try {
             extensions.getByType<LibraryExtension>()
         } catch (e: Exception) {
