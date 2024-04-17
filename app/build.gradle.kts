@@ -23,8 +23,8 @@ android {
     }
     defaultConfig {
         applicationId = "de.niklasbednarczyk.nbweather"
-        versionCode = 4
-        versionName = "1.1.0"
+        versionCode = 5
+        versionName = "2.0.0"
 
         vectorDrawables {
             useSupportLibrary = true
