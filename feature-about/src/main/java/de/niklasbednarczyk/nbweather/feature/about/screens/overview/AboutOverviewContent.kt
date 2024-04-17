@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,8 +26,8 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVert
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
-import de.niklasbednarczyk.nbweather.core.ui.image.NBImageView
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImageItem
+import de.niklasbednarczyk.nbweather.core.ui.image.NBImageView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewButtonModel
 import de.niklasbednarczyk.nbweather.feature.about.screens.overview.models.AboutOverviewItem
@@ -44,7 +44,7 @@ fun AboutOverviewContent(
         items(uiState.items) { item ->
             when (item) {
                 AboutOverviewItem.Divider -> {
-                    ItemDivider()
+                    Divider()
                 }
 
                 is AboutOverviewItem.WithBanner -> {
@@ -131,8 +131,8 @@ private fun ItemColumn(
 }
 
 @Composable
-private fun ItemDivider() {
-    Divider(
+private fun Divider() {
+    HorizontalDivider(
         modifier = Modifier.padding(
             vertical = dividerPaddingVertical
         )

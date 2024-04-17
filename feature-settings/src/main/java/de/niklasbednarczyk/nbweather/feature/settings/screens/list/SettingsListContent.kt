@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -57,7 +57,7 @@ fun SettingsListContent(
         items(items) { item ->
             when (item) {
                 is SettingsListItemModel.Divider -> {
-                    ItemDivider()
+                    Divider()
                 }
 
                 is SettingsListItemModel.Header -> {
@@ -144,8 +144,8 @@ private fun ItemDestination(
 }
 
 @Composable
-private fun ItemDivider() {
-    Divider(
+private fun Divider() {
+    HorizontalDivider(
         modifier = Modifier.padding(
             vertical = dividerPaddingVertical
         )

@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -62,8 +62,8 @@ private fun DrawerSheet(
             items(drawerItems) { drawerItem ->
                 when (drawerItem) {
                     is NBNavigationDrawerItem.Divider -> {
-                        Divider(
-                            Modifier.padding(navigationDrawerDividerPadding)
+                        HorizontalDivider(
+                            modifier = Modifier.padding(navigationDrawerDividerPadding)
                         )
                     }
 
