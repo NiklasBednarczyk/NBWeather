@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeCurrentWeatherDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeDailyForecastDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeHourlyForecastDao
@@ -83,12 +83,12 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
         subject.getOneCall(
             latitude = LOCATION_1_LATITUDE,
             longitude = LOCATION_1_LONGITUDE
-        ).collectUntilResource { oneCall1 ->
+        ).nbCollectUntilResource { oneCall1 ->
             // Act
             subject.getOneCall(
                 latitude = LOCATION_2_LATITUDE,
                 longitude = LOCATION_2_LONGITUDE
-            ).collectUntilResource { oneCall2 ->
+            ).nbCollectUntilResource { oneCall2 ->
                 assertNotEquals(oneCall1.timezoneOffset?.value, oneCall2.timezoneOffset?.value)
             }
         }
@@ -105,7 +105,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
         subject.getOneCall(
             latitude = latitude,
             longitude = longitude
-        ).collectUntilResource {
+        ).nbCollectUntilResource {
             val oneCallLocal = oneCallDao.getOneCall(
                 latitude = latitude,
                 longitude = longitude

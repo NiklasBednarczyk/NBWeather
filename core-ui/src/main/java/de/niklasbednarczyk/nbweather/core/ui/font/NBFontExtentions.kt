@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.core.ui.font
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -11,6 +12,7 @@ import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
 import de.niklasbednarczyk.nbweather.core.common.settings.font.isVariableFontAvailable
 import de.niklasbednarczyk.nbweather.core.ui.R
 
+@OptIn(ExperimentalTextApi::class)
 val NBFontModel.fontFamily: FontFamily
     get() {
         return if (isVariableFontAvailable) {

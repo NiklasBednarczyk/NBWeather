@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -23,6 +24,7 @@ import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.core.ui.text.NBTextSingleLine
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun NBTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -67,6 +69,7 @@ internal fun NBTopAppBar(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun NBTopAppBarSmall(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -93,6 +96,7 @@ private fun NBTopAppBarSmall(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun NBTopAppBarCenterAligned(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -131,6 +135,7 @@ private fun NBTopAppBarActions(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun NBTopAppBarWithStatusBar(
     scrollBehavior: TopAppBarScrollBehavior,
@@ -145,6 +150,7 @@ private fun NBTopAppBarWithStatusBar(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun getContainerColor(
     scrollBehavior: TopAppBarScrollBehavior

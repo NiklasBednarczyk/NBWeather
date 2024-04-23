@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -47,6 +48,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.sliderLabelTextStyle
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import kotlin.math.pow
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NBSliderView(
     modifier: Modifier = Modifier,

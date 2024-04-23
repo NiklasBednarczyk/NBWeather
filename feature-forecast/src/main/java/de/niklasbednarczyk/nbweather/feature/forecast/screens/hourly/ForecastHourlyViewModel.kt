@@ -3,7 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbMapResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
@@ -39,7 +39,7 @@ class ForecastHourlyViewModel @Inject constructor(
         return oneCallRepository.getOneCall(
             latitude = latitude,
             longitude = longitude
-        ).mapResource { oneCall ->
+        ).nbMapResource { oneCall ->
             ForecastHourlyViewData.from(
                 oneCall = oneCall
             )

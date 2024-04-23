@@ -4,7 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.transformToList
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbTransformToList
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
@@ -79,7 +79,7 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun getDrawerItemsFlow(): Flow<List<NBNavigationDrawerItem>> {
-        return NBResource.combineResourceFlows(
+        return NBResource.nbCombineResourceFlows(
             geocodingRepository.getVisitedLocations(),
             geocodingRepository.getCurrentLocation()
         ) { visitedLocations, currentLocation ->
@@ -111,7 +111,7 @@ class MainViewModel @Inject constructor(
             items.add(aboutItem)
 
             items
-        }.transformToList()
+        }.nbTransformToList()
     }
 
     fun setCurrentLocation(latitude: Double, longitude: Double) {

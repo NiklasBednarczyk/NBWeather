@@ -3,7 +3,6 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,6 +23,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
+import de.niklasbednarczyk.nbweather.core.ui.layout.NBFlowRow
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
@@ -161,15 +161,10 @@ private fun SenderName(
 @Composable
 private fun Tags(
     tags: ForecastAlertsAlertInfoItem.Tags,
-    horizontalSpacing: Dp = 8.dp,
-    verticalSpacing: Dp = 4.dp,
     padding: Dp = 8.dp,
     shape: Shape = MaterialTheme.shapes.extraSmall
 ) {
-    FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(horizontalSpacing),
-        verticalArrangement = Arrangement.spacedBy(verticalSpacing)
-    ) {
+    NBFlowRow {
         tags.tags.forEach { tag ->
             Text(
                 modifier = Modifier

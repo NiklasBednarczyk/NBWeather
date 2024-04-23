@@ -1,14 +1,11 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastViewModelTest
-import junit.framework.TestCase.assertNull
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -101,7 +98,7 @@ class ForecastOverviewViewModelTest : ForecastViewModelTest {
         oneCallRepository.getOneCall(
             latitude = latitude,
             longitude = longitude
-        ).collectUntilResource { oneCallBeforeRefresh ->
+        ).nbCollectUntilResource { oneCallBeforeRefresh ->
             // Act
             delayForDifferentTimestamps()
 
@@ -113,7 +110,7 @@ class ForecastOverviewViewModelTest : ForecastViewModelTest {
             oneCallRepository.getOneCall(
                 latitude = latitude,
                 longitude = longitude
-            ).collectUntilResource { oneCallAfterRefresh ->
+            ).nbCollectUntilResource { oneCallAfterRefresh ->
                 // Assert
                 assertNotEquals(
                     oneCallBeforeRefresh.timestamp.value,

@@ -113,27 +113,6 @@ internal interface NBConventionPlugin : Plugin<Project> {
             }
 
             kotlinOptions {
-                freeCompilerArgs = freeCompilerArgs + listOf(
-                    // Enables animation navigation
-                    "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
-                    // Enables animateItemPlacement
-                    "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-                    // Enables FlowRow
-                    "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
-                    // Enables material 3
-                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-                    // Enables material 3 window size class
-                    "-opt-in=androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi",
-                    // Enables waitUntilAtLeastOneExists
-                    "-opt-in=androidx.compose.ui.test.ExperimentalTestApi",
-                    // Enables hyphenation
-                    "-opt-in=androidx.compose.ui.text.ExperimentalTextApi",
-                    // Enables flatMapLatest
-                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                    // Enables debounce
-                    "-opt-in=kotlinx.coroutines.FlowPreview"
-                )
-
                 jvmTarget = JavaVersion.VERSION_17.toString()
             }
         }

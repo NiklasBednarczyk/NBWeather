@@ -1,6 +1,6 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
@@ -54,7 +54,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
         // Act + Assert
         subject.getLocationsByLocationName(locationName)
-            .collectUntilResource { dataAct ->
+            .nbCollectUntilResource { dataAct ->
                 assertListsContainSameItems(dataArrange.mapToLatLong(), dataAct.mapToLatLong())
             }
     }
@@ -67,7 +67,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         val location3 = insertLocation(2, 1L)
 
         // Act + Assert
-        subject.getVisitedLocations().collectUntilResource { dataAct ->
+        subject.getVisitedLocations().nbCollectUntilResource { dataAct ->
             assertListDoesContain(
                 dataAct?.mapToLatLong(),
                 location1.toLatLong(),
@@ -85,7 +85,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         insertLocation(2, 2L)
 
         // Act + Assert
-        subject.getCurrentLocation().collectUntilResource { dataAct ->
+        subject.getCurrentLocation().nbCollectUntilResource { dataAct ->
             assertEquals(location.toLatLong(), dataAct?.toLatLong())
         }
     }
@@ -96,7 +96,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         insertLocation(0, null)
 
         // Act + Assert
-        subject.getCurrentLocation().collectUntilResource { dataAct ->
+        subject.getCurrentLocation().nbCollectUntilResource { dataAct ->
             assertNull(dataAct)
         }
     }
@@ -107,7 +107,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         insertLocation(0, 1L)
 
         // Act + Assert
-        subject.getIsInitialCurrentLocationSet().collectUntilResource { dataAct ->
+        subject.getIsInitialCurrentLocationSet().nbCollectUntilResource { dataAct ->
             assertTrue(dataAct)
         }
     }
@@ -118,7 +118,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         insertLocation(0, null)
 
         // Act + Assert
-        subject.getIsInitialCurrentLocationSet().collectUntilResource { dataAct ->
+        subject.getIsInitialCurrentLocationSet().nbCollectUntilResource { dataAct ->
             assertFalse(dataAct)
         }
     }

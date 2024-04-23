@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.core.ui.pager
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.elevationLevel2
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun <K, T> NBPagerView(
     viewData: NBPagerViewData<K, T>,
@@ -70,6 +72,7 @@ fun <K, T> NBPagerView(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun PagerContent(
     page: Int,
@@ -80,7 +83,8 @@ private fun PagerContent(
         modifier = Modifier
             .fillMaxSize()
             .graphicsLayer {
-                val pageOffset = pagerState.calculateCurrentOffsetForPage(page)
+                val pageOffset =
+                    (pagerState.currentPage - page) + pagerState.currentPageOffsetFraction.absoluteValue
 
                 alpha = lerp(
                     start = 0.5f,
@@ -93,6 +97,7 @@ private fun PagerContent(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun PagerIndicators(
     pagerState: PagerState,
@@ -167,5 +172,11 @@ private fun PagerIndicators(
             }
         }
     }
+}
 
+private fun <K, T> NBPagerViewData<K, T>.getInitialPage(): Int {
+    val index = items.indexOfFirst { item ->
+        getItemKey(item) == initialKey
+    }
+    return if (index >= 0) index else 0
 }

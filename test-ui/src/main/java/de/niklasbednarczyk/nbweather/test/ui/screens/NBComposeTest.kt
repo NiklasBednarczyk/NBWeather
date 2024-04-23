@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.test.ui.screens
 
 import androidx.annotation.StringRes
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.assertCountEquals
@@ -34,6 +35,7 @@ import de.niklasbednarczyk.nbweather.core.ui.image.NBImageItem
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import kotlinx.coroutines.runBlocking
 
+@OptIn(ExperimentalTestApi::class)
 interface NBComposeTest : NBTest {
 
     val composeTestRule: AndroidComposeTestRule<*, *>

@@ -1,8 +1,10 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.nbDebounce
+import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.nbFlatMapLatest
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbMapResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
@@ -10,9 +12,7 @@ import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.Sear
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
@@ -36,12 +36,12 @@ class SearchOverviewViewModel @Inject constructor(
         collectFlow(
             {
                 searchQueryFlow
-                    .debounce(DEBOUNCE_TIMEOUT_MILLIS)
+                    .nbDebounce(DEBOUNCE_TIMEOUT_MILLIS)
                     .distinctUntilChanged()
-                    .flatMapLatest { searchQuery ->
+                    .nbFlatMapLatest { searchQuery ->
                         if (searchQuery.isNotEmpty()) {
                             geocodingRepository.getLocationsByLocationName(searchQuery)
-                                .mapResource(SearchOverviewLocationModel::from)
+                                .nbMapResource(SearchOverviewLocationModel::from)
                         } else {
                             flowOf(null)
                         }
@@ -52,7 +52,7 @@ class SearchOverviewViewModel @Inject constructor(
     }
 
     private suspend fun getVisitedLocationsInfoFlow(): Flow<NBResource<SearchOverviewVisitedLocationsInfoModel>> {
-        return NBResource.combineResourceFlows(
+        return NBResource.nbCombineResourceFlows(
             geocodingRepository.getVisitedLocations(),
             geocodingRepository.getCurrentLocation(),
             geocodingRepository.getIsInitialCurrentLocationSet(),

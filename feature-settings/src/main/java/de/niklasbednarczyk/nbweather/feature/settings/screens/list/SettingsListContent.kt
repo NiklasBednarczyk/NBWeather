@@ -18,6 +18,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingVertical
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenVerticalPadding
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
+import de.niklasbednarczyk.nbweather.core.ui.list.nBStickyHeader
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBDestination
 import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlView
 import de.niklasbednarczyk.nbweather.core.ui.slider.NBSliderView
@@ -48,7 +49,7 @@ fun SettingsListContent(
         contentPadding = contentPadding
     ) {
         uiState.stickyHeader?.let { stickyHeader ->
-            stickyHeader {
+            nBStickyHeader {
                 NBStickyHeaderView(
                     model = stickyHeader
                 )

@@ -3,6 +3,7 @@ package de.niklasbednarczyk.nbweather.core.ui.windowsize
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
@@ -15,6 +16,7 @@ private fun Context.getActivity(): Activity? = when (this) {
     else -> null
 }
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 private fun getWindowSizeClass(): WindowSizeClass? {
     val context = LocalContext.current

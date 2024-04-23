@@ -1,9 +1,9 @@
 package de.niklasbednarczyk.nbweather.core.data.localremote.models.resource
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
+import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.nbFlatMapLatest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
@@ -37,18 +37,18 @@ sealed interface NBResource<out T> {
         val <T> NBResource<T>?.isSuccessOrError
             get() = this is Success || this is Error
 
-        fun <T, R> Flow<NBResource<T>>.mapResource(
+        fun <T, R> Flow<NBResource<T>>.nbMapResource(
             mapData: (oldData: T) -> R?
         ): Flow<NBResource<R>> {
-            return this.map { resource ->
+            return map { resource ->
                 resource.map(mapData)
             }
         }
 
-        fun <T, R> Flow<NBResource<T>>.flatMapLatestResource(
+        fun <T, R> Flow<NBResource<T>>.nbFlatMapLatestResource(
             transformData: suspend (data: T) -> Flow<NBResource<R>>
         ): Flow<NBResource<R>> {
-            return this.flatMapLatest { resource ->
+            return nbFlatMapLatest { resource ->
                 when (resource) {
                     is Success -> transformData(resource.data)
                     is Loading -> flowOf(Loading)
@@ -57,9 +57,9 @@ sealed interface NBResource<out T> {
             }
         }
 
-        fun <T> Flow<NBResource<List<T>>?>.transformToList(
+        fun <T> Flow<NBResource<List<T>>?>.nbTransformToList(
         ): Flow<List<T>> {
-            return this.map { resource ->
+            return map { resource ->
                 if (resource is Success) {
                     resource.data
                 } else {
@@ -68,7 +68,7 @@ sealed interface NBResource<out T> {
             }
         }
 
-        fun <T1, T2, R> combineResourceFlows(
+        fun <T1, T2, R> nbCombineResourceFlows(
             flow1: Flow<NBResource<T1>>,
             flow2: Flow<NBResource<T2>>,
             transformData: (data1: T1, data2: T2) -> R?
@@ -91,7 +91,7 @@ sealed interface NBResource<out T> {
             }
         }
 
-        fun <T1, T2, T3, R> combineResourceFlows(
+        fun <T1, T2, T3, R> nbCombineResourceFlows(
             flow1: Flow<NBResource<T1>>,
             flow2: Flow<NBResource<T2>>,
             flow3: Flow<NBResource<T3>>,
@@ -112,7 +112,7 @@ sealed interface NBResource<out T> {
             }
         }
 
-        suspend fun <T> Flow<NBResource<T>?>.collectUntilResource(
+        suspend fun <T> Flow<NBResource<T>?>.nbCollectUntilResource(
             collectData: suspend (data: T) -> Unit
         ) {
             collectUntil(
