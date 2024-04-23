@@ -5,7 +5,6 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.flatMapLatestResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.mapResource
 import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
-import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshFlow
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewItem
@@ -19,19 +18,6 @@ class ForecastOverviewViewModel @Inject constructor(
     private val oneCallRepository: OneCallRepository
 ) : NBViewModel<ForecastOverviewUiState>(ForecastOverviewUiState()) {
 
-    val itemsFlow = object : NBSwipeRefreshFlow<List<ForecastOverviewItem>>() {
-
-        override suspend fun getFlow(forceUpdate: Boolean): Flow<NBResource<List<ForecastOverviewItem>>> {
-            return getLocationFlow().flatMapLatestResource { location ->
-                oneCallRepository.getOneCall(
-                    latitude = location.latitude,
-                    longitude = location.longitude,
-                    forceUpdate = forceUpdate
-                ).mapResource(ForecastOverviewItem::from)
-            }
-        }
-    }
-
     init {
 
         collectFlow(
@@ -40,7 +26,7 @@ class ForecastOverviewViewModel @Inject constructor(
         )
 
         collectFlow(
-            { itemsFlow() },
+            { getItemsFlow() },
             { oldUiState, output -> oldUiState.copy(itemsResource = output) }
         )
 
@@ -49,6 +35,25 @@ class ForecastOverviewViewModel @Inject constructor(
     private suspend fun getLocationFlow(): Flow<NBResource<ForecastOverviewLocationModel>> {
         return geocodingRepository.getCurrentLocation()
             .mapResource(ForecastOverviewLocationModel::from)
+    }
+
+    private suspend fun getItemsFlow(): Flow<NBResource<List<ForecastOverviewItem>>> {
+        return getLocationFlow().flatMapLatestResource { location ->
+            oneCallRepository.getOneCall(
+                latitude = location.latitude,
+                longitude = location.longitude
+            ).mapResource(ForecastOverviewItem::from)
+        }
+    }
+
+    suspend fun refreshData(
+        latitude: Double,
+        longitude: Double
+    ): NBResource<Unit> {
+        return oneCallRepository.refreshOneCall(
+            latitude = latitude,
+            longitude = longitude
+        )
     }
 
 }

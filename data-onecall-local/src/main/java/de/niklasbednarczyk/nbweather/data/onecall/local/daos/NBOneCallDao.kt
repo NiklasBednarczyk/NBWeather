@@ -8,8 +8,8 @@ interface NBOneCallDao {
 
     fun getOneCall(latitude: Double?, longitude: Double?): Flow<OneCallModelLocal?>
 
-    fun insertOneCall(oneCall: OneCallMetadataEntityLocal): Long
+    fun insertOneCallMetadata(oneCallMetadata: OneCallMetadataEntityLocal): Long
 
-    fun deleteOneCall(latitude: Double?, longitude: Double?)
+    fun deleteOneCallMetadata(id: Long?)
 
 }

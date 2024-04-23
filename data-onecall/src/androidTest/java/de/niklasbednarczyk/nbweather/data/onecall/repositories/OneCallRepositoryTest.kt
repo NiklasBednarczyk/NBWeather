@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeCurrentWeatherDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeDailyForecastDao
@@ -16,11 +17,11 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.daos.NBOneCallDao
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.FakeOneCallService
 import de.niklasbednarczyk.nbweather.data.onecall.remote.services.NBOneCallService
 import de.niklasbednarczyk.nbweather.test.data.localremote.repositories.NBLocalRemoteRepositoryTest
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 
@@ -81,14 +82,12 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
         // Arrange
         subject.getOneCall(
             latitude = LOCATION_1_LATITUDE,
-            longitude = LOCATION_1_LONGITUDE,
-            forceUpdate = true
+            longitude = LOCATION_1_LONGITUDE
         ).collectUntilResource { oneCall1 ->
             // Act
             subject.getOneCall(
                 latitude = LOCATION_2_LATITUDE,
-                longitude = LOCATION_2_LONGITUDE,
-                forceUpdate = true
+                longitude = LOCATION_2_LONGITUDE
             ).collectUntilResource { oneCall2 ->
                 assertNotEquals(oneCall1.timezoneOffset?.value, oneCall2.timezoneOffset?.value)
             }
@@ -96,54 +95,62 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
     }
 
     @Test
-    fun getOneCall_shouldRefreshOnForceUpdate() = testScope.runTest {
+    fun refreshOneCall_shouldRefreshOneCall() = testScope.runTest {
         // Arrange
+        val latitude = LOCATION_1_LATITUDE
+        val longitude = LOCATION_1_LONGITUDE
+
         val currentTimeUpdate = Long.MAX_VALUE
 
         subject.getOneCall(
-            latitude = LOCATION_1_LATITUDE,
-            longitude = LOCATION_1_LONGITUDE,
-            forceUpdate = false
-        ).collectUntilResource { oneCallBeforeUpdate ->
+            latitude = latitude,
+            longitude = longitude
+        ).collectUntilResource {
             val oneCallLocal = oneCallDao.getOneCall(
-                latitude = LOCATION_1_LATITUDE,
-                longitude = LOCATION_1_LONGITUDE
+                latitude = latitude,
+                longitude = longitude
             ).firstOrNull()
-            val currentWeatherLocal = oneCallLocal?.currentWeather?.copy(
+            val currentWeatherLocal = oneCallLocal!!.currentWeather!!.copy(
                 dt = currentTimeUpdate
             )
-            currentWeatherDao.insertCurrentWeather(currentWeatherLocal!!)
+            currentWeatherDao.insertCurrentWeather(currentWeatherLocal)
+
+            val oneCallLocalBeforeRefresh = oneCallDao.getOneCall(
+                latitude = latitude,
+                longitude = longitude
+            ).firstOrNull()
+
+            delayForDifferentTimestamps()
 
             // Act
-            subject.getOneCall(
-                latitude = LOCATION_1_LATITUDE,
-                longitude = LOCATION_1_LONGITUDE,
-                forceUpdate = false
-            ).collectUntilResource { oneCallAfterUpdateNotForced ->
-                subject.getOneCall(
-                    latitude = LOCATION_1_LATITUDE,
-                    longitude = LOCATION_1_LONGITUDE,
-                    forceUpdate = true
-                ).collectUntilResource { oneCallAfterUpdateForced ->
-                    // Assert
-                    val currentTimeBeforeUpdate =
-                        oneCallBeforeUpdate.currentWeather.currentTime?.value
-                    val currentTimeAfterUpdateNotForced =
-                        oneCallAfterUpdateNotForced.currentWeather.currentTime?.value
-                    val currentTimeAfterUpdateForced =
-                        oneCallAfterUpdateForced.currentWeather.currentTime?.value
+            val refreshResource = subject.refreshOneCall(
+                latitude = latitude,
+                longitude = longitude
+            )
 
-                    assertNotNull(currentTimeAfterUpdateNotForced)
-                    assertEquals(currentTimeUpdate, currentTimeAfterUpdateNotForced)
-                    assertNotEquals(currentTimeBeforeUpdate, currentTimeAfterUpdateNotForced)
+            val oneCallLocalAfterRefresh = oneCallDao.getOneCall(
+                latitude = latitude,
+                longitude = longitude
+            ).firstOrNull()
 
-                    assertNotNull(currentTimeAfterUpdateForced)
-                    assertEquals(currentTimeBeforeUpdate, currentTimeAfterUpdateForced)
-                    assertNotEquals(currentTimeUpdate, currentTimeAfterUpdateForced)
-                }
-            }
+            // Assert
+            assertNotNull(oneCallLocalBeforeRefresh)
+            assertNotNull(oneCallLocalAfterRefresh)
 
+            assertNotEquals(
+                oneCallLocalBeforeRefresh.metadata.id,
+                oneCallLocalAfterRefresh.metadata.id
+            )
+            assertNotEquals(
+                oneCallLocalBeforeRefresh.metadata.timestampEpochSeconds,
+                oneCallLocalAfterRefresh.metadata.timestampEpochSeconds
+            )
 
+            assertEquals(currentTimeUpdate, oneCallLocalBeforeRefresh.currentWeather?.dt)
+
+            assertNotEquals(currentTimeUpdate, oneCallLocalAfterRefresh.currentWeather?.dt)
+
+            assertIsClass(refreshResource, NBResource.Success::class.java)
         }
     }
 

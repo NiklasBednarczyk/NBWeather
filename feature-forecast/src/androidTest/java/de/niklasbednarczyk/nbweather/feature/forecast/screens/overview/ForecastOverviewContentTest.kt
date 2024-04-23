@@ -4,7 +4,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.swiperefresh.NBSwipeRefreshFlow
 import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
@@ -43,7 +42,7 @@ class ForecastOverviewContentTest : NBComposableTest() {
     @Test
     fun alerts_shouldRenderCorrectly() {
         // Arrange
-        var navigateToAlertsClicked: Pair<Double?, Double?>? = null
+        var navigateToAlertsClicked: Pair<Double, Double>? = null
 
         val alerts = ForecastOverviewAlertsModel(
             eventName = createNBString("Event Name"),
@@ -103,7 +102,7 @@ class ForecastOverviewContentTest : NBComposableTest() {
     @Test
     fun daily_shouldRenderCorrectly() {
         // Arrange
-        var navigateToDailyClicked: Triple<Long?, Double?, Double?>? = null
+        var navigateToDailyClicked: Triple<Long?, Double, Double>? = null
 
         val weatherIcon1 = WeatherIconType.D_CLEAR_SKY
         val weatherIcon2 = WeatherIconType.N_CLEAR_SKY
@@ -173,7 +172,7 @@ class ForecastOverviewContentTest : NBComposableTest() {
     @Test
     fun hourly_shouldRenderCorrectly() {
         // Arrange
-        var navigateToHourlyClicked: Pair<Double?, Double?>? = null
+        var navigateToHourlyClicked: Pair<Double, Double>? = null
 
         val weatherIcon1 = WeatherIconType.D_CLEAR_SKY
         val weatherIcon2 = WeatherIconType.N_CLEAR_SKY
@@ -347,15 +346,15 @@ class ForecastOverviewContentTest : NBComposableTest() {
 
     private fun setForecastOverviewContent(
         uiState: ForecastOverviewUiState,
-        itemsFlow: NBSwipeRefreshFlow<List<ForecastOverviewItem>>? = null,
-        navigateToAlerts: (latitude: Double?, longitude: Double?) -> Unit = { _, _ -> },
-        navigateToDaily: (forecastTime: Long?, latitude: Double?, longitude: Double?) -> Unit = { _, _, _ -> },
-        navigateToHourly: (latitude: Double?, longitude: Double?) -> Unit = { _, _ -> }
+        refreshData: suspend (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
+        navigateToAlerts: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
+        navigateToDaily: (forecastTime: Long?, latitude: Double, longitude: Double) -> Unit = { _, _, _ -> },
+        navigateToHourly: (latitude: Double, longitude: Double) -> Unit = { _, _ -> }
     ) {
         setContent {
             ForecastOverviewContent(
                 uiState = uiState,
-                itemsFlow = itemsFlow,
+                refreshData = refreshData,
                 navigateToAlerts = navigateToAlerts,
                 navigateToDaily = navigateToDaily,
                 navigateToHourly = navigateToHourly

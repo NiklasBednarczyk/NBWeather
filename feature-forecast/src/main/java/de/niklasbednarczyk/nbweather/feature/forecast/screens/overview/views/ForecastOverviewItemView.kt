@@ -25,6 +25,7 @@ import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.Fo
 @Composable
 fun ForecastOverviewItemView(
     item: ForecastOverviewItem,
+    clickableEnabled: Boolean,
     navigateToAlerts: () -> Unit,
     navigateToDaily: (forecastTime: Long?) -> Unit,
     navigateToHourly: () -> Unit
@@ -34,6 +35,7 @@ fun ForecastOverviewItemView(
             .fillMaxWidth()
             .itemClickableModifier(
                 item = item,
+                clickableEnabled = clickableEnabled,
                 navigateToAlerts = navigateToAlerts,
                 navigateToDaily = {
                     navigateToDaily(null)
@@ -46,6 +48,7 @@ fun ForecastOverviewItemView(
         )
         Content(
             item = item,
+            clickableEnabled = clickableEnabled,
             navigateToDaily = navigateToDaily
         )
     }
@@ -54,6 +57,7 @@ fun ForecastOverviewItemView(
 @Composable
 private fun Content(
     item: ForecastOverviewItem,
+    clickableEnabled: Boolean,
     navigateToDaily: (forecastTime: Long?) -> Unit,
 ) {
     Column(
@@ -78,6 +82,7 @@ private fun Content(
             is ForecastOverviewDailyModel -> {
                 ForecastOverviewDailyView(
                     daily = item,
+                    clickableEnabled = clickableEnabled,
                     navigateToDaily = navigateToDaily
                 )
             }
@@ -150,6 +155,7 @@ private fun Modifier.contentPaddingModifier(
 
 private fun Modifier.itemClickableModifier(
     item: ForecastOverviewItem,
+    clickableEnabled: Boolean,
     navigateToAlerts: () -> Unit,
     navigateToDaily: () -> Unit,
     navigateToHourly: () -> Unit
@@ -168,7 +174,10 @@ private fun Modifier.itemClickableModifier(
     }
 
     val clickableModifier = if (onClick != null) {
-        Modifier.clickable(onClick = onClick)
+        Modifier.clickable(
+            enabled = clickableEnabled,
+            onClick = onClick
+        )
     } else {
         Modifier
     }

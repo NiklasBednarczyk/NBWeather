@@ -1,7 +1,8 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import android.content.Context
-import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineMediator
+import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineGetMediator
+import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineRefreshMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.constants.ConstantsCoreRemote
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeCurrentWeatherDao
@@ -73,81 +74,156 @@ class OneCallRepository @Inject constructor(
 
     suspend fun getOneCall(
         latitude: Double?,
-        longitude: Double?,
-        forceUpdate: Boolean
+        longitude: Double?
     ): Flow<NBResource<OneCallModelData>> {
         if (latitude == null || longitude == null) return flowOf(NBResource.Error())
 
         return object :
-            LocalRemoteOfflineMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
+            LocalRemoteOfflineGetMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
             override fun getLocal(): Flow<OneCallModelLocal?> {
-                return oneCallDao.getOneCall(latitude, longitude)
-            }
-
-            override suspend fun getRemote(): OneCallModelRemote {
-                return oneCallService.getOneCall(
+                return getLocal(
                     latitude = latitude,
-                    longitude = longitude,
-                    exclude = ConstantsCoreRemote.Query.Exclude.VALUE,
-                    language = ConstantsCoreRemote.Query.Language.VALUE,
-                    units = ConstantsCoreRemote.Query.Units.VALUE
+                    longitude = longitude
                 )
             }
 
+            override suspend fun getRemote(): OneCallModelRemote {
+                return getRemote(
+                    latitude = latitude,
+                    longitude = longitude
+                )
+            }
 
             override fun localToData(local: OneCallModelLocal): OneCallModelData {
                 return OneCallModelData.localToData(local)
             }
 
             override fun shouldGetRemote(local: OneCallModelLocal): Boolean {
-                return forceUpdate || local.metadata.isExpired
+                return local.metadata.isExpired
             }
 
             override fun clearLocal(local: OneCallModelLocal) {
-                val metadataId = local.metadata.id
-                oneCallDao.deleteOneCall(local.metadata.latitude, local.metadata.longitude)
-                currentWeatherDao.deleteCurrentWeather(metadataId)
-                minutelyForecastDao.deleteMinutelyForecasts(metadataId)
-                hourlyForecastDao.deleteHourlyForecasts(metadataId)
-                dailyForecastDao.deleteDailyForecasts(metadataId)
-                nationalWeatherAlertDao.deleteNationalWeatherAlerts(metadataId)
+                this@OneCallRepository.clearLocal(local)
             }
 
             override fun insertLocal(remote: OneCallModelRemote) {
-                val oneCallMetadata = OneCallModelData.remoteToLocal(
+                insertLocal(
                     remote = remote,
                     latitude = latitude,
                     longitude = longitude
                 )
-
-                val metadataId = oneCallDao.insertOneCall(oneCallMetadata)
-
-                val currentWeather = CurrentWeatherModelData.remoteToLocal(
-                    remote.current, metadataId
-                )
-                currentWeatherDao.insertCurrentWeather(currentWeather)
-
-                val minutelyForecasts = MinutelyForecastModelData.remoteToLocal(
-                    remote.minutely, metadataId
-                )
-                minutelyForecastDao.insertMinutelyForecasts(minutelyForecasts)
-
-                val hourlyForecasts = HourlyForecastModelData.remoteToLocal(
-                    remote.hourly, metadataId
-                )
-                hourlyForecastDao.insertHourlyForecasts(hourlyForecasts)
-
-                val dailyForecasts = DailyForecastModelData.remoteToLocal(
-                    remote.daily, metadataId
-                )
-                dailyForecastDao.insertDailyForecasts(dailyForecasts)
-
-                val nationalWeatherAlerts = NationalWeatherAlertModelData.remoteToLocal(
-                    remote.alerts, metadataId
-                )
-                nationalWeatherAlertDao.insertNationalWeatherAlerts(nationalWeatherAlerts)
             }
         }()
+    }
+
+    suspend fun refreshOneCall(
+        latitude: Double,
+        longitude: Double
+    ): NBResource<Unit> {
+        return object : LocalRemoteOfflineRefreshMediator<OneCallModelLocal, OneCallModelRemote>() {
+
+            override fun clearLocal(local: OneCallModelLocal) {
+                this@OneCallRepository.clearLocal(local)
+            }
+
+            override fun insertLocal(remote: OneCallModelRemote) {
+                insertLocal(
+                    remote = remote,
+                    latitude = latitude,
+                    longitude = longitude
+                )
+            }
+
+            override fun getLocal(): Flow<OneCallModelLocal?> {
+                return getLocal(
+                    latitude = latitude,
+                    longitude = longitude
+                )
+            }
+
+            override suspend fun getRemote(): OneCallModelRemote {
+                return getRemote(
+                    latitude = latitude,
+                    longitude = longitude
+                )
+            }
+
+        }()
+
+    }
+
+    private suspend fun getRemote(
+        latitude: Double,
+        longitude: Double
+    ): OneCallModelRemote {
+        return oneCallService.getOneCall(
+            latitude = latitude,
+            longitude = longitude,
+            exclude = ConstantsCoreRemote.Query.Exclude.VALUE,
+            language = ConstantsCoreRemote.Query.Language.VALUE,
+            units = ConstantsCoreRemote.Query.Units.VALUE
+        )
+    }
+
+    private fun getLocal(
+        latitude: Double,
+        longitude: Double
+    ): Flow<OneCallModelLocal?> {
+        return oneCallDao.getOneCall(
+            latitude = latitude,
+            longitude = longitude
+        )
+    }
+
+    private fun clearLocal(
+        local: OneCallModelLocal
+    ) {
+        val metadataId = local.metadata.id
+        oneCallDao.deleteOneCallMetadata(metadataId)
+        currentWeatherDao.deleteCurrentWeather(metadataId)
+        minutelyForecastDao.deleteMinutelyForecasts(metadataId)
+        hourlyForecastDao.deleteHourlyForecasts(metadataId)
+        dailyForecastDao.deleteDailyForecasts(metadataId)
+        nationalWeatherAlertDao.deleteNationalWeatherAlerts(metadataId)
+    }
+
+    private fun insertLocal(
+        remote: OneCallModelRemote,
+        latitude: Double,
+        longitude: Double
+    ) {
+        val oneCallMetadata = OneCallModelData.remoteToLocal(
+            remote = remote,
+            latitude = latitude,
+            longitude = longitude
+        )
+
+        val metadataId = oneCallDao.insertOneCallMetadata(oneCallMetadata)
+
+        val currentWeather = CurrentWeatherModelData.remoteToLocal(
+            remote.current, metadataId
+        )
+        currentWeatherDao.insertCurrentWeather(currentWeather)
+
+        val minutelyForecasts = MinutelyForecastModelData.remoteToLocal(
+            remote.minutely, metadataId
+        )
+        minutelyForecastDao.insertMinutelyForecasts(minutelyForecasts)
+
+        val hourlyForecasts = HourlyForecastModelData.remoteToLocal(
+            remote.hourly, metadataId
+        )
+        hourlyForecastDao.insertHourlyForecasts(hourlyForecasts)
+
+        val dailyForecasts = DailyForecastModelData.remoteToLocal(
+            remote.daily, metadataId
+        )
+        dailyForecastDao.insertDailyForecasts(dailyForecasts)
+
+        val nationalWeatherAlerts = NationalWeatherAlertModelData.remoteToLocal(
+            remote.alerts, metadataId
+        )
+        nationalWeatherAlertDao.insertNationalWeatherAlerts(nationalWeatherAlerts)
     }
 
 }

@@ -6,8 +6,8 @@ import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.CoroutineLauncherIsSuccessful
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.CoroutineLauncherNullable
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.CoroutineLauncherUnit
-import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalMediator
-import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOnlineMediator
+import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalGetMediator
+import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOnlineGetMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.constants.ConstantsCoreRemote
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
@@ -46,7 +46,7 @@ class GeocodingRepository @Inject constructor(
         locationName: String
     ): Flow<NBResource<List<LocationModelData>>> {
         return object :
-            LocalRemoteOnlineMediator<List<LocationModelData>, List<LocationModelRemote>>() {
+            LocalRemoteOnlineGetMediator<List<LocationModelData>, List<LocationModelRemote>>() {
 
             override suspend fun getRemote(): List<LocationModelRemote> {
                 return geocodingService.getLocationsByLocationName(
@@ -68,7 +68,7 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun getVisitedLocations(): Flow<NBResource<List<LocationModelData>?>> {
-        return object : LocalMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
+        return object : LocalGetMediator<List<LocationModelData>?, List<LocationModelLocal>?>() {
             override fun getLocal(): Flow<List<LocationModelLocal>?> {
                 return geocodingDao.getVisitedLocations()
             }
@@ -81,7 +81,7 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun getCurrentLocation(): Flow<NBResource<LocationModelData?>> {
-        return object : LocalMediator<LocationModelData?, LocationModelLocal?>() {
+        return object : LocalGetMediator<LocationModelData?, LocationModelLocal?>() {
             override fun getLocal(): Flow<LocationModelLocal?> {
                 return geocodingDao.getCurrentLocation()
             }

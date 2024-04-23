@@ -1,11 +1,13 @@
 package de.niklasbednarczyk.nbweather.data.onecall.models
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimestampValue
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallMetadataEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.OneCallModelRemote
 
 data class OneCallModelData(
+    val timestamp: NBTimestampValue,
     val timezoneOffset: NBTimezoneOffsetValue?,
     val currentWeather: CurrentWeatherModelData,
     val minutelyForecasts: List<MinutelyForecastModelData>,
@@ -22,6 +24,7 @@ data class OneCallModelData(
             local: OneCallModelLocal
         ): OneCallModelData {
             return OneCallModelData(
+                timestamp = NBTimestampValue(local.metadata.timestampEpochSeconds),
                 timezoneOffset = NBTimezoneOffsetValue.from(local.metadata.timezoneOffset),
                 currentWeather = CurrentWeatherModelData.localToData(local.currentWeather),
                 minutelyForecasts = MinutelyForecastModelData.localToData(local.minutelyForecasts),

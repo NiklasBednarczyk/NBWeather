@@ -3,9 +3,13 @@ package de.niklasbednarczyk.nbweather.core.data.localremote.mediators
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.helper.RemoteMediatorHelper
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
 
-abstract class LocalRemoteOnlineMediator<Data, Remote> : RemoteMediatorHelper<Data, Remote> {
+abstract class LocalRemoteOnlineGetMediator<Data, Remote> : RemoteMediatorHelper<Data, Remote> {
 
     protected abstract fun insertLocal(remote: Remote)
 

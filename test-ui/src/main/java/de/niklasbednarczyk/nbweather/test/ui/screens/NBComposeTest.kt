@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
@@ -18,6 +19,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeLeft
 import androidx.compose.ui.test.swipeRight
 import androidx.test.espresso.Espresso
@@ -30,6 +32,7 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.image.NBImageItem
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
+import kotlinx.coroutines.runBlocking
 
 interface NBComposeTest : NBTest {
 
@@ -106,9 +109,13 @@ interface NBComposeTest : NBTest {
             get(index).performClick()
         }
 
+    fun ComposeContentTestRule.swipeDown() = onRoot().swipeDown()
+
     fun ComposeContentTestRule.swipeLeft() = onRoot().swipeLeft()
 
     fun ComposeContentTestRule.swipeRight() = onRoot().swipeRight()
+
+    fun SemanticsNodeInteraction.swipeDown() = performTouchInput { swipeDown() }
 
     fun SemanticsNodeInteraction.swipeLeft() = performTouchInput { swipeLeft() }
 
@@ -154,6 +161,15 @@ interface NBComposeTest : NBTest {
         @StringRes resId: Int,
         substring: Boolean = false
     ) = waitUntilAtLeastOneExists(hasText(getString(resId), substring = substring))
+
+    fun ComposeContentTestRule.waitUntilAtLeastOneExistsWithTag(
+        testTag: String,
+        substring: Boolean = false
+    ) = waitUntilAtLeastOneExists(hasTestTag(testTag))
+
+    fun ComposeContentTestRule.awaitIdleBlocking() = runBlocking {
+        awaitIdle()
+    }
 
     fun pressBack() = Espresso.pressBackUnconditionally()
 

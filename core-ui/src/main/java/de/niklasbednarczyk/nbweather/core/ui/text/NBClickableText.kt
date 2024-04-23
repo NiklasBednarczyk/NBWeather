@@ -111,8 +111,8 @@ private fun AnnotatedString.Builder.AddAnnotations(
                 end = endIndex
             )
         }
-    } catch (t: Throwable) {
-        Timber.e(t)
+    } catch (throwable: Throwable) {
+        Timber.e(throwable)
     }
 
 }

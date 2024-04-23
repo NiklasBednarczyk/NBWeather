@@ -7,11 +7,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBErrorType
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
-import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.info.NBInfoView
 
 @Composable
@@ -70,19 +67,9 @@ fun <T> NBResourceWithoutLoadingView(
 
 @Composable
 private fun ErrorView(type: NBErrorType) {
-    val stringResId = when (type) {
-        NBErrorType.NO_INTERNET -> R.string.error_text_no_internet
-        NBErrorType.UNKNOWN -> R.string.error_text_unknown
-    }
-
-    val icon = when (type) {
-        NBErrorType.NO_INTERNET -> NBIcons.ErrorNoInternet
-        NBErrorType.UNKNOWN -> NBIcons.ErrorUnknown
-    }
-
     NBInfoView(
-        icon = icon,
-        text = NBString.ResString(stringResId)
+        icon = type.icon,
+        text = type.text
     )
 }
 

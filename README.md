@@ -133,7 +133,7 @@ The `release` build type requires a connection to [Firebase Crashlytics](https:/
 To prevent git from not tracking the file when you change it, run this command:
 
 ```bash
-git update-index --assume-unchanged app\google-services.json
+git update-index --skip-worktree app\google-services.json
 ```
 
 #### Release config

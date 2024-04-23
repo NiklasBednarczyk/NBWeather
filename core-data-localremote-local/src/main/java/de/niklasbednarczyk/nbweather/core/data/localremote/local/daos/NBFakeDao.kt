@@ -18,10 +18,14 @@ interface NBFakeDao<Model, Key> {
     }
 
     fun getItem(key: Key): Flow<Model?> {
+        return getItem { item ->
+            getKey(item) == key
+        }
+    }
+
+    fun getItem(predicate: (Model) -> Boolean): Flow<Model?> {
         return mapItems { items ->
-            items.find { item ->
-                getKey(item) == key
-            }
+            items.find(predicate)
         }
     }
 

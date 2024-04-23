@@ -1,13 +1,18 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.collectUntilResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastViewModelTest
+import junit.framework.TestCase.assertNull
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 
 class ForecastOverviewViewModelTest : ForecastViewModelTest {
@@ -15,14 +20,16 @@ class ForecastOverviewViewModelTest : ForecastViewModelTest {
     private lateinit var subject: ForecastOverviewViewModel
 
     private lateinit var geocodingRepository: GeocodingRepository
+    private lateinit var oneCallRepository: OneCallRepository
 
     @Before
     override fun setUp() {
         geocodingRepository = GeocodingRepository.createFake(context)
+        oneCallRepository = OneCallRepository.createFake(context)
 
         subject = ForecastOverviewViewModel(
             geocodingRepository = geocodingRepository,
-            oneCallRepository = OneCallRepository.createFake(context)
+            oneCallRepository = oneCallRepository
         )
     }
 
@@ -86,6 +93,34 @@ class ForecastOverviewViewModelTest : ForecastViewModelTest {
                 assertListIsNotEmpty(uiState.itemsResource.dataOrNull)
             }
         )
+    }
+
+    @Test
+    fun refreshData_shouldRefreshData() = testScope.runTest {
+        // Arrange
+        oneCallRepository.getOneCall(
+            latitude = latitude,
+            longitude = longitude
+        ).collectUntilResource { oneCallBeforeRefresh ->
+            // Act
+            delayForDifferentTimestamps()
+
+            subject.refreshData(
+                latitude = latitude,
+                longitude = longitude
+            )
+
+            oneCallRepository.getOneCall(
+                latitude = latitude,
+                longitude = longitude
+            ).collectUntilResource { oneCallAfterRefresh ->
+                // Assert
+                assertNotEquals(
+                    oneCallBeforeRefresh.timestamp.value,
+                    oneCallAfterRefresh.timestamp.value
+                )
+            }
+        }
     }
 
     private suspend fun setCurrentLocation() {

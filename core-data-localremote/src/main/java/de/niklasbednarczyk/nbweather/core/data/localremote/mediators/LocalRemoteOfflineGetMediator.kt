@@ -1,27 +1,20 @@
 package de.niklasbednarczyk.nbweather.core.data.localremote.mediators
 
-import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.helper.LocalMediatorHelper
-import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.helper.RemoteMediatorHelper
+import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.helper.LocalRemoteOfflineHelper
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
-abstract class LocalRemoteOfflineMediator<Data, Local, Remote> :
-    LocalMediatorHelper<Data, Local>, RemoteMediatorHelper<Data, Remote> {
-
-    protected abstract fun clearLocal(local: Local)
-
-    protected abstract fun insertLocal(remote: Remote)
+abstract class LocalRemoteOfflineGetMediator<Data, Local, Remote> :
+    LocalRemoteOfflineHelper<Data, Local, Remote> {
 
     protected abstract fun shouldGetRemote(local: Local): Boolean
-
-    private fun onSuccess(local: Local?): NBResource<Data> {
-        return if (local != null) {
-            NBResource.Success(localToData(local))
-        } else {
-            onLocalFailed(RuntimeException("Query failed"))
-        }
-    }
 
     suspend operator fun invoke(): Flow<NBResource<Data>> = flow {
         emit(NBResource.Loading)

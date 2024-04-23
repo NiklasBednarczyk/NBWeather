@@ -72,6 +72,7 @@ class OneCallModelsTest : NBTest {
             assertValue(WeatherConditionType.THUNDERSTORM_WITH_LIGHT_RAIN, weatherData.condition)
         }
 
+        assertValue(oneCallLocal.metadata.timestampEpochSeconds, oneCallData.timestamp.value)
         assertValue(oneCallLocal.metadata.timezoneOffset, oneCallData.timezoneOffset?.value)
 
         assertNotNull(currentWeatherLocal)

@@ -14,8 +14,8 @@ abstract class CoroutineLauncher<T> {
         return withContext(Dispatchers.IO) {
             try {
                 launchSuspend()
-            } catch (t: Throwable) {
-                Timber.e(t)
+            } catch (throwable: Throwable) {
+                Timber.e(throwable)
                 onFailed()
             }
         }

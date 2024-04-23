@@ -172,8 +172,8 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
                         val latitude = location.latitude
                         val longitude = location.longitude
                         navigateToForecast(latitude, longitude)
-                    } catch (t: Throwable) {
-                        onLocationPermissionGrantedFailure(t)
+                    } catch (throwable: Throwable) {
+                        onLocationPermissionGrantedFailure(throwable)
                     }
                 }
                 .addOnCanceledListener {
@@ -183,19 +183,19 @@ class SearchOverviewFragment : NBFragment<SearchOverviewUiState>() {
                     )
                     sendSnackbar(snackbar)
                 }
-                .addOnFailureListener { t ->
-                    onLocationPermissionGrantedFailure(t)
+                .addOnFailureListener { throwable ->
+                    onLocationPermissionGrantedFailure(throwable)
                 }
-        } catch (t: SecurityException) {
-            onLocationPermissionGrantedFailure(t)
-        } catch (t: Throwable) {
-            onLocationPermissionGrantedFailure(t)
+        } catch (exception: SecurityException) {
+            onLocationPermissionGrantedFailure(exception)
+        } catch (throwable: Throwable) {
+            onLocationPermissionGrantedFailure(throwable)
         }
     }
 
-    private fun onLocationPermissionGrantedFailure(t: Throwable) {
+    private fun onLocationPermissionGrantedFailure(throwable: Throwable) {
         viewModel.setFindLocationInProgress(false)
-        Timber.e(t)
+        Timber.e(throwable)
         val snackbar = NBSnackbarModel(
             message = NBString.ResString(R.string.screen_search_overview_snackbar_find_location_failure_message)
         )

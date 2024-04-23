@@ -17,9 +17,9 @@ interface RoomOneCallDao : NBOneCallDao {
     override fun getOneCall(latitude: Double?, longitude: Double?): Flow<OneCallModelLocal?>
 
     @Insert(onConflict = ConstantsCoreLocal.Dao.DEFAULT_ON_CONFLICT)
-    override fun insertOneCall(oneCall: OneCallMetadataEntityLocal): Long
+    override fun insertOneCallMetadata(oneCallMetadata: OneCallMetadataEntityLocal): Long
 
-    @Query("DELETE FROM onecallmetadataentitylocal WHERE latitude = :latitude AND longitude = :longitude")
-    override fun deleteOneCall(latitude: Double?, longitude: Double?)
+    @Query("DELETE FROM onecallmetadataentitylocal WHERE id = :id")
+    override fun deleteOneCallMetadata(id: Long?)
 
 }

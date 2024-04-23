@@ -38,8 +38,7 @@ class ForecastAlertsViewModel @Inject constructor(
     ): Flow<NBResource<ForecastAlertsViewData>> {
         return oneCallRepository.getOneCall(
             latitude = latitude,
-            longitude = longitude,
-            forceUpdate = false
+            longitude = longitude
         ).mapResource { oneCall ->
             ForecastAlertsViewData.from(
                 oneCall = oneCall

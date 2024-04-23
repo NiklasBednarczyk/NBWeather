@@ -18,7 +18,6 @@ comAndroidGradlePlugin = "8.3.2"
 comAndroidReportingGradlePlugin = "4.2.0-alpha09"
 comAndroidToolsDesugarJdkLibs = "2.0.4"
 comGithubBenManesVersions = "0.51.0"
-comGoogleAccompanist = "0.34.0"
 comGoogleAndroidGmsPlayServicesLocation = "21.2.0"
 comGoogleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 comGoogleAndroidMaterial = "1.11.0"
@@ -67,7 +66,6 @@ androidx-test-espresso-espressoCore = { group = "androidx.test.espresso", name =
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 com-android-tools-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "comAndroidToolsDesugarJdkLibs" }
-com-google-accompanist-accompanistSwiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "comGoogleAccompanist" }
 com-google-android-gms-playServicesLocation = { group = "com.google.android.gms", name = "play-services-location", version.ref = "comGoogleAndroidGmsPlayServicesLocation" }
 com-google-android-material-material = { group = "com.google.android.material", name = "material", version.ref = "comGoogleAndroidMaterial" }
 com-google-dagger-hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "comGoogleDagger" }

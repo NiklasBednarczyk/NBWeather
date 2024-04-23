@@ -3,9 +3,12 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
+import de.niklasbednarczyk.nbweather.core.ui.resource.text
 import de.niklasbednarczyk.nbweather.core.ui.screen.fragment.NBFragment
+import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.snackbar.NBSnackbarModel
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarActionModel
 import de.niklasbednarczyk.nbweather.core.ui.screen.scaffold.topappbar.NBTopAppBarItem
 import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
@@ -30,11 +33,28 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
     override fun ScaffoldContent(uiState: ForecastOverviewUiState) {
         ForecastOverviewContent(
             uiState = uiState,
-            itemsFlow = viewModel.itemsFlow,
+            refreshData = ::refreshData,
             navigateToAlerts = ::navigateToAlerts,
             navigateToDaily = ::navigateToDaily,
             navigateToHourly = ::navigateToHourly
         )
+    }
+
+    private suspend fun refreshData(
+        latitude: Double,
+        longitude: Double
+    ) {
+        val resource = viewModel.refreshData(
+            latitude = latitude,
+            longitude = longitude
+        )
+
+        if (resource is NBResource.Error) {
+            val snackbar = NBSnackbarModel(
+                message = resource.errorType.text
+            )
+            sendSnackbar(snackbar)
+        }
     }
 
     private fun navigateToSearch() {
@@ -42,8 +62,8 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
     }
 
     private fun navigateToAlerts(
-        latitude: Double?,
-        longitude: Double?
+        latitude: Double,
+        longitude: Double
     ) {
         val route = DestinationsForecast.Alerts.createRouteForNavigation(
             latitude = latitude,
@@ -54,8 +74,8 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
 
     private fun navigateToDaily(
         forecastTime: Long?,
-        latitude: Double?,
-        longitude: Double?
+        latitude: Double,
+        longitude: Double
     ) {
         val route = DestinationsForecast.Daily.createRouteForNavigation(
             forecastTime = forecastTime,
@@ -66,8 +86,8 @@ class ForecastOverviewFragment : NBFragment<ForecastOverviewUiState>() {
     }
 
     private fun navigateToHourly(
-        latitude: Double?,
-        longitude: Double?
+        latitude: Double,
+        longitude: Double
     ) {
         val route = DestinationsForecast.Hourly.createRouteForNavigation(
             latitude = latitude,

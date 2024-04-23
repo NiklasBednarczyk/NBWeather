@@ -21,8 +21,8 @@ object DestinationsForecast {
         )
 
         fun createRouteForNavigation(
-            latitude: Double?,
-            longitude: Double?
+            latitude: Double,
+            longitude: Double
         ): String {
             return createRouteForNavigation(
                 mapOf(
@@ -50,8 +50,8 @@ object DestinationsForecast {
 
         fun createRouteForNavigation(
             forecastTime: Long?,
-            latitude: Double?,
-            longitude: Double?
+            latitude: Double,
+            longitude: Double
         ): String {
             return createRouteForNavigation(
                 mapOf(
@@ -77,8 +77,8 @@ object DestinationsForecast {
         )
 
         fun createRouteForNavigation(
-            latitude: Double?,
-            longitude: Double?
+            latitude: Double,
+            longitude: Double
         ): String {
             return createRouteForNavigation(
                 mapOf(

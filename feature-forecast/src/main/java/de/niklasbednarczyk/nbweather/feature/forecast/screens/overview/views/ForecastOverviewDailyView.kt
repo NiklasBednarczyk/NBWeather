@@ -45,6 +45,7 @@ import kotlin.math.max
 @Composable
 fun ForecastOverviewDailyView(
     daily: ForecastOverviewDailyModel,
+    clickableEnabled: Boolean,
     navigateToDaily: (forecastTime: Long?) -> Unit
 ) {
     LazyRow(
@@ -55,6 +56,7 @@ fun ForecastOverviewDailyView(
             Item(
                 item = item,
                 calcFactor = daily::calcFactor,
+                clickableEnabled = clickableEnabled,
                 onClick = {
                     navigateToDaily(item.forecastTime.dt.value)
                 }
@@ -174,11 +176,15 @@ private fun DateWeekday(
 private fun Item(
     item: ForecastOverviewDailyItemModel,
     calcFactor: (Double) -> Float,
+    clickableEnabled: Boolean,
     onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
-            .clickable(onClick = onClick)
+            .clickable(
+                enabled = clickableEnabled,
+                onClick = onClick
+            )
             .padding(
                 vertical = columnVerticalArrangementSmallDp,
                 horizontal = rowHorizontalArrangementBigDp

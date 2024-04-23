@@ -2,6 +2,8 @@ package de.niklasbednarczyk.nbweather.test.common.tests
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.After
@@ -36,6 +38,12 @@ interface NBTest {
         val config = context.resources.configuration
         config.setLocale(locale)
         context.createConfigurationContext(config)
+    }
+
+    fun delayForDifferentTimestamps() {
+        runBlocking {
+            delay(2000L)
+        }
     }
 
     fun <T> assertValue(

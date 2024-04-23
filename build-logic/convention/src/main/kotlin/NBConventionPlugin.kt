@@ -150,10 +150,10 @@ internal interface NBConventionPlugin : Plugin<Project> {
     fun Project.getCommonExtensionOrNull(): CommonExtension<*, *, *, *, *, *>? {
         return try {
             extensions.getByType<LibraryExtension>()
-        } catch (e: Exception) {
+        } catch (throwable: Throwable) {
             try {
                 extensions.getByType<BaseAppModuleExtension>()
-            } catch (e: Exception) {
+            } catch (throwable: Throwable) {
                 null
             }
         }

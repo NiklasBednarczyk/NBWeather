@@ -8,7 +8,7 @@ value class NBTimezoneOffsetValue private constructor(val value: Long) {
     companion object {
 
         fun from(value: Long?): NBTimezoneOffsetValue? {
-            return nbNullSafe(value) { NBTimezoneOffsetValue(it) }
+            return nbNullSafe(value) { v -> NBTimezoneOffsetValue(v) }
         }
 
     }

@@ -45,7 +45,7 @@ class RoomOneCallDaoTest : NBRoomOneCallDaoTest<RoomOneCallDao, OneCallModelLoca
     }
 
     override fun insert(entity: OneCallModelLocal) {
-        subject.insertOneCall(entity.metadata)
+        subject.insertOneCallMetadata(entity.metadata)
 
         nbNullSafe(entity.currentWeather) { currentWeather ->
             currentWeatherDao.insertCurrentWeather(currentWeather)
@@ -69,10 +69,7 @@ class RoomOneCallDaoTest : NBRoomOneCallDaoTest<RoomOneCallDao, OneCallModelLoca
     }
 
     override fun delete(metadataId: Long) =
-        subject.deleteOneCall(
-            getLatLongFromMetadataId(metadataId),
-            getLatLongFromMetadataId(metadataId)
-        )
+        subject.deleteOneCallMetadata(metadataId)
 
     override fun createAct(metadataId: Long): Flow<OneCallModelLocal?> =
         subject.getOneCall(

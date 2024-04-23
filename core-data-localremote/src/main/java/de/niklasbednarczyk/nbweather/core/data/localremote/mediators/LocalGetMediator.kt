@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
-abstract class LocalMediator<Data, Local> : LocalMediatorHelper<Data, Local> {
+abstract class LocalGetMediator<Data, Local> : LocalMediatorHelper<Data, Local> {
 
     private fun mapToResource(local: Local?): NBResource<Data?> {
         val data = nbNullSafe(local) { localToData(it) }
