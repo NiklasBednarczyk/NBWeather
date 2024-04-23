@@ -2,7 +2,6 @@ package de.niklasbednarczyk.nbweather.core.ui.font
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.ExperimentalTextApi
-import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontVariation
@@ -47,26 +46,22 @@ val Typography.fontFamily: FontFamily?
 
 fun Typography.changeFontFamily(fontFamily: FontFamily?): Typography {
     if (fontFamily == null) return this
-    
-    val platformStyle = PlatformTextStyle(
-        includeFontPadding = false
-    )
 
     return Typography(
-        displayLarge = displayLarge.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        displayMedium = displayMedium.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        displaySmall = displaySmall.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        headlineLarge = headlineLarge.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        headlineMedium = headlineMedium.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        headlineSmall = headlineSmall.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        titleLarge = titleLarge.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        titleMedium = titleMedium.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        titleSmall = titleSmall.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        bodyLarge = bodyLarge.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        bodyMedium = bodyMedium.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        bodySmall = bodySmall.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        labelLarge = labelLarge.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        labelMedium = labelMedium.copy(fontFamily = fontFamily, platformStyle = platformStyle),
-        labelSmall = labelSmall.copy(fontFamily = fontFamily, platformStyle = platformStyle)
+        displayLarge = displayLarge.copy(fontFamily = fontFamily),
+        displayMedium = displayMedium.copy(fontFamily = fontFamily),
+        displaySmall = displaySmall.copy(fontFamily = fontFamily),
+        headlineLarge = headlineLarge.copy(fontFamily = fontFamily),
+        headlineMedium = headlineMedium.copy(fontFamily = fontFamily),
+        headlineSmall = headlineSmall.copy(fontFamily = fontFamily),
+        titleLarge = titleLarge.copy(fontFamily = fontFamily),
+        titleMedium = titleMedium.copy(fontFamily = fontFamily),
+        titleSmall = titleSmall.copy(fontFamily = fontFamily),
+        bodyLarge = bodyLarge.copy(fontFamily = fontFamily),
+        bodyMedium = bodyMedium.copy(fontFamily = fontFamily),
+        bodySmall = bodySmall.copy(fontFamily = fontFamily),
+        labelLarge = labelLarge.copy(fontFamily = fontFamily),
+        labelMedium = labelMedium.copy(fontFamily = fontFamily),
+        labelSmall = labelSmall.copy(fontFamily = fontFamily)
     )
 }
