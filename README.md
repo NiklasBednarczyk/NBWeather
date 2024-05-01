@@ -124,7 +124,7 @@ The app fully supports the following languages:
 |:--------:|:--------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------:|
 | New York | <img src="core-ui/src/main/res/drawable/country_flag_us.png" width="50" title="Country Flag United States" alt="Country Flag United States"> | Screenshots for the `en-US` locale on Google Play Store |
 |  Berlin  |       <img src="core-ui/src/main/res/drawable/country_flag_de.png" width="50" title="Country Flag Germany" alt="Country Flag Germany">       | Screenshots for the `de-DE` locale on Google Play Store |
-| Auckland |   <img src="core-ui/src/main/res/drawable/country_flag_nz.png" width="50" title="Country Flag New Zealand" alt="Country Flag New Zealand">   |                          Tests                          |
+|  Sydney  |     <img src="core-ui/src/main/res/drawable/country_flag_au.png" width="50" title="Country Flag Australia" alt="Country Flag Australia">     |                          Tests                          |
 
 #### Firebase Crashlytics
 
@@ -149,7 +149,7 @@ signingconfig.release.keypassword=<your key password>
 
 #### API key
 
-The `prod` product flavor requires an [OpenWeather API key](https://home.openweathermap.org/users/sign_in) in your `local.properties`:
+The `prod` product flavor requires an [OpenWeather API key](https://openweathermap.org/api) that can access **One Call API 3.0** and **Professional collections** in your `local.properties`:
 
 ```properties
 openweathermap.apiKey=<your OpenWeather API key>

@@ -8,7 +8,6 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.hasClickAction
-import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
@@ -163,11 +162,6 @@ interface NBComposeTest : NBTest {
         @StringRes resId: Int,
         substring: Boolean = false
     ) = waitUntilAtLeastOneExists(hasText(getString(resId), substring = substring))
-
-    fun ComposeContentTestRule.waitUntilAtLeastOneExistsWithTag(
-        testTag: String,
-        substring: Boolean = false
-    ) = waitUntilAtLeastOneExists(hasTestTag(testTag))
 
     fun ComposeContentTestRule.awaitIdleBlocking() = runBlocking {
         awaitIdle()

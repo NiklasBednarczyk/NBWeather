@@ -17,7 +17,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.typeconverters.TypeConve
         NationalWeatherAlertEntityLocal::class,
         OneCallMetadataEntityLocal::class
     ],
-    version = 2
+    version = 3
 )
 @TypeConverters(TypeConvertersLocal::class)
 abstract class DatabaseOneCall : RoomDatabase() {

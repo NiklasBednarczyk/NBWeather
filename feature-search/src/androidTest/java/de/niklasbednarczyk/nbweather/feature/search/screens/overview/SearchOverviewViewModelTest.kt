@@ -21,7 +21,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         private val LAT_LONG_1 = Pair(40.7127281, -74.0060152)
         private val LAT_LONG_2 = Pair(52.5170365, 13.3888599)
 
-        private const val SEARCH_QUERY = "Auckland"
+        private const val SEARCH_QUERY = "Sydney"
     }
 
     private lateinit var subject: SearchOverviewViewModel

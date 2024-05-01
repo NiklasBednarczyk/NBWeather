@@ -160,8 +160,8 @@ class OneCallRepository @Inject constructor(
             latitude = latitude,
             longitude = longitude,
             exclude = ConstantsCoreRemote.Query.Exclude.VALUE,
-            language = ConstantsCoreRemote.Query.Language.VALUE,
-            units = ConstantsCoreRemote.Query.Units.VALUE
+            units = ConstantsCoreRemote.Query.Units.VALUE,
+            language = ConstantsCoreRemote.Query.Language.VALUE
         )
     }
 

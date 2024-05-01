@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.data.onecall.models
 
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
+import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.DailyForecastEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.models.common.WeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.daily.DailyFeelsLikeTemperatureModelData
@@ -27,6 +28,7 @@ data class DailyForecastModelData(
     val moonrise: NBDateTimeValue?,
     val moonset: NBDateTimeValue?,
     val moonPhase: MoonPhaseType?,
+    val summary: NBString?,
     val temperature: DailyTemperatureModelData?,
     val feelsLikeTemperature: DailyFeelsLikeTemperatureModelData?,
     val pressure: PressureForecastValue?,
@@ -56,6 +58,7 @@ data class DailyForecastModelData(
                     moonrise = NBDateTimeValue.from(l.moonrise),
                     moonset = NBDateTimeValue.from(l.moonset),
                     moonPhase = MoonPhaseType.from(l.moonPhase),
+                    summary = NBString.Value.from(l.summary),
                     temperature = DailyTemperatureModelData.localToData(l.temp),
                     feelsLikeTemperature = DailyFeelsLikeTemperatureModelData.localToData(l.feelsLike),
                     pressure = PressureForecastValue.from(l.pressure),
@@ -87,6 +90,7 @@ data class DailyForecastModelData(
                     moonrise = r.moonrise,
                     moonset = r.moonset,
                     moonPhase = r.moonPhase,
+                    summary = r.summary,
                     temp = DailyTemperatureModelData.remoteToLocal(r.temp),
                     feelsLike = DailyFeelsLikeTemperatureModelData.remoteToLocal(r.feelsLike),
                     pressure = r.pressure,
@@ -100,7 +104,7 @@ data class DailyForecastModelData(
                     pop = r.pop,
                     rain = r.rain,
                     snow = r.snow,
-                    weather = WeatherModelData.remoteToLocal(r.weather?.firstOrNull())
+                    weather = WeatherModelData.remoteToLocal(r.weather)
                 )
             }
         }

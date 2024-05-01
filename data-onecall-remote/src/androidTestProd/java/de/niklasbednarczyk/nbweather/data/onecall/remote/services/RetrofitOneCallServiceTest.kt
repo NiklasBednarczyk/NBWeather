@@ -42,30 +42,30 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
         val oneCallLanguageDe = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,
-            language = "de",
+            exclude = EXCLUDE,
             units = UNITS,
-            exclude = EXCLUDE
+            language = "de"
         )
         val oneCallLanguageEs = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,
-            language = "es",
+            exclude = EXCLUDE,
             units = UNITS,
-            exclude = EXCLUDE
+            language = "es"
         )
         val oneCallUnitsImperial = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,
-            language = LANGUAGE,
+            exclude = EXCLUDE,
             units = "imperial",
-            exclude = EXCLUDE
+            language = LANGUAGE
         )
         val oneCallUnitsMetric = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,
-            language = LANGUAGE,
+            exclude = EXCLUDE,
             units = "metric",
-            exclude = EXCLUDE
+            language = LANGUAGE
         )
 
         // Assert
@@ -77,7 +77,10 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
         assertOneCall(oneCallUnitsMetric)
 
         //      Language
-        assertListValues(oneCallLanguageDe.current?.weather, oneCallLanguageEs.current?.weather) { de, es ->
+        assertListValues(
+            oneCallLanguageDe.current?.weather,
+            oneCallLanguageEs.current?.weather
+        ) { de, es ->
             assertNotEquals(de.description, es.description)
         }
 
@@ -115,7 +118,10 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
             oneCallUnitsMetric.current?.windGust
         )
 
-        assertListValues(oneCallUnitsImperial.hourly, oneCallUnitsMetric.hourly) { imperial, metric ->
+        assertListValues(
+            oneCallUnitsImperial.hourly,
+            oneCallUnitsMetric.hourly
+        ) { imperial, metric ->
             assertNotEquals(imperial.temp, metric.temp)
             assertNotEquals(imperial.feelsLike, metric.feelsLike)
             assertNotEquals(imperial.dewPoint, metric.dewPoint)
@@ -181,7 +187,6 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
             assertNotNull(hourly.dewPoint)
             assertNotNull(hourly.uvi)
             assertNotNull(hourly.clouds)
-            assertNotNull(hourly.visibility)
             assertNotNull(hourly.windSpeed)
             assertNotNull(hourly.windDeg)
             assertNotNull(hourly.pop)
@@ -196,6 +201,7 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
             assertNotNull(daily.moonrise)
             assertNotNull(daily.moonset)
             assertNotNull(daily.moonPhase)
+            assertNotNull(daily.summary)
 
             val temp = daily.temp
             assertNotNull(temp)

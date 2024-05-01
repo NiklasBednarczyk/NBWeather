@@ -84,6 +84,7 @@ abstract class NBRoomOneCallDaoTest<Dao : Any, Entity> : NBDaoTest<DatabaseOneCa
             moonrise = null,
             moonset = null,
             moonPhase = null,
+            summary = null,
             temp = null,
             feelsLike = null,
             pressure = null,

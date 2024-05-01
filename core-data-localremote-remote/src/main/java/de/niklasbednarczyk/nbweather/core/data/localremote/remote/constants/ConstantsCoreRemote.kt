@@ -45,7 +45,7 @@ object ConstantsCoreRemote {
     }
 
     internal object Url {
-        const val DATA = "https://api.openweathermap.org/data/2.5/"
+        const val DATA = "https://api.openweathermap.org/data/3.0/"
         const val GEO = "https://api.openweathermap.org/geo/1.0/"
     }
 }

@@ -14,9 +14,9 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.SnowForecastVa
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.TemperatureForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.UVIndexForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.VisibilityForecastValue
+import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindGustForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindSpeedForecastValue
-import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
 
 data class CurrentWeatherModelData(
     val currentTime: NBDateTimeValue?,
@@ -86,7 +86,7 @@ data class CurrentWeatherModelData(
                 windDeg = remote?.windDeg,
                 rain1h = remote?.rain?.oneH,
                 snow1h = remote?.snow?.oneH,
-                weather = WeatherModelData.remoteToLocal(remote?.weather?.firstOrNull())
+                weather = WeatherModelData.remoteToLocal(remote?.weather)
             )
         }
 

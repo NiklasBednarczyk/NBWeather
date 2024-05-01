@@ -8,8 +8,8 @@ interface NBOneCallService {
         latitude: Double,
         longitude: Double,
         exclude: String,
-        language: String,
-        units: String
+        units: String,
+        language: String
     ): OneCallModelRemote
 
 }

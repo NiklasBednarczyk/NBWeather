@@ -146,6 +146,7 @@ class OneCallModelsTest : NBTest {
             assertValue(dailyLocal.moonrise, dailyData.moonrise?.value)
             assertValue(dailyLocal.moonset, dailyData.moonset?.value)
             assertValue(MoonPhaseType.NEW_MOON, dailyData.moonPhase)
+            assertValue(dailyLocal.summary, dailyData.summary.asString(context))
             assertValue(
                 dailyLocal.temp?.morn,
                 dailyData.temperature?.morningTemperature?.unitsValue?.value
@@ -339,6 +340,7 @@ class OneCallModelsTest : NBTest {
             assertValue(dailyRemote.moonrise, dailyLocal.moonrise)
             assertValue(dailyRemote.moonset, dailyLocal.moonset)
             assertValue(dailyRemote.moonPhase, dailyLocal.moonPhase)
+            assertValue(dailyRemote.summary, dailyLocal.summary)
             assertValue(dailyRemote.temp?.morn, dailyLocal.temp?.morn)
             assertValue(dailyRemote.temp?.day, dailyLocal.temp?.day)
             assertValue(dailyRemote.temp?.eve, dailyLocal.temp?.eve)
@@ -476,6 +478,7 @@ class OneCallModelsTest : NBTest {
                 moonrise = id + 3,
                 moonset = id + 4,
                 moonPhase = MOON_PHASE_NEW_MOON,
+                summary = "$id summary",
                 temp = DailyTemperatureModelLocal(
                     morn = id + 5.0,
                     day = id + 6.0,
@@ -633,6 +636,7 @@ class OneCallModelsTest : NBTest {
                 moonrise = id + 3,
                 moonset = id + 4,
                 moonPhase = id + 5.0,
+                summary = "$id summary",
                 temp = DailyTemperatureModelRemote(
                     morn = id + 6.0,
                     day = id + 7.0,

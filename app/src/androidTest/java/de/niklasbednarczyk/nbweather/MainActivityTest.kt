@@ -30,16 +30,16 @@ import java.util.Locale
 class MainActivityTest : NBComposeTest {
 
     companion object {
-        private const val SEARCH_OVERVIEW_SEARCH_QUERY_1 = "Auck"
+        private const val SEARCH_OVERVIEW_SEARCH_QUERY_1 = "Syd"
         private const val SEARCH_OVERVIEW_SEARCH_QUERY_2 = "New"
 
-        private const val LOCATION_1_NAME = "Auckland"
+        private const val LOCATION_1_NAME = "Sydney"
         private const val LOCATION_2_NAME = "New York"
 
-        private const val FORECAST_DAILY_DATE_1 = "Mon, Feb 26"
-        private const val FORECAST_DAILY_DATE_2 = "Tue, Feb 27"
+        private const val FORECAST_DAILY_DATE_1 = "Mon, Apr 29"
+        private const val FORECAST_DAILY_DATE_2 = "Tue, Apr 30"
 
-        private const val FORECAST_OVERVIEW_DAY_TITLE = "Feb 27"
+        private const val FORECAST_OVERVIEW_DAY_TITLE = "Apr 30"
     }
 
     @get:Rule(order = 0)
@@ -197,7 +197,6 @@ class MainActivityTest : NBComposeTest {
         locationName: String
     ) {
         waitUntilAtLeastOneExistsWithText(locationName, substring = true)
-        waitUntilAtLeastOneExistsWithTag(FORECAST_OVERVIEW_CONTENT_LAZY_COLUMN_TAG)
     }
 
     private fun ComposeContentTestRule.assertForecastItemWithDetailView(

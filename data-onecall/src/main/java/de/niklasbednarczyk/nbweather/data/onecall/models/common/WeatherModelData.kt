@@ -25,9 +25,9 @@ data class WeatherModelData(
         }
 
         fun remoteToLocal(
-            remote: WeatherModelRemote?,
+            remote: List<WeatherModelRemote>?,
         ): WeatherModelLocal? {
-            return nbNullSafe(remote) { r ->
+            return nbNullSafe(remote?.firstOrNull()) { r ->
                 WeatherModelLocal(
                     id = r.id,
                     main = r.main,

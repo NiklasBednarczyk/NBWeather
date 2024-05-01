@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.remote.services
 
 import android.content.Context
+import de.niklasbednarczyk.nbweather.core.common.coordinates.areCoordinatesApproximatelyTheSame
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.services.NBFakeService
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
 
@@ -33,11 +34,12 @@ class FakeGeocodingService(
     ): List<LocationModelRemote> {
         return items
             .filter { location ->
-                val lat = latitude.toInt()
-                val lon = longitude.toInt()
-                val locationLat = location.lat.toInt()
-                val locationLon = location.lon.toInt()
-                lat == locationLat && lon == locationLon
+                areCoordinatesApproximatelyTheSame(
+                    latitude1 = location.lat,
+                    longitude1 = location.lon,
+                    latitude2 = latitude,
+                    longitude2 = longitude
+                )
             }
             .take(limit)
     }

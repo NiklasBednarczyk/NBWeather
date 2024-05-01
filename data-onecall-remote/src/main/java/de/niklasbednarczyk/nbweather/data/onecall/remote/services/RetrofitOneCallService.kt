@@ -13,8 +13,8 @@ interface RetrofitOneCallService : NBOneCallService {
         @Query(ConstantsCoreRemote.Query.Latitude.NAME) latitude: Double,
         @Query(ConstantsCoreRemote.Query.Longitude.NAME) longitude: Double,
         @Query(ConstantsCoreRemote.Query.Exclude.NAME) exclude: String,
-        @Query(ConstantsCoreRemote.Query.Language.NAME) language: String,
-        @Query(ConstantsCoreRemote.Query.Units.NAME) units: String
+        @Query(ConstantsCoreRemote.Query.Units.NAME) units: String,
+        @Query(ConstantsCoreRemote.Query.Language.NAME) language: String
     ): OneCallModelRemote
 
 }

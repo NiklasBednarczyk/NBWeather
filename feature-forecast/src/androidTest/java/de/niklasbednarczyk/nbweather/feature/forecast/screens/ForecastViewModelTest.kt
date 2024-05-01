@@ -8,9 +8,9 @@ interface ForecastViewModelTest : NBViewModelTest {
         get() = 1
 
     val latitude: Double
-        get() = -36.852095
+        get() = -33.8698439
 
     val longitude: Double
-        get() = 174.7631803
+        get() = 151.2082848
 
 }

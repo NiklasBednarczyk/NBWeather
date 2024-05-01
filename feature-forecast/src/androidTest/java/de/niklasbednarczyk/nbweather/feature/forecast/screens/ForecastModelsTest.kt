@@ -227,6 +227,7 @@ interface ForecastModelsTest : NBTest {
         moonriseValue: Long? = testStartDateValue.addHours(1),
         moonsetValue: Long? = testEndDateValue.addHours(1),
         moonPhase: MoonPhaseType? = MoonPhaseType.FULL_MOON,
+        summary: String? = "Summary",
         temperatureMorningValue: Double? = 1.0,
         temperatureDayValue: Double? = 2.0,
         temperatureEveningValue: Double? = 3.0,
@@ -258,6 +259,7 @@ interface ForecastModelsTest : NBTest {
             moonrise = NBDateTimeValue.from(moonriseValue),
             moonset = NBDateTimeValue.from(moonsetValue),
             moonPhase = moonPhase,
+            summary = createNBString(summary),
             temperature = DailyTemperatureModelData(
                 morningTemperature = TemperatureForecastValue.from(temperatureMorningValue),
                 dayTemperature = TemperatureForecastValue.from(temperatureDayValue),
@@ -303,6 +305,7 @@ interface ForecastModelsTest : NBTest {
                 moonrise = NBDateTimeValue.from(testStartDateValue.addHours(index + 1)),
                 moonset = NBDateTimeValue.from(testEndDateValue.addHours(index + 1)),
                 moonPhase = MoonPhaseType.entries[index],
+                summary = createNBString("Summary $index"),
                 temperature = DailyTemperatureModelData(
                     morningTemperature = TemperatureForecastValue.from(index + 1.0),
                     dayTemperature = TemperatureForecastValue.from(index + 2.0),

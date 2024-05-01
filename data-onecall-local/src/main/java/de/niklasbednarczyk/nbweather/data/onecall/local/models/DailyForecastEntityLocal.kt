@@ -19,6 +19,7 @@ data class DailyForecastEntityLocal(
     val moonrise: Long?,
     val moonset: Long?,
     val moonPhase: Double?,
+    val summary: String?,
     @Embedded(prefix = "temp_") val temp: DailyTemperatureModelLocal?,
     @Embedded(prefix = "feelsLike_") val feelsLike: DailyFeelsLikeTemperatureModelLocal?,
     val pressure: Long?,

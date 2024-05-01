@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.onecall.remote.services
 
 import android.content.Context
+import de.niklasbednarczyk.nbweather.core.common.coordinates.areCoordinatesApproximatelyTheSame
 import de.niklasbednarczyk.nbweather.core.data.localremote.remote.services.NBFakeService
 import de.niklasbednarczyk.nbweather.data.onecall.remote.models.OneCallModelRemote
 
@@ -16,11 +17,16 @@ class FakeOneCallService(
         latitude: Double,
         longitude: Double,
         exclude: String,
-        language: String,
-        units: String
+        units: String,
+        language: String
     ): OneCallModelRemote {
         return items.first { oneCall ->
-            oneCall.lat == latitude && oneCall.lon == longitude
+            areCoordinatesApproximatelyTheSame(
+                latitude1 = oneCall.lat,
+                longitude1 = oneCall.lon,
+                latitude2 = latitude,
+                longitude2 = longitude
+            )
         }
     }
 
