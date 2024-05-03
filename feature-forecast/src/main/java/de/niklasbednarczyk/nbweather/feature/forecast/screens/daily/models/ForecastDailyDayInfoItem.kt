@@ -1,11 +1,11 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models
 
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
-import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.TemperatureForecastValue
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 
 sealed interface ForecastDailyDayInfoItem {
 
@@ -24,11 +24,7 @@ sealed interface ForecastDailyDayInfoItem {
     ) : ForecastDailyDayInfoItem
 
     data class SunAndMoon(
-        val sunrise: NBDateTimeDisplayModel,
-        val sunset: NBDateTimeDisplayModel,
-        val moonrise: NBDateTimeDisplayModel,
-        val moonset: NBDateTimeDisplayModel,
-        val moonPhase: MoonPhaseType
+        val items: List<SunAndMoonItem>
     ) : ForecastDailyDayInfoItem
 
 }

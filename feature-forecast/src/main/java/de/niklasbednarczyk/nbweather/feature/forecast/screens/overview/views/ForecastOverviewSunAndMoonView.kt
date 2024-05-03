@@ -32,6 +32,7 @@ import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSunAndMoonModel
 import de.niklasbednarczyk.nbweather.feature.forecast.views.MoonPhaseGridView
 import de.niklasbednarczyk.nbweather.feature.forecast.views.MoonTimesGridView
@@ -49,26 +50,37 @@ fun ForecastOverviewSunAndMoonView(
         verticalArrangement = columnVerticalArrangementBig,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SunArc(
-            sunArcPercentage = sunAndMoon.sunArcPercentage,
-            sunrise = sunAndMoon.sunrise,
-            sunset = sunAndMoon.sunset
-        )
-        MoonTimesGridView(
-            moonrise = sunAndMoon.moonrise,
-            moonset = sunAndMoon.moonset
-        )
-        MoonPhaseGridView(
-            moonPhase = sunAndMoon.moonPhase
-        )
+        sunAndMoon.items.forEach { item ->
+            when (item) {
+                is SunAndMoonItem.MoonPhase -> {
+                    MoonPhaseGridView(
+                        moonPhase = item
+                    )
+                }
+
+                is SunAndMoonItem.MoonTimes -> {
+                    MoonTimesGridView(
+                        moonTimes = item
+                    )
+                }
+
+                is SunAndMoonItem.SunTimes -> {
+                    SunTimesArc(
+                        sunTimes = item,
+                        currentTime = sunAndMoon.currentTime
+                    )
+                }
+            }
+        }
+
+
     }
 }
 
 @Composable
-private fun SunArc(
-    sunArcPercentage: Float,
-    sunrise: NBDateTimeDisplayModel,
-    sunset: NBDateTimeDisplayModel,
+private fun SunTimesArc(
+    sunTimes: SunAndMoonItem.SunTimes,
+    currentTime: NBDateTimeDisplayModel,
     icon: NBIconItem = NBIcons.Sun,
     arcBackgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     arcForegroundColor: Color = NBColors.colors.sunArc,
@@ -88,6 +100,10 @@ private fun SunArc(
     arcBackgroundSweepAngle: Float = 180f,
     arcAngleDegrees: Double = 270.0
 ) {
+    val sunrise = sunTimes.sunrise
+    val sunset = sunTimes.sunset
+    val sunArcPercentage = sunTimes.calcSunArcPercentage(currentTime)
+
     with(LocalDensity.current) {
         val widthPx = remember { width.toPx() }
         val arcRadiusMinPx = remember { arcRadiusMin.toPx() }

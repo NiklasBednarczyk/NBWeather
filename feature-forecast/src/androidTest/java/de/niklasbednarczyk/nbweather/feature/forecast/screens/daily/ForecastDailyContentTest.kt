@@ -11,6 +11,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.TemperatureFor
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesForecastValue
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.displayText
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models.ForecastDailyDayInfoItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models.ForecastDailyDayModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models.ForecastDailyViewData
@@ -22,6 +23,12 @@ class ForecastDailyContentTest : NBComposableTest() {
     @Test
     fun viewDataResource_shouldRenderCorrectly() {
         // Arrange
+        val sunrise = createNBDateTimeModel(timezoneOffsetHours = 1)
+        val sunset = createNBDateTimeModel(timezoneOffsetHours = 2)
+        val moonrise = createNBDateTimeModel(timezoneOffsetHours = 3)
+        val moonset = createNBDateTimeModel(timezoneOffsetHours = 4)
+        val moonPhase = MoonPhaseType.WANING_CRESCENT_3
+
         val forecasts = ForecastDailyDayInfoItem.Forecasts(
             forecastValues = listOfNotNull(
                 PressureForecastValue.from(1L),
@@ -37,11 +44,19 @@ class ForecastDailyContentTest : NBComposableTest() {
             maxTemperature = TemperatureForecastValue.from(10.0)!!
         )
         val sunAndMoon = ForecastDailyDayInfoItem.SunAndMoon(
-            sunrise = createNBDateTimeModel(),
-            sunset = createNBDateTimeModel(timezoneOffsetHours = 5L),
-            moonrise = createNBDateTimeModel(timezoneOffsetHours = 2L),
-            moonset = createNBDateTimeModel(timezoneOffsetHours = 7L),
-            moonPhase = MoonPhaseType.WANING_CRESCENT_3
+            items = listOf(
+                SunAndMoonItem.MoonPhase(
+                    moonPhase = moonPhase
+                ),
+                SunAndMoonItem.MoonTimes(
+                    moonrise = moonrise,
+                    moonset = moonset
+                ),
+                SunAndMoonItem.SunTimes(
+                    sunrise = sunrise,
+                    sunset = sunset
+                )
+            )
         )
         val infoItems = listOf(
             forecasts,
@@ -86,19 +101,18 @@ class ForecastDailyContentTest : NBComposableTest() {
             onNodeWithIcon(NBIcons.MaxTemperature)
                 .assertIsDisplayed()
 
-            onNodeWithText(sunAndMoon.sunrise.getTime(context))
+            onNodeWithText(sunrise.getTime(context))
                 .assertIsDisplayed()
-            onNodeWithText(sunAndMoon.sunset.getTime(context))
+            onNodeWithText(sunset.getTime(context))
                 .assertIsDisplayed()
-            onNodeWithText(sunAndMoon.moonrise.getTime(context))
+            onNodeWithText(moonrise.getTime(context))
                 .assertIsDisplayed()
-            onNodeWithText(sunAndMoon.moonset.getTime(context))
+            onNodeWithText(moonset.getTime(context))
                 .assertIsDisplayed()
-            onNodeWithIcon(sunAndMoon.moonPhase.icon)
+            onNodeWithIcon(moonPhase.icon)
                 .assertIsDisplayed()
 
         }
     }
-
 
 }

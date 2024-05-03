@@ -1,7 +1,7 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.constants
 
-import de.niklasbednarczyk.nbweather.feature.forecast.models.ForecastLimitValue
-import de.niklasbednarczyk.nbweather.feature.forecast.models.ForecastUnitsLimitsItem
+import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastLimitValue
+import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastUnitsLimitsItem
 
 object ForecastUnitsLimits {
 

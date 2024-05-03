@@ -5,13 +5,13 @@ import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastViewModelTest
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertNull
 
-class ForecastAlertsViewModelTest : ForecastViewModelTest {
+class ForecastAlertsViewModelTest : NBForecastViewModelTest {
 
     private lateinit var subjectWithoutArgs: ForecastAlertsViewModel
     private lateinit var subjectWithArgs: ForecastAlertsViewModel

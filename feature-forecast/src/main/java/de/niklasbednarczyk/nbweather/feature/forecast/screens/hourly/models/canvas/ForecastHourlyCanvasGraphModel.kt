@@ -4,8 +4,8 @@ import androidx.compose.ui.graphics.Color
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.feature.forecast.models.ForecastUnitsLimitsItem
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ForecastValue
+import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastUnitsLimitsItem
 
 data class ForecastHourlyCanvasGraphModel(
     private val name: NBString,

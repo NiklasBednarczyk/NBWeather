@@ -15,7 +15,7 @@ value class WindDegreesForecastValue private constructor(val value: Long) : Fore
     companion object {
 
         fun from(value: Long?): WindDegreesForecastValue? {
-            return nbNullSafe(value) { WindDegreesForecastValue(it) }
+            return nbNullSafe(value) { v -> WindDegreesForecastValue(v) }
         }
 
     }

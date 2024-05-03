@@ -4,13 +4,14 @@ import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
 import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastModelsTest
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastModelsTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class ForecastDailyModelsTest : ForecastModelsTest {
+class ForecastDailyModelsTest : NBForecastModelsTest {
 
     @Test
     fun dayInfoItem_forecasts_shouldConvertCorrectly() {
@@ -263,61 +264,6 @@ class ForecastDailyModelsTest : ForecastModelsTest {
             )
         )
 
-        testDayInfoItemExpectedNull(
-            klass = klass,
-            dailyForecast = createTestDailyForecast(
-                sunriseValue = null,
-                sunsetValue = 2,
-                moonriseValue = 3,
-                moonsetValue = 4,
-                moonPhase = MoonPhaseType.NEW_MOON
-            )
-        )
-
-        testDayInfoItemExpectedNull(
-            klass = klass,
-            dailyForecast = createTestDailyForecast(
-                sunriseValue = 1,
-                sunsetValue = null,
-                moonriseValue = 3,
-                moonsetValue = 4,
-                moonPhase = MoonPhaseType.NEW_MOON
-            )
-        )
-
-        testDayInfoItemExpectedNull(
-            klass = klass,
-            dailyForecast = createTestDailyForecast(
-                sunriseValue = 1,
-                sunsetValue = 2,
-                moonriseValue = null,
-                moonsetValue = 4,
-                moonPhase = MoonPhaseType.NEW_MOON
-            )
-        )
-
-        testDayInfoItemExpectedNull(
-            klass = klass,
-            dailyForecast = createTestDailyForecast(
-                sunriseValue = 1,
-                sunsetValue = 2,
-                moonriseValue = 3,
-                moonsetValue = null,
-                moonPhase = MoonPhaseType.NEW_MOON
-            )
-        )
-
-        testDayInfoItemExpectedNull(
-            klass = klass,
-            dailyForecast = createTestDailyForecast(
-                sunriseValue = 1,
-                sunsetValue = 2,
-                moonriseValue = 3,
-                moonsetValue = 4,
-                moonPhase = null
-            )
-        )
-
         testDayInfoItemExpectedNotNull(
             klass = klass,
             dailyForecast = createTestDailyForecast(
@@ -328,11 +274,20 @@ class ForecastDailyModelsTest : ForecastModelsTest {
                 moonPhase = MoonPhaseType.NEW_MOON
             ),
             assertInfoItem = { dailyForecast, infoItem ->
-                assertEquals(dailyForecast.sunrise?.value, infoItem.sunrise.dt.value)
-                assertEquals(dailyForecast.sunset?.value, infoItem.sunset.dt.value)
-                assertEquals(dailyForecast.moonrise?.value, infoItem.moonrise.dt.value)
-                assertEquals(dailyForecast.moonset?.value, infoItem.moonset.dt.value)
-                assertEquals(dailyForecast.moonPhase, infoItem.moonPhase)
+                assertListHasSize(infoItem.items, 3)
+
+                val moonPhase =
+                    infoItem.items.getFirstItemFromList(SunAndMoonItem.MoonPhase::class.java)
+                val moonTimes =
+                    infoItem.items.getFirstItemFromList(SunAndMoonItem.MoonTimes::class.java)
+                val sunTimes =
+                    infoItem.items.getFirstItemFromList(SunAndMoonItem.SunTimes::class.java)
+
+                assertEquals(dailyForecast.sunrise?.value, sunTimes.sunrise.dt.value)
+                assertEquals(dailyForecast.sunset?.value, sunTimes.sunset.dt.value)
+                assertEquals(dailyForecast.moonrise?.value, moonTimes.moonrise.dt.value)
+                assertEquals(dailyForecast.moonset?.value, moonTimes.moonset.dt.value)
+                assertEquals(dailyForecast.moonPhase, moonPhase.moonPhase)
             }
         )
     }
@@ -559,7 +514,7 @@ class ForecastDailyModelsTest : ForecastModelsTest {
             klass = klass
         )
 
-        assertInfoItem(dailyForecast, infoItems.filterIsInstance(klass).first())
+        assertInfoItem(dailyForecast, infoItems.getFirstItemFromList(klass))
 
         testDividerList(
             items = infoItems,

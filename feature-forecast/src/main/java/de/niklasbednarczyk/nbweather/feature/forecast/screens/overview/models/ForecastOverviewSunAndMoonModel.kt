@@ -5,27 +5,12 @@ import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.models.CurrentWeatherModelData
 import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
-import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 
 data class ForecastOverviewSunAndMoonModel(
-    private val currentTime: NBDateTimeDisplayModel,
-    val sunrise: NBDateTimeDisplayModel,
-    val sunset: NBDateTimeDisplayModel,
-    val moonrise: NBDateTimeDisplayModel,
-    val moonset: NBDateTimeDisplayModel,
-    val moonPhase: MoonPhaseType
+    val currentTime: NBDateTimeDisplayModel,
+    val items: List<SunAndMoonItem>
 ) : ForecastOverviewItem {
-
-    val sunArcPercentage: Float
-        get() {
-            val current = currentTime.dt.value
-            val min = sunrise.dt.value
-            val max = sunset.dt.value
-
-            val spanMinMax = max - min
-            val spanCurrent = current - min
-            return spanCurrent.toFloat() / spanMinMax
-        }
 
     companion object {
 
@@ -34,23 +19,17 @@ data class ForecastOverviewSunAndMoonModel(
             currentWeather: CurrentWeatherModelData?,
             today: DailyForecastModelData?
         ): ForecastOverviewSunAndMoonModel? {
+            val sunAndMoonItems = SunAndMoonItem.from(
+                timezoneOffset = timezoneOffset,
+                dailyForecast = today
+            )
             return nbNullSafe(
                 NBDateTimeDisplayModel.from(currentWeather?.currentTime, timezoneOffset),
-                NBDateTimeDisplayModel.from(today?.sunrise, timezoneOffset),
-                NBDateTimeDisplayModel.from(today?.sunset, timezoneOffset),
-                NBDateTimeDisplayModel.from(today?.moonrise, timezoneOffset),
-                NBDateTimeDisplayModel.from(today?.moonset, timezoneOffset),
-                today?.moonPhase
-            ) { currentTime, sunrise, sunset, moonrise, moonset, moonPhase ->
-                if (sunrise.dt.value >= sunset.dt.value) return null
-
+                sunAndMoonItems
+            ) { currentTime, items ->
                 ForecastOverviewSunAndMoonModel(
                     currentTime = currentTime,
-                    sunrise = sunrise,
-                    sunset = sunset,
-                    moonrise = moonrise,
-                    moonset = moonset,
-                    moonPhase = moonPhase
+                    items = items
                 )
             }
         }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.*
 abstract class LocalGetMediator<Data, Local> : LocalMediatorHelper<Data, Local> {
 
     private fun mapToResource(local: Local?): NBResource<Data?> {
-        val data = nbNullSafe(local) { localToData(it) }
+        val data = nbNullSafe(local) { l -> localToData(l) }
         return NBResource.Success(data)
     }
 

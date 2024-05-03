@@ -26,7 +26,7 @@ tasks.withType(DependencyUpdatesTask::class) {
 
 fun isStableVersion(version: String): Boolean {
     val stableKeyword =
-        listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+        listOf("RELEASE", "FINAL", "GA").any { keyword -> version.uppercase().contains(keyword) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     return stableKeyword || regex.matches(version)
 }

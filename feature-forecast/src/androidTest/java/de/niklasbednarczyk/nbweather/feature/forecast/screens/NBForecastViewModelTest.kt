@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens
 
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 
-interface ForecastViewModelTest : NBViewModelTest {
+interface NBForecastViewModelTest : NBViewModelTest {
 
     val forecastTime: Long
         get() = 1

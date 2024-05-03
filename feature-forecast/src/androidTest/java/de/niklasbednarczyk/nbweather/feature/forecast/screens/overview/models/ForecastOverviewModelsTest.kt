@@ -6,7 +6,8 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asStr
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherConditionType
 import de.niklasbednarczyk.nbweather.data.onecall.types.weather.WeatherIconType
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastModelsTest
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastModelsTest
 import org.junit.Test
 import java.util.Locale
 import kotlin.test.assertEquals
@@ -14,7 +15,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 
-class ForecastOverviewModelsTest : ForecastModelsTest {
+class ForecastOverviewModelsTest : NBForecastModelsTest {
 
     @Test
     fun alerts_shouldConvertCorrectly() {
@@ -711,118 +712,51 @@ class ForecastOverviewModelsTest : ForecastModelsTest {
     fun sunAndMoon_shouldConvertCorrectly() {
         // Arrange
         val currentWeather = createTestCurrentWeather()
-        val todaySunriseAfterSunset = createTestDailyForecast(
-            sunriseValue = 2L,
-            sunsetValue = 1L
-        )
-        val todaySunriseBeforeSunset = createTestDailyForecast()
+        val today = createTestDailyForecast()
 
         // Act
-        val sunAndMoonNull = ForecastOverviewSunAndMoonModel.from(
+        val sunAndMoonAllNull = ForecastOverviewSunAndMoonModel.from(
             timezoneOffset = testTimezoneOffset,
             currentWeather = null,
             today = null
         )
-        val sunAndMoonSunriseAfterSunset = ForecastOverviewSunAndMoonModel.from(
+        val sunAndMoonNullAndNotNull = ForecastOverviewSunAndMoonModel.from(
             timezoneOffset = testTimezoneOffset,
-            currentWeather = currentWeather,
-            today = todaySunriseAfterSunset
+            currentWeather = null,
+            today = today
         )
-        val sunAndMoonSunriseBeforeSunset = ForecastOverviewSunAndMoonModel.from(
+        val sunAndMoonNotNullAndNull = ForecastOverviewSunAndMoonModel.from(
             timezoneOffset = testTimezoneOffset,
             currentWeather = currentWeather,
-            today = todaySunriseBeforeSunset
+            today = null
+        )
+        val sunAndMoonAllNotNull = ForecastOverviewSunAndMoonModel.from(
+            timezoneOffset = testTimezoneOffset,
+            currentWeather = currentWeather,
+            today = today
         )
 
         // Assert
-        assertNull(sunAndMoonNull)
+        assertNull(sunAndMoonAllNull)
 
-        assertNull(sunAndMoonSunriseAfterSunset)
+        assertNull(sunAndMoonNullAndNotNull)
 
-        assertNotNull(sunAndMoonSunriseBeforeSunset)
-        assertEquals(
-            todaySunriseBeforeSunset.sunrise?.value,
-            sunAndMoonSunriseBeforeSunset.sunrise.dt.value
-        )
-        assertEquals(
-            todaySunriseBeforeSunset.sunset?.value,
-            sunAndMoonSunriseBeforeSunset.sunset.dt.value
-        )
-        assertEquals(
-            todaySunriseBeforeSunset.moonrise?.value,
-            sunAndMoonSunriseBeforeSunset.moonrise.dt.value
-        )
-        assertEquals(
-            todaySunriseBeforeSunset.moonset?.value,
-            sunAndMoonSunriseBeforeSunset.moonset.dt.value
-        )
-        assertEquals(
-            todaySunriseBeforeSunset.moonPhase,
-            sunAndMoonSunriseBeforeSunset.moonPhase
-        )
-    }
+        assertNull(sunAndMoonNotNullAndNull)
 
-    @Test
-    fun sunAndMoon_sunArcPercentage_shouldConvertCorrectly() {
-        // Arrange
-        val today = createTestDailyForecast(
-            sunriseValue = 1L,
-            sunsetValue = 3L
-        )
-
-        val currentWeather0 = createTestCurrentWeather(
-            currentTimeValue = 0L
-        )
-        val currentWeather1 = createTestCurrentWeather(
-            currentTimeValue = 1L
-        )
-        val currentWeather2 = createTestCurrentWeather(
-            currentTimeValue = 2L
-        )
-        val currentWeather3 = createTestCurrentWeather(
-            currentTimeValue = 3L
-        )
-        val currentWeather4 = createTestCurrentWeather(
-            currentTimeValue = 4L
-        )
-
-        // Act
-        val sunAndMoon0 = ForecastOverviewSunAndMoonModel.from(
-            timezoneOffset = testTimezoneOffset,
-            currentWeather = currentWeather0,
-            today = today
-        )!!
-        val sunAndMoon1 = ForecastOverviewSunAndMoonModel.from(
-            timezoneOffset = testTimezoneOffset,
-            currentWeather = currentWeather1,
-            today = today
-        )!!
-        val sunAndMoon2 = ForecastOverviewSunAndMoonModel.from(
-            timezoneOffset = testTimezoneOffset,
-            currentWeather = currentWeather2,
-            today = today
-        )!!
-        val sunAndMoon3 = ForecastOverviewSunAndMoonModel.from(
-            timezoneOffset = testTimezoneOffset,
-            currentWeather = currentWeather3,
-            today = today
-        )!!
-        val sunAndMoon4 = ForecastOverviewSunAndMoonModel.from(
-            timezoneOffset = testTimezoneOffset,
-            currentWeather = currentWeather4,
-            today = today
-        )!!
-
-        // Assert
-        assertEquals(-0.5f, sunAndMoon0.sunArcPercentage)
-
-        assertEquals(0.0f, sunAndMoon1.sunArcPercentage)
-
-        assertEquals(0.5f, sunAndMoon2.sunArcPercentage)
-
-        assertEquals(1.0f, sunAndMoon3.sunArcPercentage)
-
-        assertEquals(1.5f, sunAndMoon4.sunArcPercentage)
+        assertNotNull(sunAndMoonAllNotNull)
+        assertEquals(currentWeather.currentTime?.value, sunAndMoonAllNotNull.currentTime.dt.value)
+        assertListHasSize(sunAndMoonAllNotNull.items, 3)
+        val moonPhase =
+            sunAndMoonAllNotNull.items.getFirstItemFromList(SunAndMoonItem.MoonPhase::class.java)
+        val moonTimes =
+            sunAndMoonAllNotNull.items.getFirstItemFromList(SunAndMoonItem.MoonTimes::class.java)
+        val sunTimes =
+            sunAndMoonAllNotNull.items.getFirstItemFromList(SunAndMoonItem.SunTimes::class.java)
+        assertEquals(today.moonPhase, moonPhase.moonPhase)
+        assertEquals(today.moonrise?.value, moonTimes.moonrise.dt.value)
+        assertEquals(today.moonset?.value, moonTimes.moonset.dt.value)
+        assertEquals(today.sunrise?.value, sunTimes.sunrise.dt.value)
+        assertEquals(today.sunset?.value, sunTimes.sunset.dt.value)
     }
 
 }

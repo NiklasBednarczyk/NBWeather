@@ -48,6 +48,12 @@ interface NBTest {
         }
     }
 
+    fun <T : Any> List<*>.getFirstItemFromList(
+        klass: Class<T>
+    ): T {
+        return filterIsInstance(klass).first()
+    }
+
     fun <T> assertValue(
         expected: T?,
         actual: T?

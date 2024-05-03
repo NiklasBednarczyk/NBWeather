@@ -17,11 +17,12 @@ import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerView
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.toGridItems
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models.ForecastDailyDayInfoItem
 import de.niklasbednarczyk.nbweather.feature.forecast.views.LimitTemperaturesView
 import de.niklasbednarczyk.nbweather.feature.forecast.views.MoonPhaseGridView
 import de.niklasbednarczyk.nbweather.feature.forecast.views.MoonTimesGridView
-import de.niklasbednarczyk.nbweather.feature.forecast.views.SunGridView
+import de.niklasbednarczyk.nbweather.feature.forecast.views.SunTimesGridView
 import de.niklasbednarczyk.nbweather.feature.forecast.views.WeatherView
 
 @Composable
@@ -115,16 +116,26 @@ private fun SunAndMoon(
         ),
         verticalArrangement = columnVerticalArrangementBig
     ) {
-        SunGridView(
-            sunrise = sunAndMoon.sunrise,
-            sunset = sunAndMoon.sunset
-        )
-        MoonTimesGridView(
-            moonrise = sunAndMoon.moonrise,
-            moonset = sunAndMoon.moonset
-        )
-        MoonPhaseGridView(
-            moonPhase = sunAndMoon.moonPhase
-        )
+        sunAndMoon.items.forEach { item ->
+            when (item) {
+                is SunAndMoonItem.MoonPhase -> {
+                    MoonPhaseGridView(
+                        moonPhase = item
+                    )
+                }
+
+                is SunAndMoonItem.MoonTimes -> {
+                    MoonTimesGridView(
+                        moonTimes = item,
+                    )
+                }
+
+                is SunAndMoonItem.SunTimes -> {
+                    SunTimesGridView(
+                        sunTimes = item,
+                    )
+                }
+            }
+        }
     }
 }

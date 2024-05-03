@@ -1,7 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.views
 
 import androidx.compose.runtime.Composable
-import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.common.time
@@ -9,18 +8,18 @@ import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridIconModel
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridModel
 import de.niklasbednarczyk.nbweather.core.ui.grid.NBGridView
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.displayText
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 
 @Composable
 fun MoonPhaseGridView(
-    moonPhase: MoonPhaseType
+    moonPhase: SunAndMoonItem.MoonPhase
 ) {
     val moonPhaseGridItem = NBGridModel(
         name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_moon_phase_title),
-        icon = NBGridIconModel(moonPhase.icon),
-        value = moonPhase.displayText
+        icon = NBGridIconModel(moonPhase.moonPhase.icon),
+        value = moonPhase.moonPhase.displayText
     )
     val gridItems = listOf(moonPhaseGridItem)
 
@@ -32,18 +31,17 @@ fun MoonPhaseGridView(
 
 @Composable
 fun MoonTimesGridView(
-    moonrise: NBDateTimeDisplayModel,
-    moonset: NBDateTimeDisplayModel
+    moonTimes: SunAndMoonItem.MoonTimes
 ) {
     val moonriseGridItem = NBGridModel(
         name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_moonrise_title),
         icon = NBGridIconModel(NBIcons.Moonrise),
-        value = moonrise.time
+        value = moonTimes.moonrise.time
     )
     val moonsetGridItem = NBGridModel(
         name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_moonset_title),
         icon = NBGridIconModel(NBIcons.Moonset),
-        value = moonset.time
+        value = moonTimes.moonset.time
     )
     val gridItems = listOf(moonriseGridItem, moonsetGridItem)
 
@@ -54,19 +52,18 @@ fun MoonTimesGridView(
 }
 
 @Composable
-fun SunGridView(
-    sunrise: NBDateTimeDisplayModel,
-    sunset: NBDateTimeDisplayModel
+fun SunTimesGridView(
+    sunTimes: SunAndMoonItem.SunTimes
 ) {
     val sunriseGridItem = NBGridModel(
         name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_sunrise_title),
         icon = NBGridIconModel(NBIcons.Sunrise),
-        value = sunrise.time
+        value = sunTimes.sunrise.time
     )
     val sunsetGridItem = NBGridModel(
         name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_sunset_title),
         icon = NBGridIconModel(NBIcons.Sunset),
-        value = sunset.time
+        value = sunTimes.sunset.time
     )
     val gridItems = listOf(sunriseGridItem, sunsetGridItem)
 

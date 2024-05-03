@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens
 
+import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
@@ -32,7 +33,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindSpeedForec
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationUnitsValue
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 
-interface ForecastModelsTest : NBTest {
+interface NBForecastModelsTest : NBTest {
 
     val testTimezoneOffset: NBTimezoneOffsetValue?
         get() = NBTimezoneOffsetValue.from(0L)
@@ -59,6 +60,11 @@ interface ForecastModelsTest : NBTest {
     }
 
     fun createNBString(value: String?) = NBString.Value.from(value)
+
+    fun createNBDateTimeDisplayModel(dateTime: Long) = NBDateTimeDisplayModel.from(
+        dateTime = NBDateTimeValue.from(dateTime),
+        timezoneOffset = testTimezoneOffset
+    )
 
     fun createTestCurrentWeather(
         currentTimeValue: Long? = testForecastTimeValue,

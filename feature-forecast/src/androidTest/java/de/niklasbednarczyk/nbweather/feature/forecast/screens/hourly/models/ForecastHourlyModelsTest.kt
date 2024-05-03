@@ -3,9 +3,9 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.PressureForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ProbabilityOfPrecipitationForecastValue
-import de.niklasbednarczyk.nbweather.feature.forecast.models.ForecastLimitValue
-import de.niklasbednarczyk.nbweather.feature.forecast.models.ForecastUnitsLimitsItem
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastModelsTest
+import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastLimitValue
+import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastUnitsLimitsItem
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastModelsTest
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphModel.Companion.getLimitValues
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphValueModel.Companion.calcFactor
 import org.junit.Test
@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class ForecastHourlyModelsTest : ForecastModelsTest {
+class ForecastHourlyModelsTest : NBForecastModelsTest {
 
     @Test
     fun canvasGraph_getLimitValues_shouldUseLimitsCorrectly() {

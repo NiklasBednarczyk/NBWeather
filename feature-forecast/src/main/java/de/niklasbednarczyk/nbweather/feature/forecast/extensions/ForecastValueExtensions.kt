@@ -24,7 +24,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindDegreesFor
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindGustForecastValue
 import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.WindSpeedForecastValue
 import de.niklasbednarczyk.nbweather.feature.forecast.constants.ForecastUnitsLimits
-import de.niklasbednarczyk.nbweather.feature.forecast.models.ForecastUnitsLimitsItem
+import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastUnitsLimitsItem
 
 val ForecastValue.displayValue: NBString?
     @Composable

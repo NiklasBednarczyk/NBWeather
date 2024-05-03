@@ -1,4 +1,4 @@
-package de.niklasbednarczyk.nbweather.feature.forecast.models
+package de.niklasbednarczyk.nbweather.feature.forecast.models.limits
 
 interface ForecastUnitsLimitsItem {
 

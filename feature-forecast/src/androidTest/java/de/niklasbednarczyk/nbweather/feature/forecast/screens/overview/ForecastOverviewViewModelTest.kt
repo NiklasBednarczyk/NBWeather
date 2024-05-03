@@ -5,14 +5,14 @@ import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBRes
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastViewModelTest
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 
-class ForecastOverviewViewModelTest : ForecastViewModelTest {
+class ForecastOverviewViewModelTest : NBForecastViewModelTest {
 
     private lateinit var subject: ForecastOverviewViewModel
 

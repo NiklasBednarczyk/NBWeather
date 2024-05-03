@@ -1,13 +1,13 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models
 
 import de.niklasbednarczyk.nbweather.data.onecall.models.NationalWeatherAlertModelData
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.ForecastModelsTest
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastModelsTest
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class ForecastAlertsModelsTest : ForecastModelsTest {
+class ForecastAlertsModelsTest : NBForecastModelsTest {
 
     @Test
     fun alertInfoItem_dates_shouldConvertCorrectly() {
@@ -257,7 +257,7 @@ class ForecastAlertsModelsTest : ForecastModelsTest {
             klass = klass
         )
 
-        assertInfoItem(nationalWeatherAlert, infoItems.filterIsInstance(klass).first())
+        assertInfoItem(nationalWeatherAlert, infoItems.getFirstItemFromList(klass))
     }
 
 }

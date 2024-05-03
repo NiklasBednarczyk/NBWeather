@@ -6,6 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.data.onecall.models.DailyForecastModelData
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 
 data class ForecastDailyDayModel(
     val dateTime: NBDateTimeValue,
@@ -63,20 +64,14 @@ data class ForecastDailyDayModel(
                 infoItems.add(ForecastDailyDayInfoItem.Divider)
             }
 
-            nbNullSafe(
-                NBDateTimeDisplayModel.from(dailyForecast.sunrise, timezoneOffset),
-                NBDateTimeDisplayModel.from(dailyForecast.sunset, timezoneOffset),
-                NBDateTimeDisplayModel.from(dailyForecast.moonrise, timezoneOffset),
-                NBDateTimeDisplayModel.from(dailyForecast.moonset, timezoneOffset),
-                dailyForecast.moonPhase
-            ) { sunrise, sunset, moonrise, moonset, moonPhase ->
+            val sunAndMoonItems = SunAndMoonItem.from(
+                timezoneOffset = timezoneOffset,
+                dailyForecast = dailyForecast
+            )
+            nbNullSafe(sunAndMoonItems) { items ->
                 infoItems.add(
                     ForecastDailyDayInfoItem.SunAndMoon(
-                        sunrise = sunrise,
-                        sunset = sunset,
-                        moonrise = moonrise,
-                        moonset = moonset,
-                        moonPhase = moonPhase
+                        items = items
                     )
                 )
             }

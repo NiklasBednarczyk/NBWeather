@@ -15,6 +15,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.units.ProbabilityUnitsV
 import de.niklasbednarczyk.nbweather.data.onecall.values.units.TemperatureUnitsValue
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.displayText
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.icon
+import de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon.SunAndMoonItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewAlertsModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewCurrentWeatherModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewDailyModel
@@ -298,11 +299,19 @@ class ForecastOverviewContentTest : NBComposableTest() {
 
         val sunAndMoon = ForecastOverviewSunAndMoonModel(
             currentTime = createNBDateTimeModel(),
-            sunrise = createNBDateTimeModel(),
-            sunset = createNBDateTimeModel(),
-            moonrise = createNBDateTimeModel(),
-            moonset = createNBDateTimeModel(),
-            moonPhase = moonPhase
+            items = listOf(
+                SunAndMoonItem.MoonPhase(
+                    moonPhase = moonPhase
+                ),
+                SunAndMoonItem.MoonTimes(
+                    moonrise = createNBDateTimeModel(),
+                    moonset = createNBDateTimeModel()
+                ),
+                SunAndMoonItem.SunTimes(
+                    sunrise = createNBDateTimeModel(),
+                    sunset = createNBDateTimeModel()
+                )
+            )
         )
         val uiState = createTestUiState(sunAndMoon)
 

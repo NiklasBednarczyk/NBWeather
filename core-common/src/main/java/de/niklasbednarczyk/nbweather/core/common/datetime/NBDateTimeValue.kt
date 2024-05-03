@@ -8,7 +8,13 @@ value class NBDateTimeValue private constructor(val value: Long) {
     companion object {
 
         fun from(value: Long?): NBDateTimeValue? {
-            return nbNullSafe(value) { NBDateTimeValue(it) }
+            return nbNullSafe(value) { v ->
+                return if (v > 0L) {
+                    NBDateTimeValue(v)
+                } else {
+                    null
+                }
+            }
         }
 
     }
