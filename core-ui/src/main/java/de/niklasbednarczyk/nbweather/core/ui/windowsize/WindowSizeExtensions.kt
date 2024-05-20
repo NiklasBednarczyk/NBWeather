@@ -1,20 +1,12 @@
 package de.niklasbednarczyk.nbweather.core.ui.windowsize
 
-import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-
-private fun Context.getActivity(): Activity? = when (this) {
-    is Activity -> this
-    is ContextWrapper -> baseContext.getActivity()
-    else -> null
-}
+import de.niklasbednarczyk.nbweather.core.ui.context.getActivity
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable

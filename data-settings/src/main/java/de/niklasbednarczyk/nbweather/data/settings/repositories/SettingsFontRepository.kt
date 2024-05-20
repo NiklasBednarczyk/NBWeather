@@ -39,13 +39,13 @@ class SettingsFontRepository @Inject internal constructor(
         get() = NBFontMapperData
 
     suspend fun resetToDefault() {
-        dataStore.updateData {
+        updateData {
             SettingsFontSerializer.createDefaultValue()
         }
     }
 
     suspend fun updateSlant(slant: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setSlant(slant)
@@ -54,7 +54,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateWidth(width: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setWidth(width)
@@ -63,7 +63,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateWeight(weight: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setWeight(weight)
@@ -72,7 +72,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateGrade(grade: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setGrade(grade)
@@ -81,7 +81,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateCounterWidth(counterWidth: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setCounterWidth(counterWidth)
@@ -90,7 +90,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateThinStroke(thinStroke: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setThinStroke(thinStroke)
@@ -99,7 +99,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateAscenderHeight(ascenderHeight: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setAscenderHeight(ascenderHeight)
@@ -108,7 +108,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateDescenderDepth(descenderDepth: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setDescenderDepth(descenderDepth)
@@ -117,7 +117,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateFigureHeight(figureHeight: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setFigureHeight(figureHeight)
@@ -126,7 +126,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateLowercaseHeight(lowercaseHeight: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setLowercaseHeight(lowercaseHeight)
@@ -135,7 +135,7 @@ class SettingsFontRepository @Inject internal constructor(
     }
 
     suspend fun updateUppercaseHeight(uppercaseHeight: Float) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setUppercaseHeight(uppercaseHeight)

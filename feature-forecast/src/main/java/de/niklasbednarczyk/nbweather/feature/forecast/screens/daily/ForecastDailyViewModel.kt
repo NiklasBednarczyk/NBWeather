@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbMapResource
-import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
+import de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models.ForecastDailyViewData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -19,23 +19,18 @@ class ForecastDailyViewModel @Inject constructor(
 
     init {
 
-        val forecastTimeString: String? =
-            savedStateHandle[DestinationsForecast.Daily.KEY_FORECAST_TIME]
-        val latitudeString: String? = savedStateHandle[DestinationsForecast.Daily.KEY_LATITUDE]
-        val longitudeString: String? = savedStateHandle[DestinationsForecast.Daily.KEY_LONGITUDE]
-
-        val forecastTime = forecastTimeString?.toLongOrNull()
-        val latitude = latitudeString?.toDoubleOrNull()
-        val longitude = longitudeString?.toDoubleOrNull()
+        val forecastTime = savedStateHandle.getArgument(NBArgumentKeys.ForecastTime)
+        val latitude = savedStateHandle.getArgument(NBArgumentKeys.Latitude)
+        val longitude = savedStateHandle.getArgument(NBArgumentKeys.Longitude)
 
         collectFlow(
-            { getViewDataFlow(forecastTime, latitude, longitude) },
+            { getViewDataResourceFlow(forecastTime, latitude, longitude) },
             { oldUiState, output -> oldUiState.copy(viewDataResource = output) }
         )
 
     }
 
-    private suspend fun getViewDataFlow(
+    private suspend fun getViewDataResourceFlow(
         forecastTime: Long?,
         latitude: Double?,
         longitude: Double?
@@ -46,7 +41,7 @@ class ForecastDailyViewModel @Inject constructor(
         ).nbMapResource { oneCall ->
             ForecastDailyViewData.from(
                 forecastTime = forecastTime,
-                oneCall = oneCall,
+                oneCall = oneCall
             )
         }
     }

@@ -253,8 +253,6 @@
     <string name="error_text_no_internet">Keine Internetverbindung</string>
     <string name="error_text_unknown">Etwas ist schief gelaufen</string>
 
-    <string name="fragment_snackbar_intent_failed_message">Keine passende App auf Ihrem Handy gefunden</string>
-
     <string name="icon_content_description_back">Zurück</string>
     <string name="icon_content_description_cancel">Abbrechen</string>
     <string name="icon_content_description_delete">Löschen</string>
@@ -444,14 +442,11 @@
 
     <string name="screen_search_overview_bar_placeholder">Suche</string>
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
-    <string name="screen_search_overview_snackbar_back_pressed_when_current_location_should_be_set_message">Sie müssen einen Ort auswählen</string>
-    <string name="screen_search_overview_snackbar_current_location_not_found_message">Ort wurde nicht gefunden</string>
     <string name="screen_search_overview_snackbar_find_location_canceled_message">Standortanfrage wurde abgebrochen</string>
     <string name="screen_search_overview_snackbar_find_location_failure_message">Standortanfrage fehlgeschlagen</string>
+    <string name="screen_search_overview_snackbar_find_location_not_found_message">Ort wurde nicht gefunden</string>
     <string name="screen_search_overview_snackbar_location_deleted_action_label">Rückgängig</string>
     <string name="screen_search_overview_snackbar_location_deleted_message_format">%1$s gelöscht</string>
-    <string name="screen_search_overview_snackbar_location_permission_denied_action_label">Einstellungen</string>
-    <string name="screen_search_overview_snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
 
     <string name="screen_settings_appearance_description">Design und Farbschema ändern</string>
     <string name="screen_settings_appearance_header_color_scheme">Farbschema</string>
@@ -495,5 +490,9 @@
     <string name="screen_settings_units_header_temperature">Temperatur</string>
     <string name="screen_settings_units_header_wind_speed">Windgeschwindigkeit</string>
     <string name="screen_settings_units_title">Einheiten</string>
+
+    <string name="snackbar_intent_failed_message">Keine passende App auf Ihrem Handy gefunden</string>
+    <string name="snackbar_location_permission_denied_action_label">Einstellungen</string>
+    <string name="snackbar_location_permission_denied_message">Standortberechtigung verweigert</string>
 
 </resources>

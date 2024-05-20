@@ -5,7 +5,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 
 data class AboutOverviewButtonModel(
-    val label: NBString?,
+    val label: NBString,
     val icon: NBIconItem,
     val intent: Intent
 )

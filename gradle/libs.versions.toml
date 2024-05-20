@@ -5,7 +5,6 @@ androidxComposeCompiler = "1.5.11"
 androidxComposeMaterial3 = "1.2.1"
 androidxCore = "1.12.0"
 androidxDatastore = "1.0.0"
-androidxFragment = "1.6.2"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.7.0"
 androidxNavigation = "2.7.7"
@@ -42,7 +41,6 @@ targetSdk = "34"
 
 [libraries]
 androidx-activity-activityCompose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
-androidx-activity-activityKtx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 androidx-compose-material3-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
 androidx-compose-material3-material3WindowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 androidx-compose-ui-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
@@ -52,11 +50,9 @@ androidx-compose-ui-uiUtil = { group = "androidx.compose.ui", name = "ui-util", 
 androidx-compose-ui-uiViewbinding = { group = "androidx.compose.ui", name = "ui-viewbinding", version.ref = "androidxCompose" }
 androidx-core-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-datastore-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDatastore" }
-androidx-fragment-fragmentKtx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
-androidx-hilt-hiltNavigationFragment = { group = "androidx.hilt", name = "hilt-navigation-fragment", version.ref = "androidxHilt" }
+androidx-hilt-hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHilt" }
 androidx-lifecycle-lifecycleRuntimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
-androidx-navigation-navigationFragmentKtx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
-androidx-navigation-navigationUiKtx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
+androidx-navigation-navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-room-roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoom" }
 androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidxRoom" }
 androidx-room-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoom" }

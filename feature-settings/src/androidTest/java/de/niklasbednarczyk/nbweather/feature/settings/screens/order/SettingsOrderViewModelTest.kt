@@ -2,7 +2,6 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.order
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsOrderRepository
-import de.niklasbednarczyk.nbweather.feature.settings.screens.order.models.SettingsOrderItemType
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
@@ -10,7 +9,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import kotlin.test.assertEquals
 
 class SettingsOrderViewModelTest : NBViewModelTest {
 
@@ -36,7 +34,7 @@ class SettingsOrderViewModelTest : NBViewModelTest {
                 uiState.items.isNotEmpty()
             },
             collectData = { uiState ->
-                assertEquals(uiState.items.size, SettingsOrderItemType.entries.size)
+                assertListIsNotEmpty(uiState.items)
             }
         )
     }

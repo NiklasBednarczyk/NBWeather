@@ -94,6 +94,13 @@ interface NBTest {
         assertEquals(size, actual?.size)
     }
 
+    fun <T1, T2> assertListsHaveSameSize(
+        list1: List<T1>,
+        list2: List<T2>
+    ) {
+        assertEquals(list1.size, list2.size)
+    }
+
     fun <T> assertListsContainsItemInOrder(
         actual: List<T>,
         vararg items: T
@@ -133,12 +140,24 @@ interface NBTest {
         }
     }
 
+    fun <T, C : Any> assertListDoesContainClass(
+        actual: List<T>?,
+        klass: Class<C>,
+        size: Int
+    ) {
+        val actualFiltered = actual?.filterIsInstance(klass)
+        assertListHasSize(actualFiltered, size)
+    }
+
     fun <T, C : Any> assertListDoesContainClassOnce(
         actual: List<T>?,
         klass: Class<C>
     ) {
-        val actualFiltered = actual?.filterIsInstance(klass)
-        assertListHasSize(actualFiltered, 1)
+        assertListDoesContainClass(
+            actual = actual,
+            klass = klass,
+            size = 1
+        )
     }
 
 

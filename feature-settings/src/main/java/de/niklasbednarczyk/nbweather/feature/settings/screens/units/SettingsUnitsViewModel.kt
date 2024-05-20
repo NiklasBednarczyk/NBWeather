@@ -6,151 +6,87 @@ import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPrecipitationU
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBPressureUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBTemperatureUnitType
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBWindSpeedUnitType
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedButtonModel
-import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlModel
+import de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
-import de.niklasbednarczyk.nbweather.feature.settings.screens.list.SettingsListViewModel
-import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
+import de.niklasbednarczyk.nbweather.feature.settings.screens.units.models.SettingsUnitsItemModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsUnitsViewModel @Inject constructor(
-    private val settingsUnitsRepository: SettingsUnitsRepository,
-) : SettingsListViewModel() {
-
-    override val itemsFlow: Flow<List<SettingsListItemModel>> =
-        settingsUnitsRepository.getData().map { units ->
-            val items = mutableListOf<SettingsListItemModel>()
-
-            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_temperature)))
-
-            items.add(
-                SettingsListItemModel.ItemButtons(
-                    segmentedControl = NBSegmentedControlModel(
-                        selectedKey = units.temperatureUnit,
-                        buttons = NBTemperatureUnitType.entries.map { temperature ->
-                            NBSegmentedButtonModel(
-                                key = temperature,
-                                text = temperature.symbol
-                            )
-                        },
-                        onItemSelected = ::updateTemperatureUnit,
-                        sortAlphabetically = false
-                    )
-                )
-            )
-
-            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_precipitation)))
-
-            items.add(
-                SettingsListItemModel.ItemButtons(
-                    segmentedControl = NBSegmentedControlModel(
-                        selectedKey = units.precipitationUnit,
-                        buttons = NBPrecipitationUnitType.entries.map { precipitation ->
-                            NBSegmentedButtonModel(
-                                key = precipitation,
-                                text = precipitation.symbol
-                            )
-                        },
-                        onItemSelected = ::updatePrecipitationUnit,
-                    )
-                )
-            )
-
-            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_distance)))
-
-            items.add(
-                SettingsListItemModel.ItemButtons(
-                    segmentedControl = NBSegmentedControlModel(
-                        selectedKey = units.distanceUnit,
-                        buttons = NBDistanceUnitType.entries.map { distance ->
-                            NBSegmentedButtonModel(
-                                key = distance,
-                                text = distance.symbol
-                            )
-                        },
-                        onItemSelected = ::updateDistanceUnit,
-                    )
-                )
-            )
-
-            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_pressure)))
-
-            items.add(
-                SettingsListItemModel.ItemButtons(
-                    segmentedControl = NBSegmentedControlModel(
-                        selectedKey = units.pressureUnit,
-                        buttons = NBPressureUnitType.entries.map { pressure ->
-                            NBSegmentedButtonModel(
-                                key = pressure,
-                                text = pressure.symbol
-                            )
-                        },
-                        onItemSelected = ::updatePressureUnit,
-                    )
-                )
-            )
-
-            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_units_header_wind_speed)))
-
-            items.add(
-                SettingsListItemModel.ItemButtons(
-                    segmentedControl = NBSegmentedControlModel(
-                        selectedKey = units.windSpeedUnit,
-                        buttons = NBWindSpeedUnitType.entries.map { windSpeed ->
-                            NBSegmentedButtonModel(
-                                key = windSpeed,
-                                text = windSpeed.symbol
-                            )
-                        },
-                        onItemSelected = ::updateWindSpeedUnit,
-                    )
-                )
-            )
-
-            items
-        }
+    private val settingsUnitsRepository: SettingsUnitsRepository
+) : NBViewModel<SettingsUnitsUiState>(SettingsUnitsUiState()) {
 
     init {
 
         collectFlow(
-            { itemsFlow },
+            { getItemsFlow() },
             { oldUiState, output -> oldUiState.copy(items = output) }
         )
 
     }
 
-    private fun updateTemperatureUnit(temperatureUnit: NBTemperatureUnitType) {
-        launchSuspend {
-            settingsUnitsRepository.updateTemperatureUnit(temperatureUnit)
+    private fun getItemsFlow(): Flow<List<SettingsUnitsItemModel>> {
+        return settingsUnitsRepository.getData().map { units ->
+            SettingsUnitsItemModel.from(
+                units = units,
+                updateTemperatureUnit = ::updateTemperatureUnit,
+                updatePrecipitationUnit = ::updatePrecipitationUnit,
+                updateDistanceUnit = ::updateDistanceUnit,
+                updatePressureUnit = ::updatePressureUnit,
+                updateWindSpeedUnit = ::updateWindSpeedUnit
+            )
         }
     }
 
-    private fun updatePrecipitationUnit(precipitationUnit: NBPrecipitationUnitType) {
+    private fun updateTemperatureUnit(
+        temperatureUnit: NBTemperatureUnitType
+    ) {
         launchSuspend {
-            settingsUnitsRepository.updatePrecipitationUnit(precipitationUnit)
+            settingsUnitsRepository.updateTemperatureUnit(
+                temperatureUnit = temperatureUnit
+            )
         }
     }
 
-    private fun updateDistanceUnit(distanceUnit: NBDistanceUnitType) {
+    private fun updatePrecipitationUnit(
+        precipitationUnit: NBPrecipitationUnitType
+    ) {
         launchSuspend {
-            settingsUnitsRepository.updateDistanceUnit(distanceUnit)
+            settingsUnitsRepository.updatePrecipitationUnit(
+                precipitationUnit = precipitationUnit
+            )
         }
     }
 
-    private fun updatePressureUnit(pressureUnit: NBPressureUnitType) {
+    private fun updateDistanceUnit(
+        distanceUnit: NBDistanceUnitType
+    ) {
         launchSuspend {
-            settingsUnitsRepository.updatePressureUnit(pressureUnit)
+            settingsUnitsRepository.updateDistanceUnit(
+                distanceUnit = distanceUnit
+            )
         }
     }
 
-    private fun updateWindSpeedUnit(windSpeedUnit: NBWindSpeedUnitType) {
+    private fun updatePressureUnit(
+        pressureUnit: NBPressureUnitType
+    ) {
         launchSuspend {
-            settingsUnitsRepository.updateWindSpeedUnit(windSpeedUnit)
+            settingsUnitsRepository.updatePressureUnit(
+                pressureUnit = pressureUnit
+            )
+        }
+    }
+
+    private fun updateWindSpeedUnit(
+        windSpeedUnit: NBWindSpeedUnitType
+    ) {
+        launchSuspend {
+            settingsUnitsRepository.updateWindSpeedUnit(
+                windSpeedUnit = windSpeedUnit
+            )
         }
     }
 

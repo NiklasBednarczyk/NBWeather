@@ -39,13 +39,13 @@ class SettingsOrderRepository @Inject internal constructor(
         get() = NBOrderMapperData
 
     suspend fun resetToDefault() {
-        dataStore.updateData {
+        updateData {
             SettingsOrderSerializer.createDefaultValue()
         }
     }
 
     suspend fun updateOrder(order: NBOrderModel) {
-        dataStore.updateData {
+        updateData {
             mapper.dataToProto(order)
         }
     }

@@ -24,7 +24,7 @@ import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.Sear
 @Composable
 fun SearchOverviewSearchedView(
     searchedLocationsResource: NBResource<List<SearchOverviewLocationModel>>?,
-    navigateToForecast: (latitude: Double, longitude: Double) -> Unit
+    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit
 ) {
     NBResourceWithLoadingView(searchedLocationsResource) { searchedLocations ->
         if (searchedLocations.isEmpty()) {
@@ -32,7 +32,7 @@ fun SearchOverviewSearchedView(
         } else {
             List(
                 searchedLocations = searchedLocations,
-                navigateToForecast = navigateToForecast
+                navigateToForecastOverview = navigateToForecastOverview
             )
         }
     }
@@ -41,12 +41,12 @@ fun SearchOverviewSearchedView(
 @Composable
 private fun Item(
     location: SearchOverviewLocationModel,
-    navigateToForecast: (latitude: Double, longitude: Double) -> Unit
+    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit
 ) {
 
     ListItem(
         modifier = Modifier.clickable {
-            navigateToForecast(location.latitude, location.longitude)
+            navigateToForecastOverview(location.latitude, location.longitude)
         },
         leadingContent = {
             NBImageView(
@@ -72,7 +72,7 @@ private fun Item(
 @Composable
 private fun List(
     searchedLocations: List<SearchOverviewLocationModel>,
-    navigateToForecast: (latitude: Double, longitude: Double) -> Unit
+    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit
 ) {
     LazyColumn(
         contentPadding = listContentPaddingValuesVertical
@@ -80,7 +80,7 @@ private fun List(
         items(searchedLocations) { searchedLocation ->
             Item(
                 location = searchedLocation,
-                navigateToForecast = navigateToForecast
+                navigateToForecastOverview = navigateToForecastOverview
             )
         }
     }

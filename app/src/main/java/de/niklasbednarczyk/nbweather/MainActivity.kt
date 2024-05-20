@@ -2,53 +2,37 @@ package de.niklasbednarczyk.nbweather
 
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
-import androidx.activity.compose.BackHandler
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Surface
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.viewinterop.AndroidViewBinding
-import androidx.fragment.app.FragmentContainerView
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.createGraph
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBAppearanceModel
 import de.niklasbednarczyk.nbweather.core.common.settings.font.NBFontModel
 import de.niklasbednarczyk.nbweather.core.common.settings.order.NBOrderModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsModel
-import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBNavControllerContainer
-import de.niklasbednarczyk.nbweather.core.ui.navigation.destination.NBTopLevelDestinations
-import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerEventType
-import de.niklasbednarczyk.nbweather.core.ui.navigation.drawer.NBNavigationDrawerViewModel
 import de.niklasbednarczyk.nbweather.core.ui.resource.NBResourceWithoutLoadingView
-import de.niklasbednarczyk.nbweather.core.ui.screen.utils.nbSetContent
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBAppearance
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBFont
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBOrder
 import de.niklasbednarczyk.nbweather.core.ui.settings.LocalNBUnits
 import de.niklasbednarczyk.nbweather.core.ui.settings.NBSettings
-import de.niklasbednarczyk.nbweather.databinding.ContentAppBinding
-import de.niklasbednarczyk.nbweather.feature.about.navigation.graphAbout
-import de.niklasbednarczyk.nbweather.feature.forecast.navigation.graphForecast
-import de.niklasbednarczyk.nbweather.feature.search.navigation.graphSearch
-import de.niklasbednarczyk.nbweather.feature.settings.navigation.graphSettings
-import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawer
-import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
+import de.niklasbednarczyk.nbweather.navigation.drawer.NBDrawerController.Companion.rememberNBDrawerController
+import de.niklasbednarczyk.nbweather.navigation.drawer.NBNavigationDrawerView
+import de.niklasbednarczyk.nbweather.navigation.host.NBNavHostView
 import de.niklasbednarczyk.nbweather.theme.NBTheme
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NBNavControllerContainer {
+class MainActivity : AppCompatActivity() {
 
     companion object {
 
@@ -68,45 +52,44 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private val navigationDrawerViewModel: NBNavigationDrawerViewModel by viewModels()
-
-    override val navController: NavController
-        get() {
-            val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-            return navHostFragment.navController
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
 
-        setContentView(nbSetContent(this) {
-            val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+        setContent {
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            val navController = rememberNavController()
+            val drawerController = rememberNBDrawerController()
+
             SetupSettings(
-                appearance = uiState.value.appearance,
-                font = uiState.value.font,
-                order = uiState.value.order,
-                units = uiState.value.units
+                appearance = uiState.appearance,
+                font = uiState.font,
+                order = uiState.order,
+                units = uiState.units
             ) {
                 SetupEdgeToEdge()
 
                 NBTheme {
                     Surface {
-                        NBResourceWithoutLoadingView(uiState.value.isInitialCurrentLocationSetResource) { isInitialCurrentLocationSet ->
-                            SetupNavigationDrawer(
-                                drawerItems = uiState.value.drawerItems,
+                        NBResourceWithoutLoadingView(uiState.viewDataResource) { viewData ->
+                            NBNavigationDrawerView(
+                                navController = navController,
+                                drawerController = drawerController,
+                                drawerItems = viewData.drawerItems
                             ) {
-                                SetupViewBinding(
-                                    isInitialCurrentLocationSet = isInitialCurrentLocationSet,
+                                NBNavHostView(
+                                    navController = navController,
+                                    drawerController = drawerController,
+                                    initialCurrentLocation = viewData.initialCurrentLocation
                                 )
                             }
                         }
                     }
                 }
             }
-        })
+        }
     }
 
     @Composable
@@ -152,79 +135,6 @@ class MainActivity : AppCompatActivity(), NBNavControllerContainer {
             onDispose {}
         }
     }
-
-    @Composable
-    private fun SetupNavigationDrawer(
-        drawerItems: List<NBNavigationDrawerItem>, content: @Composable () -> Unit
-    ) {
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-
-        BackHandler(drawerState.isOpen) {
-            navigationDrawerViewModel.closeDrawer()
-        }
-
-        val scope = rememberCoroutineScope()
-
-        navigationDrawerViewModel.setupChannel { event ->
-            when (event) {
-                NBNavigationDrawerEventType.OPEN -> {
-                    scope.launch {
-                        drawerState.open()
-                    }
-                }
-
-                NBNavigationDrawerEventType.CLOSE -> {
-                    scope.launch {
-                        drawerState.close()
-                    }
-                }
-            }
-        }
-
-        NBNavigationDrawer(
-            drawerState = drawerState,
-            drawerItems = drawerItems,
-            closeDrawer = navigationDrawerViewModel::closeDrawer,
-            navigateToTopLevelDestination = ::navigate,
-            setCurrentLocation = viewModel::setCurrentLocation,
-            content = content
-        )
-    }
-
-    @Composable
-    private fun SetupViewBinding(
-        isInitialCurrentLocationSet: Boolean,
-    ) {
-        AndroidViewBinding(ContentAppBinding::inflate) {
-            setupGraph(
-                isInitialCurrentLocationSet = isInitialCurrentLocationSet,
-                navHostFragment = navHostFragment
-            )
-        }
-
-    }
-
-    private fun setupGraph(
-        isInitialCurrentLocationSet: Boolean,
-        navHostFragment: FragmentContainerView
-    ) {
-        val startDestination = if (isInitialCurrentLocationSet) {
-            NBTopLevelDestinations.Forecast
-        } else {
-            NBTopLevelDestinations.Search
-        }
-
-        val navController = navHostFragment.getFragment<NavHostFragment>().navController
-        navController.graph = navController.createGraph(
-            startDestination = startDestination.routeForGraph
-        ) {
-            graphAbout()
-            graphForecast()
-            graphSearch()
-            graphSettings()
-        }
-    }
-
 
 }
 

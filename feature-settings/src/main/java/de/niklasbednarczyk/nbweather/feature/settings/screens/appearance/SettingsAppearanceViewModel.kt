@@ -4,121 +4,77 @@ import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBColorSchemeType
 import de.niklasbednarczyk.nbweather.core.common.settings.appearance.NBThemeType
-import de.niklasbednarczyk.nbweather.core.common.string.NBString
-import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedButtonModel
-import de.niklasbednarczyk.nbweather.core.ui.segmented.NBSegmentedControlModel
+import de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearanceRepository
-import de.niklasbednarczyk.nbweather.feature.settings.extensions.displayText
-import de.niklasbednarczyk.nbweather.feature.settings.screens.list.SettingsListViewModel
-import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
+import de.niklasbednarczyk.nbweather.feature.settings.screens.appearance.models.SettingsAppearanceItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsAppearanceViewModel @Inject constructor(
-    private val settingsAppearanceRepository: SettingsAppearanceRepository,
-) : SettingsListViewModel() {
-
-    override val itemsFlow: Flow<List<SettingsListItemModel>> =
-        settingsAppearanceRepository.getData().map { appearance ->
-            val items = mutableListOf<SettingsListItemModel>()
-
-            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_appearance_header_theme)))
-
-            items.add(
-                SettingsListItemModel.ItemSwitch(
-                    title = NBString.ResString(R.string.screen_settings_appearance_value_use_device_theme_title),
-                    value = NBString.ResString(R.string.screen_settings_appearance_value_use_device_theme_value),
-                    checked = appearance.useDeviceTheme,
-                    onCheckedChange = ::updateUseDeviceTheme
-                )
-            )
-
-            items.add(
-                SettingsListItemModel.ItemButtons(
-                    segmentedControl = NBSegmentedControlModel(
-                        selectedKey = appearance.theme,
-                        buttons = NBThemeType.entries.map { theme ->
-                            NBSegmentedButtonModel(
-                                key = theme,
-                                text = theme.displayText
-                            )
-                        },
-                        onItemSelected = ::updateTheme,
-                        isEnabled = !appearance.useDeviceTheme,
-                        sortAlphabetically = false
-                    )
-                )
-            )
-
-            items.add(SettingsListItemModel.Divider)
-
-            items.add(SettingsListItemModel.Header(NBString.ResString(R.string.screen_settings_appearance_header_color_scheme)))
-
-            val isDynamicColorAvailable = DynamicColors.isDynamicColorAvailable()
-
-            if (isDynamicColorAvailable) {
-                items.add(
-                    SettingsListItemModel.ItemSwitch(
-                        title = NBString.ResString(R.string.screen_settings_appearance_value_use_dynamic_color_scheme_title),
-                        value = NBString.ResString(R.string.screen_settings_appearance_value_use_dynamic_color_scheme_value),
-                        checked = appearance.useDynamicColorScheme,
-                        onCheckedChange = ::updateUseDynamicColorScheme
-                    )
-                )
-            }
-
-            items.add(
-                SettingsListItemModel.ItemButtons(
-                    segmentedControl = NBSegmentedControlModel(
-                        selectedKey = appearance.colorScheme,
-                        buttons = NBColorSchemeType.entries.map { colorScheme ->
-                            NBSegmentedButtonModel(
-                                key = colorScheme,
-                                text = colorScheme.displayText
-                            )
-                        },
-                        onItemSelected = ::updateColorScheme,
-                        isEnabled = !appearance.useDynamicColorScheme || !isDynamicColorAvailable
-                    )
-                )
-            )
-
-            items
-        }
+    private val settingsAppearanceRepository: SettingsAppearanceRepository
+) : NBViewModel<SettingsAppearanceUiState>(SettingsAppearanceUiState()) {
 
     init {
 
         collectFlow(
-            { itemsFlow },
+            { getItemsFlow() },
             { oldUiState, output -> oldUiState.copy(items = output) }
         )
 
     }
 
-    private fun updateUseDeviceTheme(useDeviceTheme: Boolean) {
-        launchSuspend {
-            settingsAppearanceRepository.updateUseDeviceTheme(useDeviceTheme)
+    private fun getItemsFlow(): Flow<List<SettingsAppearanceItem>> {
+        return settingsAppearanceRepository.getData().map { appearance ->
+            SettingsAppearanceItem.from(
+                appearance = appearance,
+                isDynamicColorAvailable = DynamicColors.isDynamicColorAvailable(),
+                updateUseDeviceTheme = ::updateUseDeviceTheme,
+                updateTheme = ::updateTheme,
+                updateUseDynamicColorScheme = ::updateUseDynamicColorScheme,
+                updateColorScheme = ::updateColorScheme
+            )
         }
     }
 
-    private fun updateTheme(theme: NBThemeType) {
+    private fun updateUseDeviceTheme(
+        useDeviceTheme: Boolean
+    ) {
         launchSuspend {
-            settingsAppearanceRepository.updateTheme(theme)
+            settingsAppearanceRepository.updateUseDeviceTheme(
+                useDeviceTheme = useDeviceTheme
+            )
         }
     }
 
-    private fun updateUseDynamicColorScheme(useDynamicColorScheme: Boolean) {
+    private fun updateTheme(
+        theme: NBThemeType
+    ) {
         launchSuspend {
-            settingsAppearanceRepository.updateUseDynamicColorScheme(useDynamicColorScheme)
+            settingsAppearanceRepository.updateTheme(
+                theme = theme
+            )
         }
     }
 
-    private fun updateColorScheme(colorTheme: NBColorSchemeType) {
+    private fun updateUseDynamicColorScheme(
+        useDynamicColorScheme: Boolean
+    ) {
         launchSuspend {
-            settingsAppearanceRepository.updateColorScheme(colorTheme)
+            settingsAppearanceRepository.updateUseDynamicColorScheme(
+                useDynamicColorScheme = useDynamicColorScheme
+            )
+        }
+    }
+
+    private fun updateColorScheme(
+        colorScheme: NBColorSchemeType
+    ) {
+        launchSuspend {
+            settingsAppearanceRepository.updateColorScheme(
+                colorScheme = colorScheme
+            )
         }
     }
 

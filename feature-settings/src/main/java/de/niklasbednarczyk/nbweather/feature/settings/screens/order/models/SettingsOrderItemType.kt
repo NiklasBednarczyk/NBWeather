@@ -6,6 +6,7 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 
 enum class SettingsOrderItemType {
+
     CURRENT_WEATHER,
     DAILY,
     HOURLY,
@@ -36,7 +37,9 @@ enum class SettingsOrderItemType {
 
     companion object {
 
-        fun from(order: NBOrderModel): List<SettingsOrderItemType> {
+        fun from(
+            order: NBOrderModel
+        ): List<SettingsOrderItemType> {
             return entries.sortedBy { type ->
                 type.getSortOrder(order)
             }

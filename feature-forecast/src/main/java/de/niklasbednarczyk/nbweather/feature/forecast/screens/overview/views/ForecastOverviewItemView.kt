@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.screenHorizontalPadding
@@ -22,13 +23,15 @@ import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.Fo
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSummaryModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models.ForecastOverviewSunAndMoonModel
 
+const val FORECAST_OVERVIEW_ITEM_VIEW_TAG = "ForecastOverviewItemView"
+
 @Composable
 fun ForecastOverviewItemView(
     item: ForecastOverviewItem,
     clickableEnabled: Boolean,
-    navigateToAlerts: () -> Unit,
-    navigateToDaily: (forecastTime: Long?) -> Unit,
-    navigateToHourly: () -> Unit
+    navigateToForecastAlerts: () -> Unit,
+    navigateToForecastDaily: (forecastTime: Long?) -> Unit,
+    navigateToForecastHourly: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -36,12 +39,13 @@ fun ForecastOverviewItemView(
             .itemClickableModifier(
                 item = item,
                 clickableEnabled = clickableEnabled,
-                navigateToAlerts = navigateToAlerts,
-                navigateToDaily = {
-                    navigateToDaily(null)
+                navigateToForecastAlerts = navigateToForecastAlerts,
+                navigateToForecastDaily = {
+                    navigateToForecastDaily(null)
                 },
-                navigateToHourly = navigateToHourly
+                navigateToForecastHourly = navigateToForecastHourly
             )
+            .testTag(FORECAST_OVERVIEW_ITEM_VIEW_TAG)
     ) {
         Title(
             item = item
@@ -49,7 +53,7 @@ fun ForecastOverviewItemView(
         Content(
             item = item,
             clickableEnabled = clickableEnabled,
-            navigateToDaily = navigateToDaily
+            navigateToForecastDaily = navigateToForecastDaily
         )
     }
 }
@@ -58,7 +62,7 @@ fun ForecastOverviewItemView(
 private fun Content(
     item: ForecastOverviewItem,
     clickableEnabled: Boolean,
-    navigateToDaily: (forecastTime: Long?) -> Unit,
+    navigateToForecastDaily: (forecastTime: Long?) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -83,7 +87,7 @@ private fun Content(
                 ForecastOverviewDailyView(
                     daily = item,
                     clickableEnabled = clickableEnabled,
-                    navigateToDaily = navigateToDaily
+                    navigateToForecastDaily = navigateToForecastDaily
                 )
             }
 
@@ -156,21 +160,21 @@ private fun Modifier.contentPaddingModifier(
 private fun Modifier.itemClickableModifier(
     item: ForecastOverviewItem,
     clickableEnabled: Boolean,
-    navigateToAlerts: () -> Unit,
-    navigateToDaily: () -> Unit,
-    navigateToHourly: () -> Unit
+    navigateToForecastAlerts: () -> Unit,
+    navigateToForecastDaily: () -> Unit,
+    navigateToForecastHourly: () -> Unit
 ): Modifier {
     val onClick = when (item) {
-        is ForecastOverviewAlertsModel -> navigateToAlerts
+        is ForecastOverviewAlertsModel -> navigateToForecastAlerts
 
         is ForecastOverviewCurrentWeatherModel,
         is ForecastOverviewPrecipitationModel,
         is ForecastOverviewSummaryModel,
         is ForecastOverviewSunAndMoonModel -> null
 
-        is ForecastOverviewDailyModel -> navigateToDaily
+        is ForecastOverviewDailyModel -> navigateToForecastDaily
 
-        is ForecastOverviewHourlyModel -> navigateToHourly
+        is ForecastOverviewHourlyModel -> navigateToForecastHourly
     }
 
     val clickableModifier = if (onClick != null) {

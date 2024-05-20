@@ -257,8 +257,6 @@
     <string name="format_comma_2_items" translatable="false">%1$s, %2$s</string>
     <string name="format_plus_prefix" translatable="false">+%1$s</string>
 
-    <string name="fragment_snackbar_intent_failed_message">No fitting app on your phone found</string>
-
     <string name="icon_content_description_about" translatable="false">@string/screen_about_overview_title</string>
     <string name="icon_content_description_appearance" translatable="false">@string/screen_settings_appearance_title</string>
     <string name="icon_content_description_back">Back</string>
@@ -731,14 +729,11 @@
 
     <string name="screen_search_overview_bar_placeholder">Search</string>
     <string name="screen_search_overview_search_no_results">No locations found</string>
-    <string name="screen_search_overview_snackbar_back_pressed_when_current_location_should_be_set_message">You need to select a location</string>
-    <string name="screen_search_overview_snackbar_current_location_not_found_message">Location was not found</string>
     <string name="screen_search_overview_snackbar_find_location_canceled_message">Location request was canceled</string>
     <string name="screen_search_overview_snackbar_find_location_failure_message">Location request failed</string>
+    <string name="screen_search_overview_snackbar_find_location_not_found_message">Location was not found</string>
     <string name="screen_search_overview_snackbar_location_deleted_action_label">Undo</string>
     <string name="screen_search_overview_snackbar_location_deleted_message_format">%1$s deleted</string>
-    <string name="screen_search_overview_snackbar_location_permission_denied_action_label">Settings</string>
-    <string name="screen_search_overview_snackbar_location_permission_denied_message">Location permission denied</string>
 
     <string name="screen_settings_appearance_description">Change theme and color scheme</string>
     <string name="screen_settings_appearance_header_color_scheme">Color scheme</string>
@@ -782,5 +777,9 @@
     <string name="screen_settings_units_header_temperature">Temperature</string>
     <string name="screen_settings_units_header_wind_speed">Wind speed</string>
     <string name="screen_settings_units_title">Units</string>
+
+    <string name="snackbar_intent_failed_message">No fitting app on your phone found</string>
+    <string name="snackbar_location_permission_denied_action_label">Settings</string>
+    <string name="snackbar_location_permission_denied_message">Location permission denied</string>
 
 </resources>

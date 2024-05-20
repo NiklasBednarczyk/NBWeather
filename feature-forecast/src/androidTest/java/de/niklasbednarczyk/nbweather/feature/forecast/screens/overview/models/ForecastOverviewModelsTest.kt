@@ -349,34 +349,6 @@ class ForecastOverviewModelsTest : NBForecastModelsTest {
         assertListHasSize(hourlyFull.itemPairs, 2)
     }
 
-    @Test
-    fun item_shouldConvertCorrectly() {
-        // Arrange + Act
-        val itemsEmpty = ForecastOverviewItem.from(
-            timezoneOffset = null,
-            currentWeather = null,
-            minutelyForecasts = listOf(),
-            hourlyForecasts = listOf(),
-            dailyForecasts = listOf(),
-            nationalWeatherAlerts = listOf(),
-            today = null
-        )
-        val itemsFull = ForecastOverviewItem.from(
-            timezoneOffset = testTimezoneOffset,
-            currentWeather = createTestCurrentWeather(),
-            minutelyForecasts = createTestMinutelyForecasts(60),
-            hourlyForecasts = createTestHourlyForecasts(3),
-            dailyForecasts = createTestDailyForecasts(3),
-            nationalWeatherAlerts = createTestNationalWeatherAlerts(3),
-            today = createTestDailyForecast()
-        )
-
-        // Assert
-        assertNull(itemsEmpty)
-
-        assertNotNull(itemsFull)
-        assertListHasSize(itemsFull, 7)
-    }
 
     @Test
     fun item_getSortOrder_shouldConvertCorrectly() {
@@ -443,6 +415,35 @@ class ForecastOverviewModelsTest : NBForecastModelsTest {
         assertEquals(2, sortOrderPrecipitation)
         assertEquals(-1, sortOrderSummary)
         assertEquals(1, sortOrderSunAndMoon)
+    }
+
+    @Test
+    fun items_shouldConvertCorrectly() {
+        // Arrange + Act
+        val itemsEmpty = ForecastOverviewItem.from(
+            timezoneOffset = null,
+            currentWeather = null,
+            minutelyForecasts = listOf(),
+            hourlyForecasts = listOf(),
+            dailyForecasts = listOf(),
+            nationalWeatherAlerts = listOf(),
+            today = null
+        )
+        val itemsFull = ForecastOverviewItem.from(
+            timezoneOffset = testTimezoneOffset,
+            currentWeather = createTestCurrentWeather(),
+            minutelyForecasts = createTestMinutelyForecasts(60),
+            hourlyForecasts = createTestHourlyForecasts(3),
+            dailyForecasts = createTestDailyForecasts(3),
+            nationalWeatherAlerts = createTestNationalWeatherAlerts(3),
+            today = createTestDailyForecast()
+        )
+
+        // Assert
+        assertNull(itemsEmpty)
+
+        assertNotNull(itemsFull)
+        assertListHasSize(itemsFull, 7)
     }
 
     @Test

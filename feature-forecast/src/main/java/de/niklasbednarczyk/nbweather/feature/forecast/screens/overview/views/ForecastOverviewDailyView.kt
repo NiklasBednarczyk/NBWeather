@@ -46,7 +46,7 @@ import kotlin.math.max
 fun ForecastOverviewDailyView(
     daily: ForecastOverviewDailyModel,
     clickableEnabled: Boolean,
-    navigateToDaily: (forecastTime: Long?) -> Unit
+    navigateToForecastDaily: (forecastTime: Long?) -> Unit
 ) {
     LazyRow(
         horizontalArrangement = rowHorizontalArrangementBig,
@@ -58,7 +58,7 @@ fun ForecastOverviewDailyView(
                 calcFactor = daily::calcFactor,
                 clickableEnabled = clickableEnabled,
                 onClick = {
-                    navigateToDaily(item.forecastTime.dt.value)
+                    navigateToForecastDaily(item.forecastTime.dt.value)
                 }
             )
         }

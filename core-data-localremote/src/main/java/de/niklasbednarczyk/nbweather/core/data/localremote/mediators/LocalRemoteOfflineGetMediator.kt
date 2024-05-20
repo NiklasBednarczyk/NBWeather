@@ -29,12 +29,12 @@ abstract class LocalRemoteOfflineGetMediator<Data, Local, Remote> :
                         clearLocal(localFirst)
                     }
                     insertLocal(remote)
-                    getLocal().map { local -> onSuccess(local) }
+                    getLocal().map(::onSuccess)
                 } catch (throwable: Throwable) {
                     flowOf(onRemoteFailed(throwable))
                 }
             } else {
-                getLocal().map { local -> onSuccess(local) }
+                getLocal().map(::onSuccess)
             }
 
         emitAll(flow)

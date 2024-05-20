@@ -87,9 +87,7 @@ data class LocationModelData(
         }
 
         fun remoteToLocal(
-            remote: LocationModelRemote,
-            lastVisitedTimestampEpochSeconds: Long? = null,
-            order: Long? = null,
+            remote: LocationModelRemote
         ): LocationModelLocal {
             return LocationModelLocal(
                 latitude = remote.lat,
@@ -98,8 +96,8 @@ data class LocationModelData(
                 localNames = LocalNamesModelData.remoteToLocal(remote.localNames),
                 country = remote.country,
                 state = remote.state,
-                lastVisitedTimestampEpochSeconds = lastVisitedTimestampEpochSeconds,
-                order = order
+                lastVisitedTimestampEpochSeconds = null,
+                order = null
             )
         }
 

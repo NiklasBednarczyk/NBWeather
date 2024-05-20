@@ -57,17 +57,6 @@ sealed interface NBResource<out T> {
             }
         }
 
-        fun <T> Flow<NBResource<List<T>>?>.nbTransformToList(
-        ): Flow<List<T>> {
-            return map { resource ->
-                if (resource is Success) {
-                    resource.data
-                } else {
-                    emptyList()
-                }
-            }
-        }
-
         fun <T1, T2, R> nbCombineResourceFlows(
             flow1: Flow<NBResource<T1>>,
             flow2: Flow<NBResource<T2>>,

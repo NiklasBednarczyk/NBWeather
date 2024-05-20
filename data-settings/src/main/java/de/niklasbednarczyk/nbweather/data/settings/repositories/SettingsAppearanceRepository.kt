@@ -45,7 +45,7 @@ class SettingsAppearanceRepository @Inject internal constructor(
         get() = NBAppearanceMapperData
 
     suspend fun updateUseDeviceTheme(useDeviceTheme: Boolean) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setUseDeviceTheme(useDeviceTheme)
@@ -54,7 +54,7 @@ class SettingsAppearanceRepository @Inject internal constructor(
     }
 
     suspend fun updateTheme(theme: NBThemeType) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setTheme(NBThemeMapperData.dataToProto(theme))
@@ -63,7 +63,7 @@ class SettingsAppearanceRepository @Inject internal constructor(
     }
 
     suspend fun updateUseDynamicColorScheme(useDynamicColorScheme: Boolean) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setUseDynamicColorScheme(useDynamicColorScheme)
@@ -72,7 +72,7 @@ class SettingsAppearanceRepository @Inject internal constructor(
     }
 
     suspend fun updateColorScheme(colorScheme: NBColorSchemeType) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto
                 .toBuilder()
                 .setColorScheme(NBColorSchemeMapperData.dataToProto(colorScheme))

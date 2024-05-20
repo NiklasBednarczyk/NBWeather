@@ -2,7 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.order
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
-import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsOrderRepository
 import de.niklasbednarczyk.nbweather.feature.settings.screens.order.models.SettingsOrderItemType
 import de.niklasbednarczyk.nbweather.feature.settings.screens.order.models.SettingsOrderItemType.Companion.toOrder
@@ -25,15 +25,17 @@ class SettingsOrderViewModel @Inject constructor(
     }
 
     private fun getItemsFlow(): Flow<List<SettingsOrderItemType>> {
-        return settingsOrderRepository.getData().map { order ->
-            SettingsOrderItemType.from(order)
-        }
+        return settingsOrderRepository.getData().map(SettingsOrderItemType::from)
     }
 
-    fun updateOrder(items: List<SettingsOrderItemType>) {
+    fun updateOrder(
+        items: List<SettingsOrderItemType>
+    ) {
         launchSuspend {
             nbNullSafe(items.toOrder()) { order ->
-                settingsOrderRepository.updateOrder(order)
+                settingsOrderRepository.updateOrder(
+                    order = order
+                )
             }
         }
     }

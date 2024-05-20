@@ -7,7 +7,7 @@ import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsAppearan
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsFontRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsOrderRepository
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
-import de.niklasbednarczyk.nbweather.navigation.NBNavigationDrawerItem
+import de.niklasbednarczyk.nbweather.navigation.drawer.NBNavigationDrawerItem
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
@@ -15,15 +15,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class MainViewModelTest : NBViewModelTest {
-
-    companion object {
-        private const val LATITUDE = 40.7127281
-        private const val LONGITUDE = -74.0060152
-    }
 
     @get:Rule
     val temporaryFolder: TemporaryFolder = createTemporaryFolderRule()
@@ -44,36 +39,6 @@ class MainViewModelTest : NBViewModelTest {
             settingsFontRepository = SettingsFontRepository.createFake(temporaryFolder),
             settingsOrderRepository = SettingsOrderRepository.createFake(temporaryFolder),
             settingsUnitsRepository = SettingsUnitsRepository.createFake(temporaryFolder)
-        )
-    }
-
-    @Test
-    fun uiState_drawerItems_shouldHaveCorrectDividers() = testScope.runTest {
-        subject.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                uiState.drawerItems.isNotEmpty()
-            },
-            collectData = { uiState ->
-                testDividerList(
-                    items = uiState.drawerItems,
-                    dividerKlass = NBNavigationDrawerItem.Divider::class.java
-                )
-            }
-        )
-    }
-
-    @Test
-    fun uiState_isInitialCurrentLocationSetResource_shouldBeSetCorrectly() = testScope.runTest {
-        // Arrange + Act
-        subject.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                uiState.isInitialCurrentLocationSetResource.isSuccessOrError
-            },
-            collectData = { uiState ->
-                // Assert
-                assertResourceIsSuccess(uiState.isInitialCurrentLocationSetResource)
-                assertNotNull(uiState.isInitialCurrentLocationSetResource.dataOrNull)
-            }
         )
     }
 
@@ -134,21 +99,28 @@ class MainViewModelTest : NBViewModelTest {
     }
 
     @Test
-    fun setCurrentLocation_shouldSetCurrentLocation() = testScope.runTest {
+    fun uiState_viewDataResource_shouldBeSetCorrectly() = testScope.runTest {
         // Arrange + Act
-        subject.setCurrentLocation(LATITUDE, LONGITUDE)
+        subject.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.viewDataResource.isSuccessOrError
+            },
+            collectData = { uiState ->
+                // Assert
+                assertResourceIsSuccess(uiState.viewDataResource)
 
-        // Assert
-        geocodingRepository.getCurrentLocation().collectUntil(
-            stopCollecting = { resource ->
-                resource.isSuccessOrError && resource.dataOrNull != null
+                val viewData = uiState.viewDataResource.dataOrNull
+                assertNotNull(viewData)
+
+                testDividerList(
+                    items = viewData.drawerItems,
+                    dividerKlass = NBNavigationDrawerItem.Divider::class.java,
+                    headerKlass = NBNavigationDrawerItem.Headline::class.java
+                )
+
+                assertNull(viewData.initialCurrentLocation)
             }
-        ) { resource ->
-            val data = resource.dataOrNull
-            assertNotNull(data)
-            assertEquals(LATITUDE, data.latitude)
-            assertEquals(LONGITUDE, data.longitude)
-        }
+        )
     }
 
 }

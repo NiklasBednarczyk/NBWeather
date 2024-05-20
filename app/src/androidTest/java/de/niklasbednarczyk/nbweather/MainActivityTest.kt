@@ -1,13 +1,10 @@
 package de.niklasbednarczyk.nbweather
 
 import androidx.annotation.StringRes
-import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -18,7 +15,7 @@ import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.FORECAST_OVERVIEW_CONTENT_LAZY_COLUMN_TAG
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.FORECAST_OVERVIEW_SCREEN_LAZY_COLUMN_TAG
 import de.niklasbednarczyk.nbweather.test.common.utils.createHiltAndroidRule
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBComposeTest
@@ -81,7 +78,7 @@ class MainActivityTest : NBComposeTest {
             forecastOverviewToSearchOverview()
 
             // SearchOverview -> ForecastOverview via visited location
-            onNodeWithLocationName(LOCATION_1_NAME)
+            onNodeWithText(LOCATION_1_NAME)
                 .performClick()
             assertIsOnForecastOverview(LOCATION_1_NAME)
 
@@ -181,13 +178,6 @@ class MainActivityTest : NBComposeTest {
             .performClick()
     }
 
-    private fun ComposeContentTestRule.onNodeWithLocationName(
-        locationName: String
-    ): SemanticsNodeInteraction {
-        return onAllNodesWithText(locationName, substring = true)
-            .onLast()
-    }
-
     private fun ComposeContentTestRule.assertIsOnSearchOverview() {
         onNodeWithText(R.string.screen_search_overview_bar_placeholder)
             .assertIsDisplayed()
@@ -203,7 +193,7 @@ class MainActivityTest : NBComposeTest {
         itemTitle: String,
         detailViewTitle: String
     ) {
-        onNodeWithTag(FORECAST_OVERVIEW_CONTENT_LAZY_COLUMN_TAG)
+        onNodeWithTag(FORECAST_OVERVIEW_SCREEN_LAZY_COLUMN_TAG)
             .performScrollToNode(hasText(itemTitle))
 
         onNodeWithText(itemTitle)

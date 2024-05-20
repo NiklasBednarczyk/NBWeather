@@ -2,7 +2,6 @@ package de.niklasbednarczyk.nbweather.feature.settings.screens.units
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.data.settings.repositories.SettingsUnitsRepository
-import de.niklasbednarczyk.nbweather.feature.settings.screens.list.models.SettingsListItemModel
 import de.niklasbednarczyk.nbweather.test.common.utils.createTemporaryFolderRule
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
@@ -32,11 +31,7 @@ class SettingsUnitsViewModelTest : NBViewModelTest {
                 uiState.items.isNotEmpty()
             },
             collectData = { uiState ->
-                testDividerList(
-                    items = uiState.items,
-                    dividerKlass = SettingsListItemModel.Divider::class.java,
-                    headerKlass = SettingsListItemModel.Header::class.java
-                )
+                assertListIsNotEmpty(uiState.items)
             }
         )
     }

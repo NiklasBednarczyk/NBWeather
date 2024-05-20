@@ -240,9 +240,7 @@ class GeocodingModelsTest : NBTest {
 
         // Act
         val locationLocal = LocationModelData.remoteToLocal(
-            remote = locationRemote,
-            lastVisitedTimestampEpochSeconds = -3,
-            order = -4
+            remote = locationRemote
         )
         val localNamesLocal = locationLocal.localNames
 
@@ -301,8 +299,8 @@ class GeocodingModelsTest : NBTest {
         assertEquals(locationRemote.name, locationLocal.name)
         assertEquals(locationRemote.country, locationLocal.country)
         assertEquals(locationRemote.state, locationLocal.state)
-        assertEquals(-3, locationLocal.lastVisitedTimestampEpochSeconds)
-        assertEquals(-4, locationLocal.order)
+        assertNull(locationLocal.lastVisitedTimestampEpochSeconds)
+        assertNull(locationLocal.order)
     }
 
     @Test

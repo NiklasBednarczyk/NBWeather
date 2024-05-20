@@ -2,8 +2,8 @@ package de.niklasbednarczyk.nbweather.core.common
 
 import de.niklasbednarczyk.nbweather.core.common.locale.NBCountryType
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
-import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class NBCountryTypeTest : NBTest {
 
@@ -2022,7 +2022,7 @@ class NBCountryTypeTest : NBTest {
             expectedCountryType = null
         )
     }
-    
+
     private fun testCountry(
         country: String?,
         expectedCountryType: NBCountryType?

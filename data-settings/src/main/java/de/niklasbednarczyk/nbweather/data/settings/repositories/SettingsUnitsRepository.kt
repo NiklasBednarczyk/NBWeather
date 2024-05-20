@@ -49,7 +49,7 @@ class SettingsUnitsRepository @Inject internal constructor(
         get() = NBUnitsMapperData
 
     suspend fun updateTemperatureUnit(temperatureUnit: NBTemperatureUnitType) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto.toBuilder()
                 .setTemperatureUnit(NBTemperatureUnitMapperData.dataToProto(temperatureUnit))
                 .build()
@@ -57,7 +57,7 @@ class SettingsUnitsRepository @Inject internal constructor(
     }
 
     suspend fun updatePrecipitationUnit(precipitationUnit: NBPrecipitationUnitType) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto.toBuilder()
                 .setPrecipitationUnit(NBPrecipitationUnitMapperData.dataToProto(precipitationUnit))
                 .build()
@@ -65,7 +65,7 @@ class SettingsUnitsRepository @Inject internal constructor(
     }
 
     suspend fun updateDistanceUnit(distanceUnit: NBDistanceUnitType) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto.toBuilder()
                 .setDistanceUnit(NBDistanceUnitMapperData.dataToProto(distanceUnit))
                 .build()
@@ -73,7 +73,7 @@ class SettingsUnitsRepository @Inject internal constructor(
     }
 
     suspend fun updatePressureUnit(pressureUnit: NBPressureUnitType) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto.toBuilder()
                 .setPressureUnit(NBPressureUnitMapperData.dataToProto(pressureUnit))
                 .build()
@@ -81,7 +81,7 @@ class SettingsUnitsRepository @Inject internal constructor(
     }
 
     suspend fun updateWindSpeedUnit(windSpeedUnit: NBWindSpeedUnitType) {
-        dataStore.updateData { currentProto ->
+        updateData { currentProto ->
             currentProto.toBuilder()
                 .setWindSpeedUnit(NBWindSpeedUnitMapperData.dataToProto(windSpeedUnit))
                 .build()

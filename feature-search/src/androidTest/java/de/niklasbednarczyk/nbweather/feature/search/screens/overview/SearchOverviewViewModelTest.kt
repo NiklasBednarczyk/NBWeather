@@ -3,6 +3,7 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
+import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.test.ui.screens.NBViewModelTest
 import kotlinx.coroutines.test.runTest
@@ -24,39 +25,84 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         private const val SEARCH_QUERY = "Sydney"
     }
 
-    private lateinit var subject: SearchOverviewViewModel
+    private lateinit var subjectWithoutArgs: SearchOverviewViewModel
+    private lateinit var subjectWithIsStartDestinationFalse: SearchOverviewViewModel
+    private lateinit var subjectWithIsStartDestinationTrue: SearchOverviewViewModel
 
     private lateinit var geocodingRepository: GeocodingRepository
 
     @Before
     override fun setUp() {
         geocodingRepository = GeocodingRepository.createFake(context)
-        subject = SearchOverviewViewModel(
+        subjectWithoutArgs = SearchOverviewViewModel(
+            savedStateHandle = createTestSaveStateHandle(),
+            geocodingRepository = geocodingRepository
+        )
+        subjectWithIsStartDestinationFalse = SearchOverviewViewModel(
+            savedStateHandle = createTestSaveStateHandle(
+                NBArgumentKeys.IsStartDestination to false
+            ),
+            geocodingRepository = geocodingRepository
+        )
+        subjectWithIsStartDestinationTrue = SearchOverviewViewModel(
+            savedStateHandle = createTestSaveStateHandle(
+                NBArgumentKeys.IsStartDestination to true
+            ),
             geocodingRepository = geocodingRepository
         )
     }
 
     @Test
-    fun uiState_visitedLocationsInfoResource_shouldBeSetCorrectly() =
+    fun uiState_isStartDestination_withoutArgs_shouldBeSetCorrectly() = testScope.runTest {
+        subjectWithoutArgs.testUiStateIsStartDestination(
+            expectedIsStartDestination = null,
+            expectedPopBackStackEnabled = false
+        )
+    }
+
+    @Test
+    fun uiState_isStartDestination_withIsStartDestinationFalse_shouldBeSetCorrectly() =
         testScope.runTest {
-            // Arrange + Act
-            subject.uiState.collectUntil(
-                stopCollecting = { uiState ->
-                    uiState.visitedLocationsInfoResource.isSuccessOrError
-                },
-                collectData = { uiState ->
-                    // Assert
-                    assertResourceIsSuccess(uiState.visitedLocationsInfoResource)
-                }
+            subjectWithIsStartDestinationFalse.testUiStateIsStartDestination(
+                expectedIsStartDestination = false,
+                expectedPopBackStackEnabled = true
             )
         }
 
     @Test
+    fun uiState_isStartDestination_withIsStartDestinationTrue_shouldBeSetCorrectly() =
+        testScope.runTest {
+            subjectWithIsStartDestinationTrue.testUiStateIsStartDestination(
+                expectedIsStartDestination = true,
+                expectedPopBackStackEnabled = false
+            )
+        }
+
+    @Test
+    fun uiState_visitedLocationsResource_shouldBeSetCorrectly() = testScope.runTest {
+        // Arrange
+        LAT_LONG_1.insertLocationAndSetAsVisited()
+        LAT_LONG_2.insertLocationAndSetAsVisited()
+
+        //Act
+        subjectWithoutArgs.uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.visitedLocationsResource.isSuccessOrError && uiState.visitedLocationsResource.dataOrNull?.size == 2
+            },
+            collectData = { uiState ->
+                // Assert
+                assertResourceIsSuccess(uiState.visitedLocationsResource)
+                assertListHasSize(uiState.visitedLocationsResource.dataOrNull, 2)
+            }
+        )
+    }
+
+    @Test
     fun onSearchQueryChanged_shouldSetUiStateCorrectly() = testScope.runTest {
         // Arrange + Act
-        subject.onSearchQueryChanged(SEARCH_QUERY)
+        subjectWithoutArgs.onSearchQueryChange(SEARCH_QUERY)
 
-        subject.uiState.collectUntil(
+        subjectWithoutArgs.uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.searchedLocationsResource.isSuccessOrError
             },
@@ -72,10 +118,10 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     @Test
     fun onSearchQueryChanged_empty_shouldSetResourceCorrectlyBeforeDebounce() = testScope.runTest {
         // Arrange + Act
-        subject.onSearchQueryChanged("startingSearchQuery")
-        subject.onSearchQueryChanged("")
+        subjectWithoutArgs.onSearchQueryChange("startingSearchQuery")
+        subjectWithoutArgs.onSearchQueryChange("")
 
-        subject.uiState.collectUntil(
+        subjectWithoutArgs.uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.searchedLocationsResource == null && uiState.searchQuery.isEmpty()
             },
@@ -91,10 +137,10 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     fun onSearchQueryChanged_notEmpty_shouldSetResourceCorrectlyBeforeDebounce() =
         testScope.runTest {
             // Arrange + Act
-            subject.onSearchQueryChanged("startingSearchQuery")
-            subject.onSearchQueryChanged(SEARCH_QUERY)
+            subjectWithoutArgs.onSearchQueryChange("startingSearchQuery")
+            subjectWithoutArgs.onSearchQueryChange(SEARCH_QUERY)
 
-            subject.uiState.collectUntil(
+            subjectWithoutArgs.uiState.collectUntil(
                 stopCollecting = { uiState ->
                     uiState.searchedLocationsResource is NBResource.Loading && uiState.searchQuery == SEARCH_QUERY
                 },
@@ -109,10 +155,10 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     @Test
     fun onSearchActiveChange_false_shouldSetUiStateCorrectly() = testScope.runTest {
         // Arrange + Act
-        subject.onSearchQueryChanged(SEARCH_QUERY)
-        subject.onSearchActiveChange(false)
+        subjectWithoutArgs.onSearchQueryChange(SEARCH_QUERY)
+        subjectWithoutArgs.onSearchActiveChange(false)
 
-        subject.uiState.collectUntil(
+        subjectWithoutArgs.uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.searchedLocationsResource == null
             },
@@ -128,10 +174,10 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     @Test
     fun onSearchActiveChange_true_shouldSetUiStateCorrectly() = testScope.runTest {
         // Arrange + Act
-        subject.onSearchQueryChanged(SEARCH_QUERY)
-        subject.onSearchActiveChange(true)
+        subjectWithoutArgs.onSearchQueryChange(SEARCH_QUERY)
+        subjectWithoutArgs.onSearchActiveChange(true)
 
-        subject.uiState.collectUntil(
+        subjectWithoutArgs.uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.searchedLocationsResource.isSuccessOrError
             },
@@ -148,15 +194,16 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     @Test
     fun setFindLocationInProgress_shouldSetUiStateCorrectly() = testScope.runTest {
         // Arrange + Act
-        subject.setFindLocationInProgress(true)
+        subjectWithoutArgs.setFindLocationInProgress(true)
 
-        subject.uiState.collectUntil(
+        subjectWithoutArgs.uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.findLocationInProgress
             },
             collectData = { uiState ->
                 // Assert
                 assertTrue(uiState.findLocationInProgress)
+                assertFalse(uiState.searchBarEnabled)
             }
         )
     }
@@ -164,10 +211,11 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     @Test
     fun deleteLocation_shouldDeleteLocation() = testScope.runTest {
         // Arrange
-        LAT_LONG_1.setCurrentLocation()
+        LAT_LONG_1.insertLocationAndSetAsVisited()
+        LAT_LONG_2.insertLocationAndSetAsVisited()
 
         // Act
-        val deletedLocation = subject.deleteLocation(LAT_LONG_1.first, LAT_LONG_1.second)
+        val deletedLocation = subjectWithoutArgs.deleteLocation(LAT_LONG_1.first, LAT_LONG_1.second)
 
         // Assert
         assertNotNull(deletedLocation)
@@ -182,45 +230,49 @@ class SearchOverviewViewModelTest : NBViewModelTest {
             },
             collectData = { resource ->
                 assertResourceIsSuccess(resource)
-                assertNotEquals(resource.dataOrNull?.latitude, LAT_LONG_1.first)
-                assertNotEquals(resource.dataOrNull?.longitude, LAT_LONG_1.second)
+                val latitude = resource.dataOrNull?.latitude
+                val longitude = resource.dataOrNull?.longitude
+
+                assertNotEquals(LAT_LONG_1.first, latitude)
+                assertNotEquals(LAT_LONG_1.second, longitude)
+
+                assertEquals(LAT_LONG_2.first, latitude)
+                assertEquals(LAT_LONG_2.second, longitude)
             }
         )
     }
 
-    @Test
-    fun setCurrentLocation_incorrectLatLong_shouldNotBeSuccessful() = testScope.runTest {
+    private suspend fun SearchOverviewViewModel.testUiStateIsStartDestination(
+        expectedIsStartDestination: Boolean?,
+        expectedPopBackStackEnabled: Boolean
+    ) {
         // Arrange + Act
-        val isSuccessful = subject.setCurrentLocation(Double.MAX_VALUE, Double.MAX_VALUE)
-
-        // Assert
-        assertFalse(isSuccessful)
-    }
-
-    @Test
-    fun setCurrentLocation_correctLatLong_shouldSetCurrentLocation() = testScope.runTest {
-        // Arrange + Act
-        val isSuccessful = subject.setCurrentLocation(LAT_LONG_2.first, LAT_LONG_2.second)
-
-        // Assert
-        assertTrue(isSuccessful)
-
-        geocodingRepository.getCurrentLocation().collectUntil(
-            stopCollecting = { resource ->
-                val data = resource.dataOrNull
-                val pair = Pair(data?.latitude, data?.longitude)
-                resource.isSuccessOrError && pair == LAT_LONG_2
+        uiState.collectUntil(
+            stopCollecting = { uiState ->
+                uiState.isStartDestination == expectedIsStartDestination
             },
-            collectData = { resource ->
-                assertResourceIsSuccess(resource)
-                assertEquals(resource.dataOrNull?.latitude, LAT_LONG_2.first)
-                assertEquals(resource.dataOrNull?.longitude, LAT_LONG_2.second)
+            collectData = { uiState ->
+                // Assert
+                assertEquals(expectedIsStartDestination, uiState.isStartDestination)
+                assertEquals(expectedPopBackStackEnabled, uiState.popBackStackEnabled)
             }
         )
     }
 
-    private suspend fun Pair<Double, Double>.setCurrentLocation() {
-        geocodingRepository.setCurrentLocation(first, second)
+    private suspend fun Pair<Double, Double>.insertLocationAndSetAsVisited() {
+        geocodingRepository.getAndInsertLocation(
+            latitude = first,
+            longitude = second
+        )!!
+        val location = geocodingRepository.deleteLocation(
+            latitude = first,
+            longitude = second
+        )!!
+        val newLocation = location.copy(
+            lastVisitedTimestampEpochSeconds = 1L,
+            order = 2L
+        )
+        geocodingRepository.insertLocation(newLocation)
     }
 
 }

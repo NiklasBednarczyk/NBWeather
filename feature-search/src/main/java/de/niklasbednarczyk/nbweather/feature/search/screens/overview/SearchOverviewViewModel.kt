@@ -1,15 +1,16 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
+import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.nbDebounce
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.nbFlatMapLatest
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbMapResource
-import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
+import de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewLocationModel
-import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.SearchOverviewVisitedLocationsInfoModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -18,49 +19,49 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchOverviewViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val geocodingRepository: GeocodingRepository
 ) : NBViewModel<SearchOverviewUiState>(SearchOverviewUiState()) {
-
-    companion object {
-        private const val DEBOUNCE_TIMEOUT_MILLIS = 300L
-    }
 
     private val searchQueryFlow = MutableStateFlow(uiState.value.searchQuery)
 
     init {
+        val isStartDestination = savedStateHandle.getArgument(NBArgumentKeys.IsStartDestination)
+        updateIsStartDestination(isStartDestination)
+
         collectFlow(
-            { getVisitedLocationsInfoFlow() },
-            { oldUiState, output -> oldUiState.copy(visitedLocationsInfoResource = output) }
+            { getVisitedLocationsResourceFlow() },
+            { oldUiState, output -> oldUiState.copy(visitedLocationsResource = output) }
         )
 
         collectFlow(
-            {
-                searchQueryFlow
-                    .nbDebounce(DEBOUNCE_TIMEOUT_MILLIS)
-                    .distinctUntilChanged()
-                    .nbFlatMapLatest { searchQuery ->
-                        if (searchQuery.isNotEmpty()) {
-                            geocodingRepository.getLocationsByLocationName(searchQuery)
-                                .nbMapResource(SearchOverviewLocationModel::from)
-                        } else {
-                            flowOf(null)
-                        }
-                    }
-            },
+            { getSearchedLocationsResourceFlow() },
             { oldUiState, output -> oldUiState.copy(searchedLocationsResource = output) }
         )
     }
 
-    private suspend fun getVisitedLocationsInfoFlow(): Flow<NBResource<SearchOverviewVisitedLocationsInfoModel>> {
-        return NBResource.nbCombineResourceFlows(
-            geocodingRepository.getVisitedLocations(),
-            geocodingRepository.getCurrentLocation(),
-            geocodingRepository.getIsInitialCurrentLocationSet(),
-            SearchOverviewVisitedLocationsInfoModel::from
-        )
+    private suspend fun getVisitedLocationsResourceFlow(): Flow<NBResource<List<SearchOverviewLocationModel>>> {
+        return geocodingRepository.getVisitedLocations()
+            .nbMapResource(SearchOverviewLocationModel::from)
     }
 
-    fun onSearchQueryChanged(searchQuery: String) {
+    private suspend fun getSearchedLocationsResourceFlow(): Flow<NBResource<List<SearchOverviewLocationModel>>?> {
+        return searchQueryFlow
+            .nbDebounce()
+            .distinctUntilChanged()
+            .nbFlatMapLatest { searchQuery ->
+                if (searchQuery.isNotEmpty()) {
+                    geocodingRepository.getLocationsByLocationName(searchQuery)
+                        .nbMapResource(SearchOverviewLocationModel::from)
+                } else {
+                    flowOf(null)
+                }
+            }
+    }
+
+    fun onSearchQueryChange(
+        searchQuery: String
+    ) {
         val searchedLocationsResource = if (searchQuery.isNotEmpty()) {
             NBResource.Loading
         } else {
@@ -78,39 +79,72 @@ class SearchOverviewViewModel @Inject constructor(
         }
     }
 
-    fun onSearchActiveChange(searchActive: Boolean) {
+    fun onSearchActiveChange(
+        searchActive: Boolean
+    ) {
         updateUiState { oldUiState ->
             oldUiState.copy(searchActive = searchActive)
         }
         if (!searchActive) {
-            onSearchQueryChanged("")
+            onSearchQueryChange("")
         }
     }
 
-    fun setFindLocationInProgress(findLocationInProgress: Boolean) {
+    fun setFindLocationInProgress(
+        findLocationInProgress: Boolean
+    ) {
         updateUiState { oldUiState ->
             oldUiState.copy(findLocationInProgress = findLocationInProgress)
         }
     }
 
-    fun updateOrders(pairs: List<Pair<Double, Double>>) {
+    fun updateOrders(
+        pairs: List<Pair<Double, Double>>
+    ) {
         launchSuspend {
-            geocodingRepository.updateOrders(pairs)
+            geocodingRepository.updateOrders(
+                pairs = pairs
+            )
         }
     }
 
-    fun insertLocation(location: LocationModelData) {
+    fun insertLocation(
+        location: LocationModelData
+    ) {
         launchSuspend {
-            geocodingRepository.insertLocation(location)
+            geocodingRepository.insertLocation(
+                location = location
+            )
         }
     }
 
-    suspend fun deleteLocation(latitude: Double, longitude: Double): LocationModelData? {
-        return geocodingRepository.deleteLocation(latitude, longitude)
+    suspend fun getAndInsertLocation(
+        latitude: Double,
+        longitude: Double
+    ): LocationModelData? {
+        return geocodingRepository.getAndInsertLocation(
+            latitude = latitude,
+            longitude = longitude
+        )
     }
 
-    suspend fun setCurrentLocation(latitude: Double, longitude: Double): Boolean {
-        return geocodingRepository.setCurrentLocation(latitude, longitude)
+    suspend fun deleteLocation(
+        latitude: Double,
+        longitude: Double
+    ): LocationModelData? {
+        return geocodingRepository.deleteLocation(
+            latitude = latitude,
+            longitude = longitude
+        )
+    }
+
+
+    private fun updateIsStartDestination(
+        isStartDestination: Boolean?
+    ) {
+        updateUiState { oldUiState ->
+            oldUiState.copy(isStartDestination = isStartDestination)
+        }
     }
 
 }

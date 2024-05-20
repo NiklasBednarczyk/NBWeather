@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 
 @OptIn(FlowPreview::class)
-fun <T> Flow<T>.nbDebounce(timeoutMillis: Long): Flow<T> {
+fun <T> Flow<T>.nbDebounce(timeoutMillis: Long = 300L): Flow<T> {
     return debounce(timeoutMillis)
 }
 

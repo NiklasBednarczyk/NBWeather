@@ -5,3 +5,9 @@ inline fun <T, R> Iterable<T>?.nbMap(
 ): List<R> {
     return this?.map(transform) ?: emptyList()
 }
+
+inline fun <T, R> Iterable<T>?.nbMapNotNull(
+    transform: (T) -> R?
+): List<R> {
+    return this?.mapNotNull(transform) ?: emptyList()
+}

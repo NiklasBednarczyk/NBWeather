@@ -7,9 +7,7 @@ import de.niklasbednarczyk.nbweather.core.ui.image.NBImages
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertNull
-import kotlin.test.assertTrue
 
 class SearchOverviewModelsTest : NBTest {
 
@@ -91,33 +89,6 @@ class SearchOverviewModelsTest : NBTest {
         )
     }
 
-    @Test
-    fun visitedLocationsInfo_currentLocationShouldBeSet_shouldConvertCorrectly() {
-        // Arrange + Act
-        val visitedLocationsInfoAllFalse = createTestVisitedLocationsInfo(
-            isCurrentLocationSet = false,
-            isInitialCurrentLocationSet = false
-        )
-        val visitedLocationsInfoIsInitialCurrentLocationSet = createTestVisitedLocationsInfo(
-            isCurrentLocationSet = false,
-            isInitialCurrentLocationSet = true
-        )
-        val visitedLocationsInfoIsCurrentLocationSet = createTestVisitedLocationsInfo(
-            isCurrentLocationSet = true,
-            isInitialCurrentLocationSet = false
-        )
-        val visitedLocationsInfoAllTrue = createTestVisitedLocationsInfo(
-            isCurrentLocationSet = true,
-            isInitialCurrentLocationSet = true
-        )
-
-        // Assert
-        assertFalse(visitedLocationsInfoAllFalse.shouldCurrentLocationBeSet)
-        assertTrue(visitedLocationsInfoIsInitialCurrentLocationSet.shouldCurrentLocationBeSet)
-        assertFalse(visitedLocationsInfoIsCurrentLocationSet.shouldCurrentLocationBeSet)
-        assertFalse(visitedLocationsInfoAllTrue.shouldCurrentLocationBeSet)
-    }
-
     private fun createTestLocation(
         country: String?,
         state: String? = "state"
@@ -128,17 +99,6 @@ class SearchOverviewModelsTest : NBTest {
             localizedName = NBString.Value.from("localizedName"),
             country = country,
             state = state
-        )
-    }
-
-    private fun createTestVisitedLocationsInfo(
-        isCurrentLocationSet: Boolean,
-        isInitialCurrentLocationSet: Boolean
-    ): SearchOverviewVisitedLocationsInfoModel {
-        return SearchOverviewVisitedLocationsInfoModel(
-            visitedLocations = emptyList(),
-            isCurrentLocationSet = isCurrentLocationSet,
-            isInitialCurrentLocationSet = isInitialCurrentLocationSet
         )
     }
 

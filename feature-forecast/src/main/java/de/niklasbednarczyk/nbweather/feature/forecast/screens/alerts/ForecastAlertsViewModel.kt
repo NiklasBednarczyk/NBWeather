@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbMapResource
-import de.niklasbednarczyk.nbweather.core.ui.screen.viewmodel.NBViewModel
+import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
+import de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts.models.ForecastAlertsViewData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -19,31 +19,24 @@ class ForecastAlertsViewModel @Inject constructor(
 
     init {
 
-        val latitudeString: String? = savedStateHandle[DestinationsForecast.Alerts.KEY_LATITUDE]
-        val longitudeString: String? = savedStateHandle[DestinationsForecast.Alerts.KEY_LONGITUDE]
-
-        val latitude = latitudeString?.toDoubleOrNull()
-        val longitude = longitudeString?.toDoubleOrNull()
+        val latitude = savedStateHandle.getArgument(NBArgumentKeys.Latitude)
+        val longitude = savedStateHandle.getArgument(NBArgumentKeys.Longitude)
 
         collectFlow(
-            { getViewDataFlow(latitude, longitude) },
+            { getViewDataResourceFlow(latitude, longitude) },
             { oldUiState, output -> oldUiState.copy(viewDataResource = output) }
         )
 
     }
 
-    private suspend fun getViewDataFlow(
+    private suspend fun getViewDataResourceFlow(
         latitude: Double?,
-        longitude: Double?,
+        longitude: Double?
     ): Flow<NBResource<ForecastAlertsViewData>> {
         return oneCallRepository.getOneCall(
             latitude = latitude,
             longitude = longitude
-        ).nbMapResource { oneCall ->
-            ForecastAlertsViewData.from(
-                oneCall = oneCall
-            )
-        }
+        ).nbMapResource(ForecastAlertsViewData::from)
     }
 
 }

@@ -1,13 +1,17 @@
 package de.niklasbednarczyk.nbweather.test.ui.screens
 
 import androidx.annotation.StringRes
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.click
-import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
@@ -22,6 +26,8 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeLeft
 import androidx.compose.ui.test.swipeRight
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.font.FontFamily
 import androidx.test.espresso.Espresso
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
@@ -146,12 +152,11 @@ interface NBComposeTest : NBTest {
     ) = onAllNodesWithImage(image)
         .assertCountEquals(0)
 
-    fun ComposeContentTestRule.assertNoClickAction() =
-        onAllNodes(hasClickAction())
-            .assertCountEquals(0)
-
     fun SemanticsNodeInteraction.assertTextContains(value: NBString?) =
         assertTextContains(value.asString(context))
+
+    fun SemanticsNodeInteraction.assertIsOfFontFamily(fontFamily: FontFamily?) =
+        assert(isOfFontFamily(fontFamily))
 
     fun ComposeContentTestRule.waitUntilAtLeastOneExistsWithText(
         text: String,
@@ -169,5 +174,18 @@ interface NBComposeTest : NBTest {
 
     fun pressBack() = Espresso.pressBackUnconditionally()
 
+    private fun isOfFontFamily(fontFamily: FontFamily?): SemanticsMatcher = SemanticsMatcher(
+        "${SemanticsProperties.Text.name} is of font family '$fontFamily'"
+    ) { node ->
+        val textLayoutResults = mutableListOf<TextLayoutResult>()
+        node.config.getOrNull(SemanticsActions.GetTextLayoutResult)
+            ?.action
+            ?.invoke(textLayoutResults)
+        return@SemanticsMatcher if (textLayoutResults.isEmpty()) {
+            false
+        } else {
+            textLayoutResults.first().layoutInput.style.fontFamily == fontFamily
+        }
+    }
 
 }

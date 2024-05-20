@@ -1,10 +1,9 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.daily
 
-import androidx.lifecycle.SavedStateHandle
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
+import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
-import de.niklasbednarczyk.nbweather.feature.forecast.navigation.DestinationsForecast
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastViewModelTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -24,32 +23,28 @@ class ForecastDailyViewModelTest : NBForecastViewModelTest {
         val oneCallRepository = OneCallRepository.createFake(context)
 
         subjectWithoutArgs = ForecastDailyViewModel(
-            savedStateHandle = SavedStateHandle(),
+            savedStateHandle = createTestSaveStateHandle(),
             oneCallRepository = oneCallRepository
         )
         subjectWithoutForecastTime = ForecastDailyViewModel(
-            savedStateHandle = SavedStateHandle(
-                mapOf(
-                    DestinationsForecast.Daily.KEY_LATITUDE to latitude.toString(),
-                    DestinationsForecast.Daily.KEY_LONGITUDE to longitude.toString()
-                )
+            savedStateHandle = createTestSaveStateHandle(
+                NBArgumentKeys.Latitude to latitude,
+                NBArgumentKeys.Longitude to longitude
             ),
             oneCallRepository = oneCallRepository
         )
         subjectWithForecastTime = ForecastDailyViewModel(
-            savedStateHandle = SavedStateHandle(
-                mapOf(
-                    DestinationsForecast.Daily.KEY_FORECAST_TIME to forecastTime.toString(),
-                    DestinationsForecast.Daily.KEY_LATITUDE to latitude.toString(),
-                    DestinationsForecast.Daily.KEY_LONGITUDE to longitude.toString()
-                )
+            savedStateHandle = createTestSaveStateHandle(
+                NBArgumentKeys.ForecastTime to forecastTime,
+                NBArgumentKeys.Latitude to latitude,
+                NBArgumentKeys.Longitude to longitude
             ),
             oneCallRepository = oneCallRepository
         )
     }
 
     @Test
-    fun uiState_viewDataResource_shouldBeErrorWithoutArguments() = testScope.runTest {
+    fun uiState_viewDataResource_withoutArgs_shouldBeError() = testScope.runTest {
         // Arrange + Act
         subjectWithoutArgs.uiState.collectUntil(
             stopCollecting = { uiState ->
@@ -63,7 +58,7 @@ class ForecastDailyViewModelTest : NBForecastViewModelTest {
     }
 
     @Test
-    fun uiState_viewDataResource_shouldBeSuccessWithoutForecastTime() = testScope.runTest {
+    fun uiState_viewDataResource_withoutForecastTime_shouldBeSuccess() = testScope.runTest {
         // Arrange + Act
         subjectWithoutForecastTime.uiState.collectUntil(
             stopCollecting = { uiState ->
@@ -83,7 +78,7 @@ class ForecastDailyViewModelTest : NBForecastViewModelTest {
     }
 
     @Test
-    fun uiState_viewDataResource_shouldBeSuccessWithForecastTime() = testScope.runTest {
+    fun uiState_viewDataResource_withForecastTime_shouldBeSuccess() = testScope.runTest {
         // Arrange + Act
         subjectWithForecastTime.uiState.collectUntil(
             stopCollecting = { uiState ->
