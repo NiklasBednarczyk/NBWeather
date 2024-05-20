@@ -12,8 +12,14 @@ data class SearchOverviewUiState(
     val searchedLocationsResource: NBResource<List<SearchOverviewLocationModel>>? = null
 ) {
 
+    private val visitedLocationsIsEmpty: Boolean
+        get() = visitedLocationsResource.dataOrNull?.isEmpty() == true
+
+    val visitedLocationsIsEmptyWhenNotAllowed: Boolean
+        get() = isStartDestination == false && visitedLocationsIsEmpty
+
     val popBackStackEnabled:  Boolean
-        get() = isStartDestination == false
+        get() = isStartDestination == false && !visitedLocationsIsEmpty
 
     val searchBarEnabled: Boolean
         get() = !findLocationInProgress

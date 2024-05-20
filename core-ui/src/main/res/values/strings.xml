@@ -729,6 +729,7 @@
 
     <string name="screen_search_overview_bar_placeholder">Search</string>
     <string name="screen_search_overview_search_no_results">No locations found</string>
+    <string name="screen_search_overview_snackbar_back_pressed_when_visited_locations_is_empty_when_not_allowed">You need to select a location</string>
     <string name="screen_search_overview_snackbar_find_location_failure_message">Location request failed</string>
     <string name="screen_search_overview_snackbar_find_location_not_found_message">Location was not found</string>
     <string name="screen_search_overview_snackbar_location_deleted_action_label">Undo</string>

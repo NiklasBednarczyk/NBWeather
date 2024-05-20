@@ -442,6 +442,7 @@
 
     <string name="screen_search_overview_bar_placeholder">Suche</string>
     <string name="screen_search_overview_search_no_results">Keine Orte gefunden</string>
+    <string name="screen_search_overview_snackbar_back_pressed_when_visited_locations_is_empty_when_not_allowed">Sie müssen einen Ort auswählen</string>
     <string name="screen_search_overview_snackbar_find_location_failure_message">Standortanfrage fehlgeschlagen</string>
     <string name="screen_search_overview_snackbar_find_location_not_found_message">Ort wurde nicht gefunden</string>
     <string name="screen_search_overview_snackbar_location_deleted_action_label">Rückgängig</string>

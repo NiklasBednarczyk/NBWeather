@@ -46,7 +46,6 @@ fun SearchOverviewRoute(
     SearchOverviewScreen(
         uiState = uiState,
         popBackStack = popBackStack,
-        onBackPressedWhenFindLocationInProgress = {},
         navigateToForecastOverview = navigateToForecastOverview,
         onSearchQueryChange = viewModel::onSearchQueryChange,
         onSearchActiveChange = viewModel::onSearchActiveChange,
@@ -62,7 +61,6 @@ fun SearchOverviewRoute(
 internal fun SearchOverviewScreen(
     uiState: SearchOverviewUiState,
     popBackStack: () -> Unit,
-    onBackPressedWhenFindLocationInProgress: () -> Unit,
     navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit,
     onSearchQueryChange: (searchQuery: String) -> Unit,
     onSearchActiveChange: (searchActive: Boolean) -> Unit,
@@ -95,8 +93,13 @@ internal fun SearchOverviewScreen(
         showSnackbar = snackbarController::showSnackbar
     )
 
-    BackHandler(uiState.findLocationInProgress) {
-        onBackPressedWhenFindLocationInProgress()
+    BackHandler(uiState.visitedLocationsIsEmptyWhenNotAllowed || uiState.findLocationInProgress) {
+        if (uiState.visitedLocationsIsEmptyWhenNotAllowed && !uiState.findLocationInProgress) {
+            val snackbar = NBSnackbarModel(
+                message = NBString.ResString(R.string.screen_search_overview_snackbar_back_pressed_when_visited_locations_is_empty_when_not_allowed)
+            )
+            snackbarController.showSnackbar(snackbar)
+        }
     }
 
     NBScaffoldView(

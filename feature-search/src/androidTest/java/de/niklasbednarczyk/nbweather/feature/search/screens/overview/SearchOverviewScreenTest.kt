@@ -49,22 +49,6 @@ class SearchOverviewScreenTest : NBComposableTest() {
         NBString.ResString(R.string.screen_search_overview_bar_placeholder)
 
     @Test
-    fun backHandler_findLocationInProgressFalse_shouldBeDisabled() {
-        testBackHandler(
-            findLocationInProgress = false,
-            expectedOnBackPressedWhenFindLocationInProgressCalled = false
-        )
-    }
-
-    @Test
-    fun backHandler_findLocationInProgressTrue_shouldBeEnabled() {
-        testBackHandler(
-            findLocationInProgress = true,
-            expectedOnBackPressedWhenFindLocationInProgressCalled = true
-        )
-    }
-
-    @Test
     fun searchBar_searchQueryEmpty_shouldDisplayPlaceholder() {
         // Arrange
         val uiState = createTestUiState(
@@ -196,72 +180,144 @@ class SearchOverviewScreenTest : NBComposableTest() {
     }
 
     @Test
-    fun searchBar_leadingIcon_isStartDestinationNull_searchActiveFalse_shouldRenderCorrectly() {
+    fun searchBar_leadingIcon_isStartDestinationNull_searchActiveFalse_visitedLocationsEmpty_shouldRenderCorrectly() {
         testSearchBarLeadingIcon(
             isStartDestination = null,
             searchActive = false,
+            visitedLocationsIsSet = false,
             expectedIconBackDisplayed = false,
-            expectedIconSearchDisplayed = true,
             expectedPopBackStackCalled = false,
             expectedOnSearchActiveChangeCalled = false
         )
     }
 
     @Test
-    fun searchBar_leadingIcon_isStartDestinationNull_searchActiveTrue_shouldRenderCorrectly() {
+    fun searchBar_leadingIcon_isStartDestinationNull_searchActiveFalse_visitedLocationsNotEmpty_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            isStartDestination = null,
+            searchActive = false,
+            visitedLocationsIsSet = true,
+            expectedIconBackDisplayed = false,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = false
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_isStartDestinationNull_searchActiveTrue_visitedLocationsEmpty_shouldRenderCorrectly() {
         testSearchBarLeadingIcon(
             isStartDestination = null,
             searchActive = true,
+            visitedLocationsIsSet = false,
             expectedIconBackDisplayed = true,
-            expectedIconSearchDisplayed = false,
             expectedPopBackStackCalled = false,
             expectedOnSearchActiveChangeCalled = true
         )
     }
 
     @Test
-    fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveFalse_shouldRenderCorrectly() {
+    fun searchBar_leadingIcon_isStartDestinationNull_searchActiveTrue_visitedLocationsNotEmpty_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            isStartDestination = null,
+            searchActive = true,
+            visitedLocationsIsSet = true,
+            expectedIconBackDisplayed = true,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = true
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveFalse_visitedLocationsEmpty_shouldRenderCorrectly() {
         testSearchBarLeadingIcon(
             isStartDestination = false,
             searchActive = false,
+            visitedLocationsIsSet = false,
+            expectedIconBackDisplayed = false,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = false
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveFalse_visitedLocationsNotEmpty_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            isStartDestination = false,
+            searchActive = false,
+            visitedLocationsIsSet = true,
             expectedIconBackDisplayed = true,
-            expectedIconSearchDisplayed = false,
             expectedPopBackStackCalled = true,
             expectedOnSearchActiveChangeCalled = false
         )
     }
 
     @Test
-    fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveTrue_shouldRenderCorrectly() {
+    fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveTrue_visitedLocationsEmpty_shouldRenderCorrectly() {
         testSearchBarLeadingIcon(
             isStartDestination = false,
             searchActive = true,
+            visitedLocationsIsSet = false,
             expectedIconBackDisplayed = true,
-            expectedIconSearchDisplayed = false,
             expectedPopBackStackCalled = false,
             expectedOnSearchActiveChangeCalled = true
         )
     }
 
     @Test
-    fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveFalse_shouldRenderCorrectly() {
+    fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveTrue_visitedLocationsNotEmpty_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            isStartDestination = false,
+            searchActive = true,
+            visitedLocationsIsSet = true,
+            expectedIconBackDisplayed = true,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = true
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveFalse_visitedLocationsEmpty_shouldRenderCorrectly() {
         testSearchBarLeadingIcon(
             isStartDestination = true,
             searchActive = false,
+            visitedLocationsIsSet = false,
             expectedIconBackDisplayed = false,
-            expectedIconSearchDisplayed = true,
             expectedPopBackStackCalled = false,
             expectedOnSearchActiveChangeCalled = false
         )
     }
 
     @Test
-    fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveTrue_shouldRenderCorrectly() {
+    fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveFalse_visitedLocationsNotEmpty_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            isStartDestination = true,
+            searchActive = false,
+            visitedLocationsIsSet = true,
+            expectedIconBackDisplayed = false,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = false
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveTrue_visitedLocationsEmpty_shouldRenderCorrectly() {
         testSearchBarLeadingIcon(
             isStartDestination = true,
             searchActive = true,
+            visitedLocationsIsSet = false,
             expectedIconBackDisplayed = true,
-            expectedIconSearchDisplayed = false,
+            expectedPopBackStackCalled = false,
+            expectedOnSearchActiveChangeCalled = true
+        )
+    }
+
+    @Test
+    fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveTrue_visitedLocationsNotEmpty_shouldRenderCorrectly() {
+        testSearchBarLeadingIcon(
+            isStartDestination = true,
+            searchActive = true,
+            visitedLocationsIsSet = true,
+            expectedIconBackDisplayed = true,
             expectedPopBackStackCalled = false,
             expectedOnSearchActiveChangeCalled = true
         )
@@ -325,51 +381,22 @@ class SearchOverviewScreenTest : NBComposableTest() {
         )
     }
 
-    private fun testBackHandler(
-        findLocationInProgress: Boolean,
-        expectedOnBackPressedWhenFindLocationInProgressCalled: Boolean
-    ) {
-        // Arrange
-        var onBackPressedWhenFindLocationInProgressCalled = false
-
-        val uiState = createTestUiState(
-            findLocationInProgress = findLocationInProgress
-        )
-
-        // Act
-        setScreenContent(
-            uiState = uiState,
-            onBackPressedWhenFindLocationInProgress = {
-                onBackPressedWhenFindLocationInProgressCalled = true
-            }
-        )
-        pressBack()
-
-        // Assert
-        assertEquals(
-            expectedOnBackPressedWhenFindLocationInProgressCalled,
-            onBackPressedWhenFindLocationInProgressCalled
-        )
-    }
-
     private fun testSearchBarLeadingIcon(
         isStartDestination: Boolean?,
         searchActive: Boolean,
+        visitedLocationsIsSet: Boolean,
         expectedIconBackDisplayed: Boolean,
-        expectedIconSearchDisplayed: Boolean,
         expectedPopBackStackCalled: Boolean,
         expectedOnSearchActiveChangeCalled: Boolean
     ) {
         // Arrange
-        val iconBack = NBIcons.Back
-        val iconSearch = NBIcons.Search
-
         var popBackStackCalled = false
         var onSearchActiveChangeCalled = false
 
         val uiState = createTestUiState(
             isStartDestination = isStartDestination,
-            searchActive = searchActive
+            searchActive = searchActive,
+            visitedLocationsIsSet = visitedLocationsIsSet
         )
 
         // Act
@@ -386,12 +413,11 @@ class SearchOverviewScreenTest : NBComposableTest() {
         // Assert
         assertCompose {
             if (expectedIconBackDisplayed) {
-                onNodeWithIcon(iconBack)
+                onNodeWithIcon(NBIcons.Back)
                     .assertIsDisplayed()
                     .performClick()
-            } else if (expectedIconSearchDisplayed) {
-                onNodeWithIcon(iconSearch)
-                    .assertIsDisplayed()
+            } else {
+                assertIconIsNotDisplayed(NBIcons.Back)
             }
         }
 
@@ -441,7 +467,6 @@ class SearchOverviewScreenTest : NBComposableTest() {
 
                 onNodeWithIcon(iconFindLocation)
                     .assertIsDisplayed()
-                    .performClick()
             } else {
                 assertIconIsNotDisplayed(iconCancel)
 
@@ -551,18 +576,23 @@ class SearchOverviewScreenTest : NBComposableTest() {
         searchQuery: String = "",
         searchActive: Boolean = false,
         findLocationInProgress: Boolean = false,
+        visitedLocationsIsSet: Boolean = true
     ): SearchOverviewUiState {
+        val visitedLocations = if (visitedLocationsIsSet) {
+            listOf(
+                visitedLocation1,
+                visitedLocation2
+            )
+        } else {
+            emptyList()
+        }
+
         return SearchOverviewUiState(
             isStartDestination = isStartDestination,
             searchQuery = searchQuery,
             searchActive = searchActive,
             findLocationInProgress = findLocationInProgress,
-            visitedLocationsResource = createNBResource(
-                listOf(
-                    visitedLocation1,
-                    visitedLocation2
-                )
-            ),
+            visitedLocationsResource = createNBResource(visitedLocations),
             searchedLocationsResource = createNBResource(
                 listOf(
                     searchedLocation1,
@@ -575,7 +605,6 @@ class SearchOverviewScreenTest : NBComposableTest() {
     private fun setScreenContent(
         uiState: SearchOverviewUiState = createTestUiState(),
         popBackStack: () -> Unit = {},
-        onBackPressedWhenFindLocationInProgress: () -> Unit = {},
         navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
         onSearchQueryChange: (searchQuery: String) -> Unit = {},
         onSearchActiveChange: (searchActive: Boolean) -> Unit = {},
@@ -589,7 +618,6 @@ class SearchOverviewScreenTest : NBComposableTest() {
             SearchOverviewScreen(
                 uiState = uiState,
                 popBackStack = popBackStack,
-                onBackPressedWhenFindLocationInProgress = onBackPressedWhenFindLocationInProgress,
                 navigateToForecastOverview = navigateToForecastOverview,
                 onSearchQueryChange = onSearchQueryChange,
                 onSearchActiveChange = onSearchActiveChange,
