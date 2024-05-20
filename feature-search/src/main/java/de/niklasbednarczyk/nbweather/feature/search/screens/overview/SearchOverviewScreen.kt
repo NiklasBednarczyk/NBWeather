@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
@@ -27,7 +30,9 @@ import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewSearchedView
 import de.niklasbednarczyk.nbweather.feature.search.screens.overview.views.SearchOverviewVisitedView
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 @Composable
@@ -69,14 +74,18 @@ internal fun SearchOverviewScreen(
 ) {
     val context = LocalContext.current
     val isFindLocationAvailable = isFindLocationAvailable(context)
+    val fusedLocationProviderClient = remember {
+        LocationServices.getFusedLocationProviderClient(context)
+    }
 
     val scope = rememberCoroutineScope()
     val snackbarController = rememberNBSnackbarController()
     val locationPermissionController = rememberNBLocationPermissionController(
-        onPermissionGranted = {
+        onPermissionGranted = { isFineGranted ->
             onPermissionGranted(
-                context = context,
+                isFineGranted = isFineGranted,
                 scope = scope,
+                fusedLocationProviderClient = fusedLocationProviderClient,
                 showSnackbar = snackbarController::showSnackbar,
                 setFindLocationInProgress = setFindLocationInProgress,
                 getAndInsertLocation = getAndInsertLocation,
@@ -159,8 +168,9 @@ private fun isFindLocationAvailable(
 }
 
 private fun onPermissionGranted(
-    context: Context,
+    isFineGranted: Boolean,
     scope: CoroutineScope,
+    fusedLocationProviderClient: FusedLocationProviderClient,
     showSnackbar: (snackbar: NBSnackbarModel) -> Unit,
     setFindLocationInProgress: (findLocationInProgress: Boolean) -> Unit,
     getAndInsertLocation: suspend (latitude: Double, longitude: Double) -> LocationModelData?,
@@ -177,19 +187,26 @@ private fun onPermissionGranted(
         showSnackbar(snackbar)
     }
 
-    val fusedLocationProviderClient =
-        LocationServices.getFusedLocationProviderClient(context)
-
     setFindLocationInProgress(true)
-    try {
-        fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
-            .addOnSuccessListener { fusedLocation ->
+    scope.launch(Dispatchers.IO) {
+        try {
+            val priority = if (isFineGranted) {
+                Priority.PRIORITY_HIGH_ACCURACY
+            } else {
+                Priority.PRIORITY_BALANCED_POWER_ACCURACY
+            }
+            val fusedLocation = fusedLocationProviderClient.getCurrentLocation(
+                priority,
+                CancellationTokenSource().token
+            ).await()
+
+            if (fusedLocation != null) {
                 try {
+                    val insertedLocation = getAndInsertLocation(
+                        fusedLocation.latitude,
+                        fusedLocation.longitude
+                    )
                     scope.launch {
-                        val insertedLocation = getAndInsertLocation(
-                            fusedLocation.latitude,
-                            fusedLocation.longitude
-                        )
                         if (insertedLocation != null) {
                             setFindLocationInProgress(false)
                             navigateToForecastOverview(
@@ -207,21 +224,14 @@ private fun onPermissionGranted(
                 } catch (throwable: Throwable) {
                     onFailure(throwable)
                 }
+            } else {
+                onFailure(RuntimeException("Fused location is null"))
             }
-            .addOnCanceledListener {
-                setFindLocationInProgress(false)
-                val snackbar = NBSnackbarModel(
-                    message = NBString.ResString(R.string.screen_search_overview_snackbar_find_location_canceled_message)
-                )
-                showSnackbar(snackbar)
-            }
-            .addOnFailureListener { throwable ->
-                onFailure(throwable)
-            }
-    } catch (exception: SecurityException) {
-        onFailure(exception)
-    } catch (throwable: Throwable) {
-        onFailure(throwable)
+        } catch (exception: SecurityException) {
+            onFailure(exception)
+        } catch (throwable: Throwable) {
+            onFailure(throwable)
+        }
     }
 }
 

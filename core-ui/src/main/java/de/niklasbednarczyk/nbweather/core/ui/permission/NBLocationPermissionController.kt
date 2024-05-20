@@ -18,13 +18,14 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.context.getActivity
 import de.niklasbednarczyk.nbweather.core.ui.context.startIntent
+import de.niklasbednarczyk.nbweather.core.ui.permission.NBLocationPermissionController.Companion.isPermissionGranted
 import de.niklasbednarczyk.nbweather.core.ui.screens.scaffold.snackbar.NBSnackbarActionModel
 import de.niklasbednarczyk.nbweather.core.ui.screens.scaffold.snackbar.NBSnackbarModel
 
 data class NBLocationPermissionController(
     private val context: Context,
     private val launcher: ManagedActivityResultLauncher<Array<String>, Map<String, Boolean>>,
-    private val onPermissionGranted: () -> Unit
+    private val onPermissionGranted: (isFineGranted: Boolean) -> Unit
 ) {
 
     companion object {
@@ -40,11 +41,6 @@ data class NBLocationPermissionController(
             return getOrDefault(permission, false)
         }
 
-        private fun Map<String, Boolean>.isAtLeastOneLocationPermissionGranted(): Boolean {
-            return isPermissionGranted(LOCATION_PERMISSION_COARSE) ||
-                    isPermissionGranted(LOCATION_PERMISSION_FINE)
-        }
-
         private fun Activity?.isLocationPermissionDeniedForSecondTime(): Boolean {
             return if (this == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 false
@@ -56,7 +52,7 @@ data class NBLocationPermissionController(
 
         @Composable
         fun rememberNBLocationPermissionController(
-            onPermissionGranted: () -> Unit,
+            onPermissionGranted: (isFineGranted: Boolean) -> Unit,
             showSnackbar: (snackbar: NBSnackbarModel) -> Unit,
         ): NBLocationPermissionController {
             val context = LocalContext.current
@@ -65,8 +61,11 @@ data class NBLocationPermissionController(
             val launcher = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.RequestMultiplePermissions()
             ) { permissions ->
-                if (permissions.isAtLeastOneLocationPermissionGranted()) {
-                    onPermissionGranted()
+                val isCoarseGranted = permissions.isPermissionGranted(LOCATION_PERMISSION_COARSE)
+                val isFineGranted = permissions.isPermissionGranted(LOCATION_PERMISSION_FINE)
+
+                if (isCoarseGranted || isFineGranted) {
+                    onPermissionGranted(isFineGranted)
                 } else if (activity.isLocationPermissionDeniedForSecondTime()) {
                     val snackbar = NBSnackbarModel(
                         message = NBString.ResString(R.string.snackbar_location_permission_denied_message),
@@ -100,8 +99,10 @@ data class NBLocationPermissionController(
     }
 
     fun requestPermission() {
-        if (isAtLeastOneLocationPermissionGranted()) {
-            onPermissionGranted()
+        val isCoarseGranted = isPermissionGranted(LOCATION_PERMISSION_COARSE)
+        val isFineGranted = isPermissionGranted(LOCATION_PERMISSION_FINE)
+        if (isCoarseGranted || isFineGranted) {
+            onPermissionGranted(isFineGranted)
         } else {
             launcher.launch(
                 arrayOf(LOCATION_PERMISSION_COARSE, LOCATION_PERMISSION_FINE)
@@ -116,11 +117,6 @@ data class NBLocationPermissionController(
             context,
             permission
         ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun isAtLeastOneLocationPermissionGranted(): Boolean {
-        return isPermissionGranted(LOCATION_PERMISSION_COARSE) ||
-                isPermissionGranted(LOCATION_PERMISSION_FINE)
     }
 
 }
