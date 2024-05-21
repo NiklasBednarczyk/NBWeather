@@ -1,8 +1,5 @@
 package de.niklasbednarczyk.nbweather.core.common.settings.font
 
-import com.google.errorprone.annotations.Immutable
-
-@Immutable
 data class NBFontModel(
     val slant: Float,
     val width: Float,

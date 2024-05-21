@@ -58,11 +58,6 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("ksp", dependencyNotation)
     }
 
-    fun PluginManager.configurePluginsAndroid() {
-        apply("org.jetbrains.kotlin.android")
-        apply("com.google.firebase.crashlytics")
-    }
-
     fun Project.plugins(block: PluginManager.() -> Unit) {
         with(pluginManager, block)
     }
