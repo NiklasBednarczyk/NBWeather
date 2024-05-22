@@ -94,6 +94,7 @@ google-services = { id = "com.google.gms.google-services", version.ref = "comGoo
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "comGoogleDagger" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "orgJetbrainsKotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "comGoogleDevtoolsKspGradlePlugin" }
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "orgJetbrainsKotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "comGoogleProtobufPlugin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "comGoogleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "comGithubBenManesVersions" }

@@ -15,6 +15,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconButtonView
@@ -39,7 +40,7 @@ import timber.log.Timber
 fun SearchOverviewRoute(
     viewModel: SearchOverviewViewModel = hiltViewModel(),
     popBackStack: () -> Unit,
-    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit
+    navigateToForecastOverview: (coordinates: NBCoordinatesModel) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -61,14 +62,14 @@ fun SearchOverviewRoute(
 internal fun SearchOverviewScreen(
     uiState: SearchOverviewUiState,
     popBackStack: () -> Unit,
-    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit,
+    navigateToForecastOverview: (coordinates: NBCoordinatesModel) -> Unit,
     onSearchQueryChange: (searchQuery: String) -> Unit,
     onSearchActiveChange: (searchActive: Boolean) -> Unit,
     setFindLocationInProgress: (findLocationInProgress: Boolean) -> Unit,
-    updateOrders: (pairs: List<Pair<Double, Double>>) -> Unit,
+    updateOrders: (coordinates: List<NBCoordinatesModel>) -> Unit,
     insertLocation: (location: LocationModelData) -> Unit,
-    getAndInsertLocation: suspend (latitude: Double, longitude: Double) -> LocationModelData?,
-    deleteLocation: suspend (latitude: Double, longitude: Double) -> LocationModelData?
+    getAndInsertLocation: suspend (coordinates: NBCoordinatesModel) -> LocationModelData?,
+    deleteLocation: suspend (coordinates: NBCoordinatesModel) -> LocationModelData?
 ) {
     val context = LocalContext.current
     val isFindLocationAvailable = isFindLocationAvailable(context)
@@ -140,10 +141,9 @@ internal fun SearchOverviewScreen(
                     SearchOverviewVisitedView(
                         visitedLocationsResource = uiState.visitedLocationsResource,
                         navigateToForecastOverview = navigateToForecastOverview,
-                        deleteLocation = { latitude, longitude ->
+                        deleteLocation = { coordinates ->
                             deleteLocation(
-                                latitude = latitude,
-                                longitude = longitude,
+                                coordinates = coordinates,
                                 scope = scope,
                                 showSnackbar = snackbarController::showSnackbar,
                                 deleteLocation = deleteLocation,
@@ -176,8 +176,8 @@ private fun onPermissionGranted(
     fusedLocationProviderClient: FusedLocationProviderClient,
     showSnackbar: (snackbar: NBSnackbarModel) -> Unit,
     setFindLocationInProgress: (findLocationInProgress: Boolean) -> Unit,
-    getAndInsertLocation: suspend (latitude: Double, longitude: Double) -> LocationModelData?,
-    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit
+    getAndInsertLocation: suspend (coordinates: NBCoordinatesModel) -> LocationModelData?,
+    navigateToForecastOverview: (coordinates: NBCoordinatesModel) -> Unit
 ) {
     fun onFailure(
         throwable: Throwable
@@ -206,16 +206,15 @@ private fun onPermissionGranted(
             if (fusedLocation != null) {
                 try {
                     val insertedLocation = getAndInsertLocation(
-                        fusedLocation.latitude,
-                        fusedLocation.longitude
+                        NBCoordinatesModel(
+                            latitude = fusedLocation.latitude,
+                            longitude = fusedLocation.longitude
+                        )
                     )
                     scope.launch {
                         if (insertedLocation != null) {
                             setFindLocationInProgress(false)
-                            navigateToForecastOverview(
-                                insertedLocation.latitude,
-                                insertedLocation.longitude
-                            )
+                            navigateToForecastOverview(insertedLocation.coordinates)
                         } else {
                             setFindLocationInProgress(false)
                             val snackbar = NBSnackbarModel(
@@ -239,15 +238,14 @@ private fun onPermissionGranted(
 }
 
 private fun deleteLocation(
-    latitude: Double,
-    longitude: Double,
+    coordinates: NBCoordinatesModel,
     scope: CoroutineScope,
     showSnackbar: (snackbar: NBSnackbarModel) -> Unit,
-    deleteLocation: suspend (latitude: Double, longitude: Double) -> LocationModelData?,
+    deleteLocation: suspend (coordinates: NBCoordinatesModel) -> LocationModelData?,
     insertLocation: (deletedLocation: LocationModelData) -> Unit
 ) {
     scope.launch {
-        val deletedLocation = deleteLocation(latitude, longitude)
+        val deletedLocation = deleteLocation(coordinates)
         if (deletedLocation != null) {
             val snackbar = NBSnackbarModel(
                 message = NBString.ResString(

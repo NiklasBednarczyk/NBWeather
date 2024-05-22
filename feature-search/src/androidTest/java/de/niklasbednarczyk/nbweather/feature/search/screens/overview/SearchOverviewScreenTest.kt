@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
@@ -492,18 +493,18 @@ class SearchOverviewScreenTest : NBComposableTest() {
             findLocationInProgress = findLocationInProgress
         )
 
-        var selectedNavigateToForecastOverview: Pair<Double, Double>? = null
-        var selectedDeleteLocation: Pair<Double, Double>? = null
-        var updateOrderLocations: List<Pair<Double, Double>>? = null
+        var selectedNavigateToForecastOverview: NBCoordinatesModel? = null
+        var selectedDeleteLocation: NBCoordinatesModel? = null
+        var updateOrderLocations: List<NBCoordinatesModel>? = null
 
         // Act
         setScreenContent(
             uiState = uiState,
-            navigateToForecastOverview = { latitude, longitude ->
-                selectedNavigateToForecastOverview = Pair(latitude, longitude)
+            navigateToForecastOverview = { coordinates ->
+                selectedNavigateToForecastOverview = coordinates
             },
-            deleteLocation = { latitude, longitude ->
-                selectedDeleteLocation = Pair(latitude, longitude)
+            deleteLocation = { coordinates ->
+                selectedDeleteLocation = coordinates
                 null
             },
             updateOrders = { locations ->
@@ -532,12 +533,12 @@ class SearchOverviewScreenTest : NBComposableTest() {
                     .performClick()
 
                 assertNotNull(selectedNavigateToForecastOverview)
-                assertEquals(visitedLocation1.toPair(), selectedNavigateToForecastOverview)
-                assertNotEquals(visitedLocation2.toPair(), selectedNavigateToForecastOverview)
+                assertEquals(visitedLocation1.coordinates, selectedNavigateToForecastOverview)
+                assertNotEquals(visitedLocation2.coordinates, selectedNavigateToForecastOverview)
 
                 assertNotNull(selectedDeleteLocation)
-                assertEquals(visitedLocation2.toPair(), selectedDeleteLocation)
-                assertNotEquals(visitedLocation1.toPair(), selectedDeleteLocation)
+                assertEquals(visitedLocation2.coordinates, selectedDeleteLocation)
+                assertNotEquals(visitedLocation1.coordinates, selectedDeleteLocation)
 
                 assertNotNull(updateOrderLocations)
             } else {
@@ -562,8 +563,8 @@ class SearchOverviewScreenTest : NBComposableTest() {
                     .assertIsDisplayed()
 
                 assertNotNull(selectedNavigateToForecastOverview)
-                assertEquals(searchedLocation1.toPair(), selectedNavigateToForecastOverview)
-                assertNotEquals(searchedLocation2.toPair(), selectedNavigateToForecastOverview)
+                assertEquals(searchedLocation1.coordinates, selectedNavigateToForecastOverview)
+                assertNotEquals(searchedLocation2.coordinates, selectedNavigateToForecastOverview)
             } else {
                 assertStringIsNotDisplayed(searchedLocation1.localizedName)
                 assertStringIsNotDisplayed(searchedLocation2.localizedName)
@@ -605,14 +606,14 @@ class SearchOverviewScreenTest : NBComposableTest() {
     private fun setScreenContent(
         uiState: SearchOverviewUiState = createTestUiState(),
         popBackStack: () -> Unit = {},
-        navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
+        navigateToForecastOverview: (coordinates: NBCoordinatesModel) -> Unit = {},
         onSearchQueryChange: (searchQuery: String) -> Unit = {},
         onSearchActiveChange: (searchActive: Boolean) -> Unit = {},
         setFindLocationInProgress: (findLocationInProgress: Boolean) -> Unit = {},
-        updateOrders: (pairs: List<Pair<Double, Double>>) -> Unit = {},
+        updateOrders: (pairs: List<NBCoordinatesModel>) -> Unit = {},
         insertLocation: (location: LocationModelData) -> Unit = {},
-        getAndInsertLocation: (latitude: Double, longitude: Double) -> LocationModelData? = { _, _ -> null },
-        deleteLocation: (latitude: Double, longitude: Double) -> LocationModelData? = { _, _ -> null }
+        getAndInsertLocation: (coordinates: NBCoordinatesModel) -> LocationModelData? = { null },
+        deleteLocation: (coordinates: NBCoordinatesModel) -> LocationModelData? = { null }
     ) {
         setContent {
             SearchOverviewScreen(
@@ -637,14 +638,14 @@ class SearchOverviewScreenTest : NBComposableTest() {
         val id = number.toString()
         val latLong = number.toDouble()
         return SearchOverviewLocationModel(
-            latitude = latLong,
-            longitude = latLong,
+            coordinates = NBCoordinatesModel(
+                latitude = latLong,
+                longitude = latLong
+            ),
             localizedName = createNBString("localizedName $id"),
             country = country,
             state = "state $id"
         )
     }
-
-    private fun SearchOverviewLocationModel.toPair() = Pair(latitude, longitude)
 
 }

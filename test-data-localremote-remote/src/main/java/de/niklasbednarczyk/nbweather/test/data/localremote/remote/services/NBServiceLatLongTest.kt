@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.test.data.localremote.remote.services
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import retrofit2.HttpException
@@ -7,9 +8,19 @@ import retrofit2.HttpException
 interface NBServiceLatLongTest : NBServiceTest {
 
     companion object {
-        const val LONDON_LATITUDE = 51.5073219
-        const val LONDON_LONGITUDE = -0.1276474
+
+        private val LONDON_COORDINATES = NBCoordinatesModel(
+            latitude = 51.5073219,
+            longitude = -0.1276474
+        )
+
     }
+
+    val latitude: Double
+        get() = LONDON_COORDINATES.latitude
+
+    val longitude: Double
+        get() = LONDON_COORDINATES.longitude
 
     private enum class LatLongBoundType {
         LOWER,

@@ -8,7 +8,7 @@ class AndroidLibraryConventionPlugin : NBConventionPlugin {
     override fun Project.apply(libs: VersionCatalog) {
         plugins {
             apply("com.android.library")
-            apply("org.jetbrains.kotlin.android")
+            configurePlugins()
         }
 
         extensions.configure<LibraryExtension> {

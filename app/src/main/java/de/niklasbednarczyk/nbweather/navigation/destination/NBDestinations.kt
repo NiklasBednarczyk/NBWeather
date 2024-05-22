@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.navigation.destination
 
 import androidx.navigation.NamedNavArgument
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeyItem
 import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 
@@ -37,13 +38,12 @@ object NBDestinations {
             )
 
             fun createRouteForNavigation(
-                latitude: Double,
-                longitude: Double
+                coordinates: NBCoordinatesModel
             ): String {
                 return createRouteForNavigation(
                     mapOf(
-                        NBArgumentKeys.Latitude to latitude,
-                        NBArgumentKeys.Longitude to longitude
+                        NBArgumentKeys.Latitude to coordinates.latitude,
+                        NBArgumentKeys.Longitude to coordinates.longitude
                     )
                 )
             }
@@ -64,14 +64,13 @@ object NBDestinations {
 
             fun createRouteForNavigation(
                 forecastTime: Long?,
-                latitude: Double,
-                longitude: Double
+                coordinates: NBCoordinatesModel
             ): String {
                 return createRouteForNavigation(
                     mapOf(
                         NBArgumentKeys.ForecastTime to forecastTime,
-                        NBArgumentKeys.Latitude to latitude,
-                        NBArgumentKeys.Longitude to longitude
+                        NBArgumentKeys.Latitude to coordinates.latitude,
+                        NBArgumentKeys.Longitude to coordinates.longitude
                     )
                 )
             }
@@ -90,13 +89,12 @@ object NBDestinations {
             )
 
             fun createRouteForNavigation(
-                latitude: Double,
-                longitude: Double
+                coordinates: NBCoordinatesModel
             ): String {
                 return createRouteForNavigation(
                     mapOf(
-                        NBArgumentKeys.Latitude to latitude,
-                        NBArgumentKeys.Longitude to longitude
+                        NBArgumentKeys.Latitude to coordinates.latitude,
+                        NBArgumentKeys.Longitude to coordinates.longitude
                     )
                 )
             }
@@ -115,8 +113,7 @@ object NBDestinations {
             )
 
             fun createNavArguments(
-                latitude: Double?,
-                longitude: Double?
+                coordinates: NBCoordinatesModel?
             ): List<NamedNavArgument> {
                 return argumentKeys.mapNotNull { argumentKey ->
                     when (argumentKey) {
@@ -124,25 +121,24 @@ object NBDestinations {
 
                         NBArgumentKeys.Latitude -> createNavArgument(
                             argumentKey = argumentKey,
-                            defaultValue = latitude
+                            defaultValue = coordinates?.latitude
                         )
 
                         NBArgumentKeys.Longitude -> createNavArgument(
                             argumentKey = argumentKey,
-                            defaultValue = longitude
+                            defaultValue = coordinates?.longitude
                         )
                     }
                 }
             }
 
             fun createRouteForNavigation(
-                latitude: Double,
-                longitude: Double
+                coordinates: NBCoordinatesModel
             ): String {
                 return createRouteForNavigation(
                     mapOf(
-                        NBArgumentKeys.Latitude to latitude,
-                        NBArgumentKeys.Longitude to longitude
+                        NBArgumentKeys.Latitude to coordinates.latitude,
+                        NBArgumentKeys.Longitude to coordinates.longitude
                     )
                 )
             }

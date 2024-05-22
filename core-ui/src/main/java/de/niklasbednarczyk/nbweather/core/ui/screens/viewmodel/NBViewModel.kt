@@ -3,8 +3,11 @@ package de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeyItem
+import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -69,4 +72,17 @@ abstract class NBViewModel<UiState>(
         val value = get<String?>(argumentKey.key)
         return argumentKey.toValue(value)
     }
+
+    fun SavedStateHandle.getCoordinates(): NBCoordinatesModel? {
+        return nbNullSafe(
+            getArgument(NBArgumentKeys.Latitude),
+            getArgument(NBArgumentKeys.Longitude)
+        ) { latitude, longitude ->
+            NBCoordinatesModel(
+                latitude = latitude,
+                longitude = longitude
+            )
+        }
+    }
+
 }

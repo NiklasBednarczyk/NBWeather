@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementBig
 import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesVertical
@@ -31,9 +32,9 @@ const val FORECAST_OVERVIEW_SCREEN_LAZY_COLUMN_TAG = "ForecastOverviewScreenLazy
 fun ForecastOverviewRoute(
     viewModel: ForecastOverviewViewModel = hiltViewModel(),
     openDrawer: () -> Unit,
-    navigateToForecastAlerts: (latitude: Double, longitude: Double) -> Unit,
-    navigateToForecastDaily: (forecastTime: Long?, latitude: Double, longitude: Double) -> Unit,
-    navigateToForecastHourly: (latitude: Double, longitude: Double) -> Unit,
+    navigateToForecastAlerts: (coordinates: NBCoordinatesModel) -> Unit,
+    navigateToForecastDaily: (forecastTime: Long?, coordinates: NBCoordinatesModel) -> Unit,
+    navigateToForecastHourly: (coordinates: NBCoordinatesModel) -> Unit,
     navigateToSearchOverview: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -53,11 +54,11 @@ fun ForecastOverviewRoute(
 internal fun ForecastOverviewScreen(
     uiState: ForecastOverviewUiState,
     openDrawer: () -> Unit,
-    navigateToForecastAlerts: (latitude: Double, longitude: Double) -> Unit,
-    navigateToForecastDaily: (forecastTime: Long?, latitude: Double, longitude: Double) -> Unit,
-    navigateToForecastHourly: (latitude: Double, longitude: Double) -> Unit,
+    navigateToForecastAlerts: (coordinates: NBCoordinatesModel) -> Unit,
+    navigateToForecastDaily: (forecastTime: Long?, coordinates: NBCoordinatesModel) -> Unit,
+    navigateToForecastHourly: (coordinates: NBCoordinatesModel) -> Unit,
     navigateToSearchOverview: () -> Unit,
-    refreshData: suspend (latitude: Double, longitude: Double) -> NBResource<Unit>,
+    refreshData: suspend (coordinates: NBCoordinatesModel) -> NBResource<Unit>,
 ) {
     val snackbarController = rememberNBSnackbarController()
 
@@ -72,16 +73,12 @@ internal fun ForecastOverviewScreen(
         )
     ) {
         NBResourceWithoutLoadingView(uiState.locationResource) { location ->
-            val latitude = location.latitude
-            val longitude = location.longitude
-
             val listState = rememberLazyListState()
 
             NBPullToRefreshView(
                 refreshData = {
                     refreshData(
-                        latitude = latitude,
-                        longitude = longitude,
+                        coordinates = location.coordinates,
                         showSnackbar = snackbarController::showSnackbar,
                         refreshData = refreshData
                     )
@@ -104,13 +101,13 @@ internal fun ForecastOverviewScreen(
                                 item = item,
                                 clickableEnabled = !isRefreshing,
                                 navigateToForecastAlerts = {
-                                    navigateToForecastAlerts(latitude, longitude)
+                                    navigateToForecastAlerts(location.coordinates)
                                 },
                                 navigateToForecastDaily = { forecastTime ->
-                                    navigateToForecastDaily(forecastTime, latitude, longitude)
+                                    navigateToForecastDaily(forecastTime, location.coordinates)
                                 },
                                 navigateToForecastHourly = {
-                                    navigateToForecastHourly(latitude, longitude)
+                                    navigateToForecastHourly(location.coordinates)
                                 }
                             )
                         }
@@ -122,12 +119,11 @@ internal fun ForecastOverviewScreen(
 }
 
 private suspend fun refreshData(
-    latitude: Double,
-    longitude: Double,
+    coordinates: NBCoordinatesModel,
     showSnackbar: (snackbar: NBSnackbarModel) -> Unit,
-    refreshData: suspend (latitude: Double, longitude: Double) -> NBResource<Unit>
+    refreshData: suspend (coordinates: NBCoordinatesModel) -> NBResource<Unit>
 ) {
-    val resource = refreshData(latitude, longitude)
+    val resource = refreshData(coordinates)
 
     if (resource is NBResource.Error) {
         val snackbar = NBSnackbarModel(

@@ -28,16 +28,16 @@ class ForecastDailyViewModelTest : NBForecastViewModelTest {
         )
         subjectWithoutForecastTime = ForecastDailyViewModel(
             savedStateHandle = createTestSaveStateHandle(
-                NBArgumentKeys.Latitude to latitude,
-                NBArgumentKeys.Longitude to longitude
+                NBArgumentKeys.Latitude to coordinates.latitude,
+                NBArgumentKeys.Longitude to coordinates.longitude
             ),
             oneCallRepository = oneCallRepository
         )
         subjectWithForecastTime = ForecastDailyViewModel(
             savedStateHandle = createTestSaveStateHandle(
                 NBArgumentKeys.ForecastTime to forecastTime,
-                NBArgumentKeys.Latitude to latitude,
-                NBArgumentKeys.Longitude to longitude
+                NBArgumentKeys.Latitude to coordinates.latitude,
+                NBArgumentKeys.Longitude to coordinates.longitude
             ),
             oneCallRepository = oneCallRepository
         )

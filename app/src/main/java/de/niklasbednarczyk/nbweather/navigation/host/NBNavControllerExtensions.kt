@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.navigation.host
 
 import androidx.navigation.NavController
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.navigation.destination.NBDestinationItem
 import de.niklasbednarczyk.nbweather.navigation.destination.NBDestinations
 
@@ -11,48 +12,40 @@ fun NavController.navigate(
 }
 
 fun NavController.navigateToForecastAlerts(
-    latitude: Double,
-    longitude: Double
+    coordinates: NBCoordinatesModel
 ) {
     val routeForNavigation = NBDestinations.Forecast.Alerts.createRouteForNavigation(
-        latitude = latitude,
-        longitude = longitude
+        coordinates = coordinates
     )
     navigate(routeForNavigation)
 }
 
 fun NavController.navigateToForecastDaily(
     forecastTime: Long?,
-    latitude: Double,
-    longitude: Double
+    coordinates: NBCoordinatesModel
 ) {
     val routeForNavigation = NBDestinations.Forecast.Daily.createRouteForNavigation(
         forecastTime = forecastTime,
-        latitude = latitude,
-        longitude = longitude
+        coordinates = coordinates
     )
     navigate(routeForNavigation)
 }
 
 
 fun NavController.navigateToForecastHourly(
-    latitude: Double,
-    longitude: Double
+    coordinates: NBCoordinatesModel
 ) {
     val routeForNavigation = NBDestinations.Forecast.Hourly.createRouteForNavigation(
-        latitude = latitude,
-        longitude = longitude
+        coordinates = coordinates
     )
     navigate(routeForNavigation)
 }
 
 fun NavController.navigateToForecastOverview(
-    latitude: Double,
-    longitude: Double
+    coordinates: NBCoordinatesModel
 ) {
     val routeForNavigation = NBDestinations.Forecast.Overview.createRouteForNavigation(
-        latitude = latitude,
-        longitude = longitude
+        coordinates = coordinates
     )
     navigate(routeForNavigation) {
         popUpTo(0)

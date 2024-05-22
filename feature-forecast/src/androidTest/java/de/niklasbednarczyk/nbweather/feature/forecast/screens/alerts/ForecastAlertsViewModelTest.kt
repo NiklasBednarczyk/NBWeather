@@ -25,8 +25,8 @@ class ForecastAlertsViewModelTest : NBForecastViewModelTest {
         )
         subjectWithArgs = ForecastAlertsViewModel(
             savedStateHandle = createTestSaveStateHandle(
-                NBArgumentKeys.Latitude to latitude,
-                NBArgumentKeys.Longitude to longitude
+                NBArgumentKeys.Latitude to coordinates.latitude,
+                NBArgumentKeys.Longitude to coordinates.longitude
             ),
             oneCallRepository = oneCallRepository
         )

@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.parcelize) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.secrets) apply false
     alias(libs.plugins.versions) apply true

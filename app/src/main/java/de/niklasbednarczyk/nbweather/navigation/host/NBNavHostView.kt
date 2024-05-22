@@ -69,8 +69,7 @@ fun NBNavHostView(
         nbComposable(
             destination = NBDestinations.Forecast.Overview,
             arguments = NBDestinations.Forecast.Overview.createNavArguments(
-                initialCurrentLocation?.latitude,
-                initialCurrentLocation?.longitude
+                initialCurrentLocation?.coordinates
             )
         ) {
             ForecastOverviewRoute(

@@ -6,7 +6,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ProbabilityOfP
 import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastLimitValue
 import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastUnitsLimitsItem
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastModelsTest
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphModel.Companion.getLimitValues
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphLimitValuesModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphValueModel.Companion.calcFactor
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -228,14 +228,15 @@ class ForecastHourlyModelsTest : NBForecastModelsTest {
         )
 
         // Act
-        val limitValues = forecasts.getLimitValues(limits)!!
-        val minValue = limitValues.first
-        val maxValue = limitValues.second
+        val limitValues = ForecastHourlyCanvasGraphLimitValuesModel.from(
+            forecasts = forecasts,
+            limits = limits
+        )!!
 
         // Assert
-        assertEquals(expectedMinValue, minValue)
+        assertEquals(expectedMinValue, limitValues.minValue)
 
-        assertEquals(expectedMaxValue, maxValue)
+        assertEquals(expectedMaxValue, limitValues.maxValue)
     }
 
     private fun testCanvasGraphValueCalcFactor(
@@ -254,12 +255,17 @@ class ForecastHourlyModelsTest : NBForecastModelsTest {
         val forecastPlus5 = createTestForecastValueUnits(5)
         val forecastPlus10 = createTestForecastValueUnits(10)
 
+        val limitValues = ForecastHourlyCanvasGraphLimitValuesModel(
+            minValue = minValue,
+            maxValue = maxValue
+        )
+
         // Act
-        val factorMinus10 = forecastMinus10.calcFactor(minValue, maxValue)
-        val factorMinus5 = forecastMinus5.calcFactor(minValue, maxValue)
-        val factor0 = forecast0.calcFactor(minValue, maxValue)
-        val factorPlus5 = forecastPlus5.calcFactor(minValue, maxValue)
-        val factorPlus10 = forecastPlus10.calcFactor(minValue, maxValue)
+        val factorMinus10 = forecastMinus10.calcFactor(limitValues)
+        val factorMinus5 = forecastMinus5.calcFactor(limitValues)
+        val factor0 = forecast0.calcFactor(limitValues)
+        val factorPlus5 = forecastPlus5.calcFactor(limitValues)
+        val factorPlus10 = forecastPlus10.calcFactor(limitValues)
 
         // Assert
         assertEquals(expectedFactorMinus10, factorMinus10)

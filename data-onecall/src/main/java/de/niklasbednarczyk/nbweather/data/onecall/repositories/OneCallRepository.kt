@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import android.content.Context
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineGetMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineRefreshMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
@@ -73,24 +74,21 @@ class OneCallRepository @Inject constructor(
     }
 
     suspend fun getOneCall(
-        latitude: Double?,
-        longitude: Double?
+        coordinates: NBCoordinatesModel?
     ): Flow<NBResource<OneCallModelData>> {
-        if (latitude == null || longitude == null) return flowOf(NBResource.Error())
+        if (coordinates == null) return flowOf(NBResource.Error())
 
         return object :
             LocalRemoteOfflineGetMediator<OneCallModelData, OneCallModelLocal, OneCallModelRemote>() {
             override fun getLocal(): Flow<OneCallModelLocal?> {
                 return getLocal(
-                    latitude = latitude,
-                    longitude = longitude
+                    coordinates = coordinates
                 )
             }
 
             override suspend fun getRemote(): OneCallModelRemote {
                 return getRemote(
-                    latitude = latitude,
-                    longitude = longitude
+                    coordinates = coordinates
                 )
             }
 
@@ -109,16 +107,14 @@ class OneCallRepository @Inject constructor(
             override fun insertLocal(remote: OneCallModelRemote) {
                 insertLocal(
                     remote = remote,
-                    latitude = latitude,
-                    longitude = longitude
+                    coordinates = coordinates
                 )
             }
         }()
     }
 
     suspend fun refreshOneCall(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): NBResource<Unit> {
         return object : LocalRemoteOfflineRefreshMediator<OneCallModelLocal, OneCallModelRemote>() {
 
@@ -129,22 +125,19 @@ class OneCallRepository @Inject constructor(
             override fun insertLocal(remote: OneCallModelRemote) {
                 insertLocal(
                     remote = remote,
-                    latitude = latitude,
-                    longitude = longitude
+                    coordinates = coordinates
                 )
             }
 
             override fun getLocal(): Flow<OneCallModelLocal?> {
                 return getLocal(
-                    latitude = latitude,
-                    longitude = longitude
+                    coordinates = coordinates
                 )
             }
 
             override suspend fun getRemote(): OneCallModelRemote {
                 return getRemote(
-                    latitude = latitude,
-                    longitude = longitude
+                    coordinates = coordinates
                 )
             }
 
@@ -153,12 +146,11 @@ class OneCallRepository @Inject constructor(
     }
 
     private suspend fun getRemote(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): OneCallModelRemote {
         return oneCallService.getOneCall(
-            latitude = latitude,
-            longitude = longitude,
+            latitude = coordinates.latitude,
+            longitude = coordinates.longitude,
             exclude = ConstantsCoreRemote.Query.Exclude.VALUE,
             units = ConstantsCoreRemote.Query.Units.VALUE,
             language = ConstantsCoreRemote.Query.Language.VALUE
@@ -166,12 +158,11 @@ class OneCallRepository @Inject constructor(
     }
 
     private fun getLocal(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): Flow<OneCallModelLocal?> {
         return oneCallDao.getOneCall(
-            latitude = latitude,
-            longitude = longitude
+            latitude = coordinates.latitude,
+            longitude = coordinates.longitude
         )
     }
 
@@ -189,13 +180,12 @@ class OneCallRepository @Inject constructor(
 
     private fun insertLocal(
         remote: OneCallModelRemote,
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ) {
         val oneCallMetadata = OneCallModelData.remoteToLocal(
             remote = remote,
-            latitude = latitude,
-            longitude = longitude
+            latitude = coordinates.latitude,
+            longitude = coordinates.longitude
         )
 
         val metadataId = oneCallDao.insertOneCallMetadata(oneCallMetadata)

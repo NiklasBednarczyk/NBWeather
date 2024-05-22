@@ -9,9 +9,9 @@ import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastViewModelTest
 import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.test.runTest
-import kotlin.test.assertNotEquals
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertNotEquals
 
 class ForecastOverviewViewModelTest : NBForecastViewModelTest {
 
@@ -29,14 +29,13 @@ class ForecastOverviewViewModelTest : NBForecastViewModelTest {
         oneCallRepository = OneCallRepository.createFake(context)
 
         geocodingRepositoryWithLocation.getAndInsertLocation(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         )
 
         val savedStateHandleWithoutArgs = createTestSaveStateHandle()
         val savedStateHandleWithArgs = createTestSaveStateHandle(
-            NBArgumentKeys.Latitude to latitude,
-            NBArgumentKeys.Longitude to longitude
+            NBArgumentKeys.Latitude to coordinates.latitude,
+            NBArgumentKeys.Longitude to coordinates.longitude
         )
 
         subjectWithoutArgsAndWithoutLocation = ForecastOverviewViewModel(
@@ -113,20 +112,17 @@ class ForecastOverviewViewModelTest : NBForecastViewModelTest {
     fun refreshData_shouldRefreshData() = testScope.runTest {
         // Arrange
         oneCallRepository.getOneCall(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         ).nbCollectUntilResource { oneCallBeforeRefresh ->
             // Act
             delayForDifferentTimestamps()
 
             subjectWithoutArgsAndWithoutLocation.refreshData(
-                latitude = latitude,
-                longitude = longitude
+                coordinates = coordinates
             )
 
             oneCallRepository.getOneCall(
-                latitude = latitude,
-                longitude = longitude
+                coordinates = coordinates
             ).nbCollectUntilResource { oneCallAfterRefresh ->
                 // Assert
                 assertNotEquals(

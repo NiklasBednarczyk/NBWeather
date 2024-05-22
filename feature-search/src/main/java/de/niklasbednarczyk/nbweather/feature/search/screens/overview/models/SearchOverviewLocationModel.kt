@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.locale.NBCountryType
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
@@ -10,8 +11,7 @@ import de.niklasbednarczyk.nbweather.core.ui.image.NBImageItem
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 
 data class SearchOverviewLocationModel(
-    val latitude: Double,
-    val longitude: Double,
+    val coordinates: NBCoordinatesModel,
     val localizedName: NBString?,
     private val country: String?,
     private val state: String?
@@ -46,8 +46,7 @@ data class SearchOverviewLocationModel(
         ): List<SearchOverviewLocationModel> {
             return locations.nbMap { location ->
                 SearchOverviewLocationModel(
-                    latitude = location.latitude,
-                    longitude = location.longitude,
+                    coordinates = location.coordinates,
                     localizedName = location.localizedName,
                     country = location.country,
                     state = location.state

@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.daily
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbMapResource
 import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
@@ -20,11 +21,10 @@ class ForecastDailyViewModel @Inject constructor(
     init {
 
         val forecastTime = savedStateHandle.getArgument(NBArgumentKeys.ForecastTime)
-        val latitude = savedStateHandle.getArgument(NBArgumentKeys.Latitude)
-        val longitude = savedStateHandle.getArgument(NBArgumentKeys.Longitude)
+        val coordinates = savedStateHandle.getCoordinates()
 
         collectFlow(
-            { getViewDataResourceFlow(forecastTime, latitude, longitude) },
+            { getViewDataResourceFlow(forecastTime, coordinates) },
             { oldUiState, output -> oldUiState.copy(viewDataResource = output) }
         )
 
@@ -32,12 +32,10 @@ class ForecastDailyViewModel @Inject constructor(
 
     private suspend fun getViewDataResourceFlow(
         forecastTime: Long?,
-        latitude: Double?,
-        longitude: Double?
+        coordinates: NBCoordinatesModel?
     ): Flow<NBResource<ForecastDailyViewData>> {
         return oneCallRepository.getOneCall(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         ).nbMapResource { oneCall ->
             ForecastDailyViewData.from(
                 forecastTime = forecastTime,

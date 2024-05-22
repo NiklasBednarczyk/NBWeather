@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerDividerPadding
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineColor
 import de.niklasbednarczyk.nbweather.core.ui.dimens.navigationDrawerHeadlineHeight
@@ -89,7 +90,7 @@ private fun DrawerContent(
     drawerItems: List<NBNavigationDrawerItem>,
     closeDrawer: () -> Unit,
     navigateToDestinationWithoutArguments: (destination: NBDestinationItem.WithoutArguments) -> Unit,
-    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit
+    navigateToForecastOverview: (coordinates: NBCoordinatesModel) -> Unit
 ) {
     ModalDrawerSheet {
         LazyColumn {
@@ -110,9 +111,7 @@ private fun DrawerContent(
                             item = drawerItem,
                             closeDrawer = closeDrawer,
                             navigateToDestination = {
-                                val latitude = drawerItem.latitude
-                                val longitude = drawerItem.longitude
-                                navigateToForecastOverview(latitude, longitude)
+                                navigateToForecastOverview(drawerItem.coordinates)
                             }
                         )
                     }

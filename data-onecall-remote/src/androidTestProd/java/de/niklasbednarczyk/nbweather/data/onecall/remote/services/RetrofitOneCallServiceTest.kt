@@ -34,11 +34,7 @@ class RetrofitOneCallServiceTest : NBServiceLatLongTest {
 
     @Test
     fun getOneCall_shouldGetOneCallBasedOnLanguageAndUnits() = testScope.runTest {
-        // Arrange
-        val latitude = NBServiceLatLongTest.LONDON_LATITUDE
-        val longitude = NBServiceLatLongTest.LONDON_LONGITUDE
-
-        // Act
+        // Arrange + Act
         val oneCallLanguageDe = subject.getOneCall(
             latitude = latitude,
             longitude = longitude,

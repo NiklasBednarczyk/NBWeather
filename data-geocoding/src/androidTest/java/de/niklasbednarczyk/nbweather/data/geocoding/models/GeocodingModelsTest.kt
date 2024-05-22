@@ -1,11 +1,14 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.locale.NBLanguageType
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocalNamesModelLocal
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
+import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal.Companion.coordinates
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocalNamesModelRemote
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
+import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote.Companion.coordinates
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 import org.junit.Test
 import java.util.Locale
@@ -75,8 +78,7 @@ class GeocodingModelsTest : NBTest {
         assertEquals(localNamesData.zh, localNamesLocal.zh)
         assertEquals(localNamesData.zu, localNamesLocal.zu)
 
-        assertEquals(locationData.latitude, locationLocal.latitude)
-        assertEquals(locationData.longitude, locationLocal.longitude)
+        assertEquals(locationData.coordinates, locationLocal.coordinates)
         assertEquals(locationData.name, locationLocal.name)
         assertEquals(locationData.country, locationLocal.country)
         assertEquals(locationData.state, locationLocal.state)
@@ -149,8 +151,7 @@ class GeocodingModelsTest : NBTest {
         assertEquals(localNamesLocal.zh, localNamesData.zh)
         assertEquals(localNamesLocal.zu, localNamesData.zu)
 
-        assertEquals(locationLocal.latitude, locationData.latitude)
-        assertEquals(locationLocal.longitude, locationData.longitude)
+        assertEquals(locationLocal.coordinates, locationData.coordinates)
         assertEquals(locationLocal.name, locationData.name)
         assertEquals(locationLocal.country, locationData.country)
         assertEquals(locationLocal.state, locationData.state)
@@ -223,8 +224,7 @@ class GeocodingModelsTest : NBTest {
         assertEquals(localNamesRemote.zh, localNamesData.zh)
         assertEquals(localNamesRemote.zu, localNamesData.zu)
 
-        assertEquals(locationRemote.lat, locationData.latitude)
-        assertEquals(locationRemote.lon, locationData.longitude)
+        assertEquals(locationRemote.coordinates, locationData.coordinates)
         assertEquals(locationRemote.name, locationData.name)
         assertEquals(locationRemote.country, locationData.country)
         assertEquals(locationRemote.state, locationData.state)
@@ -294,8 +294,7 @@ class GeocodingModelsTest : NBTest {
         assertEquals(localNamesRemote.zh, localNamesLocal.zh)
         assertEquals(localNamesRemote.zu, localNamesLocal.zu)
 
-        assertEquals(locationRemote.lat, locationLocal.latitude)
-        assertEquals(locationRemote.lon, locationLocal.longitude)
+        assertEquals(locationRemote.coordinates, locationLocal.coordinates)
         assertEquals(locationRemote.name, locationLocal.name)
         assertEquals(locationRemote.country, locationLocal.country)
         assertEquals(locationRemote.state, locationLocal.state)
@@ -452,8 +451,10 @@ class GeocodingModelsTest : NBTest {
         country: String? = "country"
     ): LocationModelData {
         return LocationModelData(
-            latitude = 1.0,
-            longitude = 2.0,
+            coordinates = NBCoordinatesModel(
+                latitude = 1.0,
+                longitude = 2.0
+            ),
             name = name,
             localNames = LocalNamesModelData(
                 af = "af",

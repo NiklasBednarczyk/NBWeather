@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
@@ -19,8 +20,15 @@ import kotlin.test.assertTrue
 class SearchOverviewViewModelTest : NBViewModelTest {
 
     companion object {
-        private val LAT_LONG_1 = Pair(40.7127281, -74.0060152)
-        private val LAT_LONG_2 = Pair(52.5170365, 13.3888599)
+
+        private val COORDINATES_1 = NBCoordinatesModel(
+            latitude = 40.7127281,
+            longitude = -74.0060152
+        )
+        private val COORDINATES_2 = NBCoordinatesModel(
+            latitude = 52.5170365,
+            longitude = 13.3888599
+        )
 
         private const val SEARCH_QUERY = "Sydney"
     }
@@ -40,8 +48,8 @@ class SearchOverviewViewModelTest : NBViewModelTest {
         geocodingRepositoryWithoutLocations = GeocodingRepository.createFake(context)
         geocodingRepositoryWithLocations = GeocodingRepository.createFake(context)
 
-        geocodingRepositoryWithLocations.insertLocationAndSetAsVisited(LAT_LONG_1)
-        geocodingRepositoryWithLocations.insertLocationAndSetAsVisited(LAT_LONG_2)
+        geocodingRepositoryWithLocations.insertLocationAndSetAsVisited(COORDINATES_1)
+        geocodingRepositoryWithLocations.insertLocationAndSetAsVisited(COORDINATES_2)
 
         val savedStateHandleWithoutArgs = createTestSaveStateHandle()
         val savedStateHandleWithIsStartDestinationFalse = createTestSaveStateHandle(
@@ -265,8 +273,7 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     fun deleteLocation_withoutLocations_shouldReturnNull() = testScope.runTest {
         // Arrange + Act
         val deletedLocation = subjectWithoutArgsAndWithoutLocations.deleteLocation(
-            latitude = LAT_LONG_1.first,
-            longitude = LAT_LONG_1.second
+            coordinates = COORDINATES_1
         )
 
         // Assert
@@ -277,31 +284,23 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     fun deleteLocation_withLocations_shouldDeleteLocation() = testScope.runTest {
         // Arrange + Act
         val deletedLocation = subjectWithoutArgsAndWithLocations.deleteLocation(
-            latitude = LAT_LONG_1.first,
-            longitude = LAT_LONG_1.second
+            coordinates = COORDINATES_1
         )
 
         // Assert
         assertNotNull(deletedLocation)
-        assertEquals(LAT_LONG_1.first, deletedLocation.latitude)
-        assertEquals(LAT_LONG_1.second, deletedLocation.longitude)
+        assertEquals(COORDINATES_1, deletedLocation.coordinates)
 
         geocodingRepositoryWithLocations.getCurrentLocation().collectUntil(
             stopCollecting = { resource ->
-                val data = resource.dataOrNull
-                val pair = Pair(data?.latitude, data?.longitude)
-                resource.isSuccessOrError && pair == LAT_LONG_2
+                resource.isSuccessOrError && resource.dataOrNull?.coordinates == COORDINATES_2
             },
             collectData = { resource ->
                 assertResourceIsSuccess(resource)
-                val latitude = resource.dataOrNull?.latitude
-                val longitude = resource.dataOrNull?.longitude
 
-                assertNotEquals(LAT_LONG_1.first, latitude)
-                assertNotEquals(LAT_LONG_1.second, longitude)
-
-                assertEquals(LAT_LONG_2.first, latitude)
-                assertEquals(LAT_LONG_2.second, longitude)
+                val coordinates = resource.dataOrNull?.coordinates
+                assertNotEquals(COORDINATES_1, coordinates)
+                assertEquals(COORDINATES_2, coordinates)
             }
         )
     }
@@ -345,18 +344,13 @@ class SearchOverviewViewModelTest : NBViewModelTest {
     }
 
     private suspend fun GeocodingRepository.insertLocationAndSetAsVisited(
-        pair: Pair<Double, Double>
+        coordinates: NBCoordinatesModel
     ) {
-        val latitude = pair.first
-        val longitude = pair.second
-
         getAndInsertLocation(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         )!!
         val location = deleteLocation(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         )!!
         val newLocation = location.copy(
             lastVisitedTimestampEpochSeconds = 1L,

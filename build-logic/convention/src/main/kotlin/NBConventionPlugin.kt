@@ -58,6 +58,11 @@ internal interface NBConventionPlugin : Plugin<Project> {
         add("ksp", dependencyNotation)
     }
 
+    fun PluginManager.configurePlugins() {
+        apply("org.jetbrains.kotlin.android")
+        apply("org.jetbrains.kotlin.plugin.parcelize")
+    }
+
     fun Project.plugins(block: PluginManager.() -> Unit) {
         with(pluginManager, block)
     }

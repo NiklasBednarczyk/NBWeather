@@ -2,9 +2,9 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbMapResource
-import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 import de.niklasbednarczyk.nbweather.core.ui.screens.viewmodel.NBViewModel
 import de.niklasbednarczyk.nbweather.data.geocoding.repositories.GeocodingRepository
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
@@ -21,48 +21,42 @@ class ForecastOverviewViewModel @Inject constructor(
 ) : NBViewModel<ForecastOverviewUiState>(ForecastOverviewUiState()) {
 
     init {
-        val latitude = savedStateHandle.getArgument(NBArgumentKeys.Latitude)
-        val longitude = savedStateHandle.getArgument(NBArgumentKeys.Longitude)
+
+        val coordinates = savedStateHandle.getCoordinates()
 
         collectFlow(
-            { getLocationResourceFlow(latitude, longitude) },
+            { getLocationResourceFlow(coordinates) },
             { oldUiState, output -> oldUiState.copy(locationResource = output) }
         )
 
         collectFlow(
-            { getItemsResourceFlow(latitude, longitude) },
+            { getItemsResourceFlow(coordinates) },
             { oldUiState, output -> oldUiState.copy(itemsResource = output) }
         )
 
     }
 
     private suspend fun getLocationResourceFlow(
-        latitude: Double?,
-        longitude: Double?
+        coordinates: NBCoordinatesModel?
     ): Flow<NBResource<ForecastOverviewLocationModel>> {
         return geocodingRepository.getLocationByCoordinatesAndSetAsCurrent(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         ).nbMapResource(ForecastOverviewLocationModel::from)
     }
 
     private suspend fun getItemsResourceFlow(
-        latitude: Double?,
-        longitude: Double?
+        coordinates: NBCoordinatesModel?
     ): Flow<NBResource<List<ForecastOverviewItem>>> {
         return oneCallRepository.getOneCall(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         ).nbMapResource(ForecastOverviewItem::from)
     }
 
     suspend fun refreshData(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): NBResource<Unit> {
         return oneCallRepository.refreshOneCall(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         )
     }
 

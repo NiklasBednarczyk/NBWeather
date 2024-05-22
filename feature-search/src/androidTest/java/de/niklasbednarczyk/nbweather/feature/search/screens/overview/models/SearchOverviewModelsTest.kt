@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.search.screens.overview.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.common.string.NBString.Companion.asString
 import de.niklasbednarczyk.nbweather.core.ui.R
@@ -94,8 +95,10 @@ class SearchOverviewModelsTest : NBTest {
         state: String? = "state"
     ): SearchOverviewLocationModel {
         return SearchOverviewLocationModel(
-            latitude = 1.0,
-            longitude = 2.0,
+            coordinates = NBCoordinatesModel(
+                latitude = 1.0,
+                longitude = 2.0
+            ),
             localizedName = NBString.Value.from("localizedName"),
             country = country,
             state = state

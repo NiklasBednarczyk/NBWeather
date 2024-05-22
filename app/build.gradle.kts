@@ -6,6 +6,7 @@ plugins {
     id("de.niklasbednarczyk.nbweather.dependency.test")
     id("de.niklasbednarczyk.nbweather.layer.ui")
 
+    id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
 }
 

@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.nbDebounce
 import de.niklasbednarczyk.nbweather.core.data.localremote.coroutine.nbFlatMapLatest
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
@@ -99,11 +100,11 @@ class SearchOverviewViewModel @Inject constructor(
     }
 
     fun updateOrders(
-        pairs: List<Pair<Double, Double>>
+        coordinates: List<NBCoordinatesModel>
     ) {
         launchSuspend {
             geocodingRepository.updateOrders(
-                pairs = pairs
+                coordinates = coordinates
             )
         }
     }
@@ -119,22 +120,18 @@ class SearchOverviewViewModel @Inject constructor(
     }
 
     suspend fun getAndInsertLocation(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): LocationModelData? {
         return geocodingRepository.getAndInsertLocation(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         )
     }
 
     suspend fun deleteLocation(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): LocationModelData? {
         return geocodingRepository.deleteLocation(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         )
     }
 

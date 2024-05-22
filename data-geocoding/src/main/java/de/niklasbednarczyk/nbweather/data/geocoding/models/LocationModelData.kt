@@ -1,14 +1,16 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.data.localremote.R
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
+import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal.Companion.coordinates
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote
+import de.niklasbednarczyk.nbweather.data.geocoding.remote.models.LocationModelRemote.Companion.coordinates
 
 data class LocationModelData(
-    val latitude: Double,
-    val longitude: Double,
+    val coordinates: NBCoordinatesModel,
     val country: String?,
     val state: String?,
     internal val name: String?,
@@ -41,8 +43,8 @@ data class LocationModelData(
             data: LocationModelData
         ): LocationModelLocal {
             return LocationModelLocal(
-                latitude = data.latitude,
-                longitude = data.longitude,
+                latitude = data.coordinates.latitude,
+                longitude = data.coordinates.longitude,
                 name = data.name,
                 localNames = LocalNamesModelData.dataToLocal(data.localNames),
                 country = data.country,
@@ -57,8 +59,7 @@ data class LocationModelData(
         ): LocationModelData? {
             return nbNullSafe(local) { l ->
                 LocationModelData(
-                    latitude = l.latitude,
-                    longitude = l.longitude,
+                    coordinates = l.coordinates,
                     name = l.name,
                     localNames = LocalNamesModelData.localToData(l.localNames),
                     country = l.country,
@@ -74,8 +75,7 @@ data class LocationModelData(
         ): LocationModelData? {
             return nbNullSafe(remote) { r ->
                 LocationModelData(
-                    latitude = r.lat,
-                    longitude = r.lon,
+                    coordinates = r.coordinates,
                     name = r.name,
                     localNames = LocalNamesModelData.remoteToData(r.localNames),
                     country = r.country,

@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.navigation.drawer.NBNavigationDrawerItem
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
@@ -148,12 +149,8 @@ class MainModelsTest : NBTest {
         if (expectedInitialCurrentLocationIsSet) {
             assertNotNull(viewData.initialCurrentLocation)
             assertEquals(
-                initialCurrentLocation?.latitude,
-                viewData.initialCurrentLocation?.latitude
-            )
-            assertEquals(
-                initialCurrentLocation?.longitude,
-                viewData.initialCurrentLocation?.longitude
+                initialCurrentLocation?.coordinates,
+                viewData.initialCurrentLocation?.coordinates
             )
         } else {
             assertNull(viewData.initialCurrentLocation)
@@ -186,8 +183,10 @@ class MainModelsTest : NBTest {
         index: Long
     ): LocationModelData {
         return LocationModelData(
-            latitude = index.toDouble(),
-            longitude = index.toDouble(),
+            coordinates = NBCoordinatesModel(
+                latitude = index.toDouble(),
+                longitude = index.toDouble()
+            ),
             country = null,
             state = null,
             name = null,

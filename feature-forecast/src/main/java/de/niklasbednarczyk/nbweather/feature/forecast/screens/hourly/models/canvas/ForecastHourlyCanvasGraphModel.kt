@@ -1,11 +1,8 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas
 
 import androidx.compose.ui.graphics.Color
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
-import de.niklasbednarczyk.nbweather.data.onecall.values.forecast.ForecastValue
-import de.niklasbednarczyk.nbweather.feature.forecast.models.limits.ForecastUnitsLimitsItem
 
 data class ForecastHourlyCanvasGraphModel(
     private val name: NBString,
@@ -21,35 +18,5 @@ data class ForecastHourlyCanvasGraphModel(
     )
 
     val valuesZipped = values.zipWithNext()
-
-    companion object {
-
-        fun List<ForecastValue.Units>.getLimitValues(
-            limits: ForecastUnitsLimitsItem
-        ): Pair<Double, Double>? {
-            val minValue = getMinValue(limits)
-            val maxValue = getMaxValue(limits)
-            return nbNullSafe(minValue, maxValue) { min, max ->
-                Pair(min, max)
-            }
-        }
-
-        private fun List<ForecastValue.Units>.getMinValue(
-            limits: ForecastUnitsLimitsItem
-        ): Double? {
-            val limitMinValue = limits.min?.value
-            val actualMinValue = minOfOrNull { value -> value.unitsValue.value.toDouble() }
-            return listOfNotNull(limitMinValue, actualMinValue).minOrNull()
-        }
-
-        private fun List<ForecastValue.Units>.getMaxValue(
-            limits: ForecastUnitsLimitsItem
-        ): Double? {
-            val limitMaxValue = limits.max?.value
-            val actualMaxValue = maxOfOrNull { value -> value.unitsValue.value.toDouble() }
-            return listOfNotNull(limitMaxValue, actualMaxValue).maxOrNull()
-        }
-
-    }
 
 }

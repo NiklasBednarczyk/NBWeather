@@ -1,6 +1,7 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
 import android.content.Context
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.getCurrentTimestampEpochSeconds
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMapNotNull
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
@@ -69,18 +70,17 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun getLocationByCoordinatesAndSetAsCurrent(
-        latitude: Double?,
-        longitude: Double?
+        coordinates: NBCoordinatesModel?
     ): Flow<NBResource<LocationModelData?>> {
 
-        if (latitude == null || longitude == null) return flowOf(NBResource.Error())
+        if (coordinates == null) return flowOf(NBResource.Error())
 
         return object : LocalGetMediator<LocationModelData?, LocationModelLocal>() {
 
             override fun getLocal(): Flow<LocationModelLocal?> {
                 return geocodingDao.getLocation(
-                    latitude = latitude,
-                    longitude = longitude
+                    latitude = coordinates.latitude,
+                    longitude = coordinates.longitude,
                 )
             }
 
@@ -137,21 +137,20 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun getAndInsertLocation(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): LocationModelData? {
         return object : CoroutineLauncherNullable<LocationModelData>() {
 
             override suspend fun launchSuspend(): LocationModelData? {
                 val localFirst = geocodingDao.getLocation(
-                    latitude = latitude,
-                    longitude = longitude
+                    latitude = coordinates.latitude,
+                    longitude = coordinates.longitude
                 ).firstOrNull()
 
                 val local = if (localFirst == null) {
                     val remote = geocodingService.getLocationsByCoordinates(
-                        latitude = latitude,
-                        longitude = longitude,
+                        latitude = coordinates.latitude,
+                        longitude = coordinates.longitude,
                         limit = ConstantsCoreRemote.Query.Limit.VALUE_BY_COORDINATES
                     ).firstOrNull() ?: return null
 
@@ -185,15 +184,15 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun updateOrders(
-        pairs: List<Pair<Double, Double>>
+        coordinates: List<NBCoordinatesModel>
     ) {
         return object : CoroutineLauncherUnit() {
 
             override suspend fun launchSuspend() {
-                pairs.forEachIndexed { index, pair ->
+                coordinates.forEachIndexed { index, coordinates ->
                     geocodingDao.updateOrder(
-                        latitude = pair.first,
-                        longitude = pair.second,
+                        latitude = coordinates.latitude,
+                        longitude = coordinates.longitude,
                         order = index.toLong()
                     )
                 }
@@ -203,13 +202,15 @@ class GeocodingRepository @Inject constructor(
     }
 
     suspend fun deleteLocation(
-        latitude: Double,
-        longitude: Double
+        coordinates: NBCoordinatesModel
     ): LocationModelData? {
         return object : CoroutineLauncherNullable<LocationModelData?>() {
 
             override suspend fun launchSuspend(): LocationModelData? {
-                val locationLocal = geocodingDao.getLocation(latitude, longitude).firstOrNull()
+                val locationLocal = geocodingDao.getLocation(
+                    latitude = coordinates.latitude,
+                    longitude = coordinates.longitude
+                ).firstOrNull()
                 nbNullSafe(locationLocal) { location ->
                     geocodingDao.deleteLocation(location)
                 }

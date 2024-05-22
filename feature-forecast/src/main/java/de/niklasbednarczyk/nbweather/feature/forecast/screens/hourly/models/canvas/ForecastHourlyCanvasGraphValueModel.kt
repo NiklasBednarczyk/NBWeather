@@ -11,16 +11,15 @@ data class ForecastHourlyCanvasGraphValueModel(
     companion object {
 
         fun ForecastValue.Units.calcFactor(
-            minValue: Double,
-            maxValue: Double
+            limitValues: ForecastHourlyCanvasGraphLimitValuesModel
         ): Float? {
-            val spanMinMax = maxValue - minValue
+            val spanMinMax = limitValues.maxValue - limitValues.minValue
             return if (spanMinMax < 0) {
                 null
             } else if (spanMinMax == 0.0) {
                 0.5f
             } else {
-                val spanValue = maxValue - unitsValue.value.toDouble()
+                val spanValue = limitValues.maxValue - unitsValue.value.toDouble()
                 (spanValue / spanMinMax).toFloat()
             }
         }

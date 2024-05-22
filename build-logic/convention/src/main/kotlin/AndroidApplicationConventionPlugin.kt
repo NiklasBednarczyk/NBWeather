@@ -8,8 +8,7 @@ class AndroidApplicationConventionPlugin : NBConventionPlugin {
     override fun Project.apply(libs: VersionCatalog) {
         plugins {
             apply("com.android.application")
-            apply("org.jetbrains.kotlin.android")
-            apply("com.google.firebase.crashlytics")
+            configurePlugins()
         }
 
         extensions.configure<BaseAppModuleExtension> {

@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeCurrentWeatherDao
@@ -28,11 +29,17 @@ import kotlin.test.assertNotNull
 class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
 
     companion object {
-        private const val LOCATION_1_LATITUDE = 40.7127281
-        private const val LOCATION_1_LONGITUDE = -74.0060152
 
-        private const val LOCATION_2_LATITUDE = 52.5170365
-        private const val LOCATION_2_LONGITUDE = 13.3888599
+        private val LOCATION_1_COORDINATES = NBCoordinatesModel(
+            latitude = 40.7127281,
+            longitude = -74.0060152
+        )
+
+        private val LOCATION_2_COORDINATES = NBCoordinatesModel(
+            latitude = 52.5170365,
+            longitude = 13.3888599
+        )
+
     }
 
     private lateinit var subject: OneCallRepository
@@ -81,13 +88,11 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
     fun getOneCall_shouldGetCorrectOneCall() = testScope.runTest {
         // Arrange
         subject.getOneCall(
-            latitude = LOCATION_1_LATITUDE,
-            longitude = LOCATION_1_LONGITUDE
+            coordinates = LOCATION_1_COORDINATES
         ).nbCollectUntilResource { oneCall1 ->
             // Act
             subject.getOneCall(
-                latitude = LOCATION_2_LATITUDE,
-                longitude = LOCATION_2_LONGITUDE
+                coordinates = LOCATION_2_COORDINATES
             ).nbCollectUntilResource { oneCall2 ->
                 assertNotEquals(oneCall1.timezoneOffset?.value, oneCall2.timezoneOffset?.value)
             }
@@ -97,18 +102,16 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
     @Test
     fun refreshOneCall_shouldRefreshOneCall() = testScope.runTest {
         // Arrange
-        val latitude = LOCATION_1_LATITUDE
-        val longitude = LOCATION_1_LONGITUDE
+        val coordinates = LOCATION_1_COORDINATES
 
         val currentTimeUpdate = Long.MAX_VALUE
 
         subject.getOneCall(
-            latitude = latitude,
-            longitude = longitude
+            coordinates = coordinates
         ).nbCollectUntilResource {
             val oneCallLocal = oneCallDao.getOneCall(
-                latitude = latitude,
-                longitude = longitude
+                latitude = coordinates.latitude,
+                longitude = coordinates.longitude
             ).firstOrNull()
             val currentWeatherLocal = oneCallLocal!!.currentWeather!!.copy(
                 dt = currentTimeUpdate
@@ -116,21 +119,20 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             currentWeatherDao.insertCurrentWeather(currentWeatherLocal)
 
             val oneCallLocalBeforeRefresh = oneCallDao.getOneCall(
-                latitude = latitude,
-                longitude = longitude
+                latitude = coordinates.latitude,
+                longitude = coordinates.longitude
             ).firstOrNull()
 
             delayForDifferentTimestamps()
 
             // Act
             val refreshResource = subject.refreshOneCall(
-                latitude = latitude,
-                longitude = longitude
+                coordinates = coordinates
             )
 
             val oneCallLocalAfterRefresh = oneCallDao.getOneCall(
-                latitude = latitude,
-                longitude = longitude
+                latitude = coordinates.latitude,
+                longitude = coordinates.longitude
             ).firstOrNull()
 
             // Assert

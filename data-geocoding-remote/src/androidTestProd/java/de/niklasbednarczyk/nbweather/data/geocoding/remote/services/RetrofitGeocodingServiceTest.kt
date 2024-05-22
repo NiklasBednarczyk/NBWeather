@@ -71,11 +71,7 @@ class RetrofitGeocodingServiceTest : NBServiceLatLongTest {
 
     @Test
     fun getLocationsByCoordinates_shouldGetLocations() = testScope.runTest {
-        // Arrange
-        val latitude = NBServiceLatLongTest.LONDON_LATITUDE
-        val longitude = NBServiceLatLongTest.LONDON_LONGITUDE
-
-        // Act
+        // Arrange + Act
         val locations = subject.getLocationsByCoordinates(
             latitude = latitude,
             longitude = longitude,

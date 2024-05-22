@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
@@ -45,8 +46,12 @@ import kotlin.test.assertTrue
 class ForecastOverviewScreenTest : NBComposableTest() {
 
     companion object {
-        private const val LOCATION_LATITUDE = 10.0
-        private const val LOCATION_LONGITUDE = 20.0
+
+        private val LOCATION_COORDINATES = NBCoordinatesModel(
+            latitude = 10.0,
+            longitude = 20.0
+        )
+
     }
 
     @Test
@@ -98,7 +103,7 @@ class ForecastOverviewScreenTest : NBComposableTest() {
     @Test
     fun content_alerts_shouldRenderCorrectly() {
         // Arrange
-        var navigateToForecastAlertsClicked: Pair<Double, Double>? = null
+        var navigateToForecastAlertsClicked: NBCoordinatesModel? = null
 
         val alerts = ForecastOverviewAlertsModel(
             eventName = createNBString("Event Name"),
@@ -111,8 +116,8 @@ class ForecastOverviewScreenTest : NBComposableTest() {
         // Act
         setScreenContent(
             uiState = uiState,
-            navigateToForecastAlerts = { latitude, longitude ->
-                navigateToForecastAlertsClicked = Pair(latitude, longitude)
+            navigateToForecastAlerts = { coordinates ->
+                navigateToForecastAlertsClicked = coordinates
             }
         )
 
@@ -128,8 +133,7 @@ class ForecastOverviewScreenTest : NBComposableTest() {
         }
 
         assertNotNull(navigateToForecastAlertsClicked)
-        assertEquals(LOCATION_LATITUDE, navigateToForecastAlertsClicked?.first)
-        assertEquals(LOCATION_LONGITUDE, navigateToForecastAlertsClicked?.second)
+        assertEquals(LOCATION_COORDINATES, navigateToForecastAlertsClicked)
     }
 
     @Test
@@ -165,7 +169,8 @@ class ForecastOverviewScreenTest : NBComposableTest() {
     @Test
     fun content_daily_shouldRenderCorrectly() {
         // Arrange
-        var navigateToForecastDailyClicked: Triple<Long?, Double, Double>? = null
+        var navigateToForecastDailyClickedForecastTime: Long? = null
+        var navigateToForecastDailyClickedCoordinates: NBCoordinatesModel? = null
 
         val weatherIcon1 = WeatherIconType.D_CLEAR_SKY
         val weatherIcon2 = WeatherIconType.N_CLEAR_SKY
@@ -201,8 +206,9 @@ class ForecastOverviewScreenTest : NBComposableTest() {
         // Act
         setScreenContent(
             uiState = uiState,
-            navigateToForecastDaily = { forecastTime, latitude, longitude ->
-                navigateToForecastDailyClicked = Triple(forecastTime, latitude, longitude)
+            navigateToForecastDaily = { forecastTime, coordinates ->
+                navigateToForecastDailyClickedForecastTime = forecastTime
+                navigateToForecastDailyClickedCoordinates = coordinates
             }
         )
 
@@ -214,32 +220,29 @@ class ForecastOverviewScreenTest : NBComposableTest() {
                 .assertIsDisplayed()
                 .performClick()
 
-            assertNull(navigateToForecastDailyClicked?.first)
-            assertEquals(LOCATION_LATITUDE, navigateToForecastDailyClicked?.second)
-            assertEquals(LOCATION_LONGITUDE, navigateToForecastDailyClicked?.third)
+            assertNull(navigateToForecastDailyClickedForecastTime)
+            assertEquals(LOCATION_COORDINATES, navigateToForecastDailyClickedCoordinates)
 
             onNodeWithIcon(weatherIcon1.icon)
                 .assertIsDisplayed()
                 .performClick()
 
-            assertEquals(1L, navigateToForecastDailyClicked?.first)
-            assertEquals(LOCATION_LATITUDE, navigateToForecastDailyClicked?.second)
-            assertEquals(LOCATION_LONGITUDE, navigateToForecastDailyClicked?.third)
+            assertEquals(1L, navigateToForecastDailyClickedForecastTime)
+            assertEquals(LOCATION_COORDINATES, navigateToForecastDailyClickedCoordinates)
 
             onNodeWithIcon(weatherIcon2.icon)
                 .assertIsDisplayed()
                 .performClick()
 
-            assertEquals(2L, navigateToForecastDailyClicked?.first)
-            assertEquals(LOCATION_LATITUDE, navigateToForecastDailyClicked?.second)
-            assertEquals(LOCATION_LONGITUDE, navigateToForecastDailyClicked?.third)
+            assertEquals(2L, navigateToForecastDailyClickedForecastTime)
+            assertEquals(LOCATION_COORDINATES, navigateToForecastDailyClickedCoordinates)
         }
     }
 
     @Test
     fun content_hourly_shouldRenderCorrectly() {
         // Arrange
-        var navigateToForecastHourlyClicked: Pair<Double, Double>? = null
+        var navigateToForecastHourlyClicked: NBCoordinatesModel? = null
 
         val weatherIcon1 = WeatherIconType.D_CLEAR_SKY
         val weatherIcon2 = WeatherIconType.N_CLEAR_SKY
@@ -273,8 +276,8 @@ class ForecastOverviewScreenTest : NBComposableTest() {
         // Act
         setScreenContent(
             uiState = uiState,
-            navigateToForecastHourly = { latitude, longitude ->
-                navigateToForecastHourlyClicked = Pair(latitude, longitude)
+            navigateToForecastHourly = { coordinates ->
+                navigateToForecastHourlyClicked = coordinates
             }
         )
 
@@ -294,8 +297,7 @@ class ForecastOverviewScreenTest : NBComposableTest() {
         }
 
         assertNotNull(navigateToForecastHourlyClicked)
-        assertEquals(LOCATION_LATITUDE, navigateToForecastHourlyClicked?.first)
-        assertEquals(LOCATION_LONGITUDE, navigateToForecastHourlyClicked?.second)
+        assertEquals(LOCATION_COORDINATES, navigateToForecastHourlyClicked)
     }
 
     @Test
@@ -419,8 +421,7 @@ class ForecastOverviewScreenTest : NBComposableTest() {
         item: ForecastOverviewItem? = null
     ): ForecastOverviewUiState {
         val location = ForecastOverviewLocationModel(
-            latitude = LOCATION_LATITUDE,
-            longitude = LOCATION_LONGITUDE,
+            coordinates = LOCATION_COORDINATES,
             title = createNBString(title)
         )
 
@@ -433,11 +434,11 @@ class ForecastOverviewScreenTest : NBComposableTest() {
     private fun setScreenContent(
         uiState: ForecastOverviewUiState = createTestUiState(),
         openDrawer: () -> Unit = {},
-        navigateToForecastAlerts: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
-        navigateToForecastDaily: (forecastTime: Long?, latitude: Double, longitude: Double) -> Unit = { _, _, _ -> },
-        navigateToForecastHourly: (latitude: Double, longitude: Double) -> Unit = { _, _ -> },
+        navigateToForecastAlerts: (coordinates: NBCoordinatesModel) -> Unit = {},
+        navigateToForecastDaily: (forecastTime: Long?, coordinates: NBCoordinatesModel) -> Unit = { _, _ -> },
+        navigateToForecastHourly: (coordinates: NBCoordinatesModel) -> Unit = {},
         navigateToSearchOverview: () -> Unit = {},
-        refreshData: suspend (latitude: Double, longitude: Double) -> NBResource<Unit> = { _, _ -> NBResource.Loading }
+        refreshData: suspend (coordinates: NBCoordinatesModel) -> NBResource<Unit> = { NBResource.Loading }
     ) {
         setContent {
             ForecastOverviewScreen(

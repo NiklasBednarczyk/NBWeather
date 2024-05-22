@@ -57,8 +57,8 @@ import de.niklasbednarczyk.nbweather.feature.forecast.extensions.limits
 import de.niklasbednarczyk.nbweather.feature.forecast.extensions.name
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.ForecastHourlyViewData
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasAxisModel
+import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphLimitValuesModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphModel
-import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphModel.Companion.getLimitValues
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphValueModel
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasGraphValueModel.Companion.calcFactor
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly.models.canvas.ForecastHourlyCanvasViewData
@@ -409,12 +409,13 @@ private fun rememberCanvasViewData(
             val lineColor = firstElement.unitsValue.getColor(colors) ?: return@mapNotNull null
             val limits = firstElement.limits
 
-            val limitValues = graph.getLimitValues(limits) ?: return@mapNotNull null
-            val minValue = limitValues.first
-            val maxValue = limitValues.second
+            val limitValues = ForecastHourlyCanvasGraphLimitValuesModel.from(
+                forecasts = graph,
+                limits = limits
+            ) ?: return@mapNotNull null
 
             val values = graph.map { value ->
-                val factor = value.calcFactor(minValue, maxValue) ?: return@mapNotNull null
+                val factor = value.calcFactor(limitValues) ?: return@mapNotNull null
 
                 val unitsValue = value.unitsValue
                 val displayValueText = if (unitsValue is TemperatureUnitsValue.Long) {

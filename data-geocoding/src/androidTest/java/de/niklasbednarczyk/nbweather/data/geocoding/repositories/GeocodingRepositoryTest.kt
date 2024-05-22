@@ -1,9 +1,11 @@
 package de.niklasbednarczyk.nbweather.data.geocoding.repositories
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.FakeGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.daos.NBGeocodingDao
 import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal
+import de.niklasbednarczyk.nbweather.data.geocoding.local.models.LocationModelLocal.Companion.coordinates
 import de.niklasbednarczyk.nbweather.data.geocoding.models.LocationModelData
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.FakeGeocodingService
 import de.niklasbednarczyk.nbweather.data.geocoding.remote.services.NBGeocodingService
@@ -21,8 +23,10 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
     companion object {
 
-        private const val LOCATION_1_LATITUDE = 40.7127281
-        private const val LOCATION_1_LONGITUDE = -74.0060152
+        private val LOCATION_1_COORDINATES = NBCoordinatesModel(
+            latitude = 40.7127281,
+            longitude = -74.0060152
+        )
 
         private const val LOCATION_2_LOCATION_NAME = "Ber"
 
@@ -55,7 +59,10 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         subject.getLocationsByLocationName(LOCATION_2_LOCATION_NAME)
             .nbCollectUntilResource { dataAct ->
                 assertListHasSize(dataAct, 1)
-                assertListsContainSameItems(dataArrange.mapToLatLong(), dataAct.mapToLatLong())
+                assertListsContainSameItems(
+                    dataArrange.mapToCoordinates(),
+                    dataAct.mapToCoordinates()
+                )
             }
     }
 
@@ -75,8 +82,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
         // Act + Assert
         subject.getLocationByCoordinatesAndSetAsCurrent(
-            latitude = location1Arrange.latitude,
-            longitude = location1Arrange.longitude
+            coordinates = location1Arrange.coordinates
         ).nbCollectUntilResource { location1Act ->
             assertNotNull(location1Act)
             assertNotNull(location1Act.lastVisitedTimestampEpochSeconds)
@@ -85,8 +91,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         }
 
         subject.getLocationByCoordinatesAndSetAsCurrent(
-            latitude = location2Arrange.latitude,
-            longitude = location2Arrange.longitude
+            coordinates = location2Arrange.coordinates
         ).nbCollectUntilResource { location2Act ->
             assertNotNull(location2Act)
             assertNotNull(location2Act.lastVisitedTimestampEpochSeconds)
@@ -118,11 +123,11 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         // Act + Assert
         subject.getVisitedLocations().nbCollectUntilResource { dataAct ->
             assertListDoesContain(
-                dataAct?.mapToLatLong(),
-                location1.toLatLong(),
-                location3.toLatLong()
+                dataAct?.mapToCoordinates(),
+                location1.coordinates,
+                location3.coordinates
             )
-            assertListDoesNotContain(dataAct?.mapToLatLong(), location2.toLatLong())
+            assertListDoesNotContain(dataAct?.mapToCoordinates(), location2.coordinates)
         }
     }
 
@@ -144,7 +149,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
         // Act + Assert
         subject.getCurrentLocation().nbCollectUntilResource { dataAct ->
-            assertEquals(location.toLatLong(), dataAct?.toLatLong())
+            assertEquals(location.coordinates, dataAct?.coordinates)
         }
     }
 
@@ -173,8 +178,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         // Act + Assert
         subject.getInitialCurrentLocation().nbCollectUntilResource { dataAct ->
             assertNotNull(dataAct)
-            assertEquals(LOCATION_1_LATITUDE, dataAct.latitude)
-            assertEquals(LOCATION_1_LONGITUDE, dataAct.longitude)
+            assertEquals(LOCATION_1_COORDINATES, dataAct.coordinates)
         }
     }
 
@@ -200,16 +204,16 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
         // Act
         val location1Act = subject.getAndInsertLocation(
-            latitude = LOCATION_1_LATITUDE,
-            longitude = LOCATION_1_LONGITUDE
+            coordinates = LOCATION_1_COORDINATES
         )
         val location2Act = subject.getAndInsertLocation(
-            latitude = location2Arrange.latitude,
-            longitude = location2Arrange.longitude
+            coordinates = location2Arrange.coordinates
         )
         val location3Act = subject.getAndInsertLocation(
-            latitude = Double.MAX_VALUE,
-            longitude = Double.MAX_VALUE
+            coordinates = NBCoordinatesModel(
+                latitude = Double.MAX_VALUE,
+                longitude = Double.MIN_VALUE
+            )
         )
 
         // Assert
@@ -237,8 +241,8 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         // Act
         subject.insertLocation(locationArrange)
         val locationAct = geocodingDao.getLocation(
-            latitude = locationArrange.latitude,
-            longitude = locationArrange.longitude
+            latitude = locationArrange.coordinates.latitude,
+            longitude = locationArrange.coordinates.longitude
         ).firstOrNull()
 
         // Assert
@@ -265,8 +269,8 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         // Act
         subject.updateOrders(
             listOf(
-                location2DataArrange.toLatLong(),
-                location1DataArrange.toLatLong()
+                location2DataArrange.coordinates,
+                location1DataArrange.coordinates
             )
         )
 
@@ -299,8 +303,7 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
         // Act
         val deletedLocation = subject.deleteLocation(
-            latitude = location1Arrange.latitude,
-            longitude = location1Arrange.longitude
+            coordinates = location1Arrange.coordinates,
         )
         val location1Act = geocodingDao.getLocation(
             latitude = location1Arrange.latitude,
@@ -315,12 +318,8 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         assertNotNull(location1Arrange)
         assertNotNull(deletedLocation)
         assertEquals(
-            location1Arrange.latitude,
-            deletedLocation.latitude
-        )
-        assertEquals(
-            location1Arrange.longitude,
-            deletedLocation.longitude
+            location1Arrange.coordinates,
+            deletedLocation.coordinates
         )
 
         assertNull(location1Act)
@@ -328,16 +327,8 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         assertNotNull(location2Act)
     }
 
-    private fun LocationModelLocal.toLatLong(): Pair<Double, Double> {
-        return Pair(latitude, longitude)
-    }
-
-    private fun LocationModelData.toLatLong(): Pair<Double, Double> {
-        return Pair(latitude, longitude)
-    }
-
-    private fun List<LocationModelData>.mapToLatLong(): List<Pair<Double, Double>> {
-        return map { location -> location.toLatLong() }
+    private fun List<LocationModelData>.mapToCoordinates(): List<NBCoordinatesModel> {
+        return map { location -> location.coordinates }
     }
 
     private suspend fun insertLocation(
@@ -359,8 +350,10 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
 
     private fun createTestLocation(): LocationModelData {
         return LocationModelData(
-            latitude = 1.0,
-            longitude = 2.0,
+            coordinates = NBCoordinatesModel(
+                latitude = 1.0,
+                longitude = 2.0
+            ),
             name = null,
             localNames = null,
             country = null,

@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
 import de.niklasbednarczyk.nbweather.core.ui.draganddrop.NBDragAndDropListItemModel
@@ -17,21 +18,18 @@ import de.niklasbednarczyk.nbweather.feature.search.screens.overview.models.Sear
 @Composable
 fun SearchOverviewVisitedView(
     visitedLocationsResource: NBResource<List<SearchOverviewLocationModel>>,
-    navigateToForecastOverview: (latitude: Double, longitude: Double) -> Unit,
-    deleteLocation: (latitude: Double, longitude: Double) -> Unit,
-    updateOrders: (locations: List<Pair<Double, Double>>) -> Unit
+    navigateToForecastOverview: (coordinates: NBCoordinatesModel) -> Unit,
+    deleteLocation: (coordinates: NBCoordinatesModel) -> Unit,
+    updateOrders: (coordinates: List<NBCoordinatesModel>) -> Unit
 ) {
     NBResourceWithoutLoadingView(visitedLocationsResource) { visitedLocations ->
         NBDragAndDropView(
             items = visitedLocations,
             updateKeys = updateOrders,
             getKey = { item ->
-                Pair(item.latitude, item.longitude)
+                item.coordinates
             },
             getListItem = { item ->
-                val latitude = item.latitude
-                val longitude = item.longitude
-
                 NBDragAndDropListItemModel(
                     headlineContent = {
                         Text(
@@ -39,13 +37,13 @@ fun SearchOverviewVisitedView(
                         )
                     },
                     modifier = Modifier.clickable {
-                        navigateToForecastOverview(latitude, longitude)
+                        navigateToForecastOverview(item.coordinates)
                     },
                     trailingContent = {
                         NBIconButtonView(
                             icon = NBIcons.Delete,
                             onClick = {
-                                deleteLocation(latitude, longitude)
+                                deleteLocation(item.coordinates)
                             }
                         )
                     },

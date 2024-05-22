@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.navigation.drawer
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconItem
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
@@ -32,8 +33,7 @@ sealed interface NBNavigationDrawerItem {
         }
 
         data class ForecastOverview(
-            val latitude: Double,
-            val longitude: Double,
+            val coordinates: NBCoordinatesModel,
             override val label: NBString?,
             override val selected: Boolean
         ) : Destination {
@@ -44,16 +44,10 @@ sealed interface NBNavigationDrawerItem {
                     visitedLocation: LocationModelData,
                     currentLocation: LocationModelData?
                 ): ForecastOverview {
-                    val latitude = visitedLocation.latitude
-                    val longitude = visitedLocation.longitude
-
-                    val sameLatitude = latitude == currentLocation?.latitude
-                    val sameLongitude = longitude == currentLocation?.longitude
-                    val selected = sameLatitude && sameLongitude
+                     val selected = visitedLocation.coordinates == currentLocation?.coordinates
 
                     return ForecastOverview(
-                        latitude = latitude,
-                        longitude = longitude,
+                        coordinates = visitedLocation.coordinates,
                         label = visitedLocation.localizedNameAndCountry,
                         selected = selected
                     )
