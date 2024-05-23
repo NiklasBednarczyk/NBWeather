@@ -18,6 +18,7 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import junit.framework.TestCase.assertTrue
 import kotlin.test.Test
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 
 class SearchOverviewScreenTest : NBComposableTest() {
@@ -182,145 +183,116 @@ class SearchOverviewScreenTest : NBComposableTest() {
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationNull_searchActiveFalse_visitedLocationsEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedSearch(
             isStartDestination = null,
             searchActive = false,
-            visitedLocationsIsSet = false,
-            expectedIconBackDisplayed = false,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = false
+            visitedLocationsIsSet = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationNull_searchActiveFalse_visitedLocationsNotEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedSearch(
             isStartDestination = null,
             searchActive = false,
-            visitedLocationsIsSet = true,
-            expectedIconBackDisplayed = false,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = false
+            visitedLocationsIsSet = true
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationNull_searchActiveTrue_visitedLocationsEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedBack(
             isStartDestination = null,
             searchActive = true,
             visitedLocationsIsSet = false,
-            expectedIconBackDisplayed = true,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = true
+            expectedPopBackStackCalled = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationNull_searchActiveTrue_visitedLocationsNotEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedBack(
             isStartDestination = null,
             searchActive = true,
             visitedLocationsIsSet = true,
-            expectedIconBackDisplayed = true,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = true
+            expectedPopBackStackCalled = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveFalse_visitedLocationsEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedSearch(
             isStartDestination = false,
             searchActive = false,
-            visitedLocationsIsSet = false,
-            expectedIconBackDisplayed = false,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = false
+            visitedLocationsIsSet = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveFalse_visitedLocationsNotEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedBack(
             isStartDestination = false,
             searchActive = false,
             visitedLocationsIsSet = true,
-            expectedIconBackDisplayed = true,
-            expectedPopBackStackCalled = true,
-            expectedOnSearchActiveChangeCalled = false
+            expectedPopBackStackCalled = true
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveTrue_visitedLocationsEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedBack(
             isStartDestination = false,
             searchActive = true,
             visitedLocationsIsSet = false,
-            expectedIconBackDisplayed = true,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = true
+            expectedPopBackStackCalled = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationFalse_searchActiveTrue_visitedLocationsNotEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedBack(
             isStartDestination = false,
             searchActive = true,
             visitedLocationsIsSet = true,
-            expectedIconBackDisplayed = true,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = true
+            expectedPopBackStackCalled = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveFalse_visitedLocationsEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedSearch(
             isStartDestination = true,
             searchActive = false,
-            visitedLocationsIsSet = false,
-            expectedIconBackDisplayed = false,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = false
+            visitedLocationsIsSet = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveFalse_visitedLocationsNotEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedSearch(
             isStartDestination = true,
             searchActive = false,
-            visitedLocationsIsSet = true,
-            expectedIconBackDisplayed = false,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = false
+            visitedLocationsIsSet = true
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveTrue_visitedLocationsEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedBack(
             isStartDestination = true,
             searchActive = true,
             visitedLocationsIsSet = false,
-            expectedIconBackDisplayed = true,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = true
+            expectedPopBackStackCalled = false
         )
     }
 
     @Test
     fun searchBar_leadingIcon_isStartDestinationTrue_searchActiveTrue_visitedLocationsNotEmpty_shouldRenderCorrectly() {
-        testSearchBarLeadingIcon(
+        testSearchBarLeadingIconExpectedBack(
             isStartDestination = true,
             searchActive = true,
             visitedLocationsIsSet = true,
-            expectedIconBackDisplayed = true,
-            expectedPopBackStackCalled = false,
-            expectedOnSearchActiveChangeCalled = true
+            expectedPopBackStackCalled = false
         )
     }
 
@@ -382,13 +354,11 @@ class SearchOverviewScreenTest : NBComposableTest() {
         )
     }
 
-    private fun testSearchBarLeadingIcon(
+    private fun testSearchBarLeadingIconExpectedBack(
         isStartDestination: Boolean?,
         searchActive: Boolean,
         visitedLocationsIsSet: Boolean,
-        expectedIconBackDisplayed: Boolean,
-        expectedPopBackStackCalled: Boolean,
-        expectedOnSearchActiveChangeCalled: Boolean
+        expectedPopBackStackCalled: Boolean
     ) {
         // Arrange
         var popBackStackCalled = false
@@ -411,25 +381,41 @@ class SearchOverviewScreenTest : NBComposableTest() {
             }
         )
 
-        // Assert
         assertCompose {
-            if (expectedIconBackDisplayed) {
-                onNodeWithIcon(NBIcons.Back)
-                    .assertIsDisplayed()
-                    .performClick()
-            } else {
-                assertIconIsNotDisplayed(NBIcons.Back)
-            }
+            onNodeWithIcon(NBIcons.Back)
+                .assertIsDisplayed()
+                .performClick()
         }
 
-        assertEquals(
-            expectedPopBackStackCalled,
-            popBackStackCalled
+        if (expectedPopBackStackCalled) {
+            assertTrue(popBackStackCalled)
+            assertFalse(onSearchActiveChangeCalled)
+        } else {
+            assertFalse(popBackStackCalled)
+            assertTrue(onSearchActiveChangeCalled)
+        }
+    }
+
+    private fun testSearchBarLeadingIconExpectedSearch(
+        isStartDestination: Boolean?,
+        @Suppress("SameParameterValue") searchActive: Boolean,
+        visitedLocationsIsSet: Boolean
+    ) {
+        // Arrange
+        val uiState = createTestUiState(
+            isStartDestination = isStartDestination,
+            searchActive = searchActive,
+            visitedLocationsIsSet = visitedLocationsIsSet
         )
-        assertEquals(
-            expectedOnSearchActiveChangeCalled,
-            onSearchActiveChangeCalled
+
+        // Act
+        setScreenContent(
+            uiState = uiState
         )
+
+        assertCompose {
+            assertIconIsNotDisplayed(NBIcons.Back)
+        }
     }
 
     private fun testSearchBarTrailingIcon(

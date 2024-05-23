@@ -99,7 +99,7 @@ class GeocodingModelsTest : NBTest {
         val locationData = LocationModelData.localToData(
             local = locationLocal
         )
-        val localNamesData = locationData?.localNames
+        val localNamesData = locationData.localNames
 
         // Assert
         assertNotNull(locationData)

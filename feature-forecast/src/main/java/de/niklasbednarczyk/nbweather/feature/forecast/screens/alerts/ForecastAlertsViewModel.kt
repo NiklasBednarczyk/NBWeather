@@ -31,7 +31,7 @@ class ForecastAlertsViewModel @Inject constructor(
     private suspend fun getViewDataResourceFlow(
         coordinates: NBCoordinatesModel?
     ): Flow<NBResource<ForecastAlertsViewData>> {
-        return oneCallRepository.getOneCall(
+        return oneCallRepository.getOneCallLocal(
             coordinates = coordinates
         ).nbMapResource(ForecastAlertsViewData::from)
     }

@@ -18,7 +18,6 @@ import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.context.getActivity
 import de.niklasbednarczyk.nbweather.core.ui.context.startIntent
-import de.niklasbednarczyk.nbweather.core.ui.permission.NBLocationPermissionController.Companion.isPermissionGranted
 import de.niklasbednarczyk.nbweather.core.ui.screens.scaffold.snackbar.NBSnackbarActionModel
 import de.niklasbednarczyk.nbweather.core.ui.screens.scaffold.snackbar.NBSnackbarModel
 

@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import android.content.Context
 import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
+import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalGetMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineGetMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.mediators.LocalRemoteOfflineRefreshMediator
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
@@ -110,6 +111,28 @@ class OneCallRepository @Inject constructor(
                     coordinates = coordinates
                 )
             }
+        }()
+    }
+
+    suspend fun getOneCallLocal(
+        coordinates: NBCoordinatesModel?
+    ): Flow<NBResource<OneCallModelData>> {
+        if (coordinates == null) return flowOf(NBResource.Error())
+
+        return object : LocalGetMediator<OneCallModelData, OneCallModelLocal>() {
+
+            override fun getLocal(): Flow<OneCallModelLocal?> {
+                return getLocal(
+                    coordinates = coordinates
+                )
+            }
+
+            override fun localToData(local: OneCallModelLocal): OneCallModelData {
+                return OneCallModelData.localToData(
+                    local = local
+                )
+            }
+
         }()
     }
 

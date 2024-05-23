@@ -1,6 +1,5 @@
 package de.niklasbednarczyk.nbweather.models
 
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIcons
@@ -34,7 +33,7 @@ data class MainViewData(
             )
 
         fun from(
-            visitedLocations: List<LocationModelData>?,
+            visitedLocations: List<LocationModelData>,
             currentLocation: LocationModelData?,
             initialCurrentLocation: LocationModelData?
         ): MainViewData {
@@ -42,7 +41,7 @@ data class MainViewData(
 
             drawerItems.add(headline)
 
-            val forecastOverviewItems = visitedLocations.nbMap { visitedLocation ->
+            val forecastOverviewItems = visitedLocations.map { visitedLocation ->
                 NBNavigationDrawerItem.Destination.ForecastOverview.from(
                     visitedLocation = visitedLocation,
                     currentLocation = currentLocation

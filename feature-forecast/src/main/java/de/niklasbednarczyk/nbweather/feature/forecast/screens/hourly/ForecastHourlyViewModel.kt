@@ -30,7 +30,7 @@ class ForecastHourlyViewModel @Inject constructor(
     private suspend fun getViewDataResourceFlow(
         coordinates: NBCoordinatesModel?
     ): Flow<NBResource<ForecastHourlyViewData>> {
-        return oneCallRepository.getOneCall(
+        return oneCallRepository.getOneCallLocal(
             coordinates = coordinates
         ).nbMapResource(ForecastHourlyViewData::from)
     }

@@ -2,7 +2,6 @@ package de.niklasbednarczyk.nbweather.feature.search.screens.overview.models
 
 import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.locale.NBCountryType
-import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbMap
 import de.niklasbednarczyk.nbweather.core.common.string.NBString
 import de.niklasbednarczyk.nbweather.core.ui.R
 import de.niklasbednarczyk.nbweather.core.ui.common.flag
@@ -42,9 +41,9 @@ data class SearchOverviewLocationModel(
     companion object {
 
         fun from(
-            locations: List<LocationModelData>?
+            locations: List<LocationModelData>
         ): List<SearchOverviewLocationModel> {
-            return locations.nbMap { location ->
+            return locations.map { location ->
                 SearchOverviewLocationModel(
                     coordinates = location.coordinates,
                     localizedName = location.localizedName,

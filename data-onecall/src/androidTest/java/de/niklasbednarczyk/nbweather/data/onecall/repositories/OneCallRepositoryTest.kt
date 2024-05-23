@@ -1,7 +1,9 @@
 package de.niklasbednarczyk.nbweather.data.onecall.repositories
 
 import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
+import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeCurrentWeatherDao
 import de.niklasbednarczyk.nbweather.data.onecall.local.daos.FakeDailyForecastDao
@@ -95,6 +97,36 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
                 coordinates = LOCATION_2_COORDINATES
             ).nbCollectUntilResource { oneCall2 ->
                 assertNotEquals(oneCall1.timezoneOffset?.value, oneCall2.timezoneOffset?.value)
+            }
+        }
+    }
+
+    @Test
+    fun getOneCallLocal_withoutOneCall_shouldBeError() = testScope.runTest {
+        // Arrange
+        subject.getOneCallLocal(
+            coordinates = LOCATION_1_COORDINATES
+        ).collectUntil(
+            stopCollecting = { resource ->
+                resource.isSuccessOrError
+            },
+            collectData = { resource ->
+                assertIsClass(resource, NBResource.Error::class.java)
+            }
+        )
+    }
+
+    @Test
+    fun getOneCallLocal_withOneCall_shouldGetCorrectOneCall() = testScope.runTest {
+        // Arrange
+        subject.getOneCall(
+            coordinates = LOCATION_1_COORDINATES
+        ).nbCollectUntilResource { oneCall ->
+            // Act
+            subject.getOneCallLocal(
+                coordinates = LOCATION_1_COORDINATES
+            ).nbCollectUntilResource { oneCallLocal ->
+                assertEquals(oneCall.timezoneOffset?.value, oneCallLocal.timezoneOffset?.value)
             }
         }
     }

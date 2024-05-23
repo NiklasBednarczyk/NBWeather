@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.daily
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastViewModelTest
@@ -14,86 +15,127 @@ import kotlin.test.assertNull
 
 class ForecastDailyViewModelTest : NBForecastViewModelTest {
 
-    private lateinit var subjectWithoutArgs: ForecastDailyViewModel
-    private lateinit var subjectWithoutForecastTime: ForecastDailyViewModel
-    private lateinit var subjectWithForecastTime: ForecastDailyViewModel
+    private lateinit var subjectWithoutArgsAndWithoutOneCall: ForecastDailyViewModel
+    private lateinit var subjectWithoutArgsAndWithOneCall: ForecastDailyViewModel
+    private lateinit var subjectWithoutForecastTimeAndWithoutOneCall: ForecastDailyViewModel
+    private lateinit var subjectWithoutForecastTimeAndWithOneCall: ForecastDailyViewModel
+    private lateinit var subjectWithForecastTimeAndWithoutOneCall: ForecastDailyViewModel
+    private lateinit var subjectWithForecastTimeAndWithOneCall: ForecastDailyViewModel
 
     @Before
-    override fun setUp() {
-        val oneCallRepository = OneCallRepository.createFake(context)
+    override fun setUp() = testScope.runTest {
+        val oneCallRepositoryWithoutOneCall = OneCallRepository.createFake(context)
+        val oneCallRepositoryWithOneCall = OneCallRepository.createFake(context)
 
-        subjectWithoutArgs = ForecastDailyViewModel(
-            savedStateHandle = createTestSaveStateHandle(),
-            oneCallRepository = oneCallRepository
-        )
-        subjectWithoutForecastTime = ForecastDailyViewModel(
-            savedStateHandle = createTestSaveStateHandle(
+        oneCallRepositoryWithOneCall.getOneCall(
+            coordinates = coordinates
+        ).nbCollectUntilResource {
+            val savedStateHandleWithoutArgs = createTestSaveStateHandle()
+            val savedStateHandleWithoutForecastTime = createTestSaveStateHandle(
                 NBArgumentKeys.Latitude to coordinates.latitude,
                 NBArgumentKeys.Longitude to coordinates.longitude
-            ),
-            oneCallRepository = oneCallRepository
-        )
-        subjectWithForecastTime = ForecastDailyViewModel(
-            savedStateHandle = createTestSaveStateHandle(
+            )
+            val savedStateHandleWithForecastTime = createTestSaveStateHandle(
                 NBArgumentKeys.ForecastTime to forecastTime,
                 NBArgumentKeys.Latitude to coordinates.latitude,
                 NBArgumentKeys.Longitude to coordinates.longitude
-            ),
-            oneCallRepository = oneCallRepository
-        )
+            )
+
+            subjectWithoutArgsAndWithoutOneCall = ForecastDailyViewModel(
+                savedStateHandle = savedStateHandleWithoutArgs,
+                oneCallRepository = oneCallRepositoryWithoutOneCall
+            )
+            subjectWithoutArgsAndWithOneCall = ForecastDailyViewModel(
+                savedStateHandle = savedStateHandleWithoutArgs,
+                oneCallRepository = oneCallRepositoryWithOneCall
+            )
+            subjectWithoutForecastTimeAndWithoutOneCall = ForecastDailyViewModel(
+                savedStateHandle = savedStateHandleWithoutForecastTime,
+                oneCallRepository = oneCallRepositoryWithoutOneCall
+            )
+            subjectWithoutForecastTimeAndWithOneCall = ForecastDailyViewModel(
+                savedStateHandle = savedStateHandleWithoutForecastTime,
+                oneCallRepository = oneCallRepositoryWithOneCall
+            )
+            subjectWithForecastTimeAndWithoutOneCall = ForecastDailyViewModel(
+                savedStateHandle = savedStateHandleWithForecastTime,
+                oneCallRepository = oneCallRepositoryWithoutOneCall
+            )
+            subjectWithForecastTimeAndWithOneCall = ForecastDailyViewModel(
+                savedStateHandle = savedStateHandleWithForecastTime,
+                oneCallRepository = oneCallRepositoryWithOneCall
+            )
+        }
     }
 
     @Test
-    fun uiState_viewDataResource_withoutArgs_shouldBeError() = testScope.runTest {
-        // Arrange + Act
-        subjectWithoutArgs.uiState.collectUntil(
+    fun uiState_viewDataResource_withoutArgs_withoutOneCall_shouldBeError() = testScope.runTest {
+        subjectWithoutArgsAndWithoutOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withoutArgs_withOneCall_shouldBeError() = testScope.runTest {
+        subjectWithoutArgsAndWithOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withoutForecastTime_withoutOneCall_shouldBeError() =
+        testScope.runTest {
+            subjectWithoutForecastTimeAndWithoutOneCall.testUiStateViewDataResourceExpectedError()
+        }
+
+    @Test
+    fun uiState_viewDataResource_withoutForecastTime_withOneCall_shouldBeError() =
+        testScope.runTest {
+            subjectWithoutForecastTimeAndWithOneCall.testUiStateViewDataResourceExpectedSuccess(
+                expectedInitialKeyIsSet = false
+            )
+        }
+
+    @Test
+    fun uiState_viewDataResource_withForecastTime_withoutOneCall_shouldBeError() =
+        testScope.runTest {
+            subjectWithForecastTimeAndWithoutOneCall.testUiStateViewDataResourceExpectedError()
+        }
+
+    @Test
+    fun uiState_viewDataResource_withForecastTime_withOneCall_shouldBeError() = testScope.runTest {
+        subjectWithForecastTimeAndWithOneCall.testUiStateViewDataResourceExpectedSuccess(
+            expectedInitialKeyIsSet = true
+        )
+    }
+
+    private suspend fun ForecastDailyViewModel.testUiStateViewDataResourceExpectedError() {
+        uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.viewDataResource.isSuccessOrError
             },
             collectData = { uiState ->
-                // Assert
                 assertResourceIsError(uiState.viewDataResource)
             }
         )
     }
 
-    @Test
-    fun uiState_viewDataResource_withoutForecastTime_shouldBeSuccess() = testScope.runTest {
-        // Arrange + Act
-        subjectWithoutForecastTime.uiState.collectUntil(
+    private suspend fun ForecastDailyViewModel.testUiStateViewDataResourceExpectedSuccess(
+        expectedInitialKeyIsSet: Boolean
+    ) {
+        uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.viewDataResource.isSuccessOrError
             },
             collectData = { uiState ->
-                // Assert
                 assertResourceIsSuccess(uiState.viewDataResource)
 
                 val viewData = uiState.viewDataResource.dataOrNull!!
 
                 assertListIsNotEmpty(viewData.items)
 
-                assertNull(viewData.initialKey)
-            }
-        )
-    }
-
-    @Test
-    fun uiState_viewDataResource_withForecastTime_shouldBeSuccess() = testScope.runTest {
-        // Arrange + Act
-        subjectWithForecastTime.uiState.collectUntil(
-            stopCollecting = { uiState ->
-                uiState.viewDataResource.isSuccessOrError
-            },
-            collectData = { uiState ->
-                // Assert
-                assertResourceIsSuccess(uiState.viewDataResource)
-
-                val viewData = uiState.viewDataResource.dataOrNull!!
-
-                assertListIsNotEmpty(viewData.items)
-
-                assertNotNull(viewData.initialKey)
-                assertEquals(forecastTime, viewData.initialKey)
+                if (expectedInitialKeyIsSet) {
+                    assertNotNull(viewData.initialKey)
+                    assertEquals(forecastTime, viewData.initialKey)
+                } else {
+                    assertNull(viewData.initialKey)
+                }
             }
         )
     }

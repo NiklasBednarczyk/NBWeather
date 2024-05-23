@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.hourly
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastViewModelTest
@@ -12,44 +13,79 @@ import kotlin.test.assertEquals
 
 class ForecastHourlyViewModelTest : NBForecastViewModelTest {
 
-    private lateinit var subjectWithoutArgs: ForecastHourlyViewModel
-    private lateinit var subjectWithArgs: ForecastHourlyViewModel
+    private lateinit var subjectWithoutArgsAndWithoutOneCall: ForecastHourlyViewModel
+    private lateinit var subjectWithoutArgsAndWithOneCall: ForecastHourlyViewModel
+    private lateinit var subjectWithArgsAndWithoutOneCall: ForecastHourlyViewModel
+    private lateinit var subjectWithArgsAndWithOneCall: ForecastHourlyViewModel
 
     @Before
-    override fun setUp() {
-        val oneCallRepository = OneCallRepository.createFake(context)
+    override fun setUp() = testScope.runTest {
+        val oneCallRepositoryWithoutOneCall = OneCallRepository.createFake(context)
+        val oneCallRepositoryWithOneCall = OneCallRepository.createFake(context)
 
-        subjectWithoutArgs = ForecastHourlyViewModel(
-            savedStateHandle = createTestSaveStateHandle(),
-            oneCallRepository = oneCallRepository
-        )
-        subjectWithArgs = ForecastHourlyViewModel(
-            savedStateHandle = createTestSaveStateHandle(
+        oneCallRepositoryWithOneCall.getOneCall(
+            coordinates = coordinates
+        ).nbCollectUntilResource {
+            val savedStateHandleWithoutArgs = createTestSaveStateHandle()
+            val savedStateHandleWithArgs = createTestSaveStateHandle(
                 NBArgumentKeys.Latitude to coordinates.latitude,
                 NBArgumentKeys.Longitude to coordinates.longitude
-            ),
-            oneCallRepository = oneCallRepository
-        )
+            )
+
+            subjectWithoutArgsAndWithoutOneCall = ForecastHourlyViewModel(
+                savedStateHandle = savedStateHandleWithoutArgs,
+                oneCallRepository = oneCallRepositoryWithoutOneCall
+            )
+            subjectWithoutArgsAndWithOneCall = ForecastHourlyViewModel(
+                savedStateHandle = savedStateHandleWithoutArgs,
+                oneCallRepository = oneCallRepositoryWithOneCall
+            )
+            subjectWithArgsAndWithoutOneCall = ForecastHourlyViewModel(
+                savedStateHandle = savedStateHandleWithArgs,
+                oneCallRepository = oneCallRepositoryWithoutOneCall
+            )
+            subjectWithArgsAndWithOneCall = ForecastHourlyViewModel(
+                savedStateHandle = savedStateHandleWithArgs,
+                oneCallRepository = oneCallRepositoryWithOneCall
+            )
+        }
     }
 
     @Test
-    fun uiState_viewDataResource_withoutArgs_shouldBeError() = testScope.runTest {
-        // Arrange + Act
-        subjectWithoutArgs.uiState.collectUntil(
+    fun uiState_viewDataResource_withoutArgs_withoutOneCall_shouldBeError() = testScope.runTest {
+        subjectWithoutArgsAndWithoutOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withoutArgs_withOneCall_shouldBeError() = testScope.runTest {
+        subjectWithoutArgsAndWithOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withArgs_withoutOneCall_shouldBeError() = testScope.runTest {
+        subjectWithArgsAndWithoutOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withArgs_withOneCall_shouldBeSuccess() = testScope.runTest {
+        subjectWithArgsAndWithOneCall.testUiStateViewDataResourceExpectedSuccess()
+    }
+
+    private suspend fun ForecastHourlyViewModel.testUiStateViewDataResourceExpectedError() {
+        uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.viewDataResource.isSuccessOrError
             },
             collectData = { uiState ->
-                // Assert
                 assertResourceIsError(uiState.viewDataResource)
             }
         )
     }
 
-    @Test
-    fun uiState_viewDataResource_withArgs_shouldBeSuccess() = testScope.runTest {
+
+    private suspend fun ForecastHourlyViewModel.testUiStateViewDataResourceExpectedSuccess() {
         // Arrange + Act
-        subjectWithArgs.uiState.collectUntil(
+        uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.viewDataResource.isSuccessOrError
             },

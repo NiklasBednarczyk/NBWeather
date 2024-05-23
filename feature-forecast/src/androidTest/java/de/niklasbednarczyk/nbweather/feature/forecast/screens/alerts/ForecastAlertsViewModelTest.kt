@@ -2,6 +2,7 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.alerts
 
 import de.niklasbednarczyk.nbweather.core.common.flow.collectUntil
 import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.isSuccessOrError
+import de.niklasbednarczyk.nbweather.core.data.localremote.models.resource.NBResource.Companion.nbCollectUntilResource
 import de.niklasbednarczyk.nbweather.core.ui.navigation.NBArgumentKeys
 import de.niklasbednarczyk.nbweather.data.onecall.repositories.OneCallRepository
 import de.niklasbednarczyk.nbweather.feature.forecast.screens.NBForecastViewModelTest
@@ -12,44 +13,79 @@ import kotlin.test.assertNull
 
 class ForecastAlertsViewModelTest : NBForecastViewModelTest {
 
-    private lateinit var subjectWithoutArgs: ForecastAlertsViewModel
-    private lateinit var subjectWithArgs: ForecastAlertsViewModel
+    private lateinit var subjectWithoutArgsAndWithoutOneCall: ForecastAlertsViewModel
+    private lateinit var subjectWithoutArgsAndWithOneCall: ForecastAlertsViewModel
+    private lateinit var subjectWithArgsAndWithoutOneCall: ForecastAlertsViewModel
+    private lateinit var subjectWithArgsAndWithOneCall: ForecastAlertsViewModel
 
     @Before
-    override fun setUp() {
-        val oneCallRepository = OneCallRepository.createFake(context)
+    override fun setUp() = testScope.runTest {
+        val oneCallRepositoryWithoutOneCall = OneCallRepository.createFake(context)
+        val oneCallRepositoryWithOneCall = OneCallRepository.createFake(context)
 
-        subjectWithoutArgs = ForecastAlertsViewModel(
-            savedStateHandle = createTestSaveStateHandle(),
-            oneCallRepository = oneCallRepository
-        )
-        subjectWithArgs = ForecastAlertsViewModel(
-            savedStateHandle = createTestSaveStateHandle(
+        oneCallRepositoryWithOneCall.getOneCall(
+            coordinates = coordinates
+        ).nbCollectUntilResource {
+            val savedStateHandleWithoutArgs = createTestSaveStateHandle()
+            val savedStateHandleWithArgs = createTestSaveStateHandle(
                 NBArgumentKeys.Latitude to coordinates.latitude,
                 NBArgumentKeys.Longitude to coordinates.longitude
-            ),
-            oneCallRepository = oneCallRepository
-        )
+            )
+
+            subjectWithoutArgsAndWithoutOneCall = ForecastAlertsViewModel(
+                savedStateHandle = savedStateHandleWithoutArgs,
+                oneCallRepository = oneCallRepositoryWithoutOneCall
+            )
+            subjectWithoutArgsAndWithOneCall = ForecastAlertsViewModel(
+                savedStateHandle = savedStateHandleWithoutArgs,
+                oneCallRepository = oneCallRepositoryWithOneCall
+            )
+            subjectWithArgsAndWithoutOneCall = ForecastAlertsViewModel(
+                savedStateHandle = savedStateHandleWithArgs,
+                oneCallRepository = oneCallRepositoryWithoutOneCall
+            )
+            subjectWithArgsAndWithOneCall = ForecastAlertsViewModel(
+                savedStateHandle = savedStateHandleWithArgs,
+                oneCallRepository = oneCallRepositoryWithOneCall
+            )
+        }
     }
 
     @Test
-    fun uiState_viewDataResource_withoutArgs_shouldBeError() = testScope.runTest {
-        // Arrange + Act
-        subjectWithoutArgs.uiState.collectUntil(
+    fun uiState_viewDataResource_withoutArgs_withoutOneCall_shouldBeError() = testScope.runTest {
+        subjectWithoutArgsAndWithoutOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withoutArgs_withOneCall_shouldBeError() = testScope.runTest {
+        subjectWithoutArgsAndWithOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withArgs_withoutOneCall_shouldBeError() = testScope.runTest {
+        subjectWithArgsAndWithoutOneCall.testUiStateViewDataResourceExpectedError()
+    }
+
+    @Test
+    fun uiState_viewDataResource_withArgs_withOneCall_shouldBeSuccess() = testScope.runTest {
+        subjectWithArgsAndWithOneCall.testUiStateViewDataResourceExpectedSuccess()
+    }
+
+    private suspend fun ForecastAlertsViewModel.testUiStateViewDataResourceExpectedError() {
+        uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.viewDataResource.isSuccessOrError
             },
             collectData = { uiState ->
-                // Assert
                 assertResourceIsError(uiState.viewDataResource)
             }
         )
     }
 
-    @Test
-    fun uiState_viewDataResource_withArgs_shouldBeSuccess() = testScope.runTest {
+
+    private suspend fun ForecastAlertsViewModel.testUiStateViewDataResourceExpectedSuccess() {
         // Arrange + Act
-        subjectWithArgs.uiState.collectUntil(
+        uiState.collectUntil(
             stopCollecting = { uiState ->
                 uiState.viewDataResource.isSuccessOrError
             },

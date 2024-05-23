@@ -55,17 +55,25 @@ data class LocationModelData(
         }
 
         fun localToData(
+            local: LocationModelLocal
+        ): LocationModelData {
+            return LocationModelData(
+                coordinates = local.coordinates,
+                name = local.name,
+                localNames = LocalNamesModelData.localToData(local.localNames),
+                country = local.country,
+                state = local.state,
+                lastVisitedTimestampEpochSeconds = local.lastVisitedTimestampEpochSeconds,
+                order = local.order
+            )
+        }
+
+        fun localToDataNullable(
             local: LocationModelLocal?
         ): LocationModelData? {
             return nbNullSafe(local) { l ->
-                LocationModelData(
-                    coordinates = l.coordinates,
-                    name = l.name,
-                    localNames = LocalNamesModelData.localToData(l.localNames),
-                    country = l.country,
-                    state = l.state,
-                    lastVisitedTimestampEpochSeconds = l.lastVisitedTimestampEpochSeconds,
-                    order = l.order
+                localToData(
+                    local = l
                 )
             }
         }

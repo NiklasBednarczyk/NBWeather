@@ -34,7 +34,7 @@ class ForecastDailyViewModel @Inject constructor(
         forecastTime: Long?,
         coordinates: NBCoordinatesModel?
     ): Flow<NBResource<ForecastDailyViewData>> {
-        return oneCallRepository.getOneCall(
+        return oneCallRepository.getOneCallLocal(
             coordinates = coordinates
         ).nbMapResource { oneCall ->
             ForecastDailyViewData.from(

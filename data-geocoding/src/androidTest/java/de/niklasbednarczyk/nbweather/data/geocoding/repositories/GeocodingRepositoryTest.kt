@@ -123,11 +123,11 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
         // Act + Assert
         subject.getVisitedLocations().nbCollectUntilResource { dataAct ->
             assertListDoesContain(
-                dataAct?.mapToCoordinates(),
+                dataAct.mapToCoordinates(),
                 location1.coordinates,
                 location3.coordinates
             )
-            assertListDoesNotContain(dataAct?.mapToCoordinates(), location2.coordinates)
+            assertListDoesNotContain(dataAct.mapToCoordinates(), location2.coordinates)
         }
     }
 
@@ -263,8 +263,8 @@ class GeocodingRepositoryTest : NBLocalRemoteRepositoryTest {
             order = null
         )
 
-        val location1DataArrange = LocationModelData.localToData(location1LocalArrange)!!
-        val location2DataArrange = LocationModelData.localToData(location2LocalArrange)!!
+        val location1DataArrange = LocationModelData.localToData(location1LocalArrange)
+        val location2DataArrange = LocationModelData.localToData(location2LocalArrange)
 
         // Act
         subject.updateOrders(
