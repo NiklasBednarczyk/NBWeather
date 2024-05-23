@@ -2,8 +2,12 @@ package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.views
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -25,13 +29,14 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
+import androidx.compose.ui.unit.times
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.settings.units.NBUnitsValue
 import de.niklasbednarczyk.nbweather.core.ui.common.displayValueWithSymbol
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmall
 import de.niklasbednarczyk.nbweather.core.ui.dimens.columnVerticalArrangementSmallDp
-import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingValuesHorizontal
-import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBig
+import de.niklasbednarczyk.nbweather.core.ui.dimens.listContentPaddingHorizontal
 import de.niklasbednarczyk.nbweather.core.ui.dimens.rowHorizontalArrangementBigDp
 import de.niklasbednarczyk.nbweather.core.ui.icons.NBIconView
 import de.niklasbednarczyk.nbweather.core.ui.strings.asString
@@ -48,25 +53,45 @@ fun ForecastOverviewDailyView(
     clickableEnabled: Boolean,
     navigateToForecastDaily: (forecastTime: Long?) -> Unit
 ) {
-    LazyRow(
-        horizontalArrangement = rowHorizontalArrangementBig,
-        contentPadding = listContentPaddingValuesHorizontal
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxWidth()
     ) {
-        items(daily.items) { item ->
-            Item(
-                item = item,
-                calcFactor = daily::calcFactor,
-                clickableEnabled = clickableEnabled,
-                onClick = {
-                    navigateToForecastDaily(item.forecastTime.dt.value)
-                }
+        val itemsSize = daily.items.size
+
+        val horizontalArrangementDp = rowHorizontalArrangementBigDp
+        val contentPaddingDp = listContentPaddingHorizontal
+        val itemHorizontalPaddingDp = rowHorizontalArrangementBigDp
+
+        val rowWidth =
+            maxWidth - (itemsSize - 1) * horizontalArrangementDp - 2 * contentPaddingDp - (itemsSize * 2) * itemHorizontalPaddingDp
+        val itemMinWidth = rowWidth / itemsSize
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(horizontalArrangementDp),
+            contentPadding = PaddingValues(
+                horizontal = contentPaddingDp
             )
+        ) {
+            items(daily.items) { item ->
+                Item(
+                    item = item,
+                    itemMinWidth = itemMinWidth,
+                    itemHorizontalPadding = itemHorizontalPaddingDp,
+                    calcFactor = daily::calcFactor,
+                    clickableEnabled = clickableEnabled,
+                    onClick = {
+                        navigateToForecastDaily(item.forecastTime.dt.value)
+                    }
+                )
+            }
         }
     }
+
 }
 
 @Composable
 private fun LimitTemperatures(
+    itemMinWidth: Dp,
     calcFactor: (Double) -> Float,
     maxTemperatureCurrent: NBUnitsValue,
     minTemperatureCurrent: NBUnitsValue,
@@ -101,8 +126,9 @@ private fun LimitTemperatures(
         val maxTextWidthPx = max(maxText.size.width, minText.size.width).toFloat()
 
         val maxElementWidthPx = max(maxTextWidthPx, barStrokeWidthPx)
-        val widthPx = maxElementWidthPx + horizontalPaddingPx * 2
-        val width = remember { widthPx.toDp() }
+        val elementsWidthPx = maxElementWidthPx + horizontalPaddingPx * 2
+        val elementsWidth = remember { elementsWidthPx.toDp() }
+        val width = max(elementsWidth, itemMinWidth)
 
         val barHeightPx =
             heightPx - verticalPaddingBarPx * 2 - maxTextHeightPx * 2 - verticalPaddingTextPx * 2
@@ -175,6 +201,8 @@ private fun DateWeekday(
 @Composable
 private fun Item(
     item: ForecastOverviewDailyItemModel,
+    itemMinWidth: Dp,
+    itemHorizontalPadding: Dp,
     calcFactor: (Double) -> Float,
     clickableEnabled: Boolean,
     onClick: () -> Unit
@@ -187,7 +215,7 @@ private fun Item(
             )
             .padding(
                 vertical = columnVerticalArrangementSmallDp,
-                horizontal = rowHorizontalArrangementBigDp
+                horizontal = itemHorizontalPadding
             )
             .width(IntrinsicSize.Max),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -203,6 +231,7 @@ private fun Item(
             weatherIcon = item.weatherIcon
         )
         LimitTemperatures(
+            itemMinWidth = itemMinWidth,
             calcFactor = calcFactor,
             maxTemperatureCurrent = item.maxTemperature,
             minTemperatureCurrent = item.minTemperature
