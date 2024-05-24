@@ -119,170 +119,674 @@ object NBIcons {
             NBString.ResString(R.string.icon_content_description_min_temperature)
     }
 
-    data object MoonPhaseFirstQuarter : NBIconItem {
+    data object MoonPhaseNorthDarkFirstQuarterMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_third_quarter
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_first_quarter_moon)
+    }
+
+    data object MoonPhaseNorthDarkFullMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_new
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_full_moon)
+    }
+
+    data object MoonPhaseNorthDarkLastQuarterMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_first_quarter
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_last_quarter_moon)
+    }
+
+    data object MoonPhaseNorthDarkNewMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_full
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_new_moon)
+    }
+
+    data object MoonPhaseNorthDarkWaningCrescent1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_1)
+    }
+
+    data object MoonPhaseNorthDarkWaningCrescent2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_2)
+    }
+
+    data object MoonPhaseNorthDarkWaningCrescent3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_3)
+    }
+
+    data object MoonPhaseNorthDarkWaningCrescent4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_4)
+    }
+
+    data object MoonPhaseNorthDarkWaningCrescent5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_5)
+    }
+
+    data object MoonPhaseNorthDarkWaningCrescent6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_6)
+    }
+
+    data object MoonPhaseNorthDarkWaningGibbous1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_1)
+    }
+
+    data object MoonPhaseNorthDarkWaningGibbous2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_2)
+    }
+
+    data object MoonPhaseNorthDarkWaningGibbous3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_3)
+    }
+
+    data object MoonPhaseNorthDarkWaningGibbous4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_4)
+    }
+
+    data object MoonPhaseNorthDarkWaningGibbous5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_5)
+    }
+
+    data object MoonPhaseNorthDarkWaningGibbous6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_6)
+    }
+
+    data object MoonPhaseNorthDarkWaxingCrescent1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_1)
+    }
+
+    data object MoonPhaseNorthDarkWaxingCrescent2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_2)
+    }
+
+    data object MoonPhaseNorthDarkWaxingCrescent3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_3)
+    }
+
+    data object MoonPhaseNorthDarkWaxingCrescent4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_4)
+    }
+
+    data object MoonPhaseNorthDarkWaxingCrescent5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_5)
+    }
+
+    data object MoonPhaseNorthDarkWaxingCrescent6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_6)
+    }
+
+    data object MoonPhaseNorthDarkWaxingGibbous1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_1)
+    }
+
+    data object MoonPhaseNorthDarkWaxingGibbous2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_2)
+    }
+
+    data object MoonPhaseNorthDarkWaxingGibbous3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_3)
+    }
+
+    data object MoonPhaseNorthDarkWaxingGibbous4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_4)
+    }
+
+    data object MoonPhaseNorthDarkWaxingGibbous5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_5)
+    }
+
+    data object MoonPhaseNorthDarkWaxingGibbous6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_6)
+    }
+
+    data object MoonPhaseNorthLightFirstQuarterMoon : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_first_quarter
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_first_quarter_moon)
     }
 
-    data object MoonPhaseFull : NBIconItem {
+    data object MoonPhaseNorthLightFullMoon : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_full
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_full_moon)
     }
 
-    data object MoonPhaseLastQuarter : NBIconItem {
+    data object MoonPhaseNorthLightLastQuarterMoon : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_third_quarter
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_last_quarter_moon)
     }
 
-    data object MoonPhaseNew : NBIconItem {
+    data object MoonPhaseNorthLightNewMoon : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_new
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_new_moon)
     }
 
-    data object MoonPhaseWaningCrescent1 : NBIconItem {
+    data object MoonPhaseNorthLightWaningCrescent1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_1)
     }
 
-    data object MoonPhaseWaningCrescent2 : NBIconItem {
+    data object MoonPhaseNorthLightWaningCrescent2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_2)
     }
 
-    data object MoonPhaseWaningCrescent3 : NBIconItem {
+    data object MoonPhaseNorthLightWaningCrescent3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_3)
     }
 
-    data object MoonPhaseWaningCrescent4 : NBIconItem {
+    data object MoonPhaseNorthLightWaningCrescent4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_4)
     }
 
-    data object MoonPhaseWaningCrescent5 : NBIconItem {
+    data object MoonPhaseNorthLightWaningCrescent5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_5)
     }
 
-    data object MoonPhaseWaningCrescent6 : NBIconItem {
+    data object MoonPhaseNorthLightWaningCrescent6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_6
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_6)
     }
 
-    data object MoonPhaseWaningGibbous1 : NBIconItem {
+    data object MoonPhaseNorthLightWaningGibbous1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_1)
     }
 
-    data object MoonPhaseWaningGibbous2 : NBIconItem {
+    data object MoonPhaseNorthLightWaningGibbous2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_2)
     }
 
-    data object MoonPhaseWaningGibbous3 : NBIconItem {
+    data object MoonPhaseNorthLightWaningGibbous3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_3)
     }
 
-    data object MoonPhaseWaningGibbous4 : NBIconItem {
+    data object MoonPhaseNorthLightWaningGibbous4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_4)
     }
 
-    data object MoonPhaseWaningGibbous5 : NBIconItem {
+    data object MoonPhaseNorthLightWaningGibbous5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_5)
     }
 
-    data object MoonPhaseWaningGibbous6 : NBIconItem {
+    data object MoonPhaseNorthLightWaningGibbous6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_6
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_6)
     }
 
-    data object MoonPhaseWaxingCrescent1 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingCrescent1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_1)
     }
 
-    data object MoonPhaseWaxingCrescent2 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingCrescent2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_2)
     }
 
-    data object MoonPhaseWaxingCrescent3 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingCrescent3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_3)
     }
 
-    data object MoonPhaseWaxingCrescent4 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingCrescent4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_4)
     }
 
-    data object MoonPhaseWaxingCrescent5 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingCrescent5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_5)
     }
 
-    data object MoonPhaseWaxingCrescent6 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingCrescent6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_6
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_6)
     }
 
-    data object MoonPhaseWaxingGibbous1 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingGibbous1 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_1)
     }
 
-    data object MoonPhaseWaxingGibbous2 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingGibbous2 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_2
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_2)
     }
 
-    data object MoonPhaseWaxingGibbous3 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingGibbous3 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_3
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_3)
     }
 
-    data object MoonPhaseWaxingGibbous4 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingGibbous4 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_4
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_4)
     }
 
-    data object MoonPhaseWaxingGibbous5 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingGibbous5 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_5
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_5)
     }
 
-    data object MoonPhaseWaxingGibbous6 : NBIconItem {
+    data object MoonPhaseNorthLightWaxingGibbous6 : NBIconItem {
         override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_6)
+    }
+
+    data object MoonPhaseSouthDarkFirstQuarterMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_first_quarter
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_first_quarter_moon)
+    }
+
+    data object MoonPhaseSouthDarkFullMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_new
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_full_moon)
+    }
+
+    data object MoonPhaseSouthDarkLastQuarterMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_third_quarter
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_last_quarter_moon)
+    }
+
+    data object MoonPhaseSouthDarkNewMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_full
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_new_moon)
+    }
+
+    data object MoonPhaseSouthDarkWaningCrescent1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_1)
+    }
+
+    data object MoonPhaseSouthDarkWaningCrescent2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_2)
+    }
+
+    data object MoonPhaseSouthDarkWaningCrescent3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_3)
+    }
+
+    data object MoonPhaseSouthDarkWaningCrescent4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_4)
+    }
+
+    data object MoonPhaseSouthDarkWaningCrescent5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_5)
+    }
+
+    data object MoonPhaseSouthDarkWaningCrescent6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_6)
+    }
+
+    data object MoonPhaseSouthDarkWaningGibbous1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_1)
+    }
+
+    data object MoonPhaseSouthDarkWaningGibbous2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_2)
+    }
+
+    data object MoonPhaseSouthDarkWaningGibbous3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_3)
+    }
+
+    data object MoonPhaseSouthDarkWaningGibbous4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_4)
+    }
+
+    data object MoonPhaseSouthDarkWaningGibbous5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_5)
+    }
+
+    data object MoonPhaseSouthDarkWaningGibbous6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_6)
+    }
+
+    data object MoonPhaseSouthDarkWaxingCrescent1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_1)
+    }
+
+    data object MoonPhaseSouthDarkWaxingCrescent2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_2)
+    }
+
+    data object MoonPhaseSouthDarkWaxingCrescent3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_3)
+    }
+
+    data object MoonPhaseSouthDarkWaxingCrescent4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_4)
+    }
+
+    data object MoonPhaseSouthDarkWaxingCrescent5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_5)
+    }
+
+    data object MoonPhaseSouthDarkWaxingCrescent6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_6)
+    }
+
+    data object MoonPhaseSouthDarkWaxingGibbous1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_1)
+    }
+
+    data object MoonPhaseSouthDarkWaxingGibbous2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_2)
+    }
+
+    data object MoonPhaseSouthDarkWaxingGibbous3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_3)
+    }
+
+    data object MoonPhaseSouthDarkWaxingGibbous4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_4)
+    }
+
+    data object MoonPhaseSouthDarkWaxingGibbous5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_5)
+    }
+
+    data object MoonPhaseSouthDarkWaxingGibbous6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_6)
+    }
+    
+    data object MoonPhaseSouthLightFirstQuarterMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_third_quarter
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_first_quarter_moon)
+    }
+
+    data object MoonPhaseSouthLightFullMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_full
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_full_moon)
+    }
+
+    data object MoonPhaseSouthLightLastQuarterMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_first_quarter
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_last_quarter_moon)
+    }
+
+    data object MoonPhaseSouthLightNewMoon : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_new
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_new_moon)
+    }
+
+    data object MoonPhaseSouthLightWaningCrescent1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_1)
+    }
+
+    data object MoonPhaseSouthLightWaningCrescent2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_2)
+    }
+
+    data object MoonPhaseSouthLightWaningCrescent3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_3)
+    }
+
+    data object MoonPhaseSouthLightWaningCrescent4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_4)
+    }
+
+    data object MoonPhaseSouthLightWaningCrescent5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_5)
+    }
+
+    data object MoonPhaseSouthLightWaningCrescent6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_crescent_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_crescent_6)
+    }
+
+    data object MoonPhaseSouthLightWaningGibbous1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_1)
+    }
+
+    data object MoonPhaseSouthLightWaningGibbous2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_2)
+    }
+
+    data object MoonPhaseSouthLightWaningGibbous3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_3)
+    }
+
+    data object MoonPhaseSouthLightWaningGibbous4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_4)
+    }
+
+    data object MoonPhaseSouthLightWaningGibbous5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_5)
+    }
+
+    data object MoonPhaseSouthLightWaningGibbous6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waxing_gibbous_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waning_gibbous_6)
+    }
+
+    data object MoonPhaseSouthLightWaxingCrescent1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_1)
+    }
+
+    data object MoonPhaseSouthLightWaxingCrescent2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_2)
+    }
+
+    data object MoonPhaseSouthLightWaxingCrescent3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_3)
+    }
+
+    data object MoonPhaseSouthLightWaxingCrescent4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_4)
+    }
+
+    data object MoonPhaseSouthLightWaxingCrescent5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_5)
+    }
+
+    data object MoonPhaseSouthLightWaxingCrescent6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_crescent_1
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_crescent_6)
+    }
+
+    data object MoonPhaseSouthLightWaxingGibbous1 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_6
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_1)
+    }
+
+    data object MoonPhaseSouthLightWaxingGibbous2 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_5
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_2)
+    }
+
+    data object MoonPhaseSouthLightWaxingGibbous3 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_4
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_3)
+    }
+
+    data object MoonPhaseSouthLightWaxingGibbous4 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_3
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_4)
+    }
+
+    data object MoonPhaseSouthLightWaxingGibbous5 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_2
+        override val contentDescription: NBString =
+            NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_5)
+    }
+
+    data object MoonPhaseSouthLightWaxingGibbous6 : NBIconItem {
+        override val resId: Int = R.drawable.wi_moon_alt_waning_gibbous_1
         override val contentDescription: NBString =
             NBString.ResString(R.string.icon_content_description_moon_phase_waxing_gibbous_6)
     }

@@ -23,22 +23,22 @@ class NBGridViewTest : NBComposableTest() {
 
     private val testItem1 = createTestItem(
         number = 1,
-        icon = NBIcons.MoonPhaseFirstQuarter
+        icon = NBIcons.MoonPhaseNorthLightFirstQuarterMoon
     )
 
     private val testItem2 = createTestItem(
         number = 2,
-        icon = NBIcons.MoonPhaseFull
+        icon = NBIcons.MoonPhaseNorthLightFullMoon
     )
 
     private val testItem3 = createTestItem(
         number = 3,
-        icon = NBIcons.MoonPhaseLastQuarter
+        icon = NBIcons.MoonPhaseNorthLightLastQuarterMoon
     )
 
     private val testItem4 = createTestItem(
         number = 4,
-        icon = NBIcons.MoonPhaseNew
+        icon = NBIcons.MoonPhaseNorthLightNewMoon
     )
 
     private val testItem5 = createTestItem(

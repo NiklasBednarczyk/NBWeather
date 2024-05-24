@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
@@ -16,6 +17,7 @@ data class ForecastDailyDayModel(
     companion object {
 
         fun from(
+            coordinates: NBCoordinatesModel,
             timezoneOffset: NBTimezoneOffsetValue?,
             dailyForecast: DailyForecastModelData
         ): ForecastDailyDayModel? {
@@ -65,6 +67,7 @@ data class ForecastDailyDayModel(
             }
 
             val sunAndMoonItems = SunAndMoonItem.from(
+                coordinates = coordinates,
                 timezoneOffset = timezoneOffset,
                 dailyForecast = dailyForecast
             )

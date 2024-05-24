@@ -7,4 +7,9 @@ import kotlinx.parcelize.Parcelize
 data class NBCoordinatesModel(
     val latitude: Double,
     val longitude: Double
-) : Parcelable
+) : Parcelable {
+
+    val isNorthernHemisphere: Boolean
+        get() = latitude >= 0.0
+
+}

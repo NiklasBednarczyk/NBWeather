@@ -25,10 +25,12 @@ class ForecastModelsTest : NBForecastModelsTest {
 
         // Act
         val sunAndMoonItemsNull = SunAndMoonItem.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecastNull
         )
         val sunAndMoonItemsNotNull = SunAndMoonItem.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecastNotNull
         )
@@ -222,6 +224,7 @@ class ForecastModelsTest : NBForecastModelsTest {
     ) {
         // Arrange + Act
         val sunAndMoonItems = SunAndMoonItem.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecast
         )!!
@@ -240,6 +243,7 @@ class ForecastModelsTest : NBForecastModelsTest {
     ) {
         // Arrange + Act
         val sunAndMoonItems = SunAndMoonItem.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecast
         )!!

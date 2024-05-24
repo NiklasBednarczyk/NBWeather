@@ -18,7 +18,7 @@ fun MoonPhaseGridView(
 ) {
     val moonPhaseGridItem = NBGridModel(
         name = NBString.ResString(R.string.screen_forecast_common_sun_and_moon_moon_phase_title),
-        icon = NBGridIconModel(moonPhase.moonPhase.icon),
+        icon = NBGridIconModel(moonPhase.icon),
         value = moonPhase.moonPhase.displayText
     )
     val gridItems = listOf(moonPhaseGridItem)

@@ -8,6 +8,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.local.models.HourlyForecastEnt
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.MinutelyForecastEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.NationalWeatherAlertEntityLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallMetadataEntityLocal
+import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallMetadataEntityLocal.Companion.coordinates
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.OneCallModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.common.WeatherModelLocal
 import de.niklasbednarczyk.nbweather.data.onecall.local.models.daily.DailyFeelsLikeTemperatureModelLocal
@@ -72,6 +73,7 @@ class OneCallModelsTest : NBTest {
             assertValue(WeatherConditionType.THUNDERSTORM_WITH_LIGHT_RAIN, weatherData.condition)
         }
 
+        assertValue(oneCallLocal.metadata.coordinates, oneCallData.coordinates)
         assertValue(oneCallLocal.metadata.timestampEpochSeconds, oneCallData.timestamp.value)
         assertValue(oneCallLocal.metadata.timezoneOffset, oneCallData.timezoneOffset?.value)
 

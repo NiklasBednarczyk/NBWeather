@@ -95,7 +95,7 @@ class AboutOverviewScreenTest : NBComposableTest() {
         val prefix = if (isWithBanner) "WithBanner" else "WithoutBanner"
         val banner = if (isWithBanner) NBImages.OpenWeather else null
         val icon1 = if (isWithBanner) NBIcons.MaxTemperature else NBIcons.MinTemperature
-        val icon2 = if (isWithBanner) NBIcons.MoonPhaseFull else NBIcons.MoonPhaseNew
+        val icon2 = if (isWithBanner) NBIcons.MoonPhaseNorthLightFullMoon else NBIcons.MoonPhaseNorthLightNewMoon
 
         val intent = Intent()
 

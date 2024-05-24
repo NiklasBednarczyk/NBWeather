@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.daily.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.ui.pager.NBPagerViewData
@@ -23,6 +24,7 @@ data class ForecastDailyViewData(
         ): ForecastDailyViewData? {
             return from(
                 forecastTime = forecastTime,
+                coordinates = oneCall.coordinates,
                 timezoneOffset = oneCall.timezoneOffset,
                 dailyForecasts = oneCall.dailyForecasts
             )
@@ -30,13 +32,15 @@ data class ForecastDailyViewData(
 
         fun from(
             forecastTime: Long?,
+            coordinates: NBCoordinatesModel,
             timezoneOffset: NBTimezoneOffsetValue?,
             dailyForecasts: List<DailyForecastModelData>
         ): ForecastDailyViewData? {
             val items = dailyForecasts.mapNotNull { dailyForecast ->
                 ForecastDailyDayModel.from(
-                    dailyForecast = dailyForecast,
-                    timezoneOffset = timezoneOffset
+                    coordinates = coordinates,
+                    timezoneOffset = timezoneOffset,
+                    dailyForecast = dailyForecast
                 )
             }
             return nbNullSafeList(items) { i ->

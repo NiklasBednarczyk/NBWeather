@@ -96,7 +96,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             subject.getOneCall(
                 coordinates = LOCATION_2_COORDINATES
             ).nbCollectUntilResource { oneCall2 ->
-                assertNotEquals(oneCall1.timezoneOffset?.value, oneCall2.timezoneOffset?.value)
+                assertNotEquals(oneCall1.coordinates, oneCall2.coordinates)
             }
         }
     }
@@ -126,7 +126,7 @@ class OneCallRepositoryTest : NBLocalRemoteRepositoryTest {
             subject.getOneCallLocal(
                 coordinates = LOCATION_1_COORDINATES
             ).nbCollectUntilResource { oneCallLocal ->
-                assertEquals(oneCall.timezoneOffset?.value, oneCallLocal.timezoneOffset?.value)
+                assertEquals(oneCall.coordinates, oneCallLocal.coordinates)
             }
         }
     }

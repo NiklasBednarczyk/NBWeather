@@ -23,7 +23,7 @@ import kotlin.test.assertTrue
 
 class ForecastDailyScreenTest : NBComposableTest() {
 
-    @org.junit.Test
+    @Test
     fun topAppBar_shouldRenderCorrectly() {
         // Arrange
         var popBackStackCalled = false
@@ -74,6 +74,7 @@ class ForecastDailyScreenTest : NBComposableTest() {
         val sunAndMoon = ForecastDailyDayInfoItem.SunAndMoon(
             items = listOf(
                 SunAndMoonItem.MoonPhase(
+                    coordinates = createNBCoordinates(),
                     moonPhase = moonPhase
                 ),
                 SunAndMoonItem.MoonTimes(
@@ -125,9 +126,8 @@ class ForecastDailyScreenTest : NBComposableTest() {
                 .assertIsDisplayed()
             onNodeWithText(moonset.getTime(context))
                 .assertIsDisplayed()
-            onNodeWithIcon(moonPhase.icon)
+            onNodeWithText(moonPhase.displayText)
                 .assertIsDisplayed()
-
         }
     }
 

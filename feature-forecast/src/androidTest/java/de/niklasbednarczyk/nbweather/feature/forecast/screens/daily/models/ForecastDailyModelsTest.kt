@@ -406,6 +406,7 @@ class ForecastDailyModelsTest : NBForecastModelsTest {
 
         // Act
         val day = ForecastDailyDayModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecast
         )
@@ -421,6 +422,7 @@ class ForecastDailyModelsTest : NBForecastModelsTest {
 
         // Act
         val day = ForecastDailyDayModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecast
         )
@@ -443,6 +445,7 @@ class ForecastDailyModelsTest : NBForecastModelsTest {
         // Act
         val viewData = ForecastDailyViewData.from(
             forecastTime = 1L,
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecasts = dailyForecasts
         )
@@ -459,11 +462,13 @@ class ForecastDailyModelsTest : NBForecastModelsTest {
         // Act
         val viewDataWithoutInitialKey = ForecastDailyViewData.from(
             forecastTime = null,
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecasts = dailyForecasts
         )
         val viewDataWithInitialKey = ForecastDailyViewData.from(
             forecastTime = 1L,
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecasts = dailyForecasts
         )
@@ -484,6 +489,7 @@ class ForecastDailyModelsTest : NBForecastModelsTest {
     ) {
         // Arrange + Act
         val day = ForecastDailyDayModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecast
         )!!
@@ -503,6 +509,7 @@ class ForecastDailyModelsTest : NBForecastModelsTest {
     ) {
         // Arrange + Act
         val day = ForecastDailyDayModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             dailyForecast = dailyForecast
         )!!

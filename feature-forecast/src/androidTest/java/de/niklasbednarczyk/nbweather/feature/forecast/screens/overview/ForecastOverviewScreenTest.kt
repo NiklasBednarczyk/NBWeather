@@ -377,6 +377,7 @@ class ForecastOverviewScreenTest : NBComposableTest() {
             currentTime = createNBDateTimeModel(),
             items = listOf(
                 SunAndMoonItem.MoonPhase(
+                    coordinates = createNBCoordinates(),
                     moonPhase = moonPhase
                 ),
                 SunAndMoonItem.MoonTimes(
@@ -411,7 +412,7 @@ class ForecastOverviewScreenTest : NBComposableTest() {
             onNodeWithText(R.string.screen_forecast_common_sun_and_moon_moonset_title)
                 .assertIsDisplayed()
 
-            onNodeWithIcon(moonPhase.icon)
+            onNodeWithText(moonPhase.displayText)
                 .assertIsDisplayed()
         }
     }

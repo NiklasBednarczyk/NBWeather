@@ -385,6 +385,7 @@ class ForecastOverviewModelsTest : NBForecastModelsTest {
             today = today
         )!!
         val sunAndMoon = ForecastOverviewSunAndMoonModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             currentWeather = currentWeatherData,
             today = today
@@ -421,6 +422,7 @@ class ForecastOverviewModelsTest : NBForecastModelsTest {
     fun items_shouldConvertCorrectly() {
         // Arrange + Act
         val itemsEmpty = ForecastOverviewItem.from(
+            coordinates = testCoordinates,
             timezoneOffset = null,
             currentWeather = null,
             minutelyForecasts = listOf(),
@@ -430,6 +432,7 @@ class ForecastOverviewModelsTest : NBForecastModelsTest {
             today = null
         )
         val itemsFull = ForecastOverviewItem.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             currentWeather = createTestCurrentWeather(),
             minutelyForecasts = createTestMinutelyForecasts(60),
@@ -717,21 +720,25 @@ class ForecastOverviewModelsTest : NBForecastModelsTest {
 
         // Act
         val sunAndMoonAllNull = ForecastOverviewSunAndMoonModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             currentWeather = null,
             today = null
         )
         val sunAndMoonNullAndNotNull = ForecastOverviewSunAndMoonModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             currentWeather = null,
             today = today
         )
         val sunAndMoonNotNullAndNull = ForecastOverviewSunAndMoonModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             currentWeather = currentWeather,
             today = null
         )
         val sunAndMoonAllNotNull = ForecastOverviewSunAndMoonModel.from(
+            coordinates = testCoordinates,
             timezoneOffset = testTimezoneOffset,
             currentWeather = currentWeather,
             today = today
@@ -753,6 +760,7 @@ class ForecastOverviewModelsTest : NBForecastModelsTest {
             sunAndMoonAllNotNull.items.getFirstItemFromList(SunAndMoonItem.MoonTimes::class.java)
         val sunTimes =
             sunAndMoonAllNotNull.items.getFirstItemFromList(SunAndMoonItem.SunTimes::class.java)
+        assertEquals(testCoordinates, moonPhase.coordinates)
         assertEquals(today.moonPhase, moonPhase.moonPhase)
         assertEquals(today.moonrise?.value, moonTimes.moonrise.dt.value)
         assertEquals(today.moonset?.value, moonTimes.moonset.dt.value)

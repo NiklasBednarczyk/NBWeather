@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.models.sunandmoon
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
@@ -10,6 +11,7 @@ import de.niklasbednarczyk.nbweather.data.onecall.types.moon.MoonPhaseType
 sealed interface SunAndMoonItem {
 
     data class MoonPhase(
+        val coordinates: NBCoordinatesModel,
         val moonPhase: MoonPhaseType
     ) : SunAndMoonItem
 
@@ -40,6 +42,7 @@ sealed interface SunAndMoonItem {
     companion object {
 
         fun from(
+            coordinates: NBCoordinatesModel,
             timezoneOffset: NBTimezoneOffsetValue?,
             dailyForecast: DailyForecastModelData?
         ): List<SunAndMoonItem>? {
@@ -74,6 +77,7 @@ sealed interface SunAndMoonItem {
             nbNullSafe(dailyForecast?.moonPhase) { moonPhase ->
                 sunAndMoonItems.add(
                     MoonPhase(
+                        coordinates = coordinates,
                         moonPhase = moonPhase
                     )
                 )

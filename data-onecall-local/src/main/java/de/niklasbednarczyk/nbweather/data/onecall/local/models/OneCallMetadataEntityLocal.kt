@@ -3,6 +3,7 @@ package de.niklasbednarczyk.nbweather.data.onecall.local.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.data.localremote.local.constants.ConstantsCoreLocal
 import de.niklasbednarczyk.nbweather.core.data.localremote.local.models.MetadataEntityLocal
 
@@ -14,4 +15,16 @@ data class OneCallMetadataEntityLocal(
     val longitude: Double,
     val timezone: String?,
     val timezoneOffset: Long?,
-) : MetadataEntityLocal()
+) : MetadataEntityLocal() {
+
+    companion object {
+
+        val OneCallMetadataEntityLocal.coordinates: NBCoordinatesModel
+            get() = NBCoordinatesModel(
+                latitude = latitude,
+                longitude = longitude
+            )
+
+    }
+
+}

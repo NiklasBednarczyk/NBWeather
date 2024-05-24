@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
@@ -34,6 +35,12 @@ import de.niklasbednarczyk.nbweather.data.onecall.values.units.PrecipitationUnit
 import de.niklasbednarczyk.nbweather.test.common.tests.NBTest
 
 interface NBForecastModelsTest : NBTest {
+
+    val testCoordinates: NBCoordinatesModel
+        get() = NBCoordinatesModel(
+            latitude = 0.0,
+            longitude = 0.0
+        )
 
     val testTimezoneOffset: NBTimezoneOffsetValue?
         get() = NBTimezoneOffsetValue.from(0L)

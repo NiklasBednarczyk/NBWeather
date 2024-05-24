@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafe
@@ -15,11 +16,13 @@ data class ForecastOverviewSunAndMoonModel(
     companion object {
 
         fun from(
+            coordinates: NBCoordinatesModel,
             timezoneOffset: NBTimezoneOffsetValue?,
             currentWeather: CurrentWeatherModelData?,
             today: DailyForecastModelData?
         ): ForecastOverviewSunAndMoonModel? {
             val sunAndMoonItems = SunAndMoonItem.from(
+                coordinates = coordinates,
                 timezoneOffset = timezoneOffset,
                 dailyForecast = today
             )

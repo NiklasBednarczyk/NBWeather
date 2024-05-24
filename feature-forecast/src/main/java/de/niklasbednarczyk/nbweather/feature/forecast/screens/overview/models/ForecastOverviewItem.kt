@@ -1,5 +1,6 @@
 package de.niklasbednarczyk.nbweather.feature.forecast.screens.overview.models
 
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
 import de.niklasbednarczyk.nbweather.core.common.nullsafe.nbNullSafeList
 import de.niklasbednarczyk.nbweather.core.common.settings.order.NBOrderModel
@@ -49,6 +50,7 @@ sealed interface ForecastOverviewItem {
             oneCall: OneCallModelData
         ): List<ForecastOverviewItem>? {
             return from(
+                coordinates = oneCall.coordinates,
                 timezoneOffset = oneCall.timezoneOffset,
                 currentWeather = oneCall.currentWeather,
                 minutelyForecasts = oneCall.minutelyForecasts,
@@ -60,6 +62,7 @@ sealed interface ForecastOverviewItem {
         }
 
         fun from(
+            coordinates: NBCoordinatesModel,
             timezoneOffset: NBTimezoneOffsetValue?,
             currentWeather: CurrentWeatherModelData?,
             minutelyForecasts: List<MinutelyForecastModelData>,
@@ -94,6 +97,7 @@ sealed interface ForecastOverviewItem {
                     today = today
                 ),
                 ForecastOverviewSunAndMoonModel.from(
+                    coordinates = coordinates,
                     timezoneOffset = timezoneOffset,
                     currentWeather = currentWeather,
                     today = today

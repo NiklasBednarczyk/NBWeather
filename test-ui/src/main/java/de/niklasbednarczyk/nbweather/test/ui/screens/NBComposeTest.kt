@@ -29,6 +29,7 @@ import androidx.compose.ui.test.swipeRight
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
 import androidx.test.espresso.Espresso
+import de.niklasbednarczyk.nbweather.core.common.coordinates.NBCoordinatesModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeDisplayModel
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBDateTimeValue
 import de.niklasbednarczyk.nbweather.core.common.datetime.NBTimezoneOffsetValue
@@ -67,6 +68,16 @@ interface NBComposeTest : NBTest {
             dateTime = NBDateTimeValue.from(epochSeconds),
             timezoneOffset = NBTimezoneOffsetValue.from(timezoneOffset)
         )!!
+    }
+
+    fun createNBCoordinates(
+        latitude: Double = 0.0,
+        longitude: Double = 0.0
+    ): NBCoordinatesModel {
+        return NBCoordinatesModel(
+            latitude = latitude,
+            longitude = longitude
+        )
     }
 
     fun ComposeContentTestRule.onNodeWithText(
